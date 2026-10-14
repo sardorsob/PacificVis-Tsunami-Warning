@@ -1,7 +1,0 @@
-{
-  "arrival_comparison_allowed": false,
-  "bundle": "artifacts/eda/shared/2026-10-05-final",
-  "git_sha": "c98a9c2",
-  "report_sha256": "a8a6bd3329c66cff68bc6b773308062e65a9171eed29911a8c48dea913ec9f16",
-  "run_id": "2026-10-05-final"
-}

@@ -5,6 +5,16 @@
 .codex/hooks.json
 .serena/
 .mlflow/
+/context/
+/AGENTS.md
+/graphify-out/
+/.superpowers/
+/.agents/
+/docs/superpowers
+/docs/reviews
+/docs/archive-benchmark.md
+/docs/competition.md
+/docs/concept.md
 notebooks/**/__marimo__/
 .venv/
 .pytest_cache/

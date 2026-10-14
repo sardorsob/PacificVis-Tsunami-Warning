@@ -12,8 +12,9 @@ and review disposition. Generated artifacts are never hand-edited.
 For T-002, each meaningful execution writes
 `logs/runs/<YYYY-MM-DD__HHMM__tag__gitsha>/` containing `meta.json`,
 `config.json`, `inputs.json`, `outputs.json`, `metrics.json`, and `notes.md`.
-The acquisition, data-quality, and EDA summaries are rendered into the canonical
-Markdown report paths named in `context/TASKS.md`.
+Acquisition, data-quality, and EDA working summaries are retained locally.
+Curated scientific reports remain alongside their checksummed evidence under
+`eda/`; internal planning and review conversations are excluded from Git.
 
 Stage A visual-story runs write generated diagnostics beneath
 `eda/story/<run_id>/` and a matching six-file portable bundle beneath

@@ -1,3 +1,0 @@
-# Context artifacts remain trackable even when empty or matched by broader rules.
-!*/
-!*

@@ -1,9 +1,9 @@
 # Data Sources
 
-The accepted baseline and current Saipan/Valparaíso recovery candidate are documented in
+The accepted baseline and Saipan/Valparaíso recovery are documented in
 the [primary-source feasibility comparison](research/feasibility.md),
 [source-access note](research/source-access-options.md), and
-[data card](../context/DATA_CARD.md).
+[shared EDA report](../artifacts/eda/shared/2026-10-05-final/report.md).
 
 The canonical machine-readable inventory is
 [`artifacts/provenance/source-manifest.csv`](../artifacts/provenance/source-manifest.csv).

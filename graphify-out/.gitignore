@@ -1,5 +1,0 @@
-# Keep transient extraction state local; retain the durable project graph.
-*
-!.gitignore
-!graph.json
-!GRAPH_REPORT.md
