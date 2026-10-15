@@ -13,7 +13,7 @@ from analysis.story.artifacts import sha256_file, validate_story_output_path
 from analysis.story.atlas import AtlasInputs, load_atlas_inputs
 from pipeline.eda import verify_fingerprints
 from pipeline.eda_audit import fingerprint, read_table
-from pipeline.eda_report import write_json
+from pipeline.eda_report import write_csv, write_json
 from pipeline.missingness import (
     CoastalCoverageTimeline,
     build_coastal_coverage_timelines,
@@ -119,7 +119,7 @@ def load_followup_inputs(
 
 def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) -> dict[str, Any]:
     """Publish a fresh diagnostic run atomically; unsupported tasks never write."""
-    if not tasks or set(tasks) != {"inputs"}:
+    if not tasks or not set(tasks) <= {"inputs", "regional"} or len(set(tasks)) != len(tasks):
         raise ValueError("unsupported diagnostic task")
     validate_story_output_path(output.resolve())
     if output.resolve().is_relative_to(ROOT / "context"):
@@ -139,6 +139,17 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
     with tempfile.TemporaryDirectory(prefix=".followups-", dir=output.parent) as temporary:
         stage = Path(temporary) / "bundle"
         stage.mkdir()
+        tables: dict[str, list[dict[str, Any]]] = {}
+        metrics: dict[str, Any] = {}
+        if "regional" in tasks:
+            from analysis.story.followup_plots import plot_regional_context
+
+            metrics["regional"] = plot_regional_context(inputs, stage)
+            tables["station-reference"] = regional_reference(inputs)
+            tables["label-audit"] = metrics["regional"]["label_audit"]
+        for name, rows in tables.items():
+            write_csv(stage / f"{name}.csv", rows)
+        result.update(tables=tables, metrics=metrics)
         write_json(stage / "inputs.json", inputs.fingerprints)
         write_json(stage / "summary.json", result)
         write_json(
@@ -149,3 +160,36 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
             raise FileExistsError(output)
         stage.rename(output)
     return result
+
+
+def regional_reference(inputs: FollowupInputs) -> list[dict[str, Any]]:
+    """Keep the complete cohort and source coordinates; regions are display extents."""
+    rows: list[dict[str, Any]] = []
+    station_path = next(p for p in inputs.atlas.input_paths if p.name == "station.csv")
+    station_metadata = {r["station_id"]: r for r in read_table(station_path)}
+    for number, station in enumerate(inputs.atlas.stations, 1):
+        regions = [
+            name
+            for name, (west, east, south, north) in inputs.settings["regions"].items()
+            if west <= station.longitude <= east and south <= station.latitude <= north
+        ]
+        source = next(r for (sid, _), r in inputs.metadata.items() if sid == station.station_id)
+        rows.append(
+            dict(
+                station_id=station.station_id,
+                reference_number=number,
+                name=station.name,
+                type=station.station_type,
+                source_id=station.source_id,
+                longitude=station.longitude,
+                latitude=station.latitude,
+                horizontal_datum=station.horizontal_datum,
+                vertical_datum=station.vertical_reference,
+                units=station.units,
+                coordinate_order=station_metadata[station.station_id]["coordinate_order"],
+                display_coordinate_order="longitude, latitude",
+                source_time_example=source["source_time"],
+                region=",".join(regions) or "basin",
+            )
+        )
+    return rows
