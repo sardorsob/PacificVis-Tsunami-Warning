@@ -119,7 +119,11 @@ def load_followup_inputs(
 
 def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) -> dict[str, Any]:
     """Publish a fresh diagnostic run atomically; unsupported tasks never write."""
-    if not tasks or not set(tasks) <= {"inputs", "regional"} or len(set(tasks)) != len(tasks):
+    if (
+        not tasks
+        or not set(tasks) <= {"inputs", "regional", "coverage"}
+        or len(set(tasks)) != len(tasks)
+    ):
         raise ValueError("unsupported diagnostic task")
     validate_story_output_path(output.resolve())
     if output.resolve().is_relative_to(ROOT / "context"):
@@ -147,6 +151,18 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
             metrics["regional"] = plot_regional_context(inputs, stage)
             tables["station-reference"] = regional_reference(inputs)
             tables["label-audit"] = metrics["regional"]["label_audit"]
+        if "coverage" in tasks:
+            from analysis.story.coverage_followups import coverage_references
+            from analysis.story.coverage_plots import (
+                plot_coverage_common_day,
+                plot_coverage_mechanisms,
+                plot_gap_details,
+            )
+
+            coverage = coverage_references(inputs)
+            tables.update(coverage)
+            for plot in (plot_coverage_common_day, plot_coverage_mechanisms, plot_gap_details):
+                plot(inputs, stage, coverage)
         for name, rows in tables.items():
             write_csv(stage / f"{name}.csv", rows)
         result.update(tables=tables, metrics=metrics)
