@@ -1,10 +1,12 @@
 """Safe publication boundaries for the follow-up diagnostic runner."""
 
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
-from analysis.story.followups import FollowupInputs, run_followups
+from analysis.story.followups import ROOT, FollowupInputs, run_followups
 
 
 def test_runner_rejects_arrival_task_without_writing(
@@ -33,3 +35,33 @@ def test_coverage_runner_publishes_six_station_common_day(
     rows = result["tables"]["coverage-by-window"]
     assert len([r for r in rows if r["window_id"] == "common_day"]) == 6
     assert (tmp_path / "coverage/04_gap_details.png").is_file()
+
+
+@pytest.mark.parametrize("nested_run", [True, False])
+def test_cli_refuses_overlapping_run_and_artifact_paths_without_writing(
+    inputs: FollowupInputs, tmp_path: Path, nested_run: bool
+) -> None:
+    del inputs  # Fixture establishes the accepted local cache is available.
+    outer = tmp_path / "outer"
+    output, run_dir = (outer, outer / "run") if nested_run else (outer / "bundle", outer)
+    process = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts/story/build_followup_eda.py"),
+            "--tasks",
+            "regional",
+            "coverage",
+            "signal",
+            "synthesis",
+            "--output",
+            str(output),
+            "--run-dir",
+            str(run_dir),
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert process.returncode != 0
+    assert not outer.exists(), process.stderr

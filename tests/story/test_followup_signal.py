@@ -21,6 +21,9 @@ def test_signal_references_preserve_all_frozen_settings_and_conflict(
     assert rows["21418"]["external_validation"] == "conflicts_approximate_publisher_reference"
     assert rows["21418"]["physical_onset_status"] == "unvalidated"
     assert rows["saip"]["control_unevaluable"] == 8
+    assert rows["saip"]["event_unevaluable"] == 8
+    assert rows["saip"]["event_baseline_ineligible"] == 8
+    assert rows["saip"]["event_no_detection"] == 0
     assert rows["9461380"]["control_crossings"] == 4
     assert all(r["modeled_arrival_status"] == "unavailable" for r in rows.values())
 
@@ -51,6 +54,8 @@ def test_signal_plots_export_all_three_pairs(inputs: FollowupInputs, tmp_path: P
     ):
         assert (tmp_path / f"{stem}.png").stat().st_size > 1000
         assert (tmp_path / f"{stem}.svg").stat().st_size > 1000
+    matrix = (tmp_path / "05_signal_support_matrix.svg").read_text()
+    assert "8 unevaluable" in matrix
 
 
 def test_control_plot_uses_origin_not_control_search_elapsed(inputs: FollowupInputs) -> None:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from datetime import datetime
 from typing import Any
 
@@ -18,6 +19,11 @@ def signal_references(inputs: FollowupInputs) -> dict[str, list[dict[str, Any]]]
     for summary in inputs.shared["summaries"]:
         sid = summary["station_id"]
         station = stations[sid]
+        event_status = Counter(
+            p["status"]
+            for p in inputs.shared["picks"]
+            if p["station_id"] == sid and p["window"] == "event"
+        )
         support.append(
             dict(
                 station_id=sid,
@@ -28,6 +34,11 @@ def signal_references(inputs: FollowupInputs) -> dict[str, list[dict[str, Any]]]
                 observation_support=summary["measurement_supported"],
                 detected_settings=summary["detected_settings"],
                 total_settings=summary["settings"],
+                event_unevaluable=event_status["ineligible_baseline"]
+                + event_status["incomplete_search"],
+                event_baseline_ineligible=event_status["ineligible_baseline"],
+                event_incomplete_search=event_status["incomplete_search"],
+                event_no_detection=event_status["no_detection"],
                 control_crossings=summary["control_crossings"],
                 control_unevaluable=summary["control_ineligible"],
                 mechanical_screen_pass=summary["screen_pass"],

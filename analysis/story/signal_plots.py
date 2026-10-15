@@ -83,7 +83,8 @@ def plot_signal_diagnostics(
         [
             f"{r['name']} [{r['station_id']}]",
             r["field"],
-            f"{r['detected_settings']}/{r['total_settings']}",
+            f"{r['detected_settings']}/{r['total_settings']}"
+            + (f"\n{r['event_unevaluable']} unevaluable" if r["event_unevaluable"] else ""),
             str(r["control_crossings"]),
             str(r["control_unevaluable"]),
             "pass" if r["mechanical_screen_pass"] else "fail",

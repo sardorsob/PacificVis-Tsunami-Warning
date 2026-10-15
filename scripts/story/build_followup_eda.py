@@ -18,9 +18,12 @@ def main() -> None:
     parser.add_argument("--run-dir", type=Path)
     args = parser.parse_args()
     if args.run_dir is not None:
-        from analysis.story.artifacts import validate_story_output_path
+        from analysis.story.followup_artifacts import validate_run_paths
 
-        validate_story_output_path(args.run_dir.resolve())
+        try:
+            validate_run_paths(args.output, args.run_dir)
+        except ValueError as error:
+            parser.error(str(error))
         if args.run_dir.exists() or args.run_dir.resolve().is_relative_to(ROOT / "context"):
             parser.error("run directory must be fresh and outside private context")
         if "synthesis" not in args.tasks:

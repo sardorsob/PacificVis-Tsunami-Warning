@@ -89,6 +89,7 @@ def write_followup_bundle(
         if r["station_id"] == "21418" and r["window"] == "event" and r["status"] == "candidate"
     ]
     adak = next(r for r in tables["signal-support"] if r["station_id"] == "9461380")
+    saip_signal = next(r for r in tables["signal-support"] if r["station_id"] == "saip")
     envelopes = tables.get("contour-distance-envelopes", [])
     facts = [
         (
@@ -124,7 +125,10 @@ def write_followup_bundle(
             f"{len(settings)} frozen settings; DART21418 candidates "
             f"{min(dart):.3f}–{max(dart):.3f}min versus approximately25min source account. "
             f"Adak controls {adak['control_crossings']}/{adak['total_settings']}; "
-            f"{len(tables['source-qc-reference'])} flagged Valparaíso rows retained.",
+            f"{len(tables['source-qc-reference'])} flagged Valparaíso rows retained. "
+            f"Saipan event runs: {saip_signal['event_unevaluable']} unevaluable "
+            f"({saip_signal['event_baseline_ineligible']} baseline failures), "
+            f"{saip_signal['event_no_detection']} evaluable no-detection outcomes.",
             "signal-support.csv;setting-reference.csv;source-qc-reference.csv;source-references.csv",
             "retain",
             "Early signal unclassified; raw tides and retrospective residuals "
@@ -314,7 +318,7 @@ why measurements are absent. MCAR, MAR and MNAR cannot be identified from these
 patterns alone; no instrumentation-age or collection-error cause is invented.
 Acquisition failures, source blanks, missing timestamps, parser rejects and QC
 are distinct. Accepted source bytes and earlier accounting remain available via
-inputs.json; {results['counts']['previously_rejected_records']} previously rejected
+inputs.json; {results["counts"]["previously_rejected_records"]} previously rejected
 records remain excluded, not repaired.
 
 Signal interpretation is a useful guardrail, not a new timing result. The
@@ -360,9 +364,17 @@ Independent QA and owner story selection are separate from this evidence bundle.
     return manifest
 
 
+def validate_run_paths(output: Path, run_dir: Path) -> None:
+    """Portable logs must never add files to or pre-create a scientific bundle."""
+    output, run_dir = output.resolve(), run_dir.resolve()
+    validate_story_output_path(run_dir)
+    if output.is_relative_to(run_dir) or run_dir.is_relative_to(output):
+        raise ValueError("artifact and run directories must be disjoint, not nested")
+
+
 def record_followup_run(results: dict[str, Any], output: Path, run_dir: Path) -> None:
     """Keep a portable run even if optional local tracking is unavailable."""
-    validate_story_output_path(run_dir.resolve())
+    validate_run_paths(output, run_dir)
     if run_dir.exists():
         raise FileExistsError(run_dir)
     run_dir.mkdir(parents=True)
