@@ -157,6 +157,29 @@ and [restricted release](artifacts/releases/tohoku-descriptive-v1.json).
 The preliminary visual atlas is independently accepted; arrival comparisons and
 community selection remain blocked. The continuous NCTR field is still unavailable.
 
+### Visual-story follow-up diagnostics
+
+The [follow-up report](artifacts/eda/story/followups/2026-10-14-story-followups-v1/report.md)
+compares the same UTC day across six coastal gauges, preserves gaps and off-grid
+samples, and separates signal support from physical timing validity. It includes
+eight PNG/SVG figure pairs, reference CSVs and checksum manifests. These are
+preliminary analytical artifacts, not approved story scenes or arrival estimates.
+
+Rebuild from the accepted local cache into fresh directories:
+
+```bash
+uv run python scripts/story/build_followup_eda.py \
+  --tasks regional coverage signal contours synthesis \
+  --run-id YOUR_RUN_ID \
+  --output artifacts/eda/story/followups/YOUR_RUN_ID \
+  --run-dir artifacts/logs/runs/YOUR_RUN_ID
+```
+
+Existing output directories are refused. The optional `contours` task describes
+stored source vertices only; it does not assign station arrivals. The portable
+run records parameters, source hashes, metrics and implementation SHA; MLflow
+tracking remains local and ignored.
+
 ### Reproducing the pipeline
 
 Review `config/tohoku-data-proof.toml` before any networked acquisition. Running

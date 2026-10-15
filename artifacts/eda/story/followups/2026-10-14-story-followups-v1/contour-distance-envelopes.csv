@@ -1,0 +1,10 @@
+max_distance_km,min_distance_km,part_n,published_hours,semantics,vertex_n
+806.7774874744782,107.11443013284963,8,1.0,extrema across stored vertices; not confidence intervals or probabilities,179
+2612.745444593627,251.68753730043238,23,3.0,extrema across stored vertices; not confidence intervals or probabilities,877
+5110.212873977213,1190.793951078022,74,6.0,extrema across stored vertices; not confidence intervals or probabilities,1639
+7462.203917983306,1463.947316220109,107,9.0,extrema across stored vertices; not confidence intervals or probabilities,1846
+9873.939718421214,1383.0191652194485,86,12.0,extrema across stored vertices; not confidence intervals or probabilities,1792
+12351.411544810497,1805.2590014374584,77,15.0,extrema across stored vertices; not confidence intervals or probabilities,2220
+14563.738899414044,1760.3616592582146,82,18.0,extrema across stored vertices; not confidence intervals or probabilities,2106
+16914.191816873627,4083.6125551189384,97,21.0,extrema across stored vertices; not confidence intervals or probabilities,1345
+18885.599463236194,3983.402771554027,57,24.0,extrema across stored vertices; not confidence intervals or probabilities,1219

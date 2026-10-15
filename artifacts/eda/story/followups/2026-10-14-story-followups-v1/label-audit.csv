@@ -1,0 +1,16 @@
+artifact_id,clipped,display_width_px,label_id,overlap_count,overlap_partners,panel
+01_regional_context,False,1000,1617760,0,none,basin
+01_regional_context,False,1000,1770000,0,none,basin
+01_regional_context,False,1000,9419750,0,none,basin
+01_regional_context,False,1000,9461380,0,none,basin
+01_regional_context,False,1000,saip,0,none,basin
+01_regional_context,False,1000,valp,0,none,basin
+01_regional_context,False,1000,21413,0,none,basin
+01_regional_context,False,1000,21418,0,none,basin
+01_regional_context,False,1000,32401,0,none,basin
+01_regional_context,False,1000,46411,0,none,basin
+01_regional_context,False,1000,21413,0,none,japan
+01_regional_context,False,1000,21418,0,none,japan
+01_regional_context,False,1000,origin,0,none,japan
+01_regional_context,False,1000,9419750,0,none,california
+01_regional_context,False,1000,46411,0,none,california
