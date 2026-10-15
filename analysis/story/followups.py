@@ -121,7 +121,7 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
     """Publish a fresh diagnostic run atomically; unsupported tasks never write."""
     if (
         not tasks
-        or not set(tasks) <= {"inputs", "regional", "coverage", "signal"}
+        or not set(tasks) <= {"inputs", "regional", "coverage", "signal", "contours"}
         or len(set(tasks)) != len(tasks)
     ):
         raise ValueError("unsupported diagnostic task")
@@ -170,6 +170,12 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
             signal = signal_references(inputs)
             tables.update(signal)
             plot_signal_diagnostics(inputs, signal, stage)
+        if "contours" in tasks:
+            from analysis.story.contour_followups import contour_references, plot_contour_geometry
+
+            contours = contour_references(inputs)
+            tables.update(contours)
+            plot_contour_geometry(inputs, contours, stage)
         for name, rows in tables.items():
             write_csv(stage / f"{name}.csv", rows)
         result.update(tables=tables, metrics=metrics)
