@@ -1,0 +1,16 @@
+schema_version = "1"
+event_id = "official20110311054624120_30"
+evidence_state = "preliminary_storyboard_evidence"
+station_ids = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"]
+missingness_config = "config/tohoku-missingness.toml"
+coastline = "data/raw/natural-earth/ne_110m_coastline_v4.1.0.zip"
+display_crs = "+proj=eqearth +lon_0=-160 +datum=WGS84 +units=m +no_defs +type=crs"
+common_start_utc = "2011-03-11T00:00:00Z"
+common_end_utc = "2011-03-12T00:00:00Z"
+event_windows_hours = [[-4, 0], [0, 6], [6, 12], [12, 18]]
+contour_hours = [1, 3, 6, 9, 12, 15, 18, 21, 24]
+figure_dpi = 160
+
+[regions]
+japan = [130, 165, 20, 50]
+california = [-132, -119, 32, 46]
