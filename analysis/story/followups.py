@@ -121,7 +121,7 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
     """Publish a fresh diagnostic run atomically; unsupported tasks never write."""
     if (
         not tasks
-        or not set(tasks) <= {"inputs", "regional", "coverage"}
+        or not set(tasks) <= {"inputs", "regional", "coverage", "signal"}
         or len(set(tasks)) != len(tasks)
     ):
         raise ValueError("unsupported diagnostic task")
@@ -163,6 +163,13 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
             tables.update(coverage)
             for plot in (plot_coverage_common_day, plot_coverage_mechanisms, plot_gap_details):
                 plot(inputs, stage, coverage)
+        if "signal" in tasks:
+            from analysis.story.signal_followups import signal_references
+            from analysis.story.signal_plots import plot_signal_diagnostics
+
+            signal = signal_references(inputs)
+            tables.update(signal)
+            plot_signal_diagnostics(inputs, signal, stage)
         for name, rows in tables.items():
             write_csv(stage / f"{name}.csv", rows)
         result.update(tables=tables, metrics=metrics)
