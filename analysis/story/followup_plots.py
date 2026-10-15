@@ -113,6 +113,8 @@ def plot_regional_context(inputs: FollowupInputs, output: Path) -> dict[str, Any
                     ha = "right"
                 if panel == "basin" and row["station_id"] == "21418":
                     offset = (10, 14)
+                if panel == "basin" and row["station_id"] == "21413":
+                    offset = (10, -18)
                 annotation = ax.annotate(
                     label,
                     (x, y),

@@ -2,6 +2,9 @@
 
 import math
 from pathlib import Path
+from typing import Any
+
+import pytest
 
 from analysis.story.contour_followups import contour_references, plot_contour_geometry
 from analysis.story.followups import FollowupInputs
@@ -41,3 +44,17 @@ def test_contour_figure_exports_with_vertex_not_probability_semantics(
     assert "stored vertices" in svg
     assert "not confidence intervals" in svg
     assert (tmp_path / "08_contour_geometry.png").stat().st_size > 1000
+
+
+def test_hour_classes_do_not_read_as_an_inverted_numeric_axis(
+    inputs: FollowupInputs, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from analysis.story import contour_followups
+    from analysis.story.followup_plots import save_figure
+
+    def inspect_and_save(fig: Any, output: Path, stem: str) -> None:
+        assert not fig.axes[0].yaxis_inverted()
+        save_figure(fig, output, stem)
+
+    monkeypatch.setattr(contour_followups, "save_figure", inspect_and_save)
+    plot_contour_geometry(inputs, contour_references(inputs), tmp_path)

@@ -85,7 +85,6 @@ def plot_contour_geometry(
     ax.set_yticks(range(len(rows)), [f"{r['published_hours']:g} h" for r in rows])
     ax.set_ylabel("Published contour hour label", fontsize=12)
     ax.set_xlabel("Geodesic distance from USGS origin to stored vertices (km)", fontsize=12)
-    ax.invert_yaxis()
     ax.set_xlim(left=0)
     ax.tick_params(labelsize=11)
     ax.spines[["top", "right"]].set_visible(False)
