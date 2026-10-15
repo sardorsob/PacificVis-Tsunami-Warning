@@ -7,7 +7,7 @@ import tempfile
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from analysis.story.artifacts import sha256_file, validate_story_output_path
 from analysis.story.atlas import AtlasInputs, load_atlas_inputs
@@ -117,14 +117,24 @@ def load_followup_inputs(
     return FollowupInputs(atlas, timelines, metadata, shared, settings, records)
 
 
-def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) -> dict[str, Any]:
+def run_followups(
+    inputs: FollowupInputs,
+    tasks: tuple[str, ...],
+    output: Path,
+    *,
+    run_id: str = "preview",
+    git_sha: str = "unknown",
+    command: str = "library diagnostic invocation",
+) -> dict[str, Any]:
     """Publish a fresh diagnostic run atomically; unsupported tasks never write."""
     if (
         not tasks
-        or not set(tasks) <= {"inputs", "regional", "coverage", "signal", "contours"}
+        or not set(tasks) <= {"inputs", "regional", "coverage", "signal", "contours", "synthesis"}
         or len(set(tasks)) != len(tasks)
     ):
         raise ValueError("unsupported diagnostic task")
+    if "synthesis" in tasks and not {"regional", "coverage", "signal"} <= set(tasks):
+        raise ValueError("synthesis requires regional, coverage and signal diagnostics")
     validate_story_output_path(output.resolve())
     if output.resolve().is_relative_to(ROOT / "context"):
         raise ValueError("scientific outputs must not target private context")
@@ -138,6 +148,19 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
         arrival_comparison_allowed=False,
         stations=len(inputs.atlas.stations),
         settings=inputs.settings,
+        run_id=run_id,
+        git_sha=git_sha,
+        command=command,
+        randomness="none",
+        input_fingerprints=inputs.fingerprints,
+        counts={
+            "stations": len(inputs.atlas.stations),
+            "observations": len(inputs.atlas.observations),
+            "contour_parts": len(inputs.atlas.contours),
+            "previously_rejected_records": cast(
+                dict[str, int], inputs.atlas.accounting["row_counts"]
+            )["rejected_record"],
+        },
     )
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".followups-", dir=output.parent) as temporary:
@@ -179,6 +202,10 @@ def run_followups(inputs: FollowupInputs, tasks: tuple[str, ...], output: Path) 
         for name, rows in tables.items():
             write_csv(stage / f"{name}.csv", rows)
         result.update(tables=tables, metrics=metrics)
+        if "synthesis" in tasks:
+            from analysis.story.followup_artifacts import write_followup_bundle
+
+            write_followup_bundle(result, stage, run_id, git_sha)
         write_json(stage / "inputs.json", inputs.fingerprints)
         write_json(stage / "summary.json", result)
         write_json(
