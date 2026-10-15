@@ -1,0 +1,14 @@
+{
+  "arrival_comparison_allowed": 0,
+  "coastal_gauges": 6,
+  "frozen_settings": 160,
+  "mechanical_screen_passes": 2,
+  "source_qc_flagged": 140,
+  "stations": 10,
+  "strict_common_day_1617760": 98.0556,
+  "strict_common_day_1770000": 90.0,
+  "strict_common_day_9419750": 97.5,
+  "strict_common_day_9461380": 98.6111,
+  "strict_common_day_saip": 44.7222,
+  "strict_common_day_valp": 99.6528
+}

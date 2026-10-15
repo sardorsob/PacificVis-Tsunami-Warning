@@ -159,7 +159,7 @@ community selection remain blocked. The continuous NCTR field is still unavailab
 
 ### Visual-story follow-up diagnostics
 
-The [follow-up report](artifacts/eda/story/followups/2026-10-14-story-followups-v1/report.md)
+The [follow-up report](artifacts/eda/story/followups/2026-10-14-story-followups-v3/report.md)
 compares the same UTC day across six coastal gauges, preserves gaps and off-grid
 samples, and separates signal support from physical timing validity. It includes
 eight PNG/SVG figure pairs, reference CSVs and checksum manifests. These are

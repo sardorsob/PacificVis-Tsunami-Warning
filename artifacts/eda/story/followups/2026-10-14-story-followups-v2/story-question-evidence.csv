@@ -1,0 +1,4 @@
+blocked_claim,contradicting_findings,permitted_claim,question,recommendation,supporting_findings
+Instrumentation cause or formal MCAR/MAR/MNAR classification.,unknown,Coverage differs with window and timestamp definition.,What can each archive actually show over the same day?,retain; propose observability-first story to owner; no pivot approved,F-07;F-08;F-09
+"Exact physical onset, warning time or modeled arrival error.",F-10 (mechanical pass vs source conflict),Mechanical stability and external validation disagree.,Does a stable crossing establish a tsunami arrival?,retain as interpretation guardrail; no retuning,F-10
+Bathymetry caused the shape or inferred station arrival.,unknown,Stored vertices span distance ranges.,Do published hour lines behave like distance rings?,retain secondary; stop geometry,F-11

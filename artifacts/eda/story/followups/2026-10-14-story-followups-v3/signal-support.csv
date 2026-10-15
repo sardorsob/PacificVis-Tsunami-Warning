@@ -1,0 +1,11 @@
+control_crossings,control_unevaluable,detected_settings,event_baseline_ineligible,event_incomplete_search,event_no_detection,event_unevaluable,external_validation,field,mechanical_screen_pass,modeled_arrival_status,name,observation_support,physical_onset_status,source_qc_count,station_id,total_settings,units,vertical_datum
+0,0,8,0,0,0,0,not_validated,raw,False,unavailable,Hilo,False,unsupported_raw_water_level,0,1617760,8,m,STND
+0,0,8,0,0,0,0,not_validated,raw,False,unavailable,Pago Pago,False,unsupported_raw_water_level,0,1770000,8,m,STND
+0,0,8,0,0,0,0,not_validated,residual,False,unavailable,DART 21413,True,unvalidated,0,21413,8,m water column,unknown
+0,0,8,0,0,0,0,conflicts_approximate_publisher_reference,residual,True,unavailable,DART 21418,True,unvalidated,0,21418,8,m water column,unknown
+0,0,8,0,0,0,0,not_validated,residual,False,unavailable,DART 32401,True,unvalidated,0,32401,8,m water column,unknown
+0,0,8,0,0,0,0,not_validated,residual,True,unavailable,DART 46411,True,unvalidated,0,46411,8,m water column,unknown
+0,0,8,0,0,0,0,not_validated,raw,False,unavailable,Crescent City,False,unsupported_raw_water_level,0,9419750,8,m,STND
+4,0,8,0,0,0,0,not_validated,raw,False,unavailable,Adak,False,unsupported_raw_water_level,0,9461380,8,m,STND
+0,8,0,8,0,0,8,not_validated,raw,False,unavailable,Saipan,False,unsupported_raw_water_level,0,saip,8,m,MLLW
+0,0,8,0,0,0,0,not_validated,raw,False,unavailable,Valparaíso,False,unsupported_raw_water_level,140,valp,8,m,unknown

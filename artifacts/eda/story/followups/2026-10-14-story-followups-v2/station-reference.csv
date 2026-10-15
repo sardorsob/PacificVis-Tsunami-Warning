@@ -1,0 +1,11 @@
+coordinate_order,display_coordinate_order,horizontal_datum,latitude,longitude,name,reference_number,region,source_id,source_time_example,station_id,type,units,vertical_datum
+"latitude, longitude in station metadata","longitude, latitude",unknown,19.7303,-155.0556,Hilo,1,basin,coops-hilo-1617760-20110311to20110313,2011-03-11 00:00,1617760,coastal,m,STND
+"latitude, longitude in station metadata","longitude, latitude",unknown,-14.28,-170.69,Pago Pago,2,basin,coops-pago-pago-1770000-20110311to20110313,2011-03-11 00:00,1770000,coastal,m,STND
+"latitude, longitude in station metadata","longitude, latitude",unknown,41.7456,-124.1844,Crescent City,3,california,coops-crescent-city-9419750-20110311to20110313,2011-03-11 00:00,9419750,coastal,m,STND
+"latitude, longitude in station metadata","longitude, latitude",unknown,51.8606,-176.6376,Adak,4,basin,coops-adak-9461380-20110311to20110313,2011-03-11 00:00,9461380,coastal,m,STND
+"latitude, longitude","longitude, latitude",unknown,15.2266,145.742,Saipan,5,basin,ntwc-uhslc-saipan-20110311,20110311000000,saip,coastal,m,MLLW
+"latitude, longitude in IOC station metadata","longitude, latitude",unknown,-33.02767128,-71.62787275,Valparaíso,6,basin,ioc-valparaiso-rad-20110311to20110314,2011-03-11 00:01:00,valp,coastal,m,unknown
+"latitude, longitude in event-page station table","longitude, latitude",unknown,30.528,152.123,DART 21413,7,japan,ncei-dart-21413-20110301to20110320,60.000000,21413,dart,m water column,unknown
+"latitude, longitude in event-page station table","longitude, latitude",unknown,38.718,148.698,DART 21418,8,japan,ncei-dart-21418-20110301to20110320,60.000000,21418,dart,m water column,unknown
+"latitude, longitude in event-page station table","longitude, latitude",unknown,-19.297,-74.746,DART 32401,9,basin,ncei-dart-32401-20110301to20110320,60.000000,32401,dart,m water column,unknown
+"latitude, longitude in event-page station table","longitude, latitude",unknown,39.328,-127.013,DART 46411,10,california,ncei-dart-46411-20110301to20110320,60.000000,46411,dart,m water column,unknown

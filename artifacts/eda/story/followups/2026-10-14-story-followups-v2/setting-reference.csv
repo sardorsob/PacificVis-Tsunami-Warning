@@ -1,0 +1,161 @@
+baseline_coverage,baseline_hours,baseline_max_gap_seconds,baseline_samples,candidate_elapsed_seconds,candidate_utc,center_m,confirmation_utc,earlier_support_complete,field,interpretation,lower_utc,persistence_seconds,pre_candidate_gap_seconds,pre_candidate_max_gap_seconds,search_coverage,search_max_gap_seconds,source_time,station_id,status,threshold_floor_m,threshold_m,window
+1.0,2,60.0,120,7175.88,2011-03-11T07:46:00Z,1.724,2011-03-11T07:47:00Z,False,raw,unsupported_raw_control,2011-03-11T07:45:00Z,60,60.0,120.0,0.9844444444444445,1140.0,2011-03-11 07:46,1617760,candidate,0.03,0.08524950000000048,event
+1.0,2,60.0,120,unknown,unknown,1.693,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.03,0.20015100000000097,control
+1.0,2,60.0,120,7175.88,2011-03-11T07:46:00Z,1.724,2011-03-11T07:48:00Z,False,raw,unsupported_raw_control,2011-03-11T07:45:00Z,120,60.0,120.0,0.9844444444444445,1140.0,2011-03-11 07:46,1617760,candidate,0.03,0.08524950000000048,event
+1.0,2,60.0,120,unknown,unknown,1.693,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.03,0.20015100000000097,control
+1.0,2,60.0,120,7175.88,2011-03-11T07:46:00Z,1.724,2011-03-11T07:47:00Z,False,raw,unsupported_raw_control,2011-03-11T07:45:00Z,60,60.0,120.0,0.9844444444444445,1140.0,2011-03-11 07:46,1617760,candidate,0.05,0.08524950000000048,event
+1.0,2,60.0,120,unknown,unknown,1.693,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.05,0.20015100000000097,control
+1.0,2,60.0,120,7175.88,2011-03-11T07:46:00Z,1.724,2011-03-11T07:48:00Z,False,raw,unsupported_raw_control,2011-03-11T07:45:00Z,120,60.0,120.0,0.9844444444444445,1140.0,2011-03-11 07:46,1617760,candidate,0.05,0.08524950000000048,event
+1.0,2,60.0,120,unknown,unknown,1.693,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.05,0.20015100000000097,control
+1.0,4,60.0,240,29135.88,2011-03-11T13:52:00Z,1.693,2011-03-11T13:53:00Z,False,raw,unsupported_raw_control,2011-03-11T13:51:00Z,60,60.0,480.0,0.9844444444444445,1140.0,2011-03-11 13:52,1617760,candidate,0.03,0.29281350000000067,event
+1.0,4,60.0,240,unknown,unknown,1.612,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.03,0.6486374999999993,control
+1.0,4,60.0,240,29135.88,2011-03-11T13:52:00Z,1.693,2011-03-11T13:54:00Z,False,raw,unsupported_raw_control,2011-03-11T13:51:00Z,120,60.0,480.0,0.9844444444444445,1140.0,2011-03-11 13:52,1617760,candidate,0.03,0.29281350000000067,event
+1.0,4,60.0,240,unknown,unknown,1.612,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.03,0.6486374999999993,control
+1.0,4,60.0,240,29135.88,2011-03-11T13:52:00Z,1.693,2011-03-11T13:53:00Z,False,raw,unsupported_raw_control,2011-03-11T13:51:00Z,60,60.0,480.0,0.9844444444444445,1140.0,2011-03-11 13:52,1617760,candidate,0.05,0.29281350000000067,event
+1.0,4,60.0,240,unknown,unknown,1.612,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.05,0.6486374999999993,control
+1.0,4,60.0,240,29135.88,2011-03-11T13:52:00Z,1.693,2011-03-11T13:54:00Z,False,raw,unsupported_raw_control,2011-03-11T13:51:00Z,120,60.0,480.0,0.9844444444444445,1140.0,2011-03-11 13:52,1617760,candidate,0.05,0.29281350000000067,event
+1.0,4,60.0,240,unknown,unknown,1.612,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1617760,no_detection,0.05,0.6486374999999993,control
+1.0,2,60.0,120,1595.88,2011-03-11T06:13:00Z,1.172,2011-03-11T06:14:00Z,True,raw,unsupported_raw_control,2011-03-11T06:12:00Z,60,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 06:13,1770000,candidate,0.03,0.07783649999999964,event
+1.0,2,60.0,120,unknown,unknown,1.1885,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.03,0.1964445000000014,control
+1.0,2,60.0,120,1775.88,2011-03-11T06:16:00Z,1.172,2011-03-11T06:18:00Z,True,raw,unsupported_raw_control,2011-03-11T06:15:00Z,120,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 06:16,1770000,candidate,0.03,0.07783649999999964,event
+1.0,2,60.0,120,unknown,unknown,1.1885,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.03,0.1964445000000014,control
+1.0,2,60.0,120,1595.88,2011-03-11T06:13:00Z,1.172,2011-03-11T06:14:00Z,True,raw,unsupported_raw_control,2011-03-11T06:12:00Z,60,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 06:13,1770000,candidate,0.05,0.07783649999999964,event
+1.0,2,60.0,120,unknown,unknown,1.1885,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.05,0.1964445000000014,control
+1.0,2,60.0,120,1775.88,2011-03-11T06:16:00Z,1.172,2011-03-11T06:18:00Z,True,raw,unsupported_raw_control,2011-03-11T06:15:00Z,120,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 06:16,1770000,candidate,0.05,0.07783649999999964,event
+1.0,2,60.0,120,unknown,unknown,1.1885,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.05,0.1964445000000014,control
+1.0,4,60.0,240,8195.88,2011-03-11T08:03:00Z,1.2005,2011-03-11T08:04:00Z,True,raw,unsupported_raw_control,2011-03-11T08:02:00Z,60,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 08:03,1770000,candidate,0.03,0.27057449999999983,event
+1.0,4,60.0,240,unknown,unknown,1.2835,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.03,0.7894845000000004,control
+1.0,4,60.0,240,8195.88,2011-03-11T08:03:00Z,1.2005,2011-03-11T08:05:00Z,True,raw,unsupported_raw_control,2011-03-11T08:02:00Z,120,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 08:03,1770000,candidate,0.03,0.27057449999999983,event
+1.0,4,60.0,240,unknown,unknown,1.2835,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.03,0.7894845000000004,control
+1.0,4,60.0,240,8195.88,2011-03-11T08:03:00Z,1.2005,2011-03-11T08:04:00Z,True,raw,unsupported_raw_control,2011-03-11T08:02:00Z,60,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 08:03,1770000,candidate,0.05,0.27057449999999983,event
+1.0,4,60.0,240,unknown,unknown,1.2835,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.05,0.7894845000000004,control
+1.0,4,60.0,240,8195.88,2011-03-11T08:03:00Z,1.2005,2011-03-11T08:05:00Z,True,raw,unsupported_raw_control,2011-03-11T08:02:00Z,120,60.0,60.0,0.8833333333333333,1500.0,2011-03-11 08:03,1770000,candidate,0.05,0.27057449999999983,event
+1.0,4,60.0,240,unknown,unknown,1.2835,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,1770000,no_detection,0.05,0.7894845000000004,control
+1.0,2,815.88,107,380.88,2011-03-11T05:52:45Z,0.04147,2011-03-11T05:53:45Z,True,residual,diagnostic_residual,2011-03-11T05:52:30Z,60,15.0,60.0,1.0,60.0,70.244965,21413,candidate,0.03,0.03,event
+1.0,2,900.0,51,unknown,unknown,0.04078,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.03,0.03,control
+1.0,2,815.88,107,875.88,2011-03-11T06:01:00Z,0.04147,2011-03-11T06:03:00Z,True,residual,diagnostic_residual,2011-03-11T06:00:00Z,120,60.0,60.0,1.0,60.0,70.250694,21413,candidate,0.03,0.03,event
+1.0,2,900.0,51,unknown,unknown,0.04078,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.03,0.03,control
+1.0,2,815.88,107,380.88,2011-03-11T05:52:45Z,0.04147,2011-03-11T05:53:45Z,True,residual,diagnostic_residual,2011-03-11T05:52:30Z,60,15.0,60.0,1.0,60.0,70.244965,21413,candidate,0.05,0.05,event
+1.0,2,900.0,51,unknown,unknown,0.04078,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.05,0.05,control
+1.0,2,815.88,107,2015.88,2011-03-11T06:20:00Z,0.04147,2011-03-11T06:22:00Z,True,residual,diagnostic_residual,2011-03-11T06:19:00Z,120,60.0,60.0,1.0,60.0,70.263889,21413,candidate,0.05,0.05,event
+1.0,2,900.0,51,unknown,unknown,0.04078,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.05,0.05,control
+1.0,4,900.0,115,380.88,2011-03-11T05:52:45Z,0.04143,2011-03-11T05:53:45Z,True,residual,diagnostic_residual,2011-03-11T05:52:30Z,60,15.0,60.0,1.0,60.0,70.244965,21413,candidate,0.03,0.03,event
+1.0,4,900.0,59,unknown,unknown,0.04058,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.03,0.03,control
+1.0,4,900.0,115,875.88,2011-03-11T06:01:00Z,0.04143,2011-03-11T06:03:00Z,True,residual,diagnostic_residual,2011-03-11T06:00:00Z,120,60.0,60.0,1.0,60.0,70.250694,21413,candidate,0.03,0.03,event
+1.0,4,900.0,59,unknown,unknown,0.04058,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.03,0.03,control
+1.0,4,900.0,115,380.88,2011-03-11T05:52:45Z,0.04143,2011-03-11T05:53:45Z,True,residual,diagnostic_residual,2011-03-11T05:52:30Z,60,15.0,60.0,1.0,60.0,70.244965,21413,candidate,0.05,0.05,event
+1.0,4,900.0,59,unknown,unknown,0.04058,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.05,0.05,control
+1.0,4,900.0,115,2015.88,2011-03-11T06:20:00Z,0.04143,2011-03-11T06:22:00Z,True,residual,diagnostic_residual,2011-03-11T06:19:00Z,120,60.0,60.0,1.0,60.0,70.263889,21413,candidate,0.05,0.05,event
+1.0,4,900.0,59,unknown,unknown,0.04058,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21413,no_detection,0.05,0.05,control
+1.0,2,815.88,107,140.88,2011-03-11T05:48:45Z,-0.02156,2011-03-11T05:49:45Z,True,residual,diagnostic_residual,2011-03-11T05:48:30Z,60,15.0,60.0,0.9994444444444445,960.0,70.242188,21418,candidate,0.03,0.03,event
+1.0,2,900.0,51,unknown,unknown,-0.02397,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.03,0.03,control
+1.0,2,815.88,107,140.88,2011-03-11T05:48:45Z,-0.02156,2011-03-11T05:50:45Z,True,residual,diagnostic_residual,2011-03-11T05:48:30Z,120,15.0,60.0,0.9994444444444445,960.0,70.242188,21418,candidate,0.03,0.03,event
+1.0,2,900.0,51,unknown,unknown,-0.02397,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.03,0.03,control
+1.0,2,815.88,107,155.88,2011-03-11T05:49:00Z,-0.02156,2011-03-11T05:50:00Z,True,residual,diagnostic_residual,2011-03-11T05:48:45Z,60,15.0,60.0,0.9994444444444445,960.0,70.242361,21418,candidate,0.05,0.05,event
+1.0,2,900.0,51,unknown,unknown,-0.02397,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.05,0.05,control
+1.0,2,815.88,107,155.88,2011-03-11T05:49:00Z,-0.02156,2011-03-11T05:51:00Z,True,residual,diagnostic_residual,2011-03-11T05:48:45Z,120,15.0,60.0,0.9994444444444445,960.0,70.242361,21418,candidate,0.05,0.05,event
+1.0,2,900.0,51,unknown,unknown,-0.02397,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.05,0.05,control
+1.0,4,900.0,115,140.88,2011-03-11T05:48:45Z,-0.02068,2011-03-11T05:49:45Z,True,residual,diagnostic_residual,2011-03-11T05:48:30Z,60,15.0,60.0,0.9994444444444445,960.0,70.242188,21418,candidate,0.03,0.03,event
+1.0,4,900.0,59,unknown,unknown,-0.02358,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.03,0.03,control
+1.0,4,900.0,115,140.88,2011-03-11T05:48:45Z,-0.02068,2011-03-11T05:50:45Z,True,residual,diagnostic_residual,2011-03-11T05:48:30Z,120,15.0,60.0,0.9994444444444445,960.0,70.242188,21418,candidate,0.03,0.03,event
+1.0,4,900.0,59,unknown,unknown,-0.02358,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.03,0.03,control
+1.0,4,900.0,115,155.88,2011-03-11T05:49:00Z,-0.02068,2011-03-11T05:50:00Z,True,residual,diagnostic_residual,2011-03-11T05:48:45Z,60,15.0,60.0,0.9994444444444445,960.0,70.242361,21418,candidate,0.05,0.05,event
+1.0,4,900.0,59,unknown,unknown,-0.02358,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.05,0.05,control
+1.0,4,900.0,115,155.88,2011-03-11T05:49:00Z,-0.02068,2011-03-11T05:51:00Z,True,residual,diagnostic_residual,2011-03-11T05:48:45Z,120,15.0,60.0,0.9994444444444445,960.0,70.242361,21418,candidate,0.05,0.05,event
+1.0,4,900.0,59,unknown,unknown,-0.02358,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,60.0,unknown,21418,no_detection,0.05,0.05,control
+1.0,2,900.0,51,74255.88,2011-03-12T02:24:00Z,-0.00299,2011-03-12T02:25:00Z,False,residual,diagnostic_residual,2011-03-12T02:23:00Z,60,60.0,960.0,0.9994444444444445,960.0,71.100000,32401,candidate,0.03,0.03,event
+1.0,2,900.0,8,unknown,unknown,0.0058,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.03,0.03,control
+1.0,2,900.0,51,74255.88,2011-03-12T02:24:00Z,-0.00299,2011-03-12T02:26:00Z,False,residual,diagnostic_residual,2011-03-12T02:23:00Z,120,60.0,960.0,0.9994444444444445,960.0,71.100000,32401,candidate,0.03,0.03,event
+1.0,2,900.0,8,unknown,unknown,0.0058,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.03,0.03,control
+1.0,2,900.0,51,74465.88,2011-03-12T02:27:30Z,-0.00299,2011-03-12T02:29:00Z,False,residual,diagnostic_residual,2011-03-12T02:27:15Z,60,15.0,960.0,0.9994444444444445,960.0,71.102431,32401,candidate,0.05,0.05,event
+1.0,2,900.0,8,unknown,unknown,0.0058,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.05,0.05,control
+1.0,2,900.0,51,74465.88,2011-03-12T02:27:30Z,-0.00299,2011-03-12T02:30:00Z,False,residual,diagnostic_residual,2011-03-12T02:27:15Z,120,15.0,960.0,0.9994444444444445,960.0,71.102431,32401,candidate,0.05,0.05,event
+1.0,2,900.0,8,unknown,unknown,0.0058,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.05,0.05,control
+1.0,4,900.0,59,74255.88,2011-03-12T02:24:00Z,-0.0029,2011-03-12T02:25:00Z,False,residual,diagnostic_residual,2011-03-12T02:23:00Z,60,60.0,960.0,0.9994444444444445,960.0,71.100000,32401,candidate,0.03,0.03,event
+1.0,4,900.0,16,unknown,unknown,0.0081,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.03,0.03,control
+1.0,4,900.0,59,74255.88,2011-03-12T02:24:00Z,-0.0029,2011-03-12T02:26:00Z,False,residual,diagnostic_residual,2011-03-12T02:23:00Z,120,60.0,960.0,0.9994444444444445,960.0,71.100000,32401,candidate,0.03,0.03,event
+1.0,4,900.0,16,unknown,unknown,0.0081,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.03,0.03,control
+1.0,4,900.0,59,74465.88,2011-03-12T02:27:30Z,-0.0029,2011-03-12T02:29:00Z,False,residual,diagnostic_residual,2011-03-12T02:27:15Z,60,15.0,960.0,0.9994444444444445,960.0,71.102431,32401,candidate,0.05,0.05,event
+1.0,4,900.0,16,unknown,unknown,0.0081,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.05,0.05,control
+1.0,4,900.0,59,74465.88,2011-03-12T02:27:30Z,-0.0029,2011-03-12T02:30:00Z,False,residual,diagnostic_residual,2011-03-12T02:27:15Z,120,15.0,960.0,0.9994444444444445,960.0,71.102431,32401,candidate,0.05,0.05,event
+1.0,4,900.0,16,unknown,unknown,0.0081,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,815.88,unknown,32401,no_detection,0.05,0.05,control
+1.0,2,15.0,480,33215.88,2011-03-11T15:00:00Z,0.01805,2011-03-11T15:01:00Z,True,residual,diagnostic_residual,2011-03-11T14:59:45Z,60,15.0,15.0,1.0,15.0,70.625000,46411,candidate,0.03,0.03,event
+1.0,2,15.0,480,unknown,unknown,0.01739,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.03,0.03,control
+1.0,2,15.0,480,33215.88,2011-03-11T15:00:00Z,0.01805,2011-03-11T15:02:00Z,True,residual,diagnostic_residual,2011-03-11T14:59:45Z,120,15.0,15.0,1.0,15.0,70.625000,46411,candidate,0.03,0.03,event
+1.0,2,15.0,480,unknown,unknown,0.01739,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.03,0.03,control
+1.0,2,15.0,480,33275.88,2011-03-11T15:01:00Z,0.01805,2011-03-11T15:02:00Z,True,residual,diagnostic_residual,2011-03-11T15:00:45Z,60,15.0,15.0,1.0,15.0,70.625694,46411,candidate,0.05,0.05,event
+1.0,2,15.0,480,unknown,unknown,0.01739,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.05,0.05,control
+1.0,2,15.0,480,33275.88,2011-03-11T15:01:00Z,0.01805,2011-03-11T15:03:00Z,True,residual,diagnostic_residual,2011-03-11T15:00:45Z,120,15.0,15.0,1.0,15.0,70.625694,46411,candidate,0.05,0.05,event
+1.0,2,15.0,480,unknown,unknown,0.01739,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.05,0.05,control
+1.0,4,15.0,960,33215.88,2011-03-11T15:00:00Z,0.016434999999999998,2011-03-11T15:01:00Z,True,residual,diagnostic_residual,2011-03-11T14:59:45Z,60,15.0,15.0,1.0,15.0,70.625000,46411,candidate,0.03,0.03,event
+1.0,4,15.0,960,unknown,unknown,0.01407,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.03,0.03195003000000001,control
+1.0,4,15.0,960,33215.88,2011-03-11T15:00:00Z,0.016434999999999998,2011-03-11T15:02:00Z,True,residual,diagnostic_residual,2011-03-11T14:59:45Z,120,15.0,15.0,1.0,15.0,70.625000,46411,candidate,0.03,0.03,event
+1.0,4,15.0,960,unknown,unknown,0.01407,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.03,0.03195003000000001,control
+1.0,4,15.0,960,33275.88,2011-03-11T15:01:00Z,0.016434999999999998,2011-03-11T15:02:00Z,True,residual,diagnostic_residual,2011-03-11T15:00:45Z,60,15.0,15.0,1.0,15.0,70.625694,46411,candidate,0.05,0.05,event
+1.0,4,15.0,960,unknown,unknown,0.01407,unknown,False,residual,diagnostic_residual,unknown,60,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.05,0.05,control
+1.0,4,15.0,960,33275.88,2011-03-11T15:01:00Z,0.016434999999999998,2011-03-11T15:03:00Z,True,residual,diagnostic_residual,2011-03-11T15:00:45Z,120,15.0,15.0,1.0,15.0,70.625694,46411,candidate,0.05,0.05,event
+1.0,4,15.0,960,unknown,unknown,0.01407,unknown,False,residual,diagnostic_residual,unknown,120,unknown,unknown,1.0,15.0,unknown,46411,no_detection,0.05,0.05,control
+1.0,2,60.0,120,1175.88,2011-03-11T06:06:00Z,1.974,2011-03-11T06:07:00Z,True,raw,unsupported_raw_control,2011-03-11T06:05:00Z,60,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 06:06,9419750,candidate,0.03,0.21127049999999978,event
+1.0,2,60.0,120,unknown,unknown,1.9855,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.03,0.29281349999999984,control
+1.0,2,60.0,120,1175.88,2011-03-11T06:06:00Z,1.974,2011-03-11T06:08:00Z,True,raw,unsupported_raw_control,2011-03-11T06:05:00Z,120,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 06:06,9419750,candidate,0.03,0.21127049999999978,event
+1.0,2,60.0,120,unknown,unknown,1.9855,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.03,0.29281349999999984,control
+1.0,2,60.0,120,1175.88,2011-03-11T06:06:00Z,1.974,2011-03-11T06:07:00Z,True,raw,unsupported_raw_control,2011-03-11T06:05:00Z,60,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 06:06,9419750,candidate,0.05,0.21127049999999978,event
+1.0,2,60.0,120,unknown,unknown,1.9855,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.05,0.29281349999999984,control
+1.0,2,60.0,120,1175.88,2011-03-11T06:06:00Z,1.974,2011-03-11T06:08:00Z,True,raw,unsupported_raw_control,2011-03-11T06:05:00Z,120,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 06:06,9419750,candidate,0.05,0.21127049999999978,event
+1.0,2,60.0,120,unknown,unknown,1.9855,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.05,0.29281349999999984,control
+1.0,4,60.0,240,6275.88,2011-03-11T07:31:00Z,2.0125,2011-03-11T07:32:00Z,True,raw,unsupported_raw_control,2011-03-11T07:30:00Z,60,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 07:31,9419750,candidate,0.03,0.43366049999999995,event
+1.0,4,60.0,240,unknown,unknown,2.081,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.03,0.8969729999999999,control
+1.0,4,60.0,240,6275.88,2011-03-11T07:31:00Z,2.0125,2011-03-11T07:33:00Z,True,raw,unsupported_raw_control,2011-03-11T07:30:00Z,120,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 07:31,9419750,candidate,0.03,0.43366049999999995,event
+1.0,4,60.0,240,unknown,unknown,2.081,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.03,0.8969729999999999,control
+1.0,4,60.0,240,6275.88,2011-03-11T07:31:00Z,2.0125,2011-03-11T07:32:00Z,True,raw,unsupported_raw_control,2011-03-11T07:30:00Z,60,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 07:31,9419750,candidate,0.05,0.43366049999999995,event
+1.0,4,60.0,240,unknown,unknown,2.081,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.05,0.8969729999999999,control
+1.0,4,60.0,240,6275.88,2011-03-11T07:31:00Z,2.0125,2011-03-11T07:33:00Z,True,raw,unsupported_raw_control,2011-03-11T07:30:00Z,120,60.0,60.0,0.9772222222222222,1500.0,2011-03-11 07:31,9419750,candidate,0.05,0.43366049999999995,event
+1.0,4,60.0,240,unknown,unknown,2.081,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9419750,no_detection,0.05,0.8969729999999999,control
+1.0,2,60.0,120,13295.88,2011-03-11T09:28:00Z,1.185,2011-03-11T09:29:00Z,True,raw,unsupported_raw_control,2011-03-11T09:27:00Z,60,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 09:28,9461380,candidate,0.03,0.5559749999999997,event
+1.0,2,60.0,120,unknown,unknown,1.075,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9461380,no_detection,0.03,0.2705745000000006,control
+1.0,2,60.0,120,13295.88,2011-03-11T09:28:00Z,1.185,2011-03-11T09:30:00Z,True,raw,unsupported_raw_control,2011-03-11T09:27:00Z,120,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 09:28,9461380,candidate,0.03,0.5559749999999997,event
+1.0,2,60.0,120,unknown,unknown,1.075,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9461380,no_detection,0.03,0.2705745000000006,control
+1.0,2,60.0,120,13295.88,2011-03-11T09:28:00Z,1.185,2011-03-11T09:29:00Z,True,raw,unsupported_raw_control,2011-03-11T09:27:00Z,60,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 09:28,9461380,candidate,0.05,0.5559749999999997,event
+1.0,2,60.0,120,unknown,unknown,1.075,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,9461380,no_detection,0.05,0.2705745000000006,control
+1.0,2,60.0,120,13295.88,2011-03-11T09:28:00Z,1.185,2011-03-11T09:30:00Z,True,raw,unsupported_raw_control,2011-03-11T09:27:00Z,120,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 09:28,9461380,candidate,0.05,0.5559749999999997,event
+1.0,2,60.0,120,unknown,unknown,1.075,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,9461380,no_detection,0.05,0.2705745000000006,control
+1.0,4,60.0,240,7655.88,2011-03-11T07:54:00Z,1.075,2011-03-11T07:55:00Z,True,raw,unsupported_raw_control,2011-03-11T07:53:00Z,60,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 07:54,9461380,candidate,0.03,0.5485620000000004,event
+1.0,4,60.0,240,1055.88,2011-03-11T05:04:00Z,1.0185,2011-03-11T05:05:00Z,True,raw,unsupported_raw_control,2011-03-11T05:03:00Z,60,60.0,60.0,1.0,60.0,2011-03-11 05:04,9461380,candidate,0.03,0.20385749999999977,control
+1.0,4,60.0,240,7655.88,2011-03-11T07:54:00Z,1.075,2011-03-11T07:56:00Z,True,raw,unsupported_raw_control,2011-03-11T07:53:00Z,120,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 07:54,9461380,candidate,0.03,0.5485620000000004,event
+1.0,4,60.0,240,1055.88,2011-03-11T05:04:00Z,1.0185,2011-03-11T05:06:00Z,True,raw,unsupported_raw_control,2011-03-11T05:03:00Z,120,60.0,60.0,1.0,60.0,2011-03-11 05:04,9461380,candidate,0.03,0.20385749999999977,control
+1.0,4,60.0,240,7655.88,2011-03-11T07:54:00Z,1.075,2011-03-11T07:55:00Z,True,raw,unsupported_raw_control,2011-03-11T07:53:00Z,60,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 07:54,9461380,candidate,0.05,0.5485620000000004,event
+1.0,4,60.0,240,1055.88,2011-03-11T05:04:00Z,1.0185,2011-03-11T05:05:00Z,True,raw,unsupported_raw_control,2011-03-11T05:03:00Z,60,60.0,60.0,1.0,60.0,2011-03-11 05:04,9461380,candidate,0.05,0.20385749999999977,control
+1.0,4,60.0,240,7655.88,2011-03-11T07:54:00Z,1.075,2011-03-11T07:56:00Z,True,raw,unsupported_raw_control,2011-03-11T07:53:00Z,120,60.0,60.0,0.9888888888888889,1140.0,2011-03-11 07:54,9461380,candidate,0.05,0.5485620000000004,event
+1.0,4,60.0,240,1055.88,2011-03-11T05:04:00Z,1.0185,2011-03-11T05:06:00Z,True,raw,unsupported_raw_control,2011-03-11T05:03:00Z,120,60.0,60.0,1.0,60.0,2011-03-11 05:04,9461380,candidate,0.05,0.20385749999999977,control
+0.966528,2,121.0,117,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,event
+0.975,2,120.0,118,unknown,unknown,2.0945,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,0.9330555555555555,121.0,unknown,saip,incomplete_search,0.03,0.32987849999999985,control
+0.966528,2,121.0,117,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,event
+0.975,2,120.0,118,unknown,unknown,2.0945,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,0.9330555555555555,121.0,unknown,saip,incomplete_search,0.03,0.32987849999999985,control
+0.966528,2,121.0,117,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,event
+0.975,2,120.0,118,unknown,unknown,2.0945,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,0.9330555555555555,121.0,unknown,saip,incomplete_search,0.05,0.32987849999999985,control
+0.966528,2,121.0,117,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,event
+0.975,2,120.0,118,unknown,unknown,2.0945,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,0.9330555555555555,121.0,unknown,saip,incomplete_search,0.05,0.32987849999999985,control
+0.962361,4,121.0,232,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,event
+0.979028,4,121.0,236,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,control
+0.962361,4,121.0,232,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,event
+0.979028,4,121.0,236,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.03,unknown,control
+0.962361,4,121.0,232,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,event
+0.979028,4,121.0,236,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,control
+0.962361,4,121.0,232,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,event
+0.979028,4,121.0,236,unknown,unknown,unknown,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,unknown,unknown,unknown,saip,ineligible_baseline,0.05,unknown,control
+1.0,2,60.0,120,8975.88,2011-03-11T08:16:00Z,4.874,2011-03-11T08:17:00Z,True,raw,unsupported_raw_control,2011-03-11T08:15:00Z,60,60.0,60.0,0.9111111111111111,1860.0,2011-03-11 08:16:00,valp,candidate,0.03,0.20756400000000347,event
+1.0,2,60.0,120,unknown,unknown,4.7925,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.03,0.39659549999999744,control
+1.0,2,60.0,120,9215.88,2011-03-11T08:20:00Z,4.874,2011-03-11T08:22:00Z,True,raw,unsupported_raw_control,2011-03-11T08:19:00Z,120,60.0,60.0,0.9111111111111111,1860.0,2011-03-11 08:20:00,valp,candidate,0.03,0.20756400000000347,event
+1.0,2,60.0,120,unknown,unknown,4.7925,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.03,0.39659549999999744,control
+1.0,2,60.0,120,8975.88,2011-03-11T08:16:00Z,4.874,2011-03-11T08:17:00Z,True,raw,unsupported_raw_control,2011-03-11T08:15:00Z,60,60.0,60.0,0.9111111111111111,1860.0,2011-03-11 08:16:00,valp,candidate,0.05,0.20756400000000347,event
+1.0,2,60.0,120,unknown,unknown,4.7925,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.05,0.39659549999999744,control
+1.0,2,60.0,120,9215.88,2011-03-11T08:20:00Z,4.874,2011-03-11T08:22:00Z,True,raw,unsupported_raw_control,2011-03-11T08:19:00Z,120,60.0,60.0,0.9111111111111111,1860.0,2011-03-11 08:20:00,valp,candidate,0.05,0.20756400000000347,event
+1.0,2,60.0,120,unknown,unknown,4.7925,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.05,0.39659549999999744,control
+1.0,4,60.0,240,87395.88,2011-03-12T06:03:00Z,4.7925,2011-03-12T06:04:00Z,False,raw,unsupported_raw_control,2011-03-12T06:02:00Z,60,60.0,1860.0,0.9111111111111111,1860.0,2011-03-12 06:03:00,valp,candidate,0.03,0.6894089999999997,event
+1.0,4,60.0,240,unknown,unknown,4.661,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.03,0.9340380000000025,control
+1.0,4,60.0,240,87395.88,2011-03-12T06:03:00Z,4.7925,2011-03-12T06:05:00Z,False,raw,unsupported_raw_control,2011-03-12T06:02:00Z,120,60.0,1860.0,0.9111111111111111,1860.0,2011-03-12 06:03:00,valp,candidate,0.03,0.6894089999999997,event
+1.0,4,60.0,240,unknown,unknown,4.661,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.03,0.9340380000000025,control
+1.0,4,60.0,240,87395.88,2011-03-12T06:03:00Z,4.7925,2011-03-12T06:04:00Z,False,raw,unsupported_raw_control,2011-03-12T06:02:00Z,60,60.0,1860.0,0.9111111111111111,1860.0,2011-03-12 06:03:00,valp,candidate,0.05,0.6894089999999997,event
+1.0,4,60.0,240,unknown,unknown,4.661,unknown,False,raw,unsupported_raw_control,unknown,60,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.05,0.9340380000000025,control
+1.0,4,60.0,240,87395.88,2011-03-12T06:03:00Z,4.7925,2011-03-12T06:05:00Z,False,raw,unsupported_raw_control,2011-03-12T06:02:00Z,120,60.0,1860.0,0.9111111111111111,1860.0,2011-03-12 06:03:00,valp,candidate,0.05,0.6894089999999997,event
+1.0,4,60.0,240,unknown,unknown,4.661,unknown,False,raw,unsupported_raw_control,unknown,120,unknown,unknown,1.0,60.0,unknown,valp,no_detection,0.05,0.9340380000000025,control

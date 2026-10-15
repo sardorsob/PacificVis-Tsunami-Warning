@@ -1,0 +1,962 @@
+{
+  "arrival_comparison_allowed": false,
+  "artifacts": [
+    {
+      "alt_text": "All ten stations remain visible at basin scale; regional zooms clarify Japan and California.",
+      "artifact_id": "01_regional_context_png",
+      "caption": "All ten stations remain visible at basin scale; regional zooms clarify Japan and California.",
+      "dimensions": {
+        "height_px": 1600,
+        "width_px": 1920
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "01_regional_context.png",
+      "projection": "+proj=eqearth +lon_0=-160 +datum=WGS84 +units=m +no_defs +type=crs",
+      "references": [
+        {
+          "path": "station-reference.csv",
+          "row_n": 10,
+          "sha256": "613766398a381ed6e6dd2ca245e2f9d55afabb73514c3fee03469bf5f544b8e4"
+        },
+        {
+          "path": "label-audit.csv",
+          "row_n": 15,
+          "sha256": "af15a31cd3b138c272e024ae457a973ecc21497089c6a22b5f9dd463a0e0230d"
+        }
+      ],
+      "sha256": "9790e9e27d76f825b98b9f4b26f8ebc65193620a15983bb076a1f897009a2017",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Source lon/lat degrees; projected metres; unknown horizontal station datums"
+    },
+    {
+      "alt_text": "All ten stations remain visible at basin scale; regional zooms clarify Japan and California.",
+      "artifact_id": "01_regional_context_svg",
+      "caption": "All ten stations remain visible at basin scale; regional zooms clarify Japan and California.",
+      "dimensions": {
+        "view_box": "0 0 864 720"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "01_regional_context.svg",
+      "projection": "+proj=eqearth +lon_0=-160 +datum=WGS84 +units=m +no_defs +type=crs",
+      "references": [
+        {
+          "path": "station-reference.csv",
+          "row_n": 10,
+          "sha256": "613766398a381ed6e6dd2ca245e2f9d55afabb73514c3fee03469bf5f544b8e4"
+        },
+        {
+          "path": "label-audit.csv",
+          "row_n": 15,
+          "sha256": "af15a31cd3b138c272e024ae457a973ecc21497089c6a22b5f9dd463a0e0230d"
+        }
+      ],
+      "sha256": "4d243a47faf4c4335accbe2242d8a04330b3b99d5846699db6948f2e47604718",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Source lon/lat degrees; projected metres; unknown horizontal station datums"
+    },
+    {
+      "alt_text": "Six coastal gauges share 1,440 original minute positions on 11 March 2011 UTC.",
+      "artifact_id": "02_coverage_common_day_png",
+      "caption": "Six coastal gauges share 1,440 original minute positions on 11 March 2011 UTC.",
+      "dimensions": {
+        "height_px": 1040,
+        "width_px": 2240
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "02_coverage_common_day.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "coverage-by-window.csv",
+          "row_n": 36,
+          "sha256": "00bc8a2b80e1ad84ef66b88672c8e34de6a7394ebc8adc95e257ea6ba39936be"
+        },
+        {
+          "path": "coverage-spans.csv",
+          "row_n": 573,
+          "sha256": "31d79cd9bc8173da9799ab8df98e6466d4be6a35de1e9aada9af238faeef8772"
+        },
+        {
+          "path": "off-grid.csv",
+          "row_n": 336,
+          "sha256": "bff628b2026f689cf7ae7c8babdc0a72afc4f6a9d53029e8d123b5ff79a6a6c0"
+        }
+      ],
+      "sha256": "586bbb0cadde28e6a93cad2f8516712d15fd741d787175b1be4d071edf5dc85e",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Exact-grid valid raw samples / expected positions; UTC"
+    },
+    {
+      "alt_text": "Six coastal gauges share 1,440 original minute positions on 11 March 2011 UTC.",
+      "artifact_id": "02_coverage_common_day_svg",
+      "caption": "Six coastal gauges share 1,440 original minute positions on 11 March 2011 UTC.",
+      "dimensions": {
+        "view_box": "0 0 1008 468"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "02_coverage_common_day.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "coverage-by-window.csv",
+          "row_n": 36,
+          "sha256": "00bc8a2b80e1ad84ef66b88672c8e34de6a7394ebc8adc95e257ea6ba39936be"
+        },
+        {
+          "path": "coverage-spans.csv",
+          "row_n": 573,
+          "sha256": "31d79cd9bc8173da9799ab8df98e6466d4be6a35de1e9aada9af238faeef8772"
+        },
+        {
+          "path": "off-grid.csv",
+          "row_n": 336,
+          "sha256": "bff628b2026f689cf7ae7c8babdc0a72afc4f6a9d53029e8d123b5ff79a6a6c0"
+        }
+      ],
+      "sha256": "62f1ebd889d980dedd9bbfbe76176aab2e205bc28d0dc2af72f5891b49bb24a4",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Exact-grid valid raw samples / expected positions; UTC"
+    },
+    {
+      "alt_text": "Source blanks, absent timestamps and off-grid samples have different counting semantics.",
+      "artifact_id": "03_coverage_mechanisms_png",
+      "caption": "Source blanks, absent timestamps and off-grid samples have different counting semantics.",
+      "dimensions": {
+        "height_px": 1088,
+        "width_px": 2240
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "03_coverage_mechanisms.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "coverage-by-window.csv",
+          "row_n": 36,
+          "sha256": "00bc8a2b80e1ad84ef66b88672c8e34de6a7394ebc8adc95e257ea6ba39936be"
+        },
+        {
+          "path": "gap-blocks.csv",
+          "row_n": 273,
+          "sha256": "bda9344839053f2162bd5dcf75a33fe53b29bc11ca3ea0ea1fe15e103cacc00c"
+        }
+      ],
+      "sha256": "ad85bcb678a11cad22c9801638137557455d27e7bd3331b1143f5bad09f47821",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Grid positions and coverage percent; UTC"
+    },
+    {
+      "alt_text": "Source blanks, absent timestamps and off-grid samples have different counting semantics.",
+      "artifact_id": "03_coverage_mechanisms_svg",
+      "caption": "Source blanks, absent timestamps and off-grid samples have different counting semantics.",
+      "dimensions": {
+        "view_box": "0 0 1008 489.6"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "03_coverage_mechanisms.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "coverage-by-window.csv",
+          "row_n": 36,
+          "sha256": "00bc8a2b80e1ad84ef66b88672c8e34de6a7394ebc8adc95e257ea6ba39936be"
+        },
+        {
+          "path": "gap-blocks.csv",
+          "row_n": 273,
+          "sha256": "bda9344839053f2162bd5dcf75a33fe53b29bc11ca3ea0ea1fe15e103cacc00c"
+        }
+      ],
+      "sha256": "2bf5636eb2a6e2499e6c408c029dac816c814e6771d97568766418cb21d03081",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Grid positions and coverage percent; UTC"
+    },
+    {
+      "alt_text": "Saipan has a long internal gap; Pago Pago also has an absent trailing archive segment.",
+      "artifact_id": "04_gap_details_png",
+      "caption": "Saipan has a long internal gap; Pago Pago also has an absent trailing archive segment.",
+      "dimensions": {
+        "height_px": 1280,
+        "width_px": 2240
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "04_gap_details.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "gap-blocks.csv",
+          "row_n": 273,
+          "sha256": "bda9344839053f2162bd5dcf75a33fe53b29bc11ca3ea0ea1fe15e103cacc00c"
+        },
+        {
+          "path": "coverage-spans.csv",
+          "row_n": 573,
+          "sha256": "31d79cd9bc8173da9799ab8df98e6466d4be6a35de1e9aada9af238faeef8772"
+        }
+      ],
+      "sha256": "a56dca892be8a1912a171d6940d6c60f6db7a90bb54a5518110365e47a7e14f0",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "UTC positions; unequal full requested windows, not a like-for-like rank"
+    },
+    {
+      "alt_text": "Saipan has a long internal gap; Pago Pago also has an absent trailing archive segment.",
+      "artifact_id": "04_gap_details_svg",
+      "caption": "Saipan has a long internal gap; Pago Pago also has an absent trailing archive segment.",
+      "dimensions": {
+        "view_box": "0 0 1008 576"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "04_gap_details.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "gap-blocks.csv",
+          "row_n": 273,
+          "sha256": "bda9344839053f2162bd5dcf75a33fe53b29bc11ca3ea0ea1fe15e103cacc00c"
+        },
+        {
+          "path": "coverage-spans.csv",
+          "row_n": 573,
+          "sha256": "31d79cd9bc8173da9799ab8df98e6466d4be6a35de1e9aada9af238faeef8772"
+        }
+      ],
+      "sha256": "013ac30c9ca2923ad685006c85c7265bccb1843e5218eb1dd8771f8fdaefd3b7",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "UTC positions; unequal full requested windows, not a like-for-like rank"
+    },
+    {
+      "alt_text": "Mechanical screens do not validate physical onsets; all failed settings remain.",
+      "artifact_id": "05_signal_support_matrix_png",
+      "caption": "Mechanical screens do not validate physical onsets; all failed settings remain.",
+      "dimensions": {
+        "height_px": 1280,
+        "width_px": 2240
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "05_signal_support_matrix.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-support.csv",
+          "row_n": 10,
+          "sha256": "79d4b5229b23eb22908193c73c55bbcebab8493c6776f59aa34044d417304213"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "b1891bb980b38f7bdcad9c3b0023c6c19afbff057bc62dfd3e2112f70f8d3a79",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Counts of 8 settings per station per event/control window; raw versus residual"
+    },
+    {
+      "alt_text": "Mechanical screens do not validate physical onsets; all failed settings remain.",
+      "artifact_id": "05_signal_support_matrix_svg",
+      "caption": "Mechanical screens do not validate physical onsets; all failed settings remain.",
+      "dimensions": {
+        "view_box": "0 0 1008 576"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "05_signal_support_matrix.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-support.csv",
+          "row_n": 10,
+          "sha256": "79d4b5229b23eb22908193c73c55bbcebab8493c6776f59aa34044d417304213"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "27edb5a8e8517b2bfc20dd7a195ef977821ae80c65bb4f4c15424b5ede928505",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Counts of 8 settings per station per event/control window; raw versus residual"
+    },
+    {
+      "alt_text": "DART 21418 early unclassified threshold crossings conflict with an approximate NOAA account.",
+      "artifact_id": "06_early_crossing_context_png",
+      "caption": "DART 21418 early unclassified threshold crossings conflict with an approximate NOAA account.",
+      "dimensions": {
+        "height_px": 960,
+        "width_px": 2080
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "06_early_crossing_context.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-windows.csv",
+          "row_n": 4649,
+          "sha256": "92c64d9d104b905822af6c798c7ef29114b4833bbbd59326035943cbfe30c98d"
+        },
+        {
+          "path": "source-references.csv",
+          "row_n": 1,
+          "sha256": "6040e203bf00f8ac43d8a6f7e6888ad8c655bff507c6fddfff144419d283c348"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "19ca2456c21d1e763b651cadda3cdfc1795c502da32171cbc2dc4fb230a2e83a",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Publisher residual m water column; minutes after origin; vertical datum unknown"
+    },
+    {
+      "alt_text": "DART 21418 early unclassified threshold crossings conflict with an approximate NOAA account.",
+      "artifact_id": "06_early_crossing_context_svg",
+      "caption": "DART 21418 early unclassified threshold crossings conflict with an approximate NOAA account.",
+      "dimensions": {
+        "view_box": "0 0 936 432"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "06_early_crossing_context.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-windows.csv",
+          "row_n": 4649,
+          "sha256": "92c64d9d104b905822af6c798c7ef29114b4833bbbd59326035943cbfe30c98d"
+        },
+        {
+          "path": "source-references.csv",
+          "row_n": 1,
+          "sha256": "6040e203bf00f8ac43d8a6f7e6888ad8c655bff507c6fddfff144419d283c348"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "0a7706b3ee9aafad7e84ab9d2d7129f5e0a0e84809b32b339936aa18cccd6787",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Publisher residual m water column; minutes after origin; vertical datum unknown"
+    },
+    {
+      "alt_text": "Adak has pre-origin crossings; Valpara\u00edso source flags and raw zero are retained.",
+      "artifact_id": "07_control_and_qc_context_png",
+      "caption": "Adak has pre-origin crossings; Valpara\u00edso source flags and raw zero are retained.",
+      "dimensions": {
+        "height_px": 1440,
+        "width_px": 2080
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "07_control_and_qc_context.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-windows.csv",
+          "row_n": 4649,
+          "sha256": "92c64d9d104b905822af6c798c7ef29114b4833bbbd59326035943cbfe30c98d"
+        },
+        {
+          "path": "source-qc-reference.csv",
+          "row_n": 140,
+          "sha256": "ed26677ce0d5e6afe6a455d88aa91a1a80c5e84df9b63fd175aa71fc675f2bf9"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "e55b98c7197fe56ac103af8b64b5041ece7ae6b9885c917409a43f06b3394aa8",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Raw water level m; separate STND/unknown datums; hours relative to origin"
+    },
+    {
+      "alt_text": "Adak has pre-origin crossings; Valpara\u00edso source flags and raw zero are retained.",
+      "artifact_id": "07_control_and_qc_context_svg",
+      "caption": "Adak has pre-origin crossings; Valpara\u00edso source flags and raw zero are retained.",
+      "dimensions": {
+        "view_box": "0 0 936 648"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "07_control_and_qc_context.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "signal-windows.csv",
+          "row_n": 4649,
+          "sha256": "92c64d9d104b905822af6c798c7ef29114b4833bbbd59326035943cbfe30c98d"
+        },
+        {
+          "path": "source-qc-reference.csv",
+          "row_n": 140,
+          "sha256": "ed26677ce0d5e6afe6a455d88aa91a1a80c5e84df9b63fd175aa71fc675f2bf9"
+        },
+        {
+          "path": "setting-reference.csv",
+          "row_n": 160,
+          "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+        }
+      ],
+      "sha256": "57eade0694244fe6b22e22357092759325a7642b6c070b60342909297a18625f",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Raw water level m; separate STND/unknown datums; hours relative to origin"
+    },
+    {
+      "alt_text": "Published hour classes span overlapping ranges of source-vertex distances, not arrival predictions.",
+      "artifact_id": "08_contour_geometry_png",
+      "caption": "Published hour classes span overlapping ranges of source-vertex distances, not arrival predictions.",
+      "dimensions": {
+        "height_px": 1120,
+        "width_px": 2080
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "08_contour_geometry.png",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "contour-parts.csv",
+          "row_n": 611,
+          "sha256": "6a686923b2166cdd0f2cb07f6d9d2fc882432bbb816bb925561bbc49f86f1ad3"
+        },
+        {
+          "path": "contour-distance-envelopes.csv",
+          "row_n": 9,
+          "sha256": "08f7df944c6c6a43df1f8fb534bfd1358a9d8103f5ed3a00f0f54d29f8c15e44"
+        }
+      ],
+      "sha256": "348106f35443b36825977653856f9737589e319ba960ad3d60d36d7f25cff70b",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Published hours; WGS84 geodesic kilometres to stored vertices, not confidence intervals"
+    },
+    {
+      "alt_text": "Published hour classes span overlapping ranges of source-vertex distances, not arrival predictions.",
+      "artifact_id": "08_contour_geometry_svg",
+      "caption": "Published hour classes span overlapping ranges of source-vertex distances, not arrival predictions.",
+      "dimensions": {
+        "view_box": "0 0 936 504"
+      },
+      "event_id": "official20110311054624120_30",
+      "evidence_state": "preliminary_storyboard_evidence",
+      "generating_command": "uv run python scripts/story/build_followup_eda.py --tasks regional coverage signal contours synthesis --run-id 2026-10-14-story-followups-v3 --output artifacts/eda/story/followups/2026-10-14-story-followups-v3 --run-dir artifacts/logs/runs/2026-10-14-story-followups-v3",
+      "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+      "input_counts": {
+        "contour_parts": 4380,
+        "observations": 143655,
+        "previously_rejected_records": 107,
+        "stations": 10
+      },
+      "origin_utc": "2011-03-11T05:46:24.120Z",
+      "output_count": 1,
+      "path": "08_contour_geometry.svg",
+      "projection": "not applicable",
+      "references": [
+        {
+          "path": "contour-parts.csv",
+          "row_n": 611,
+          "sha256": "6a686923b2166cdd0f2cb07f6d9d2fc882432bbb816bb925561bbc49f86f1ad3"
+        },
+        {
+          "path": "contour-distance-envelopes.csv",
+          "row_n": 9,
+          "sha256": "08f7df944c6c6a43df1f8fb534bfd1358a9d8103f5ed3a00f0f54d29f8c15e44"
+        }
+      ],
+      "sha256": "fdab299bc2de57d841671372e5b882b84e5a57616e7f84246b3a57d0525a9194",
+      "source_date": "accepted shared audit 2026-10-05; exact retrievals in fingerprinted source manifest",
+      "sources": "Accepted NOAA/NCEI, CO-OPS, IOC, USGS; Natural Earth 4.1.0 for coastline",
+      "transformations": "source-grid slicing; source metadata retained; no interpolation or onset promotion",
+      "units": "Published hours; WGS84 geodesic kilometres to stored vertices, not confidence intervals"
+    }
+  ],
+  "git_sha": "c64e981d50f5c4bfc4eff8d5a315bc58cf376d94",
+  "input_checksums": [
+    {
+      "path": "artifacts/eda/missingness/missingness-summary.json",
+      "sha256": "e18250f621df7e057af450459a4909d40cf74a9a502b702e84e77c60a7961ee6"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/adaptive-ledger.csv",
+      "sha256": "d22006a453d6442da5dda080da1bea0fbe7fa628f53db2026f490e7c820ac6af"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/candidate-windows.csv",
+      "sha256": "a04a227ed4f020609d73f37071574ffb19a35b92a10b60c7e491c69af624e6c5"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/config.json",
+      "sha256": "8feb18963f4e66fffcb5d72115acc2cad3a902c78358bba4c6875ff44be6113f"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/dart-candidates.png",
+      "sha256": "8fb67fdceeb0461740a6252f9f5afb384371c28e548ea5c6561ff43bcd6c9478"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/dart-candidates.svg",
+      "sha256": "def09a1319bbba6b3294cd8023df1286c1f003991601f336d0ee04c3f5f9e32c"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/early-crossing-check.png",
+      "sha256": "c1c93db0450672de2deef7191c26e0f5ccc926846fecfca43d14be6535e32623"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/early-crossing-check.svg",
+      "sha256": "60a2baa7d5788990fce8c0e060c129541ff64629b6f1f56363e2181bbc7a89ff"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/early-waveform.csv",
+      "sha256": "af5605eb697c473b882020002b4670013d75695601555d2f0b3e89311885a834"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/gaps.csv",
+      "sha256": "99b8850a3471945469f155cc5c578593bd0d4768870640fa438668609af0afb3"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/inputs.json",
+      "sha256": "d7ba1ff80d081487b346dcf76f26dabe31e79341c90c04fe74002b9ffa3165c1"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/meta.json",
+      "sha256": "892a206af65250ee2829b11a731e3b6fbfe62394be238cd9a8b98a5aa0c2ad2d"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/missingness-report.md",
+      "sha256": "052fc8e6ef40a2ee419ffc64f027bb355127f0d386ffcda5792141a6373fb8eb"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/missingness/coastal-missingness.csv",
+      "sha256": "07e0b87515f10c21d203b35e4e043ecf7d49d08fd202d8cb4eb540b2b3748ac5"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/missingness/missingness-mechanisms.csv",
+      "sha256": "c305400a1f8d823293199a80985a33ec68b63e88646d5a0fa28c573500d373a3"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/missingness/missingness-summary.json",
+      "sha256": "e18250f621df7e057af450459a4909d40cf74a9a502b702e84e77c60a7961ee6"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/outputs.json",
+      "sha256": "2a877d9a4af17801693054334931633912d46eeca28e1352a689fdbdf1e43a57"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/profiles.csv",
+      "sha256": "e467d5254a8a05c589662ee35f37728eb60968f0d53fadec4b4b5b2f88bcada5"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/qc-records.csv",
+      "sha256": "56902c0dd4191c5e3e8546a9563cec3f0980815c8c11504ad4627c970679a3ae"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/raw-traces.csv",
+      "sha256": "a6f71bec6a39a8d1f969c7bf3278758d07ee8171f5903e382969a2f6c89e08af"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/report.md",
+      "sha256": "a8a6bd3329c66cff68bc6b773308062e65a9171eed29911a8c48dea913ec9f16"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/sensitivity.csv",
+      "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/setting-status.png",
+      "sha256": "3097d97fc517cf15b8b7c30921a877c4c53439070543ce1d90b3dadd259b244a"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/setting-status.svg",
+      "sha256": "3bdf8f40dc547e866683eedfbb822a1baff15e9ab8b937ad943fca5831fa9dc3"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/station-decisions.csv",
+      "sha256": "ed82383880b83f291ce8803ef284eebc68154dbe378644aa29476e10c32adcb2"
+    },
+    {
+      "path": "artifacts/eda/shared/2026-10-05-final/summary.json",
+      "sha256": "614fd8e4c9433a7dfd83efda3e9d68535eb3e6a9c651dce53fd2632e37fe6b11"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/01_pacific_evidence_map.png",
+      "sha256": "a3ec2a5206bc5593dae727a1003e5b1abbe6d49b156543755db454e046426fea"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/01_pacific_evidence_map.svg",
+      "sha256": "d089a001dda9532ceb874fa42079c7d43971cb1d2ada93bca4cb3d9cf271f407"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/02_observation_coverage.png",
+      "sha256": "991e4d64bc615388b36949400a423f78c6568e4b30c3a0ef7ed7e6a8c9021dca"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/02_observation_coverage.svg",
+      "sha256": "306132709fdc3dcbcd5d7c84322cab862e6f131307f8acb4d3ffba4fa98c3d70"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/03_station_timeseries.png",
+      "sha256": "48fd2793a08f012f9714f3a8ed6b814614cfd1ed2a8dac2aba91b7cd1f5f3482"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/03_station_timeseries.svg",
+      "sha256": "a8bb88f4878d0d2cbb8eb52fe2d610e29b00b44e15c69630b0bf4f6a001efffe"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/04_distance_contour_diagnostic.png",
+      "sha256": "9ed1767ab65b425e09fb243cdeabb29dd773a51f07f7a03528aabd7ca55c40a7"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/04_distance_contour_diagnostic.svg",
+      "sha256": "64d0ac653736f5776d728f9aa87ed2deba2fcfa0dcb16e763f0de46b2ec9684e"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/atlas-manifest.json",
+      "sha256": "4101db77d8104e8d422fc5ab96f7a5ef2200e1d51db1ddfead6fa10fb52495e1"
+    },
+    {
+      "path": "artifacts/eda/story/2026-09-16__0351__story-atlas__6c35d78/decision-ledger.csv",
+      "sha256": "a4c1aade238e5696bdeb76a1b20349989b511f5ef101348328e684af77895a62"
+    },
+    {
+      "path": "artifacts/logs/runs/2026-09-09__1749__missingness__7b6d386/inputs.json",
+      "sha256": "710dc48719a3f6362635b59cff2663887c43c5484ea9d15f6d3d12a4635d97d4"
+    },
+    {
+      "path": "artifacts/logs/runs/2026-09-09__1923__valparaiso-reviewed__7576ffb/outputs.json",
+      "sha256": "9a15559ab6e0aac13bc67919816960648df595cc5ad73c111327dd4aeb56c703"
+    },
+    {
+      "path": "artifacts/logs/runs/2026-09-16__0351__story-atlas__6c35d78/inputs.json",
+      "sha256": "07a9f6a8b0189153bfaf39ff30b51ecbfc6748cc871de259c86283a0395fa37f"
+    },
+    {
+      "path": "artifacts/logs/runs/2026-09-16__0351__story-atlas__6c35d78/outputs.json",
+      "sha256": "20ff1d0f996cb5520ce1523976e438e8575dca53d1bf406f1f4463d4a7d27e41"
+    },
+    {
+      "path": "artifacts/releases/tohoku-descriptive-v1.json",
+      "sha256": "aa34a999f41769cc07b60543e931558ce5713f472124c6c3288eb4ceca11df04"
+    },
+    {
+      "path": "config/story-atlas-decisions.toml",
+      "sha256": "11e27cea2ba1717de52a1d520db4bf4e431c73e9c3928c5f856297e75fca9589"
+    },
+    {
+      "path": "config/story-atlas.toml",
+      "sha256": "1ab3817259a8f47f0e7cfbf413b9419502836d7054e957adfba2dc255db845f2"
+    },
+    {
+      "path": "config/story-followups.toml",
+      "sha256": "8ba99b282a5deb9405213af3092190759601b3a7069e60e00a39d4444f2d2e6e"
+    },
+    {
+      "path": "config/tohoku-arrival-audit.toml",
+      "sha256": "97b4ae0d39d4c1740a19cfec4aeb3ecd0109e4ae5a0b0639a282349e577554bf"
+    },
+    {
+      "path": "config/tohoku-missingness.toml",
+      "sha256": "589156fc620a65f38a0aa981d56d7506ae9cb40076240d967284796a9c1941f2"
+    },
+    {
+      "path": "context/story/EDA_REPORT.md",
+      "sha256": "3c8761638116dbc9af85125d80cb9479995a215ead47c4b9b5c412b329048917"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/accounting.json",
+      "sha256": "331617e5ed4a9e747ec79364409659e723cd7ece5b20f6cc1b197a40e1abaf83"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/event.csv",
+      "sha256": "bd1e11e9322f8670f016eeea4820f83ddca811d20fd52395d12405cd86d9ba82"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/observation.csv",
+      "sha256": "9daee574ea2b75c72c8bfb7984a32c248fa8692a2b74ba705ac7848089f52be3"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/rejected_record.csv",
+      "sha256": "e2d8e86cfead1713036cee2883007a513fc0155d8c6b84f954e757ce72d14310"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/schemas.json",
+      "sha256": "84cf050ffc0870b262ad0a5daffbd247b7b052632b4c80fa56c45c6d899d0bac"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/station.csv",
+      "sha256": "d4ad18dafca36e027242095d81a81a3c70ecce59ee3027fbc9f9d077689f5004"
+    },
+    {
+      "path": "data/processed/tohoku/2026-09-09-valparaiso-reviewed-7576ffb-a/ttt_contour.csv",
+      "sha256": "53f2efd57327e69f196a6ce25417e451ff3366dd3e9f4185ddbe4d764c3caed4"
+    },
+    {
+      "path": "data/raw/coops/one_minute_water_level_1617760_20110311_20110313.json",
+      "sha256": "f958e3627989255113717fd2753848f901eb447c7167628d9a08e10d6568b143"
+    },
+    {
+      "path": "data/raw/coops/one_minute_water_level_1770000_20110311_20110313.json",
+      "sha256": "fbac9c7c34da2d0f5db195063352f57b385eec9f908d2c8fe1b79c6db496c857"
+    },
+    {
+      "path": "data/raw/coops/one_minute_water_level_9419750_20110311_20110313.json",
+      "sha256": "6b22f20a77fb07b84761198c746ef58e4409f7f9ac3ae6dc1fcc2add73db974b"
+    },
+    {
+      "path": "data/raw/coops/one_minute_water_level_9461380_20110311_20110313.json",
+      "sha256": "b407925345b600f0c4d11fcb4e31d085500e6e524b5accaef760c1c0a7c3c332"
+    },
+    {
+      "path": "data/raw/ioc/valparaiso/valp_prs_20110311_20110314.json",
+      "sha256": "c5098210e676609ee84d0a81c1bc17b761da3b4c3792743cec0d306d52c0717d"
+    },
+    {
+      "path": "data/raw/ioc/valparaiso/valp_rad_20110311_20110314.json",
+      "sha256": "17abf35da4b47ec9d30bc3eed81bd5fb96c8bd761cea264729da6478a7d53233"
+    },
+    {
+      "path": "data/raw/natural-earth/ne_110m_coastline_v4.1.0.zip",
+      "sha256": "664449b39070027e882abb295974d182afec18ca21107273d17e9e8bf6f64817"
+    },
+    {
+      "path": "data/raw/ncei/dart/dart21413_20110301to20110320_meter.txt",
+      "sha256": "6a2716807cc3af2a25bc7ba109e697b6623cf4955a661a083ce2788399f0b007"
+    },
+    {
+      "path": "data/raw/ncei/dart/dart21418_20110301to20110320_meter.txt",
+      "sha256": "137061048c0d92b459f9e4ce865193bddf063309841e1876070a63bf3a269333"
+    },
+    {
+      "path": "data/raw/ncei/dart/dart32401_20110301to20110320_meter.txt",
+      "sha256": "c83bb772263a80ea6c4c6441bd76915211f9def3bd53df738bb6983170ee34af"
+    },
+    {
+      "path": "data/raw/ncei/dart/dart46411_20110301to20110320_meter.txt",
+      "sha256": "7632cfc77ddaeb25c9788aaba7aaf152261e8bb9b614693c75047661d8d849ea"
+    },
+    {
+      "path": "data/raw/ncei/ttt_contours_2011_tohoku_layer17.geojson",
+      "sha256": "77a64b82a18ef424b2720ffe08d551ff743433547ede3b2e23e478fc7d887b28"
+    },
+    {
+      "path": "data/raw/ncei/ttt_contours_2011_tohoku_layer17.metadata.json",
+      "sha256": "0c8f90caa4c3a7f09acca582567a1a80e10c470f4109183a3da21f5eb3b4a5a5"
+    },
+    {
+      "path": "data/raw/nctr/honshu20110311.html",
+      "sha256": "f2df0f70e8e83442f3115b21b9cfdb90f1d88d74173d91a8a17182bb5390b7ab"
+    },
+    {
+      "path": "data/raw/ntwc/saipan/saip_A_2011.070",
+      "sha256": "42ff98b7a335ae858f874bd84a80a94ff2f30023c87d5fc6f6d455f534cacfe5"
+    },
+    {
+      "path": "data/raw/ntwc/saipan/saip_A_2011.071",
+      "sha256": "bc4fcdebdc1c7a9624200bfa1ef9c67f2a5461ea55c00ffbef2795c2edea5f69"
+    },
+    {
+      "path": "data/raw/ntwc/saipan/saip_A_2011.072",
+      "sha256": "fc35c8a8f45f8b80f4940f5b39303ba74f491223f3a30ea8b04c9bfa39f735b0"
+    },
+    {
+      "path": "data/raw/usgs/official20110311054624120_30.csv",
+      "sha256": "bcc2a0730bf9e36a2c234d55551565732be7215eb0182cf6b4cf0d3684f8337e"
+    }
+  ],
+  "lane": "story",
+  "optional_geometry": "executed",
+  "output_manifest_semantics": "outputs.json hashes all files except itself",
+  "run_id": "2026-10-14-story-followups-v3"
+}

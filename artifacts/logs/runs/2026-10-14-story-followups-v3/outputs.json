@@ -1,0 +1,150 @@
+[
+  {
+    "path": "01_regional_context.png",
+    "sha256": "9790e9e27d76f825b98b9f4b26f8ebc65193620a15983bb076a1f897009a2017"
+  },
+  {
+    "path": "01_regional_context.svg",
+    "sha256": "4d243a47faf4c4335accbe2242d8a04330b3b99d5846699db6948f2e47604718"
+  },
+  {
+    "path": "02_coverage_common_day.png",
+    "sha256": "586bbb0cadde28e6a93cad2f8516712d15fd741d787175b1be4d071edf5dc85e"
+  },
+  {
+    "path": "02_coverage_common_day.svg",
+    "sha256": "62f1ebd889d980dedd9bbfbe76176aab2e205bc28d0dc2af72f5891b49bb24a4"
+  },
+  {
+    "path": "03_coverage_mechanisms.png",
+    "sha256": "ad85bcb678a11cad22c9801638137557455d27e7bd3331b1143f5bad09f47821"
+  },
+  {
+    "path": "03_coverage_mechanisms.svg",
+    "sha256": "2bf5636eb2a6e2499e6c408c029dac816c814e6771d97568766418cb21d03081"
+  },
+  {
+    "path": "04_gap_details.png",
+    "sha256": "a56dca892be8a1912a171d6940d6c60f6db7a90bb54a5518110365e47a7e14f0"
+  },
+  {
+    "path": "04_gap_details.svg",
+    "sha256": "013ac30c9ca2923ad685006c85c7265bccb1843e5218eb1dd8771f8fdaefd3b7"
+  },
+  {
+    "path": "05_signal_support_matrix.png",
+    "sha256": "b1891bb980b38f7bdcad9c3b0023c6c19afbff057bc62dfd3e2112f70f8d3a79"
+  },
+  {
+    "path": "05_signal_support_matrix.svg",
+    "sha256": "27edb5a8e8517b2bfc20dd7a195ef977821ae80c65bb4f4c15424b5ede928505"
+  },
+  {
+    "path": "06_early_crossing_context.png",
+    "sha256": "19ca2456c21d1e763b651cadda3cdfc1795c502da32171cbc2dc4fb230a2e83a"
+  },
+  {
+    "path": "06_early_crossing_context.svg",
+    "sha256": "0a7706b3ee9aafad7e84ab9d2d7129f5e0a0e84809b32b339936aa18cccd6787"
+  },
+  {
+    "path": "07_control_and_qc_context.png",
+    "sha256": "e55b98c7197fe56ac103af8b64b5041ece7ae6b9885c917409a43f06b3394aa8"
+  },
+  {
+    "path": "07_control_and_qc_context.svg",
+    "sha256": "57eade0694244fe6b22e22357092759325a7642b6c070b60342909297a18625f"
+  },
+  {
+    "path": "08_contour_geometry.png",
+    "sha256": "348106f35443b36825977653856f9737589e319ba960ad3d60d36d7f25cff70b"
+  },
+  {
+    "path": "08_contour_geometry.svg",
+    "sha256": "fdab299bc2de57d841671372e5b882b84e5a57616e7f84246b3a57d0525a9194"
+  },
+  {
+    "path": "contour-distance-envelopes.csv",
+    "sha256": "08f7df944c6c6a43df1f8fb534bfd1358a9d8103f5ed3a00f0f54d29f8c15e44"
+  },
+  {
+    "path": "contour-parts.csv",
+    "sha256": "6a686923b2166cdd0f2cb07f6d9d2fc882432bbb816bb925561bbc49f86f1ad3"
+  },
+  {
+    "path": "coverage-by-window.csv",
+    "sha256": "00bc8a2b80e1ad84ef66b88672c8e34de6a7394ebc8adc95e257ea6ba39936be"
+  },
+  {
+    "path": "coverage-spans.csv",
+    "sha256": "31d79cd9bc8173da9799ab8df98e6466d4be6a35de1e9aada9af238faeef8772"
+  },
+  {
+    "path": "findings.csv",
+    "sha256": "464d7be4ce7e74df9c5703c74ecc55d2dfb93367e4102b9fb2bde123f44dd9a6"
+  },
+  {
+    "path": "gap-blocks.csv",
+    "sha256": "bda9344839053f2162bd5dcf75a33fe53b29bc11ca3ea0ea1fe15e103cacc00c"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "0acc84c53a643b7a0c27a1b9edee70643bbd17954a7daa1e2cade5240a963ddd"
+  },
+  {
+    "path": "label-audit.csv",
+    "sha256": "af15a31cd3b138c272e024ae457a973ecc21497089c6a22b5f9dd463a0e0230d"
+  },
+  {
+    "path": "manifest.json",
+    "sha256": "a6d858d3af980b468528a550696a14b9910e748aad33cb0e8742f352eb7a7b50"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "a9aa14ef8464a174517b15bb15fbc70ba2e08ff09274ed12b3a52fe674aca9bd"
+  },
+  {
+    "path": "off-grid.csv",
+    "sha256": "bff628b2026f689cf7ae7c8babdc0a72afc4f6a9d53029e8d123b5ff79a6a6c0"
+  },
+  {
+    "path": "outputs.json",
+    "sha256": "456cf79c9a6a9c7ef8e14a51567494d71f468c5c5906fadd2c7efbcd4128c8ad"
+  },
+  {
+    "path": "report.md",
+    "sha256": "63e80c5e9fe33d63d447e02bf1f934a34d2397094e502cbb0c7f63ef701427de"
+  },
+  {
+    "path": "setting-reference.csv",
+    "sha256": "b72c4d4880c96f0649aadfc30a5e591897aa364dc33db35204dfb8c59163241c"
+  },
+  {
+    "path": "signal-support.csv",
+    "sha256": "79d4b5229b23eb22908193c73c55bbcebab8493c6776f59aa34044d417304213"
+  },
+  {
+    "path": "signal-windows.csv",
+    "sha256": "92c64d9d104b905822af6c798c7ef29114b4833bbbd59326035943cbfe30c98d"
+  },
+  {
+    "path": "source-qc-reference.csv",
+    "sha256": "ed26677ce0d5e6afe6a455d88aa91a1a80c5e84df9b63fd175aa71fc675f2bf9"
+  },
+  {
+    "path": "source-references.csv",
+    "sha256": "6040e203bf00f8ac43d8a6f7e6888ad8c655bff507c6fddfff144419d283c348"
+  },
+  {
+    "path": "station-reference.csv",
+    "sha256": "613766398a381ed6e6dd2ca245e2f9d55afabb73514c3fee03469bf5f544b8e4"
+  },
+  {
+    "path": "story-question-evidence.csv",
+    "sha256": "49f57ea9e4e1a50ea1355986a2d7b9b36a774975bed2f1b880a5810ee1a11cad"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "a7d7d85c07c835bec3252c1fc236ec3bc5b27e7bb136cb085beac5b6a6b2ce13"
+  }
+]
