@@ -207,3 +207,8 @@ at approximately 24.7 MB. Load manifest/geometry first, then selected/pinned
 station chunks on demand. No source-preserving performance remedy beyond this
 chunking has been approved. Independent browser performance/accessibility checks
 belong to the consuming demos; this exporter makes no measured UI claim.
+
+The [demo guide](../../app/src/demos/README.md) documents the paired/radial
+consumers, local static preview and verification boundaries. Portable frontend
+checks do not require ignored data; `npm --workspace app run test:demos` explicitly
+tests the accepted local bundle and fails clearly when it is absent.

@@ -56,8 +56,11 @@ source metadata was verified, so images and shifted comparison plots are not
 used as substitutes. The published NCTR source coefficients are retained as
 separate source evidence.
 
-The browser shell does not yet contain a simulated wave, operational warning
-information, or an accepted scientific story claim.
+The browser shell does not contain a simulated wave, operational warning
+information, or an accepted scientific story claim. Separate internal
+[working demos](app/src/demos/README.md) now compare paired records and a
+station-linked radial lens using the verified descriptive data. Both expose
+exact observation rows, source support and provenance; neither validates arrivals.
 
 ## Dataset gathering
 
@@ -265,7 +268,8 @@ Tsunami-Warning-Times/
 ├── docs/                   Scientific methods, sources, and feasibility research
 ├── notebooks/              Thin Marimo views over script-generated artifacts
 ├── pipeline/               Reusable typed acquisition, normalization, and EDA modules
-├── public/data/            Current ignored location for generated web assets
+├── app/demo-public/data/   Ignored internal paired/lens demo evidence exports
+├── public/data/            Existing ignored web-asset staging area
 ├── scripts/                Reproducible command-line entry points
 └── tests/                  Data-contract, pipeline, and provenance tests
 ```
