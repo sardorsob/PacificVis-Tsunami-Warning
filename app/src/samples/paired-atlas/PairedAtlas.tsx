@@ -10,7 +10,7 @@ export function PairedAtlas() {
     </section>
 
     <section className="paired-atlas__geography" aria-labelledby="paired-map-title">
-      <div className="paired-atlas__map-copy"><p className="paired-atlas__eyebrow">THE SPATIAL VIEW</p><h2 id="paired-map-title">Start with<br />a sense of place.</h2><p>Two markers locate the examples. The records below remain separate: a map position is not an arrival estimate.</p><div className="paired-atlas__map-key"><span><i /> Fictional station</span><span>Illustrative layout · no physical arrival field</span></div></div>
+      <div className="paired-atlas__map-copy"><p className="paired-atlas__eyebrow">THE SPATIAL VIEW</p><h2 id="paired-map-title">Start with<br /> a sense of place.</h2><p>Two markers locate the examples. The records below remain separate: a map position is not an arrival estimate.</p><div className="paired-atlas__map-key"><span><i /> Fictional station</span><span>Illustrative layout · no physical arrival field</span></div></div>
       <StationMap stations={stationFixtures} highlightedId="station-a" />
     </section>
 

@@ -206,4 +206,11 @@ describe("sample gallery", () => {
     const heading = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "";
     expect(heading.replace(/<br\s*\/?\s*>/g, "")).toBe("A place above. A record below.");
   });
+
+  it("keeps a literal space in the paired atlas map heading when the responsive break is hidden", () => {
+    const sample = resolveSample("?sample=paired-atlas");
+    const html = renderToStaticMarkup(<sample.Component />);
+    const heading = html.match(/<h2 id="paired-map-title">([\s\S]*?)<\/h2>/)?.[1] ?? "";
+    expect(heading.replace(/<br\s*\/?\s*>/g, "")).toBe("Start with a sense of place.");
+  });
 });
