@@ -1,0 +1,56 @@
+.radial-record { max-width: 1440px; margin: 0 auto; padding: 42px 40px 32px; }
+.radial-record h1, .radial-record h2, .radial-record p { margin: 0; }
+.radial-record__intro { display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: end; margin-bottom: 38px; }
+.radial-record .radial-record__eyebrow { font-size: 11px; font-weight: 750; letter-spacing: .14em; color: #52696c; margin-bottom: 12px; }
+.radial-record h1 { font: 400 clamp(38px, 4.2vw, 62px)/1.05 Georgia, serif; letter-spacing: -.04em; }
+.radial-record h1 em { color: #a94625; font-weight: 400; }
+.radial-record__lead > p:first-child { font-size: 19px; line-height: 1.5; max-width: 450px; }
+.radial-record__lead > p:last-child { font-size: 12px; line-height: 1.5; color: #8d391f; border-left: 2px solid #a94625; padding-left: 12px; margin-top: 18px; }
+.radial-record__lens { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 300px minmax(0, 1fr); column-gap: 30px; row-gap: 38px; align-items: center; padding-top: 10px; }
+.radial-record__connections { position: absolute; inset: 0; pointer-events: none; }
+.radial-record__connections i { position: absolute; height: 1px; top: 190px; background: #a8bcb7; width: 27%; }
+.radial-record__connections i:nth-child(1) { left: 25%; transform: rotate(12deg); }
+.radial-record__connections i:nth-child(2) { right: 25%; transform: rotate(-12deg); }
+.radial-record__connections i:nth-child(3) { width: 1px; height: 230px; left: 50%; top: 190px; }
+.radial-record__focus { grid-column: 2; grid-row: 1; position: relative; text-align: center; padding: 24px 0; }
+.radial-record__focus::before { content: ""; position: absolute; z-index: 0; width: 300px; height: 300px; border: 1px solid #bbc9c0; border-radius: 50%; background: #edf0e6; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 12px #f5f5ef, 0 0 0 13px #dce2d8; }
+.radial-record__focus > * { position: relative; }
+.radial-record__focus h2 { font: 400 27px Georgia, serif; margin-bottom: 15px; }
+.radial-record__focus .sample-map { text-align: left; }
+.radial-record__focus .sample-map figcaption { font-size: 12px; margin-top: 8px; }
+.radial-record .radial-record__focus-note { font-size: 12px; line-height: 1.5; color: #52696c; margin-top: 12px; }
+.radial-record__arm { position: relative; z-index: 1; min-width: 0; padding: 22px; background: #fcfcf8; border: 1px solid #d4ded6; border-radius: 3px; }
+.radial-record__arm--trace { grid-column: 1; grid-row: 1; border-top: 3px solid #a94625; }
+.radial-record__arm--comparison { grid-column: 3; grid-row: 1; border-top: 3px solid #32696e; }
+.radial-record__arm--coverage { grid-column: 1 / -1; grid-row: 2; width: 550px; justify-self: center; }
+.radial-record__arm header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.radial-record__number { font: 400 30px/1 Georgia, serif; color: #a94625; padding-top: 2px; }
+.radial-record__arm .radial-record__eyebrow { font-size: 10px; margin-bottom: 6px; }
+.radial-record__arm h2 { font-size: 20px; font-weight: 550; letter-spacing: -.025em; }
+.radial-record .radial-record__description { font-size: 13px; line-height: 1.6; color: #52696c; margin-bottom: 20px; }
+.radial-record__closing { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; border-top: 1px solid #cbd6d0; margin-top: 32px; padding-top: 22px; }
+.radial-record__closing > p:first-child { font: 25px/1.2 Georgia, serif; }
+.radial-record__closing > p:last-child { font-size: 12px; line-height: 1.7; color: #52696c; max-width: 540px; }
+@media (max-width: 1100px) {
+  .radial-record { padding: 30px 24px; }
+  .radial-record__intro { gap: 32px; }
+  .radial-record__lens { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .radial-record__focus { grid-column: 1; grid-row: 1; width: 310px; justify-self: center; margin-bottom: 6px; }
+  .radial-record__arm { grid-column: 1; grid-row: auto; width: min(100%, 620px); justify-self: center; }
+  .radial-record__arm--trace { grid-row: 2; }
+  .radial-record__arm--coverage { grid-row: 3; }
+  .radial-record__arm--comparison { grid-row: 4; }
+  .radial-record__connections i { display: none; }
+  .radial-record__connections i:nth-child(3) { display: block; top: 160px; height: calc(100% - 180px); }
+}
+@media (max-width: 600px) {
+  .radial-record { padding: 28px 16px; }
+  .radial-record__intro, .radial-record__closing { grid-template-columns: 1fr; gap: 20px; }
+  .radial-record__intro { margin-bottom: 24px; }
+  .radial-record h1 { font-size: 42px; }
+  .radial-record__lead > p:first-child { font-size: 17px; }
+  .radial-record__arm { padding: 16px; }
+  .radial-record__arm header { gap: 12px; }
+  .radial-record__arm h2 { font-size: 19px; }
+  .radial-record__arm .radial-record__eyebrow { font-size: 10px; }
+}

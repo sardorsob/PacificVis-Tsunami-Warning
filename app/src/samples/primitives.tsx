@@ -53,7 +53,7 @@ export function TraceChart({ station }: StationChartProps) {
   const y = (value: number) => 96 - value * 5;
   return <figure className="sample-trace sample-figure">
     <svg viewBox="0 0 520 220" role="img" aria-labelledby={titleId}>
-      <title id={titleId}>{station.name}: invented water-level trace in cm over 0 to 60 minutes. Missing observations are gaps.</title>
+      <title id={titleId}>{`${station.name}: invented water-level trace in cm over 0 to 60 minutes. Missing observations are gaps.`}</title>
       <g stroke="#dce3e1" strokeWidth="1"><path d="M52 46H490 M52 96H490 M52 146H490" /></g>
       <g fill="#52696c" fontSize="22">
         <text x="6" y="52">10</text><text x="18" y="102">0</text><text x="0" y="152">−10</text>
@@ -71,7 +71,7 @@ export function CoverageChart({ station }: StationChartProps) {
   const titleId = useId();
   return <figure className="sample-coverage sample-figure">
     <svg viewBox="0 0 520 112" role="img" aria-labelledby={titleId}>
-      <title id={titleId}>{station.name}: illustrative observation coverage. Filled cells available, outlined cells unavailable. Invented examples.</title>
+      <title id={titleId}>{`${station.name}: illustrative observation coverage. Filled cells available, outlined cells unavailable. Invented examples.`}</title>
       {station.points.map((point) => <rect key={point.minute} x={43 + point.minute / 60 * 438} y="12" width="18" height="22" rx="2" fill={point.value === null ? "none" : "#32696e"} stroke={point.value === null ? "#788d8c" : "#32696e"} strokeWidth="1.5" strokeDasharray={point.value === null ? "3 2" : undefined} />)}
       <g fill="#52696c" fontSize="22"><text x="52" y="63">0</text><text x="490" y="63" textAnchor="end">60 minutes →</text>
         <rect x="52" y="82" width="14" height="14" fill="#32696e" /><text x="74" y="97">Available</text>
