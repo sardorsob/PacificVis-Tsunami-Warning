@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "e5fbc6ce879d0a18276bc01c6fd07385a8a40a49",
+  "sourceCommit": "586773744a9094f0c6670b827e8cff1392e5be87",
+  "captureMode": "built-static gallery",
   "illustrativeOnly": true,
   "scientificResults": false,
   "measurementNote": "SVG text bounds are DOM glyph bounding-box heights, not a font-size or accessibility certification. Full-page screenshots may extend below the specified viewport.",
@@ -16,6 +17,7 @@
       "documentWidth": 1440,
       "heading": "One ocean.Two perspectives.",
       "navigationCount": 8,
+      "pairedHeading": "Start with a sense of place.",
       "minSvgTextBoundsPx": 25
     },
     {
@@ -25,10 +27,11 @@
       "cssHeight": 844,
       "cssWidth": 390,
       "disclosed": true,
-      "documentHeight": 2672,
+      "documentHeight": 2708,
       "documentWidth": 390,
       "heading": "One ocean.Two perspectives.",
       "navigationCount": 8,
+      "pairedHeading": "Start with a sense of place.",
       "minSvgTextBoundsPx": 16
     },
     {
@@ -42,6 +45,7 @@
       "documentWidth": 844,
       "heading": "One ocean.Two perspectives.",
       "navigationCount": 8,
+      "pairedHeading": "Start with a sense of place.",
       "minSvgTextBoundsPx": 21.5
     },
     {
