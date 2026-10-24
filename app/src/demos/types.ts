@@ -1,5 +1,5 @@
 export type ProductKey = "raw_value" | "residual_value" | "fitted_value";
-export type DemoState = { view: "paired" | "radial"; selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey };
+export type DemoState = { view: "paired" | "radial" | "story"; selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey };
 export type Product = { key: ProductKey; label: string; units: string; available: boolean };
 export type Source = { source_id: string; title: string; publisher: string; accessed_on: string; version_or_date: string; license_or_terms: string; processing_level: string; sha256: string; url: string | null };
 export type StationMetadata = { station_id: string; source_id: string; station_type: "coastal" | "dart"; name: string; units: string; vertical_reference: string; horizontal_datum: string; coordinate_order: string; time_basis: string; latitude: number; longitude: number; observation_count: number; source: Source; products: Product[] };
