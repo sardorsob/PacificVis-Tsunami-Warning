@@ -315,6 +315,18 @@ Start the current browser shell:
 npm run dev
 ```
 
+The separate [appearance gallery](app/src/samples/README.md) compares eight
+coded layout drafts using visibly invented Station A/B fixtures. It does not
+replace the story shell or present scientific results:
+
+```bash
+npm run samples -- --host 127.0.0.1 --port 4178 --strictPort
+```
+
+Open `http://127.0.0.1:4178/samples.html?sample=paired-atlas`. Saved desktop,
+portrait, and landscape [screenshots](artifacts/ui-samples/2026-10-23/README.md)
+allow comparison without running the gallery.
+
 Run the full repository gate:
 
 ```bash
