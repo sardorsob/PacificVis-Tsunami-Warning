@@ -63,6 +63,19 @@ export const linePath=(parts: Pt[][], close=false)=>parts.map(part=>`M${part.map
 export function hourPaths(contours: ContourFeature[]): Map<number,string> {
   const out=new Map<number,string>();for(const f of contours)out.set(f.hours,(out.get(f.hours)??"")+linePath(f.parts));return out;
 }
+/** Label anchors for index hours: the vertex nearest a south-east ray from the epicentre (SVG space). */
+export function labelAnchors(contours: ContourFeature[], epicentre: Pt, maxOffset = 400_000): Map<number,Pt> {
+  const n=Math.hypot(1,0.62),dir:Pt=[1/n,0.62/n],out=new Map<number,Pt>(),best=new Map<number,number>();
+  for(const f of contours){if(!f.index)continue;for(const part of f.parts)for(const p of part){const dx=p[0]-epicentre[0],dy=p[1]-epicentre[1];if(dx*dir[0]+dy*dir[1]<=0)continue;
+    const off=Math.abs(dx*dir[1]-dy*dir[0]);if(off<(best.get(f.hours)??maxOffset)){best.set(f.hours,off);out.set(f.hours,p);}}}
+  return out;
+}
+/** A point midway between two published hours near the given anchor: used only to aim the lens, never as a value. */
+export function pointBetween(contours: ContourFeature[], anchor: Pt, laterHour: number): Pt | null {
+  let best:Pt|null=null,d=Infinity;
+  for(const f of contours)if(f.hours===laterHour)for(const part of f.parts)for(const p of part){const q=(p[0]-anchor[0])**2+(p[1]-anchor[1])**2;if(q<d){d=q;best=p;}}
+  return best?[(anchor[0]+best[0])/2,(anchor[1]+best[1])/2]:null;
+}
 /** The nearest published hour and its nearer neighbour at an SVG-space point; null beyond maxDistance. Never interpolates a time. */
 export function nearestHours(contours: ContourFeature[], x: number, y: number, maxDistance: number): { a: number; b: number } | null {
   const best=new Map<number,number>();

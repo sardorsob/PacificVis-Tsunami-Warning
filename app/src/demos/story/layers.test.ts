@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hourPaths, nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
+import { hourPaths, labelAnchors, nearestHours, pointBetween, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 
 // Deliberate unit-test geometry; never a fallback for the real layers bundle.
 const manifestInput = () => ({
@@ -32,6 +32,11 @@ describe("story map layers", () => {
     expect(hourPaths(contours).get(2)).toBe("M0 -2000L1000 -2000");
     const coast = validateCoastline({ schema_version: "1", source_id: "natural-earth-50m-coastline", parts: [[[0, 10], [5, 10], [0, 10]]], closed: [true] }, manifest);
     expect(coast.parts[0][0]).toEqual([0, -10]);
+  });
+  it("anchors index labels south-east of the epicentre and aims between two hours", () => {
+    const indexed = contours.map(f => ({ ...f, index: true }));
+    expect(labelAnchors(indexed, [-5000, -5000], 1e9).get(1)).toEqual([1000, -0]);
+    expect(pointBetween(contours, [0, 0], 2)).toEqual([0, -1000]);
   });
   it("names the two nearest published hours, never an interpolated time", () => {
     expect(nearestHours(contours, 500, 900, 5000)).toEqual({ a: 1, b: 2 });

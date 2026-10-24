@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { clockLabel, seek, tick, toggle, utcAt, T_MAX } from "./clock";
 import { contourStyle, pulseWidth } from "./reveal";
-import { capture, footprintRadius, slot } from "./lens";
+import { capture, footprintRadius, slot } from "./lensMath";
 import { STEPS, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
