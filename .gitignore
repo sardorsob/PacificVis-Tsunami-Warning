@@ -25,6 +25,7 @@ __pycache__/
 
 node_modules/
 app/dist/
+app/demo-public/
 *.tsbuildinfo
 coverage/
 playwright-report/
