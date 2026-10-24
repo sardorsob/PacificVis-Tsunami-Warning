@@ -10,7 +10,7 @@ describe("sample gallery", () => {
     expect(resolveSample("?sample=paired-atlas").id).toBe("paired-atlas");
     expect(resolveSample("?sample=not-a-sample").id).toBe("paired-atlas");
     expect(resolveSample("").id).toBe("paired-atlas");
-    expect(sampleDefinitions.map((sample) => sample.id)).toEqual(["paired-atlas", "radial-record", "radial-comparison", "timeline-map", "editorial-story"]);
+    expect(sampleDefinitions.map((sample) => sample.id)).toEqual(["paired-atlas", "radial-record", "radial-comparison", "timeline-map", "editorial-story", "mobile-inspector"]);
   });
 
   it("renders the selected sample with visible illustrative disclosure and accessible navigation", () => {
@@ -121,5 +121,30 @@ describe("sample gallery", () => {
     } finally {
       errors.mockRestore();
     }
+  });
+
+  it("opens the mobile inspector with Station A owning the map highlight and both upright charts", () => {
+    const sample = resolveSample("?sample=mobile-inspector");
+    expect(sample.id).toBe("mobile-inspector");
+    const html = renderToStaticMarkup(<sample.Component />);
+    expect(html).toContain('class="mobile-inspector"');
+    expect(html).toContain("Invented examples");
+    expect(html).toContain("not scientific results");
+    expect(html).toContain("Fictional");
+    expect(html).toContain("Schematic Pacific");
+    expect(html).toContain('<label for="mobile-inspector-station">Inspect station</label>');
+    expect(html).toContain('<option value="station-a" selected="">Station A</option>');
+    expect(html).toContain('<option value="station-b">Station B</option>');
+    expect(html).toContain('aria-label="Station A inspector"');
+    expect(html).toContain("Open-ocean example");
+    expect(html).toContain('aria-label="Station A water-level trace"');
+    expect(html).toContain('aria-label="Station A observation coverage"');
+    expect(html).toContain('Station A: invented water-level trace');
+    expect(html).toContain('Station A: illustrative observation coverage');
+    expect(html).toContain('transform="translate(243.2 167.2)"><circle r="17" fill="none" stroke="#a94625"');
+    expect(html).toContain('transform="translate(435.20000000000005 235.6)"><circle r="17" fill="none" stroke="#32696e"');
+    expect(html.match(/data-trace-segment=/g)).toHaveLength(2);
+    expect(html).toContain("Unavailable");
+    expect(html.indexOf("Schematic Pacific")).toBeLessThan(html.indexOf('aria-label="Station A inspector"'));
   });
 });

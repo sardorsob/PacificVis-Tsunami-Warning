@@ -4,6 +4,7 @@ import { RadialRecord } from "./radial-record/RadialRecord";
 import { RadialComparison } from "./radial-comparison/RadialComparison";
 import { TimelineMap } from "./timeline-map/TimelineMap";
 import { EditorialStory } from "./editorial-story/EditorialStory";
+import { MobileInspector } from "./mobile-inspector/MobileInspector";
 
 export type SampleDefinition = { id: string; name: string; question: string; Component: () => ReactElement };
 export type SampleId = SampleDefinition["id"];
@@ -14,6 +15,7 @@ export const sampleDefinitions: readonly SampleDefinition[] = [
   { id: "radial-comparison", name: "Radial comparison", question: "Can an asymmetric orbit preserve a pinned reference while another record is compared?", Component: RadialComparison },
   { id: "timeline-map", name: "Timeline map", question: "Can one linear time rail make missing moments visible before the station detail?", Component: TimelineMap },
   { id: "editorial-story", name: "Editorial story", question: "Can an authored reading order bring the limits of a record into focus?", Component: EditorialStory },
+  { id: "mobile-inspector", name: "Mobile inspector", question: "Can a map-first sheet keep one selected station and its record together on a phone?", Component: MobileInspector },
 ];
 
 export function resolveSample(search: string): SampleDefinition {
