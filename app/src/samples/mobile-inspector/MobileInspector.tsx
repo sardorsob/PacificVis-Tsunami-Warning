@@ -11,7 +11,7 @@ export function MobileInspector() {
     <section className="mobile-inspector__atlas" aria-labelledby="mobile-inspector-title">
       <header className="mobile-inspector__intro">
         <p className="mobile-inspector__eyebrow">06 / MAP FIRST · APPEARANCE STUDY</p>
-        <h1 id="mobile-inspector-title">A place above.<br />A record below.</h1>
+        <h1 id="mobile-inspector-title">A place above.<br /> A record below.</h1>
         <p className="mobile-inspector__notice">{fixtureNotice}. Fictional stations, positions and values. Not a warning tool.</p>
       </header>
       <div className="mobile-inspector__map">

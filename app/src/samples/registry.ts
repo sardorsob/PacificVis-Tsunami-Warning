@@ -5,6 +5,8 @@ import { RadialComparison } from "./radial-comparison/RadialComparison";
 import { TimelineMap } from "./timeline-map/TimelineMap";
 import { EditorialStory } from "./editorial-story/EditorialStory";
 import { MobileInspector } from "./mobile-inspector/MobileInspector";
+import { MapOverlayLens } from "./map-overlay-lens/MapOverlayLens";
+import { EvidenceLedger } from "./evidence-ledger/EvidenceLedger";
 
 export type SampleDefinition = { id: string; name: string; question: string; Component: () => ReactElement };
 export type SampleId = SampleDefinition["id"];
@@ -16,6 +18,8 @@ export const sampleDefinitions: readonly SampleDefinition[] = [
   { id: "timeline-map", name: "Timeline map", question: "Can one linear time rail make missing moments visible before the station detail?", Component: TimelineMap },
   { id: "editorial-story", name: "Editorial story", question: "Can an authored reading order bring the limits of a record into focus?", Component: EditorialStory },
   { id: "mobile-inspector", name: "Mobile inspector", question: "Can a map-first sheet keep one selected station and its record together on a phone?", Component: MobileInspector },
+  { id: "map-overlay-lens", name: "Map-overlay lens", question: "Can upright chart arms float over a broad map without losing their station anchor?", Component: MapOverlayLens },
+  { id: "evidence-ledger", name: "Evidence ledger", question: "Can a compact evidence desk make every example value and gap inspectable?", Component: EvidenceLedger },
 ];
 
 export function resolveSample(search: string): SampleDefinition {
