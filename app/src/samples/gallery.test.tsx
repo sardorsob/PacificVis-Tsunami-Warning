@@ -10,7 +10,7 @@ describe("sample gallery", () => {
     expect(resolveSample("?sample=paired-atlas").id).toBe("paired-atlas");
     expect(resolveSample("?sample=not-a-sample").id).toBe("paired-atlas");
     expect(resolveSample("").id).toBe("paired-atlas");
-    expect(sampleDefinitions.map((sample) => sample.id)).toEqual(["paired-atlas", "radial-record", "radial-comparison"]);
+    expect(sampleDefinitions.map((sample) => sample.id)).toEqual(["paired-atlas", "radial-record", "radial-comparison", "timeline-map", "editorial-story"]);
   });
 
   it("renders the selected sample with visible illustrative disclosure and accessible navigation", () => {
@@ -73,6 +73,41 @@ describe("sample gallery", () => {
     expect(map).toContain("not to scale");
     expect(map).toContain("Station A");
     expect(map).toContain("Invented examples");
+  });
+
+  it.each([
+    ["timeline-map", "Two records. One shared timeline."],
+    ["editorial-story", "What a record leaves unsaid."],
+  ])("resolves and renders %s with distinct narrative hierarchy and disclosed evidence", (id, title) => {
+    const sample = resolveSample(`?sample=${id}`);
+    expect(sample.id).toBe(id);
+    const html = renderToStaticMarkup(<sample.Component />);
+    expect(html).toContain(`class="${id}"`);
+    expect(html).toContain(title);
+    expect(html).toContain("Invented examples");
+    expect(html).toContain("not scientific results");
+    expect(html).toContain("Fictional");
+    expect(html).toContain("Station A");
+    expect(html).toContain("Station B");
+    expect(html).toContain("Schematic Pacific");
+    expect(html.match(/<svg /g)?.length).toBeGreaterThanOrEqual(5);
+    expect(html.match(/data-trace-segment=/g)).toHaveLength(4);
+    expect(html).toContain("Water-level trace");
+    expect(html).toContain("Observation coverage");
+    expect(html).toContain("Unavailable");
+  });
+
+  it("leads the timeline with a shared linear rail and embeds editorial evidence in reading order", () => {
+    const timeline = resolveSample("?sample=timeline-map");
+    const timelineHtml = renderToStaticMarkup(<timeline.Component />);
+    expect(timelineHtml).toContain('aria-label="Shared elapsed example time"');
+    expect(timelineHtml).toContain("0–60 minutes");
+    expect(timelineHtml.indexOf('aria-label="Shared elapsed example time"')).toBeLessThan(timelineHtml.indexOf('aria-label="Station A evidence"'));
+    const story = resolveSample("?sample=editorial-story");
+    const storyHtml = renderToStaticMarkup(<story.Component />);
+    expect(storyHtml).toContain('<article class="editorial-story__essay"');
+    expect(storyHtml.indexOf("First, a place to look.")).toBeLessThan(storyHtml.indexOf('aria-label="Station A evidence"'));
+    expect(storyHtml.indexOf('aria-label="Station A evidence"')).toBeLessThan(storyHtml.indexOf('aria-label="Station B evidence"'));
   });
 
   it("renders station-owned SVG titles without React title-children warnings", () => {
