@@ -13,6 +13,7 @@
     "build": "tsc --noEmit && vite build && node scripts/check-build.mjs",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:demos": "vitest run --config vitest.demos.config.ts",
     "typecheck": "tsc --noEmit --pretty false"
   },
   "dependencies": {
