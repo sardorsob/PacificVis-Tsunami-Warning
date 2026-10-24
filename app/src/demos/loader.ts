@@ -5,15 +5,15 @@ export const STATION_IDS = ["1617760","1770000","21413","21418","32401","46411",
 export const PRODUCT_KEYS = ["raw_value","residual_value","fitted_value"] as const;
 export const COLUMNS = ["observation_id","source_id","station_id","source_time","observed_at_utc","raw_value","fitted_value","residual_value","units","vertical_reference","raw_status","residual_status","grid_status","qc_flags","source_qc_status"] as const;
 const WINDOW_IDS = ["common_day","event_minus4_to_0h","event_0_to_6h","event_6_to_12h","event_12_to_18h","source_full"];
-type Obj = Record<string,unknown>;
-function requireValue(valid: unknown, message: string): asserts valid { if (!valid) throw new Error(`Demo data rejected: ${message}`); }
-function object(value: unknown): Obj { requireValue(value !== null && typeof value === "object" && !Array.isArray(value),"expected object"); return value as Obj; }
-function keys(value: Obj, allowed: readonly string[]) { requireValue(Object.keys(value).every(k=>allowed.includes(k)) && allowed.every(k=>k in value),"unexpected or missing fields"); }
-function text(value: unknown): asserts value is string { requireValue(typeof value === "string" && value.length>0,"expected nonempty text"); }
-function finite(value: unknown): asserts value is number { requireValue(typeof value === "number" && Number.isFinite(value),"expected finite number"); }
-function count(value: unknown): asserts value is number { finite(value); requireValue(Number.isInteger(value)&&value>=0,"expected nonnegative count"); }
-function hash(value: unknown) { requireValue(typeof value === "string" && /^[a-f0-9]{64}$/.test(value),"invalid SHA256"); }
-function array(value: unknown): unknown[] { requireValue(Array.isArray(value),"expected array"); return value; }
+export type Obj = Record<string,unknown>;
+export function requireValue(valid: unknown, message: string): asserts valid { if (!valid) throw new Error(`Demo data rejected: ${message}`); }
+export function object(value: unknown): Obj { requireValue(value !== null && typeof value === "object" && !Array.isArray(value),"expected object"); return value as Obj; }
+export function keys(value: Obj, allowed: readonly string[]) { requireValue(Object.keys(value).every(k=>allowed.includes(k)) && allowed.every(k=>k in value),"unexpected or missing fields"); }
+export function text(value: unknown): asserts value is string { requireValue(typeof value === "string" && value.length>0,"expected nonempty text"); }
+export function finite(value: unknown): asserts value is number { requireValue(typeof value === "number" && Number.isFinite(value),"expected finite number"); }
+export function count(value: unknown): asserts value is number { finite(value); requireValue(Number.isInteger(value)&&value>=0,"expected nonnegative count"); }
+export function hash(value: unknown) { requireValue(typeof value === "string" && /^[a-f0-9]{64}$/.test(value),"invalid SHA256"); }
+export function array(value: unknown): unknown[] { requireValue(Array.isArray(value),"expected array"); return value; }
 function strings(value: unknown) { array(value).forEach(text); }
 function oneOf(value: unknown, values: readonly unknown[]) { requireValue(values.includes(value),"unsupported value"); }
 export function utcMicros(value: string): bigint {
@@ -67,13 +67,16 @@ export function validateManifest(input: unknown): DemoManifest {
   return m as DemoManifest;
 }
 
+export async function fetchHashed(url: string,byteCount: number,sha256: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<unknown> {
+  const response=await request(url,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`asset HTTP ${response.status}`);
+  const bytes=await response.arrayBuffer();signal?.throwIfAborted();requireValue(bytes.byteLength===byteCount,"asset byte count mismatch");
+  const digest=await crypto.subtle.digest("SHA-256",bytes); const actual=Array.from(new Uint8Array(digest),v=>v.toString(16).padStart(2,"0")).join("");
+  signal?.throwIfAborted();requireValue(actual===sha256,"asset hash mismatch");
+  return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(bytes)) as unknown;
+}
 export async function fetchVerifiedAsset(manifest: DemoManifest,path: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<unknown> {
   const descriptor=manifest.assets.find(a=>a.path===path);requireValue(descriptor,"asset not in manifest");asset(descriptor);
-  const response=await request(`/data/${manifest.bundle_id}/${path}`,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`asset HTTP ${response.status}`);
-  const bytes=await response.arrayBuffer();signal?.throwIfAborted();requireValue(bytes.byteLength===descriptor.bytes,"asset byte count mismatch");
-  const digest=await crypto.subtle.digest("SHA-256",bytes); const actual=Array.from(new Uint8Array(digest),v=>v.toString(16).padStart(2,"0")).join("");
-  signal?.throwIfAborted();requireValue(actual===descriptor.sha256,"asset hash mismatch");
-  return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(bytes)) as unknown;
+  return fetchHashed(`/data/${manifest.bundle_id}/${path}`,descriptor.bytes,descriptor.sha256,signal,request);
 }
 export async function loadManifest(signal?: AbortSignal): Promise<DemoManifest> {
   const response=await fetch(MANIFEST_URL,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`manifest HTTP ${response.status}`);return validateManifest(await response.json());
