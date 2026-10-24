@@ -8,6 +8,8 @@
   },
   "scripts": {
     "dev": "vite",
+    "samples": "vite --config vite.samples.config.ts",
+    "samples:build": "tsc --noEmit && vite build --config vite.samples.config.ts",
     "build": "tsc --noEmit && vite build && node scripts/check-build.mjs",
     "preview": "vite preview",
     "test": "vitest run",

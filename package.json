@@ -11,6 +11,8 @@
   ],
   "scripts": {
     "dev": "npm --workspace app run dev",
+    "samples": "npm --workspace app run samples --",
+    "samples:build": "npm --workspace app run samples:build",
     "build": "npm --workspace app run build",
     "test": "npm --workspace app run test",
     "typecheck": "npm --workspace app run typecheck",
