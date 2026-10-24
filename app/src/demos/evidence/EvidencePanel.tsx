@@ -31,6 +31,7 @@ function SpanTable({ spans, label, identity }: { spans: CoverageSpan[]; label: s
   return <details className="evidence__spans"><summary>{label} ({spans.length})</summary>
     {spans.length === 0 ? <p>No reviewed {label.toLowerCase()} supplied; no missingness or outage cause is inferred.</p> : <>
       <PageControls {...page} count={spans.length} label={label} onPage={next => setPosition({ identity, page: next })} />
+      <p>Scroll sideways to inspect all columns.</p>
       <div className="evidence__table-region" role="region" aria-label={`${label} — horizontally scrollable`} tabIndex={0}>
         <table><caption>{label}: original reviewed fields; UTC intervals are half-open.</caption>
           <thead><tr>{["Start UTC", "End UTC (exclusive)", "Status", "Absent", "Source blank", "Affected positions", "Classification", "Classification semantics", "Endpoint semantics", "Left observed UTC", "Right observed UTC", "Within-block raw-valid"].map(text => <th scope="col" key={text}>{text}</th>)}</tr></thead>
@@ -94,6 +95,7 @@ export function EvidencePanel({ manifest, station, records, windowId, productKey
         <h3>Exact observation inputs</h3>
         <p>All selected-window source rows, including nulls and off-grid observations. Values are unrounded. Zero is a value; null is not zero. Absent timestamps are not fabricated rows. Source QC is retained, not filtered; empty flags do not certify a QC pass.</p>
         <PageControls {...page} count={rows.length} label="Observation rows" onPage={next => setPosition({ identity, page: next })} />
+        <p>Scroll sideways to inspect all columns.</p>
         <div className="evidence__table-region" role="region" aria-label="Exact observation rows — horizontally scrollable" tabIndex={0}>
           <table><caption>{station.name} · {productLabel} · source inputs, page {page.page}</caption>
             <thead><tr>{["Observation ID", productLabel, "Observed at UTC", "Source time (original)", "Raw status", "Residual status", "Grid status", "Source QC status", "Publisher QC flags (verbatim)", "Row units", "Row vertical reference", "Source ID", "Station ID"].map(label => <th scope="col" key={label}>{label}</th>)}</tr></thead>

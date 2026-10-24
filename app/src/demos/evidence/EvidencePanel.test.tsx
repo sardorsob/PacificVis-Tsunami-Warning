@@ -109,6 +109,11 @@ describe("portable exact evidence panel", () => {
     expect(html).toContain("test endpoint semantics");
     expect(html.match(/<td>publisher_blank<\/td>/g)).toHaveLength(51);
   });
+  it("shows a visible horizontal-scroll cue before each rendered evidence table", () => {
+    const span = { station_id: "test", window_id: "common_day", start_utc: "2011-03-11T00:01:00Z", end_utc_exclusive: "2011-03-11T00:02:00Z", status: "source_blank", absent_n: 0, source_blank_n: 1, affected_position_n: 1, classification: "publisher_blank", classification_semantics: "test classification semantics", endpoint_semantics: "test endpoint semantics", left_observed_utc: "unknown", right_observed_utc: "2011-03-11T00:02:30.123456Z", within_block_valid_raw_n: 0 };
+    const html = render({ records: { ...records, coverage_spans: [span], gap_blocks: [span] } });
+    expect(html.split("Scroll sideways to inspect all columns.")).toHaveLength(4);
+  });
 });
 
 describe("evidence paging bounds and selection identity", () => {
