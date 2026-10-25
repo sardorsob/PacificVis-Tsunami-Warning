@@ -8,6 +8,8 @@ import { contourStyle, nextHaloOpacity, pulseWidth } from "./reveal";
 export type View = { k: number; tx: number; ty: number };
 export const toScreen = (v: View, p: Pt): Pt => [p[0] * v.k + v.tx, p[1] * v.k + v.ty];
 export const toMap = (v: View, x: number, y: number): Pt => [(x - v.tx) / v.k, (y - v.ty) / v.k];
+/** The fitted Pacific every view frames (SVG-space metres: x0, y0, x1, y1). */
+export const PACIFIC_CROP: [number, number, number, number] = [-6.4e6, -6.3e6, 8.9e6, 4.6e6];
 /** Scale limits [min, max], set by the caller from the fitted scale so every screen shares one zoom range. */
 export type KLimits = [number, number];
 export const clampK = (k: number, [lo, hi]: KLimits) => Math.max(lo, Math.min(hi, k));
@@ -108,7 +110,7 @@ export function Marker({ s, x, y, size, filled, ring }: { s: MapStation; x: numb
 }
 type OverlayProps = { view: View; stations: MapStation[]; epicentre: Pt; anchors: Map<number, Pt>; t: number; aId: string | null; bId: string | null };
 /** Screen-space marks: constant size at any zoom. */
-export function Overlay({ view, stations, epicentre, anchors, t, aId, bId }: OverlayProps) {
+export function Overlay({ view, stations, epicentre, anchors, t, aId, bId, labelA = false }: OverlayProps & { labelA?: boolean }) {
   const [ex, ey] = toScreen(view, epicentre);
   return <g className="story-overlay">
     <path d={star(ex, ey, 7, 3)} className="story-epicentre"/>
@@ -117,6 +119,6 @@ export function Overlay({ view, stations, epicentre, anchors, t, aId, bId }: Ove
       return <text key={h} x={x} y={y} className="story-label" textAnchor="middle">{h} h</text>; })}
     {stations.map(s => { const [x, y] = toScreen(view, s.xy), isA = s.id === aId, isB = s.id === bId;
       return <g key={s.id}><Marker s={s} x={x} y={y} size={isA || isB ? 5 : 4} filled={isA || isB} ring={isB ? "var(--story-b)" : undefined}/>
-        {isB && <text x={x + 12} y={y + 4} className="story-label story-label--strong">B · {s.name}</text>}</g>; })}
+        {(isB || (labelA && isA)) && <text x={x + 12} y={y + 4} className="story-label story-label--strong">{isB ? "B" : "A"} · {s.name}</text>}</g>; })}
   </g>;
 }

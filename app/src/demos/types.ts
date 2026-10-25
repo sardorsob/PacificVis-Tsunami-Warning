@@ -33,10 +33,10 @@ export type CoverageSpan = { station_id: string; window_id: string; start_utc: s
 export type StationRecords = { schema_version: "1"; station_id: string; rows: Observation[]; support: Support[]; coverage_spans: CoverageSpan[]; gap_blocks: CoverageSpan[] };
 export type DemoGeometry = { schema_version: "1"; source_crs: "EPSG:4326"; display_crs: string; coordinate_order: "x,y"; central_meridian: -160; coastline: number[][][]; points: {id:string;x:number;y:number}[]; bounds: [number,number,number,number] };
 export type StationSelection = { station: StationMetadata; status: "loading" | "ready" | "error"; records: StationRecords | null; error: string | null };
-export type RadialProps = {
+/** What every view gets from DemoApp: the bundle, the map geometry, the URL state and the two station records. */
+export type ViewProps = {
   manifest: DemoManifest; geometry: DemoGeometry | null; geometryError: string | null; state: DemoState;
   selected: StationSelection; pinned: StationSelection | null;
-  onSelectStation: (stationId:string)=>void; onOpenEvidence: (stationId:string)=>void;
-  onRetryStation: (stationId:string)=>void; onRetryGeometry: ()=>void;
+  onOpenEvidence: (stationId:string)=>void; onRetryStation: (stationId:string)=>void; onRetryGeometry: ()=>void;
 };
 export type EvidenceProps = { manifest: DemoManifest; station: StationMetadata; records: StationRecords; windowId: string; productKey: ProductKey; onClose: ()=>void };

@@ -40,7 +40,7 @@ describe("story view against the accepted local bundles", () => {
     for (const initialSize of [{ w: 390, h: 844 }, { w: 667, h: 375 }, { w: 768, h: 1024 }, { w: 1440, h: 900 }]) {
       const html = renderToStaticMarkup(<StoryView manifest={manifest} geometry={geometry} geometryError={null} layers={null} layersError={null}
         layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }}
-        selected={{ station, status: "loading", records: null, error: null }} pinned={null} onSelectStation={noop} onOpenEvidence={noop}
+        selected={{ station, status: "loading", records: null, error: null }} pinned={null} onOpenEvidence={noop}
         onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
         onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} initialSize={initialSize}/>);
       expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
@@ -76,7 +76,7 @@ describe("story view against the accepted local bundles", () => {
       return { station, status: "ready", error: null, records: decodeStation(readDemoJson(`stations/${id}.json`), station, manifest) }; };
     const state = { ...manifest.default_state, view: "radial" as const, selectedStationId, windowId };
     const props = { manifest, geometry, geometryError: null, layers: null, layersError: null, layersPending: null, onRetryLayers: noop, state,
-      selected: pick(selectedStationId), pinned: pick(state.pinnedStationId!), onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop,
+      selected: pick(selectedStationId), pinned: pick(state.pinnedStationId!), onOpenEvidence: noop, onRetryStation: noop,
       onRetryGeometry: noop, params: { t: 7.5, compare: false, step: 1 as const, at: null, z: 1, from: null }, onNav: noop, restoreKey: 0,
       evidenceOpen: false, issues: [], onDismissIssues: noop, onState: noop, initialSize: { w: 1440, h: 900 } };
     const cursorMs = Date.parse(manifest.event.origin_time_utc) + 7.5 * 3_600_000;

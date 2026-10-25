@@ -1,25 +1,25 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { layoutFor } from "../layout";
-import type { DemoState, RadialProps } from "../types";
+import type { DemoState, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
 import { Arms, CAVEAT, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
-import { clockLabel, T_MAX, utcAt } from "./clock";
+import { clockLabel, utcAt } from "./clock";
 import { nearestHours, pointBetween, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
-import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
+import { centreOn, clampK, fitView, Overlay, PACIFIC_CROP, pinchView, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
 import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
-import { useStoryClock } from "./useStoryClock";
+import { reducedMotion, useStoryClock } from "./useStoryClock";
 import { StationTools } from "./StationTools";
 import { ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
-export type StoryViewProps = RadialProps & {
+export type StoryViewProps = ViewProps & {
   layers: StoryLayers | null; layersError: string | null; layersPending: "loading" | "retrying" | null; onRetryLayers: () => void;
   /** URL story fields; with state.selectedStationId (A) and state.pinnedStationId (B) they are the whole screen. */
   params: StoryParams;
@@ -33,11 +33,9 @@ export type StoryViewProps = RadialProps & {
   /** Test seam: the first-render viewport (the browser measures window size). */
   initialSize?: { w: number; h: number };
 };
-const CROP: [number, number, number, number] = [-6.4e6, -6.3e6, 8.9e6, 4.6e6];
 /** The lens subject: the nearest station within 400 km of the lens centre at zoom 1 (shrinking as you zoom in). It is set
  * in map units, not by the lens's on-screen footprint, so a URL names the same subject on a phone and on a desktop. */
 const CAPTURE_M = 400_000, READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
-const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 /** After React commits (a timeout, not an animation frame, so a hidden tab still gets it). */
 const afterCommit = (f: () => void) => { if (typeof window !== "undefined") window.setTimeout(f, 0); };
 
@@ -66,7 +64,7 @@ export function StoryView(props: StoryViewProps) {
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
   const stepNow = !lens && typeof params.step === "number" ? STEPS[params.step - 1] : null;
-  const fitK = fitView(CROP, size.w, size.h).k;
+  const fitK = fitView(PACIFIC_CROP, size.w, size.h).k;
   const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
     : lens.point === "epicentre" ? epicentre : between ?? epicentre;
   /** The step whose lens target applies: the current step, or in Explore the step it was entered from. */
@@ -85,7 +83,8 @@ export function StoryView(props: StoryViewProps) {
   useEffect(() => setSheetExpanded(false), [L.mode]);
   /** Polite announcements: lens settle, pause and the one-hour step. A step change moves focus to its heading instead. */
   const [said, setSaid] = useState("");
-  const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }) });
+  const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }),
+    onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
   /** Cancel a pending settle; settleTimer is 0 exactly when none is pending. */
   const dropSettle = () => { window.clearTimeout(settleTimer.current); settleTimer.current = 0; };
@@ -239,17 +238,7 @@ export function StoryView(props: StoryViewProps) {
     else if (e.key === "+" || e.key === "=" || e.key === "-") { e.preventDefault(); zoom(e.key === "-" ? 1 / 1.25 : 1.25); }
   };
   const toggleRef = useRef(() => {}), escapeRef = useRef(() => {});
-  toggleRef.current = () => {
-    if (!layers) return;
-    if (motionOK) return clock.toggle();
-    if (clock.tRef.current >= T_MAX) return;
-    const next = Math.min(T_MAX, Math.floor(clock.tRef.current) + 1); clock.seek(next); setSaid(`Clock ${clockLabel(next)}.`);
-  };
-  const wasPlaying = useRef(false);
-  useEffect(() => {
-    if (wasPlaying.current && !clock.playing) setSaid(`Clock paused at ${clockLabel(clock.tRef.current)}.`);
-    wasPlaying.current = clock.playing;
-  }, [clock.playing]);
+  toggleRef.current = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
   escapeRef.current = () => dispatch({ type: "escape" });
   useEffect(() => {
     const key = (e: globalThis.KeyboardEvent) => {
@@ -318,16 +307,7 @@ export function StoryView(props: StoryViewProps) {
     ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button>
       <p className="story-small">The Paired view shows the records without the map.</p><ViewSwitch view={state.view} onView={switchView}/></div>
     : <p role="status">Loading the verified map…</p>}</main>;
-  const alert = <>
-    {props.layersPending && <p role="status" className="story-alert">
-      {props.layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
-    {props.layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {props.layersError}</p>
-      <button type="button" onClick={props.onRetryLayers}>Retry contours</button></div>}
-    {stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}
-    {props.issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p>
-      <ul>{props.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
-      <button type="button" onClick={props.onDismissIssues}>Dismiss</button></div>}
-  </>;
+  const alert = <><Notes {...props}/>{stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}</>;
   // Reduced motion: the step's play becomes a jump to its end, so a link that opens at the start still has a way there.
   const canPlayStep = !!stepNow?.play && !!layers && !clock.playing && t < stepNow.play[1];
   const lead = stepNow && !stepsError ? <section className="story-step" aria-label={`Story step ${stepNow.id} of ${STEPS.length}`}>
@@ -426,6 +406,19 @@ export function StoryView(props: StoryViewProps) {
       </div>}
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;
+}
+
+type NotesProps = Pick<StoryViewProps, "layersPending" | "layersError" | "onRetryLayers" | "issues" | "onDismissIssues">;
+/** Layer loading/failure and URL repair notes, shared by every view. */
+export function Notes({ layersPending, layersError, onRetryLayers, issues, onDismissIssues }: NotesProps) {
+  return <>
+    {layersPending && <p role="status" className="story-alert">{layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
+    {layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {layersError}</p>
+      <button type="button" onClick={onRetryLayers}>Retry contours</button></div>}
+    {issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p>
+      <ul>{issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
+      <button type="button" onClick={onDismissIssues}>Dismiss</button></div>}
+  </>;
 }
 
 type ChipsProps = { stations: MapStation[]; lensStation: string | null; onPick: (id: string) => void };

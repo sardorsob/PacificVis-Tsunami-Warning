@@ -5,6 +5,7 @@ import { NoReference, StationCard } from "../StationCard";
 import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
+import { PairedView } from "./PairedView";
 import { StoryView, type StoryViewProps } from "./StoryView";
 import type { StoryParams } from "./url";
 
@@ -57,7 +58,7 @@ export function input({ lensOverOcean = false, t = 7.5, compare = false, step = 
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, layersPending: null, onRetryLayers: noop,
     state: { view, selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
-    selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
+    selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
     evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size,
   };
@@ -251,5 +252,46 @@ describe("Station lens — the story stage around one station", () => {
   });
   it("never words a contour as an arrival", () => {
     expect(renderToStaticMarkup(<StoryView {...lens()}/>)).not.toMatch(/arrival time:|arrived at|warning time:/i);
+  });
+});
+
+describe("Paired — records first, on the shared clock", () => {
+  const paired = (extra: Parameters<typeof input>[0] = {}) => input({ view: "paired", t: 7.5, ...extra });
+  const cardOf = (props: StoryViewProps, role: "selected" | "pinned") => renderToStaticMarkup(<StationCard selection={role === "selected"
+    ? props.selected : props.pinned!} role={role} windowId={props.state.windowId} productKey={props.state.productKey} onOpenEvidence={noop}
+    onRetryStation={noop} cursorMs={Date.parse(props.manifest.event.origin_time_utc) + 7.5 * 3_600_000}/>);
+  it("shows A's and B's full cards on the shared clock", () => {
+    const props = paired(), html = renderToStaticMarkup(<PairedView {...props}/>);
+    expect(html).toContain(cardOf(props, "selected"));
+    expect(html).toContain(cardOf(props, "pinned"));
+  });
+  it("names every station on the map band by its role", () => {
+    const html = renderToStaticMarkup(<PairedView {...paired()}/>);
+    expect(html.match(/class="paired-station[^"]*"/g)).toHaveLength(10);
+    expect(html).toContain('aria-label="Selected A: Test station 1617760 (1617760)"');
+    expect(html).toContain('aria-label="Pinned reference B: Test station saip (saip)"');
+    expect(html).toContain('aria-label="Make Test station 21418 (21418) A"');
+  });
+  it("keeps the records when the map fails, with Retry map", () => {
+    const props = paired(), html = renderToStaticMarkup(<PairedView {...props} geometry={null} geometryError="test locator mismatch"/>);
+    for (const text of [cardOf(props, "selected"), "test locator mismatch", "Retry map"]) expect(html).toContain(text);
+  });
+  it("keeps the records when the contour layer fails, with Retry contours and the clock disabled", () => {
+    const props = paired(), html = renderToStaticMarkup(<PairedView {...props} layers={null} layersError="asset hash mismatch"/>);
+    for (const text of [cardOf(props, "selected"), "Published contour layer unavailable", "Retry contours"]) expect(html).toContain(text);
+    expect(html).toMatch(/class="story-play" disabled=""/);
+  });
+  it("shows the link repair note, clears B without substitution, and presses Paired", () => {
+    const html = renderToStaticMarkup(<PairedView {...paired({ pinned: null, issues: ["Zoom limited to 0.25–20."] })}/>);
+    for (const text of ["This link was repaired", renderToStaticMarkup(<NoReference/>)]) expect(html).toContain(text);
+    expect(html.match(/class="record-chart"/g)).toHaveLength(1);
+    expect(html).toMatch(/aria-pressed="true">Paired</);
+  });
+  it("steps the clock one hour under reduced motion", () => {
+    vi.stubGlobal("matchMedia", (q: string) => ({ matches: q.includes("reduce"), media: q, addEventListener: noop, removeEventListener: noop }));
+    try { expect(renderToStaticMarkup(<PairedView {...paired()}/>)).toContain("+1 h"); } finally { vi.unstubAllGlobals(); }
+  });
+  it("never words a contour as an arrival", () => {
+    expect(renderToStaticMarkup(<PairedView {...paired()}/>)).not.toMatch(/arrival time:|arrived at|warning time:/i);
   });
 });

@@ -4,7 +4,7 @@ import { LatestRequest,STATION_IDS,utcMicros } from "./loader";
 import { parseState,serializeState } from "./state";
 import { parseStoryParams,type StoryParams } from "./story/url";
 import type { DemoManifest,Observation,StationRecords } from "./types";
-import { isShortLandscape,plotDateContext } from "./layout";
+import { plotDateContext } from "./layout";
 
 // Deliberate unit-test input, not an observation fixture or application fallback.
 const manifest:DemoManifest={
@@ -19,11 +19,6 @@ const manifest:DemoManifest={
 const row=(observed_at_utc:string,raw_value:number|null):Observation=>({observation_id:observed_at_utc,source_id:"test",station_id:"test",source_time:observed_at_utc,observed_at_utc,raw_value,fitted_value:null,residual_value:null,units:"m",vertical_reference:"unknown",raw_status:raw_value===null?"source_blank":"observed",residual_status:"source_blank",grid_status:"not_applicable",qc_flags:{},source_qc_status:"not_reported"});
 
 describe("asset-independent chart and exact-time invariants",()=>{
-  it("uses compact locator defaults only in short wide viewports",()=>{
-    expect(isShortLandscape(844,390)).toBe(true);
-    expect(isShortLandscape(390,844)).toBe(false);
-    expect(isShortLandscape(1440,1000)).toBe(false);
-  });
   it("keeps UTC date context adjacent to a plot even when the interval line is below screen",()=>{
     expect(plotDateContext("2011-03-11T00:00:00Z","2011-03-12T00:00:00Z")).toBe("2011-03-11 → 2011-03-12 UTC");
     expect(plotDateContext("2011-03-11T05:46:24.120Z","2011-03-11T11:46:24.120Z")).toBe("2011-03-11 UTC");

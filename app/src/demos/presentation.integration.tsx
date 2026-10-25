@@ -1,24 +1,29 @@
 import { expect,it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { validateManifest,validateGeometry,decodeStation } from "./loader";
-import { StationMap } from "./StationMap";
-import { PairedDemo } from "./PairedDemo";
 import { RecordChart } from "./RecordChart";
-import type { RadialProps } from "./types";
+import { PairedView } from "./story/PairedView";
+import type { StoryViewProps } from "./story/StoryView";
+import type { StationSelection } from "./types";
 import { readDemoJson as json } from "./integration-data";
 
 const manifest=validateManifest(json("manifest.json"));
 const geometry=validateGeometry(json("geometry.json"),manifest);
-const props:RadialProps={manifest,geometry,geometryError:null,state:{view:"paired",...manifest.default_state},selected:{station:manifest.stations[0],status:"ready",error:null,records:decodeStation(json("stations/1617760.json"),manifest.stations[0],manifest)},pinned:null,onSelectStation:()=>{},onOpenEvidence:()=>{},onRetryStation:()=>{},onRetryGeometry:()=>{}};
-it("keeps every real station keyboard reachable and roles redundantly named",()=>{
-  const html=renderToStaticMarkup(<StationMap geometry={geometry} stations={manifest.stations} selectedStationId="1617760" pinnedStationId="saip" onSelectStation={()=>{}}/>);
-  expect(html.match(/type="button"/g)).toHaveLength(10);
-  expect(html).toContain("Selected: Hilo");expect(html).toContain("Pinned reference: Saipan");expect(html).toContain("Equal Earth");
+const pick=(id:string):StationSelection=>{const station=manifest.stations.find(s=>s.station_id===id)!;return {station,status:"ready",error:null,records:decodeStation(json(`stations/${id}.json`),station,manifest)};};
+const noop=()=>undefined;
+const props:StoryViewProps={manifest,geometry,geometryError:null,layers:null,layersError:null,layersPending:null,onRetryLayers:noop,
+  state:{view:"paired",...manifest.default_state,pinnedStationId:null},selected:pick("1617760"),pinned:null,onOpenEvidence:noop,onRetryStation:noop,
+  onRetryGeometry:noop,params:{t:7.5,compare:false,step:1,at:null,z:1,from:null},onNav:noop,restoreKey:0,evidenceOpen:false,issues:[],onDismissIssues:noop,
+  onState:noop,initialSize:{w:1440,h:900}};
+it("keeps every real station reachable on the map band and names A and B by role",()=>{
+  const html=renderToStaticMarkup(<PairedView {...props} state={{...props.state,pinnedStationId:"saip"}} pinned={pick("saip")}/>);
+  expect(html.match(/class="paired-station[^"]*"/g)).toHaveLength(10);
+  expect(html).toContain("Selected A: Hilo");expect(html).toContain("Pinned reference B: Saipan");expect(html).toContain("Equal Earth");
 });
 it("shows real source next to selected data, retains explicit clear-pin state and scoped error identity",()=>{
-  const html=renderToStaticMarkup(<PairedDemo {...props}/>);
+  const html=renderToStaticMarkup(<PairedView {...props}/>);
   expect(html).toContain("Hilo");expect(html).toContain("Selected");expect(html).toContain("No reference pinned");expect(html).toContain("NOAA Center");expect(html).not.toContain("Fictional");
-  const failed=renderToStaticMarkup(<PairedDemo {...props} selected={{station:manifest.stations[1],status:"error",error:"hash mismatch",records:null}}/>);
+  const failed=renderToStaticMarkup(<PairedView {...props} selected={{station:manifest.stations[1],status:"error",error:"hash mismatch",records:null}}/>);
   expect(failed).toContain(manifest.stations[1].name);expect(failed).toContain("hash mismatch");expect(failed).toContain("Retry");expect(failed).not.toContain("record-points");
 });
 it("labels multi-day full-source ticks with dates and never substitutes unavailable product",()=>{

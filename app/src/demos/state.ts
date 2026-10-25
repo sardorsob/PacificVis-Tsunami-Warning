@@ -11,8 +11,8 @@ export function parseState(search: string, manifest: DemoManifest): {state:DemoS
   const view=get("view");if(view!==null){if(view==="paired"||view==="radial"||view==="story")state.view=view;else issues.push("Invalid view: story restored.");}
   const selected=get("selected");if(selected!==null){if(manifest.stations.some(s=>s.station_id===selected))state.selectedStationId=selected;else issues.push("Invalid selected station: Hilo restored.");}
   const pinned=get("pinned");if(pinned!==null){if(pinned==="")state.pinnedStationId=null;else if(manifest.stations.some(s=>s.station_id===pinned))state.pinnedStationId=pinned;else issues.push("Invalid pinned station: Saipan restored.");}
-  // The story's B is never A (owner rule): a story link that pins the selected station gets another B, visibly.
-  if(state.view==="story"&&state.pinnedStationId===state.selectedStationId){const other=manifest.stations.find(s=>s.station_id!==state.selectedStationId)??null;issues.push(`Pinned station B cannot be the selected station: ${other?.name??"none"} pinned instead.`);state.pinnedStationId=other?.station_id??null;}
+  // B is never A (owner rule, every view): a link that pins the selected station gets another B, visibly.
+  if(state.pinnedStationId===state.selectedStationId){const other=manifest.stations.find(s=>s.station_id!==state.selectedStationId)??null;issues.push(`Pinned station B cannot be the selected station: ${other?.name??"none"} pinned instead.`);state.pinnedStationId=other?.station_id??null;}
   const window=get("window");if(window!==null){if(manifest.windows.some(w=>w.id===window))state.windowId=window;else issues.push("Invalid window: common day restored.");}
   const product=get("product");if(product!==null){if(PRODUCT_KEYS.includes(product as ProductKey))state.productKey=product as ProductKey;else issues.push("Invalid product: raw value restored.");}
   return {state,issues};

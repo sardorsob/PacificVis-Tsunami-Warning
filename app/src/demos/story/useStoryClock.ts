@@ -7,17 +7,23 @@ import { paintContours } from "./StoryMap";
 const MAX_DT = 0.25, UI_MS = 100, SEEK_COMMIT_MS = 300;
 const now = () => (typeof performance === "undefined" ? 0 : performance.now());
 type Commit = (kind: "playEnd" | "seekEnd", t: number) => void;
-type Options = { initialT: number; svgRef: RefObject<SVGSVGElement | null>; paths: Map<number, string>; motionOK: boolean; onCommit: Commit };
+type Options = {
+  initialT: number; svgRef: RefObject<SVGSVGElement | null>; paths: Map<number, string>; motionOK: boolean; onCommit: Commit;
+  /** Called with the clock time when playback stops (for the polite announcement). */
+  onPause?: (t: number) => void;
+};
+export const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
  * The one owner of story time. React state updates at ≤ 10 Hz; contours are painted every frame by one loop that
  * serves both playback and fading pulses. The URL is written only when play ends or pauses, or 300 ms after a seek.
  */
-export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit }: Options) {
+export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit, onPause }: Options) {
   const [t, setT] = useState(initialT), [playing, setPlaying] = useState(false);
   const tRef = useRef(initialT), playingRef = useRef(false), untilRef = useRef(T_MAX);
   const frame = useRef(0), running = useRef(false), last = useRef(0), ui = useRef(0), seekTimer = useRef(0);
-  const pulses = useRef(new Map<number, number>()), commit = useRef(onCommit), pathsRef = useRef(paths);
+  const pulses = useRef(new Map<number, number>()), commit = useRef(onCommit), pathsRef = useRef(paths), paused = useRef(onPause);
+  paused.current = onPause;
   commit.current = onCommit; pathsRef.current = paths;
   const paint = (at: number) => { if (svgRef.current) paintContours(svgRef.current, tRef.current, pulses.current, at, pathsRef.current); };
   const halt = () => { playingRef.current = false; setPlaying(false); setT(tRef.current); };
@@ -58,7 +64,15 @@ export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit }: O
   const set = (value: number) => { if (playingRef.current) halt(); tRef.current = value; setT(value); paint(now()); };
   useEffect(() => { if (!playingRef.current) paint(now()); }, [t, paths]);
   useEffect(() => () => { cancelAnimationFrame(frame.current); window.clearTimeout(seekTimer.current); }, []);
+  /** The play button: play/pause, or under reduced motion one step of +1 h (returns the new time, else null). */
+  const playOrStep = (): number | null => {
+    if (motionOK) { toggle(); return null; }
+    if (tRef.current >= T_MAX) return null;
+    const next = Math.min(T_MAX, Math.floor(tRef.current) + 1); seek(next); return next;
+  };
+  const wasPlaying = useRef(false);
+  useEffect(() => { if (wasPlaying.current && !playing) paused.current?.(tRef.current); wasPlaying.current = playing; }, [playing]);
   /** Drop a pending slider commit (browser Back/Forward is about to restore the clock). */
   const cancelSeek = () => window.clearTimeout(seekTimer.current);
-  return { t, playing, play, stop, toggle, seek, set, cancelSeek, tRef };
+  return { t, playing, play, stop, toggle, playOrStep, seek, set, cancelSeek, tRef };
 }

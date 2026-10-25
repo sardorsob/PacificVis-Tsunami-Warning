@@ -74,6 +74,29 @@
 .story-card__error p{margin-bottom:6px}
 .story-card__loading{min-height:120px;display:flex;align-items:center}
 .story-arm--card{overflow:auto;color:var(--story-muted)}
+/* Paired: records first, a scrolling page on the same Night stage. */
+.story.story--paired{overflow-y:auto;padding:14px 16px 0}
+.story--paired>*{max-width:1360px;margin-left:auto;margin-right:auto}
+.paired-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px 16px;flex-wrap:wrap}
+.paired-head .story-title{font-size:24px}.paired-head .story-small{max-width:640px}
+.story--paired .story-alert{margin-top:8px}
+.paired-band{position:relative;height:clamp(170px,30vh,300px);margin-top:10px;border:1px solid var(--story-line);border-radius:12px;overflow:hidden;
+  background:radial-gradient(120% 90% at 45% 40%,var(--story-ocean2),var(--story-ocean))}
+.paired-band>svg{position:absolute;inset:0}
+.paired-band>.story-alert,.paired-band>p{position:absolute;inset:auto 12px 12px 12px}
+.story .paired-station,.story .paired-station[aria-pressed=true]{position:absolute;width:44px;height:44px;min-height:44px;padding:0;
+  transform:translate(-50%,-50%);border:0;border-radius:50%;background:transparent}
+.story .paired-station:focus-visible{outline:3px solid var(--story-accent);outline-offset:-6px}
+.paired-band__caption{margin-top:4px}
+.story--paired .story-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0 14px;align-items:end;border:0;margin-top:6px}
+.story--paired .story-tools>.story-small{grid-column:1/-1}
+.paired-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.story--paired .story-card{background:var(--story-panel);border:1px solid var(--story-line);border-radius:10px;padding:12px 14px;min-width:0}
+.story--paired .story-clockbar{position:sticky;bottom:10px;left:auto;transform:none;width:auto;max-width:720px;margin-top:12px;z-index:4}
+.paired-foot{margin-top:14px;padding-bottom:24px;font-size:11px;color:var(--story-muted)}.paired-foot p+p{margin-top:4px}
+@media (max-width:1023px){.paired-cards{grid-template-columns:1fr}}
+@media (max-width:767px){.story--paired .story-clockbar{grid-template-columns:auto 1fr;row-gap:2px}.story--paired .story-clockbar__read{grid-column:1/-1}}
+@media (max-height:450px){.paired-band{height:150px}}
 .story-column{left:16px;top:14px;width:282px;max-height:calc(100% - 28px);overflow:auto}
 .story-kicker{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--story-muted)}
 .story-title{font:400 19px/1.2 "Iowan Old Style","Palatino Linotype",Georgia,serif;margin-top:4px!important}

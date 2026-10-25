@@ -102,6 +102,7 @@ describe("story URL: B is never A", () => {
     expect(r.state.pinnedStationId).toBe(STATION_IDS.find(id => id !== "1617760"));
     expect(r.issues.join(" ")).toMatch(/B cannot be the selected station/);
     expect(parseState("?view=story&selected=1617760&pinned=", m).state.pinnedStationId).toBeNull();
+    expect(parseState("?view=paired&selected=saip&pinned=saip", m).state.pinnedStationId).toBe("1617760"); // every view
   });
 });
 
