@@ -107,6 +107,12 @@ describe("story URL — the URL is the screen", () => {
     const params = { t: 9.5, compare: true, step: "explore" as const, at: [-4282, 3827] as [number, number], z: 2.25, from: 4 as const };
     expect(parseStoryParams(`?${storyQuery(params)}`)).toEqual({ params, issues: [] });
   });
+  it("a step link without clock or compare opens that step as authored", () => {
+    expect(parseStoryParams("?step=4").params).toMatchObject({ step: 4, t: 7.5, compare: false });
+    expect(parseStoryParams("?step=5").params).toMatchObject({ step: 5, compare: true });
+    expect(parseStoryParams("?step=2").params.t).toBe(8); // a link never auto-plays
+    expect(parseStoryParams("?step=4&t=0&cmp=1").params).toMatchObject({ t: 0, compare: true });
+  });
   it("repairs bad lens, zoom and resume values", () => {
     const bad = parseStoryParams("?at=x,2&z=999&from=9");
     expect(bad.params).toMatchObject({ at: null, z: 20, from: null });
