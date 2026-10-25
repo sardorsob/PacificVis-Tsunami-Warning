@@ -41,7 +41,7 @@ describe("story view against the accepted local bundles", () => {
         layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }}
         selected={{ station, status: "loading", records: null, error: null }} pinned={null} onSelectStation={noop} onOpenEvidence={noop}
         onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
-        onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onView={noop} initialSize={initialSize}/>);
+        onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} initialSize={initialSize}/>);
       expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
     }
   });

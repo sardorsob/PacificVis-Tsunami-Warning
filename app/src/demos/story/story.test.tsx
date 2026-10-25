@@ -58,7 +58,7 @@ export function input({ lensOverOcean = false, t = 7.5, compare = false, step = 
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
-    evidenceOpen: false, issues, onDismissIssues: noop, onView: noop, initialSize: size,
+    evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size,
   };
 }
 

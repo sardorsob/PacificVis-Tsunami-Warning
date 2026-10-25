@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { layoutFor } from "../layout";
-import type { RadialProps } from "../types";
+import type { DemoState, RadialProps } from "../types";
 import { Arms, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
@@ -23,7 +23,9 @@ export type StoryViewProps = RadialProps & {
   onNav: (result: NavResult) => void;
   /** Bumped on browser Back/Forward: restore without writing history. */
   restoreKey: number;
-  evidenceOpen: boolean; issues: string[]; onDismissIssues: () => void; onView: (view: "paired" | "radial") => void;
+  evidenceOpen: boolean; issues: string[]; onDismissIssues: () => void;
+  /** A view-level change from the live screen (view switch); DemoApp keeps this moment in the entry being left. */
+  onState: (patch: Partial<DemoState>, live: StoryNav) => void;
   /** Test seam: the first-render viewport (the browser measures window size). */
   initialSize?: { w: number; h: number };
 };
@@ -94,6 +96,8 @@ export function StoryView(props: StoryViewProps) {
   const [said, setSaid] = useState("");
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }) });
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
+  /** Cancel a pending settle; settleTimer is 0 exactly when none is pending. */
+  const dropSettle = () => { window.clearTimeout(settleTimer.current); settleTimer.current = 0; };
   /** The glide in flight; `settleAs` is set when it ends in a lens settle (true = explicit push). */
   const pending = useRef<{ target: View; settleAs?: boolean } | null>(null);
   /** An explicit pick (push) cut short by a drag, pinch, wheel or key still owes its push to the next settle. */
@@ -120,7 +124,7 @@ export function StoryView(props: StoryViewProps) {
       if (e.kind === "stopPlay") clock.stop(false);
       else if (e.kind === "play") clock.play(e.from, e.until);
       else if (e.kind === "aim") {
-        window.clearTimeout(settleTimer.current); // a zoom settling now would overwrite the new step's entry
+        dropSettle(); // a zoom settling now would overwrite the new step's entry
         userMoved.current = false;
         const v = viewFor(r.nav); if (e.instant) { cancelGlide(); setView(v); } else glide(v);
         owedPush.current = false; // the new step's entry is already written
@@ -165,7 +169,7 @@ export function StoryView(props: StoryViewProps) {
       props.onNav({ nav: distinct({ ...live(), a: lensStation }, stationIds), history: moving.current ? "none" : "replace", effects: [] });
   }, [lensStation]);
   const settle = (explicit = false) => {
-    window.clearTimeout(settleTimer.current);
+    dropSettle();
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
     const station = stations.length ? capture(c, reach(v), stations) : null;
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
@@ -175,7 +179,15 @@ export function StoryView(props: StoryViewProps) {
   };
   // Handlers bound once (wheel) and timers (settle) go through refs, so they always read the current layout and zoom.
   const settleRef = useRef(settle); settleRef.current = settle;
-  const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settleRef.current(), SETTLE_MS); };
+  const settleSoon = () => {
+    dropSettle(); settleTimer.current = window.setTimeout(() => { settleTimer.current = 0; settleRef.current(); }, SETTLE_MS);
+  };
+  /** Leave for another view from exactly what is on screen: land a glide, settle a pending move, then hand over the live moment. */
+  const switchView = (view: DemoState["view"]) => {
+    const g = pending.current; if (g) { cancelGlide(); land(g.target, g.settleAs); }
+    if (settleTimer.current) settle();
+    props.onState({ view }, live());
+  };
   const focusStation = (id: string, explicit = false) => {
     const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit);
   };
@@ -267,11 +279,11 @@ export function StoryView(props: StoryViewProps) {
   // Browser Back/Forward: drop a pending settle or slider commit synchronously, before the restored state renders,
   // so neither writes the old screen over the restored entry.
   useEffect(() => {
-    const drop = () => { window.clearTimeout(settleTimer.current); clock.cancelSeek(); };
+    const drop = () => { dropSettle(); clock.cancelSeek(); };
     window.addEventListener("popstate", drop); return () => window.removeEventListener("popstate", drop);
   }, []);
   // Leaving the story view (view switch, Back to a Paired entry) must not let a pending settle or glide write history.
-  useEffect(() => () => { window.clearTimeout(settleTimer.current); cancelGlide(); }, []);
+  useEffect(() => () => { dropSettle(); cancelGlide(); }, []);
   // Measure the real viewport (the first render used the window size).
   useEffect(() => {
     const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
@@ -346,8 +358,8 @@ export function StoryView(props: StoryViewProps) {
     lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
   const compare = <section className="story-panel story-compare" aria-label="Views and comparison">
     <nav className="story-views" aria-label="Views"><button type="button" aria-pressed="true">Story</button>
-      <button type="button" onClick={() => props.onView("paired")}>Paired</button>
-      <button type="button" onClick={() => props.onView("radial")}>Station lens</button></nav>
+      <button type="button" onClick={() => switchView("paired")}>Paired</button>
+      <button type="button" onClick={() => switchView("radial")}>Station lens</button></nav>
     <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
       {params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
     <label className="story-compare__pick"><span className="story-tag story-tag--b">B</span><span className="story-sr">Pinned station B</span>

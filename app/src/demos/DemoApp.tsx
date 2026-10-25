@@ -1,31 +1,36 @@
 import { useEffect,useRef,useState } from "react";
 import type { ComponentType } from "react";
 import { loadManifest,fetchVerifiedAsset,validateGeometry,decodeStation,LatestRequest } from "./loader";
+import { loadLayers,type StoryLayers } from "./story/layers";
+import { StoryView } from "./story/StoryView";
 import { PairedDemo } from "./PairedDemo";
 import { parseState,serializeState } from "./state";
-import { parseStoryParams,storyQuery,type StoryParams } from "./story/url";
-import type { StoryRouteProps } from "./story/StoryRoute";
-import { keptPrev,type NavResult } from "./story/nav";
+import { parseStoryParams,type StoryParams } from "./story/url";
+import { keptPrev,type NavResult,type StoryNav } from "./story/nav";
 import type { DemoGeometry,DemoManifest,DemoState,EvidenceProps,ProductKey,RadialProps,StationRecords,StationSelection } from "./types";
 
-export type DemoAppProps={radialRenderer?:ComponentType<RadialProps>;evidenceRenderer?:ComponentType<EvidenceProps>;storyRenderer?:ComponentType<StoryRouteProps>};
+export type DemoAppProps={radialRenderer?:ComponentType<RadialProps>;evidenceRenderer?:ComponentType<EvidenceProps>};
 const message=(error:unknown)=>error instanceof Error?error.message:"Unexpected data failure.";
-export function DemoApp({radialRenderer:Radial,evidenceRenderer:Evidence,storyRenderer:Story}:DemoAppProps) {
+export function DemoApp({radialRenderer:Radial,evidenceRenderer:Evidence}:DemoAppProps) {
   const [manifest,setManifest]=useState<DemoManifest|null>(null);const [manifestError,setManifestError]=useState<string|null>(null);const [manifestAttempt,setManifestAttempt]=useState(0);
   useEffect(()=>{const request=new LatestRequest<DemoManifest>();setManifestError(null);void request.run(loadManifest).then(m=>{if(m)setManifest(m);}).catch(error=>setManifestError(message(error)));return()=>request.cancel();},[manifestAttempt]);
   if(!manifest)return <main className="demo-app"><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p>{manifestError?<div role="alert"><p>{manifestError}</p><button type="button" onClick={()=>setManifestAttempt(v=>v+1)}>Retry verified bundle</button></div>:<p role="status">Loading descriptive station metadata…</p>}</main>;
-  return <LoadedDemo key={manifestAttempt} manifest={manifest} Radial={Radial} Evidence={Evidence} Story={Story}/>;
+  return <LoadedDemo key={manifestAttempt} manifest={manifest} Radial={Radial} Evidence={Evidence}/>;
 }
-function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radial?:ComponentType<RadialProps>;Evidence?:ComponentType<EvidenceProps>;Story?:ComponentType<StoryRouteProps>}) {
+function LoadedDemo({manifest,Radial,Evidence}:{manifest:DemoManifest;Radial?:ComponentType<RadialProps>;Evidence?:ComponentType<EvidenceProps>}) {
   const [initial]=useState(()=>parseState(window.location.search,manifest));
   const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search).params);const storyRef=useRef(story);storyRef.current=story;
   // Bumped on browser Back/Forward so the story view restores the lens and clock without writing history.
   const [restoreKey,setRestoreKey]=useState(0);
-  const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next)}${next.view==="story"?`&${storyQuery(s)}`:""}${window.location.hash}`;
-  const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;const [issues,setIssues]=useState(()=>[...initial.issues,...(initial.state.view==="story"?parseStoryParams(window.location.search).issues:[])]);
+  const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next,s)}${window.location.hash}`;
+  const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;const [issues,setIssues]=useState(()=>[...initial.issues,...parseStoryParams(window.location.search).issues]);
   const [geometry,setGeometry]=useState<DemoGeometry|null>(null),[geometryError,setGeometryError]=useState<string|null>(null),[geometryAttempt,setGeometryAttempt]=useState(0);
   const [chunks,setChunks]=useState<Record<string,StationSelection>>({});const cache=useRef(new Map<string,StationRecords>());const [stationAttempt,setStationAttempt]=useState(0);
   const [evidenceId,setEvidenceId]=useState<string|null>(null);const evidenceTrigger=useRef<HTMLElement|null>(null);
+  // The hash-verified map layers (published contours, 1:50m coastline), loaded once for every view; views keep working without them.
+  const [layers,setLayers]=useState<StoryLayers|null>(null),[layersError,setLayersError]=useState<string|null>(null),[layersAttempt,setLayersAttempt]=useState(0);
+  useEffect(()=>{const request=new LatestRequest<StoryLayers>();setLayersError(null);void request.run(loadLayers).then(l=>{if(l)setLayers(l);}).catch(error=>setLayersError(message(error)));return()=>request.cancel();},[layersAttempt]);
+  const layersPending=layers||layersError?null:layersAttempt?"retrying" as const:"loading" as const;
   useEffect(()=>{const request=new LatestRequest<DemoGeometry>();setGeometryError(null);void request.run(async signal=>validateGeometry(await fetchVerifiedAsset(manifest,manifest.geometry_path,signal),manifest)).then(g=>{if(g)setGeometry(g);}).catch(error=>setGeometryError(message(error)));return()=>request.cancel();},[manifest,geometryAttempt]);
   useEffect(()=>{
     const ids=[...new Set([state.selectedStationId,...(state.pinnedStationId?[state.pinnedStationId]:[])])];const controller=new AbortController();let active=true;
@@ -36,19 +41,26 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
     }
     return()=>{active=false;controller.abort();};
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
-  useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...(parsed.state.view==="story"?storyParsed.issues:[])]);setEvidenceId(null);setRestoreKey(k=>k+1);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
+  useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...storyParsed.issues]);setEvidenceId(null);setRestoreKey(k=>k+1);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
   // A reload keeps history.state: keep the previous step it records so story Back can still go back, not duplicate.
   useEffect(()=>{const prev=keptPrev(window.history.state,story.step);window.history.replaceState(initial.state.view==="story"?{step:story.step,prev}:null,"",href(initial.state,story));},[initial]);
-  const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,storyRef.current));};
-  /** The story's single history writer: applies a navigation result (push/replace/back/none) from story/nav.ts. */
+  /** The one history writer: state + story fields → URL and entry ({step, prev} lets story Back use history.back()). */
+  const write=(next:DemoState,params:StoryParams,history:"push"|"replace")=>{
+    stateRef.current=next;storyRef.current=params;setState(next);setStory(params);
+    const current=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;
+    const entry={step:params.step,prev:history==="push"?current?.step??null:current?.prev??null};
+    window.history[history==="push"?"pushState":"replaceState"](entry,"",href(next,params));
+  };
+  const update=(patch:Partial<DemoState>)=>{setIssues([]);setEvidenceId(null);write({...stateRef.current,...patch},storyRef.current,"push");};
+  /** A change made from a view's live screen: on a view switch the entry left keeps that moment (replace), then push. */
+  const onState=(patch:Partial<DemoState>,live:StoryNav)=>{const {a,b,...params}=live;const here={...stateRef.current,selectedStationId:a,pinnedStationId:b};
+    if(patch.view&&patch.view!==here.view)write(here,params,"replace");setIssues([]);setEvidenceId(null);write({...here,...patch},params,"push");};
+  /** Applies a navigation result (push/replace/back/none) from story/nav.ts. */
   const writeNav=(r:NavResult)=>{
     if(r.history==="back"){window.history.back();return;}
     const {a,b,...params}=r.nav;const next={...stateRef.current,selectedStationId:a,pinnedStationId:b};
-    stateRef.current=next;storyRef.current=params;setState(next);setStory(params);
-    if(r.history==="none")return;
-    const current=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;
-    const entry={step:params.step,prev:r.history==="push"?current?.step??null:current?.prev??null};
-    window.history[r.history==="push"?"pushState":"replaceState"](entry,"",href(next,params));
+    if(r.history==="none"){stateRef.current=next;storyRef.current=params;setState(next);setStory(params);return;}
+    write(next,params,r.history);
   };
   const selection=(id:string):StationSelection=>chunks[id]??{station:manifest.stations.find(s=>s.station_id===id)!,status:"loading",records:null,error:null};
   const selected=selection(state.selectedStationId),pinned=state.pinnedStationId?selection(state.pinnedStationId):null;
@@ -58,9 +70,9 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
   const props:RadialProps={manifest,geometry,geometryError,state,selected,pinned,onSelectStation:id=>update({selectedStationId:id}),onOpenEvidence:openEvidence,onRetryStation:()=>setStationAttempt(v=>v+1),onRetryGeometry:()=>setGeometryAttempt(v=>v+1)};
   const inspected=evidenceId?selection(evidenceId):null;
   const evidence=inspected?.records&&(Evidence?<Evidence manifest={manifest} station={inspected.station} records={inspected.records} windowId={state.windowId} productKey={state.productKey} onClose={closeEvidence}/>:<aside className="unimplemented" role="status"><h2>Evidence panel is not implemented yet</h2><p>Current source and support remain beside the actual trace; no substitute table is supplied.</p><button type="button" onClick={closeEvidence}>Close</button></aside>);
-  if(state.view==="story"&&Story)return <><Story {...props} params={story} onNav={writeNav} restoreKey={restoreKey} evidenceOpen={evidenceId!==null} issues={issues} onDismissIssues={()=>setIssues([])} onView={view=>update({view})}/>{evidence}</>;
+  if(state.view==="story")return <><StoryView {...props} layers={layers} layersError={layersError} layersPending={layersPending} onRetryLayers={()=>setLayersAttempt(v=>v+1)} params={story} onNav={writeNav} restoreKey={restoreKey} evidenceOpen={evidenceId!==null} issues={issues} onDismissIssues={()=>setIssues([])} onState={onState}/>{evidence}</>;
   return <main className="demo-app" data-demo-view={state.view}>
-    <header className="demo-heading"><div><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p></div><nav aria-label="Record view"><button type="button" aria-pressed={state.view==="paired"} onClick={()=>update({view:"paired"})}>Paired</button><button type="button" disabled={!Radial} aria-pressed={state.view==="radial"} onClick={()=>update({view:"radial"})}>Station lens{!Radial?" · not implemented":""}</button>{Story&&<button type="button" onClick={()=>update({view:"story"})}>Story</button>}</nav></header>
+    <header className="demo-heading"><div><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p></div><nav aria-label="Record view"><button type="button" aria-pressed={state.view==="paired"} onClick={()=>update({view:"paired"})}>Paired</button><button type="button" disabled={!Radial} aria-pressed={state.view==="radial"} onClick={()=>update({view:"radial"})}>Station lens{!Radial?" · not implemented":""}</button><button type="button" onClick={()=>update({view:"story"})}>Story</button></nav></header>
     {issues.length>0&&<aside className="data-error" role="status"><p>URL state repaired:</p><ul>{issues.map((issue,i)=><li key={i}>{issue}</li>)}</ul></aside>}
     <section className="demo-controls" aria-label="Shared station and record controls">
       <p className="active-summary">○ Selected: <strong>{selected.station.name}</strong> · ◇ Pinned: <strong>{pinned?.station.name??"none"}</strong> · {state.windowId==="source_full"?"Station-specific bounds; not a common period":"Shared UTC window"}</p>

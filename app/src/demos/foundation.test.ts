@@ -2,6 +2,7 @@ import { describe,expect,it } from "vitest";
 import { localYDomain,pointPath,selectWindow } from "./chart";
 import { LatestRequest,STATION_IDS,utcMicros } from "./loader";
 import { parseState,serializeState } from "./state";
+import { parseStoryParams,type StoryParams } from "./story/url";
 import type { DemoManifest,Observation,StationRecords } from "./types";
 import { isShortLandscape,plotDateContext } from "./layout";
 
@@ -53,9 +54,14 @@ describe("asset-independent shared URL and request ownership",()=>{
   it("round trips selected/pinned/view/window/product including deliberately cleared pin",()=>{
     const parsed=parseState("?view=radial&selected=21418&pinned=&window=source_full&product=residual_value",manifest);
     expect(parsed.issues).toEqual([]);expect(parsed.state.pinnedStationId).toBe(null);
-    expect(serializeState(parsed.state)).toBe("?view=radial&selected=21418&pinned=&window=source_full&product=residual_value");
-    expect(parseState(serializeState(parsed.state),manifest).state).toEqual(parsed.state);
+    // Every view carries the shared clock and lens fields, so switching views keeps the moment.
+    const story:StoryParams={t:4.5,compare:false,step:"explore",at:[1,2],z:2,from:4};
+    const url=serializeState(parsed.state,story);
+    expect(url).toBe("?view=radial&selected=21418&pinned=&window=source_full&product=residual_value&t=4.5&cmp=0&step=explore&at=1,2&z=2&from=4");
+    expect(parseState(url,manifest)).toEqual({state:parsed.state,issues:[]});
+    expect(parseStoryParams(url)).toEqual({params:story,issues:[]});
     expect(parseState("",manifest).state.pinnedStationId).toBe("saip");
+    expect(parseState("",manifest).state.view).toBe("story"); // a plain link opens the story
   });
   it("repairs each invalid URL value visibly and reports repeated/unknown fields",()=>{
     const invalid=parseState("?selected=evil&window=missing&product=no&view=other&pinned=missing",manifest);
