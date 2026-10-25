@@ -80,6 +80,53 @@ is absent. It never silently skips or creates replacement scientific data.
   and returns focus to its invoking control. No hover, drag, sound or animation
   is required to read the evidence.
 
+## Story view: lens and published clock
+
+`demos.html?view=story` is a full-screen guided view over the same records. A
+Night map of the Pacific shows NOAA/NCEI's published hourly travel-time
+contours for 11 March 2011. A fixed lens magnifies the map; the station under it
+opens three panels: its record at the story clock, what supports that record,
+and how to read it. Six guided steps set the clock, lens and comparison, then
+free exploration opens all controls.
+
+Build the companion map-layers bundle once (it does not change the records
+bundle), then build and serve as above:
+
+```sh
+uv run python scripts/story/build_map_layers.py \
+  --source-root /absolute/path/to/checkout-with-accepted-cache \
+  --output-root /absolute/path/to/this-checkout/app/demo-public/data \
+  --config config/story-map-layers.toml
+```
+
+Open [the story](http://127.0.0.1:4177/demos.html?view=story). The layers
+contract is in [story-map-layers.md](../../../docs/data/story-map-layers.md).
+
+How to read it:
+
+- Contours are **published estimates**: hours after the earthquake, computed by
+  NCEI from a point at the epicentre (not the full rupture), first arrival
+  only, no wave height. They are not a station's arrival and not warning time.
+  Hour 0 is equated with the USGS origin, 05:46:24 UTC.
+- The white line on a record is the clock: a time, not an arrival pick. Points
+  after it are dimmed, never removed. Records keep station-local heights.
+- Over open ocean the lens names the two nearest published contour hours; it
+  never interpolates a time or substitutes the nearest station.
+- The loaded records cover 11 March UTC (to about +18 h). Later clock times
+  say "No record loaded for this time" (backlog DEF-01).
+
+Controls: drag or arrow keys move the map under the lens; `[` / `]` change
+station; `+` / `−` zoom; Space plays; the slider seeks. **⇄ Compare** adds a
+pinned second lens (B) and stacks both records on one UTC axis. URL fields
+`t`, `cmp` and `step` (1–6 or `explore`) restore the view on reload and Back.
+While playing, the map tilts into an oblique view and the panels fade; it
+settles flat on pause. With reduced motion there is no tilt, pulse, glide or
+autoplay, and the play button steps one published hour.
+
+If the layers bundle is missing or fails its checks, the view keeps the map,
+lens and records, disables the clock and says "Published contour layer
+unavailable". Internal use only: the contour layer's terms are unconfirmed (G2).
+
 ## Verification boundaries and limitations
 
 Assets are validated against the fixed event/cohort, schema and release
