@@ -7,24 +7,24 @@ import { contourStyle, nextHaloOpacity, pulseWidth } from "./reveal";
 export type View = { k: number; tx: number; ty: number };
 export const toScreen = (v: View, p: Pt): Pt => [p[0] * v.k + v.tx, p[1] * v.k + v.ty];
 export const toMap = (v: View, x: number, y: number): Pt => [(x - v.tx) / v.k, (y - v.ty) / v.k];
-const K_MIN = 2e-5;
-export const K_MAX = 6e-4;
-export const clampK = (k: number) => Math.max(K_MIN, Math.min(K_MAX, k));
+/** Scale limits [min, max], set by the caller from the fitted scale so every screen shares one zoom range. */
+export type KLimits = [number, number];
+export const clampK = (k: number, [lo, hi]: KLimits) => Math.max(lo, Math.min(hi, k));
 export function fitView(crop: [number, number, number, number], width: number, height: number, inset = { l: 0, r: 0, t: 0, b: 0 }): View {
   const w = crop[2] - crop[0], h = crop[3] - crop[1], aw = Math.max(1, width - inset.l - inset.r), ah = Math.max(1, height - inset.t - inset.b);
   const k = Math.min(aw / w, ah / h);
   return { k, tx: inset.l + (aw - w * k) / 2 - crop[0] * k, ty: inset.t + (ah - h * k) / 2 - crop[1] * k };
 }
 export const centreOn = (v: View, p: Pt, sx: number, sy: number): View => ({ k: v.k, tx: sx - p[0] * v.k, ty: sy - p[1] * v.k });
-export function zoomAt(v: View, x: number, y: number, factor: number): View {
-  const m = toMap(v, x, y), k = clampK(v.k * factor);
+export function zoomAt(v: View, x: number, y: number, factor: number, limits: KLimits): View {
+  const m = toMap(v, x, y), k = clampK(v.k * factor, limits);
   return { k, tx: x - m[0] * k, ty: y - m[1] * k };
 }
 /** Two-finger gesture from its start: zoom by the finger spread, and keep the map point under the fingers' midpoint. */
-export function pinchView(v: View, from: [Pt, Pt], to: [Pt, Pt]): View {
+export function pinchView(v: View, from: [Pt, Pt], to: [Pt, Pt], limits: KLimits): View {
   const mid = (p: [Pt, Pt]): Pt => [(p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2];
   const spread = (p: [Pt, Pt]) => Math.max(1, Math.hypot(p[0][0] - p[1][0], p[0][1] - p[1][1]));
-  const m0 = mid(from), m1 = mid(to), k = clampK(v.k * spread(to) / spread(from));
+  const m0 = mid(from), m1 = mid(to), k = clampK(v.k * spread(to) / spread(from), limits);
   return centreOn({ ...v, k }, toMap(v, m0[0], m0[1]), m1[0], m1[1]);
 }
 

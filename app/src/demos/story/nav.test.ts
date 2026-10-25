@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { STATION_IDS } from "../loader";
-import { reduce, type NavContext, type StoryNav } from "./nav";
+import { keptPrev, reduce, type NavContext, type StoryNav } from "./nav";
 import { parseStoryParams, storyQuery } from "./url";
 
 const ctx: NavContext = { motionOK: true, stationIds: STATION_IDS };
@@ -108,6 +108,15 @@ describe("Escape closes the topmost transient only", () => {
     expect(kinds(reduce(at(4), e, { ...ctx, sheetExpanded: true }))).toEqual(["collapseSheet"]);
     expect(reduce(at(4), e, ctx)).toMatchObject({ history: "none", effects: [] });
     expect(reduce(at(4), e, { ...ctx, evidenceOpen: true }).nav).toEqual(at(4));
+  });
+});
+
+describe("reload keeps the story Back link", () => {
+  it("keeps prev only when history.state belongs to this step", () => {
+    expect(keptPrev({ step: 4, prev: 3 }, 4)).toBe(3);
+    expect(keptPrev({ step: 4, prev: 3 }, 5)).toBeNull();
+    expect(keptPrev(null, 4)).toBeNull();
+    expect(keptPrev({ step: 4, prev: "bogus" }, 4)).toBeNull();
   });
 });
 

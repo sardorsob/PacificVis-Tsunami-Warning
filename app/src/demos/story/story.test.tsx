@@ -51,12 +51,13 @@ function records(station: StationMetadata): StationRecords {
 const ready = (id: string): StationSelection => { const station = stations.find(s => s.station_id === id)!; return { station, status: "ready", records: records(station), error: null }; };
 const noop = () => undefined;
 export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
-  from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null, at = null as StoryParams["at"] } = {}): StoryViewProps {
+  from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null, at = null as StoryParams["at"],
+  z = 1 } = {}): StoryViewProps {
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, layersPending: null, onRetryLayers: noop,
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
-    params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z: 1, from }, onNav: noop, restoreKey: 0,
+    params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
     evidenceOpen: false, issues, onDismissIssues: noop, onView: noop, initialSize: size,
   };
 }
@@ -168,6 +169,19 @@ describe("story view — exits, cancels and repairs", () => {
     for (const size of [{ w: 390, h: 844 }, { w: 667, h: 375 }, { w: 1440, h: 900 }])
       expect(renderToStaticMarkup(<StoryView {...input({ at: [2600, 0], size })}/>)).toContain('story-lens-title__name">Open Pacific<');
   });
+  it("zoomed out, the lens still names the same subject on every screen", () => {
+    // 550 km from the second station: zoomed out to 0.6 the capture must not grow past 400 km, nor depend on clamping.
+    for (const size of [{ w: 390, h: 844 }, { w: 1440, h: 900 }])
+      expect(renderToStaticMarkup(<StoryView {...input({ at: [2550, 0], z: 0.6, size })}/>)).toContain('story-lens-title__name">Open Pacific<');
+  });
+  it("under reduced motion a play step offers its end instead of hiding the control", () => {
+    vi.stubGlobal("matchMedia", (q: string) => ({ matches: q.includes("reduce"), media: q, addEventListener: noop, removeEventListener: noop }));
+    try {
+      const html = renderToStaticMarkup(<StoryView {...input({ step: 2, t: 0, lensOverOcean: true })}/>);
+      expect(html).not.toContain("▶ Play this step");
+      expect(html).toContain("Show this step at +8 h");
+    } finally { vi.unstubAllGlobals(); }
+  });
   it("an Explore link without a lens point keeps the lens where the story left it", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: "explore", from: 3 })}/>);
     expect(html).toContain('story-lens-title__name">Test station 21418<');
@@ -187,7 +201,8 @@ describe("story view — exits, cancels and repairs", () => {
     for (const label of ["Zoom in", "Zoom out", "Reset view"]) expect(html).toContain(`aria-label="${label}"`);
   });
   it("disables the one-hour step at the end of the clock", () => {
-    const bar = (t: number) => renderToStaticMarkup(<ClockBar t={t} playing={false} disabled={false} originUtc="2011-03-11T05:46:24.120Z" reduced onToggle={noop} onSeek={noop}/>);
+    const bar = (t: number) => renderToStaticMarkup(<ClockBar t={t} playing={false} disabled={false} originUtc="2011-03-11T05:46:24.120Z" reduced
+      onToggle={noop} onSeek={noop}/>);
     expect(bar(30)).toMatch(/<button[^>]*disabled=""[^>]*>\+1 h</);
     expect(bar(29)).not.toMatch(/<button[^>]*disabled=""[^>]*>\+1 h</);
   });

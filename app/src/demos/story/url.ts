@@ -13,7 +13,8 @@ export type StoryParams = {
   from: StepId | null;
 };
 export const STORY_FIELDS = ["t", "cmp", "step", "at", "z", "from"] as const;
-const Z_MIN = 0.25, Z_MAX = 20;
+/** Zoom limits relative to the fitted Pacific: the same range on every screen. */
+export const Z_MIN = 0.25, Z_MAX = 20;
 const stepId = (v: string): StepId | null => /^[1-6]$/.test(v) ? Number(v) as StepId : null;
 
 export function parseStoryParams(search: string): { params: StoryParams; issues: string[] } {

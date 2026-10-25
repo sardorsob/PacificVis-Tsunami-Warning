@@ -58,5 +58,7 @@ export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit }: O
   const set = (value: number) => { if (playingRef.current) halt(); tRef.current = value; setT(value); paint(now()); };
   useEffect(() => { if (!playingRef.current) paint(now()); }, [t, paths]);
   useEffect(() => () => { cancelAnimationFrame(frame.current); window.clearTimeout(seekTimer.current); }, []);
-  return { t, playing, play, stop, toggle, seek, set, tRef };
+  /** Drop a pending slider commit (browser Back/Forward is about to restore the clock). */
+  const cancelSeek = () => window.clearTimeout(seekTimer.current);
+  return { t, playing, play, stop, toggle, seek, set, cancelSeek, tRef };
 }

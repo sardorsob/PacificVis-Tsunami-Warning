@@ -5,7 +5,7 @@ import { PairedDemo } from "./PairedDemo";
 import { parseState,serializeState } from "./state";
 import { parseStoryParams,storyQuery,type StoryParams } from "./story/url";
 import type { StoryRouteProps } from "./story/StoryRoute";
-import type { NavResult } from "./story/nav";
+import { keptPrev,type NavResult } from "./story/nav";
 import type { DemoGeometry,DemoManifest,DemoState,EvidenceProps,ProductKey,RadialProps,StationRecords,StationSelection } from "./types";
 
 export type DemoAppProps={radialRenderer?:ComponentType<RadialProps>;evidenceRenderer?:ComponentType<EvidenceProps>;storyRenderer?:ComponentType<StoryRouteProps>};
@@ -38,7 +38,7 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
   useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...(parsed.state.view==="story"?storyParsed.issues:[])]);setEvidenceId(null);setRestoreKey(k=>k+1);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
   // A reload keeps history.state: keep the previous step it records so story Back can still go back, not duplicate.
-  useEffect(()=>{const kept=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;const prev=kept?.step===story.step?kept.prev??null:null;window.history.replaceState(initial.state.view==="story"?{step:story.step,prev}:null,"",href(initial.state,story));},[initial]);
+  useEffect(()=>{const prev=keptPrev(window.history.state,story.step);window.history.replaceState(initial.state.view==="story"?{step:story.step,prev}:null,"",href(initial.state,story));},[initial]);
   const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,storyRef.current));};
   /** The story's single history writer: applies a navigation result (push/replace/back/none) from story/nav.ts. */
   const writeNav=(r:NavResult)=>{

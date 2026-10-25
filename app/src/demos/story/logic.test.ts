@@ -3,7 +3,7 @@ import { clockLabel, seek, tick, toggle, utcAt, T_MAX } from "./clock";
 import { contourStyle, pulseWidth } from "./reveal";
 import { capture, slot } from "./lensMath";
 import type { Pt } from "./layers";
-import { K_MAX, pinchView, toMap, toScreen } from "./StoryMap";
+import { pinchView, toMap, toScreen, type KLimits } from "./StoryMap";
 import { STEPS, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
@@ -68,17 +68,17 @@ describe("lens", () => {
 });
 
 describe("pinch", () => {
-  const v = { k: 1e-4, tx: 400, ty: 300 };
+  const v = { k: 1e-4, tx: 400, ty: 300 }, limits: KLimits = [2e-5, 6e-4];
   it("scales by the finger spread and keeps the map point under the fingers", () => {
     const from: [Pt, Pt] = [[100, 100], [200, 100]], to: [Pt, Pt] = [[50, 150], [250, 150]];
-    const next = pinchView(v, from, to), under = toMap(v, 150, 100), after = toScreen(next, under);
+    const next = pinchView(v, from, to, limits), under = toMap(v, 150, 100), after = toScreen(next, under);
     expect(next.k).toBeCloseTo(2e-4);
     expect(after[0]).toBeCloseTo(150);
     expect(after[1]).toBeCloseTo(150);
   });
   it("clamps the zoom and survives touching fingers", () => {
-    expect(pinchView(v, [[0, 0], [1, 0]], [[0, 0], [1e6, 0]]).k).toBe(K_MAX);
-    expect(Number.isFinite(pinchView(v, [[5, 5], [5, 5]], [[0, 0], [10, 0]]).k)).toBe(true);
+    expect(pinchView(v, [[0, 0], [1, 0]], [[0, 0], [1e6, 0]], limits).k).toBe(6e-4);
+    expect(Number.isFinite(pinchView(v, [[5, 5], [5, 5]], [[0, 0], [10, 0]], limits).k)).toBe(true);
   });
 });
 
@@ -91,6 +91,17 @@ describe("guided steps", () => {
   it("never claims an arrival or warning time in step copy", () => {
     for (const step of STEPS) expect(`${step.title} ${step.body}`).not.toMatch(/arrived|arrival time is|warning time is|minutes of warning/i);
     expect(STEPS[4]).toMatchObject({ compare: true, lens: { station: "1617760" }, b: "saip" });
+  });
+});
+
+describe("story URL: B is never A", () => {
+  it("repairs a story link that pins the selected station", () => {
+    const m = { default_state: { selectedStationId: "1617760", pinnedStationId: "saip", windowId: "common_day", productKey: "raw_value" },
+      stations: STATION_IDS.map(station_id => ({ station_id })), windows: [{ id: "common_day" }] } as unknown as DemoManifest;
+    const r = parseState("?view=story&selected=1617760&pinned=1617760", m);
+    expect(r.state.pinnedStationId).toBe(STATION_IDS.find(id => id !== "1617760"));
+    expect(r.issues.join(" ")).toMatch(/B cannot be the selected station/);
+    expect(parseState("?view=story&selected=1617760&pinned=", m).state.pinnedStationId).toBeNull();
   });
 });
 

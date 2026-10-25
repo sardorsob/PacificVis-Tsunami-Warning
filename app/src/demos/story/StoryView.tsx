@@ -8,10 +8,10 @@ import { clockLabel, T_MAX, utcAt } from "./clock";
 import { hourPaths, labelAnchors, nearestHours, pointBetween, toSvg, type Coastline, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
-import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
+import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
-import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type MapStation, type View } from "./StoryMap";
-import type { StoryParams } from "./url";
+import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type KLimits, type MapStation, type View } from "./StoryMap";
+import { Z_MAX, Z_MIN, type StoryParams } from "./url";
 import { useStoryClock } from "./useStoryClock";
 import "./style.css";
 
@@ -84,7 +84,8 @@ export function StoryView(props: StoryViewProps) {
     const step = lensStep(n);
     return (step ? stepTarget(step) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
   };
-  const viewFor = (n: StoryNav): View => centreOn({ k: clampK(fitK * n.z), tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
+  const kLimits: KLimits = [fitK * Z_MIN, fitK * Z_MAX];
+  const viewFor = (n: StoryNav): View => centreOn({ k: clampK(fitK * n.z, kLimits), tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
   const [view, setView] = useState<View>(() => viewFor(nav));
   const viewRef = useRef(view); viewRef.current = view;
   const [sheetExpanded, setSheetExpanded] = useState(false);
@@ -95,7 +96,10 @@ export function StoryView(props: StoryViewProps) {
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
   /** The glide in flight; `settleAs` is set when it ends in a lens settle (true = explicit push). */
   const pending = useRef<{ target: View; settleAs?: boolean } | null>(null);
+  /** An explicit pick (push) cut short by a drag, pinch, wheel or key still owes its push to the next settle. */
+  const owedPush = useRef(false);
   const cancelGlide = () => {
+    if (pending.current?.settleAs) owedPush.current = true;
     moving.current = false; pending.current = null; if (typeof cancelAnimationFrame === "function") cancelAnimationFrame(anim.current);
   };
   /** Land on `v` now; viewRef is updated first so a settle in the same tick reads the landed view. */
@@ -119,6 +123,7 @@ export function StoryView(props: StoryViewProps) {
         window.clearTimeout(settleTimer.current); // a zoom settling now would overwrite the new step's entry
         userMoved.current = false;
         const v = viewFor(r.nav); if (e.instant) { cancelGlide(); setView(v); } else glide(v);
+        owedPush.current = false; // the new step's entry is already written
       }
       else if (e.kind === "focus") {
         const selector = e.target === "step" ? "#story-step-title" : ".story-focus-panel";
@@ -150,14 +155,14 @@ export function StoryView(props: StoryViewProps) {
   }, [between]);
 
   const centre = toMap(view, L.cx, L.cy);
-  const reach = (v: View) => CAPTURE_M * fitK / v.k;
+  const reach = (v: View) => CAPTURE_M * Math.min(1, fitK / v.k); // zoomed out, the capture never grows past 400 km
   const lensStation = stations.length ? capture(centre, reach(view), stations) : null;
   // The station under the lens drives the panels; while the map moves the URL is untouched, at rest it is corrected in place.
   // Only a lens move triggers this: after Back/Forward the URL changes first and the view follows a render later, so
   // reacting to selectedStationId would rewrite the restored entry with the old lens station.
   useEffect(() => {
     if (lensStation && lensStation !== state.selectedStationId)
-      props.onNav({ nav: { ...live(), a: lensStation }, history: moving.current ? "none" : "replace", effects: [] });
+      props.onNav({ nav: distinct({ ...live(), a: lensStation }, stationIds), history: moving.current ? "none" : "replace", effects: [] });
   }, [lensStation]);
   const settle = (explicit = false) => {
     window.clearTimeout(settleTimer.current);
@@ -165,7 +170,8 @@ export function StoryView(props: StoryViewProps) {
     const station = stations.length ? capture(c, reach(v), stations) : null;
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
     const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
-    dispatch({ type: "lensSettle", at, z, station, explicit });
+    const push = explicit || owedPush.current; owedPush.current = false;
+    dispatch({ type: "lensSettle", at, z, station, explicit: push });
   };
   // Handlers bound once (wheel) and timers (settle) go through refs, so they always read the current layout and zoom.
   const settleRef = useRef(settle); settleRef.current = settle;
@@ -202,7 +208,7 @@ export function StoryView(props: StoryViewProps) {
   const onPointerMove = (e: PointerEvent<SVGSVGElement>) => {
     if (!fingers.current.has(e.pointerId)) return;
     fingers.current.set(e.pointerId, local(e));
-    const p = pinch.current; if (p) { if (fingers.current.size >= 2) setView(pinchView(p.v, p.from, pair())); return; }
+    const p = pinch.current; if (p) { if (fingers.current.size >= 2) setView(pinchView(p.v, p.from, pair(), kLimits)); return; }
     const d = drag.current; if (!d) return;
     const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.hypot(dx, dy) > DRAG_SLOP) d.moved = true;
     if (d.moved) setView({ ...d.v, tx: d.v.tx + dx, ty: d.v.ty + dy });
@@ -219,7 +225,7 @@ export function StoryView(props: StoryViewProps) {
   };
   /** Zoom 1 on the step's target, or in Explore on station A; Return to this step also restores the clock. */
   const resetView = () => { userMoved.current = true; glide(viewFor({ ...navRef.current, at: null, z: 1, from: null }), false); };
-  const zoom = (factor: number) => { cancelGlide(); userMoved.current = true; setView(v => zoomAt(v, L.cx, L.cy, factor)); settleSoon(); };
+  const zoom = (factor: number) => { cancelGlide(); userMoved.current = true; setView(v => zoomAt(v, L.cx, L.cy, factor, kLimits)); settleSoon(); };
   const onKeyDown = (e: KeyboardEvent<SVGSVGElement>) => {
     const pan: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
     const step = pan[e.key];
@@ -251,13 +257,19 @@ export function StoryView(props: StoryViewProps) {
   wheelRef.current = e => {
     const svg = svgRef.current; if (!svg) return;
     e.preventDefault(); cancelGlide(); userMoved.current = true; const r = svg.getBoundingClientRect();
-    setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015))); settleSoon();
+    setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015), kLimits)); settleSoon();
   };
   useEffect(() => {
     const svg = svgRef.current; if (!svg) return;
     const wheel = (e: WheelEvent) => wheelRef.current(e);
     svg.addEventListener("wheel", wheel, { passive: false }); return () => svg.removeEventListener("wheel", wheel);
   }, [geometry]);
+  // Browser Back/Forward: drop a pending settle or slider commit synchronously, before the restored state renders,
+  // so neither writes the old screen over the restored entry.
+  useEffect(() => {
+    const drop = () => { window.clearTimeout(settleTimer.current); clock.cancelSeek(); };
+    window.addEventListener("popstate", drop); return () => window.removeEventListener("popstate", drop);
+  }, []);
   // Leaving the story view (view switch, Back to a Paired entry) must not let a pending settle or glide write history.
   useEffect(() => () => { window.clearTimeout(settleTimer.current); cancelGlide(); }, []);
   // Measure the real viewport (the first render used the window size).
@@ -309,12 +321,16 @@ export function StoryView(props: StoryViewProps) {
       <ul>{props.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
       <button type="button" onClick={props.onDismissIssues}>Dismiss</button></div>}
   </>;
-  const canPlayStep = !!stepNow?.play && motionOK && !!layers && !clock.playing && t < stepNow.play[1];
+  // Reduced motion: the step's play becomes a jump to its end, so a link that opens at the start still has a way there.
+  const canPlayStep = !!stepNow?.play && !!layers && !clock.playing && t < stepNow.play[1];
   const lead = stepNow && !stepsError ? <section className="story-step" aria-label={`Story step ${stepNow.id} of ${STEPS.length}`}>
     <p className="story-kicker">{stepNow.id} of {STEPS.length}</p>
     <h2 className="story-step__title" id="story-step-title" tabIndex={-1}>{stepNow.title}</h2>
     <p className="story-step__body">{stepNow.body}</p>
-    {canPlayStep && <button type="button" className="story-step__play" onClick={() => clock.play(...stepNow.play!)}>▶ Play this step</button>}
+    {canPlayStep && (motionOK
+      ? <button type="button" className="story-step__play" onClick={() => clock.play(...stepNow.play!)}>▶ Play this step</button>
+      : <button type="button" className="story-step__play" onClick={() => clock.seek(stepNow.play![1])}>
+        Show this step at {clockLabel(stepNow.play![1]).replace(" 00 min", "")}</button>)}
     <div className="story-step__nav"><button type="button" aria-disabled={stepNow.id === 1} onClick={() => dispatch({ type: "back" })}>Back</button>
       <button type="button" onClick={() => dispatch({ type: "next" })}>{stepNow.id < STEPS.length ? "Next" : "Explore"}</button></div>
     <p className="story-step__links">

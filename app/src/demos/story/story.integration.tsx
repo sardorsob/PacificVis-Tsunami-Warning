@@ -38,8 +38,9 @@ describe("story view against the accepted local bundles", () => {
     const station = manifest.stations.find(s => s.station_id === manifest.default_state.selectedStationId)!;
     for (const initialSize of [{ w: 390, h: 844 }, { w: 667, h: 375 }, { w: 768, h: 1024 }, { w: 1440, h: 900 }]) {
       const html = renderToStaticMarkup(<StoryView manifest={manifest} geometry={geometry} geometryError={null} layers={null} layersError={null}
-        layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }} selected={{ station, status: "loading", records: null, error: null }}
-        pinned={null} onSelectStation={noop} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
+        layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }}
+        selected={{ station, status: "loading", records: null, error: null }} pinned={null} onSelectStation={noop} onOpenEvidence={noop}
+        onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
         onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onView={noop} initialSize={initialSize}/>);
       expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
     }

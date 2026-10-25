@@ -23,13 +23,19 @@ export type NavContext = {
   evidenceOpen?: boolean; playing?: boolean; sheetExpanded?: boolean;
 };
 export type NavResult = { nav: StoryNav; history: "push" | "replace" | "back" | "none"; effects: Effect[] };
+/** On reload, history.state survives: keep the previous step it records when it belongs to this step. */
+export function keptPrev(state: unknown, step: StoryNav["step"]): StoryNav["step"] | null {
+  const s = state as { step?: unknown; prev?: unknown } | null;
+  const prev = s?.step === step ? s.prev : null;
+  return typeof prev === "number" || prev === "explore" ? prev as StoryNav["step"] : null;
+}
 
 const stay = (nav: StoryNav): NavResult => ({ nav, history: "none", effects: [] });
 /** B is never A: keep a valid pinned B, else pin the first station that is not A. */
 const validB = (nav: StoryNav, ids: readonly string[]) =>
   nav.b !== null && nav.b !== nav.a && ids.includes(nav.b) ? nav.b : ids.find(id => id !== nav.a) ?? null;
 /** After A moves (a step's lens station, a lens settle), re-pick B if A landed on it. */
-const distinct = (nav: StoryNav, ids: readonly string[]): StoryNav => nav.b === nav.a ? { ...nav, b: validB(nav, ids) } : nav;
+export const distinct = (nav: StoryNav, ids: readonly string[]): StoryNav => nav.b === nav.a ? { ...nav, b: validB(nav, ids) } : nav;
 function enter(nav: StoryNav, id: StepId, ctx: NavContext, history: NavResult["history"]): NavResult {
   const step = STEPS[id - 1], animate = !!step.play && ctx.motionOK;
   const lensStation = "station" in step.lens ? step.lens.station : null;

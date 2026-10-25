@@ -27,15 +27,17 @@ export function layoutFor(w: number, h: number): StoryLayout {
   const mode: StoryMode = w >= 1280 && h >= 700 ? "wide" : w < 768 && h > 450 ? "narrow" : "side";
   const none: Box = { left: 0, top: 0, width: 0 };
   if (mode === "narrow") {
-    const r = Math.min(82, w * 0.21), cx = w / 2, cy = Math.max(r + 64, h * 0.25);
+    // Room above the lens for a three-line title (the epicentre subtitle wraps on 360 px phones).
+    const r = Math.min(82, w * 0.21), cx = w / 2, cy = Math.max(r + 96, h * 0.25);
     return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, titleBottom: cy - r - 14, titleW: w - 120,
       bSlot: [Math.min(w - 44, cx + r + 48), cy + r - 6], bR: 38, bar: null, sheet: null };
   }
   if (mode === "side") {
     const sheet = Math.round(Math.min(w * 0.6, Math.max(320, w * 0.44))), area = w - sheet - 8;
-    const r = Math.min(LENS_RADIUS, area * 0.3, h * 0.27), cx = area / 2, cy = Math.max(r + 60, h * 0.5);
+    // The lens's left edge clears the bottom-left zoom buttons (12 + 48 + 8 px).
+    const r = Math.min(LENS_RADIUS, area * 0.3, h * 0.27, area / 2 - 68), cx = area / 2, cy = Math.max(r + 92, h * 0.5);
     return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, titleBottom: cy - r - 14, titleW: area - 24,
-      bSlot: [Math.min(area - 44, cx + r + 50), cy + r - 6], bR: 38, bar: null, sheet: { width: sheet } };
+      bSlot: [Math.min(area - 44, cx + r + 50), cy + r + 10], bR: 38, bar: null, sheet: { width: sheet } };
   }
   const r = LENS_RADIUS, cx = COLUMN + (w - COLUMN) / 2;
   // Arms start below the top-right panel; the read arm ends above the clock bar.
