@@ -1,12 +1,24 @@
 import { T_MAX } from "./clock";
+import type { Pt } from "./layers";
 import type { StepId } from "./steps";
 
-export type StoryParams = { t: number; compare: boolean; step: StepId | "explore" };
-export const STORY_FIELDS = ["t", "cmp", "step"] as const;
+/** Story fields of the URL. With selected/pinned/window/product they restore the whole screen at any viewport size. */
+export type StoryParams = {
+  t: number; compare: boolean; step: StepId | "explore";
+  /** Lens centre in display-CRS kilometres; null = the step's authored target (or the selected station). */
+  at: Pt | null;
+  /** Zoom relative to the fitted Pacific. */
+  z: number;
+  /** In Explore: the step to resume. */
+  from: StepId | null;
+};
+export const STORY_FIELDS = ["t", "cmp", "step", "at", "z", "from"] as const;
+const Z_MIN = 0.25, Z_MAX = 20;
+const stepId = (v: string): StepId | null => /^[1-6]$/.test(v) ? Number(v) as StepId : null;
 
 export function parseStoryParams(search: string): { params: StoryParams; issues: string[] } {
   const q = new URLSearchParams(search), issues: string[] = [];
-  const params: StoryParams = { t: 0, compare: false, step: 1 };
+  const params: StoryParams = { t: 0, compare: false, step: 1, at: null, z: 1, from: null };
   const t = q.get("t");
   if (t !== null) {
     const n = Number(t);
@@ -18,9 +30,30 @@ export function parseStoryParams(search: string): { params: StoryParams; issues:
   const step = q.get("step");
   if (step !== null) {
     if (step === "explore") params.step = "explore";
-    else if (/^[1-6]$/.test(step)) params.step = Number(step) as StepId;
+    else if (stepId(step)) params.step = stepId(step)!;
     else issues.push("Invalid story step: step 1 restored.");
   }
+  const at = q.get("at");
+  if (at !== null) {
+    const xy = at.split(",").map(Number);
+    if (xy.length === 2 && xy.every(Number.isFinite)) params.at = [xy[0], xy[1]];
+    else issues.push("Invalid lens position: the step's view restored.");
+  }
+  const z = q.get("z");
+  if (z !== null) {
+    const n = Number(z);
+    if (!Number.isFinite(n)) issues.push("Invalid zoom: default restored.");
+    else { params.z = Math.max(Z_MIN, Math.min(Z_MAX, n)); if (n !== params.z) issues.push(`Zoom limited to ${Z_MIN}–${Z_MAX}.`); }
+  }
+  const from = q.get("from");
+  if (from !== null) { if (stepId(from)) params.from = stepId(from); else issues.push("Invalid resume step: step 1 will be used."); }
   return { params, issues };
 }
-export const storyQuery = (p: StoryParams) => `t=${Math.round(p.t * 100) / 100}&cmp=${p.compare ? 1 : 0}&step=${p.step}`;
+/** Defaults are left out so a plain story link stays short. */
+export function storyQuery(p: StoryParams): string {
+  const q = [`t=${Math.round(p.t * 100) / 100}`, `cmp=${p.compare ? 1 : 0}`, `step=${p.step}`];
+  if (p.at) q.push(`at=${Math.round(p.at[0])},${Math.round(p.at[1])}`);
+  if (p.z !== 1) q.push(`z=${Math.round(p.z * 100) / 100}`);
+  if (p.from !== null) q.push(`from=${p.from}`);
+  return q.join("&");
+}

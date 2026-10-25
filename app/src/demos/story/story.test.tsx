@@ -54,7 +54,7 @@ export function input({ lensOverOcean = false, t = 7.5, compare = false, step = 
     manifest, geometry, geometryError: null, layers, layersError: null, onRetryLayers: noop,
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: "saip", windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: ready("saip"), onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
-    params: { t, compare, step }, onParams: noop, onPinStation: noop,
+    params: { t, compare, step, at: null, z: 1, from: null }, onParams: noop, onPinStation: noop,
     initialCentre: lensOverOcean ? [-3e6, 9e6] : undefined, initialSize: size,
   };
 }

@@ -121,7 +121,7 @@ export function StoryView(props: StoryViewProps) {
     const target = stepTarget(step); if (target) focusPoint(target);
     if (playingRef.current) stop();
     tRef.current = startT; setT(startT);
-    props.onParams({ t: startT, compare: step.compare, step: n }, true);
+    props.onParams({ ...params, t: startT, compare: step.compare, step: n, at: null, z: 1, from: null }, true);
     if (animate) { untilRef.current = step.play![1]; playTo(step.play![0]); }
   };
   const explore = () => props.onParams({ ...params, t: tRef.current, step: "explore" }, true);

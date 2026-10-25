@@ -74,13 +74,13 @@ describe("guided steps", () => {
   });
   it("never claims an arrival or warning time in step copy", () => {
     for (const step of STEPS) expect(`${step.title} ${step.body}`).not.toMatch(/arrived|arrival time is|warning time is|minutes of warning/i);
-    expect(STEPS[4]).toMatchObject({ compare: true, a: "1617760", b: "saip" });
+    expect(STEPS[4]).toMatchObject({ compare: true, lens: { station: "1617760" }, b: "saip" });
   });
 });
 
 describe("story URL", () => {
   it("round-trips story params and repairs bad values", () => {
-    expect(parseStoryParams("?" + storyQuery({ t: 7.5, compare: true, step: 5 })).params).toEqual({ t: 7.5, compare: true, step: 5 });
+    expect(parseStoryParams("?" + storyQuery({ t: 7.5, compare: true, step: 5, at: null, z: 1, from: null })).params).toEqual({ t: 7.5, compare: true, step: 5, at: null, z: 1, from: null });
     expect(parseStoryParams("?step=explore").params.step).toBe("explore");
     const bad = parseStoryParams("?t=99&step=9");
     expect(bad.params.t).toBe(T_MAX);
