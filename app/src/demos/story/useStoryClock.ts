@@ -74,5 +74,5 @@ export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit, onP
   useEffect(() => { if (wasPlaying.current && !playing) paused.current?.(tRef.current); wasPlaying.current = playing; }, [playing]);
   /** Drop a pending slider commit (browser Back/Forward is about to restore the clock). */
   const cancelSeek = () => window.clearTimeout(seekTimer.current);
-  return { t, playing, play, stop, toggle, playOrStep, seek, set, cancelSeek, tRef };
+  return { t, playing, play, stop, playOrStep, seek, set, cancelSeek, tRef };
 }

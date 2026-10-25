@@ -23,6 +23,11 @@ export type NavContext = {
   evidenceOpen?: boolean; playing?: boolean; sheetExpanded?: boolean;
 };
 export type NavResult = { nav: StoryNav; history: "push" | "replace" | "back" | "none"; effects: Effect[] };
+/** The history entry DemoApp writes: a push records the step it came from; a replace keeps this entry's own previous step. */
+export function entryFor(current: unknown, step: StoryNav["step"], history: "push" | "replace") {
+  const c = current as { step?: unknown; prev?: unknown } | null;
+  return { step, prev: (history === "push" ? c?.step : c?.prev) ?? null };
+}
 /** On reload, history.state survives: keep the previous step it records when it belongs to this step. */
 export function keptPrev(state: unknown, step: StoryNav["step"]): StoryNav["step"] | null {
   const s = state as { step?: unknown; prev?: unknown } | null;

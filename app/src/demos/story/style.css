@@ -12,7 +12,9 @@ button,select,summary{font:inherit}
 .story h1,.story h2,.story h3,.story p,.story figure{margin:0}
 .story button{min-height:36px;border:1px solid var(--story-line);border-radius:999px;background:transparent;color:var(--story-ink);padding:4px 11px;font-size:12.5px}
 .story button[aria-pressed=true]{background:var(--story-ink);color:var(--story-ocean);border-color:var(--story-ink)}
-.story button:focus-visible,.story-map:focus-visible{outline:3px solid var(--story-accent);outline-offset:2px}
+.story button:focus-visible,.story select:focus-visible,.story summary:focus-visible,.story a:focus-visible,.story-map:focus-visible{
+  outline:3px solid var(--story-accent);outline-offset:2px}
+.story button:disabled,.story select:disabled,.story input:disabled{opacity:.5;cursor:default}
 .story .story-map:focus-visible{outline-offset:-6px}
 .story-map{position:absolute;inset:0;display:block;touch-action:none;cursor:grab;transform-origin:55% 72%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .story-map:active{cursor:grabbing}

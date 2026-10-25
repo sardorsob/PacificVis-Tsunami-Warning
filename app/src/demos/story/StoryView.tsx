@@ -154,16 +154,21 @@ export function StoryView(props: StoryViewProps) {
   // The station under the lens drives the panels; while the map moves the URL is untouched, at rest it is corrected in place.
   // Only a lens move triggers this: after Back/Forward the URL changes first and the view follows a render later, so
   // reacting to selectedStationId would rewrite the restored entry with the old lens station.
+  // A glide passing over stations is not a choice (it settles at its target), and dragging across B never re-picks B.
   useEffect(() => {
-    if (lensStation && lensStation !== state.selectedStationId)
-      props.onNav({ nav: distinct({ ...live(), a: lensStation }, stationIds), history: moving.current ? "none" : "replace", effects: [] });
+    if (!lensStation || lensStation === state.selectedStationId || pending.current) return;
+    if (moving.current) { if (lensStation !== state.pinnedStationId) props.onNav({ nav: { ...live(), a: lensStation }, history: "none", effects: [] }); }
+    else props.onNav({ nav: distinct({ ...live(), a: lensStation }, stationIds), history: "replace", effects: [] });
   }, [lensStation]);
   const settle = (explicit = false) => {
     dropSettle();
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
     const station = stations.length ? capture(c, reach(v), stations) : null;
-    // Station lens rests only on stations: a move that ends over open ocean glides on to the nearest one, then settles there.
-    if (lens && !station && stations.length) return focusStation(capture(c, Infinity, stations)!, explicit);
+    // Station lens rests centred on a station: a move that ends off one glides on to it (the nearest, over open ocean), then settles.
+    if (lens && stations.length) {
+      const id = station ?? capture(c, Infinity, stations)!, s = stations.find(x => x.id === id)!;
+      if (Math.hypot(s.xy[0] - c[0], s.xy[1] - c[1]) * v.k > 1) return focusStation(id, explicit);
+    }
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
     const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
     const push = explicit || owedPush.current; owedPush.current = false;
@@ -336,8 +341,9 @@ export function StoryView(props: StoryViewProps) {
     <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
-    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined}>{extra}</ClockColumn>;
-  const compare = lens ? <section className="story-panel story-compare" aria-label="Views"><ViewSwitch view="radial" onView={switchView}/></section>
+    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined}
+    label={lens ? "Station lens" : "Story"}>{extra}</ClockColumn>;
+  const compare = lens ? <div className="story-panel story-compare"><ViewSwitch view="radial" onView={switchView}/></div>
     : <section className="story-panel story-compare" aria-label="Views and comparison">
     <ViewSwitch view="story" onView={switchView}/>
     <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
@@ -353,7 +359,7 @@ export function StoryView(props: StoryViewProps) {
   const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK}
     onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
   // Station lens: A's and B's full cards in the side arms (scrolling inside the arm above the clock bar when wide), the caveat below.
-  const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: unknown) => wide ? { maxHeight: size.h - Number(top) - 116 } : {};
+  const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: number) => wide ? { maxHeight: size.h - top - 116 } : {};
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
   const cards = <>
     <div className="story-arm story-arm--card" style={{ ...L.record, ...armMax(L.record.top) }}>

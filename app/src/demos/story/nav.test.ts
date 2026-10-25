@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { STATION_IDS } from "../loader";
-import { keptPrev, reduce, type NavContext, type StoryNav } from "./nav";
+import { entryFor, keptPrev, reduce, type NavContext, type StoryNav } from "./nav";
 import { parseStoryParams, storyQuery } from "./url";
 
 const ctx: NavContext = { motionOK: true, stationIds: STATION_IDS };
@@ -116,6 +116,14 @@ describe("Escape closes the topmost transient only", () => {
     expect(kinds(reduce(at(4), e, { ...ctx, sheetExpanded: true }))).toEqual(["collapseSheet"]);
     expect(reduce(at(4), e, ctx)).toMatchObject({ history: "none", effects: [] });
     expect(reduce(at(4), e, { ...ctx, evidenceOpen: true }).nav).toEqual(at(4));
+  });
+});
+
+describe("history entries carry the step story Back needs", () => {
+  it("a push records the step it came from; a replace keeps the entry's own previous step", () => {
+    expect(entryFor({ step: 3, prev: 2 }, 4, "push")).toEqual({ step: 4, prev: 3 });
+    expect(entryFor({ step: 3, prev: 2 }, 3, "replace")).toEqual({ step: 3, prev: 2 });
+    expect(entryFor(null, "explore", "push")).toEqual({ step: "explore", prev: null });
   });
 });
 

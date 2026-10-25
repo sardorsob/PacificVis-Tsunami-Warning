@@ -269,7 +269,7 @@ describe("Paired — records first, on the shared clock", () => {
     const html = renderToStaticMarkup(<PairedView {...paired()}/>);
     expect(html.match(/class="paired-station[^"]*"/g)).toHaveLength(10);
     expect(html).toContain('aria-label="Selected A: Test station 1617760 (1617760)"');
-    expect(html).toContain('aria-label="Pinned reference B: Test station saip (saip)"');
+    expect(html).toContain('aria-label="Pinned reference B: Test station saip (saip). Make it A"');
     expect(html).toContain('aria-label="Make Test station 21418 (21418) A"');
   });
   it("keeps the records when the map fails, with Retry map", () => {
@@ -291,7 +291,9 @@ describe("Paired — records first, on the shared clock", () => {
     vi.stubGlobal("matchMedia", (q: string) => ({ matches: q.includes("reduce"), media: q, addEventListener: noop, removeEventListener: noop }));
     try { expect(renderToStaticMarkup(<PairedView {...paired()}/>)).toContain("+1 h"); } finally { vi.unstubAllGlobals(); }
   });
-  it("never words a contour as an arrival", () => {
-    expect(renderToStaticMarkup(<PairedView {...paired()}/>)).not.toMatch(/arrival time:|arrived at|warning time:/i);
+  it("never words a contour as an arrival, and says the white line is the clock", () => {
+    const html = renderToStaticMarkup(<PairedView {...paired()}/>);
+    expect(html).not.toMatch(/arrival time:|arrived at|warning time:/i);
+    expect(html).toContain("The white line on each record is the shared clock");
   });
 });

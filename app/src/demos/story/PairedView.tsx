@@ -25,12 +25,12 @@ export function PairedView(props: StoryViewProps) {
       if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h });
     });
     ro.observe(el); return () => ro.disconnect();
-  }, [geometry]);
+  }, []);
   const view = fitView(PACIFIC_CROP, size.w, size.h);
 
   // Same contract as the story: one reducer, DemoApp's single writer, every action from the live clock.
-  const navRef = useRef<StoryNav>({ ...params, a: state.selectedStationId, b: state.pinnedStationId });
-  navRef.current = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
+  const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
+  const navRef = useRef(nav); navRef.current = nav;
   const [said, setSaid] = useState("");
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }),
     onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
@@ -46,7 +46,7 @@ export function PairedView(props: StoryViewProps) {
     dispatch({ type: "lensSettle", at: s ? [Math.round(s.xy[0] / 1000), Math.round(s.xy[1] / 1000)] : null, z: navRef.current.z, station: id, explicit: true });
   };
   const toggle = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
-  const keys = useRef({ toggle, escape: () => dispatch({ type: "escape" }) }); keys.current = { toggle, escape: () => dispatch({ type: "escape" }) };
+  const keyActions = { toggle, escape: () => dispatch({ type: "escape" }) }, keys = useRef(keyActions); keys.current = keyActions;
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") keys.current.escape();
@@ -69,7 +69,7 @@ export function PairedView(props: StoryViewProps) {
     <header className="paired-head">
       <div><p className="story-kicker">Pacific · 11 March 2011</p><h1 className="story-title">Paired records</h1>
         <p className="story-small">Two stations on one clock. Each keeps its own scale and datum; heights are not compared. Contours are NOAA/NCEI
-          published travel-time estimates, not arrivals.</p></div>
+          published travel-time estimates, not arrivals. The white line on each record is the shared clock, a time, not an arrival pick.</p></div>
       <ViewSwitch view="paired" onView={v => props.onState({ view: v }, live())}/>
     </header>
     <Notes {...props}/>
@@ -84,7 +84,7 @@ export function PairedView(props: StoryViewProps) {
           const [x, y] = toScreen(view, s.xy), isA = s.id === A, isB = s.id === B, name = `${s.name} (${s.id})`;
           return <button key={s.id} type="button" className={`paired-station${isA ? " paired-station--a" : isB ? " paired-station--b" : ""}`}
             style={{ left: x, top: y }} aria-pressed={isA} onClick={() => pick(s.id)}
-            aria-label={isA ? `Selected A: ${name}` : isB ? `Pinned reference B: ${name}` : `Make ${name} A`}/>;
+            aria-label={isA ? `Selected A: ${name}` : isB ? `Pinned reference B: ${name}. Make it A` : `Make ${name} A`}/>;
         })}
       </> : props.geometryError ? <div role="alert" className="story-alert"><p>Map unavailable: {props.geometryError}</p>
         <button type="button" onClick={props.onRetryGeometry}>Retry map</button><p className="story-small">The records below stay available.</p></div>

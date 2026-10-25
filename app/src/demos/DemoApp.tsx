@@ -3,7 +3,7 @@ import { EvidencePanel } from "./evidence/EvidencePanel";
 import { loadManifest,fetchVerifiedAsset,validateGeometry,decodeStation,LatestRequest } from "./loader";
 import { parseState,serializeState } from "./state";
 import { loadLayers,type StoryLayers } from "./story/layers";
-import { keptPrev,type NavResult,type StoryNav } from "./story/nav";
+import { entryFor,keptPrev,type NavResult,type StoryNav } from "./story/nav";
 import { PairedView } from "./story/PairedView";
 import { StoryView,type StoryViewProps } from "./story/StoryView";
 import { parseStoryParams,type StoryParams } from "./story/url";
@@ -66,13 +66,14 @@ function LoadedDemo({manifest}:{manifest:DemoManifest}) {
   /** The one history writer: state + story fields → URL and entry ({step, prev} lets story Back use history.back()). */
   const write=(next:DemoState,params:StoryParams,history:"push"|"replace")=>{
     stateRef.current=next;storyRef.current=params;setState(next);setStory(params);
-    const current=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;
-    const entry={step:params.step,prev:history==="push"?current?.step??null:current?.prev??null};
-    window.history[history==="push"?"pushState":"replaceState"](entry,"",href(next,params));
+    window.history[history==="push"?"pushState":"replaceState"](entryFor(window.history.state,params.step,history),"",href(next,params));
   };
   /** A change made from a view's live screen: on a view switch the entry left keeps that moment (replace), then push. */
   const onState=(patch:Partial<DemoState>,live:StoryNav)=>{const {a,b,...params}=live;const here={...stateRef.current,selectedStationId:a,pinnedStationId:b};
-    if(patch.view&&patch.view!==here.view)write(here,params,"replace");setIssues([]);setEvidenceId(null);write({...here,...patch},params,"push");};
+    const switching=!!patch.view&&patch.view!==here.view;if(switching)write(here,params,"replace");
+    setIssues([]);setEvidenceId(null);write({...here,...patch},params,"push");
+    // The pressed switch button unmounts with the old view: keep keyboard focus on the switch in the new one.
+    if(switching)window.setTimeout(()=>document.querySelector<HTMLElement>('.story-views [aria-pressed="true"]')?.focus({preventScroll:true}),0);};
   /** Applies a navigation result (push/replace/back/none) from story/nav.ts. */
   const writeNav=(r:NavResult)=>{
     if(r.history==="back"){window.history.back();return;}

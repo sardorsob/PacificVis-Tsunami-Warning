@@ -98,14 +98,14 @@ describe("StationTools — stations, B, window and product", () => {
     onSelect: vi.fn(), onPin: vi.fn(), onWindow: vi.fn(), onProduct: vi.fn(), ...extra });
   it("moves A only to named adjacent targets, stops at the ends, and never pins", () => {
     const first = tools("1617760"), tree = nodes(StationTools(first));
-    expect(byLabel(tree, "Previous station target")!.props.disabled).toBe(true);
-    byLabel(tree, "Next station target")!.props.onClick!();
+    expect(byLabel(tree, "Previous station target: Start of station list")!.props.disabled).toBe(true);
+    byLabel(tree, "Next station target: Test station 1770000")!.props.onClick!();
     expect(first.onSelect).toHaveBeenCalledExactlyOnceWith("1770000");
     expect(first.onPin).not.toHaveBeenCalled();
     const middle = tools("21418");
-    byLabel(nodes(StationTools(middle)), "Previous station target")!.props.onClick!();
+    byLabel(nodes(StationTools(middle)), "Previous station target: Test station 21413")!.props.onClick!();
     expect(middle.onSelect).toHaveBeenCalledExactlyOnceWith("21413");
-    expect(byLabel(nodes(StationTools(tools("valp"))), "Next station target")!.props.disabled).toBe(true);
+    expect(byLabel(nodes(StationTools(tools("valp"))), "Next station target: End of station list")!.props.disabled).toBe(true);
     expect(renderToStaticMarkup(<StationTools {...first}/>)).toContain("Test station 1770000");
   });
   it("never offers A as B, and clears B without substituting one", () => {
