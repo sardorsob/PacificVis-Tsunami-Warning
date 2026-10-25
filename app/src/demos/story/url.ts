@@ -26,7 +26,7 @@ export function parseStoryParams(search: string): { params: StoryParams; issues:
     else issues.push("Invalid story step: step 1 restored.");
   }
   // A hand-written step link opens that step as authored; the app always writes t and cmp itself.
-  if (typeof params.step === "number") { const s = STEPS[params.step - 1]; params.t = s.t; params.compare = s.compare; }
+  if (typeof params.step === "number") { const s = STEPS[params.step - 1]; params.t = s.play ? s.play[0] : s.t; params.compare = s.compare; }
   const t = q.get("t");
   if (t !== null) {
     const n = Number(t);

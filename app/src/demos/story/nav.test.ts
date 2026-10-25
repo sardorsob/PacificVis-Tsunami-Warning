@@ -113,7 +113,7 @@ describe("story URL — the URL is the screen", () => {
   it("a step link without clock or compare opens that step as authored", () => {
     expect(parseStoryParams("?step=4").params).toMatchObject({ step: 4, t: 7.5, compare: false });
     expect(parseStoryParams("?step=5").params).toMatchObject({ step: 5, compare: true });
-    expect(parseStoryParams("?step=2").params.t).toBe(8); // a link never auto-plays
+    expect(parseStoryParams("?step=2").params.t).toBe(0); // a link never auto-plays: it opens at the start, with Play this step
     expect(parseStoryParams("?step=4&t=0&cmp=1").params).toMatchObject({ t: 0, compare: true });
   });
   it("repairs bad lens, zoom and resume values", () => {
