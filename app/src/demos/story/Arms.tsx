@@ -4,7 +4,7 @@ import { SupportView } from "../SupportView";
 import type { ProductKey, StationSelection } from "../types";
 import { utcAt } from "./clock";
 
-const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), first arrival only, no wave height. Not a station's arrival, and not warning time.";
+export const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), first arrival only, no wave height. Not a station's arrival, and not warning time.";
 type Reading = { a: number; b: number } | null;
 type ArmsProps = {
   ocean: boolean; atOrigin: boolean; nearestName: string; reading: Reading; t: number; originUtc: string;

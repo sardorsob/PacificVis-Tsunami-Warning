@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { layoutFor } from "../layout";
 import type { DemoState, RadialProps } from "../types";
-import { Arms, typeLabel } from "./Arms";
+import { NoReference, StationCard } from "../StationCard";
+import { Arms, CAVEAT, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
 import { clockLabel, T_MAX, utcAt } from "./clock";
@@ -14,6 +15,7 @@ import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, useStag
 import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
 import { useStoryClock } from "./useStoryClock";
+import { StationTools } from "./StationTools";
 import { ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
@@ -47,6 +49,8 @@ function historyPrev(): StoryNav["step"] | null {
 
 export function StoryView(props: StoryViewProps) {
   const { manifest, geometry, layers, state, selected, params } = props;
+  /** Station lens (?view=radial): the same stage, the lens always on a station, full A/B cards and station tools, no guided steps. */
+  const lens = state.view === "radial";
   const origin = manifest.event.origin_time_utc;
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState(() => props.initialSize
@@ -61,13 +65,14 @@ export function StoryView(props: StoryViewProps) {
   // ---- navigation: one reducer, one writer ----
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
-  const stepNow = typeof params.step === "number" ? STEPS[params.step - 1] : null;
+  const stepNow = !lens && typeof params.step === "number" ? STEPS[params.step - 1] : null;
   const fitK = fitView(CROP, size.w, size.h).k;
   const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
     : lens.point === "epicentre" ? epicentre : between ?? epicentre;
   /** The step whose lens target applies: the current step, or in Explore the step it was entered from. */
-  const lensStep = (n: StoryNav) => typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
+  const lensStep = (n: StoryNav) => lens ? null : typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
   const targetOf = (n: StoryNav): Pt => {
+    if (lens) return stations.find(s => s.id === n.a)?.xy ?? epicentre; // Station lens: always on A, whatever the story's lens point
     if (n.at) return [n.at[0] * 1000, n.at[1] * 1000];
     const step = lensStep(n);
     return (step ? stepTarget(step) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
@@ -158,6 +163,8 @@ export function StoryView(props: StoryViewProps) {
     dropSettle();
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
     const station = stations.length ? capture(c, reach(v), stations) : null;
+    // Station lens rests only on stations: a move that ends over open ocean glides on to the nearest one, then settles there.
+    if (lens && !station && stations.length) return focusStation(capture(c, Infinity, stations)!, explicit);
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
     const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
     const push = explicit || owedPush.current; owedPush.current = false;
@@ -298,8 +305,9 @@ export function StoryView(props: StoryViewProps) {
   const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · magnitude 9.1 · where the published clock starts" }
     : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h` : "no published contour nearby" }
     : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · clock ${clockLabel(t)} · ${utcAt(origin, t)}` };
-  const b = params.compare ? props.pinned : null;
-  const bStation = b ? stations.find(s => s.id === b.station.station_id) ?? null : null;
+  const b = lens || params.compare ? props.pinned : null;
+  // The B mini-lens is the story's Compare; Station lens shows B's full card instead (B stays marked on the map).
+  const bStation = !lens && b ? stations.find(s => s.id === b.station.station_id) ?? null : null;
   const bSlot = L.bSlot, bScreen = bStation ? toScreen(view, bStation.xy) : null;
   const bOff = !!bScreen && (bScreen[0] < 0 || bScreen[0] > size.w || bScreen[1] < 0 || bScreen[1] > size.h);
   const within = (v: number, max: number) => Math.max(8, Math.min(max - 8, v));
@@ -307,7 +315,8 @@ export function StoryView(props: StoryViewProps) {
   const wide = L.mode === "wide", cine = clock.playing && motionOK && wide;
 
   if (!geometry) return <main className="story story--loading" ref={root}>{props.geometryError
-    ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button></div>
+    ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button>
+      <p className="story-small">The Paired view shows the records without the map.</p><ViewSwitch view={state.view} onView={switchView}/></div>
     : <p role="status">Loading the verified map…</p>}</main>;
   const alert = <>
     {props.layersPending && <p role="status" className="story-alert">
@@ -335,14 +344,21 @@ export function StoryView(props: StoryViewProps) {
       <button type="button" className="story-link" onClick={() => dispatch({ type: "returnToStep" })}>Return to this step</button>{" "}
       <button type="button" className="story-link" onClick={() => dispatch({ type: "explore" })}>Skip to free exploration</button></p>
   </section> : null;
-  const extra = stepNow ? null : <>
+  const pick = (id: string) => stations.length ? focusStation(id, id !== lensStation)
+    : dispatch({ type: "lensSettle", at: null, z: navRef.current.z, station: id, explicit: true });
+  const tools = <StationTools stations={manifest.stations} windows={manifest.windows} selectedStationId={state.selectedStationId}
+    pinnedStationId={state.pinnedStationId} windowId={state.windowId} productKey={state.productKey} onSelect={pick}
+    onPin={id => dispatch(id ? { type: "pin", id } : { type: "unpin" })} onWindow={windowId => props.onState({ windowId }, live())}
+    onProduct={productKey => props.onState({ productKey }, live())}/>;
+  const extra = lens ? tools : stepNow ? null : <>
     <p className="story-step__links"><button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
       Back to the guided story (step {params.from ?? 1})</button></p>
     <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
-    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
-  const compare = <section className="story-panel story-compare" aria-label="Views and comparison">
+    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined}>{extra}</ClockColumn>;
+  const compare = lens ? <section className="story-panel story-compare" aria-label="Views"><ViewSwitch view="radial" onView={switchView}/></section>
+    : <section className="story-panel story-compare" aria-label="Views and comparison">
     <ViewSwitch view="story" onView={switchView}/>
     <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
       {params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
@@ -356,7 +372,19 @@ export function StoryView(props: StoryViewProps) {
   </section>;
   const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK}
     onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
-  const arms = <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin} a={aSel} b={b}
+  // Station lens: A's and B's full cards in the side arms (scrolling inside the arm above the clock bar when wide), the caveat below.
+  const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: unknown) => wide ? { maxHeight: size.h - Number(top) - 116 } : {};
+  const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
+  const cards = <>
+    <div className="story-arm story-arm--card" style={{ ...L.record, ...armMax(L.record.top) }}>
+      <StationCard selection={selected} role="selected" {...card}/></div>
+    <div className="story-arm story-arm--card" style={{ ...L.support, ...armMax(L.support.top) }}>
+      {props.pinned ? <StationCard selection={props.pinned} role="pinned" {...card}/> : <NoReference/>}</div>
+    <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
+      <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
+  </>;
+  const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
+    a={aSel} b={b}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
     styles={{ record: L.record, support: L.support, read: L.read }}/>;
   return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}>
@@ -392,9 +420,9 @@ export function StoryView(props: StoryViewProps) {
         <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
           {sheetExpanded ? "Collapse panel" : "Expand panel"}</button>
         {lead}
-        <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
-          <button type="button" onClick={() => cycle(1)}>Next station ›</button></div>
-        {bar}{arms}{compare}{column}
+        {!lens && <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
+          <button type="button" onClick={() => cycle(1)}>Next station ›</button></div>}
+        {lens ? <>{bar}{column}{arms}{compare}</> : <>{bar}{arms}{compare}{column}</>}
       </div>}
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;

@@ -57,6 +57,23 @@
 .story .support-strip .clock-cursor{position:absolute;top:-2px;bottom:-2px;width:2px;margin-left:-1px;background:var(--story-ink)}
 .story .dart-support{color:var(--story-dart);margin-top:5px}
 .story .chart-empty{min-height:90px;border-color:var(--story-line)}
+/* Full station cards (Station lens, Paired): one record, its gaps and its source, on the shared clock. */
+.story-card{color:var(--story-muted);font-size:12px}
+.story-card__head{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 6px;color:var(--story-ink)}
+.story-card__head h2,.story-card--empty h2{font:600 17px/1.2 "Iowan Old Style","Palatino Linotype",Georgia,serif;color:var(--story-ink)}
+.story-card__head h2 span{font:400 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;color:var(--story-muted)}
+.story-card__head p{flex-basis:100%;font-size:11.5px}
+.story .story-card .record-chart svg text{font-size:11px}
+.story-card .window-bounds,.story-card .value-context,.story-card .support-key{font-size:11px;margin-top:4px;overflow-wrap:anywhere}
+.story-card .support-view summary{min-height:32px;padding-top:6px;cursor:pointer;color:var(--story-ink)}
+.story-card__source{border-top:1px solid var(--story-line);margin-top:10px;padding-top:8px;font-size:11px}
+.story-card__source p+p{margin-top:4px}
+.story-card__source>div{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;flex-wrap:wrap}
+.story a{color:var(--story-accent)}
+.story-card__error{border:1px solid var(--story-accent);border-radius:8px;padding:8px;margin:8px 0;color:var(--story-ink)}
+.story-card__error p{margin-bottom:6px}
+.story-card__loading{min-height:120px;display:flex;align-items:center}
+.story-arm--card{overflow:auto;color:var(--story-muted)}
 .story-column{left:16px;top:14px;width:282px;max-height:calc(100% - 28px);overflow:auto}
 .story-kicker{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--story-muted)}
 .story-title{font:400 19px/1.2 "Iowan Old Style","Palatino Linotype",Georgia,serif;margin-top:4px!important}
@@ -78,7 +95,13 @@
 .story-panel{z-index:2}
 .story-compare{right:14px;top:14px;width:250px}
 .story-compare__pick{display:inline-flex;align-items:center;gap:4px;margin-left:6px;font-size:12px}
-.story-compare select{min-height:32px;font:inherit;font-size:12px;background:var(--story-ocean);color:var(--story-ink);border:1px solid var(--story-line);border-radius:6px;padding:2px 4px}
+.story select{min-height:36px;font:inherit;font-size:12px;background:var(--story-ocean);color:var(--story-ink);border:1px solid var(--story-line);border-radius:6px;padding:2px 6px;max-width:100%}
+/* Station tools: each label above its control, full width; named neighbours side by side. */
+.story-tools{margin-top:12px;border-top:1px solid var(--story-line);padding-top:8px}
+.story-tools label{display:flex;flex-direction:column;gap:3px;margin-top:8px;font-size:11.5px;color:var(--story-muted)}
+.story-tools select{width:100%}
+.story-tools__targets{display:flex;gap:6px;margin-top:6px}.story-tools__targets button{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.story-tools .story-small{margin-top:6px}
 .story-clockbar{left:50%;bottom:14px;transform:translateX(-50%);width:min(720px,calc(100% - 620px));display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
 .story-play{width:42px;height:42px;padding:0!important;border-color:var(--story-accent)!important;color:var(--story-accent)!important;font-size:14px!important}
 .story-clockbar input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;margin:0}
@@ -116,4 +139,4 @@
 .story-sheet .story-column .story-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .story--narrow .story-lens-title__name,.story--side .story-lens-title__name{font-size:20px}
 /* Touch: 44 px targets, last so it wins over the per-control heights above. */
-@media (pointer:coarse){.story button,.story .story-step__nav button,.story .story-link{min-height:44px}}
+@media (pointer:coarse){.story button,.story .story-step__nav button,.story .story-link,.story select{min-height:44px}}

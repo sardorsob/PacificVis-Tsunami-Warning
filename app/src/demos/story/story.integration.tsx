@@ -2,12 +2,13 @@ import { createHash } from "node:crypto";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { readDemoJson, readLayersBytes, readLayersJson } from "../integration-data";
-import { decodeStation, validateManifest } from "../loader";
+import { decodeStation, validateGeometry, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
 import { nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 import { validateSteps } from "./steps";
 import { StoryView } from "./StoryView";
-import type { DemoGeometry } from "../types";
+import { StationCard } from "../StationCard";
+import type { DemoGeometry, StationSelection } from "../types";
 
 const manifest = validateManifest(readDemoJson("manifest.json"));
 const layers = validateLayersManifest(readLayersJson("manifest.json"));
@@ -66,5 +67,34 @@ describe("story view against the accepted local bundles", () => {
     expect(timed).toContain("clock-cursor");
     expect(dots(timed)).toBe(dots(plain));
     expect(dots(plain)).toBeGreaterThan(1000);
+  });
+
+  // Station lens (ported from the retired radial real-data tests): full cards on the shared clock, real values kept.
+  const lensView = (selectedStationId: string, windowId: string) => {
+    const geometry = validateGeometry(readDemoJson("geometry.json"), manifest), noop = () => undefined;
+    const pick = (id: string): StationSelection => { const station = manifest.stations.find(s => s.station_id === id)!;
+      return { station, status: "ready", error: null, records: decodeStation(readDemoJson(`stations/${id}.json`), station, manifest) }; };
+    const state = { ...manifest.default_state, view: "radial" as const, selectedStationId, windowId };
+    const props = { manifest, geometry, geometryError: null, layers: null, layersError: null, layersPending: null, onRetryLayers: noop, state,
+      selected: pick(selectedStationId), pinned: pick(state.pinnedStationId!), onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop,
+      onRetryGeometry: noop, params: { t: 7.5, compare: false, step: 1 as const, at: null, z: 1, from: null }, onNav: noop, restoreKey: 0,
+      evidenceOpen: false, issues: [], onDismissIssues: noop, onState: noop, initialSize: { w: 1440, h: 900 } };
+    const cursorMs = Date.parse(manifest.event.origin_time_utc) + 7.5 * 3_600_000;
+    const card = (selection: StationSelection, role: "selected" | "pinned") => renderToStaticMarkup(<StationCard selection={selection} role={role}
+      windowId={windowId} productKey={state.productKey} cursorMs={cursorMs} onOpenEvidence={noop} onRetryStation={noop}/>);
+    return { html: renderToStaticMarkup(<StoryView {...props}/>), cards: [card(props.selected, "selected"), card(props.pinned, "pinned")] };
+  };
+  it("Station lens shows Hilo's and Saipan's real cards on the shared clock without reprocessing", () => {
+    const { html, cards } = lensView("1617760", "common_day");
+    for (const card of cards) expect(html).toContain(card);
+    for (const value of ["98.0556", "44.7222", "53.0556"]) expect(html).toContain(value);
+  });
+  it("Station lens keeps station-specific full-source intervals and DART non-applicable grid support", () => {
+    const { html, cards } = lensView("21418", "source_full");
+    for (const card of cards) expect(html).toContain(card);
+    for (const text of ["Full source record — station-specific bounds", "not a common comparison period", "Strict coastal-grid coverage",
+      "Not applicable", "m water column"]) expect(html).toContain(text);
+    expect(manifest.release)
+      .toMatchObject({ arrival_comparison_allowed: false, physical_arrival_records_released: 0, continuous_nctr_field: "blocked_no_proxy" });
   });
 });

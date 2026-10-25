@@ -28,14 +28,15 @@ function Strip({ counts, t, label }: { counts: (number | null)[] | null; t: numb
 }
 type ClockColumnProps = {
   t: number; originUtc: string; stationName: string | null; counts: (number | null)[] | null;
-  lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string;
+  lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string; title?: string;
 };
 /** Editorial column: what this is, the clock, a strip tied to the lens, the legend, then step or station controls. */
-export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "" }: ClockColumnProps) {
+export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "", title = "How the published tsunami clock spread" }:
+  ClockColumnProps) {
   const max = counts ? Math.max(0, ...counts.map(c => c ?? 0)) : 0;
   return <aside className={`story-column ${className}`} aria-label="Story">
     <p className="story-kicker">Pacific · 11 March 2011</p>
-    <h1 className="story-title">How the published tsunami clock spread</h1>
+    <h1 className="story-title">{title}</h1>
     <p className="story-small">NOAA/NCEI travel-time contours, one line per hour after the 05:46 UTC Tōhoku origin.</p>
     {alert}
     {lead}

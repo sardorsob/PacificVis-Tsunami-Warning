@@ -1,7 +1,8 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { STATION_IDS } from "../loader";
-import type { DemoGeometry, DemoManifest, StationMetadata, StationRecords, StationSelection } from "../types";
+import { NoReference, StationCard } from "../StationCard";
+import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
 import { StoryView, type StoryViewProps } from "./StoryView";
@@ -52,10 +53,10 @@ const ready = (id: string): StationSelection => { const station = stations.find(
 const noop = () => undefined;
 export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
   from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null, at = null as StoryParams["at"],
-  z = 1 } = {}): StoryViewProps {
+  z = 1, view = "story" as DemoState["view"] } = {}): StoryViewProps {
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, layersPending: null, onRetryLayers: noop,
-    state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
+    state: { view, selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
     evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size,
@@ -220,3 +221,35 @@ describe("story view — exits, cancels and repairs", () => {
   });
 });
 
+describe("Station lens — the story stage around one station", () => {
+  const lens = (extra: Parameters<typeof input>[0] = {}) => input({ view: "radial", t: 7.5, ...extra });
+  const common = (props: StoryViewProps) => ({ windowId: props.state.windowId, productKey: props.state.productKey, onOpenEvidence: noop,
+    onRetryStation: noop, cursorMs: Date.parse(props.manifest.event.origin_time_utc) + 7.5 * 3_600_000 });
+  it("shows A's and B's full cards on the shared clock", () => {
+    const props = lens(), html = renderToStaticMarkup(<StoryView {...props}/>);
+    expect(html).toContain(renderToStaticMarkup(<StationCard selection={props.selected} role="selected" {...common(props)}/>));
+    expect(html).toContain(renderToStaticMarkup(<StationCard selection={props.pinned!} role="pinned" {...common(props)}/>));
+  });
+  it("clears B without substitution: one chart, one support, and the no-reference card", () => {
+    const html = renderToStaticMarkup(<StoryView {...lens({ pinned: null })}/>);
+    expect(html).toContain(renderToStaticMarkup(<NoReference/>));
+    expect(html.match(/class="record-chart"/g)).toHaveLength(1);
+    expect(html.match(/class="support-view"/g)).toHaveLength(1);
+  });
+  it("has station tools and the view switch, and none of the guided story's controls", () => {
+    const html = renderToStaticMarkup(<StoryView {...lens()}/>);
+    for (const text of ["Previous station target", "Pinned reference B", "UTC window"]) expect(html).toContain(text);
+    expect(html).toMatch(/aria-pressed="true">Station lens</);
+    for (const text of [" of 6<", "Skip to free exploration", "Back to the guided story", "⇄ Compare", "Play this step"]) expect(html).not.toContain(text);
+  });
+  it("keeps the lens on station A even when the URL's lens point is open ocean", () => {
+    expect(renderToStaticMarkup(<StoryView {...lens({ lensOverOcean: true })}/>)).toContain('story-lens-title__name">Test station 1617760<');
+  });
+  it("keeps a failed map recoverable, with a way to another view", () => {
+    const html = renderToStaticMarkup(<StoryView {...lens()} geometry={null} geometryError="test locator mismatch"/>);
+    for (const text of ["test locator mismatch", "Retry map", ">Paired<"]) expect(html).toContain(text);
+  });
+  it("never words a contour as an arrival", () => {
+    expect(renderToStaticMarkup(<StoryView {...lens()}/>)).not.toMatch(/arrival time:|arrived at|warning time:/i);
+  });
+});
