@@ -8,6 +8,7 @@
 .story button{min-height:36px;border:1px solid var(--story-line);border-radius:999px;background:transparent;color:var(--story-ink);padding:4px 11px;font-size:12.5px}
 .story button[aria-pressed=true]{background:var(--story-ink);color:var(--story-ocean);border-color:var(--story-ink)}
 .story button:focus-visible,.story-map:focus-visible{outline:3px solid var(--story-accent);outline-offset:2px}
+.story .story-map:focus-visible{outline-offset:-6px}
 .story-map{position:absolute;inset:0;display:block;touch-action:none;cursor:grab;transform-origin:55% 72%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .story-map:active{cursor:grabbing}
 .story-land{fill:var(--story-land);stroke:none}
@@ -99,7 +100,7 @@
   border-radius:16px 16px 0 0;padding:8px 12px 16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .story-sheet--side{left:auto;top:8px;bottom:8px;right:8px;max-height:none;border:1px solid var(--story-line);border-radius:12px}
 .story-sheet--expanded{max-height:88%}
-.story-sheet__handle{display:block;margin:0 auto 6px;min-height:32px!important}
+.story-sheet__handle{display:block;margin:0 auto 6px}
 .story-sheet--side .story-sheet__handle{display:none}
 .story-zoom{position:absolute;z-index:2;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px}
 .story .story-zoom button{min-width:44px;min-height:44px;padding:0 8px;background:var(--story-panel);font-size:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -114,3 +115,5 @@
 .story-sheet .story-column .story-kicker{display:none}
 .story-sheet .story-column .story-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .story--narrow .story-lens-title__name,.story--side .story-lens-title__name{font-size:20px}
+/* Touch: 44 px targets, last so it wins over the per-control heights above. */
+@media (pointer:coarse){.story button,.story .story-step__nav button,.story .story-link{min-height:44px}}

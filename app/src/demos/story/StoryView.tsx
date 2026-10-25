@@ -72,6 +72,8 @@ export function StoryView(props: StoryViewProps) {
   const [view, setView] = useState<View>(() => viewFor(nav));
   const viewRef = useRef(view); viewRef.current = view;
   const [sheetExpanded, setSheetExpanded] = useState(false);
+  /** Polite announcements: lens settle, pause and the one-hour step. A step change moves focus to its heading instead. */
+  const [said, setSaid] = useState("");
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }) });
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
   /** The glide in flight; `settleAs` is set when it ends in a lens settle (true = explicit push). */
@@ -121,6 +123,7 @@ export function StoryView(props: StoryViewProps) {
     window.clearTimeout(settleTimer.current);
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
     const station = stations.length ? capture(c, footprintRadius(L.r, v.k, LENS_MAG), stations) : null;
+    setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
     dispatch({ type: "lensSettle", at: [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z: Math.round((v.k / fitK) * 100) / 100, station, explicit });
   };
   const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settle(), SETTLE_MS); };
@@ -165,7 +168,10 @@ export function StoryView(props: StoryViewProps) {
     else if (e.key === "+" || e.key === "=" || e.key === "-") { e.preventDefault(); zoom(e.key === "-" ? 1 / 1.25 : 1.25); }
   };
   const toggleRef = useRef(() => {}), escapeRef = useRef(() => {});
-  toggleRef.current = () => { if (!layers) return; if (motionOK) clock.toggle(); else if (clock.tRef.current < T_MAX) clock.seek(Math.min(T_MAX, Math.floor(clock.tRef.current) + 1)); };
+  toggleRef.current = () => { if (!layers) return; if (motionOK) { clock.toggle(); return; }
+    if (clock.tRef.current < T_MAX) { const next = Math.min(T_MAX, Math.floor(clock.tRef.current) + 1); clock.seek(next); setSaid(`Clock ${clockLabel(next)}.`); } };
+  const wasPlaying = useRef(false);
+  useEffect(() => { if (wasPlaying.current && !clock.playing) setSaid(`Clock paused at ${clockLabel(clock.tRef.current)}.`); wasPlaying.current = clock.playing; }, [clock.playing]);
   escapeRef.current = () => dispatch({ type: "escape" });
   useEffect(() => {
     const key = (e: globalThis.KeyboardEvent) => {
@@ -270,7 +276,7 @@ export function StoryView(props: StoryViewProps) {
       <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button><button type="button" onClick={() => cycle(1)}>Next station ›</button></div>
       {bar}{arms}{compare}{column}
     </div>}
-    <p className="story-sr" aria-live="polite">{`${title.name}. Clock ${clockLabel(Math.floor(t))}.`}</p>
+    <p className="story-sr" aria-live="polite">{said}</p>
   </main>;
 }
 

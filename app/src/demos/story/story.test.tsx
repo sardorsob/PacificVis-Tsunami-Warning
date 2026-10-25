@@ -186,6 +186,10 @@ describe("story view — exits, cancels and repairs", () => {
     expect(renderToStaticMarkup(<StoryView {...input()} layers={null} layersPending="loading"/>)).toContain("Loading the published contour layer…");
     expect(renderToStaticMarkup(<StoryView {...input()} layers={null} layersPending="retrying"/>)).toContain("Retrying the published contour layer…");
   });
+  it("does not narrate every render: the live region starts empty", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()}/>);
+    expect(html).toMatch(/<p class="story-sr" aria-live="polite"><\/p>/);
+  });
   it("keeps Back focusable on step 1 instead of disabling it", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
     expect(html).toMatch(/<button type="button" aria-disabled="true">Back</);
