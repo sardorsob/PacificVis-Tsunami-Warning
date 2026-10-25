@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
-import { seek as seekClock, T_MAX, tick } from "./clock";
+import { seek as seekClock, T_MAX, tick, toggle as toggleClock } from "./clock";
 import { PULSE_MS } from "./reveal";
 import { paintContours } from "./StoryMap";
 
@@ -44,7 +44,7 @@ export function useStoryClock({ initialT, svgRef, paths, motionOK, onCommit }: O
     if (!motionOK) return;
     tRef.current = from; untilRef.current = until; playingRef.current = true; setPlaying(true); setT(from); kick();
   };
-  const toggle = () => (playingRef.current ? stop() : play(tRef.current >= T_MAX ? 0 : tRef.current));
+  const toggle = () => { const next = toggleClock({ t: tRef.current, playing: playingRef.current }); if (next.playing) play(next.t); else stop(); };
   const seek = (value: number) => {
     stop(false);
     const r = seekClock({ t: tRef.current, playing: false }, value);

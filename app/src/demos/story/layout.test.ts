@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { COLUMN_RIGHT, layoutFor } from "../layout";
 
 // Slider width left inside the clock control after the play button, readout, gaps and padding.
-const PLAY = 42, READOUT = 170, GAPS = 24, PAD = 24;
+const PLAY = 42, READOUT = 170, GAPS = 24, PAD = 24, TITLE_TWO_LINES = 56;
 const VIEWPORTS: [number, number, "wide" | "side" | "narrow"][] = [
   [390, 844, "narrow"], [667, 375, "side"], [768, 1024, "side"], [1024, 768, "side"], [1280, 800, "wide"], [1440, 900, "wide"],
 ];
@@ -16,7 +16,12 @@ describe("story layout tiers", () => {
     expect(L.cx - L.r).toBeGreaterThanOrEqual(0);
     expect(L.cx + L.r).toBeLessThanOrEqual(lensRight);
     expect(L.cy - L.r).toBeGreaterThanOrEqual(0);
-    expect(L.titleTop).toBeGreaterThanOrEqual(0);
+    // The title is bottom-anchored above the lens: two subtitle lines still fit on screen, inside the map area,
+    // and on phones clear of the zoom buttons (top-right, 60 px).
+    expect(L.titleBottom - TITLE_TWO_LINES).toBeGreaterThanOrEqual(0);
+    expect(L.titleBottom).toBeLessThanOrEqual(L.cy - L.r);
+    expect(L.cx - L.titleW / 2).toBeGreaterThanOrEqual(0);
+    expect(L.cx + L.titleW / 2).toBeLessThanOrEqual(L.mode === "narrow" ? w - 60 : lensRight);
     expect(L.bSlot[0] + L.bR).toBeLessThanOrEqual(lensRight);
     expect(Math.hypot(L.bSlot[0] - L.cx, L.bSlot[1] - L.cy)).toBeGreaterThanOrEqual(L.r + L.bR);
     if (L.mode === "wide") {

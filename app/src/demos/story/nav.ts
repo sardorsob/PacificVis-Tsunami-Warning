@@ -25,14 +25,19 @@ export type NavContext = {
 export type NavResult = { nav: StoryNav; history: "push" | "replace" | "back" | "none"; effects: Effect[] };
 
 const stay = (nav: StoryNav): NavResult => ({ nav, history: "none", effects: [] });
+/** B is never A: keep a valid pinned B, else pin the first station that is not A. */
+const validB = (nav: StoryNav, ids: readonly string[]) =>
+  nav.b !== null && nav.b !== nav.a && ids.includes(nav.b) ? nav.b : ids.find(id => id !== nav.a) ?? null;
+/** After A moves (a step's lens station, a lens settle), re-pick B if A landed on it. */
+const distinct = (nav: StoryNav, ids: readonly string[]): StoryNav => nav.b === nav.a ? { ...nav, b: validB(nav, ids) } : nav;
 function enter(nav: StoryNav, id: StepId, ctx: NavContext, history: NavResult["history"]): NavResult {
   const step = STEPS[id - 1], animate = !!step.play && ctx.motionOK;
   const lensStation = "station" in step.lens ? step.lens.station : null;
   const effects: Effect[] = [{ kind: "stopPlay" }, { kind: "aim", instant: false }, { kind: "focus", target: "step" }];
   if (animate) effects.push({ kind: "play", from: step.play![0], until: step.play![1] });
   return {
-    nav: { ...nav, step: id, from: null, t: animate ? step.play![0] : step.t, compare: step.compare, at: null, z: 1,
-      a: lensStation ?? nav.a, b: step.b ?? nav.b },
+    nav: distinct({ ...nav, step: id, from: null, t: animate ? step.play![0] : step.t, compare: step.compare, at: null, z: 1,
+      a: lensStation ?? nav.a, b: step.b ?? nav.b }, ctx.stationIds),
     history, effects,
   };
 }
@@ -57,18 +62,16 @@ export function reduce(nav: StoryNav, ev: NavEvent, ctx: NavContext): NavResult 
       return { nav: { ...nav, step: "explore", from: step ?? nav.from }, history: "push", effects: [{ kind: "focus", target: "panel" }] };
     case "resumeStory":
       return enter(nav, nav.from ?? 1, ctx, "push");
-    case "compareOn": {
-      const valid = nav.b !== null && nav.b !== nav.a && ctx.stationIds.includes(nav.b);
-      const b = valid ? nav.b : ctx.stationIds.find(id => id !== nav.a) ?? null;
-      return { nav: { ...nav, compare: true, b }, history: "push", effects: [] };
-    }
+    case "compareOn":
+      return { nav: { ...nav, compare: true, b: validB(nav, ctx.stationIds) }, history: "push", effects: [] };
     case "compareOff":
       return { nav: { ...nav, compare: false }, history: "push", effects: [] };
     case "pin":
       if (ev.id === nav.a || !ctx.stationIds.includes(ev.id)) return stay(nav);
       return { nav: { ...nav, b: ev.id }, history: "push", effects: [] };
     case "lensSettle":
-      return { nav: { ...nav, at: ev.at, z: ev.z, a: ev.station ?? nav.a }, history: ev.explicit ? "push" : "replace", effects: [] };
+      return { nav: distinct({ ...nav, at: ev.at, z: ev.z, a: ev.station ?? nav.a }, ctx.stationIds), history: ev.explicit ? "push" : "replace",
+        effects: [] };
     case "seekEnd":
     case "playEnd":
       return { nav: { ...nav, t: ev.t }, history: "replace", effects: [] };

@@ -37,7 +37,8 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
     return()=>{active=false;controller.abort();};
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
   useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...(parsed.state.view==="story"?storyParsed.issues:[])]);setEvidenceId(null);setRestoreKey(k=>k+1);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
-  useEffect(()=>{window.history.replaceState(initial.state.view==="story"?{step:story.step,prev:null}:null,"",href(initial.state,story));},[initial]);
+  // A reload keeps history.state: keep the previous step it records so story Back can still go back, not duplicate.
+  useEffect(()=>{const kept=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;const prev=kept?.step===story.step?kept.prev??null:null;window.history.replaceState(initial.state.view==="story"?{step:story.step,prev}:null,"",href(initial.state,story));},[initial]);
   const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,storyRef.current));};
   /** The story's single history writer: applies a navigation result (push/replace/back/none) from story/nav.ts. */
   const writeNav=(r:NavResult)=>{

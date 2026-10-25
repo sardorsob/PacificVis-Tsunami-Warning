@@ -9,6 +9,7 @@ export const toScreen = (v: View, p: Pt): Pt => [p[0] * v.k + v.tx, p[1] * v.k +
 export const toMap = (v: View, x: number, y: number): Pt => [(x - v.tx) / v.k, (y - v.ty) / v.k];
 const K_MIN = 2e-5;
 export const K_MAX = 6e-4;
+export const clampK = (k: number) => Math.max(K_MIN, Math.min(K_MAX, k));
 export function fitView(crop: [number, number, number, number], width: number, height: number, inset = { l: 0, r: 0, t: 0, b: 0 }): View {
   const w = crop[2] - crop[0], h = crop[3] - crop[1], aw = Math.max(1, width - inset.l - inset.r), ah = Math.max(1, height - inset.t - inset.b);
   const k = Math.min(aw / w, ah / h);
@@ -16,14 +17,14 @@ export function fitView(crop: [number, number, number, number], width: number, h
 }
 export const centreOn = (v: View, p: Pt, sx: number, sy: number): View => ({ k: v.k, tx: sx - p[0] * v.k, ty: sy - p[1] * v.k });
 export function zoomAt(v: View, x: number, y: number, factor: number): View {
-  const m = toMap(v, x, y), k = Math.max(K_MIN, Math.min(K_MAX, v.k * factor));
+  const m = toMap(v, x, y), k = clampK(v.k * factor);
   return { k, tx: x - m[0] * k, ty: y - m[1] * k };
 }
 /** Two-finger gesture from its start: zoom by the finger spread, and keep the map point under the fingers' midpoint. */
 export function pinchView(v: View, from: [Pt, Pt], to: [Pt, Pt]): View {
   const mid = (p: [Pt, Pt]): Pt => [(p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2];
   const spread = (p: [Pt, Pt]) => Math.max(1, Math.hypot(p[0][0] - p[1][0], p[0][1] - p[1][1]));
-  const m0 = mid(from), m1 = mid(to), k = Math.max(K_MIN, Math.min(K_MAX, v.k * spread(to) / spread(from)));
+  const m0 = mid(from), m1 = mid(to), k = clampK(v.k * spread(to) / spread(from));
   return centreOn({ ...v, k }, toMap(v, m0[0], m0[1]), m1[0], m1[1]);
 }
 

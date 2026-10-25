@@ -26,7 +26,7 @@
 .story-lens{filter:drop-shadow(0 10px 22px rgba(0,0,0,.45))}
 .story-leads line{stroke:var(--story-ink);stroke-opacity:.45}
 .story-lead-b{fill:none;stroke:var(--story-b);stroke-dasharray:4 4;stroke-width:1.4}
-.story-lens-title{position:absolute;transform:translateX(-50%);text-align:center;pointer-events:none;white-space:nowrap}
+.story-lens-title{position:absolute;transform:translate(-50%,-100%);width:max-content;text-align:center;pointer-events:none}
 .story-lens-title__name{font:600 26px/1.1 "Iowan Old Style","Palatino Linotype",Georgia,serif}
 .story-lens-title__sub{font-size:13px;color:var(--story-muted)}
 .story-arm,.story-column,.story-panel{position:absolute;background:var(--story-panel);border:1px solid var(--story-line);border-radius:10px;padding:10px 12px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}

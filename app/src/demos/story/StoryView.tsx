@@ -10,7 +10,7 @@ import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
-import { centreOn, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type MapStation, type View } from "./StoryMap";
+import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type MapStation, type View } from "./StoryMap";
 import type { StoryParams } from "./url";
 import { useStoryClock } from "./useStoryClock";
 import "./style.css";
@@ -84,10 +84,11 @@ export function StoryView(props: StoryViewProps) {
     const step = lensStep(n);
     return (step ? stepTarget(step) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
   };
-  const viewFor = (n: StoryNav): View => centreOn({ k: fitK * n.z, tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
+  const viewFor = (n: StoryNav): View => centreOn({ k: clampK(fitK * n.z), tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
   const [view, setView] = useState<View>(() => viewFor(nav));
   const viewRef = useRef(view); viewRef.current = view;
   const [sheetExpanded, setSheetExpanded] = useState(false);
+  useEffect(() => setSheetExpanded(false), [L.mode]);
   /** Polite announcements: lens settle, pause and the one-hour step. A step change moves focus to its heading instead. */
   const [said, setSaid] = useState("");
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }) });
@@ -114,7 +115,11 @@ export function StoryView(props: StoryViewProps) {
     for (const e of r.effects) {
       if (e.kind === "stopPlay") clock.stop(false);
       else if (e.kind === "play") clock.play(e.from, e.until);
-      else if (e.kind === "aim") { const v = viewFor(r.nav); if (e.instant) { cancelGlide(); setView(v); } else glide(v); }
+      else if (e.kind === "aim") {
+        window.clearTimeout(settleTimer.current); // a zoom settling now would overwrite the new step's entry
+        userMoved.current = false;
+        const v = viewFor(r.nav); if (e.instant) { cancelGlide(); setView(v); } else glide(v);
+      }
       else if (e.kind === "focus") {
         const selector = e.target === "step" ? "#story-step-title" : ".story-focus-panel";
         afterCommit(() => root.current?.querySelector<HTMLElement>(selector)?.focus({ preventScroll: true }));
@@ -123,7 +128,7 @@ export function StoryView(props: StoryViewProps) {
     }
     if (r.history !== "back" && !r.effects.some(e => e.kind === "play") && r.nav.t !== clock.tRef.current) clock.set(r.nav.t);
   };
-  const ctx = () => ({ motionOK, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
+  const ctx = () => ({ motionOK: motionOK && !!layers, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
     sheetExpanded });
   // The URL's t is written only when play ends or pauses, so every action starts from the live clock: otherwise a no-op
   // (Escape over the evidence dialog) or Compare during play would rewind the clock to the last committed time.
@@ -162,7 +167,9 @@ export function StoryView(props: StoryViewProps) {
     const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
     dispatch({ type: "lensSettle", at, z, station, explicit });
   };
-  const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settle(), SETTLE_MS); };
+  // Handlers bound once (wheel) and timers (settle) go through refs, so they always read the current layout and zoom.
+  const settleRef = useRef(settle); settleRef.current = settle;
+  const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settleRef.current(), SETTLE_MS); };
   const focusStation = (id: string, explicit = false) => {
     const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit);
   };
@@ -179,7 +186,8 @@ export function StoryView(props: StoryViewProps) {
 
   // ---- input: one finger or the mouse pans, two fingers pinch; a finger left after a pinch never re-bases the pan ----
   const fingers = useRef(new Map<number, Pt>());
-  const drag = useRef<{ x: number; y: number; v: View; moved: boolean } | null>(null);
+  /** `g`: the glide this press interrupted; a tap without a drag lands it, so the screen matches the entry just written. */
+  const drag = useRef<{ x: number; y: number; v: View; moved: boolean; g: typeof pending.current } | null>(null);
   const pinch = useRef<{ from: [Pt, Pt]; v: View } | null>(null);
   const local = (e: PointerEvent<SVGSVGElement>): Pt => {
     const r = e.currentTarget.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top];
@@ -187,9 +195,9 @@ export function StoryView(props: StoryViewProps) {
   const pair = (): [Pt, Pt] => { const [a, b] = fingers.current.values(); return [a, b]; };
   const onPointerDown = (e: PointerEvent<SVGSVGElement>) => {
     fingers.current.set(e.pointerId, local(e)); e.currentTarget.setPointerCapture(e.pointerId);
-    cancelGlide(); clock.stop(); moving.current = true;
+    const g = pending.current; cancelGlide(); clock.stop(); moving.current = true;
     if (fingers.current.size === 2) { drag.current = null; pinch.current = { from: pair(), v: viewRef.current }; }
-    else if (fingers.current.size === 1) drag.current = { x: e.clientX, y: e.clientY, v: viewRef.current, moved: false };
+    else if (fingers.current.size === 1) drag.current = { x: e.clientX, y: e.clientY, v: viewRef.current, moved: false, g };
   };
   const onPointerMove = (e: PointerEvent<SVGSVGElement>) => {
     if (!fingers.current.has(e.pointerId)) return;
@@ -205,11 +213,12 @@ export function StoryView(props: StoryViewProps) {
       if (fingers.current.size === 0) { pinch.current = null; moving.current = false; userMoved.current = true; settle(); }
       return;
     }
-    const d = drag.current; drag.current = null; moving.current = false; if (!d?.moved) return;
+    const d = drag.current; drag.current = null; moving.current = false;
+    if (!d?.moved) { if (d?.g) land(d.g.target, d.g.settleAs); return; }
     userMoved.current = true; if (lensStation) focusStation(lensStation); else settle();
   };
-  /** Zoom 1 on the step's target (or station A in Explore); Return to this step also restores the clock. */
-  const resetView = () => { userMoved.current = true; glide(viewFor({ ...navRef.current, at: null, z: 1 }), false); };
+  /** Zoom 1 on the step's target, or in Explore on station A; Return to this step also restores the clock. */
+  const resetView = () => { userMoved.current = true; glide(viewFor({ ...navRef.current, at: null, z: 1, from: null }), false); };
   const zoom = (factor: number) => { cancelGlide(); userMoved.current = true; setView(v => zoomAt(v, L.cx, L.cy, factor)); settleSoon(); };
   const onKeyDown = (e: KeyboardEvent<SVGSVGElement>) => {
     const pan: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
@@ -238,14 +247,19 @@ export function StoryView(props: StoryViewProps) {
     };
     window.addEventListener("keydown", key); return () => window.removeEventListener("keydown", key);
   }, []);
+  const wheelRef = useRef((_: WheelEvent) => {});
+  wheelRef.current = e => {
+    const svg = svgRef.current; if (!svg) return;
+    e.preventDefault(); cancelGlide(); userMoved.current = true; const r = svg.getBoundingClientRect();
+    setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015))); settleSoon();
+  };
   useEffect(() => {
     const svg = svgRef.current; if (!svg) return;
-    const wheel = (e: WheelEvent) => {
-      e.preventDefault(); cancelGlide(); userMoved.current = true; const r = svg.getBoundingClientRect();
-      setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015))); settleSoon();
-    };
+    const wheel = (e: WheelEvent) => wheelRef.current(e);
     svg.addEventListener("wheel", wheel, { passive: false }); return () => svg.removeEventListener("wheel", wheel);
   }, [geometry]);
+  // Leaving the story view (view switch, Back to a Paired entry) must not let a pending settle or glide write history.
+  useEffect(() => () => { window.clearTimeout(settleTimer.current); cancelGlide(); }, []);
   // Measure the real viewport (the first render used the window size).
   useEffect(() => {
     const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
@@ -273,7 +287,7 @@ export function StoryView(props: StoryViewProps) {
     [ocean, aSel.records, state.windowId, origin]);
   const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · magnitude 9.1 · where the published clock starts" }
     : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h` : "no published contour nearby" }
-    : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · ${clockLabel(t)} · ${utcAt(origin, t)}` };
+    : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · clock ${clockLabel(t)} · ${utcAt(origin, t)}` };
   const b = params.compare ? props.pinned : null;
   const bStation = b ? stations.find(s => s.id === b.station.station_id) ?? null : null;
   const bSlot = L.bSlot, bScreen = bStation ? toScreen(view, bStation.xy) : null;
@@ -310,7 +324,7 @@ export function StoryView(props: StoryViewProps) {
   const extra = stepNow ? null : <>
     <p className="story-step__links"><button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
       Back to the guided story (step {params.from ?? 1})</button></p>
-    <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, true)}/>
+    <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
     lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
@@ -359,7 +373,7 @@ export function StoryView(props: StoryViewProps) {
       <button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 1.25)}>−</button>
       <button type="button" aria-label="Reset view" onClick={resetView}>Reset</button>
     </div>
-    <div className="story-lens-title" style={{ left: L.cx, top: L.titleTop }}>
+    <div className="story-lens-title" style={{ left: L.cx, top: L.titleBottom, maxWidth: L.titleW }}>
       <p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
     {wide ? <>{arms}{column}{compare}{bar}</>
       : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
