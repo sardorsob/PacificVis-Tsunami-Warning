@@ -5,6 +5,7 @@ import { PairedDemo } from "./PairedDemo";
 import { parseState,serializeState } from "./state";
 import { parseStoryParams,storyQuery,type StoryParams } from "./story/url";
 import type { StoryRouteProps } from "./story/StoryRoute";
+import type { NavResult } from "./story/nav";
 import type { DemoGeometry,DemoManifest,DemoState,EvidenceProps,ProductKey,RadialProps,StationRecords,StationSelection } from "./types";
 
 export type DemoAppProps={radialRenderer?:ComponentType<RadialProps>;evidenceRenderer?:ComponentType<EvidenceProps>;storyRenderer?:ComponentType<StoryRouteProps>};
@@ -17,9 +18,11 @@ export function DemoApp({radialRenderer:Radial,evidenceRenderer:Evidence,storyRe
 }
 function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radial?:ComponentType<RadialProps>;Evidence?:ComponentType<EvidenceProps>;Story?:ComponentType<StoryRouteProps>}) {
   const [initial]=useState(()=>parseState(window.location.search,manifest));
-  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search).params);
+  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search).params);const storyRef=useRef(story);storyRef.current=story;
+  // Bumped on browser Back/Forward so the story view restores the lens and clock without writing history.
+  const [restoreKey,setRestoreKey]=useState(0);
   const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next)}${next.view==="story"?`&${storyQuery(s)}`:""}${window.location.hash}`;
-  const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;const [issues,setIssues]=useState(initial.issues);
+  const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;const [issues,setIssues]=useState(()=>[...initial.issues,...(initial.state.view==="story"?parseStoryParams(window.location.search).issues:[])]);
   const [geometry,setGeometry]=useState<DemoGeometry|null>(null),[geometryError,setGeometryError]=useState<string|null>(null),[geometryAttempt,setGeometryAttempt]=useState(0);
   const [chunks,setChunks]=useState<Record<string,StationSelection>>({});const cache=useRef(new Map<string,StationRecords>());const [stationAttempt,setStationAttempt]=useState(0);
   const [evidenceId,setEvidenceId]=useState<string|null>(null);const evidenceTrigger=useRef<HTMLElement|null>(null);
@@ -33,19 +36,30 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
     }
     return()=>{active=false;controller.abort();};
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
-  useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest);setState(parsed.state);setStory(parseStoryParams(window.location.search).params);setIssues(parsed.issues);setEvidenceId(null);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
-  useEffect(()=>{window.history.replaceState(null,"",href(initial.state,story));},[initial]);
-  const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,story));};
+  useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...(parsed.state.view==="story"?storyParsed.issues:[])]);setEvidenceId(null);setRestoreKey(k=>k+1);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
+  useEffect(()=>{window.history.replaceState(initial.state.view==="story"?{step:story.step,prev:null}:null,"",href(initial.state,story));},[initial]);
+  const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,storyRef.current));};
+  /** The story's single history writer: applies a navigation result (push/replace/back/none) from story/nav.ts. */
+  const writeNav=(r:NavResult)=>{
+    if(r.history==="back"){window.history.back();return;}
+    const {a,b,...params}=r.nav;const next={...stateRef.current,selectedStationId:a,pinnedStationId:b};
+    stateRef.current=next;storyRef.current=params;setState(next);setStory(params);
+    if(r.history==="none")return;
+    const current=(window.history.state??null) as {step?:unknown;prev?:unknown}|null;
+    const entry={step:params.step,prev:r.history==="push"?current?.step??null:current?.prev??null};
+    window.history[r.history==="push"?"pushState":"replaceState"](entry,"",href(next,params));
+  };
   const selection=(id:string):StationSelection=>chunks[id]??{station:manifest.stations.find(s=>s.station_id===id)!,status:"loading",records:null,error:null};
   const selected=selection(state.selectedStationId),pinned=state.pinnedStationId?selection(state.pinnedStationId):null;
   const openEvidence=(id:string)=>{evidenceTrigger.current=document.activeElement instanceof HTMLElement?document.activeElement:null;setEvidenceId(id);};
-  const closeEvidence=()=>{setEvidenceId(null);requestAnimationFrame(()=>evidenceTrigger.current?.focus({preventScroll:true}));};
+  // A timeout, not an animation frame, so focus still returns in a hidden tab.
+  const closeEvidence=()=>{setEvidenceId(null);window.setTimeout(()=>evidenceTrigger.current?.focus({preventScroll:true}),0);};
   const props:RadialProps={manifest,geometry,geometryError,state,selected,pinned,onSelectStation:id=>update({selectedStationId:id}),onOpenEvidence:openEvidence,onRetryStation:()=>setStationAttempt(v=>v+1),onRetryGeometry:()=>setGeometryAttempt(v=>v+1)};
   const inspected=evidenceId?selection(evidenceId):null;
-  if(state.view==="story"&&Story)return <Story {...props} onSelectStation={id=>update({selectedStationId:id},true)} params={story}
-    onParams={(p,push)=>{setStory(p);window.history[push?"pushState":"replaceState"](null,"",href(stateRef.current,p));}} onPinStation={id=>update({pinnedStationId:id},true)}/>;
+  const evidence=inspected?.records&&(Evidence?<Evidence manifest={manifest} station={inspected.station} records={inspected.records} windowId={state.windowId} productKey={state.productKey} onClose={closeEvidence}/>:<aside className="unimplemented" role="status"><h2>Evidence panel is not implemented yet</h2><p>Current source and support remain beside the actual trace; no substitute table is supplied.</p><button type="button" onClick={closeEvidence}>Close</button></aside>);
+  if(state.view==="story"&&Story)return <><Story {...props} params={story} onNav={writeNav} restoreKey={restoreKey} evidenceOpen={evidenceId!==null} issues={issues} onDismissIssues={()=>setIssues([])} onView={view=>update({view})}/>{evidence}</>;
   return <main className="demo-app" data-demo-view={state.view}>
-    <header className="demo-heading"><div><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p></div><nav aria-label="Record view"><button type="button" aria-pressed={state.view==="paired"} onClick={()=>update({view:"paired"})}>Paired</button><button type="button" disabled={!Radial} aria-pressed={state.view==="radial"} onClick={()=>update({view:"radial"})}>Station lens{!Radial?" · not implemented":""}</button></nav></header>
+    <header className="demo-heading"><div><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p></div><nav aria-label="Record view"><button type="button" aria-pressed={state.view==="paired"} onClick={()=>update({view:"paired"})}>Paired</button><button type="button" disabled={!Radial} aria-pressed={state.view==="radial"} onClick={()=>update({view:"radial"})}>Station lens{!Radial?" · not implemented":""}</button>{Story&&<button type="button" onClick={()=>update({view:"story"})}>Story</button>}</nav></header>
     {issues.length>0&&<aside className="data-error" role="status"><p>URL state repaired:</p><ul>{issues.map((issue,i)=><li key={i}>{issue}</li>)}</ul></aside>}
     <section className="demo-controls" aria-label="Shared station and record controls">
       <p className="active-summary">○ Selected: <strong>{selected.station.name}</strong> · ◇ Pinned: <strong>{pinned?.station.name??"none"}</strong> · {state.windowId==="source_full"?"Station-specific bounds; not a common period":"Shared UTC window"}</p>
@@ -53,7 +67,7 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
       <details className="more-controls"><summary><span className="more-controls__full">More controls · {selected.station.products.find(p=>p.key===state.productKey)!.label}</span><span className="more-controls__compact">More · pinned: {pinned?.station.name??"none"}</span></summary><div><label>Product intent<select value={state.productKey} onChange={event=>update({productKey:event.target.value as ProductKey})}>{selected.station.products.map(p=><option key={p.key} value={p.key}>{p.label}{!p.available?" · unavailable at selected station":""}</option>)}</select></label><label>Pinned reference<select value={state.pinnedStationId??""} onChange={event=>update({pinnedStationId:event.target.value||null})}><option value="">No reference pinned</option>{manifest.stations.map(s=><option key={s.station_id} value={s.station_id}>{s.name} · {s.station_id}</option>)}</select></label><button type="button" onClick={()=>update({pinnedStationId:state.selectedStationId})}>Pin selected as reference</button><button type="button" disabled={!state.pinnedStationId} onClick={()=>update({pinnedStationId:null})}>Clear reference</button></div><p>Each station keeps its own y-scale, product, units and datum. Changing a station never substitutes an unavailable product.</p></details>
     </section>
     {state.view==="paired"?<PairedDemo {...props}/>:Radial?<Radial {...props}/>:<section className="unimplemented" role="status"><h2>Station lens is not implemented yet</h2><p>Your station, reference, window and product state is retained.</p><button type="button" onClick={()=>update({view:"paired"})}>Return to paired records</button></section>}
-    {inspected?.records&&(Evidence?<Evidence manifest={manifest} station={inspected.station} records={inspected.records} windowId={state.windowId} productKey={state.productKey} onClose={closeEvidence}/>:<aside className="unimplemented" role="status"><h2>Evidence panel is not implemented yet</h2><p>Current source and support remain beside the actual trace; no substitute table is supplied.</p><button type="button" onClick={closeEvidence}>Close</button></aside>)}
+    {evidence}
     <footer className="demo-limits"><p>{manifest.bundle_id} · internal descriptive evidence only. No validated arrivals, warning time or continuous ocean field.</p><p>Integrity is checked against this local manifest, not a signature against replacement of the entire bundle. Source terms and unknown datums remain in force.</p></footer>
   </main>;
 }

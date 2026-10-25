@@ -7,7 +7,8 @@ export type StoryNav = StoryParams & { a: string; b: string | null };
 export type NavEvent =
   | { type: "next" } | { type: "back" } | { type: "returnToStep" } | { type: "explore" } | { type: "resumeStory" }
   | { type: "compareOn" } | { type: "compareOff" } | { type: "pin"; id: string }
-  | { type: "lensSettle"; at: Pt; z: number; station: string | null }
+  /** explicit: a station chosen by name (push); otherwise a drag, zoom or key move settling (replace). */
+  | { type: "lensSettle"; at: Pt; z: number; station: string | null; explicit?: boolean }
   | { type: "seekEnd"; t: number } | { type: "playEnd"; t: number }
   | { type: "popstate"; nav: StoryNav } | { type: "escape" };
 export type Effect =
@@ -67,7 +68,7 @@ export function reduce(nav: StoryNav, ev: NavEvent, ctx: NavContext): NavResult 
       if (ev.id === nav.a || !ctx.stationIds.includes(ev.id)) return stay(nav);
       return { nav: { ...nav, b: ev.id }, history: "push", effects: [] };
     case "lensSettle":
-      return { nav: { ...nav, at: ev.at, z: ev.z, a: ev.station ?? nav.a }, history: "replace", effects: [] };
+      return { nav: { ...nav, at: ev.at, z: ev.z, a: ev.station ?? nav.a }, history: ev.explicit ? "push" : "replace", effects: [] };
     case "seekEnd":
     case "playEnd":
       return { nav: { ...nav, t: ev.t }, history: "replace", effects: [] };

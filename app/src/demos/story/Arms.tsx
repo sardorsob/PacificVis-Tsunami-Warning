@@ -9,7 +9,8 @@ export type Reading = { a: number; b: number } | null;
 type ArmsProps = {
   ocean: boolean; atOrigin: boolean; nearestName: string; reading: Reading; t: number; originUtc: string;
   a: StationSelection; b: StationSelection | null; windowId: string; productKey: ProductKey;
-  onRetry: () => void; styles: { record: CSSProperties; support: CSSProperties; read: CSSProperties };
+  onRetry: (stationId: string) => void; onOpenEvidence: (stationId: string) => void;
+  styles: { record: CSSProperties; support: CSSProperties; read: CSSProperties };
 };
 const typeLabel = (s: StationSelection) => s.station.station_type === "dart" ? "Deep-ocean DART buoy" : "Coastal tide gauge";
 
@@ -20,17 +21,18 @@ function hereText(reading: Reading, t: number): ReactNode {
   if (t < reading.b + 1) return <>The clock is inside this area's published <b>{span}</b> band.</>;
   return <>The published estimate passed this area between <b>{span}</b>.</>;
 }
-function windowEnd(s: StationSelection, windowId: string): number | null {
+function windowSpan(s: StationSelection, windowId: string): [number, number] | null {
   const w = s.records?.support.find(x => x.window_id === windowId);
-  return w ? Date.parse(w.end_utc_exclusive) : null;
+  return w ? [Date.parse(w.start_utc), Date.parse(w.end_utc_exclusive)] : null;
 }
-function Record({ s, tag, cursorMs, windowId, productKey, onRetry }: { s: StationSelection; tag?: "A" | "B"; cursorMs: number; windowId: string; productKey: ProductKey; onRetry: () => void }) {
+function Record({ s, tag, cursorMs, windowId, productKey, onRetry }: { s: StationSelection; tag?: "A" | "B"; cursorMs: number; windowId: string; productKey: ProductKey; onRetry: (stationId: string) => void }) {
   const head = <p className="story-arm__who">{tag && <span className={`story-tag story-tag--${tag.toLowerCase()}`}>{tag}</span>}<b>{s.station.name}</b> <span>{typeLabel(s)}</span></p>;
-  if (s.status === "error") return <div role="alert">{head}<p>{s.error}</p><button type="button" onClick={onRetry}>Retry record</button></div>;
+  if (s.status === "error") return <div role="alert">{head}<p>{s.error}</p><button type="button" onClick={() => onRetry(s.station.station_id)}>Retry record</button></div>;
   if (s.status !== "ready" || !s.records) return <div role="status">{head}<p>Loading {s.station.name}'s record…</p></div>;
-  const end = windowEnd(s, windowId);
+  const span = windowSpan(s, windowId), hhmm = (ms: number) => new Date(ms).toISOString().slice(11, 16);
   return <div>{head}<RecordChart station={s.station} records={s.records} windowId={windowId} productKey={productKey} role={tag === "B" ? "pinned" : "selected"} cursorMs={cursorMs} height={tag ? 128 : 160} compact/>
-    {end !== null && cursorMs >= end && <p className="story-arm__note">No record loaded for this time; the loaded record ends {new Date(end).toISOString().slice(11, 16)} UTC.</p>}</div>;
+    {span && cursorMs >= span[1] && <p className="story-arm__note">No record loaded for this time; the loaded record ends {hhmm(span[1])} UTC.</p>}
+    {span && cursorMs < span[0] && <p className="story-arm__note">No record loaded for this time; the loaded record starts {hhmm(span[0])} UTC.</p>}</div>;
 }
 function Support({ s, tag, cursorMs, windowId, productKey }: { s: StationSelection; tag?: "A" | "B"; cursorMs: number; windowId: string; productKey: ProductKey }) {
   if (s.status !== "ready" || !s.records) return null;
@@ -39,12 +41,12 @@ function Support({ s, tag, cursorMs, windowId, productKey }: { s: StationSelecti
 }
 
 /** Record (upper left), what supports it (upper right), how to read it (below). */
-export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, styles }: ArmsProps) {
+export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, onOpenEvidence, styles }: ArmsProps) {
   const cursorMs = Date.parse(originUtc) + t * 3_600_000, both = !!b;
   return <>
     <section className="story-arm" style={styles.record} aria-label="Record at the story clock">
       <h2 className="story-arm__h">{both ? "Records at the same clock" : "Record at the same clock"}</h2>
-      {ocean ? <><p className="story-arm__big">No station record here</p><p>No instrument measured this water. Nearest record: <b>{nearestName}</b>.</p></>
+      {ocean ? <><p className="story-arm__big">{both ? "A: no station record here" : "No station record here"}</p><p>No instrument measured this water. Nearest record: <b>{nearestName}</b>.</p></>
         : <Record s={a} tag={both ? "A" : undefined} cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}/>}
       {b && <Record s={b} tag="B" cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}/>}
       {both && <p className="story-arm__note">Shared UTC axis and clock; heights stay station-local and are not compared.</p>}
@@ -58,6 +60,7 @@ export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b
     <section className="story-arm story-arm--read" style={styles.read} aria-label="How to read this">
       <h2 className="story-arm__h">Read this as</h2>
       <p>{ocean ? CAVEAT : <>The white line is the clock ({utcAt(originUtc, t)}), not an arrival pick. The published contours near {a.station.name} are model estimates, not its arrival. Source: {a.station.source.publisher}.</>}</p>
+      {!ocean && a.status === "ready" && <button type="button" className="story-evidence" onClick={() => onOpenEvidence(a.station.station_id)}>Rows &amp; sources</button>}
     </section>
   </>;
 }

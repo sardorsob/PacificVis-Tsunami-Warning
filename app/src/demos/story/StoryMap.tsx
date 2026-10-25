@@ -41,7 +41,8 @@ export const WorldDefs = memo(function WorldDefs({ coastline, contours, initialT
 }, (a, b) => a.coastline === b.coastline && a.contours === b.contours);
 
 /** Per-frame contour styling without React: opacity/width by clock, pulses, front and next halos. */
-export function paintContours(root: ParentNode, t: number, smooth: boolean, pulses: Map<number, number>, now: number, paths: Map<number, string>): void {
+export function paintContours(root: ParentNode, t: number, pulses: Map<number, number>, now: number, paths: Map<number, string>): void {
+  const smooth = true;
   root.querySelectorAll<SVGPathElement>(".story-contour").forEach(p => {
     const h = Number(p.dataset.h), s = contourStyle(h, t, smooth, p.dataset.index === "1"), start = pulses.get(h);
     p.setAttribute("stroke-opacity", start === undefined ? s.opacity.toFixed(3) : "1");

@@ -49,13 +49,14 @@ function records(station: StationMetadata): StationRecords {
 }
 const ready = (id: string): StationSelection => { const station = stations.find(s => s.station_id === id)!; return { station, status: "ready", records: records(station), error: null }; };
 const noop = () => undefined;
-export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined } = {}): StoryViewProps {
+export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
+  from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null } = {}): StoryViewProps {
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, onRetryLayers: noop,
-    state: { view: "story", selectedStationId: "1617760", pinnedStationId: "saip", windowId: "common_day", productKey: "raw_value" },
-    selected: ready("1617760"), pinned: ready("saip"), onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
-    params: { t, compare, step, at: null, z: 1, from: null }, onParams: noop, onPinStation: noop,
-    initialCentre: lensOverOcean ? [-3e6, 9e6] : undefined, initialSize: size,
+    state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
+    selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
+    params: { t, compare, step, at: lensOverOcean ? [-3000, 9000] : null, z: 1, from }, onNav: noop, restoreKey: 0,
+    evidenceOpen: false, issues, onDismissIssues: noop, onView: noop, initialSize: size,
   };
 }
 
@@ -107,7 +108,7 @@ describe("story view — guided steps and narrow layout", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
     expect(html).toContain("1 of 6");
     expect(html).toContain("05:46 UTC, 11 March 2011");
-    expect(html).toMatch(/<button[^>]*disabled[^>]*>Back</);
+    expect(html).toMatch(/<button[^>]*aria-disabled="true"[^>]*>Back</);
     expect(html).toMatch(/>Next</);
     expect(html).toContain("Skip to free exploration");
     expect(html).not.toContain("Station records");
@@ -141,6 +142,39 @@ describe("story view — reduced motion", () => {
     expect(html).toContain('aria-label="Step the published clock forward one hour"');
     expect(html).toContain(">+1 h<");
     expect(html).not.toContain("story--cine");
+  });
+});
+
+describe("story view — exits, cancels and repairs", () => {
+  it("offers Rows & sources for a station record, not over open ocean", () => {
+    expect(renderToStaticMarkup(<StoryView {...input()}/>)).toContain("Rows &amp; sources");
+    expect(renderToStaticMarkup(<StoryView {...input({ lensOverOcean: true })}/>)).not.toContain("Rows &amp; sources");
+  });
+  it("labels Compare as closable when on, and never offers A as B", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ compare: true })}/>);
+    expect(html).toContain("Close compare ✕");
+    expect(html).not.toMatch(/<option value="1617760"/);
+    expect(renderToStaticMarkup(<StoryView {...input({ pinned: null })}/>)).toContain("Choose B…");
+  });
+  it("lets the reader leave the story view and resume the step they left", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: "explore", from: 4 })}/>);
+    expect(html).toContain(">Paired<");
+    expect(html).toContain(">Station lens<");
+    expect(html).toContain("Back to the guided story (step 4)");
+  });
+  it("shows a dismissible note when the link was repaired", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ issues: ["Zoom limited to 0.25–20."] })}/>);
+    expect(html).toContain("This link was repaired");
+    expect(html).toContain("Zoom limited to 0.25–20.");
+    expect(html).toMatch(/>Dismiss</);
+  });
+  it("offers Play this step on step 2 only before it has run", () => {
+    expect(renderToStaticMarkup(<StoryView {...input({ step: 2, t: 0, lensOverOcean: true })}/>)).toContain("▶ Play this step");
+    expect(renderToStaticMarkup(<StoryView {...input({ step: 2, t: 8, lensOverOcean: true })}/>)).not.toContain("▶ Play this step");
+  });
+  it("keeps Back focusable on step 1 instead of disabling it", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
+    expect(html).toMatch(/<button type="button" aria-disabled="true">Back</);
   });
 });
 

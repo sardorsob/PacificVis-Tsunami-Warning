@@ -73,6 +73,7 @@ describe("navigation contract — passive changes replace", () => {
     expect(reduce(at(4), { type: "lensSettle", at: [10, 20], z: 2.5, station: "valp" }, ctx))
       .toMatchObject({ history: "replace", nav: { step: 4, at: [10, 20], z: 2.5, a: "valp" } });
     expect(reduce(at(4), { type: "lensSettle", at: [10, 20], z: 1, station: null }, ctx).nav.a).toBe("1617760");
+    expect(reduce(at(4), { type: "lensSettle", at: [10, 20], z: 1, station: "valp", explicit: true }, ctx).history).toBe("push");
   });
   it("slider release and play end write the clock once", () => {
     expect(reduce(at("explore"), { type: "seekEnd", t: 11.25 }, ctx)).toMatchObject({ history: "replace", nav: { t: 11.25 } });
