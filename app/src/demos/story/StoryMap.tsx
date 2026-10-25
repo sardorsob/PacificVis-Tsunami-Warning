@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
-import { linePath, type Coastline, type ContourFeature, type Pt } from "./layers";
+import type { DemoGeometry, DemoManifest } from "../types";
+import { hourPaths, labelAnchors, linePath, toSvg, type StoryLayers, type Coastline, type ContourFeature, type Pt } from "./layers";
 import { contourColour } from "./palette";
 import { contourStyle, nextHaloOpacity, pulseWidth } from "./reveal";
 
@@ -67,6 +68,27 @@ export function paintContours(root: ParentNode, t: number, pulses: Map<number, n
 }
 
 export type MapStation = { id: string; name: string; type: "coastal" | "dart"; xy: Pt };
+/** The shared stage every view draws: stations and epicentre in SVG space, coastline (the verified v2 one until the 1:50m
+ * layer loads, or if it fails), published contours with their hour paths and label anchors. */
+export function useStage(manifest: DemoManifest, geometry: DemoGeometry | null, layers: StoryLayers | null) {
+  const stationIds = useMemo(() => manifest.stations.map(s => s.station_id), [manifest]);
+  const stations = useMemo<MapStation[]>(() => geometry ? manifest.stations.map(s => {
+    const p = geometry.points.find(q => q.id === s.station_id)!;
+    return { id: s.station_id, name: s.name, type: s.station_type, xy: toSvg([p.x, p.y]) };
+  }) : [], [geometry, manifest]);
+  const epicentre = useMemo<Pt>(() => {
+    const p = geometry?.points.find(q => q.id === manifest.event.event_id); return p ? toSvg([p.x, p.y]) : [0, 0];
+  }, [geometry, manifest]);
+  const coastline = useMemo<Coastline>(() => {
+    if (layers) return layers.coastline;
+    const parts = geometry ? geometry.coastline.map(part => part.map(toSvg)) : [];
+    return { parts, closed: parts.map(q => q.length > 3 && q[0][0] === q.at(-1)![0] && q[0][1] === q.at(-1)![1]) };
+  }, [layers, geometry]);
+  const contours = useMemo(() => layers?.contours ?? [], [layers]);
+  const paths = useMemo(() => hourPaths(contours), [contours]);
+  const anchors = useMemo(() => labelAnchors(contours, epicentre), [contours, epicentre]);
+  return { stationIds, stations, epicentre, coastline, contours, paths, anchors };
+}
 export function star(cx: number, cy: number, outer: number, inner: number): string {
   let d = "";
   for (let i = 0; i < 10; i++) {

@@ -43,6 +43,14 @@ describe("navigation contract — explicit actions push", () => {
     expect(reduce(at("explore"), { type: "compareOn" }, ctx)).toMatchObject({ history: "push", nav: { compare: true, b: "saip" } });
     expect(reduce(at("explore", { compare: true }), { type: "compareOff" }, ctx)).toMatchObject({ history: "push", nav: { compare: false, b: "saip" } });
   });
+  it("clearing B pushes, turns Compare off, and is inert when nothing is pinned", () => {
+    expect(reduce(at("explore", { compare: true }), { type: "unpin" }, ctx)).toMatchObject({ history: "push", nav: { b: null, compare: false } });
+    expect(reduce(at("explore", { b: null }), { type: "unpin" }, ctx).history).toBe("none");
+  });
+  it("a station picked without map geometry keeps the lens point empty", () => {
+    expect(reduce(at("explore", { at: [1, 2] }), { type: "lensSettle", at: null, z: 1, station: "valp", explicit: true }, ctx))
+      .toMatchObject({ history: "push", nav: { a: "valp", at: null } });
+  });
   it("pinning A as B is refused; pinning another station pushes", () => {
     expect(reduce(at("explore"), { type: "pin", id: "1617760" }, ctx).history).toBe("none");
     expect(reduce(at("explore"), { type: "pin", id: "valp" }, ctx)).toMatchObject({ history: "push", nav: { b: "valp" } });

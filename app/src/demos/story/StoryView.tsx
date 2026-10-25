@@ -5,14 +5,16 @@ import { Arms, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
 import { clockLabel, T_MAX, utcAt } from "./clock";
-import { hourPaths, labelAnchors, nearestHours, pointBetween, toSvg, type Coastline, type Pt, type StoryLayers } from "./layers";
+import { nearestHours, pointBetween, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
-import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type KLimits, type MapStation, type View } from "./StoryMap";
+import { centreOn, clampK, fitView, Overlay, pinchView, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
+import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
 import { useStoryClock } from "./useStoryClock";
+import { ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
 export type StoryViewProps = RadialProps & {
@@ -50,23 +52,7 @@ export function StoryView(props: StoryViewProps) {
   const [size, setSize] = useState(() => props.initialSize
     ?? (typeof window === "undefined" ? { w: 1440, h: 848 } : { w: window.innerWidth, h: window.innerHeight }));
   const L = layoutFor(size.w, size.h), motionOK = !reducedMotion();
-  const stationIds = useMemo(() => manifest.stations.map(s => s.station_id), [manifest]);
-  const stations = useMemo<MapStation[]>(() => geometry ? manifest.stations.map(s => {
-    const p = geometry.points.find(q => q.id === s.station_id)!;
-    return { id: s.station_id, name: s.name, type: s.station_type, xy: toSvg([p.x, p.y]) };
-  }) : [], [geometry, manifest]);
-  const epicentre = useMemo<Pt>(() => {
-    const p = geometry?.points.find(q => q.id === manifest.event.event_id); return p ? toSvg([p.x, p.y]) : [0, 0];
-  }, [geometry, manifest]);
-  // The verified v2 coastline stands in until the sharper story layers load (or if they fail).
-  const coastline = useMemo<Coastline>(() => {
-    if (layers) return layers.coastline;
-    const parts = geometry ? geometry.coastline.map(part => part.map(toSvg)) : [];
-    return { parts, closed: parts.map(q => q.length > 3 && q[0][0] === q.at(-1)![0] && q[0][1] === q.at(-1)![1]) };
-  }, [layers, geometry]);
-  const contours = useMemo(() => layers?.contours ?? [], [layers]);
-  const paths = useMemo(() => hourPaths(contours), [contours]);
-  const anchors = useMemo(() => labelAnchors(contours, epicentre), [contours, epicentre]);
+  const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
   const stepsError = useMemo(() => {
     try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
@@ -357,9 +343,7 @@ export function StoryView(props: StoryViewProps) {
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
     lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
   const compare = <section className="story-panel story-compare" aria-label="Views and comparison">
-    <nav className="story-views" aria-label="Views"><button type="button" aria-pressed="true">Story</button>
-      <button type="button" onClick={() => switchView("paired")}>Paired</button>
-      <button type="button" onClick={() => switchView("radial")}>Station lens</button></nav>
+    <ViewSwitch view="story" onView={switchView}/>
     <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
       {params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
     <label className="story-compare__pick"><span className="story-tag story-tag--b">B</span><span className="story-sr">Pinned station B</span>

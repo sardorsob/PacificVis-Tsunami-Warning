@@ -6,9 +6,9 @@ import type { StoryParams } from "./url";
 export type StoryNav = StoryParams & { a: string; b: string | null };
 export type NavEvent =
   | { type: "next" } | { type: "back" } | { type: "returnToStep" } | { type: "explore" } | { type: "resumeStory" }
-  | { type: "compareOn" } | { type: "compareOff" } | { type: "pin"; id: string }
+  | { type: "compareOn" } | { type: "compareOff" } | { type: "pin"; id: string } | { type: "unpin" }
   /** explicit: a station chosen by name (push); otherwise a drag, zoom or key move settling (replace). */
-  | { type: "lensSettle"; at: Pt; z: number; station: string | null; explicit?: boolean }
+  | { type: "lensSettle"; at: Pt | null; z: number; station: string | null; explicit?: boolean }
   | { type: "seekEnd"; t: number } | { type: "playEnd"; t: number }
   | { type: "popstate"; nav: StoryNav } | { type: "escape" };
 type Effect =
@@ -75,6 +75,8 @@ export function reduce(nav: StoryNav, ev: NavEvent, ctx: NavContext): NavResult 
     case "pin":
       if (ev.id === nav.a || !ctx.stationIds.includes(ev.id)) return stay(nav);
       return { nav: { ...nav, b: ev.id }, history: "push", effects: [] };
+    case "unpin":
+      return nav.b === null ? stay(nav) : { nav: { ...nav, b: null, compare: false }, history: "push", effects: [] };
     case "lensSettle":
       return { nav: distinct({ ...nav, at: ev.at, z: ev.z, a: ev.station ?? nav.a }, ctx.stationIds), history: ev.explicit ? "push" : "replace",
         effects: [] };

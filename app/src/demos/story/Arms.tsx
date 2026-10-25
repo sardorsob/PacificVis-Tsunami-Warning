@@ -25,6 +25,14 @@ function windowSpan(s: StationSelection, windowId: string): [number, number] | n
   const w = s.records?.support.find(x => x.window_id === windowId);
   return w ? [Date.parse(w.start_utc), Date.parse(w.end_utc_exclusive)] : null;
 }
+const hhmm = (ms: number) => new Date(ms).toISOString().slice(11, 16);
+/** When the clock is outside the loaded record: a time with no data, never a gap in the record. */
+export function ClockNote({ s, windowId, cursorMs }: { s: StationSelection; windowId: string; cursorMs: number }) {
+  const span = windowSpan(s, windowId);
+  if (span && cursorMs >= span[1]) return <p className="story-arm__note">No record loaded for this time; the loaded record ends {hhmm(span[1])} UTC.</p>;
+  if (span && cursorMs < span[0]) return <p className="story-arm__note">No record loaded for this time; the loaded record starts {hhmm(span[0])} UTC.</p>;
+  return null;
+}
 type RecordProps = { s: StationSelection; tag?: "A" | "B"; cursorMs: number; windowId: string; productKey: ProductKey };
 const Tag = ({ tag }: { tag: "A" | "B" }) => <span className={`story-tag story-tag--${tag.toLowerCase()}`}>{tag}</span>;
 function Record({ s, tag, cursorMs, windowId, productKey, onRetry }: RecordProps & { onRetry: (stationId: string) => void }) {
@@ -32,12 +40,10 @@ function Record({ s, tag, cursorMs, windowId, productKey, onRetry }: RecordProps
   if (s.status === "error") return <div role="alert">{head}<p>{s.error}</p>
     <button type="button" onClick={() => onRetry(s.station.station_id)}>Retry record</button></div>;
   if (s.status !== "ready" || !s.records) return <div role="status">{head}<p>Loading {s.station.name}'s record…</p></div>;
-  const span = windowSpan(s, windowId), hhmm = (ms: number) => new Date(ms).toISOString().slice(11, 16);
   return <div>{head}
     <RecordChart station={s.station} records={s.records} windowId={windowId} productKey={productKey} role={tag === "B" ? "pinned" : "selected"}
       cursorMs={cursorMs} height={tag ? 128 : 160} compact/>
-    {span && cursorMs >= span[1] && <p className="story-arm__note">No record loaded for this time; the loaded record ends {hhmm(span[1])} UTC.</p>}
-    {span && cursorMs < span[0] && <p className="story-arm__note">No record loaded for this time; the loaded record starts {hhmm(span[0])} UTC.</p>}</div>;
+    <ClockNote s={s} windowId={windowId} cursorMs={cursorMs}/></div>;
 }
 function Support({ s, tag, cursorMs, windowId, productKey }: RecordProps) {
   if (s.status !== "ready" || !s.records) return null;
