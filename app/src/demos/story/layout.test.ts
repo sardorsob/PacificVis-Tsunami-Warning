@@ -29,7 +29,7 @@ describe("story layout tiers", () => {
       expect(L.support.left + L.aw).toBeLessThanOrEqual(w - 8);              // never off the right edge
       expect(L.bar!.width - PLAY - READOUT - GAPS - PAD).toBeGreaterThanOrEqual(240);
       expect(L.read.top + 130).toBeLessThanOrEqual(h - 100);                // read arm clears the clock bar
-      expect(L.record.top).toBeGreaterThanOrEqual(190);                     // arms clear the top-right panel
+      expect(L.record.top).toBeGreaterThanOrEqual(194); // clear of the top-right panel: 192 px tall with Compare on (measured, 1280×800)
     } else {
       const sheet = L.mode === "side" ? L.sheet!.width : w;
       expect(sheet - PAD - PLAY - 12).toBeGreaterThanOrEqual(240);

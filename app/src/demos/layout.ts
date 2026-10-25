@@ -10,7 +10,7 @@ export function plotDateContext(startUtc:string,endUtc:string):string {
 
 /** Right edge of the story's editorial column (left 16 + width 282). */
 export const COLUMN_RIGHT = 298;
-const COLUMN = 300, GAP = 44, TOP_PANEL_BOTTOM = 190, READ_ARM = 130, CLOCK_BAR = 100;
+const COLUMN = 300, GAP = 44, TOP_PANEL_BOTTOM = 200, READ_ARM = 130, CLOCK_BAR = 100;
 type Box = { left: number; top: number; width: number };
 export type StoryMode = "wide" | "side" | "narrow";
 export type StoryLayout = {
