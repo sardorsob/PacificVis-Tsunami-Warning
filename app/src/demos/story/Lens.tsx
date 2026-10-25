@@ -21,6 +21,7 @@ export function Lens({ id, view, cx, cy, centre, r, mag, stations, epicentre, va
       {variant === "a" && <path d={`M${cx - 7} ${cy}H${cx + 7}M${cx} ${cy - 7}V${cy + 7}`} className="story-lens__cross"/>}
     </g>
     <circle className="story-lens__ring" cx={cx} cy={cy} r={r}/>
-    {caption && <text x={cx} y={cy + r + 16} textAnchor="middle" className="story-label story-label--strong">{caption}</text>}
+    {/* Right-aligned to the lens: every tier keeps the lens's right edge inside the map area. */}
+    {caption && <text x={cx + r} y={cy + r + 16} textAnchor="end" className="story-label story-label--strong">{caption}</text>}
   </g>;
 }
