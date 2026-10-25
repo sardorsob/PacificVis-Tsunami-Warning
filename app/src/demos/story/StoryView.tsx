@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { layoutFor } from "../layout";
 import type { RadialProps } from "../types";
 import { Arms } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
 import { clockLabel, T_MAX, utcAt } from "./clock";
 import { hourPaths, labelAnchors, nearestHours, pointBetween, type Coastline, type Pt, type StoryLayers } from "./layers";
-import { B_LENS_MAG, B_LENS_RADIUS, capture, footprintRadius, LENS_MAG, LENS_RADIUS, slot } from "./lensMath";
+import { B_LENS_MAG, capture, footprintRadius, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
@@ -27,29 +28,11 @@ export type StoryViewProps = RadialProps & {
   initialSize?: { w: number; h: number };
 };
 const CROP: [number, number, number, number] = [-6.4e6, -6.3e6, 8.9e6, 4.6e6];
-const COLUMN = 300, RIGHT = 270, GAP = 44, READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
+const READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
 const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 /** After React commits (a timeout, not an animation frame, so a hidden tab still gets it). */
 const afterCommit = (f: () => void) => { if (typeof window !== "undefined") window.setTimeout(f, 0); };
 
-type Mode = "wide" | "narrow" | "short";
-/** wide: lens + arms + column; narrow (< 768 px): lens in the upper third, bottom sheet; short landscape: lens left, side sheet. */
-export function layoutFor(w: number, h: number) {
-  const mode: Mode = w < 768 ? "narrow" : h <= 450 ? "short" : "wide";
-  if (mode !== "wide") {
-    const r = mode === "narrow" ? Math.min(82, w * 0.21) : Math.min(82, h * 0.27);
-    const cx = mode === "narrow" ? w / 2 : w * 0.29, cy = mode === "narrow" ? Math.max(r + 64, h * 0.25) : h * 0.56;
-    return { mode, cx, cy, r, aw: 0, gap: 0, record: {}, support: {}, read: {}, titleTop: cy - r - 54,
-      bSlot: [cx + r + (mode === "narrow" ? 48 : 70), cy + r - 6] as Pt, bR: 38 };
-  }
-  const cx = COLUMN + (w - COLUMN - RIGHT) / 2, cy = h * 0.4, r = LENS_RADIUS;
-  const aw = Math.max(250, Math.min(330, (w - COLUMN - RIGHT) / 2 - r - GAP - 10));
-  return { mode, cx, cy, r, aw, gap: GAP,
-    record: { left: cx - r - GAP - aw, top: cy - r - 30, width: aw },
-    support: { left: cx + r + GAP, top: cy - r - 30, width: aw },
-    read: { left: cx - 150, top: cy + r + 30, width: 300 },
-    titleTop: cy - r - 76, bSlot: slot(cx, cy, r, GAP, aw, h), bR: B_LENS_RADIUS };
-}
 const flipped = (parts: number[][][]): Pt[][] => parts.map(part => part.map(([x, y]) => [x, -y] as Pt));
 /** The step recorded in the previous history entry (written by DemoApp's story writer), if any. */
 function historyPrev(): StoryNav["step"] | null {
@@ -91,15 +74,20 @@ export function StoryView(props: StoryViewProps) {
   const [sheetExpanded, setSheetExpanded] = useState(false);
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }) });
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
-  const cancelGlide = () => { moving.current = false; if (typeof cancelAnimationFrame === "function") cancelAnimationFrame(anim.current); };
-  const glide = (target: View, done?: () => void) => {
+  /** The glide in flight; `settleAs` is set when it ends in a lens settle (true = explicit push). */
+  const pending = useRef<{ target: View; settleAs?: boolean } | null>(null);
+  const cancelGlide = () => { moving.current = false; pending.current = null; if (typeof cancelAnimationFrame === "function") cancelAnimationFrame(anim.current); };
+  /** Land on `v` now; viewRef is updated first so a settle in the same tick reads the landed view. */
+  const land = (v: View, settleAs?: boolean) => { viewRef.current = v; setView(v); if (settleAs !== undefined) settle(settleAs); };
+  const glide = (target: View, settleAs?: boolean) => {
     cancelGlide();
     // A hidden tab pauses animation frames: land at once rather than leave the lens stranded mid-glide.
-    if (!motionOK || typeof requestAnimationFrame !== "function" || document.visibilityState === "hidden") { setView(target); done?.(); return; }
-    const from = viewRef.current, t0 = performance.now(); moving.current = true;
+    if (!motionOK || typeof requestAnimationFrame !== "function" || document.visibilityState === "hidden") { land(target, settleAs); return; }
+    const from = viewRef.current, t0 = performance.now(); moving.current = true; pending.current = { target, settleAs };
     const step = (now: number) => { const p = Math.min(1, (now - t0) / 420), e = 1 - (1 - p) ** 3;
+      if (p >= 1) { moving.current = false; pending.current = null; land(target, settleAs); return; }
       setView({ k: from.k + (target.k - from.k) * e, tx: from.tx + (target.tx - from.tx) * e, ty: from.ty + (target.ty - from.ty) * e });
-      if (p < 1) anim.current = requestAnimationFrame(step); else { moving.current = false; done?.(); } };
+      anim.current = requestAnimationFrame(step); };
     anim.current = requestAnimationFrame(step);
   };
   const run = (r: NavResult) => {
@@ -136,7 +124,7 @@ export function StoryView(props: StoryViewProps) {
     dispatch({ type: "lensSettle", at: [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z: Math.round((v.k / fitK) * 100) / 100, station, explicit });
   };
   const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settle(), SETTLE_MS); };
-  const focusStation = (id: string, explicit = false) => { const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), () => settle(explicit)); };
+  const focusStation = (id: string, explicit = false) => { const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit); };
   const cycle = (d: 1 | -1) => { const i = Math.max(0, stations.findIndex(s => s.id === (lensStation ?? state.selectedStationId))); focusStation(stations[(i + d + stations.length) % stations.length].id); };
   const atOrigin = !lensStation && Math.hypot(epicentre[0] - centre[0], epicentre[1] - centre[1]) < footprintRadius(L.r, view.k, LENS_MAG);
   const reading = useMemo(() => lensStation || atOrigin ? null : nearestHours(contours, centre[0], centre[1], READING_RADIUS), [lensStation, atOrigin, contours, centre[0], centre[1]]);
@@ -180,8 +168,12 @@ export function StoryView(props: StoryViewProps) {
   useEffect(() => { const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver(([e]) => { const w = Math.round(e.contentRect.width), h = Math.round(e.contentRect.height); if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h }); });
     ro.observe(el); return () => ro.disconnect(); }, []);
-  const lastLayout = useRef(L);
-  useEffect(() => { const prev = lastLayout.current; if (prev.cx !== L.cx || prev.cy !== L.cy) setView(v => centreOn(v, toMap(v, prev.cx, prev.cy), L.cx, L.cy)); lastLayout.current = L; }, [L.cx, L.cy]);
+  // Live resize: keep the map point under the lens and the zoom relative to the fitted Pacific; a glide in flight lands at its target.
+  const lastLayout = useRef({ cx: L.cx, cy: L.cy, fitK });
+  useEffect(() => { const prev = lastLayout.current; lastLayout.current = { cx: L.cx, cy: L.cy, fitK };
+    if (prev.cx === L.cx && prev.cy === L.cy && prev.fitK === fitK) return;
+    const g = pending.current, v = g?.target ?? viewRef.current; cancelGlide();
+    land(centreOn({ ...v, k: v.k * (fitK / prev.fitK) }, toMap(v, prev.cx, prev.cy), L.cx, L.cy), g?.settleAs); }, [L.cx, L.cy, fitK]);
 
   // ---- derived display ----
   const t = clock.t, ocean = lensStation === null;
@@ -230,7 +222,7 @@ export function StoryView(props: StoryViewProps) {
       </select></label>
     <p className="story-small">B is pinned while A follows the lens. Both share the UTC axis and the clock; heights stay station-local.</p>
   </section>;
-  const bar = <ClockBar t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK} onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
+  const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK} onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
   const arms = <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin} a={aSel} b={b}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
     styles={{ record: L.record, support: L.support, read: L.read }}/>;
@@ -252,7 +244,7 @@ export function StoryView(props: StoryViewProps) {
         variant="b" caption={`B · ${bStation.name}${bOff ? " (off-screen)" : ""}`}/>}
     </svg>
     <div className="story-lens-title" style={{ left: L.cx, top: L.titleTop }}><p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
-    {wide ? <>{arms}{column}{compare}{bar}</> : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`}>
+    {wide ? <>{arms}{column}{compare}{bar}</> : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
       <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>{sheetExpanded ? "Collapse panel" : "Expand panel"}</button>
       {lead}
       <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button><button type="button" onClick={() => cycle(1)}>Next station ›</button></div>
