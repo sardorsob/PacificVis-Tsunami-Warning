@@ -51,12 +51,12 @@ function records(station: StationMetadata): StationRecords {
 const ready = (id: string): StationSelection => { const station = stations.find(s => s.station_id === id)!; return { station, status: "ready", records: records(station), error: null }; };
 const noop = () => undefined;
 export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
-  from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null } = {}): StoryViewProps {
+  from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null, at = null as StoryParams["at"] } = {}): StoryViewProps {
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, layersPending: null, onRetryLayers: noop,
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
-    params: { t, compare, step, at: lensOverOcean ? [-3000, 9000] : null, z: 1, from }, onNav: noop, restoreKey: 0,
+    params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z: 1, from }, onNav: noop, restoreKey: 0,
     evidenceOpen: false, issues, onDismissIssues: noop, onView: noop, initialSize: size,
   };
 }
@@ -162,6 +162,11 @@ describe("story view — exits, cancels and repairs", () => {
     expect(html).toContain(">Paired<");
     expect(html).toContain(">Station lens<");
     expect(html).toContain("Back to the guided story (step 4)");
+  });
+  it("the lens subject depends on the lens point and zoom, not the screen size", () => {
+    // 600 km from the second station: a phone lens shows more map but must not capture more.
+    for (const size of [{ w: 390, h: 844 }, { w: 667, h: 375 }, { w: 1440, h: 900 }])
+      expect(renderToStaticMarkup(<StoryView {...input({ at: [2600, 0], size })}/>)).toContain('story-lens-title__name">Open Pacific<');
   });
   it("an Explore link without a lens point keeps the lens where the story left it", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: "explore", from: 3 })}/>);

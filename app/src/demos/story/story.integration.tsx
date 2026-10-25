@@ -6,6 +6,8 @@ import { decodeStation, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
 import { nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 import { validateSteps } from "./steps";
+import { StoryView } from "./StoryView";
+import type { DemoGeometry } from "../types";
 
 const manifest = validateManifest(readDemoJson("manifest.json"));
 const layers = validateLayersManifest(readLayersJson("manifest.json"));
@@ -30,6 +32,17 @@ describe("story view against the accepted local bundles", () => {
     expect(layers.statement).toContain("not the full rupture");
     expect(layers.statement).toContain("not warning time");
     expect(layers.hours_semantics).toContain("USGS origin time");
+  });
+  it("opens steps 1–2 on the epicentre at every screen size, though DART 21418 is 556 km away", () => {
+    const geometry = readDemoJson("geometry.json") as DemoGeometry, noop = () => undefined;
+    const station = manifest.stations.find(s => s.station_id === manifest.default_state.selectedStationId)!;
+    for (const initialSize of [{ w: 390, h: 844 }, { w: 667, h: 375 }, { w: 768, h: 1024 }, { w: 1440, h: 900 }]) {
+      const html = renderToStaticMarkup(<StoryView manifest={manifest} geometry={geometry} geometryError={null} layers={null} layersError={null}
+        layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }} selected={{ station, status: "loading", records: null, error: null }}
+        pinned={null} onSelectStation={noop} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
+        onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onView={noop} initialSize={initialSize}/>);
+      expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
+    }
   });
   it("authors every guided step against real station ids", () => {
     expect(() => validateSteps(manifest.stations.map(s => s.station_id))).not.toThrow();

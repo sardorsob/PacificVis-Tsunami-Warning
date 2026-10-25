@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { clockLabel, seek, tick, toggle, utcAt, T_MAX } from "./clock";
 import { contourStyle, pulseWidth } from "./reveal";
-import { capture, footprintRadius, slot } from "./lensMath";
+import { capture, slot } from "./lensMath";
 import type { Pt } from "./layers";
 import { K_MAX, pinchView, toMap, toScreen } from "./StoryMap";
 import { STEPS, validateSteps } from "./steps";
@@ -55,8 +55,8 @@ describe("reveal", () => {
 });
 
 describe("lens", () => {
-  it("captures the nearest station inside the footprint only", () => {
-    const r = footprintRadius(108, 0.0001, 3.2);
+  it("captures the nearest station inside the radius only", () => {
+    const r = 337_500;
     const stations = [{ id: "near", xy: [100000, 0] as [number, number] }, { id: "far", xy: [9e6, 0] as [number, number] }];
     expect(capture([0, 0], r, stations)).toBe("near");
     expect(capture([5e6, 0], r, stations)).toBeNull();

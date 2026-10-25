@@ -6,7 +6,7 @@ import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
 import { clockLabel, T_MAX, utcAt } from "./clock";
 import { hourPaths, labelAnchors, nearestHours, pointBetween, toSvg, type Coastline, type Pt, type StoryLayers } from "./layers";
-import { B_LENS_MAG, capture, footprintRadius, LENS_MAG } from "./lensMath";
+import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
@@ -28,7 +28,9 @@ export type StoryViewProps = RadialProps & {
   initialSize?: { w: number; h: number };
 };
 const CROP: [number, number, number, number] = [-6.4e6, -6.3e6, 8.9e6, 4.6e6];
-const READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
+/** The lens subject: the nearest station within 400 km of the lens centre at zoom 1 (shrinking as you zoom in). It is set
+ * in map units, not by the lens's on-screen footprint, so a URL names the same subject on a phone and on a desktop. */
+const CAPTURE_M = 400_000, READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
 const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 /** After React commits (a timeout, not an animation frame, so a hidden tab still gets it). */
 const afterCommit = (f: () => void) => { if (typeof window !== "undefined") window.setTimeout(f, 0); };
@@ -143,7 +145,8 @@ export function StoryView(props: StoryViewProps) {
   }, [between]);
 
   const centre = toMap(view, L.cx, L.cy);
-  const lensStation = stations.length ? capture(centre, footprintRadius(L.r, view.k, LENS_MAG), stations) : null;
+  const reach = (v: View) => CAPTURE_M * fitK / v.k;
+  const lensStation = stations.length ? capture(centre, reach(view), stations) : null;
   // The station under the lens drives the panels; while the map moves the URL is untouched, at rest it is corrected in place.
   // Only a lens move triggers this: after Back/Forward the URL changes first and the view follows a render later, so
   // reacting to selectedStationId would rewrite the restored entry with the old lens station.
@@ -154,7 +157,7 @@ export function StoryView(props: StoryViewProps) {
   const settle = (explicit = false) => {
     window.clearTimeout(settleTimer.current);
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
-    const station = stations.length ? capture(c, footprintRadius(L.r, v.k, LENS_MAG), stations) : null;
+    const station = stations.length ? capture(c, reach(v), stations) : null;
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
     const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
     dispatch({ type: "lensSettle", at, z, station, explicit });
@@ -168,7 +171,7 @@ export function StoryView(props: StoryViewProps) {
     focusStation(stations[(i + d + stations.length) % stations.length].id);
   };
   const away = (p: Pt) => Math.hypot(p[0] - centre[0], p[1] - centre[1]);
-  const atOrigin = !lensStation && away(epicentre) < footprintRadius(L.r, view.k, LENS_MAG);
+  const atOrigin = !lensStation && away(epicentre) < reach(view);
   const reading = useMemo(() => lensStation || atOrigin ? null : nearestHours(contours, centre[0], centre[1], READING_RADIUS),
     [lensStation, atOrigin, contours, centre[0], centre[1]]);
   const nearest = useMemo(() => stations.reduce<MapStation | null>((best, s) => !best || away(s.xy) < away(best.xy) ? s : best, null),
