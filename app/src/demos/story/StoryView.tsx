@@ -10,13 +10,13 @@ import { B_LENS_MAG, capture, footprintRadius, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, validateSteps, type StoryStep } from "./steps";
-import { centreOn, fitView, Overlay, toMap, toScreen, WorldDefs, zoomAt, type MapStation, type View } from "./StoryMap";
+import { centreOn, fitView, Overlay, pinchView, toMap, toScreen, WorldDefs, zoomAt, type MapStation, type View } from "./StoryMap";
 import type { StoryParams } from "./url";
 import { useStoryClock } from "./useStoryClock";
 import "./style.css";
 
 export type StoryViewProps = RadialProps & {
-  layers: StoryLayers | null; layersError: string | null; onRetryLayers: () => void;
+  layers: StoryLayers | null; layersError: string | null; layersPending: "loading" | "retrying" | null; onRetryLayers: () => void;
   /** URL story fields; with state.selectedStationId (A) and state.pinnedStationId (B) they are the whole screen. */
   params: StoryParams;
   /** The single history writer (DemoApp). */
@@ -130,19 +130,33 @@ export function StoryView(props: StoryViewProps) {
   const reading = useMemo(() => lensStation || atOrigin ? null : nearestHours(contours, centre[0], centre[1], READING_RADIUS), [lensStation, atOrigin, contours, centre[0], centre[1]]);
   const nearest = useMemo(() => stations.reduce<MapStation | null>((best, s) => !best || Math.hypot(s.xy[0] - centre[0], s.xy[1] - centre[1]) < Math.hypot(best.xy[0] - centre[0], best.xy[1] - centre[1]) ? s : best, null), [stations, centre[0], centre[1]]);
 
-  // ---- input ----
-  const drag = useRef<{ x: number; y: number; v: View; moved: boolean } | null>(null);
+  // ---- input: one finger or the mouse pans, two fingers pinch; a finger left after a pinch never re-bases the pan ----
+  const fingers = useRef(new Map<number, Pt>());
+  const drag = useRef<{ x: number; y: number; v: View; moved: boolean } | null>(null), pinch = useRef<{ from: [Pt, Pt]; v: View } | null>(null);
+  const local = (e: PointerEvent<SVGSVGElement>): Pt => { const r = e.currentTarget.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  const pair = (): [Pt, Pt] => { const [a, b] = fingers.current.values(); return [a, b]; };
   const onPointerDown = (e: PointerEvent<SVGSVGElement>) => {
-    if (!e.isPrimary) return;
-    cancelGlide(); clock.stop();
-    moving.current = true; drag.current = { x: e.clientX, y: e.clientY, v: viewRef.current, moved: false }; e.currentTarget.setPointerCapture(e.pointerId);
+    fingers.current.set(e.pointerId, local(e)); e.currentTarget.setPointerCapture(e.pointerId);
+    cancelGlide(); clock.stop(); moving.current = true;
+    if (fingers.current.size === 2) { drag.current = null; pinch.current = { from: pair(), v: viewRef.current }; }
+    else if (fingers.current.size === 1) drag.current = { x: e.clientX, y: e.clientY, v: viewRef.current, moved: false };
   };
   const onPointerMove = (e: PointerEvent<SVGSVGElement>) => {
-    const d = drag.current; if (!d || !e.isPrimary) return;
+    if (!fingers.current.has(e.pointerId)) return;
+    fingers.current.set(e.pointerId, local(e));
+    const p = pinch.current; if (p) { if (fingers.current.size >= 2) setView(pinchView(p.v, p.from, pair())); return; }
+    const d = drag.current; if (!d) return;
     const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.hypot(dx, dy) > DRAG_SLOP) d.moved = true;
     if (d.moved) setView({ ...d.v, tx: d.v.tx + dx, ty: d.v.ty + dy });
   };
-  const onPointerUp = () => { const d = drag.current; drag.current = null; moving.current = false; if (!d?.moved) return; userMoved.current = true; if (lensStation) focusStation(lensStation); else settle(); };
+  const onPointerUp = (e: PointerEvent<SVGSVGElement>) => {
+    if (!fingers.current.delete(e.pointerId)) return;
+    if (pinch.current) { if (fingers.current.size === 0) { pinch.current = null; moving.current = false; userMoved.current = true; settle(); } return; }
+    const d = drag.current; drag.current = null; moving.current = false; if (!d?.moved) return;
+    userMoved.current = true; if (lensStation) focusStation(lensStation); else settle();
+  };
+  /** Zoom 1 on the step's target (or station A in Explore); Return to this step also restores the clock. */
+  const resetView = () => { userMoved.current = true; glide(viewFor({ ...navRef.current, at: null, z: 1 }), false); };
   const zoom = (factor: number) => { cancelGlide(); userMoved.current = true; setView(v => zoomAt(v, L.cx, L.cy, factor)); settleSoon(); };
   const onKeyDown = (e: KeyboardEvent<SVGSVGElement>) => {
     const pan: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
@@ -193,7 +207,8 @@ export function StoryView(props: StoryViewProps) {
   if (!geometry) return <main className="story story--loading" ref={root}>{props.geometryError
     ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button></div>
     : <p role="status">Loading the verified map…</p>}</main>;
-  const alert = <>{props.layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {props.layersError}</p><button type="button" onClick={props.onRetryLayers}>Retry contours</button></div>}
+  const alert = <>{props.layersPending && <p role="status" className="story-alert">{props.layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
+    {props.layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {props.layersError}</p><button type="button" onClick={props.onRetryLayers}>Retry contours</button></div>}
     {stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}
     {props.issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p><ul>{props.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
       <button type="button" onClick={props.onDismissIssues}>Dismiss</button></div>}</>;
@@ -243,6 +258,11 @@ export function StoryView(props: StoryViewProps) {
       {bStation && <Lens id="story-lens-b" view={view} cx={bSlot[0]} cy={bSlot[1]} centre={bStation.xy} r={L.bR} mag={B_LENS_MAG} stations={stations} epicentre={epicentre}
         variant="b" caption={`B · ${bStation.name}${bOff ? " (off-screen)" : ""}`}/>}
     </svg>
+    <div className="story-zoom" role="group" aria-label="Map zoom">
+      <button type="button" aria-label="Zoom in" onClick={() => zoom(1.25)}>+</button>
+      <button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 1.25)}>−</button>
+      <button type="button" aria-label="Reset view" onClick={resetView}>Reset</button>
+    </div>
     <div className="story-lens-title" style={{ left: L.cx, top: L.titleTop }}><p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
     {wide ? <>{arms}{column}{compare}{bar}</> : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
       <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>{sheetExpanded ? "Collapse panel" : "Expand panel"}</button>

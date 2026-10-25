@@ -101,6 +101,11 @@
 .story-sheet--expanded{max-height:88%}
 .story-sheet__handle{display:block;margin:0 auto 6px;min-height:32px!important}
 .story-sheet--side .story-sheet__handle{display:none}
+.story-zoom{position:absolute;z-index:2;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px}
+.story .story-zoom button{min-width:44px;min-height:44px;padding:0 8px;background:var(--story-panel);font-size:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.story .story-zoom button:last-child{font-size:11px}
+.story--side .story-zoom{right:auto;left:12px;bottom:12px}
+.story--narrow .story-zoom{bottom:auto;top:8px;right:8px}
 .story-sheet .story-step{margin-top:0;padding-top:4px;border-top:0}
 .story-sheet__nav{display:flex;gap:6px;margin-top:8px}.story-sheet__nav button{flex:1}
 .story-sheet .story-arm,.story-sheet .story-panel,.story-sheet .story-column{position:static;width:auto!important;max-height:none;margin-top:10px;transform:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}

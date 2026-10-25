@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { STATION_IDS } from "../loader";
 import type { DemoGeometry, DemoManifest, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryLayers } from "./layers";
+import { ClockBar } from "./ClockBar";
 import { StoryView, type StoryViewProps } from "./StoryView";
 import type { StoryParams } from "./url";
 
@@ -52,7 +53,7 @@ const noop = () => undefined;
 export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
   from = null as StoryParams["from"], issues = [] as string[], pinned = "saip" as string | null } = {}): StoryViewProps {
   return {
-    manifest, geometry, geometryError: null, layers, layersError: null, onRetryLayers: noop,
+    manifest, geometry, geometryError: null, layers, layersError: null, layersPending: null, onRetryLayers: noop,
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: lensOverOcean ? [-3000, 9000] : null, z: 1, from }, onNav: noop, restoreKey: 0,
@@ -171,6 +172,19 @@ describe("story view — exits, cancels and repairs", () => {
   it("offers Play this step on step 2 only before it has run", () => {
     expect(renderToStaticMarkup(<StoryView {...input({ step: 2, t: 0, lensOverOcean: true })}/>)).toContain("▶ Play this step");
     expect(renderToStaticMarkup(<StoryView {...input({ step: 2, t: 8, lensOverOcean: true })}/>)).not.toContain("▶ Play this step");
+  });
+  it("offers visible zoom and reset controls for touch and mouse readers", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()}/>);
+    for (const label of ["Zoom in", "Zoom out", "Reset view"]) expect(html).toContain(`aria-label="${label}"`);
+  });
+  it("disables the one-hour step at the end of the clock", () => {
+    const bar = (t: number) => renderToStaticMarkup(<ClockBar t={t} playing={false} disabled={false} originUtc="2011-03-11T05:46:24.120Z" reduced onToggle={noop} onSeek={noop}/>);
+    expect(bar(30)).toMatch(/<button[^>]*disabled=""[^>]*>\+1 h</);
+    expect(bar(29)).not.toMatch(/<button[^>]*disabled=""[^>]*>\+1 h</);
+  });
+  it("says when the contour layer is loading or retrying", () => {
+    expect(renderToStaticMarkup(<StoryView {...input()} layers={null} layersPending="loading"/>)).toContain("Loading the published contour layer…");
+    expect(renderToStaticMarkup(<StoryView {...input()} layers={null} layersPending="retrying"/>)).toContain("Retrying the published contour layer…");
   });
   it("keeps Back focusable on step 1 instead of disabling it", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);

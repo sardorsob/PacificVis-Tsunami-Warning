@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { clockLabel, seek, tick, toggle, utcAt, T_MAX } from "./clock";
 import { contourStyle, pulseWidth } from "./reveal";
 import { capture, footprintRadius, slot } from "./lensMath";
+import type { Pt } from "./layers";
+import { K_MAX, pinchView, toMap, toScreen } from "./StoryMap";
 import { STEPS, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
@@ -63,6 +65,21 @@ describe("lens", () => {
   it("keeps the compare slot above the clock bar", () => {
     expect(slot(700, 360, 108, 44, 330, 848)).toEqual([700 + 108 + 44 + 165, 618]);
     expect(slot(700, 600, 108, 44, 330, 848)[1]).toBe(848 - 170);
+  });
+});
+
+describe("pinch", () => {
+  const v = { k: 1e-4, tx: 400, ty: 300 };
+  it("scales by the finger spread and keeps the map point under the fingers", () => {
+    const from: [Pt, Pt] = [[100, 100], [200, 100]], to: [Pt, Pt] = [[50, 150], [250, 150]];
+    const next = pinchView(v, from, to), under = toMap(v, 150, 100), after = toScreen(next, under);
+    expect(next.k).toBeCloseTo(2e-4);
+    expect(after[0]).toBeCloseTo(150);
+    expect(after[1]).toBeCloseTo(150);
+  });
+  it("clamps the zoom and survives touching fingers", () => {
+    expect(pinchView(v, [[0, 0], [1, 0]], [[0, 0], [1e6, 0]]).k).toBe(K_MAX);
+    expect(Number.isFinite(pinchView(v, [[5, 5], [5, 5]], [[0, 0], [10, 0]]).k)).toBe(true);
   });
 });
 

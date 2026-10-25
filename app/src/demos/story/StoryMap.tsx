@@ -18,6 +18,13 @@ export function zoomAt(v: View, x: number, y: number, factor: number): View {
   const m = toMap(v, x, y), k = Math.max(K_MIN, Math.min(K_MAX, v.k * factor));
   return { k, tx: x - m[0] * k, ty: y - m[1] * k };
 }
+/** Two-finger gesture from its start: zoom by the finger spread, and keep the map point under the fingers' midpoint. */
+export function pinchView(v: View, from: [Pt, Pt], to: [Pt, Pt]): View {
+  const mid = (p: [Pt, Pt]): Pt => [(p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2];
+  const spread = (p: [Pt, Pt]) => Math.max(1, Math.hypot(p[0][0] - p[1][0], p[0][1] - p[1][1]));
+  const m0 = mid(from), m1 = mid(to), k = Math.max(K_MIN, Math.min(K_MAX, v.k * spread(to) / spread(from)));
+  return centreOn({ ...v, k }, toMap(v, m0[0], m0[1]), m1[0], m1[1]);
+}
 
 export const WORLD_ID = "story-world";
 type WorldProps = { coastline: Coastline; contours: ContourFeature[]; initialT: number; smooth: boolean };
