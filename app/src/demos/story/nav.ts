@@ -11,7 +11,7 @@ export type NavEvent =
   | { type: "lensSettle"; at: Pt; z: number; station: string | null; explicit?: boolean }
   | { type: "seekEnd"; t: number } | { type: "playEnd"; t: number }
   | { type: "popstate"; nav: StoryNav } | { type: "escape" };
-export type Effect =
+type Effect =
   | { kind: "stopPlay" } | { kind: "play"; from: number; until: number }
   /** Move the lens to `nav.at`, or to the step's authored target when `at` is null. */
   | { kind: "aim"; instant: boolean }

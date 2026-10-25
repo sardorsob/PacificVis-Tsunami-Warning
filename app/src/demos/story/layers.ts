@@ -1,10 +1,12 @@
 import { array, count, fetchHashed, finite, hash, keys, object, requireValue, text } from "../loader";
 
-export const LAYERS_BUNDLE_ID = "tohoku-story-layers-v1";
-export const LAYERS_MANIFEST_URL = `/data/${LAYERS_BUNDLE_ID}/manifest.json`;
+const LAYERS_BUNDLE_ID = "tohoku-story-layers-v1";
+const LAYERS_MANIFEST_URL = `/data/${LAYERS_BUNDLE_ID}/manifest.json`;
+/** Display CRS (y up) to SVG space (y down). */
+export const toSvg = ([x, y]: readonly number[]): Pt => [x, -y];
 export type Pt = [number, number];
-export type LayersAsset = { path: "contours.json" | "coastline.json"; bytes: number; sha256: string };
-export type LayersManifest = {
+type LayersAsset = { path: "contours.json" | "coastline.json"; bytes: number; sha256: string };
+type LayersManifest = {
   schema_version: "1"; exporter_version: "1"; bundle_id: typeof LAYERS_BUNDLE_ID; evidence_state: "internal_descriptive_only";
   display_crs: string; central_meridian: -160; coordinate_order: "x,y"; units: string; statement: string;
   contour_source_id: string; coastline_source_id: string; origin_time_utc: string; hours_semantics: string;
@@ -77,6 +79,7 @@ export function pointBetween(contours: ContourFeature[], anchor: Pt, laterHour: 
   return best?[(anchor[0]+best[0])/2,(anchor[1]+best[1])/2]:null;
 }
 /** The nearest published hour and its nearer neighbour at an SVG-space point; null beyond maxDistance. Never interpolates a time. */
+// ponytail: brute force over every vertex (63k, well under a frame); a spatial index if the layers grow.
 export function nearestHours(contours: ContourFeature[], x: number, y: number, maxDistance: number): { a: number; b: number } | null {
   const best=new Map<number,number>();
   for(const f of contours){let d=best.get(f.hours)??Infinity;for(const part of f.parts)for(const p of part){const q=(p[0]-x)**2+(p[1]-y)**2;if(q<d)d=q;}best.set(f.hours,d);}

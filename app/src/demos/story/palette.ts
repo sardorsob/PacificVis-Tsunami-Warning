@@ -6,4 +6,4 @@ export function contourColour(hour: number): string {
   const i = Math.min(STOPS.length - 2, Math.floor(seg)), f = seg - i, a = rgb(STOPS[i]), b = rgb(STOPS[i + 1]);
   return `rgb(${a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(",")})`;
 }
-export const rampGradient = () => `linear-gradient(90deg, ${Array.from({ length: 11 }, (_, i) => contourColour(1 + i * 2.9)).join(",")})`;
+export const RAMP_GRADIENT = `linear-gradient(90deg, ${Array.from({ length: 11 }, (_, i) => contourColour(1 + i * 2.9)).join(",")})`;

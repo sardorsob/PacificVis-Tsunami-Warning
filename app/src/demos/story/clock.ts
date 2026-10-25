@@ -1,7 +1,7 @@
 /** The one owner of story time: hours after the 05:46:24 UTC origin. */
 export const T_MAX = 30;
 /** Published hours per second of playback (0–30 h in 12.5 s). */
-export const PLAY_RATE = 2.4;
+const PLAY_RATE = 2.4;
 export type Clock = { t: number; playing: boolean };
 type Step = { clock: Clock; crossed: number[] };
 

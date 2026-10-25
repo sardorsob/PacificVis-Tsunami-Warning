@@ -1,6 +1,6 @@
 /** The six guided steps, as data. Copy is subject to the G3 review. */
 export type StepId = 1 | 2 | 3 | 4 | 5 | 6;
-export type LensTarget = { station: string } | { point: "epicentre" } | { point: "between-10-11" };
+type LensTarget = { station: string } | { point: "epicentre" } | { point: "between-10-11" };
 /** Station A is the lens station (when the lens targets one); B is pinned only for Compare steps. */
 export type StoryStep = {
   id: StepId; title: string; body: string;

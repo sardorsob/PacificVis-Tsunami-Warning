@@ -39,14 +39,13 @@ describe("story clock", () => {
 });
 
 describe("reveal", () => {
-  it("shows passed hours fully and fades in only the next hour when smooth", () => {
-    expect(contourStyle(7, 7.5, true, false).opacity).toBeCloseTo(0.95);
-    expect(contourStyle(8, 7.5, true, false).opacity).toBeCloseTo(0.055 + (0.95 - 0.055) * 0.25);
-    expect(contourStyle(8, 7.5, false, false).opacity).toBeCloseTo(0.055);
-    expect(contourStyle(9, 7.5, true, false).opacity).toBeCloseTo(0.055);
-    expect(contourStyle(30, 31, true, false).opacity).toBeCloseTo(0.42);
-    expect(contourStyle(10, 12, true, true).width).toBe(1.7);
-    expect(contourStyle(11, 12, true, false).width).toBe(0.8);
+  it("shows passed hours fully and fades in only the next hour", () => {
+    expect(contourStyle(7, 7.5, false).opacity).toBeCloseTo(0.95);
+    expect(contourStyle(8, 7.5, false).opacity).toBeCloseTo(0.055 + (0.95 - 0.055) * 0.25);
+    expect(contourStyle(9, 7.5, false).opacity).toBeCloseTo(0.055);
+    expect(contourStyle(30, 31, false).opacity).toBeCloseTo(0.42);
+    expect(contourStyle(10, 12, true).width).toBe(1.7);
+    expect(contourStyle(11, 12, false).width).toBe(0.8);
   });
   it("pulses for 0.9 s then settles", () => {
     expect(pulseWidth(0.8, 0)).toBeCloseTo(5.3);

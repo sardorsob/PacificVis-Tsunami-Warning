@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { layoutFor } from "../layout";
 import type { RadialProps } from "../types";
-import { Arms } from "./Arms";
+import { Arms, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, hourlySamples } from "./ClockColumn";
 import { clockLabel, T_MAX, utcAt } from "./clock";
-import { hourPaths, labelAnchors, nearestHours, pointBetween, type Coastline, type Pt, type StoryLayers } from "./layers";
+import { hourPaths, labelAnchors, nearestHours, pointBetween, toSvg, type Coastline, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, footprintRadius, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
@@ -33,7 +33,6 @@ const reducedMotion = () => typeof matchMedia === "function" && matchMedia("(pre
 /** After React commits (a timeout, not an animation frame, so a hidden tab still gets it). */
 const afterCommit = (f: () => void) => { if (typeof window !== "undefined") window.setTimeout(f, 0); };
 
-const flipped = (parts: number[][][]): Pt[][] => parts.map(part => part.map(([x, y]) => [x, -y] as Pt));
 /** The step recorded in the previous history entry (written by DemoApp's story writer), if any. */
 function historyPrev(): StoryNav["step"] | null {
   const prev = typeof window === "undefined" ? null : (window.history.state as { prev?: unknown } | null)?.prev;
@@ -44,28 +43,38 @@ export function StoryView(props: StoryViewProps) {
   const { manifest, geometry, layers, state, selected, params } = props;
   const origin = manifest.event.origin_time_utc;
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
-  const [size, setSize] = useState(() => props.initialSize ?? (typeof window === "undefined" ? { w: 1440, h: 848 } : { w: window.innerWidth, h: window.innerHeight }));
+  const [size, setSize] = useState(() => props.initialSize
+    ?? (typeof window === "undefined" ? { w: 1440, h: 848 } : { w: window.innerWidth, h: window.innerHeight }));
   const L = layoutFor(size.w, size.h), motionOK = !reducedMotion();
   const stationIds = useMemo(() => manifest.stations.map(s => s.station_id), [manifest]);
   const stations = useMemo<MapStation[]>(() => geometry ? manifest.stations.map(s => {
-    const p = geometry.points.find(q => q.id === s.station_id)!; return { id: s.station_id, name: s.name, type: s.station_type, xy: [p.x, -p.y] as Pt };
+    const p = geometry.points.find(q => q.id === s.station_id)!;
+    return { id: s.station_id, name: s.name, type: s.station_type, xy: toSvg([p.x, p.y]) };
   }) : [], [geometry, manifest]);
-  const epicentre = useMemo<Pt>(() => { const p = geometry?.points.find(q => q.id === manifest.event.event_id); return p ? [p.x, -p.y] : [0, 0]; }, [geometry, manifest]);
-  const coastline = useMemo<Coastline>(() => layers?.coastline ?? (geometry ? (() => { const parts = flipped(geometry.coastline);
-    return { parts, closed: parts.map(p => p.length > 3 && p[0][0] === p.at(-1)![0] && p[0][1] === p.at(-1)![1]) }; })() : { parts: [], closed: [] }), [layers, geometry]);
+  const epicentre = useMemo<Pt>(() => {
+    const p = geometry?.points.find(q => q.id === manifest.event.event_id); return p ? toSvg([p.x, p.y]) : [0, 0];
+  }, [geometry, manifest]);
+  // The verified v2 coastline stands in until the sharper story layers load (or if they fail).
+  const coastline = useMemo<Coastline>(() => {
+    if (layers) return layers.coastline;
+    const parts = geometry ? geometry.coastline.map(part => part.map(toSvg)) : [];
+    return { parts, closed: parts.map(q => q.length > 3 && q[0][0] === q.at(-1)![0] && q[0][1] === q.at(-1)![1]) };
+  }, [layers, geometry]);
   const contours = useMemo(() => layers?.contours ?? [], [layers]);
   const paths = useMemo(() => hourPaths(contours), [contours]);
   const anchors = useMemo(() => labelAnchors(contours, epicentre), [contours, epicentre]);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
-  const stepsError = useMemo(() => { try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; } }, [stationIds]);
+  const stepsError = useMemo(() => {
+    try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
+  }, [stationIds]);
 
   // ---- navigation: one reducer, one writer ----
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
   const stepNow = typeof params.step === "number" ? STEPS[params.step - 1] : null;
   const fitK = fitView(CROP, size.w, size.h).k;
-  const stepTarget = (step: StoryStep): Pt | null => "station" in step.lens ? stations.find(x => "station" in step.lens && x.id === step.lens.station)?.xy ?? null
-    : step.lens.point === "epicentre" ? epicentre : between ?? epicentre;
+  const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
+    : lens.point === "epicentre" ? epicentre : between ?? epicentre;
   const targetOf = (n: StoryNav): Pt => n.at ? [n.at[0] * 1000, n.at[1] * 1000]
     : (typeof n.step === "number" ? stepTarget(STEPS[n.step - 1]) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
   const viewFor = (n: StoryNav): View => centreOn({ k: fitK * n.z, tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
@@ -78,13 +87,15 @@ export function StoryView(props: StoryViewProps) {
   const anim = useRef(0), userMoved = useRef(false), settleTimer = useRef(0), moving = useRef(false);
   /** The glide in flight; `settleAs` is set when it ends in a lens settle (true = explicit push). */
   const pending = useRef<{ target: View; settleAs?: boolean } | null>(null);
-  const cancelGlide = () => { moving.current = false; pending.current = null; if (typeof cancelAnimationFrame === "function") cancelAnimationFrame(anim.current); };
+  const cancelGlide = () => {
+    moving.current = false; pending.current = null; if (typeof cancelAnimationFrame === "function") cancelAnimationFrame(anim.current);
+  };
   /** Land on `v` now; viewRef is updated first so a settle in the same tick reads the landed view. */
   const land = (v: View, settleAs?: boolean) => { viewRef.current = v; setView(v); if (settleAs !== undefined) settle(settleAs); };
   const glide = (target: View, settleAs?: boolean) => {
     cancelGlide();
     // A hidden tab pauses animation frames: land at once rather than leave the lens stranded mid-glide.
-    if (!motionOK || typeof requestAnimationFrame !== "function" || document.visibilityState === "hidden") { land(target, settleAs); return; }
+    if (!motionOK || typeof requestAnimationFrame !== "function" || document.visibilityState === "hidden") return land(target, settleAs);
     const from = viewRef.current, t0 = performance.now(); moving.current = true; pending.current = { target, settleAs };
     const step = (now: number) => { const p = Math.min(1, (now - t0) / 420), e = 1 - (1 - p) ** 3;
       if (p >= 1) { moving.current = false; pending.current = null; land(target, settleAs); return; }
@@ -97,46 +108,69 @@ export function StoryView(props: StoryViewProps) {
       if (e.kind === "stopPlay") clock.stop(false);
       else if (e.kind === "play") clock.play(e.from, e.until);
       else if (e.kind === "aim") { const v = viewFor(r.nav); if (e.instant) { cancelGlide(); setView(v); } else glide(v); }
-      else if (e.kind === "focus") afterCommit(() => root.current?.querySelector<HTMLElement>(e.target === "step" ? "#story-step-title" : ".story-focus-panel")?.focus({ preventScroll: true }));
+      else if (e.kind === "focus") {
+        const selector = e.target === "step" ? "#story-step-title" : ".story-focus-panel";
+        afterCommit(() => root.current?.querySelector<HTMLElement>(selector)?.focus({ preventScroll: true }));
+      }
       else if (e.kind === "collapseSheet") setSheetExpanded(false);
     }
     if (r.history !== "back" && !r.effects.some(e => e.kind === "play") && r.nav.t !== clock.tRef.current) clock.set(r.nav.t);
   };
-  const ctx = () => ({ motionOK, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing, sheetExpanded });
+  const ctx = () => ({ motionOK, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
+    sheetExpanded });
   const dispatch = (ev: NavEvent) => { const r = reduce(navRef.current, ev, ctx()); run(r); navRef.current = r.nav; props.onNav(r); };
 
   // Browser Back/Forward: the URL is already restored by DemoApp; move lens and clock to it without writing history.
   const restoreSeen = useRef(props.restoreKey);
-  useEffect(() => { if (props.restoreKey === restoreSeen.current) return; restoreSeen.current = props.restoreKey; run(reduce(nav, { type: "popstate", nav }, ctx())); }, [props.restoreKey]);
+  useEffect(() => {
+    if (props.restoreKey === restoreSeen.current) return;
+    restoreSeen.current = props.restoreKey; run(reduce(nav, { type: "popstate", nav }, ctx()));
+  }, [props.restoreKey]);
   // Geometry or contours can arrive after the first render: aim once each, unless the reader has moved the map.
   const placed = useRef(stations.length > 0);
   useEffect(() => { if (!placed.current && stations.length) { placed.current = true; setView(viewFor(navRef.current)); } }, [stations.length]);
-  useEffect(() => { if (between && !userMoved.current && !navRef.current.at && stepNow && "point" in stepNow.lens && stepNow.lens.point === "between-10-11") setView(viewFor(navRef.current)); }, [between]);
+  useEffect(() => {
+    const aimsBetween = !!stepNow && "point" in stepNow.lens && stepNow.lens.point === "between-10-11";
+    if (between && aimsBetween && !userMoved.current && !navRef.current.at) setView(viewFor(navRef.current));
+  }, [between]);
 
   const centre = toMap(view, L.cx, L.cy);
   const lensStation = stations.length ? capture(centre, footprintRadius(L.r, view.k, LENS_MAG), stations) : null;
   // The station under the lens drives the panels; while the map moves the URL is untouched, at rest it is corrected in place.
-  useEffect(() => { if (lensStation && lensStation !== state.selectedStationId)
-    props.onNav({ nav: { ...navRef.current, a: lensStation }, history: moving.current ? "none" : "replace", effects: [] }); },
-    [lensStation, state.selectedStationId]);
+  useEffect(() => {
+    if (lensStation && lensStation !== state.selectedStationId)
+      props.onNav({ nav: { ...navRef.current, a: lensStation }, history: moving.current ? "none" : "replace", effects: [] });
+  }, [lensStation, state.selectedStationId]);
   const settle = (explicit = false) => {
     window.clearTimeout(settleTimer.current);
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);
     const station = stations.length ? capture(c, footprintRadius(L.r, v.k, LENS_MAG), stations) : null;
     setSaid(`${stations.find(s => s.id === station)?.name ?? "Open Pacific"} under the lens.`);
-    dispatch({ type: "lensSettle", at: [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z: Math.round((v.k / fitK) * 100) / 100, station, explicit });
+    const at: Pt = [Math.round(c[0] / 1000), Math.round(c[1] / 1000)], z = Math.round((v.k / fitK) * 100) / 100;
+    dispatch({ type: "lensSettle", at, z, station, explicit });
   };
   const settleSoon = () => { window.clearTimeout(settleTimer.current); settleTimer.current = window.setTimeout(() => settle(), SETTLE_MS); };
-  const focusStation = (id: string, explicit = false) => { const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit); };
-  const cycle = (d: 1 | -1) => { const i = Math.max(0, stations.findIndex(s => s.id === (lensStation ?? state.selectedStationId))); focusStation(stations[(i + d + stations.length) % stations.length].id); };
-  const atOrigin = !lensStation && Math.hypot(epicentre[0] - centre[0], epicentre[1] - centre[1]) < footprintRadius(L.r, view.k, LENS_MAG);
-  const reading = useMemo(() => lensStation || atOrigin ? null : nearestHours(contours, centre[0], centre[1], READING_RADIUS), [lensStation, atOrigin, contours, centre[0], centre[1]]);
-  const nearest = useMemo(() => stations.reduce<MapStation | null>((best, s) => !best || Math.hypot(s.xy[0] - centre[0], s.xy[1] - centre[1]) < Math.hypot(best.xy[0] - centre[0], best.xy[1] - centre[1]) ? s : best, null), [stations, centre[0], centre[1]]);
+  const focusStation = (id: string, explicit = false) => {
+    const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit);
+  };
+  const cycle = (d: 1 | -1) => {
+    const i = Math.max(0, stations.findIndex(s => s.id === (lensStation ?? state.selectedStationId)));
+    focusStation(stations[(i + d + stations.length) % stations.length].id);
+  };
+  const away = (p: Pt) => Math.hypot(p[0] - centre[0], p[1] - centre[1]);
+  const atOrigin = !lensStation && away(epicentre) < footprintRadius(L.r, view.k, LENS_MAG);
+  const reading = useMemo(() => lensStation || atOrigin ? null : nearestHours(contours, centre[0], centre[1], READING_RADIUS),
+    [lensStation, atOrigin, contours, centre[0], centre[1]]);
+  const nearest = useMemo(() => stations.reduce<MapStation | null>((best, s) => !best || away(s.xy) < away(best.xy) ? s : best, null),
+    [stations, centre[0], centre[1]]);
 
   // ---- input: one finger or the mouse pans, two fingers pinch; a finger left after a pinch never re-bases the pan ----
   const fingers = useRef(new Map<number, Pt>());
-  const drag = useRef<{ x: number; y: number; v: View; moved: boolean } | null>(null), pinch = useRef<{ from: [Pt, Pt]; v: View } | null>(null);
-  const local = (e: PointerEvent<SVGSVGElement>): Pt => { const r = e.currentTarget.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  const drag = useRef<{ x: number; y: number; v: View; moved: boolean } | null>(null);
+  const pinch = useRef<{ from: [Pt, Pt]; v: View } | null>(null);
+  const local = (e: PointerEvent<SVGSVGElement>): Pt => {
+    const r = e.currentTarget.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top];
+  };
   const pair = (): [Pt, Pt] => { const [a, b] = fingers.current.values(); return [a, b]; };
   const onPointerDown = (e: PointerEvent<SVGSVGElement>) => {
     fingers.current.set(e.pointerId, local(e)); e.currentTarget.setPointerCapture(e.pointerId);
@@ -154,7 +188,10 @@ export function StoryView(props: StoryViewProps) {
   };
   const onPointerUp = (e: PointerEvent<SVGSVGElement>) => {
     if (!fingers.current.delete(e.pointerId)) return;
-    if (pinch.current) { if (fingers.current.size === 0) { pinch.current = null; moving.current = false; userMoved.current = true; settle(); } return; }
+    if (pinch.current) {
+      if (fingers.current.size === 0) { pinch.current = null; moving.current = false; userMoved.current = true; settle(); }
+      return;
+    }
     const d = drag.current; drag.current = null; moving.current = false; if (!d?.moved) return;
     userMoved.current = true; if (lensStation) focusStation(lensStation); else settle();
   };
@@ -163,15 +200,23 @@ export function StoryView(props: StoryViewProps) {
   const zoom = (factor: number) => { cancelGlide(); userMoved.current = true; setView(v => zoomAt(v, L.cx, L.cy, factor)); settleSoon(); };
   const onKeyDown = (e: KeyboardEvent<SVGSVGElement>) => {
     const pan: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
-    if (pan[e.key]) { e.preventDefault(); cancelGlide(); userMoved.current = true; setView(v => ({ ...v, tx: v.tx + pan[e.key][0], ty: v.ty + pan[e.key][1] })); settleSoon(); }
+    const step = pan[e.key];
+    if (step) { e.preventDefault(); cancelGlide(); userMoved.current = true; setView(v => ({ ...v, tx: v.tx + step[0], ty: v.ty + step[1] })); settleSoon(); }
     else if (e.key === "[" || e.key === "]") cycle(e.key === "]" ? 1 : -1);
     else if (e.key === "+" || e.key === "=" || e.key === "-") { e.preventDefault(); zoom(e.key === "-" ? 1 / 1.25 : 1.25); }
   };
   const toggleRef = useRef(() => {}), escapeRef = useRef(() => {});
-  toggleRef.current = () => { if (!layers) return; if (motionOK) { clock.toggle(); return; }
-    if (clock.tRef.current < T_MAX) { const next = Math.min(T_MAX, Math.floor(clock.tRef.current) + 1); clock.seek(next); setSaid(`Clock ${clockLabel(next)}.`); } };
+  toggleRef.current = () => {
+    if (!layers) return;
+    if (motionOK) return clock.toggle();
+    if (clock.tRef.current >= T_MAX) return;
+    const next = Math.min(T_MAX, Math.floor(clock.tRef.current) + 1); clock.seek(next); setSaid(`Clock ${clockLabel(next)}.`);
+  };
   const wasPlaying = useRef(false);
-  useEffect(() => { if (wasPlaying.current && !clock.playing) setSaid(`Clock paused at ${clockLabel(clock.tRef.current)}.`); wasPlaying.current = clock.playing; }, [clock.playing]);
+  useEffect(() => {
+    if (wasPlaying.current && !clock.playing) setSaid(`Clock paused at ${clockLabel(clock.tRef.current)}.`);
+    wasPlaying.current = clock.playing;
+  }, [clock.playing]);
   escapeRef.current = () => dispatch({ type: "escape" });
   useEffect(() => {
     const key = (e: globalThis.KeyboardEvent) => {
@@ -180,111 +225,150 @@ export function StoryView(props: StoryViewProps) {
     };
     window.addEventListener("keydown", key); return () => window.removeEventListener("keydown", key);
   }, []);
-  useEffect(() => { const svg = svgRef.current; if (!svg) return;
-    const wheel = (e: WheelEvent) => { e.preventDefault(); cancelGlide(); userMoved.current = true; const r = svg.getBoundingClientRect();
-      setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015))); settleSoon(); };
-    svg.addEventListener("wheel", wheel, { passive: false }); return () => svg.removeEventListener("wheel", wheel); }, [geometry]);
-  // Resize: keep the map point under the lens.
-  useEffect(() => { const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(([e]) => { const w = Math.round(e.contentRect.width), h = Math.round(e.contentRect.height); if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h }); });
-    ro.observe(el); return () => ro.disconnect(); }, []);
+  useEffect(() => {
+    const svg = svgRef.current; if (!svg) return;
+    const wheel = (e: WheelEvent) => {
+      e.preventDefault(); cancelGlide(); userMoved.current = true; const r = svg.getBoundingClientRect();
+      setView(v => zoomAt(v, e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.0015))); settleSoon();
+    };
+    svg.addEventListener("wheel", wheel, { passive: false }); return () => svg.removeEventListener("wheel", wheel);
+  }, [geometry]);
+  // Measure the real viewport (the first render used the window size).
+  useEffect(() => {
+    const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(([e]) => {
+      const w = Math.round(e.contentRect.width), h = Math.round(e.contentRect.height);
+      if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h });
+    });
+    ro.observe(el); return () => ro.disconnect();
+  }, []);
   // Live resize: keep the map point under the lens and the zoom relative to the fitted Pacific; a glide in flight lands at its target.
   const lastLayout = useRef({ cx: L.cx, cy: L.cy, fitK });
-  useEffect(() => { const prev = lastLayout.current; lastLayout.current = { cx: L.cx, cy: L.cy, fitK };
+  useEffect(() => {
+    const prev = lastLayout.current; lastLayout.current = { cx: L.cx, cy: L.cy, fitK };
     if (prev.cx === L.cx && prev.cy === L.cy && prev.fitK === fitK) return;
     const g = pending.current, v = g?.target ?? viewRef.current; cancelGlide();
-    land(centreOn({ ...v, k: v.k * (fitK / prev.fitK) }, toMap(v, prev.cx, prev.cy), L.cx, L.cy), g?.settleAs); }, [L.cx, L.cy, fitK]);
+    land(centreOn({ ...v, k: v.k * (fitK / prev.fitK) }, toMap(v, prev.cx, prev.cy), L.cx, L.cy), g?.settleAs);
+  }, [L.cx, L.cy, fitK]);
 
   // ---- derived display ----
   const t = clock.t, ocean = lensStation === null;
   const lensMeta = manifest.stations.find(s => s.station_id === lensStation) ?? selected.station;
-  const aSel = selected.station.station_id === lensMeta.station_id ? selected : { station: lensMeta, status: "loading" as const, records: null, error: null };
-  const counts = useMemo(() => !ocean && aSel.records ? hourlySamples(aSel.records, state.windowId, origin) : null, [ocean, aSel.records, state.windowId, origin]);
+  const aSel = selected.station.station_id === lensMeta.station_id ? selected
+    : { station: lensMeta, status: "loading" as const, records: null, error: null };
+  const counts = useMemo(() => !ocean && aSel.records ? hourlySamples(aSel.records, state.windowId, origin) : null,
+    [ocean, aSel.records, state.windowId, origin]);
   const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · magnitude 9.1 · where the published clock starts" }
     : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h` : "no published contour nearby" }
-    : { name: lensMeta.name, sub: `${lensMeta.station_type === "dart" ? "Deep-ocean DART buoy" : "Coastal tide gauge"} · ${clockLabel(t)} · ${utcAt(origin, t)}` };
+    : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · ${clockLabel(t)} · ${utcAt(origin, t)}` };
   const b = params.compare ? props.pinned : null;
   const bStation = b ? stations.find(s => s.id === b.station.station_id) ?? null : null;
   const bSlot = L.bSlot, bScreen = bStation ? toScreen(view, bStation.xy) : null;
   const bOff = !!bScreen && (bScreen[0] < 0 || bScreen[0] > size.w || bScreen[1] < 0 || bScreen[1] > size.h);
-  const bTarget: Pt | null = bScreen ? [Math.max(8, Math.min(size.w - 8, bScreen[0])), Math.max(8, Math.min(size.h - 8, bScreen[1]))] : null;
+  const within = (v: number, max: number) => Math.max(8, Math.min(max - 8, v));
+  const bTarget: Pt | null = bScreen ? [within(bScreen[0], size.w), within(bScreen[1], size.h)] : null;
   const wide = L.mode === "wide", cine = clock.playing && motionOK && wide;
 
   if (!geometry) return <main className="story story--loading" ref={root}>{props.geometryError
     ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button></div>
     : <p role="status">Loading the verified map…</p>}</main>;
-  const alert = <>{props.layersPending && <p role="status" className="story-alert">{props.layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
-    {props.layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {props.layersError}</p><button type="button" onClick={props.onRetryLayers}>Retry contours</button></div>}
+  const alert = <>
+    {props.layersPending && <p role="status" className="story-alert">
+      {props.layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
+    {props.layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {props.layersError}</p>
+      <button type="button" onClick={props.onRetryLayers}>Retry contours</button></div>}
     {stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}
-    {props.issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p><ul>{props.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
-      <button type="button" onClick={props.onDismissIssues}>Dismiss</button></div>}</>;
+    {props.issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p>
+      <ul>{props.issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
+      <button type="button" onClick={props.onDismissIssues}>Dismiss</button></div>}
+  </>;
   const canPlayStep = !!stepNow?.play && motionOK && !!layers && !clock.playing && t < stepNow.play[1];
   const lead = stepNow && !stepsError ? <section className="story-step" aria-label={`Story step ${stepNow.id} of ${STEPS.length}`}>
     <p className="story-kicker">{stepNow.id} of {STEPS.length}</p>
     <h2 className="story-step__title" id="story-step-title" tabIndex={-1}>{stepNow.title}</h2>
     <p className="story-step__body">{stepNow.body}</p>
-    {canPlayStep && <button type="button" className="story-step__play" onClick={() => clock.play(stepNow.play![0], stepNow.play![1])}>▶ Play this step</button>}
+    {canPlayStep && <button type="button" className="story-step__play" onClick={() => clock.play(...stepNow.play!)}>▶ Play this step</button>}
     <div className="story-step__nav"><button type="button" aria-disabled={stepNow.id === 1} onClick={() => dispatch({ type: "back" })}>Back</button>
       <button type="button" onClick={() => dispatch({ type: "next" })}>{stepNow.id < STEPS.length ? "Next" : "Explore"}</button></div>
-    <p className="story-step__links"><button type="button" className="story-link" onClick={() => dispatch({ type: "returnToStep" })}>Return to this step</button>{" "}
+    <p className="story-step__links">
+      <button type="button" className="story-link" onClick={() => dispatch({ type: "returnToStep" })}>Return to this step</button>{" "}
       <button type="button" className="story-link" onClick={() => dispatch({ type: "explore" })}>Skip to free exploration</button></p>
   </section> : null;
-  const extra = stepNow ? null : <><p className="story-step__links"><button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
-    Back to the guided story (step {params.from ?? 1})</button></p><StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, true)}/></>;
-  const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert} lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
+  const extra = stepNow ? null : <>
+    <p className="story-step__links"><button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
+      Back to the guided story (step {params.from ?? 1})</button></p>
+    <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, true)}/>
+  </>;
+  const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
+    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"}>{extra}</ClockColumn>;
   const compare = <section className="story-panel story-compare" aria-label="Views and comparison">
     <nav className="story-views" aria-label="Views"><button type="button" aria-pressed="true">Story</button>
-      <button type="button" onClick={() => props.onView("paired")}>Paired</button><button type="button" onClick={() => props.onView("radial")}>Station lens</button></nav>
-    <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>{params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
+      <button type="button" onClick={() => props.onView("paired")}>Paired</button>
+      <button type="button" onClick={() => props.onView("radial")}>Station lens</button></nav>
+    <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
+      {params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
     <label className="story-compare__pick"><span className="story-tag story-tag--b">B</span><span className="story-sr">Pinned station B</span>
       <select value={state.pinnedStationId ?? ""} onChange={e => dispatch({ type: "pin", id: e.target.value })}>
         {state.pinnedStationId === null && <option value="">Choose B…</option>}
-        {manifest.stations.filter(s => s.station_id !== state.selectedStationId || s.station_id === state.pinnedStationId).map(s => <option key={s.station_id} value={s.station_id}>{s.name}</option>)}
+        {manifest.stations.filter(s => s.station_id !== state.selectedStationId || s.station_id === state.pinnedStationId)
+          .map(s => <option key={s.station_id} value={s.station_id}>{s.name}</option>)}
       </select></label>
     <p className="story-small">B is pinned while A follows the lens. Both share the UTC axis and the clock; heights stay station-local.</p>
   </section>;
-  const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK} onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
+  const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK}
+    onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
   const arms = <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin} a={aSel} b={b}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
     styles={{ record: L.record, support: L.support, read: L.read }}/>;
   return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}>
     <svg ref={svgRef} className="story-map" width={size.w} height={size.h} tabIndex={0} role="img"
-      aria-label="Pacific map of NOAA/NCEI published hourly travel-time contours with ten station records. Drag or use arrow keys to move the map under the lens; [ and ] change station; + and − zoom; Space plays the clock."
+      aria-label={"Pacific map of NOAA/NCEI published hourly travel-time contours with ten station records. "
+        + "Drag or use arrow keys to move the map under the lens; pinch, + and − zoom; [ and ] change station; Space plays the clock."}
       onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onKeyDown={onKeyDown}>
-      <WorldDefs coastline={coastline} contours={contours} initialT={t} smooth/>
+      <WorldDefs coastline={coastline} contours={contours} paths={paths} initialT={t}/>
       <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
-      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} bId={b?.station.station_id ?? null}/>
+      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation}
+        bId={b?.station.station_id ?? null}/>
       <g className="story-leads" aria-hidden="true">
         {wide && <><line x1={L.cx - L.r * 0.7} y1={L.cy - L.r * 0.7} x2={Number(L.record.left) + L.aw} y2={L.cy - L.r + 6}/>
           <line x1={L.cx + L.r * 0.7} y1={L.cy - L.r * 0.7} x2={Number(L.support.left)} y2={L.cy - L.r + 6}/>
           <line x1={L.cx} y1={L.cy + L.r} x2={L.cx} y2={Number(L.read.top)}/></>}
-        {bTarget && <path className="story-lead-b" d={`M${bSlot[0]} ${bSlot[1] - L.bR}Q${(bSlot[0] + bTarget[0]) / 2} ${Math.min(bSlot[1], bTarget[1]) - 60} ${bTarget[0]} ${bTarget[1]}`}/>}
+        {bTarget && <path className="story-lead-b"
+          d={`M${bSlot[0]} ${bSlot[1] - L.bR}Q${(bSlot[0] + bTarget[0]) / 2} ${Math.min(bSlot[1], bTarget[1]) - 60} ${bTarget[0]} ${bTarget[1]}`}/>}
       </g>
-      <Lens id="story-lens-a" view={view} cx={L.cx} cy={L.cy} centre={centre} r={L.r} mag={LENS_MAG} stations={stations} epicentre={epicentre} variant="a"/>
-      {bStation && <Lens id="story-lens-b" view={view} cx={bSlot[0]} cy={bSlot[1]} centre={bStation.xy} r={L.bR} mag={B_LENS_MAG} stations={stations} epicentre={epicentre}
-        variant="b" caption={`B · ${bStation.name}${bOff ? " (off-screen)" : ""}`}/>}
+      <Lens id="story-lens-a" view={view} cx={L.cx} cy={L.cy} centre={centre} r={L.r} mag={LENS_MAG} stations={stations} epicentre={epicentre}
+        variant="a"/>
+      {bStation && <Lens id="story-lens-b" view={view} cx={bSlot[0]} cy={bSlot[1]} centre={bStation.xy} r={L.bR} mag={B_LENS_MAG} stations={stations}
+        epicentre={epicentre} variant="b" caption={`B · ${bStation.name}${bOff ? " (off-screen)" : ""}`}/>}
     </svg>
     <div className="story-zoom" role="group" aria-label="Map zoom">
       <button type="button" aria-label="Zoom in" onClick={() => zoom(1.25)}>+</button>
       <button type="button" aria-label="Zoom out" onClick={() => zoom(1 / 1.25)}>−</button>
       <button type="button" aria-label="Reset view" onClick={resetView}>Reset</button>
     </div>
-    <div className="story-lens-title" style={{ left: L.cx, top: L.titleTop }}><p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
-    {wide ? <>{arms}{column}{compare}{bar}</> : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
-      <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>{sheetExpanded ? "Collapse panel" : "Expand panel"}</button>
-      {lead}
-      <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button><button type="button" onClick={() => cycle(1)}>Next station ›</button></div>
-      {bar}{arms}{compare}{column}
-    </div>}
+    <div className="story-lens-title" style={{ left: L.cx, top: L.titleTop }}>
+      <p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
+    {wide ? <>{arms}{column}{compare}{bar}</>
+      : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
+        <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
+          {sheetExpanded ? "Collapse panel" : "Expand panel"}</button>
+        {lead}
+        <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
+          <button type="button" onClick={() => cycle(1)}>Next station ›</button></div>
+        {bar}{arms}{compare}{column}
+      </div>}
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;
 }
 
-export function StationChips({ stations, lensStation, onPick }: { stations: MapStation[]; lensStation: string | null; onPick: (id: string) => void }) {
+type ChipsProps = { stations: MapStation[]; lensStation: string | null; onPick: (id: string) => void };
+function StationChips({ stations, lensStation, onPick }: ChipsProps) {
   return <>
     <h2 className="story-h">Station records</h2>
-    {(["dart", "coastal"] as const).map(kind => <div key={kind}><p className="story-small">{kind === "dart" ? "◆ Deep-ocean DART" : "● Coastal gauges"}</p>
-      {stations.filter(s => s.type === kind).map(s => <button key={s.id} type="button" className={`story-chip${s.id === lensStation ? " story-chip--on" : ""}`}
-        aria-pressed={s.id === lensStation} onClick={() => onPick(s.id)}>{s.name}</button>)}</div>)}
+    {(["dart", "coastal"] as const).map(kind => <div key={kind}>
+      <p className="story-small">{kind === "dart" ? "◆ Deep-ocean DART" : "● Coastal gauges"}</p>
+      {stations.filter(s => s.type === kind).map(s => <button key={s.id} type="button"
+        className={`story-chip${s.id === lensStation ? " story-chip--on" : ""}`} aria-pressed={s.id === lensStation} onClick={() => onPick(s.id)}>
+        {s.name}</button>)}</div>)}
   </>;
 }

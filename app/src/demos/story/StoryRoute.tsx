@@ -9,7 +9,8 @@ export function StoryRoute(props: StoryRouteProps) {
   const [layers, setLayers] = useState<StoryLayers | null>(null), [error, setError] = useState<string | null>(null), [attempt, setAttempt] = useState(0);
   useEffect(() => {
     const request = new LatestRequest<StoryLayers>(); setError(null);
-    void request.run(loadLayers).then(l => { if (l) setLayers(l); }).catch((e: unknown) => setError(e instanceof Error ? e.message : "Unexpected map-layer failure."));
+    void request.run(loadLayers).then(l => { if (l) setLayers(l); })
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "Unexpected map-layer failure."));
     return () => request.cancel();
   }, [attempt]);
   const pending = layers || error ? null : attempt ? "retrying" : "loading";
