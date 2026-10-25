@@ -80,3 +80,24 @@ describe("story view — stage, lens and arms", () => {
     expect(html).not.toContain("story-contour");
   });
 });
+
+describe("story view — clock, legend and compare", () => {
+  it("shows the clock reading, its UTC day and the not-an-arrival legend", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ t: 7.5 })}/>);
+    expect(html).toContain("+7 h 30 min");
+    expect(html).toContain("13:16 UTC");
+    expect(html).toContain("Friday 11 March 2011");
+    expect(html).toContain("Not wave height, not an arrival, not warning time.");
+    expect(html).toContain("Samples per hour in Test station 1617760");
+  });
+  it("stacks A and B with one clock and station-local heights when comparing", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ compare: true })}/>);
+    expect(html).toContain("heights stay station-local");
+    expect(html).toContain("B · Test station saip");
+    expect((html.match(/class="clock-cursor"/g) ?? []).length).toBeGreaterThanOrEqual(4);
+  });
+  it("disables the clock without the contour layer", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()} layers={null} layersError="missing"/>);
+    expect(html).toMatch(/<button[^>]*class="story-play"[^>]*disabled/);
+  });
+});

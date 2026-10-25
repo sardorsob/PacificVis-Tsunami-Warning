@@ -32,6 +32,10 @@ export function clockLabel(t: number): string {
 export function utcAt(originUtc: string, t: number): string {
   return `${new Date(Date.parse(originUtc) + t * 3_600_000).toISOString().slice(11, 16)} UTC`;
 }
+const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+/** UTC calendar day at the clock time, e.g. "Friday 11 March 2011" (fixed format, no locale dependence). */
 export function utcDayAt(originUtc: string, t: number): string {
-  return new Date(Date.parse(originUtc) + t * 3_600_000).toLocaleDateString("en-GB", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const d = new Date(Date.parse(originUtc) + t * 3_600_000);
+  return `${DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
