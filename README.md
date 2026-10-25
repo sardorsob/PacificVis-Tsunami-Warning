@@ -58,9 +58,10 @@ separate source evidence.
 
 The browser shell does not contain a simulated wave, operational warning
 information, or an accepted scientific story claim. Separate internal
-[working demos](app/src/demos/README.md) now compare paired records and a
-station-linked radial lens using the verified descriptive data. Both expose
-exact observation rows, source support and provenance; neither validates arrivals.
+[working demos](app/src/demos/README.md) show the verified descriptive data in
+three views on one Night map and one shared clock: a guided story, paired
+records and a station lens. All expose exact observation rows, source support
+and provenance; none validates arrivals.
 
 ## Dataset gathering
 

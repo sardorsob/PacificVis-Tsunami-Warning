@@ -1,8 +1,10 @@
 # Descriptive station demos
 
-Two working views inspect the same historical observations: paired station
-records and a station-linked radial lens. They are internal research demos,
-not the final visual story or an operational warning interface.
+Three views inspect the same historical observations on one Night stage and
+one shared clock: **Story** (six guided steps around a map lens), **Paired**
+(two stations' full records, side by side) and **Station lens** (one station's
+full records around the map lens). They are internal research demos, not an
+operational warning interface.
 
 The export preserves 143,655 observations at ten stations, including source
 blanks, off-grid timestamps, zeros and publisher QC. No physical arrival
@@ -43,7 +45,8 @@ npm run samples:build
 python -m http.server 4177 --bind 127.0.0.1 --directory app/dist/samples
 ```
 
-Open [the paired demo](http://127.0.0.1:4177/demos.html) or
+Open [the story](http://127.0.0.1:4177/demos.html) (a plain link opens it),
+[paired records](http://127.0.0.1:4177/demos.html?view=paired) or
 [the station lens](http://127.0.0.1:4177/demos.html?view=radial).
 Only the built sample/demo directory is served. Do not serve the repository,
 raw cache or processed-data root. Stop the server with Ctrl+C.
@@ -59,11 +62,15 @@ is absent. It never silently skips or creates replacement scientific data.
 
 ## Reading and interaction
 
-- Select any station through the native selector or named map buttons. Pinning
-  retains a separate reference; selecting another station does not move it.
-- Both modes share selection, pin, UTC window and product intent. Their URL
-  preserves state across reload and Back. The lens also provides bounded
-  previous/next station targets; it does not estimate values over empty ocean.
+- Station A is chosen through the native selector, the named map buttons or
+  the named previous/next targets; B is pinned separately. B is never A: when
+  A lands on B, B moves to the first other station, visibly.
+- All three views share A, B, UTC window, product and the clock. The URL holds
+  the whole screen (`view`, `selected`, `pinned`, `window`, `product`, `t`,
+  `cmp`, `step`, `at`, `z`, `from`) and restores it on reload and Back at any
+  screen size. Switching views keeps the moment: Back returns to it.
+- The station lens always rests on a station; a move over open ocean glides on
+  to the nearest one. It never estimates values over empty ocean.
 - Traces use actual points, UTC x-axes and station-local y-scales. Coastal level,
   DART water column and retrospective publisher residual/fitted products are
   not interchangeable amplitudes. Unavailable products are not substituted.
@@ -140,8 +147,10 @@ uncompressed export is about 33.7 MB; DART 46411 alone is about 24.7 MB. Its ful
 109,422-row record is retained, not downsampled. Desktop rendering was checked,
 but real-phone memory, network and rendering performance are unmeasured.
 
-Layouts were checked at 1440×1000, 390×844 and 844×390, with selected plots on
-the first screen. Station controls, keyboard map/target activation, pin/clear,
+Layouts are unit-tested for the Story and Station lens at 360×640, 390×844,
+568×320, 667×375, 768×1024, 1024×768, 1280×800 and 1440×900, and checked in a
+browser at the six main sizes; Paired is a responsive page checked at 1440×900
+and 390×844. Station controls, keyboard map/target activation, pin/clear,
 product/window changes, history, retries, paging, zero/blank/off-grid/QC rows and
 focus return were exercised. These checks are not a participant usability study
 or screen-reader certification. Native dialog boundary traversal into browser
