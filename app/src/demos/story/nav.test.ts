@@ -92,10 +92,13 @@ describe("navigation contract — popstate restores without writing", () => {
 });
 
 describe("Escape closes the topmost transient only", () => {
-  it("closes evidence first, then pauses, then collapses the sheet, else nothing", () => {
+  it("leaves Escape to the open evidence dialog, then pauses, then collapses the sheet, else nothing", () => {
     const e = { type: "escape" } as const;
-    expect(kinds(reduce(at(4), e, { ...ctx, evidenceOpen: true, playing: true }))).toEqual(["closeEvidence"]);
-    expect(kinds(reduce(at(4), e, { ...ctx, playing: true, sheetExpanded: true }))).toEqual(["stopPlay"]);
+    // The native modal <dialog> closes itself on Escape; the story must not also pause or collapse.
+    expect(reduce(at(4), e, { ...ctx, evidenceOpen: true, playing: true, sheetExpanded: true })).toMatchObject({ history: "none", effects: [] });
+    // Pausing is passive: the entry is replaced with the clock time it paused at (the caller passes the live clock).
+    expect(reduce(at(4, { t: 20.1 }), e, { ...ctx, playing: true, sheetExpanded: true }))
+      .toMatchObject({ history: "replace", nav: { t: 20.1 }, effects: [{ kind: "stopPlay" }] });
     expect(kinds(reduce(at(4), e, { ...ctx, sheetExpanded: true }))).toEqual(["collapseSheet"]);
     expect(reduce(at(4), e, ctx)).toMatchObject({ history: "none", effects: [] });
     expect(reduce(at(4), e, { ...ctx, evidenceOpen: true }).nav).toEqual(at(4));

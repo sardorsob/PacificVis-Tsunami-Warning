@@ -75,8 +75,13 @@ export function StoryView(props: StoryViewProps) {
   const fitK = fitView(CROP, size.w, size.h).k;
   const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
     : lens.point === "epicentre" ? epicentre : between ?? epicentre;
-  const targetOf = (n: StoryNav): Pt => n.at ? [n.at[0] * 1000, n.at[1] * 1000]
-    : (typeof n.step === "number" ? stepTarget(STEPS[n.step - 1]) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
+  /** The step whose lens target applies: the current step, or in Explore the step it was entered from. */
+  const lensStep = (n: StoryNav) => typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
+  const targetOf = (n: StoryNav): Pt => {
+    if (n.at) return [n.at[0] * 1000, n.at[1] * 1000];
+    const step = lensStep(n);
+    return (step ? stepTarget(step) : null) ?? stations.find(s => s.id === n.a)?.xy ?? epicentre;
+  };
   const viewFor = (n: StoryNav): View => centreOn({ k: fitK * n.z, tx: 0, ty: 0 }, targetOf(n), L.cx, L.cy);
   const [view, setView] = useState<View>(() => viewFor(nav));
   const viewRef = useRef(view); viewRef.current = view;
@@ -118,7 +123,10 @@ export function StoryView(props: StoryViewProps) {
   };
   const ctx = () => ({ motionOK, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
     sheetExpanded });
-  const dispatch = (ev: NavEvent) => { const r = reduce(navRef.current, ev, ctx()); run(r); navRef.current = r.nav; props.onNav(r); };
+  // The URL's t is written only when play ends or pauses, so every action starts from the live clock: otherwise a no-op
+  // (Escape over the evidence dialog) or Compare during play would rewind the clock to the last committed time.
+  const live = (): StoryNav => ({ ...navRef.current, t: clock.tRef.current });
+  const dispatch = (ev: NavEvent) => { const r = reduce(live(), ev, ctx()); run(r); navRef.current = r.nav; props.onNav(r); };
 
   // Browser Back/Forward: the URL is already restored by DemoApp; move lens and clock to it without writing history.
   const restoreSeen = useRef(props.restoreKey);
@@ -130,17 +138,19 @@ export function StoryView(props: StoryViewProps) {
   const placed = useRef(stations.length > 0);
   useEffect(() => { if (!placed.current && stations.length) { placed.current = true; setView(viewFor(navRef.current)); } }, [stations.length]);
   useEffect(() => {
-    const aimsBetween = !!stepNow && "point" in stepNow.lens && stepNow.lens.point === "between-10-11";
+    const lens = lensStep(navRef.current)?.lens, aimsBetween = !!lens && "point" in lens && lens.point === "between-10-11";
     if (between && aimsBetween && !userMoved.current && !navRef.current.at) setView(viewFor(navRef.current));
   }, [between]);
 
   const centre = toMap(view, L.cx, L.cy);
   const lensStation = stations.length ? capture(centre, footprintRadius(L.r, view.k, LENS_MAG), stations) : null;
   // The station under the lens drives the panels; while the map moves the URL is untouched, at rest it is corrected in place.
+  // Only a lens move triggers this: after Back/Forward the URL changes first and the view follows a render later, so
+  // reacting to selectedStationId would rewrite the restored entry with the old lens station.
   useEffect(() => {
     if (lensStation && lensStation !== state.selectedStationId)
-      props.onNav({ nav: { ...navRef.current, a: lensStation }, history: moving.current ? "none" : "replace", effects: [] });
-  }, [lensStation, state.selectedStationId]);
+      props.onNav({ nav: { ...live(), a: lensStation }, history: moving.current ? "none" : "replace", effects: [] });
+  }, [lensStation]);
   const settle = (explicit = false) => {
     window.clearTimeout(settleTimer.current);
     const v = viewRef.current, c = toMap(v, L.cx, L.cy);

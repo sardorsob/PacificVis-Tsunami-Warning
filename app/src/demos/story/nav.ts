@@ -15,7 +15,7 @@ type Effect =
   | { kind: "stopPlay" } | { kind: "play"; from: number; until: number }
   /** Move the lens to `nav.at`, or to the step's authored target when `at` is null. */
   | { kind: "aim"; instant: boolean }
-  | { kind: "focus"; target: "step" | "panel" } | { kind: "closeEvidence" } | { kind: "collapseSheet" };
+  | { kind: "focus"; target: "step" | "panel" } | { kind: "collapseSheet" };
 export type NavContext = {
   motionOK: boolean; stationIds: readonly string[];
   /** The step recorded in the previous history entry, if this session wrote it. */
@@ -75,8 +75,8 @@ export function reduce(nav: StoryNav, ev: NavEvent, ctx: NavContext): NavResult 
     case "popstate":
       return { nav: ev.nav, history: "none", effects: [{ kind: "stopPlay" }, { kind: "aim", instant: true }, { kind: "focus", target: "step" }] };
     case "escape":
-      if (ctx.evidenceOpen) return { nav, history: "none", effects: [{ kind: "closeEvidence" }] };
-      if (ctx.playing) return { nav, history: "none", effects: [{ kind: "stopPlay" }] };
+      if (ctx.evidenceOpen) return stay(nav); // the native modal <dialog> closes itself on Escape
+      if (ctx.playing) return { nav, history: "replace", effects: [{ kind: "stopPlay" }] }; // a pause, recorded like Pause
       if (ctx.sheetExpanded) return { nav, history: "none", effects: [{ kind: "collapseSheet" }] };
       return stay(nav);
   }

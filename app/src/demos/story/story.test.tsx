@@ -163,6 +163,10 @@ describe("story view — exits, cancels and repairs", () => {
     expect(html).toContain(">Station lens<");
     expect(html).toContain("Back to the guided story (step 4)");
   });
+  it("an Explore link without a lens point keeps the lens where the story left it", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: "explore", from: 3 })}/>);
+    expect(html).toContain('story-lens-title__name">Test station 21418<');
+  });
   it("shows a dismissible note when the link was repaired", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ issues: ["Zoom limited to 0.25–20."] })}/>);
     expect(html).toContain("This link was repaired");
