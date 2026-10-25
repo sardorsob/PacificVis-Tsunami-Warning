@@ -103,5 +103,6 @@
 .story-sheet .story-arm,.story-sheet .story-panel,.story-sheet .story-column{position:static;width:auto!important;max-height:none;margin-top:10px;transform:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
 .story-sheet .story-clockbar{width:auto;grid-template-columns:auto 1fr}
 .story-sheet .story-clockbar__read{display:none}
-.story-sheet .story-column .story-title,.story-sheet .story-column .story-kicker{display:none}
+.story-sheet .story-column .story-kicker{display:none}
+.story-sheet .story-column .story-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .story--narrow .story-lens-title__name,.story--short .story-lens-title__name{font-size:20px}

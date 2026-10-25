@@ -19,7 +19,7 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
   const [initial]=useState(()=>parseState(window.location.search,manifest));
   const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search).params);
   const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next)}${next.view==="story"?`&${storyQuery(s)}`:""}${window.location.hash}`;
-  const [state,setState]=useState<DemoState>(initial.state);const [issues,setIssues]=useState(initial.issues);
+  const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;const [issues,setIssues]=useState(initial.issues);
   const [geometry,setGeometry]=useState<DemoGeometry|null>(null),[geometryError,setGeometryError]=useState<string|null>(null),[geometryAttempt,setGeometryAttempt]=useState(0);
   const [chunks,setChunks]=useState<Record<string,StationSelection>>({});const cache=useRef(new Map<string,StationRecords>());const [stationAttempt,setStationAttempt]=useState(0);
   const [evidenceId,setEvidenceId]=useState<string|null>(null);const evidenceTrigger=useRef<HTMLElement|null>(null);
@@ -35,7 +35,7 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
   useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest);setState(parsed.state);setStory(parseStoryParams(window.location.search).params);setIssues(parsed.issues);setEvidenceId(null);};window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
   useEffect(()=>{window.history.replaceState(null,"",href(initial.state,story));},[initial]);
-  const update=(patch:Partial<DemoState>,replace=false)=>{const next={...state,...patch};setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,story));};
+  const update=(patch:Partial<DemoState>,replace=false)=>{const next={...stateRef.current,...patch};stateRef.current=next;setState(next);setIssues([]);setEvidenceId(null);window.history[replace?"replaceState":"pushState"](null,"",href(next,story));};
   const selection=(id:string):StationSelection=>chunks[id]??{station:manifest.stations.find(s=>s.station_id===id)!,status:"loading",records:null,error:null};
   const selected=selection(state.selectedStationId),pinned=state.pinnedStationId?selection(state.pinnedStationId):null;
   const openEvidence=(id:string)=>{evidenceTrigger.current=document.activeElement instanceof HTMLElement?document.activeElement:null;setEvidenceId(id);};
@@ -43,7 +43,7 @@ function LoadedDemo({manifest,Radial,Evidence,Story}:{manifest:DemoManifest;Radi
   const props:RadialProps={manifest,geometry,geometryError,state,selected,pinned,onSelectStation:id=>update({selectedStationId:id}),onOpenEvidence:openEvidence,onRetryStation:()=>setStationAttempt(v=>v+1),onRetryGeometry:()=>setGeometryAttempt(v=>v+1)};
   const inspected=evidenceId?selection(evidenceId):null;
   if(state.view==="story"&&Story)return <Story {...props} onSelectStation={id=>update({selectedStationId:id},true)} params={story}
-    onParams={(p,push)=>{setStory(p);window.history[push?"pushState":"replaceState"](null,"",href(state,p));}} onPinStation={id=>update({pinnedStationId:id},true)}/>;
+    onParams={(p,push)=>{setStory(p);window.history[push?"pushState":"replaceState"](null,"",href(stateRef.current,p));}} onPinStation={id=>update({pinnedStationId:id},true)}/>;
   return <main className="demo-app" data-demo-view={state.view}>
     <header className="demo-heading"><div><h1>Pacific station records</h1><p>Descriptive records, not validated arrivals or warning time.</p></div><nav aria-label="Record view"><button type="button" aria-pressed={state.view==="paired"} onClick={()=>update({view:"paired"})}>Paired</button><button type="button" disabled={!Radial} aria-pressed={state.view==="radial"} onClick={()=>update({view:"radial"})}>Station lens{!Radial?" · not implemented":""}</button></nav></header>
     {issues.length>0&&<aside className="data-error" role="status"><p>URL state repaired:</p><ul>{issues.map((issue,i)=><li key={i}>{issue}</li>)}</ul></aside>}

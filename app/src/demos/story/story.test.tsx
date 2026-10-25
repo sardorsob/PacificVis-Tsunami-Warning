@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { STATION_IDS } from "../loader";
 import type { DemoGeometry, DemoManifest, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryLayers } from "./layers";
@@ -130,6 +130,17 @@ describe("story view — guided steps and narrow layout", () => {
     expect(html).toContain("Next station");
     expect(html).toContain("4 of 6");
     expect(html).toContain('<g class="story-leads" aria-hidden="true"></g>');
+  });
+});
+
+describe("story view — reduced motion", () => {
+  afterEach(() => vi.unstubAllGlobals());
+  it("replaces animated play with a one-hour step and never tilts", () => {
+    vi.stubGlobal("matchMedia", (query: string) => ({ matches: query.includes("prefers-reduced-motion"), media: query }));
+    const html = renderToStaticMarkup(<StoryView {...input()}/>);
+    expect(html).toContain('aria-label="Step the published clock forward one hour"');
+    expect(html).toContain(">+1 h<");
+    expect(html).not.toContain("story--cine");
   });
 });
 
