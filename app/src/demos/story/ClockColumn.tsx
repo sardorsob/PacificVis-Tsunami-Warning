@@ -23,15 +23,16 @@ function Strip({ counts, t, label }: { counts: (number | null)[] | null; t: numb
     {[0, 10, 20, 30].map(v => <text key={v} x={Math.min(w - 10, (v / T_MAX) * w)} y={h + 12} textAnchor={v ? "middle" : "start"} className="story-strip__tick">{v} h</text>)}
   </svg>;
 }
-type ClockColumnProps = { t: number; originUtc: string; stationName: string | null; counts: (number | null)[] | null; children: ReactNode; alert: ReactNode };
+type ClockColumnProps = { t: number; originUtc: string; stationName: string | null; counts: (number | null)[] | null; lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string };
 /** Editorial column: what this is, the clock, a strip tied to the lens, the legend, then step or station controls. */
-export function ClockColumn({ t, originUtc, stationName, counts, children, alert }: ClockColumnProps) {
+export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "" }: ClockColumnProps) {
   const max = counts ? Math.max(0, ...counts.map(c => c ?? 0)) : 0;
-  return <aside className="story-column" aria-label="Story">
+  return <aside className={`story-column ${className}`} aria-label="Story">
     <p className="story-kicker">Pacific · 11 March 2011</p>
     <h1 className="story-title">How the published tsunami clock spread</h1>
     <p className="story-small">NOAA/NCEI travel-time contours, one line per hour after the 05:46 UTC Tōhoku origin.</p>
     {alert}
+    {lead}
     <p className="story-bigclock">{clockLabel(t)}</p>
     <p className="story-utc">{utcAt(originUtc, t)} · {utcDayAt(originUtc, t)}</p>
     <p className="story-small"><b>{stationName ? `Samples per hour in ${stationName}'s record` : "Published hours on the map"}</b>{stationName ? ` (busiest hour: ${max})` : ""}</p>

@@ -89,3 +89,19 @@
 .story-clockbar__ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--story-muted);padding:0 4px}
 .story-clockbar__read{display:flex;flex-direction:column;text-align:right;min-width:170px;font-variant-numeric:tabular-nums}.story-clockbar__read span{font-size:11px;color:var(--story-muted)}
 @media (prefers-reduced-motion:reduce){.story-map,.story-arm,.story-lens,.story-lens-title,.story-leads{transition:none}.story--cine .story-map{transform:none}}
+.story-step{margin-top:10px;padding-top:10px;border-top:1px solid var(--story-line)}
+.story-step__title{font:600 17px/1.25 "Iowan Old Style","Palatino Linotype",Georgia,serif;margin-top:2px!important}
+.story-step__body{font-size:13px;line-height:1.45;margin-top:6px!important}
+.story-step__nav{display:flex;gap:6px;margin-top:10px}.story-step__nav button{flex:1;min-height:40px}
+.story-step__links{margin-top:6px!important}
+.story .story-link{border:0;min-height:32px;padding:2px 0;margin-right:10px;color:var(--story-accent);text-decoration:underline;border-radius:0;background:none}
+.story-sheet{position:absolute;left:0;right:0;bottom:0;max-height:54%;overflow:auto;z-index:3;background:var(--story-panel);border-top:1px solid var(--story-line);
+  border-radius:16px 16px 0 0;padding:8px 12px 16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.story-sheet--short{left:auto;top:8px;bottom:8px;right:8px;width:44%;max-height:none;border:1px solid var(--story-line);border-radius:12px}
+.story-sheet .story-step{margin-top:0;padding-top:4px;border-top:0}
+.story-sheet__nav{display:flex;gap:6px;margin-top:8px}.story-sheet__nav button{flex:1}
+.story-sheet .story-arm,.story-sheet .story-panel,.story-sheet .story-column{position:static;width:auto!important;max-height:none;margin-top:10px;transform:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+.story-sheet .story-clockbar{width:auto;grid-template-columns:auto 1fr}
+.story-sheet .story-clockbar__read{display:none}
+.story-sheet .story-column .story-title,.story-sheet .story-column .story-kicker{display:none}
+.story--narrow .story-lens-title__name,.story--short .story-lens-title__name{font-size:20px}

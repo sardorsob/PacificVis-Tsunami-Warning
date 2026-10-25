@@ -7,7 +7,7 @@ import { utcAt } from "./clock";
 export const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), first arrival only, no wave height. Not a station's arrival, and not warning time.";
 export type Reading = { a: number; b: number } | null;
 type ArmsProps = {
-  ocean: boolean; nearestName: string; reading: Reading; t: number; originUtc: string;
+  ocean: boolean; atOrigin: boolean; nearestName: string; reading: Reading; t: number; originUtc: string;
   a: StationSelection; b: StationSelection | null; windowId: string; productKey: ProductKey;
   onRetry: () => void; styles: { record: CSSProperties; support: CSSProperties; read: CSSProperties };
 };
@@ -39,7 +39,7 @@ function Support({ s, tag, cursorMs, windowId, productKey }: { s: StationSelecti
 }
 
 /** Record (upper left), what supports it (upper right), how to read it (below). */
-export function Arms({ ocean, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, styles }: ArmsProps) {
+export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, styles }: ArmsProps) {
   const cursorMs = Date.parse(originUtc) + t * 3_600_000, both = !!b;
   return <>
     <section className="story-arm" style={styles.record} aria-label="Record at the story clock">
@@ -50,7 +50,8 @@ export function Arms({ ocean, nearestName, reading, t, originUtc, a, b, windowId
       {both && <p className="story-arm__note">Shared UTC axis and clock; heights stay station-local and are not compared.</p>}
     </section>
     <section className="story-arm" style={styles.support} aria-label={ocean ? "Published clock at this point" : "What supports the record"}>
-      {ocean ? <><h2 className="story-arm__h">Published clock here</h2><p>{reading ? <>Nearest published contours: <b>{reading.a} h</b> and <b>{reading.b} h</b>.</> : null} {hereText(reading, t)}</p></>
+      {ocean ? <><h2 className="story-arm__h">Published clock here</h2>{atOrigin ? <p>The published clock starts here, at the epicentre, at <b>0 h</b> ({utcAt(originUtc, 0)}). NOAA/NCEI's first contour is the 1 h line around it.</p>
+        : <p>{reading ? <>Nearest published contours: <b>{reading.a} h</b> and <b>{reading.b} h</b>.</> : null} {hereText(reading, t)}</p>}</>
         : <><h2 className="story-arm__h">What supports it</h2><Support s={a} tag={both ? "A" : undefined} cursorMs={cursorMs} windowId={windowId} productKey={productKey}/></>}
       {b && <Support s={b} tag="B" cursorMs={cursorMs} windowId={windowId} productKey={productKey}/>}
     </section>

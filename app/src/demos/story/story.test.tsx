@@ -49,13 +49,13 @@ function records(station: StationMetadata): StationRecords {
 }
 const ready = (id: string): StationSelection => { const station = stations.find(s => s.station_id === id)!; return { station, status: "ready", records: records(station), error: null }; };
 const noop = () => undefined;
-export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"] } = {}): StoryViewProps {
+export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined } = {}): StoryViewProps {
   return {
     manifest, geometry, geometryError: null, layers, layersError: null, onRetryLayers: noop,
     state: { view: "story", selectedStationId: "1617760", pinnedStationId: "saip", windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: ready("saip"), onSelectStation: noop, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step }, onParams: noop, onPinStation: noop,
-    initialCentre: lensOverOcean ? [-3e6, 9e6] : undefined,
+    initialCentre: lensOverOcean ? [-3e6, 9e6] : undefined, initialSize: size,
   };
 }
 
@@ -101,3 +101,35 @@ describe("story view — clock, legend and compare", () => {
     expect(html).toMatch(/<button[^>]*class="story-play"[^>]*disabled/);
   });
 });
+
+describe("story view — guided steps and narrow layout", () => {
+  it("opens a step with its counter, title, Back and Next", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
+    expect(html).toContain("1 of 6");
+    expect(html).toContain("05:46 UTC, 11 March 2011");
+    expect(html).toMatch(/<button[^>]*disabled[^>]*>Back</);
+    expect(html).toMatch(/>Next</);
+    expect(html).toContain("Skip to free exploration");
+    expect(html).not.toContain("Station records");
+  });
+  it("offers free exploration with chips and a way back to the story", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: "explore" })}/>);
+    expect(html).toContain("Station records");
+    expect(html).toContain("Back to the guided story");
+  });
+  it("ends the story with Explore instead of Next", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 6, t: 12, lensOverOcean: true })}/>);
+    expect(html).toContain("6 of 6");
+    expect(html).toMatch(/>Explore</);
+    expect(html).not.toMatch(/>Next</);
+  });
+  it("moves controls and evidence into a bottom sheet on a phone, without tilt or arm leaders", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 4, size: { w: 390, h: 844 } })}/>);
+    expect(html).toContain("story--narrow");
+    expect(html).toContain("story-sheet story-sheet--narrow");
+    expect(html).toContain("Next station");
+    expect(html).toContain("4 of 6");
+    expect(html).toContain('<g class="story-leads" aria-hidden="true"></g>');
+  });
+});
+
