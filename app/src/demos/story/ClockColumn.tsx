@@ -28,15 +28,17 @@ function Strip({ counts, t, label }: { counts: (number | null)[] | null; t: numb
 }
 type ClockColumnProps = {
   t: number; originUtc: string; stationName: string | null; counts: (number | null)[] | null;
-  lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string; title?: string; label?: string;
+  lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string; title?: string; label?: string; head?: boolean;
 };
+/** The page kicker and title: top of the column when wide, top of the sheet otherwise. */
+export const ColumnHead = ({ title = "How the published tsunami clock spread" }: { title?: string }) => <>
+  <p className="story-kicker">Pacific · 11 March 2011</p><h1 className="story-title">{title}</h1></>;
 /** Editorial column: what this is, the clock, a strip tied to the lens, the legend, then step or station controls. */
-export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "",
-  title = "How the published tsunami clock spread", label = "Story" }: ClockColumnProps) {
+export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "", title, label = "Story",
+  head = true }: ClockColumnProps) {
   const max = counts ? Math.max(0, ...counts.map(c => c ?? 0)) : 0;
   return <aside className={`story-column ${className}`} aria-label={label}>
-    <p className="story-kicker">Pacific · 11 March 2011</p>
-    <h1 className="story-title">{title}</h1>
+    {head && <ColumnHead title={title}/>}
     <p className="story-small">NOAA/NCEI travel-time contours, one line per hour after the 05:46 UTC Tōhoku origin.</p>
     {alert}
     {lead}

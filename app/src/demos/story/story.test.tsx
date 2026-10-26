@@ -136,6 +136,15 @@ describe("story view — guided steps and narrow layout", () => {
     expect(html).toContain("4 of 6");
     expect(html).toContain('<g class="story-leads" aria-hidden="true"></g>');
   });
+  it("opens the sheet on the page title, once, before the step or the clock", () => {
+    for (const view of ["story", "radial"] as const) {
+      const html = renderToStaticMarkup(<StoryView {...input({ step: view === "story" ? 4 : "explore", size: { w: 390, h: 844 }, view })}/>);
+      const sheet = html.slice(html.indexOf("story-sheet story-sheet--narrow"));
+      expect(html.match(/<h1/g)).toHaveLength(1);
+      expect(sheet.indexOf("<h1")).toBeGreaterThan(-1);
+      expect(sheet.indexOf("<h1")).toBeLessThan(sheet.indexOf(view === "story" ? "4 of 6" : "story-clockbar"));
+    }
+  });
 });
 
 describe("story view — reduced motion", () => {

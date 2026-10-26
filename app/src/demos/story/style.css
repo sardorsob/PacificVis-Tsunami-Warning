@@ -163,7 +163,9 @@ button,select,summary{font:inherit}
   border-radius:16px 16px 0 0;padding:8px 12px 16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .story-sheet--side{left:auto;top:8px;bottom:8px;right:8px;max-height:none;border:1px solid var(--story-line);border-radius:12px}
 .story-sheet--expanded{max-height:88%}
-.story-sheet__handle{display:block;margin:0 auto 6px}
+.story-sheet__top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.story-sheet__head{flex:1;min-width:0}.story-sheet__head .story-title{font-size:calc(16px*var(--ui,1));margin-top:2px!important}
+.story-sheet__handle{flex:none}
 .story-sheet--side .story-sheet__handle{display:none}
 .story-zoom{position:absolute;z-index:2;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px}
 .story .story-zoom button{min-width:44px;min-height:44px;padding:0 8px;background:var(--story-panel);font-size:calc(13px*var(--ui,1));font-weight:600;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -173,10 +175,10 @@ button,select,summary{font:inherit}
 .story-sheet .story-step{margin-top:0;padding-top:4px;border-top:0}
 .story-sheet__nav{display:flex;gap:6px;margin-top:8px}.story-sheet__nav button{flex:1}
 .story-sheet .story-arm,.story-sheet .story-panel,.story-sheet .story-column{position:static;width:auto!important;max-height:none;margin-top:10px;transform:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
-.story-sheet .story-clockbar{width:auto;grid-template-columns:auto 1fr}
-.story-sheet .story-clockbar__read{display:none}
-.story-sheet .story-column .story-kicker{display:none}
-.story-sheet .story-column .story-title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.story-sheet .story-clockbar{width:auto;grid-template-columns:auto 1fr;row-gap:6px}
+/* Sheets are 320–450 px: the readout takes its own row above the slider (beside it would leave the slider under 240 px). */
+.story-sheet .story-clockbar__read{grid-row:1;grid-column:1/-1;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:0 8px;text-align:left;min-width:0}
+.story-sheet .story-bigclock{display:none} /* the sheet's reading is the readout by the slider; the column keeps the UTC day */
 .story--narrow .story-lens-title__name,.story--side .story-lens-title__name{font-size:calc(20px*var(--ui,1))}
 /* Touch: 44 px targets, last so it wins over the per-control heights above. */
 @media (pointer:coarse){.story button,.story .story-step__nav button,.story .story-link,.story select{min-height:44px}}

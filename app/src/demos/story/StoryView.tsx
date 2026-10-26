@@ -4,7 +4,7 @@ import type { DemoState, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
 import { Arms, CAVEAT, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
-import { ClockColumn, hourlySamples } from "./ClockColumn";
+import { ClockColumn, ColumnHead, hourlySamples } from "./ClockColumn";
 import { clockLabel, utcAt } from "./clock";
 import { nearestHours, pointBetween, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
@@ -349,7 +349,7 @@ export function StoryView(props: StoryViewProps) {
     <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
-    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined}
+    lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined} head={wide}
     label={lens ? "Station lens" : "Story"}>{extra}</ClockColumn>;
   const compare = lens ? <div className="story-panel story-compare"><ViewSwitch view="radial" onView={switchView}/></div>
     : <section className="story-panel story-compare" aria-label="Views and comparison">
@@ -417,8 +417,9 @@ export function StoryView(props: StoryViewProps) {
       <p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
     {wide ? <>{arms}{column}{compare}{bar}</>
       : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
-        <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
-          {sheetExpanded ? "Collapse panel" : "Expand panel"}</button>
+        <div className="story-sheet__top"><div className="story-sheet__head"><ColumnHead title={lens ? "Station lens" : undefined}/></div>
+          <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
+            {sheetExpanded ? "Collapse panel" : "Expand panel"}</button></div>
         {lead}
         {!lens && <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
           <button type="button" onClick={() => cycle(1)}>Next station ›</button></div>}
