@@ -6,7 +6,10 @@ import { NoReference, StationCard, type StationCardProps } from "../StationCard"
 import { SupportView, type SupportViewProps } from "../SupportView";
 import { STATION_IDS } from "../loader";
 import type { StationMetadata, StationRecords, StationSelection } from "../types";
+import type { Pt } from "./layers";
+import { Lens } from "./Lens";
 import { StationTools, type StationToolsProps } from "./StationTools";
+import type { MapStation } from "./StoryMap";
 import { ViewSwitch } from "./ViewSwitch";
 
 // Typed test-only inputs (moved from the retired radial tests). Never imported by a runtime renderer or scientific bundle.
@@ -125,6 +128,18 @@ describe("StationTools — stations, B, window and product", () => {
     const html = renderToStaticMarkup(<StationTools {...tools("1617760", { windowId: "source_full" })}/>);
     expect(html).toContain("station-specific bounds; not a common comparison period");
     expect(html).toContain("Test residual · unavailable at this station");
+  });
+});
+
+describe("Lens — in-lens station names", () => {
+  const station = (id: string, name: string, xy: Pt): MapStation => ({ id, name, type: "coastal", xy });
+  const lens = (variant: "a" | "b") => renderToStaticMarkup(<svg><Lens id="t" view={{ k: 1, tx: 0, ty: 0 }} cx={100} cy={100} centre={[0, 0]}
+    r={60} mag={1} stations={[station("c", "Hilo", [0, 0]), station("rim", "Kahului Harbor", [0, -48])]} epicentre={[999, 999]} variant={variant}/></svg>);
+  it("names a station centred under its marker only when the whole name fits inside the rim, and only in the A lens", () => {
+    const a = lens("a");
+    expect(a).toContain('text-anchor="middle" class="story-label story-label--strong">Hilo<');
+    expect(a).not.toContain("Kahului Harbor");   // its baseline fits, but the top of the text would cross the rim
+    expect(lens("b")).not.toContain(">Hilo<");
   });
 });
 

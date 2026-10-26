@@ -377,8 +377,13 @@ export function StoryView(props: StoryViewProps) {
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
       <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
   </>;
-  // Side arms centred on the lens (wide story): never above the title line, never into the clock bar or the zoom buttons; tall arms keep their top.
-  const armBox = (box: typeof L.record, h: number) => wide && h ? { ...box, top: centreArm(L.cy, h, box.top, L.armBottom) } : box;
+  // Side arms centred on the lens (wide story): never above the title line, never into the clock bar or the zoom buttons;
+  // a taller arm keeps its top and scrolls.
+  const armBox = (box: typeof L.record, h: number) => {
+    if (!wide) return box;
+    const top = h ? centreArm(L.cy, h, box.top, L.armBottom) : box.top;
+    return { ...box, top, maxHeight: L.armBottom - top };
+  };
   const leadY = (box: typeof L.record, h: number) => { const b = armBox(box, h); return Math.min(Math.max(L.cy, b.top + 14), b.top + Math.max(h, 28) - 14); };
   const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
     a={aSel} b={b}
@@ -394,11 +399,11 @@ export function StoryView(props: StoryViewProps) {
       <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
       <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} width={size.w}
         lenses={[{ cx: L.cx, cy: L.cy, r: L.r }, ...(bStation ? [{ cx: bSlot[0], cy: bSlot[1], r: L.bR }] : [])]}
-        avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 66, bottom: L.titleBottom }]}
+        avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 80 * L.ui, bottom: L.titleBottom }]}
         bId={b?.station.station_id ?? null}/>
       <g className="story-leads" aria-hidden="true">
-        {wide && <><line x1={L.cx - L.r} y1={L.cy} x2={L.record.left + L.aw} y2={lens ? L.cy : leadY(L.record, armH[0])}/>
-          <line x1={L.cx + L.r} y1={L.cy} x2={L.support.left} y2={lens ? L.cy : leadY(L.support, armH[1])}/>
+        {wide && <><line x1={L.cx - L.r} y1={L.cy} x2={L.record.left + L.aw} y2={lens ? L.cy - L.r + 6 : leadY(L.record, armH[0])}/>
+          <line x1={L.cx + L.r} y1={L.cy} x2={L.support.left} y2={lens ? L.cy - L.r + 6 : leadY(L.support, armH[1])}/>
           <line x1={L.cx} y1={L.cy + L.r} x2={L.cx} y2={Number(L.read.top)}/></>}
         {bTarget && <path className="story-lead-b"
           d={`M${bSlot[0]} ${bSlot[1] - L.bR}Q${(bSlot[0] + bTarget[0]) / 2} ${Math.min(bSlot[1], bTarget[1]) - 60} ${bTarget[0]} ${bTarget[1]}`}/>}

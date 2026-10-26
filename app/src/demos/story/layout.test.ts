@@ -7,7 +7,7 @@ import { centreArm, columnRight, layoutFor } from "../layout";
 const PLAY = 42, READOUT = 170, GAPS = 24, PAD = 24, TITLE_H = { narrow: 77, side: 77, wide: 65 };
 const VIEWPORTS: [number, number, "wide" | "side" | "narrow"][] = [
   [360, 640, "narrow"], [390, 844, "narrow"], [568, 320, "side"], [667, 375, "side"], [768, 1024, "side"], [1024, 768, "side"],
-  [1280, 800, "wide"], [1440, 900, "wide"], [1920, 1080, "wide"],
+  [1280, 700, "wide"], [1280, 720, "wide"], [1280, 800, "wide"], [1440, 900, "wide"], [1920, 1080, "wide"],
 ];
 
 describe("story layout tiers", () => {
@@ -37,12 +37,15 @@ describe("story layout tiers", () => {
       expect(L.record.left).toBeGreaterThanOrEqual(columnRight(L.ui) + 8);   // never under the column
       expect(L.support.left + L.aw).toBeLessThanOrEqual(w - 8);              // never off the right edge
       expect(L.bar!.width - (PLAY + READOUT + GAPS + PAD) * L.ui).toBeGreaterThanOrEqual(240);
-      expect(L.read.top + 130 * L.ui).toBeLessThanOrEqual(h - 100 * L.ui); // read arm clears the clock bar
+      // The read arm stops above the clock bar (14 + 78 px, 8 px gap) and scrolls past that; it keeps room for its heading and a few lines.
+      expect(L.read.top + L.read.maxHeight!).toBeLessThanOrEqual(h - 100 * L.ui);
+      expect(L.read.maxHeight).toBeGreaterThanOrEqual(120 * L.ui);
+      expect(L.armBottom - L.record.top).toBeGreaterThanOrEqual(240 * L.ui);  // the side arms keep a usable band
       expect(L.read.left).toBeGreaterThanOrEqual(L.record.left + L.aw + 12);       // a gutter, not a seam, between the arms
       expect(L.read.left + L.read.width).toBeLessThanOrEqual(L.support.left - 12);
       expect(L.read.left + L.read.width / 2).toBeCloseTo(L.cx);
-      // clear of the top-right panel: 196 px tall with Compare on (measured at 1280×800), scaled with the stage
-      expect(L.record.top).toBeGreaterThanOrEqual(196 * L.ui);
+      // clear of the top-right panel: its bottom is at 172 px with Compare on (measured at 1280×800 and 1440×900), + 8 px
+      expect(L.record.top).toBeGreaterThanOrEqual(180 * L.ui);
       // Arms (and Station lens's wider cards) end above the clock bar, and above the zoom buttons (bottom-right, 54 × 144 px)
       // whenever the right arm reaches over them.
       for (const A of [L, layoutFor(w, h, 420)]) {

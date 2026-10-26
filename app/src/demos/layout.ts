@@ -14,7 +14,7 @@ const COLUMN = 300, GAP = 44, TOP_PANEL_BOTTOM = 200, READ_ARM = 130, CLOCK_BAR 
 type Box = { left: number; top: number; width: number };
 export type StoryMode = "wide" | "side" | "narrow";
 export type StoryLayout = {
-  mode: StoryMode; cx: number; cy: number; r: number; aw: number; record: Box; support: Box; read: Box;
+  mode: StoryMode; cx: number; cy: number; r: number; aw: number; record: Box; support: Box; read: Box & { maxHeight?: number };
   /** Stage scale: 1 up to 1440 × 900, growing to 1.25 at 1920 × 1080 (wide only). Panels, lens and type scale with it. */
   ui: number;
   /** Lowest a side arm may reach (wide): above the clock bar, and above the zoom buttons when the right arm reaches over them. */
@@ -58,7 +58,8 @@ export function layoutFor(w: number, h: number, armMax = 330): StoryLayout {
   return { mode, cx, cy, r, aw, ui, armBottom,
     record: { left: cx - r - gap - aw, top: cy - r - 30, width: aw },
     support: { left: cx + r + gap, top: cy - r - 30, width: aw },
-    read: { left: cx - r - gap + 12, top: cy + r + 30, width: 2 * (r + gap) - 24 },
+    // The read arm stops above the clock bar and scrolls past that (short wide screens, 700–760 px).
+    read: { left: cx - r - gap + 12, top: cy + r + 30, width: 2 * (r + gap) - 24, maxHeight: h - bar - (cy + r + 30) },
     titleBottom: cy - r - 30, titleW: Math.min(400 * ui, w - col - 32), bSlot: slot(cx, cy, r, gap, aw, h, ui), bR: B_LENS_RADIUS * ui,
     bar: { left: cx, width: Math.min(720 * ui, w - col - 32) }, sheet: null };
 }

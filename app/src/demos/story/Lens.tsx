@@ -15,8 +15,8 @@ export function Lens({ id, view, cx, cy, centre, r, mag, stations, epicentre, va
     <circle className="story-lens__bg" cx={cx} cy={cy} r={r}/>
     <g clipPath={`url(#${id})`}>
       <g transform={`translate(${cx},${cy}) scale(${K}) translate(${-centre[0]},${-centre[1]})`}><use href={`#${WORLD_ID}`}/></g>
-      {inside.map(({ s, p }) => { const half = s.name.length * 3.1 + 2, fits = variant === "a"
-          && Math.hypot(Math.max(Math.abs(p[0] - cx) + half, 0), p[1] + 20 - cy) < r - 4;
+      {inside.map(({ s, p }) => { const half = s.name.length * 3.1 + 2, fits = variant === "a"   // the name's box (y + 9 … y + 23) inside the rim
+          && Math.hypot(Math.abs(p[0] - cx) + half, Math.max(Math.abs(p[1] + 9 - cy), Math.abs(p[1] + 23 - cy))) < r - 4;
         return <g key={s.id}><Marker s={s} x={p[0]} y={p[1]} size={6} filled/>
           {fits && <text x={p[0]} y={p[1] + 20} textAnchor="middle" className="story-label story-label--strong">{s.name}</text>}</g>; })}
       {Math.hypot(ex - cx, ey - cy) < r && <path d={star(ex, ey, 9, 4)} className="story-epicentre"/>}

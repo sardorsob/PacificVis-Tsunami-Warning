@@ -38,7 +38,7 @@ button,select,summary{font:inherit}
 .story-lens-title__name{font:600 calc(26px*var(--ui,1))/1.1 "Iowan Old Style","Palatino Linotype",Georgia,serif}
 .story-lens-title__sub{font-size:calc(13px*var(--ui,1));color:var(--story-muted);text-wrap:balance}
 .story-arm,.story-column,.story-panel{position:absolute;background:var(--story-panel);border:1px solid var(--story-line);border-radius:10px;padding:10px 12px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.story-arm{font-size:calc(12px*var(--ui,1));color:var(--story-muted)}
+.story-arm{font-size:calc(12px*var(--ui,1));color:var(--story-muted);overflow:auto}
 .story-arm p+p,.story-arm div+div{margin-top:6px}
 .story-arm b{color:var(--story-ink)}
 .story-arm__h,.story-h{font-size:calc(11.5px*var(--ui,1));letter-spacing:.05em;text-transform:uppercase;color:var(--story-muted);font-weight:600;margin-bottom:3px}
@@ -174,8 +174,7 @@ button,select,summary{font:inherit}
 .story-sheet__handle{flex:none}
 .story-sheet--side .story-sheet__handle{display:none}
 .story-zoom{position:absolute;z-index:2;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px}
-.story .story-zoom button{min-width:44px;min-height:44px;padding:0 8px;background:var(--story-panel);font-size:calc(13px*var(--ui,1));font-weight:600;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.story .story-zoom button:last-child{font-size:calc(13px*var(--ui,1))}
+.story .story-zoom button{min-width:44px;min-height:44px;padding:0 8px;background:var(--story-panel);font-size:13px;font-weight:600;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .story--side .story-zoom{right:auto;left:12px;bottom:12px}
 .story--narrow .story-zoom{bottom:auto;top:8px;right:8px}
 .story-sheet .story-step{margin-top:0;padding-top:4px;border-top:0}

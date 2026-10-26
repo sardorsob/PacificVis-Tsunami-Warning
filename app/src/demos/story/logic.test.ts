@@ -80,7 +80,12 @@ describe("map labels", () => {
   });
   it("flip to the left near the right edge and stay on screen at the left", () => {
     expect(placeLabel(780, 100, "B · Saipan", 800, [])).toMatchObject({ anchor: "end", x: 770 });
-    expect(placeLabel(-30, 100, "B · Saipan", 800, [])!.x).toBeGreaterThanOrEqual(4);
+    expect(placeLabel(-6, 100, "B · Saipan", 800, [])!.x).toBeGreaterThanOrEqual(4);
+  });
+  it("leave a point that is off screen unlabelled (its marker is gone too)", () => {
+    expect(placeLabel(500, -600, "5 h", 1440, [])).toBeNull();
+    expect(placeLabel(-2000, 300, "Tōhoku origin · 05:46 UTC", 1440, [])).toBeNull();
+    expect(placeLabel(1500, 300, "B · Saipan", 1440, [])).toBeNull();
   });
   it("drop below the top edge when the point sits on it (the step 6 epicentre at 1440 × 900)", () => {
     expect(placeLabel(310, 5.7, "Tōhoku origin · 05:46 UTC", 1440, [])!.y).toBeGreaterThanOrEqual(14);

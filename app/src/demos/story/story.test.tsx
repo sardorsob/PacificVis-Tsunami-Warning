@@ -136,6 +136,15 @@ describe("story view — guided steps and narrow layout", () => {
     expect(html).toContain("4 of 6");
     expect(html).toContain('<g class="story-leads" aria-hidden="true"></g>');
   });
+  it("wires the wide layout into the stage: lens cards, scale, capped arms and lens leads", () => {
+    const lens = renderToStaticMarkup(<StoryView {...input({ view: "radial", size: { w: 1440, h: 900 } })}/>);
+    expect(lens.match(/width:402px/g)).toHaveLength(2);         // Station lens cards widen into the room at 1440
+    expect(lens.match(/<line[^>]*y2="258"/g)).toHaveLength(2);   // leads end in the card headers (cy − r + 6), not below a short card
+    expect(renderToStaticMarkup(<StoryView {...input({ size: { w: 1920, h: 1080 } })}/>)).toContain("--ui:1.25");
+    const short = renderToStaticMarkup(<StoryView {...input({ size: { w: 1280, h: 700 } })}/>);
+    expect(short.match(/max-height:338px/g)).toHaveLength(2);    // side arms stop above the zoom buttons, then scroll
+    expect(short).toContain("max-height:130px");                 // the read arm stops above the clock bar
+  });
   it("opens the sheet on the page title, once, before the step or the clock", () => {
     for (const view of ["story", "radial"] as const) {
       const html = renderToStaticMarkup(<StoryView {...input({ step: view === "story" ? 4 : "explore", size: { w: 390, h: 844 }, view })}/>);
