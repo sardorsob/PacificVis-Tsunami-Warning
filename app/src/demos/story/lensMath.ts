@@ -9,5 +9,5 @@ export function capture(center: Pt, radius: number, stations: { id: string; xy: 
   return best;
 }
 /** Fixed screen slot for the pinned B lens: under the right arm, above the clock bar. */
-export const slot = (cx: number, cy: number, r: number, gap: number, armWidth: number, viewH: number): Pt =>
-  [cx + r + gap + armWidth / 2, Math.min(viewH - 170, cy + r + 150)];
+export const slot = (cx: number, cy: number, r: number, gap: number, armWidth: number, viewH: number, ui = 1): Pt =>
+  [cx + r + gap + armWidth / 2, Math.min(viewH - 170 * ui, cy + r + 150 * ui)];

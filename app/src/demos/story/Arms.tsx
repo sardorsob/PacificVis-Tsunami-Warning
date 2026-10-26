@@ -55,7 +55,7 @@ function Support({ s, tag, cursorMs, windowId, productKey }: RecordProps) {
 export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, onOpenEvidence, styles }: ArmsProps) {
   const cursorMs = Date.parse(originUtc) + t * 3_600_000, both = !!b;
   return <>
-    <section className="story-arm" style={styles.record} aria-label="Record at the story clock">
+    <section className="story-arm story-arm--side" style={styles.record} aria-label="Record at the story clock">
       <h2 className="story-arm__h">{both ? "Records at the same clock" : "Record at the same clock"}</h2>
       {ocean ? <><p className="story-arm__big">{both ? "A: no station record here" : "No station record here"}</p>
         <p>No instrument measured this water. Nearest record: <b>{nearestName}</b>.</p></>
@@ -63,7 +63,7 @@ export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b
       {b && <Record s={b} tag="B" cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}/>}
       {both && <p className="story-arm__note">Shared UTC axis and clock; heights stay station-local and are not compared.</p>}
     </section>
-    <section className="story-arm" style={styles.support} aria-label={ocean ? "Published clock at this point" : "What supports the record"}>
+    <section className="story-arm story-arm--side" style={styles.support} aria-label={ocean ? "Published clock at this point" : "What supports the record"}>
       {ocean ? <><h2 className="story-arm__h">Published clock here</h2>
         {atOrigin ? <p>The published clock starts here, at the epicentre, at <b>0 h</b> ({utcAt(originUtc, 0)}).
           NOAA/NCEI's first contour is the 1 h line around it.</p>

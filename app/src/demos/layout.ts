@@ -5,13 +5,18 @@ export function plotDateContext(startUtc:string,endUtc:string):string {
 }
 
 
-/** Right edge of the story's editorial column (left 16 + width 282). */
-export const COLUMN_RIGHT = 298;
+/** Right edge of the story's editorial column (left 16 + width 282, scaled with the stage). */
+export const columnRight = (ui: number) => 16 + 282 * ui;
+/** Top of a side arm centred on the lens (cy), kept between the top panel and the clock bar; a taller arm starts at the top. */
+export const centreArm = (cy: number, h: number, minTop: number, maxBottom: number) =>
+  h >= maxBottom - minTop ? minTop : Math.max(minTop, Math.min(cy - h / 2, maxBottom - h));
 const COLUMN = 300, GAP = 44, TOP_PANEL_BOTTOM = 200, READ_ARM = 130, CLOCK_BAR = 100;
 type Box = { left: number; top: number; width: number };
 export type StoryMode = "wide" | "side" | "narrow";
 export type StoryLayout = {
   mode: StoryMode; cx: number; cy: number; r: number; aw: number; record: Box; support: Box; read: Box;
+  /** Stage scale: 1 up to 1440 × 900, growing to 1.25 at 1920 × 1080 (wide only). Panels, lens and type scale with it. */
+  ui: number; topPanelBottom: number; barTop: number;
   /** Lens title: bottom edge (it grows upward when the subtitle wraps) and maximum width. */
   titleBottom: number; titleW: number;
   bSlot: [number, number]; bR: number; bar: { left: number; width: number } | null; sheet: { width: number } | null;
@@ -26,24 +31,28 @@ export function layoutFor(w: number, h: number): StoryLayout {
   if (mode === "narrow") {
     // Room above the lens for a three-line title (the epicentre subtitle wraps on 360 px phones).
     const r = Math.min(82, w * 0.21), cx = w / 2, cy = Math.max(r + 96, h * 0.25);
-    return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, titleBottom: cy - r - 14, titleW: w - 120,
+    return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, ui: 1, topPanelBottom: 0, barTop: h, titleBottom: cy - r - 14,
+      titleW: w - 120,
       bSlot: [Math.min(w - 44, cx + r + 48), cy + r - 6], bR: 38, bar: null, sheet: null };
   }
   if (mode === "side") {
     const sheet = Math.round(Math.min(w * 0.6, Math.max(320, w * 0.44))), area = w - sheet - 8;
     // The lens's left edge clears the bottom-left zoom buttons (12 + 48 + 8 px).
     const r = Math.min(LENS_RADIUS, area * 0.3, h * 0.27, area / 2 - 68), cx = area / 2, cy = Math.max(r + 92, h * 0.5);
-    return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, titleBottom: cy - r - 14, titleW: area - 24,
+    return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, ui: 1, topPanelBottom: 0, barTop: h, titleBottom: cy - r - 14,
+      titleW: area - 24,
       bSlot: [Math.min(area - 44, cx + r + 50), cy + r + 10], bR: 38, bar: null, sheet: { width: sheet } };
   }
-  const r = LENS_RADIUS, cx = COLUMN + (w - COLUMN) / 2;
+  const ui = Math.max(1, Math.min(1.25, 1 + (w - 1440) / 1920, 1 + (h - 900) / 720));
+  const col = COLUMN * ui, gap = GAP * ui, top = TOP_PANEL_BOTTOM * ui, bar = CLOCK_BAR * ui;
+  const r = LENS_RADIUS * ui, cx = col + (w - col) / 2;
   // Arms start below the top-right panel; the read arm ends above the clock bar.
-  const cy = Math.min(Math.max(h * 0.4, TOP_PANEL_BOTTOM + 30 + r), h - CLOCK_BAR - READ_ARM - 30 - r);
-  const aw = Math.min(330, (w - COLUMN) / 2 - r - GAP - 16);
-  return { mode, cx, cy, r, aw,
-    record: { left: cx - r - GAP - aw, top: cy - r - 30, width: aw },
-    support: { left: cx + r + GAP, top: cy - r - 30, width: aw },
-    read: { left: cx - 150, top: cy + r + 30, width: 300 },
-    titleBottom: cy - r - 30, titleW: Math.min(400, w - COLUMN - 32), bSlot: slot(cx, cy, r, GAP, aw, h), bR: B_LENS_RADIUS,
-    bar: { left: cx, width: Math.min(720, w - COLUMN - 32) }, sheet: null };
+  const cy = Math.min(Math.max(h * 0.4, top + 30 + r), h - bar - READ_ARM * ui - 30 - r);
+  const aw = Math.min(330 * ui, (w - col) / 2 - r - gap - 16);
+  return { mode, cx, cy, r, aw, ui, topPanelBottom: top, barTop: h - bar,
+    record: { left: cx - r - gap - aw, top: cy - r - 30, width: aw },
+    support: { left: cx + r + gap, top: cy - r - 30, width: aw },
+    read: { left: cx - 150 * ui, top: cy + r + 30, width: 300 * ui },
+    titleBottom: cy - r - 30, titleW: Math.min(400 * ui, w - col - 32), bSlot: slot(cx, cy, r, gap, aw, h, ui), bR: B_LENS_RADIUS * ui,
+    bar: { left: cx, width: Math.min(720 * ui, w - col - 32) }, sheet: null };
 }

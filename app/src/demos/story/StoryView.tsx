@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import { layoutFor } from "../layout";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { centreArm, layoutFor } from "../layout";
 import type { DemoState, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
 import { Arms, CAVEAT, typeLabel } from "./Arms";
@@ -271,6 +271,14 @@ export function StoryView(props: StoryViewProps) {
   }, []);
   // Leaving the story view (view switch, Back to a Paired entry) must not let a pending settle or glide write history.
   useEffect(() => () => { dropSettle(); cancelGlide(); }, []);
+  // Side-arm heights, for centring them on the lens (wide story only): measured after every render, before paint, so a record
+  // that finishes loading re-centres its arm without a visible jump. Unchanged heights stop the loop.
+  const [armH, setArmH] = useState<[number, number]>([0, 0]);
+  useLayoutEffect(() => {
+    const el = root.current; if (!el || L.mode !== "wide" || lens) return;
+    const [a = 0, b = 0] = [...el.querySelectorAll<HTMLElement>(".story-arm--side")].map(x => x.offsetHeight);
+    setArmH(h => h[0] === a && h[1] === b ? h : [a, b]);
+  });
   // Measure the real viewport (the first render used the window size).
   useEffect(() => {
     const el = root.current; if (!el || typeof ResizeObserver === "undefined") return;
@@ -369,11 +377,15 @@ export function StoryView(props: StoryViewProps) {
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
       <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
   </>;
+  // Side arms centred on the lens (wide story): never above the title line, never into the clock bar; tall arms keep their top.
+  const armBox = (box: typeof L.record, h: number) => wide && h ? { ...box, top: centreArm(L.cy, h, box.top, L.barTop - 16) } : box;
+  const leadY = (box: typeof L.record, h: number) => { const b = armBox(box, h); return Math.min(Math.max(L.cy, b.top + 14), b.top + Math.max(h, 28) - 14); };
   const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
     a={aSel} b={b}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
-    styles={{ record: L.record, support: L.support, read: L.read }}/>;
-  return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}>
+    styles={{ record: armBox(L.record, armH[0]), support: armBox(L.support, armH[1]), read: L.read }}/>;
+  return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}
+    style={{ ["--ui" as string]: L.ui }}>
     <svg ref={svgRef} className="story-map" width={size.w} height={size.h} tabIndex={0} role="img"
       aria-label={"Pacific map of NOAA/NCEI published hourly travel-time contours with ten station records. "
         + "Drag or use arrow keys to move the map under the lens; pinch, + and − zoom; [ and ] change station; Space plays the clock."}
@@ -385,8 +397,8 @@ export function StoryView(props: StoryViewProps) {
         avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 66, bottom: L.titleBottom }]}
         bId={b?.station.station_id ?? null}/>
       <g className="story-leads" aria-hidden="true">
-        {wide && <><line x1={L.cx - L.r * 0.7} y1={L.cy - L.r * 0.7} x2={Number(L.record.left) + L.aw} y2={L.cy - L.r + 6}/>
-          <line x1={L.cx + L.r * 0.7} y1={L.cy - L.r * 0.7} x2={Number(L.support.left)} y2={L.cy - L.r + 6}/>
+        {wide && <><line x1={L.cx - L.r} y1={L.cy} x2={L.record.left + L.aw} y2={lens ? L.cy : leadY(L.record, armH[0])}/>
+          <line x1={L.cx + L.r} y1={L.cy} x2={L.support.left} y2={lens ? L.cy : leadY(L.support, armH[1])}/>
           <line x1={L.cx} y1={L.cy + L.r} x2={L.cx} y2={Number(L.read.top)}/></>}
         {bTarget && <path className="story-lead-b"
           d={`M${bSlot[0]} ${bSlot[1] - L.bR}Q${(bSlot[0] + bTarget[0]) / 2} ${Math.min(bSlot[1], bTarget[1]) - 60} ${bTarget[0]} ${bTarget[1]}`}/>}
