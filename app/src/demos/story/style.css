@@ -84,7 +84,6 @@ button,select,summary{font:inherit}
 .story-card__error{border:1px solid var(--story-accent);border-radius:8px;padding:8px;margin:8px 0;color:var(--story-ink)}
 .story-card__error p{margin-bottom:6px}
 .story-card__loading{min-height:120px;display:flex;align-items:center}
-.story-arm--card{overflow:auto;color:var(--story-muted)}
 /* Paired: records first, a scrolling page on the same Night stage. */
 .story.story--paired{overflow-y:auto;padding:14px 16px 0}
 .story.story--paired>*{max-width:1360px;margin-left:auto;margin-right:auto} /* beats `.story p{margin:0}`: the caption keeps the band's edge */
