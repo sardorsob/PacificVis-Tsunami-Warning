@@ -34,8 +34,9 @@ export function layoutFor(w: number, h: number, armMax = 330): StoryLayout {
   if (mode === "narrow") {
     // Room above the lens for a three-line title (the epicentre subtitle wraps on 360 px phones).
     const r = Math.min(82, w * 0.21), cx = w / 2, cy = Math.max(r + 96, h * 0.25);
+    // The title stays clear of the top-right zoom buttons (54 px wide, 8 px from the edge) on both sides.
     return { mode, cx, cy, r, aw: 0, record: none, support: none, read: none, ui: 1, armBottom: h, titleBottom: cy - r - 14,
-      titleW: w - 120,
+      titleW: w - 132,
       bSlot: [Math.min(w - 44, cx + r + 48), cy + r - 6], bR: 38, bar: null, sheet: null };
   }
   if (mode === "side") {

@@ -20,16 +20,16 @@ describe("story layout tiers", () => {
     expect(L.cx + L.r).toBeLessThanOrEqual(lensRight);
     expect(L.cy - L.r).toBeGreaterThanOrEqual(0);
     // The title is bottom-anchored above the lens: two subtitle lines still fit on screen, inside the map area,
-    // and on phones clear of the zoom buttons (top-right, 60 px).
+    // and on phones clear of the zoom buttons (top-right, 54 px wide + 8 px gap + 4 px).
     expect(L.titleBottom - TITLE_H[L.mode] * L.ui).toBeGreaterThanOrEqual(0);
     expect(L.titleBottom).toBeLessThanOrEqual(L.cy - L.r);
     expect(L.cx - L.titleW / 2).toBeGreaterThanOrEqual(0);
-    expect(L.cx + L.titleW / 2).toBeLessThanOrEqual(L.mode === "narrow" ? w - 60 : lensRight);
+    expect(L.cx + L.titleW / 2).toBeLessThanOrEqual(L.mode === "narrow" ? w - 66 : lensRight);
     expect(L.bSlot[0] + L.bR).toBeLessThanOrEqual(lensRight);
     expect(Math.hypot(L.bSlot[0] - L.cx, L.bSlot[1] - L.cy)).toBeGreaterThanOrEqual(L.r + L.bR);
     if (L.mode !== "wide") expect(L.bSlot[1] + L.bR + 16).toBeLessThanOrEqual(h); // B lens and its caption stay on screen
-    // The zoom buttons (style.css: 48 × 144 px) never cover a lens: side = bottom-left 12 px, narrow = top-right 8 px.
-    const zoom = L.mode === "side" ? [12, h - 156, 60, h - 12] : L.mode === "narrow" ? [w - 56, 8, w - 8, 152] : null;
+    // The zoom buttons (measured 54 × 144 px: "Reset" sets the width) never cover a lens: side = bottom-left 12 px, narrow = top-right 8 px.
+    const zoom = L.mode === "side" ? [12, h - 156, 66, h - 12] : L.mode === "narrow" ? [w - 62, 8, w - 8, 152] : null;
     const clear = ([x, y]: [number, number], r: number) => !zoom || x + r <= zoom[0] || x - r >= zoom[2] || y + r <= zoom[1] || y - r >= zoom[3];
     expect(clear([L.cx, L.cy], L.r)).toBe(true);
     expect(clear(L.bSlot, L.bR)).toBe(true);

@@ -82,6 +82,10 @@ describe("map labels", () => {
     expect(placeLabel(780, 100, "B · Saipan", 800, [])).toMatchObject({ anchor: "end", x: 770 });
     expect(placeLabel(-30, 100, "B · Saipan", 800, [])!.x).toBeGreaterThanOrEqual(4);
   });
+  it("drop below the top edge when the point sits on it (the step 6 epicentre at 1440 × 900)", () => {
+    expect(placeLabel(310, 5.7, "Tōhoku origin · 05:46 UTC", 1440, [])!.y).toBeGreaterThanOrEqual(14);
+    expect(placeLabel(310, 200, "Tōhoku origin · 05:46 UTC", 1440, [])!.y).toBe(200);
+  });
 });
 
 describe("pinch", () => {

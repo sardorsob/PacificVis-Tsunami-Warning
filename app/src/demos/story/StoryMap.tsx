@@ -119,6 +119,7 @@ export function placeLabel(x: number, y: number, text: string, width: number, le
   avoid: Rect[] = [], gap = 10) {
   // ponytail: width from character count (11 px labels); measure with getComputedTextLength if labels change font.
   const w = text.length * 6.2 + 4, h = 12;
+  y = Math.max(y, h + 2); // a point on the top edge keeps its label on screen, just below the edge
   let anchor: "start" | "end" | "middle" = align === "middle" ? "middle" : "start", lx = align === "middle" ? x : x + gap;
   if (anchor === "start" && lx + w > width - 4) { anchor = "end"; lx = x - gap; }
   if (anchor === "start") lx = Math.max(4, lx);
