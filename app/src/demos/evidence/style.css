@@ -34,6 +34,7 @@
 .evidence__paging > div { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .evidence__paging label { display: flex; align-items: center; gap: 6px; }
 .evidence__paging input { width: 84px; box-sizing: border-box; }
+.evidence__step { display: flex; gap: 8px; }
 .evidence__table-region { max-width: 100%; overflow: auto; max-height: 52dvh; border: 1px solid var(--story-line); overscroll-behavior: contain; }
 .evidence-panel table { border-collapse: collapse; font-size: 13px; width: max-content; min-width: 100%; text-align: left; font-variant-numeric: tabular-nums; }
 .evidence-panel caption { text-align: left; padding: 10px; font-weight: bold; background: var(--story-ocean2); }
@@ -52,6 +53,9 @@
   .evidence__header h2 { font-size: 17px; }
   .evidence__body { padding: 12px 10px; }
   .evidence__metadata { grid-template-columns: minmax(0, 1fr); }
+  /* Previous and Next share the first row; the page field takes the next. */
+  .evidence__step { flex: 1 0 100%; }
+  .evidence__step button { flex: 1; }
 }
 @media (max-height: 450px) {
   .evidence__header { padding: 6px 10px; }

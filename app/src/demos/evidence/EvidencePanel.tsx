@@ -17,10 +17,10 @@ function PageControls({ page, pageCount, start, end, count, onPage, label }: { p
   useEffect(() => setDraft(String(page)), [page]);
   return <form className="evidence__paging" aria-label={`${label} paging`} onSubmit={event => { event.preventDefault(); onPage(Number(draft)); setDraft(String(Math.max(1, Math.min(pageCount, Math.trunc(Number(draft)) || 1)))); }}>
     <p role="status">{count ? `Rows ${start + 1}–${end} of ${count}` : "0 source rows"} · {EVIDENCE_PAGE_SIZE} per page</p>
-    <div><button type="button" disabled={page === 1} onClick={() => onPage(page - 1)}>Previous</button>
+    <div><span className="evidence__step"><button type="button" disabled={page === 1} onClick={() => onPage(page - 1)}>Previous</button>
+      <button type="button" disabled={page === pageCount} onClick={() => onPage(page + 1)}>Next</button></span>
       <label htmlFor={id}>Page <input id={id} type="number" min="1" max={pageCount} step="1" value={draft} onChange={event => setDraft(event.currentTarget.value)} /></label>
-      <span>of {pageCount}</span><button type="submit">Go</button>
-      <button type="button" disabled={page === pageCount} onClick={() => onPage(page + 1)}>Next</button></div>
+      <span>of {pageCount}</span><button type="submit">Go</button></div>
   </form>;
 }
 

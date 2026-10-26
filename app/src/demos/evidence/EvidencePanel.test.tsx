@@ -99,6 +99,13 @@ describe("portable exact evidence panel", () => {
     expect(html).not.toContain("large-50</th>");
     expect(html).toContain('max="2189"');
   });
+  it("pairs Previous and Next ahead of the page field, so phones show them on one row in focus order", () => {
+    const html = render({ records: { ...records, rows: Array.from({ length: 120 }, (_, i) => ({ ...rows[0], observation_id: `p-${i}` })) } });
+    const paging = html.slice(html.indexOf('class="evidence__paging"'));
+    expect(paging.indexOf(">Previous<")).toBeLessThan(paging.indexOf(">Next<"));
+    expect(paging.indexOf(">Next<")).toBeLessThan(paging.indexOf("Page <input"));
+    expect(paging).toContain('class="evidence__step"');
+  });
   it("keeps reviewed span classifications/endpoints inspectable and bounds their table too", () => {
     const span = { station_id: "test", window_id: "common_day", start_utc: "2011-03-11T00:01:00Z", end_utc_exclusive: "2011-03-11T00:02:00Z", status: "source_blank", absent_n: 0, source_blank_n: 1, affected_position_n: 1, classification: "publisher_blank", classification_semantics: "test classification semantics", endpoint_semantics: "test endpoint semantics", left_observed_utc: "unknown", right_observed_utc: "2011-03-11T00:02:30.123456Z", within_block_valid_raw_n: 0 };
     const html = render({ records: { ...records, coverage_spans: [span], gap_blocks: Array.from({ length: 101 }, () => span) } });
