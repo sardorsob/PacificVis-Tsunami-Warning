@@ -3,7 +3,7 @@ import { clockLabel, seek, tick, toggle, utcAt, T_MAX } from "./clock";
 import { contourStyle, pulseWidth } from "./reveal";
 import { capture, slot } from "./lensMath";
 import type { Pt } from "./layers";
-import { pinchView, toMap, toScreen, type KLimits } from "./StoryMap";
+import { pinchView, placeLabel, toMap, toScreen, type KLimits } from "./StoryMap";
 import { STEPS, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
@@ -64,6 +64,23 @@ describe("lens", () => {
   it("keeps the compare slot above the clock bar", () => {
     expect(slot(700, 360, 108, 44, 330, 848)).toEqual([700 + 108 + 44 + 165, 618]);
     expect(slot(700, 600, 108, 44, 330, 848)[1]).toBe(848 - 170);
+  });
+});
+
+describe("map labels", () => {
+  const lens = { cx: 200, cy: 200, r: 50 };
+  it("are not drawn under a lens (the lens shows that spot magnified)", () => {
+    expect(placeLabel(190, 195, "Tōhoku origin · 05:46 UTC", 800, [lens])).toBeNull();
+    expect(placeLabel(400, 195, "Tōhoku origin · 05:46 UTC", 800, [lens])).toMatchObject({ anchor: "start", x: 410 });
+  });
+  it("are not drawn under the lens title either", () => {
+    const title = { left: 380, top: 170, right: 620, bottom: 215 };
+    expect(placeLabel(400, 200, "Tōhoku origin · 05:46 UTC", 800, [], "side", [title])).toBeNull();
+    expect(placeLabel(400, 300, "Tōhoku origin · 05:46 UTC", 800, [], "side", [title])).not.toBeNull();
+  });
+  it("flip to the left near the right edge and stay on screen at the left", () => {
+    expect(placeLabel(780, 100, "B · Saipan", 800, [])).toMatchObject({ anchor: "end", x: 770 });
+    expect(placeLabel(-30, 100, "B · Saipan", 800, [])!.x).toBeGreaterThanOrEqual(4);
   });
 });
 

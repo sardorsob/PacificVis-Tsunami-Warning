@@ -296,7 +296,7 @@ export function StoryView(props: StoryViewProps) {
     : { station: lensMeta, status: "loading" as const, records: null, error: null };
   const counts = useMemo(() => !ocean && aSel.records ? hourlySamples(aSel.records, state.windowId, origin) : null,
     [ocean, aSel.records, state.windowId, origin]);
-  const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · magnitude 9.1 · where the published clock starts" }
+  const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · M9.1 · the published clock starts here" }
     : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h` : "no published contour nearby" }
     : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · clock ${clockLabel(t)} · ${utcAt(origin, t)}` };
   const b = lens || params.compare ? props.pinned : null;
@@ -380,7 +380,9 @@ export function StoryView(props: StoryViewProps) {
       onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onKeyDown={onKeyDown}>
       <WorldDefs coastline={coastline} contours={contours} paths={paths} initialT={t}/>
       <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
-      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation}
+      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} width={size.w}
+        lenses={[{ cx: L.cx, cy: L.cy, r: L.r }, ...(bStation ? [{ cx: bSlot[0], cy: bSlot[1], r: L.bR }] : [])]}
+        avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 66, bottom: L.titleBottom }]}
         bId={b?.station.station_id ?? null}/>
       <g className="story-leads" aria-hidden="true">
         {wide && <><line x1={L.cx - L.r * 0.7} y1={L.cy - L.r * 0.7} x2={Number(L.record.left) + L.aw} y2={L.cy - L.r + 6}/>

@@ -222,6 +222,14 @@ describe("story view — exits, cancels and repairs", () => {
   });
 });
 
+describe("map labels around the lens", () => {
+  it("drop the origin label when the lens sits on the epicentre (its title names it)", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, at: [-6000, 0] })}/>);
+    expect(html).toContain('story-lens-title__name">Tōhoku epicentre<');
+    expect(html).not.toContain("Tōhoku origin · 05:46 UTC");
+  });
+});
+
 describe("Station lens — the story stage around one station", () => {
   const lens = (extra: Parameters<typeof input>[0] = {}) => input({ view: "radial", t: 7.5, ...extra });
   const common = (props: StoryViewProps) => ({ windowId: props.state.windowId, productKey: props.state.productKey, onOpenEvidence: noop,

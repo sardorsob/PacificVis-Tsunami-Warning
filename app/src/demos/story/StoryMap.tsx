@@ -108,17 +108,47 @@ export function Marker({ s, x, y, size, filled, ring }: { s: MapStation; x: numb
       : <circle className={cls} cx={x} cy={y} r={size}/>}
   </g>;
 }
-type OverlayProps = { view: View; stations: MapStation[]; epicentre: Pt; anchors: Map<number, Pt>; t: number; aId: string | null; bId: string | null };
+export type Circle = { cx: number; cy: number; r: number };
+export type Rect = { left: number; top: number; right: number; bottom: number };
+/**
+ * Where a map label goes: beside its point, flipped to the left near the right edge, kept on screen, and not drawn at
+ * all under a lens (the lens shows that spot magnified and its title names it) or an `avoid` box such as the lens title.
+ * `middle` centres it on the point.
+ */
+export function placeLabel(x: number, y: number, text: string, width: number, lenses: Circle[], align: "side" | "middle" = "side",
+  avoid: Rect[] = [], gap = 10) {
+  // ponytail: width from character count (11 px labels); measure with getComputedTextLength if labels change font.
+  const w = text.length * 6.2 + 4, h = 12;
+  let anchor: "start" | "end" | "middle" = align === "middle" ? "middle" : "start", lx = align === "middle" ? x : x + gap;
+  if (anchor === "start" && lx + w > width - 4) { anchor = "end"; lx = x - gap; }
+  if (anchor === "start") lx = Math.max(4, lx);
+  const left = anchor === "start" ? lx : anchor === "end" ? lx - w : lx - w / 2, top = y - h + 2;
+  const under = lenses.some(c => {
+    const nx = Math.max(left, Math.min(c.cx, left + w)), ny = Math.max(top, Math.min(c.cy, top + h));
+    return (nx - c.cx) ** 2 + (ny - c.cy) ** 2 < c.r ** 2;
+  });
+  const covered = avoid.some(a => left < a.right && left + w > a.left && top < a.bottom && top + h > a.top);
+  return under || covered ? null : { x: lx, y, anchor };
+}
+type OverlayProps = {
+  view: View; stations: MapStation[]; epicentre: Pt; anchors: Map<number, Pt>; t: number; aId: string | null; bId: string | null;
+  /** Lenses and boxes drawn over the map (screen px) and the screen width, so labels avoid them. */
+  lenses?: Circle[]; avoid?: Rect[]; width?: number; labelA?: boolean;
+};
 /** Screen-space marks: constant size at any zoom. */
-export function Overlay({ view, stations, epicentre, anchors, t, aId, bId, labelA = false }: OverlayProps & { labelA?: boolean }) {
+export function Overlay(props: OverlayProps) {
+  const { view, stations, epicentre, anchors, t, aId, bId, lenses = [], avoid = [], width = Infinity, labelA = false } = props;
   const [ex, ey] = toScreen(view, epicentre);
+  const label = (x: number, y: number, text: string, strong: boolean, align: "side" | "middle" = "side") => {
+    const p = placeLabel(x, y, text, width, lenses, align, avoid);
+    return p && <text x={p.x} y={p.y} textAnchor={p.anchor} className={`story-label${strong ? " story-label--strong" : ""}`}>{text}</text>;
+  };
   return <g className="story-overlay">
     <path d={star(ex, ey, 7, 3)} className="story-epicentre"/>
-    <text x={ex + 10} y={ey - 8} className="story-label story-label--strong">Tōhoku origin · 05:46 UTC</text>
-    {[...anchors].filter(([h]) => h <= t).map(([h, p]) => { const [x, y] = toScreen(view, p);
-      return <text key={h} x={x} y={y} className="story-label" textAnchor="middle">{h} h</text>; })}
+    {label(ex, ey - 8, "Tōhoku origin · 05:46 UTC", true)}
+    {[...anchors].filter(([h]) => h <= t).map(([h, p]) => { const [x, y] = toScreen(view, p); return <g key={h}>{label(x, y, `${h} h`, false, "middle")}</g>; })}
     {stations.map(s => { const [x, y] = toScreen(view, s.xy), isA = s.id === aId, isB = s.id === bId;
       return <g key={s.id}><Marker s={s} x={x} y={y} size={isA || isB ? 5 : 4} filled={isA || isB} ring={isB ? "var(--story-b)" : undefined}/>
-        {(isB || (labelA && isA)) && <text x={x + 12} y={y + 4} className="story-label story-label--strong">{isB ? "B" : "A"} · {s.name}</text>}</g>; })}
+        {(isB || (labelA && isA)) && label(x, y + 4, `${isB ? "B" : "A"} · ${s.name}`, true)}</g>; })}
   </g>;
 }

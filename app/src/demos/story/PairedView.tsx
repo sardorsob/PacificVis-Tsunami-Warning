@@ -78,7 +78,7 @@ export function PairedView(props: StoryViewProps) {
         <svg ref={svgRef} width={size.w} height={size.h} aria-hidden="true">
           <WorldDefs coastline={coastline} contours={contours} paths={paths} initialT={t}/>
           <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
-          <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={A} bId={B} labelA/>
+          <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={A} bId={B} width={size.w} labelA/>
         </svg>
         {stations.map(s => {
           const [x, y] = toScreen(view, s.xy), isA = s.id === A, isB = s.id === B, name = `${s.name} (${s.id})`;
