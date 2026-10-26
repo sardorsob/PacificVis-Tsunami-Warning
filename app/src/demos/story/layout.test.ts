@@ -38,8 +38,17 @@ describe("story layout tiers", () => {
       expect(L.support.left + L.aw).toBeLessThanOrEqual(w - 8);              // never off the right edge
       expect(L.bar!.width - (PLAY + READOUT + GAPS + PAD) * L.ui).toBeGreaterThanOrEqual(240);
       expect(L.read.top + 130 * L.ui).toBeLessThanOrEqual(h - 100 * L.ui); // read arm clears the clock bar
+      expect(L.read.left).toBeGreaterThanOrEqual(L.record.left + L.aw + 12);       // a gutter, not a seam, between the arms
+      expect(L.read.left + L.read.width).toBeLessThanOrEqual(L.support.left - 12);
+      expect(L.read.left + L.read.width / 2).toBeCloseTo(L.cx);
       // clear of the top-right panel: 196 px tall with Compare on (measured at 1280×800), scaled with the stage
       expect(L.record.top).toBeGreaterThanOrEqual(196 * L.ui);
+      // Arms (and Station lens's wider cards) end above the clock bar, and above the zoom buttons (bottom-right, 54 × 144 px)
+      // whenever the right arm reaches over them.
+      for (const A of [L, layoutFor(w, h, 420)]) {
+        expect(A.armBottom).toBeLessThanOrEqual(h - 100 * A.ui - 16);
+        if (A.support.left + A.aw > w - 16 - 54) expect(A.armBottom).toBeLessThanOrEqual(h - 16 - 144 - 8);
+      }
     } else {
       const sheet = L.mode === "side" ? L.sheet!.width : w;
       expect(sheet - PAD - PLAY - 12).toBeGreaterThanOrEqual(240);
@@ -55,6 +64,17 @@ describe("large screens and centred arms", () => {
     expect(layoutFor(1920, 900).ui).toBe(1);
     expect(layoutFor(1920, 1080).r).toBeCloseTo(135);
     expect(layoutFor(390, 844).ui).toBe(1);
+  });
+  it("widen the Station lens cards into the room left at 1440 and above, still clear of the column and the edge", () => {
+    expect(layoutFor(1280, 800, 420).aw).toBeCloseTo(322);
+    expect(layoutFor(1440, 900, 420).aw).toBeCloseTo(402);
+    expect(layoutFor(1440, 900).aw).toBe(330);
+    for (const [w, h, mode] of VIEWPORTS) {
+      if (mode !== "wide") continue;
+      const L = layoutFor(w, h, 420);
+      expect(L.record.left).toBeGreaterThanOrEqual(columnRight(L.ui) + 8);
+      expect(L.support.left + L.aw).toBeLessThanOrEqual(w - 8);
+    }
   });
   it("centre a side arm on the lens, kept between the top panel and the clock bar", () => {
     expect(centreArm(360, 130, 200, 780)).toBe(295);        // fits: centred on the lens

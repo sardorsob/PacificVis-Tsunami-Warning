@@ -53,7 +53,7 @@ export function StoryView(props: StoryViewProps) {
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState(() => props.initialSize
     ?? (typeof window === "undefined" ? { w: 1440, h: 848 } : { w: window.innerWidth, h: window.innerHeight }));
-  const L = layoutFor(size.w, size.h), motionOK = !reducedMotion();
+  const L = layoutFor(size.w, size.h, lens ? 420 : 330), motionOK = !reducedMotion();
   const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
   const stepsError = useMemo(() => {
@@ -367,7 +367,7 @@ export function StoryView(props: StoryViewProps) {
   const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK}
     onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
   // Station lens: A's and B's full cards in the side arms (scrolling inside the arm above the clock bar when wide), the caveat below.
-  const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: number) => wide ? { maxHeight: size.h - top - 116 } : {};
+  const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: number) => wide ? { maxHeight: L.armBottom - top } : {};
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
   const cards = <>
     <div className="story-arm story-arm--card" style={{ ...L.record, ...armMax(L.record.top) }}>
@@ -377,8 +377,8 @@ export function StoryView(props: StoryViewProps) {
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
       <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
   </>;
-  // Side arms centred on the lens (wide story): never above the title line, never into the clock bar; tall arms keep their top.
-  const armBox = (box: typeof L.record, h: number) => wide && h ? { ...box, top: centreArm(L.cy, h, box.top, L.barTop - 16) } : box;
+  // Side arms centred on the lens (wide story): never above the title line, never into the clock bar or the zoom buttons; tall arms keep their top.
+  const armBox = (box: typeof L.record, h: number) => wide && h ? { ...box, top: centreArm(L.cy, h, box.top, L.armBottom) } : box;
   const leadY = (box: typeof L.record, h: number) => { const b = armBox(box, h); return Math.min(Math.max(L.cy, b.top + 14), b.top + Math.max(h, 28) - 14); };
   const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
     a={aSel} b={b}

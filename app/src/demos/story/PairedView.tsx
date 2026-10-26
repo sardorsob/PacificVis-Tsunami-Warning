@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NoReference, StationCard } from "../StationCard";
 import { ClockBar } from "./ClockBar";
 import { clockLabel } from "./clock";
@@ -18,12 +18,13 @@ export function PairedView(props: StoryViewProps) {
   const band = useRef<HTMLDivElement>(null), svgRef = useRef<SVGSVGElement>(null);
   // ponytail: a fitted, fixed Pacific band (no pan or zoom); Station lens is the place to explore the map.
   const [size, setSize] = useState({ w: 960, h: 260 });
-  useEffect(() => {
-    const el = band.current; if (!el || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(([e]) => {
-      const w = Math.round(e.contentRect.width), h = Math.round(e.contentRect.height);
-      if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h });
-    });
+  // Measured before the first paint (the 960 × 260 default is only for the server render), then kept in step by ResizeObserver.
+  useLayoutEffect(() => {
+    const el = band.current; if (!el) return;
+    const fit = (w: number, h: number) => { w = Math.round(w); h = Math.round(h); if (w && h) setSize(s => s.w === w && s.h === h ? s : { w, h }); };
+    fit(el.clientWidth, el.clientHeight);
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(([e]) => fit(e.contentRect.width, e.contentRect.height));
     ro.observe(el); return () => ro.disconnect();
   }, []);
   const view = fitView(PACIFIC_CROP, size.w, size.h);

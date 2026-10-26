@@ -15,10 +15,10 @@ export function StationTools(p: StationToolsProps) {
     <div className="story-tools__targets">
       <button type="button" aria-label={`Previous station target: ${prev ? prev.name : "Start of station list"}`}
         disabled={!prev} onClick={() => prev && p.onSelect(prev.station_id)}>
-        ← <span>{prev ? prev.name : "Start of station list"}</span></button>
+        <small>← Previous</small><span>{prev ? prev.name : "Start of station list"}</span></button>
       <button type="button" aria-label={`Next station target: ${next ? next.name : "End of station list"}`}
         disabled={!next} onClick={() => next && p.onSelect(next.station_id)}>
-        <span>{next ? next.name : "End of station list"}</span> →</button>
+        <small>Next →</small><span>{next ? next.name : "End of station list"}</span></button>
     </div>
     <label>Pinned reference B<select aria-label="Pinned reference B" value={p.pinnedStationId ?? ""} onChange={e => p.onPin(e.target.value || null)}>
       <option value="">No reference pinned</option>

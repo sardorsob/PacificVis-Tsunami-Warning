@@ -108,6 +108,11 @@ describe("StationTools — stations, B, window and product", () => {
     expect(byLabel(nodes(StationTools(tools("valp"))), "Next station target: End of station list")!.props.disabled).toBe(true);
     expect(renderToStaticMarkup(<StationTools {...first}/>)).toContain("Test station 1770000");
   });
+  it("labels each target on its own line above the full station name", () => {
+    const html = renderToStaticMarkup(<StationTools {...tools("21418")}/>);
+    expect(html).toContain("<small>← Previous</small><span>Test station 21413</span>");
+    expect(html).toContain("<small>Next →</small><span>Test station 32401</span>");
+  });
   it("never offers A as B, and clears B without substituting one", () => {
     const props = tools("1617760"), html = renderToStaticMarkup(<StationTools {...props}/>);
     const bSelect = html.slice(html.indexOf("Pinned reference B"));
