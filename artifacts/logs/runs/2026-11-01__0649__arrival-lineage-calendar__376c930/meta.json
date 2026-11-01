@@ -1,0 +1,12 @@
+{
+  "coordinator_future_metadata_exposure": true,
+  "decision": "accepted_with_source_limits",
+  "git_sha": "376c930398c10a3d8073c6646d028dcba4f22d78",
+  "mlflow_run_id": "0e20cee934b843eca029c4ced0e5900f",
+  "model_fitted": false,
+  "stages": [
+    "B",
+    "C",
+    "F"
+  ]
+}

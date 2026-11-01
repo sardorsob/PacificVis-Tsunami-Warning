@@ -38,8 +38,9 @@ def read_rows(path: Path) -> list[Row]:
 def write_json(path: Path, value: Any) -> None:
     """Write a deterministic scientific manifest."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False) + "\n",
-                    encoding="utf-8")
+    path.write_text(
+        json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
 
 
 def write_rows(path: Path, rows: list[Row], *, columns: list[str] | None = None) -> None:
@@ -85,8 +86,10 @@ def verify_inputs(
         required = {f"{document['ncei']}/observations.csv.gz"}
         for event_id, event in events.items():
             if event["role"] == "development":
-                required.update(f"{document['corpus']}/{event_id}/{name}.csv.gz"
-                                for name in ["arrival_report", "target_eligibility"])
+                required.update(
+                    f"{document['corpus']}/{event_id}/{name}.csv.gz"
+                    for name in ["arrival_report", "target_eligibility"]
+                )
         if not required <= pins.keys():
             raise ValueError("derived source paths are not all pinned")
     return document
@@ -118,6 +121,26 @@ def require_development(rows: list[Row], events: dict[str, Any], key: str) -> No
 
 def file_manifest(directory: Path) -> list[dict[str, str]]:
     """Bind generated scientific files without a self-referential manifest hash."""
-    return [{"path": str(path.relative_to(directory)), "sha256": sha256(path)}
-            for path in sorted(directory.rglob("*")) if path.is_file()
-            and path.name != "manifest.json"]
+    return [
+        {"path": str(path.relative_to(directory)), "sha256": sha256(path)}
+        for path in sorted(directory.rglob("*"))
+        if path.is_file() and path.name != "manifest.json"
+    ]
+
+
+def verify_product(
+    directory: Path, *, required_files: tuple[str, ...] = (), inputs_sha256: str | None = None
+) -> dict[str, Any]:
+    """Verify a stage product before reading its scientific tables."""
+    document = cast(dict[str, Any], json.loads((directory / "manifest.json").read_text()))
+    if not document.get("files"):
+        raise ValueError("empty stage product")
+    pins = [item["path"] for item in document["files"]]
+    if len(set(pins)) != len(pins) or not set(required_files) <= set(pins):
+        raise ValueError("missing or duplicate required stage pins")
+    if inputs_sha256 is not None and document.get("inputs_sha256") != inputs_sha256:
+        raise ValueError("stage input manifest mismatch")
+    for item in document["files"]:
+        if sha256(checked_path(directory, item["path"])) != item["sha256"]:
+            raise ValueError(f"stage hash mismatch: {item['path']}")
+    return document

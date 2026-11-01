@@ -1,0 +1,10 @@
+{
+  "global_deadline": null,
+  "new_source_route_expansion": "stopped_below_50_percent",
+  "pilot_config_sha256": "debbc63ed0bc68ad6001f9c757fa7656e266e565d7024f6789af7463d83c657c",
+  "stages": [
+    "B",
+    "C",
+    "F"
+  ]
+}

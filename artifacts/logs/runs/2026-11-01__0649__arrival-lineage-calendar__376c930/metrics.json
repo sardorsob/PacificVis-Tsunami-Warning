@@ -1,0 +1,13 @@
+{
+  "arrival_lineage_records": 2,
+  "attempted_lineage_records": 8,
+  "date_rule_contradictions": 6,
+  "dated_backtest_records": 578,
+  "future_metadata_candidates": 6,
+  "future_outcomes_selected": 0,
+  "lineage_yield": 0.25,
+  "primary_copies_established": 0,
+  "python_tests": 789,
+  "references": 11,
+  "source_records": 3401
+}
