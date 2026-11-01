@@ -19,9 +19,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--all-links", action="store_true",
+        help="Write separate development-only href discovery indexes; no URLs are fetched.",
+    )
     args = parser.parse_args(argv)
     try:
-        result = inventory(args.config, args.root, args.output)
+        result = inventory(args.config, args.root, args.output, discover_all_links=args.all_links)
     except (ArchiveError, OSError, UnicodeError, ValueError) as error:
         parser.error(str(error))
     print(json.dumps(result, sort_keys=True))

@@ -160,6 +160,104 @@ class _Tables(HTMLParser):
         return self.tables
 
 
+def _asset_type(href: str) -> str:
+    """Classify a URL's spelling for discovery, without asserting its content."""
+    try:
+        path = unquote(urlsplit(href).path).lower()
+    except ValueError:
+        return "unknown"
+    suffix = Path(path).suffix
+    if link_identity(href)["link_code"] != "unknown" or suffix in {".dat", ".asc", ".nc"}:
+        return "waveform_candidate"
+    if suffix in {".pdf", ".doc", ".docx", ".ps"}:
+        return "document_candidate"
+    if suffix in {".png", ".jpg", ".jpeg", ".gif", ".svg", ".tif", ".tiff"}:
+        return "image_candidate"
+    if suffix in {".csv", ".txt", ".json", ".xml", ".zip", ".gz"}:
+        return "data_or_text_candidate"
+    if suffix in {".html", ".htm", ".php"}:
+        return "page_candidate"
+    return "unknown"
+
+
+class _AllLinks(HTMLParser):
+    """Inventory every href and empty anchor independently of table interpretation."""
+
+    def __init__(self, source: str, archive_url: str) -> None:
+        super().__init__(convert_charrefs=True)
+        self.source = source
+        self.archive_url = archive_url
+        self.offsets = [0, *(match.end() for match in re.finditer("\n", source))]
+        self.links: list[dict[str, Any]] = []
+        self.tables: list[dict[str, Any]] = []
+        self.table_count = 0
+        self.anchor: dict[str, Any] | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "table":
+            self.tables.append(dict(index=self.table_count, row=-1, cell=-1,
+                                    row_open=False, cell_open=False))
+            self.table_count += 1
+        elif tag == "tr" and self.tables:
+            self.tables[-1].update(row=self.tables[-1]["row"] + 1, cell=-1,
+                                   row_open=True, cell_open=False)
+        elif tag in {"td", "th"} and self.tables and self.tables[-1]["row_open"]:
+            self.tables[-1].update(cell=self.tables[-1]["cell"] + 1, cell_open=True)
+        attributes = dict(attrs)
+        if tag == "br" and self.anchor is not None:
+            self.anchor["link_text"] += "\n"
+        if tag != "a" and "href" not in attributes:
+            return
+        href = attributes.get("href") or ""
+        try:
+            safety, resolved = link_status(href, self.archive_url)
+        except ValueError:
+            # Malformed hosts must remain discoverable without aborting a page.
+            safety, resolved = "rejected_unsafe_url", ""
+        table = self.tables[-1] if self.tables else None
+        line, column = self.getpos()
+        link = dict(
+            link_index=len(self.links), element=tag, href=href,
+            start_tag=self.get_starttag_text() or "", link_text="",
+            resolved_url=resolved, status=safety,
+            asset_type=_asset_type(resolved or href),
+            asset_type_basis="filename_or_suffix_only_not_content_verified",
+            acquisition_status="not_requested",
+            table_index=table["index"] if table else "unknown",
+            row_index=table["row"] if table and table["row_open"] else "unknown",
+            cell_index=table["cell"] if table and table["cell_open"] else "unknown",
+            context="table_cell" if table and table["cell_open"]
+            else "table_row" if table and table["row_open"]
+            else "table" if table else "page",
+            source_offset=self.offsets[line - 1] + column,
+            source_line=line, source_column=column,
+            **link_identity(resolved or href),
+        )
+        self.links.append(link)
+        if tag == "a":
+            self.anchor = link
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a":
+            self.anchor = None
+        elif tag in {"td", "th"} and self.tables:
+            self.tables[-1]["cell_open"] = False
+        elif tag == "tr" and self.tables:
+            self.tables[-1].update(row_open=False, cell_open=False)
+        elif tag == "table" and self.tables:
+            self.tables.pop()
+
+    def handle_data(self, data: str) -> None:
+        if self.anchor is not None:
+            self.anchor["link_text"] += data
+
+    def finish(self) -> list[dict[str, Any]]:
+        """Return links in source order, including malformed or unsupported contexts."""
+        self.feed(self.source)
+        self.close()
+        return self.links
+
+
 def _key(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
@@ -291,11 +389,15 @@ def link_identity(url: str) -> dict[str, str]:
     return empty
 
 
-def parse_archive(source: str, archive_url: str, *, sealed: bool = False) -> dict[str, Any]:
+def parse_archive(
+    source: str, archive_url: str, *, sealed: bool = False, discover_all_links: bool = False
+) -> dict[str, Any]:
     """Inventory an HTML page; unknown headers and row layouts stay rejected.
 
     Raw cells, markup, headers, links and row order are retained for development
-    pages. Sealed pages return only counts, family identifiers and status codes.
+    pages. Opt-in all-link discovery includes rejected rows and page supplements;
+    safety and filename hints never authorize retrieval. Sealed pages return only
+    counts, family identifiers and status codes, even when discovery is requested.
     """
     tables = _Tables(source).finish()
     census: list[dict[str, Any]] = []
@@ -409,11 +511,24 @@ def parse_archive(source: str, archive_url: str, *, sealed: bool = False) -> dic
                                                 for row in table.rows[:header_index]],
                             "columns": columns, "parser_issues": table.issues})
         census.append(summary)
-    return {
+    result = {
         "status": "inventoried" if census else "rejected_no_arrival_table",
         "tables_in_page": len(tables), "arrival_tables": census,
         "rows": records, "links": links,
     }
+    if discover_all_links and not sealed:
+        all_links = _AllLinks(source, archive_url).finish()
+        row_status = {(row["table_index"], row["row_index"]): row["status"] for row in records}
+        arrival_tables = {table["table_index"]: table for table in census}
+        for link in all_links:
+            link["row_status"] = row_status.get(
+                (link["table_index"], link["row_index"]),
+                "source_header_or_preface" if link["table_index"] in arrival_tables
+                else "outside_arrival_table" if link["table_index"] != "unknown"
+                else "page_context",
+            )
+        result["all_links"] = all_links
+    return result
 
 
 def _verified_source(contract: SourceContract, root: Path) -> tuple[str, str]:
@@ -442,7 +557,9 @@ def _write_csv(path: Path, rows: list[dict[str, Any]], columns: list[str]) -> No
                              for key in columns})
 
 
-def inventory(config: Path, root: Path, output: Path) -> dict[str, int]:
+def inventory(
+    config: Path, root: Path, output: Path, *, discover_all_links: bool = False
+) -> dict[str, int]:
     """Verify exact contracted snapshots and write a new offline census directory."""
     if output.exists():
         raise FileExistsError(f"refusing to replace inventory directory: {output}")
@@ -454,6 +571,7 @@ def inventory(config: Path, root: Path, output: Path) -> dict[str, int]:
     census: list[dict[str, Any]] = []
     rows: list[dict[str, Any]] = []
     links: list[dict[str, Any]] = []
+    all_links: list[dict[str, Any]] = []
     seen_sources: set[str] = set()
     for slug, raw_event in sorted(cast(dict[str, Any], events).items()):
         if not isinstance(raw_event, dict):
@@ -475,7 +593,8 @@ def inventory(config: Path, root: Path, output: Path) -> dict[str, int]:
                 or link_status(contract.url, contract.url)[0] != "safe_archive_link"):
             raise ArchiveError(f"event {slug} archive contract does not match")
         source, digest = _verified_source(contract, root)
-        result = parse_archive(source, contract.url, sealed=role == "sealed_evaluation")
+        result = parse_archive(source, contract.url, sealed=role == "sealed_evaluation",
+                               discover_all_links=discover_all_links)
         identity = {"event_slug": slug, "event_id": event["event_id"],
                     "source_id": source_id, "role": role}
         census.append({**identity, "sha256": digest, "archive_url": contract.url,
@@ -483,6 +602,11 @@ def inventory(config: Path, root: Path, output: Path) -> dict[str, int]:
                        "arrival_tables": result["arrival_tables"]})
         rows.extend({**identity, **row} for row in result["rows"])
         links.extend({**identity, **link} for link in result["links"])
+        if discover_all_links:
+            all_links.extend({
+                **identity, "source_sha256": digest, "source_path": str(contract.local_path),
+                "archive_url": contract.url, "publisher": contract.publisher, **link,
+            } for link in result.get("all_links", []))
     output.mkdir(parents=True, exist_ok=False)
     for name, values in (("census", census), ("rows", rows), ("links", links)):
         (output / f"{name}.json").write_text(
@@ -498,4 +622,18 @@ def inventory(config: Path, root: Path, output: Path) -> dict[str, int]:
         "table_index", "row_index", "location_text", "href", "start_tag", "link_text",
         "resolved_url", "status", "link_code", "link_sensor", "link_day", "link_year",
         "link_identity_status"])
-    return {"events": len(census), "development_rows": len(rows), "development_links": len(links)}
+    counts = {"events": len(census), "development_rows": len(rows), "development_links": len(links)}
+    if discover_all_links:
+        (output / "all_links.json").write_text(
+            json.dumps(all_links, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        _write_csv(output / "all_links.csv", all_links, identity_columns + [
+            "source_sha256", "source_path", "archive_url", "publisher", "link_index",
+            "element", "context", "table_index", "row_index", "cell_index", "row_status",
+            "source_offset", "source_line", "source_column", "href", "start_tag", "link_text",
+            "resolved_url", "status", "asset_type", "asset_type_basis", "acquisition_status",
+            "link_code", "link_sensor", "link_day", "link_year", "link_identity_status",
+        ])
+        counts["development_all_links"] = len(all_links)
+    return counts

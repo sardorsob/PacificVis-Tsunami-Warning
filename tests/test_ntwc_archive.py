@@ -143,6 +143,80 @@ def test_unknown_shape_is_rejected_without_mapping_values(replacement: str) -> N
     assert result["links"] == []
 
 
+def test_opt_in_discovery_retains_unknown_rows_page_documents_and_safety() -> None:
+    rejected = source_row(['<a href="reject.dat">Unmapped</a>', "?"])
+    source = (
+        '<html><a href="notes.pdf"><b>Source</b> &amp; report</a>'
+        '<table><tr><th>Mystery</th></tr>'
+        '<tr><td><a href="unrecognized.dat">raw</a></td></tr></table>'
+        + page(example_row() + rejected)
+        + '<a href="javascript:alert(1)">unsafe</a><a name="empty">anchor</a></html>'
+    )
+    original = parse_archive(source, ARCHIVE_URL)
+    discovered = parse_archive(source, ARCHIVE_URL, discover_all_links=True)
+    assert {key: value for key, value in discovered.items() if key != "all_links"} == original
+    assert "all_links" not in original
+    links = discovered["all_links"]
+    assert len(links) == 8
+    assert [link["link_index"] for link in links] == list(range(8))
+    assert [link["href"] for link in links] == [
+        "notes.pdf", "unrecognized.dat", "plot.png", "/previous.events/fixture/hilo.070",
+        "https://outside.example/data", "reject.dat", "javascript:alert(1)", "",
+    ]
+    assert links[0]["link_text"] == "Source & report"
+    assert links[0]["context"] == "page" and links[0]["asset_type"] == "document_candidate"
+    assert links[1]["table_index"] == 0 and links[1]["row_index"] == 1
+    assert links[1]["cell_index"] == 0 and links[1]["row_status"] == "outside_arrival_table"
+    assert links[3]["asset_type"] == "waveform_candidate"
+    assert links[5]["row_status"] == "rejected_cell_count"
+    assert links[-2]["status"] == links[-1]["status"] == "rejected_unsafe_url"
+    assert all(link["acquisition_status"] == "not_requested" for link in links)
+    assert all(source[link["source_offset"]:].startswith(link["start_tag"]) for link in links)
+    assert [link["status"] for link in discovered["links"]] == [
+        "safe_archive_link", "rejected_unsafe_url"
+    ]
+
+
+def test_discovery_works_without_arrival_headers_and_preserves_nested_context() -> None:
+    source = (
+        '<link href="style.css"><table><tr><td><a href="outer.pdf">outer</a>'
+        '<table><tr><td><a href="inner.dat"><span>inner</span></a></td></tr></table>'
+        '<a href="after.pdf">after</a></td></tr></table>'
+        '<map><area href="map.png"></map>'
+    )
+    result = parse_archive(source, ARCHIVE_URL, discover_all_links=True)
+    assert result["status"] == "rejected_no_arrival_table"
+    assert result["rows"] == result["links"] == []
+    links = result["all_links"]
+    assert [link["element"] for link in links] == ["link", "a", "a", "a", "area"]
+    assert [(link["table_index"], link["row_index"], link["cell_index"]) for link in links] == [
+        ("unknown", "unknown", "unknown"), (0, 0, 0), (1, 0, 0), (0, 0, 0),
+        ("unknown", "unknown", "unknown"),
+    ]
+    assert links[2]["link_text"] == "inner"
+    assert parse_archive(source, ARCHIVE_URL, discover_all_links=True) == result
+
+
+def test_all_link_discovery_never_runs_or_exposes_values_for_sealed_pages() -> None:
+    source = page(example_row()) + '<a href="private-supplement.pdf">sealed text</a>'
+    original = parse_archive(source, ARCHIVE_URL, sealed=True)
+    discovered = parse_archive(source, ARCHIVE_URL, sealed=True, discover_all_links=True)
+    assert discovered == original
+    assert "all_links" not in discovered
+    assert "private-supplement" not in json.dumps(discovered)
+
+
+@pytest.mark.parametrize("href", ["http://[broken", "javascript:alert(1)", "../outside.dat"])
+def test_discovery_preserves_malformed_or_unsafe_hrefs_without_aborting(href: str) -> None:
+    result = parse_archive(f'<a href="{href}"><span>source</span></a>', ARCHIVE_URL,
+                           discover_all_links=True)
+    assert len(result["all_links"]) == 1
+    link = result["all_links"][0]
+    assert link["href"] == href and link["link_text"] == "source"
+    assert link["status"] == "rejected_unsafe_url"
+    assert link["acquisition_status"] == "not_requested"
+
+
 def test_error_page_does_not_look_like_success() -> None:
     result = parse_archive("<html>Service unavailable</html>", ARCHIVE_URL)
     assert result["status"] == "rejected_no_arrival_table"
@@ -266,6 +340,44 @@ def test_inventory_verifies_checksum_and_never_overwrites(tmp_path: Path) -> Non
     second = tmp_path / "second"
     inventory(config, tmp_path, second)
     assert all(path.read_bytes() == (second / path.name).read_bytes() for path in out.iterdir())
+
+
+def test_discovery_cli_writes_separate_provenanced_index_and_preserves_old_bytes(
+    tmp_path: Path, capsys: Any
+) -> None:
+    config, raw = write_contract(tmp_path)
+    original, discovered = tmp_path / "original", tmp_path / "discovered"
+    inventory(config, tmp_path, original)
+    assert main([
+        "--config", str(config), "--root", str(tmp_path), "--output", str(discovered),
+        "--all-links",
+    ]) == 0
+    assert json.loads(capsys.readouterr().out)["development_all_links"] == 3
+    assert all(path.read_bytes() == (discovered / path.name).read_bytes()
+               for path in original.iterdir())
+    links = json.loads((discovered / "all_links.json").read_text(encoding="utf-8"))
+    assert all(link["event_id"] == "fixture-id" and link["role"] == "development"
+               for link in links)
+    assert all(link["source_sha256"] == hashlib.sha256(raw.read_bytes()).hexdigest()
+               for link in links)
+    assert all(link["source_path"] == "data/raw/fixture.html" for link in links)
+    assert all(link["archive_url"] == ARCHIVE_URL for link in links)
+    assert all(link["publisher"] == "fixture" for link in links)
+    second = tmp_path / "second-discovery"
+    inventory(config, tmp_path, second, discover_all_links=True)
+    assert all(path.read_bytes() == (second / path.name).read_bytes()
+               for path in discovered.iterdir())
+
+
+def test_inventory_discovery_excludes_sealed_links_even_when_enabled(tmp_path: Path) -> None:
+    config, _ = write_contract(tmp_path, role="sealed_evaluation")
+    out = tmp_path / "result"
+    counts = inventory(config, tmp_path, out, discover_all_links=True)
+    assert counts["development_all_links"] == 0
+    assert json.loads((out / "all_links.json").read_text()) == []
+    for path in out.iterdir():
+        content = path.read_text(encoding="utf-8")
+        assert "hilo.070" not in content and "Hilo" not in content and "1344" not in content
 
 
 def test_checksum_mismatch_does_not_publish_output(tmp_path: Path) -> None:

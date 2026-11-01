@@ -527,6 +527,137 @@ def test_ntwc_explicit_seconds_cadence_and_centimeters_are_preserved(tmp_path: P
     assert read_rows(tmp_path / "out")[0]["numeric_value"] == "2.239"
 
 
+@pytest.mark.parametrize(
+    ("measurement", "family", "nominal"),
+    [
+        (b"Radar cm UTC sec    Unfiltered", "ntwc_radar_unit_only_v1", None),
+        (b"DART2 mm UTC 1+ min Water_Depth NTWC Unfiltered", "ntwc_variable_cadence_v1", 60),
+    ],
+)
+def test_ntwc_nonuniform_headers_keep_native_values_without_inventing_cadence(
+    tmp_path: Path, measurement: bytes, family: str, nominal: int | None
+) -> None:
+    config, receipts, events, raw = fixture(tmp_path, "ntwc")
+    original = raw.read_bytes()
+    payload = original.replace(b"NGWLMS m UTC 1 min MLLW NTWC Unfiltered", measurement)
+    replace_raw(raw, receipts, payload)
+    summary = build([config], [receipts], events, tmp_path, tmp_path / "out")
+    rows, entry = read_rows(tmp_path / "out"), summary["sources"][0]
+    assert len(rows) == 6
+    assert rows[0]["numeric_value"] == "2.239"
+    assert rows[0]["raw_value"] == "2.239000"
+    assert rows[0]["timestamp_utc"] == "2011-03-11T00:00:00Z"
+    assert rows[0]["duplicate_timestamp"] == rows[1]["duplicate_timestamp"] == "True"
+    assert rows[4]["timestamp_state"] == "epoch_calendar_mismatch"
+    assert rows[5]["timestamp_state"] == "malformed_row"
+    assert [json.loads(r["raw_row_json"])["line"] for r in rows] == (
+        payload.decode().splitlines()[4:]
+    )
+    assert entry["declared_cadence_seconds"] == "unknown"
+    assert entry["gaps_over_declared_cadence"] == "unknown"
+    assert entry["source_metadata"]["format_rule_id"] == family
+    assert entry["source_metadata"].get("nominal_cadence_seconds") == nominal
+    assert entry["units"] == ("cm" if nominal is None else "mm")
+    assert summary["series_coverage"] == []
+    if nominal is None:
+        assert entry["vertical_datum"] == "unknown"
+        assert entry["source_metadata"]["relay"] == "unknown"
+    else:
+        assert entry["source_metadata"]["cadence_value"] == "1+"
+        assert entry["signal_family"] == "bottom_pressure_or_depth"
+    repeated = build([config], [receipts], events, tmp_path, tmp_path / "repeated")
+    assert repeated == summary
+    for path in (tmp_path / "out").rglob("*"):
+        if path.is_file():
+            counterpart = tmp_path / "repeated" / path.relative_to(tmp_path / "out")
+            assert path.read_bytes() == counterpart.read_bytes()
+
+
+@pytest.mark.parametrize(
+    ("payload", "family"),
+    [
+        (b"268.958344 1.535000\n269.954468 1.269000\n", "headerless_fractional_day"),
+        (b"+00500.17 449997120561\n+00500.52 449997122840\n", "headerless_encoded_clock"),
+        (
+            b"# Water level record at Example Tide gauge\n"
+            b"# Timeseries is from 2011-03-10 00:00:00 to 2011-03-12 00:00:00\n"
+            b"# Time values in seconds before/after event time: 2011-03-11 05:46:24\n"
+            b"# Detided by NCTR Model Atlas using Butterworth filter (120.0 minute max T)\n"
+            b"time height\n-60 -0.04\n0 0.02\n",
+            "nctr_predetided_event_relative",
+        ),
+    ],
+)
+def test_unsupported_clock_and_processing_families_are_explicitly_accounted(
+    tmp_path: Path, payload: bytes, family: str
+) -> None:
+    config, receipts, events, raw = fixture(tmp_path, "ntwc")
+    config.write_text(
+        config.read_text().replace(
+            'expected_prefix="Example,_USA"',
+            f'expected_prefix={json.dumps(payload.decode().split()[0])}',
+        )
+    )
+    replace_raw(raw, receipts, payload)
+    summary = build([config], [receipts], events, tmp_path, tmp_path / "out", retain_unparsed=True)
+    entry = summary["sources"][0]
+    assert entry["processing_status"] == "retained_unparsed_source"
+    assert entry["unsupported_format_family"] == family
+    assert entry["source_line_count"] == len(payload.splitlines())
+    assert entry["source_sha256"] == hashlib.sha256(payload).hexdigest()
+    assert entry["source_rows"] == 0
+    assert not list((tmp_path / "out").rglob("*.csv.gz"))
+    if family == "nctr_predetided_event_relative":
+        assert entry["source_processing_level"] == "provider_predetided"
+
+
+def test_header_date_conflict_requires_review_even_when_row_clocks_agree(tmp_path: Path) -> None:
+    config, receipts, events, raw = fixture(tmp_path, "ntwc")
+    payload = raw.read_bytes().replace(b"20.0 20110311", b"20.0 20110310")
+    replace_raw(raw, receipts, payload)
+    summary = build([config], [receipts], events, tmp_path, tmp_path / "out", retain_unparsed=True)
+    entry = summary["sources"][0]
+    assert entry["processing_status"] == "retained_unparsed_source"
+    assert entry["unsupported_format_family"] == "ntwc_header_filename_date_conflict"
+    assert "review" in entry["parse_reason"]
+    assert entry["source_rows"] == 0
+
+
+@pytest.mark.parametrize(
+    "measurement",
+    [
+        b"Radar cm LOCAL sec Unfiltered",
+        b"Radar cm UTC bananas Unfiltered",
+        b"DART2 mm UTC 0+ min Water_Depth NTWC Unfiltered",
+    ],
+)
+def test_new_header_variants_keep_invalid_time_and_cadence_evidence_unsupported(
+    tmp_path: Path, measurement: bytes
+) -> None:
+    config, receipts, events, raw = fixture(tmp_path, "ntwc")
+    replace_raw(
+        raw,
+        receipts,
+        raw.read_bytes().replace(b"NGWLMS m UTC 1 min MLLW NTWC Unfiltered", measurement),
+    )
+    summary = build([config], [receipts], events, tmp_path, tmp_path / "out", retain_unparsed=True)
+    assert summary["sources"][0]["processing_status"] == "retained_unparsed_source"
+
+
+def test_variable_cadence_rejects_nonfinite_nominal_metadata(tmp_path: Path) -> None:
+    config, receipts, events, raw = fixture(tmp_path, "ntwc")
+    measurement = b"DART2 mm UTC " + b"9" * 400 + b"+ min Water_Depth NTWC Unfiltered"
+    replace_raw(
+        raw, receipts,
+        raw.read_bytes().replace(b"NGWLMS m UTC 1 min MLLW NTWC Unfiltered", measurement),
+    )
+    summary = build([config], [receipts], events, tmp_path, tmp_path / "out", retain_unparsed=True)
+    entry = summary["sources"][0]
+    assert entry["processing_status"] == "retained_unparsed_source"
+    assert entry["parse_reason"] == "invalid NTWC nominal cadence"
+    assert "Infinity" not in (tmp_path / "out/manifest.json").read_text()
+
+
 @pytest.mark.parametrize("receipt_proves_digest", [True, False])
 def test_pinned_cdx_normalization_rechecks_body_and_acquisition_receipt(
     tmp_path: Path, receipt_proves_digest: bool

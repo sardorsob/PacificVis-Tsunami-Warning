@@ -67,6 +67,15 @@ COLUMNS: tuple[str, ...] = (
 )
 
 
+class UnsupportedWaveformFormat(ValueError):
+    """Retain a known source family whose clock or measurement meaning is unresolved."""
+
+    def __init__(self, family: str, reason: str, processing_level: str = "unknown") -> None:
+        super().__init__(reason)
+        self.family = family
+        self.processing_level = processing_level
+
+
 def _json(value: object) -> str:
     return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 
@@ -158,13 +167,80 @@ def _coops(
     )
 
 
+def _ntwc_header(text: str, filename: str) -> dict[str, Any]:
+    """Read supported header variants without inferring absent measurement metadata."""
+    lines = text.splitlines()
+    if lines and lines[0].startswith("# Water level record") and "# Detided by NCTR" in text:
+        raise UnsupportedWaveformFormat(
+            "nctr_predetided_event_relative",
+            "provider-detided event-relative series needs verified height units and time zone; "
+            "keep a separate derived-product family",
+            "provider_predetided",
+        )
+    if lines and re.fullmatch(r"[+-]\d+\.\d+\s+\d{12}", lines[0].strip()):
+        raise UnsupportedWaveformFormat(
+            "headerless_encoded_clock",
+            "headerless encoded clock needs source documentation for encoding, units and time zone",
+        )
+    if lines and re.fullmatch(r"\d+\.\d+\s+[+-]?\d+\.\d+", lines[0].strip()):
+        raise UnsupportedWaveformFormat(
+            "headerless_fractional_day",
+            "headerless fractional-day candidate needs year/day convention, time zone and units",
+        )
+    unit_only = len(lines) >= 4 and lines[1].split() == [
+        "Radar", "cm", "UTC", "sec", "Unfiltered"
+    ]
+    adapted = list(lines)
+    if unit_only:
+        # The short source header omits cadence, datum and relay. Explicit unknown
+        # tokens let the shared identity/date checks run without inventing them.
+        adapted[1] = "Radar cm UTC unknown sec unknown unknown Unfiltered"
+    try:
+        header = parse_ntwc_header("\n".join(adapted), filename)
+    except ValueError as exc:
+        if "header date conflicts with filename" in str(exc):
+            raise UnsupportedWaveformFormat(
+                "ntwc_header_filename_date_conflict",
+                f"{exc}; a source-specific review rule is required before date promotion",
+            ) from exc
+        raise
+    variable = re.fullmatch(r"([1-9]\d*(?:\.\d+)?)\+", str(header["cadence_value"]))
+    if unit_only or variable:
+        if " ".join(lines[3].split()) != (
+            "Data Format: SampleTime(epochal 1/1/1970) WaterLevel SampleTime(yyymmddhhmmss)"
+        ):
+            raise ValueError("unsupported NTWC redundant-clock column definition")
+        if header["time_basis"] != "UTC" or header["cadence_units"] not in {"min", "sec"}:
+            raise ValueError("unsupported NTWC time basis or cadence units")
+        if header["units"] not in {"m", "cm", "mm"} or header["processing"] != "Unfiltered":
+            raise ValueError("unsupported NTWC measurement units or processing level")
+        header.update(
+            format_rule_id="ntwc_radar_unit_only_v1" if unit_only else "ntwc_variable_cadence_v1",
+            source_measurement_header=lines[1],
+            cadence_state="not_declared" if unit_only else "variable_nominal",
+        )
+        if variable:
+            nominal = float(variable[1]) * (
+                60 if header["cadence_units"] == "min" else 1
+            )
+            if not math.isfinite(nominal) or nominal <= 0:
+                raise ValueError("invalid NTWC nominal cadence")
+            header["nominal_cadence_seconds"] = nominal
+    return header
+
+
 def _ntwc(contract: SourceContract, raw: bytes) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    lines = raw.decode("utf-8").splitlines()
-    header = parse_ntwc_header(raw.decode("utf-8"), contract.local_path.name)
+    text = raw.decode("utf-8")
+    lines = text.splitlines()
+    header = _ntwc_header(text, contract.local_path.name)
     if header["time_basis"] != "UTC" or header["cadence_units"] not in {"min", "sec"}:
         raise ValueError("unsupported NTWC time basis or cadence units")
-    cadence = float(header["cadence_value"]) * (60 if header["cadence_units"] == "min" else 1)
-    if not math.isfinite(cadence) or cadence <= 0:
+    cadence: float | str = (
+        "unknown"
+        if header.get("cadence_state") in {"not_declared", "variable_nominal"}
+        else float(header["cadence_value"]) * (60 if header["cadence_units"] == "min" else 1)
+    )
+    if isinstance(cadence, float) and (not math.isfinite(cadence) or cadence <= 0):
         raise ValueError("invalid NTWC cadence")
     day_end = datetime.fromisoformat(str(header["header_date"])).replace(tzinfo=UTC) + timedelta(
         days=1
@@ -219,7 +295,7 @@ def _ntwc(contract: SourceContract, raw: bytes) -> tuple[list[dict[str, Any]], d
             )
         )
     station_id = str(header["header_station_id"])
-    return records, dict(
+    meta = dict(
         station_key=f"ntwc-{header['link_code']}",
         provider_station_id="unknown"
         if station_id.casefold() in {"none", "unknown"}
@@ -235,6 +311,15 @@ def _ntwc(contract: SourceContract, raw: bytes) -> tuple[list[dict[str, Any]], d
         expected_grid_timestamps="unknown",
         source_metadata=header,
     )
+    if header.get("format_rule_id"):
+        meta["source_processing_level"] = "source_reported_unfiltered"
+        meta["signal_family"] = (
+            "bottom_pressure_or_depth"
+            if str(header["header_name"]).casefold().startswith("dart")
+            or str(header["measurement_system"]).casefold().startswith("dart")
+            else "coastal_water_level"
+        )
+    return records, meta
 
 
 def _write(path: Path, records: list[dict[str, Any]]) -> None:
@@ -556,6 +641,11 @@ def build(
                         parse_reason=str(exc),
                         timing_and_units="unresolved; raw bytes retained without inferred values",
                     )
+                    if isinstance(exc, UnsupportedWaveformFormat):
+                        entry.update(
+                            unsupported_format_family=exc.family,
+                            source_processing_level=exc.processing_level,
+                        )
                     continue
                 if meta.get("processing_status") == "unavailable_provider_response":
                     entry.update(meta)
@@ -609,12 +699,16 @@ def build(
                     observed_delta_seconds={str(k): v for k, v in sorted(deltas.items())},
                     gaps_over_declared_cadence=sum(
                         n for gap, n in deltas.items() if gap > meta["declared_cadence_seconds"]
-                    ),
+                    )
+                    if isinstance(meta["declared_cadence_seconds"], (int, float))
+                    else "unknown",
                     missing_grid_timestamps=expected - len(times)
                     if isinstance(expected, int)
                     else "unknown",
                 )
-                if entry["purpose"] == "event_window":
+                if entry["purpose"] == "event_window" and isinstance(
+                    meta["declared_cadence_seconds"], (int, float)
+                ):
                     key = (
                         eid,
                         meta["station_key"],
