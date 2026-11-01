@@ -1,0 +1,10 @@
+{
+  "decision": "recommend_targeted_recovery_with_source_contracts",
+  "git_sha": "de0e711776471f7887dd0ea9edc96fe1c7f890d4",
+  "mlflow_run_id": "22d2df407e174eb7a98f7668d3867a49",
+  "model_fitted": false,
+  "record_kind": "offline_missingness_diagnosis",
+  "reserved_outcomes_accessed": false,
+  "run_id": "2026-11-01__042107__missingness-mechanism__de0e711",
+  "timestamp_utc": "2026-11-01T04:21:07.091101+00:00"
+}

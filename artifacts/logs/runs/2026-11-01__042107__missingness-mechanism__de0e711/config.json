@@ -1,0 +1,6 @@
+{
+  "analysis_sha256": "c098502660ae079f6f00c3ac46e886b94bf62b6e6f606d0b06f305724f84163c",
+  "classification": "current field-state; structural first, source absence, qualifier, footnote, semantic, calendar",
+  "corpus": "arrival-corpus/foundation-v5",
+  "independent_source_review_sha256": "65e1878c40c5c855218802bd2db43900f5a745d3589afb0c1fb782ad26563dd7"
+}

@@ -1,0 +1,17 @@
+{
+  "absent_observed_total": 289,
+  "absent_observed_with_positive_peak": 273,
+  "byte_identical_replay": 1,
+  "calendar_context_unresolved": 230,
+  "exact_pairs": 388,
+  "independent_partition_agrees": 1,
+  "input_files_pinned": 277,
+  "paired_geography_pending": 229,
+  "paired_geography_reviewed_candidates": 159,
+  "qualified_or_footnoted_or_semantic": 11,
+  "raw_field_readbacks": 1142,
+  "retained_reports": 1177,
+  "source_time_absence": 513,
+  "structural_rows": 35,
+  "unresolved_pairs": 789
+}
