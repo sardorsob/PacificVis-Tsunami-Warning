@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from email.message import Message
 from http.client import IncompleteRead
 from pathlib import Path, PurePosixPath
+from types import SimpleNamespace
 from typing import Any, cast
 from urllib.error import HTTPError, URLError
 from urllib.request import Request
@@ -1174,16 +1175,23 @@ def test_acquire_all_defensively_isolates_a_nul_path(tmp_path: Path) -> None:
 def test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    import time as process_time
+
     import pipeline.acquisition as acquisition
 
+    original_monotonic, original_sleep = process_time.monotonic, process_time.sleep
     clock = [0.0]
     starts: list[float] = []
 
     def sleep(delay: float) -> None:
         clock[0] += delay
 
-    monkeypatch.setattr(acquisition.time, "monotonic", lambda: clock[0])
-    monkeypatch.setattr(acquisition.time, "sleep", sleep)
+    monkeypatch.setattr(
+        acquisition, "time", SimpleNamespace(monotonic=lambda: clock[0], sleep=sleep)
+    )
+    # Background workers must keep the real process clock while this test runs.
+    assert process_time.monotonic is original_monotonic
+    assert process_time.sleep is original_sleep
     cached = sample_contract(source_id="a", local_path=PurePosixPath("data/a"))
     blocked = sample_contract(source_id="b", availability="blocked")
     wanted = sample_contract(source_id="c", local_path=PurePosixPath("data/c"))
