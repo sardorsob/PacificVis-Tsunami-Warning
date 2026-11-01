@@ -20,7 +20,7 @@ import tomllib
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -182,9 +182,20 @@ def _source_url_overlaps(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
             **{
                 key: source.get(key, "unknown")
                 for key in (
-                    "source_url", "source_id", "event_id", "purpose", "source_sha256",
-                    "output_sha256", "processing_status", "acquisition_status", "raw_path",
-                    "normalized_path", "provider", "sensor", "units", "vertical_datum",
+                    "source_url",
+                    "source_id",
+                    "event_id",
+                    "purpose",
+                    "source_sha256",
+                    "output_sha256",
+                    "processing_status",
+                    "acquisition_status",
+                    "raw_path",
+                    "normalized_path",
+                    "provider",
+                    "sensor",
+                    "units",
+                    "vertical_datum",
                     "source_rows",
                 )
             },
@@ -464,6 +475,188 @@ def _viewer(
     return exports, readiness
 
 
+def _recovery_bundle(
+    root: Path,
+    folder: Path,
+    corpus: Path,
+    crosswalk: Path,
+    corpus_summary: dict[str, Any],
+    events: dict[str, dict[str, Any]],
+    report_events: dict[str, str],
+) -> tuple[dict[str, Any], dict[str, Path], dict[Path, str]]:
+    """Verify an optional private recovery package without changing legacy support."""
+    versions = {
+        "T-OBS": "reported_duration_from_reviewed_reference_v1",
+        "T-CAL": "reported_absolute_difference_v1",
+    }
+    folder = _inside(root, folder)
+    manifest_path = folder / "manifest.json"
+    manifest, summary = _json(manifest_path), _json(folder / "summary.json")
+    if summary.get("schema_version") != "arrival-recovery-qa-v1" or summary.get(
+        "input_sha256"
+    ) != manifest.get("input_sha256"):
+        raise ValueError("recovery summary/manifest lineage mismatch")
+    stems = {
+        "recovery_delta",
+        "fold_support",
+        "site_degrees",
+        "balance",
+        "evidence_gap_queue",
+        "t-obs",
+        "t-cal",
+    }
+    allowed = {f"{stem}.{suffix}" for stem in stems for suffix in ("json", "csv")}
+    allowed.add("summary.json")
+    required = {f"{stem}.json" for stem in stems} | {"summary.json"}
+    outputs = manifest["output_sha256"]
+    if not required <= set(outputs) <= allowed:
+        raise ValueError("recovery manifest has missing or unsupported output paths")
+    files = {"manifest.json": manifest_path}
+    pins = {manifest_path: _sha(manifest_path)}
+    for name, digest in outputs.items():
+        path = _member(folder, name)
+        if path.parent != folder or path.name != name:
+            raise ValueError("recovery output path must be an exact local filename")
+        _verify(path, digest)
+        files[name], pins[path] = path, digest
+    for name, digest in manifest["input_sha256"].items():
+        path = _inside(root, Path(name))
+        if _relative(root, path) != name:
+            raise ValueError("recovery input path must be exact and project-relative")
+        _verify(path, digest)
+        pins[path] = digest
+    for path in (corpus / "summary.json", crosswalk / "unique_report_crosswalk.csv"):
+        if manifest["input_sha256"].get(_relative(root, path)) != _sha(path):
+            raise ValueError("recovery does not pin the current corpus/crosswalk")
+    if corpus_summary["input_sha256"].get("crosswalk") != _sha(
+        crosswalk / "unique_report_crosswalk.csv"
+    ):
+        raise ValueError("corpus/recovery crosswalk checksum mismatch")
+    configs = [
+        path
+        for path, digest in pins.items()
+        if path.suffix == ".toml" and digest == corpus_summary["input_sha256"].get("config")
+    ]
+    if not configs:
+        raise ValueError("recovery lacks the current corpus event-config pin")
+    for config in configs:
+        configured = tomllib.loads(config.read_text(encoding="utf-8"))["events"]
+        roles = {row["event_id"]: row["role"] for row in configured.values()}
+        if roles != {eid: row["role"] for eid, row in events.items()}:
+            raise ValueError("recovery event-config roles differ from frozen selection")
+
+    def inspect(value: Any) -> None:
+        if isinstance(value, dict):
+            value = cast(dict[str, Any], value)
+            if "event_id" in value:
+                _assert_development([value], events)
+            if "report_id" in value and report_events.get(value["report_id"]) != value.get(
+                "event_id"
+            ):
+                raise ValueError("recovery report/event identity mismatch")
+            if "target_id" in value:
+                target = value["target_id"]
+                if (
+                    target not in versions
+                    or value.get("target_version", versions[target]) != versions[target]
+                ):
+                    raise ValueError("recovery target version mismatch")
+            if (
+                value.get("fold") == "LOEO"
+                and events.get(str(value.get("held_out", "")), {}).get("role") != "development"
+            ):
+                raise ValueError("recovery fold contains reserved event")
+            for key, item in value.items():
+                if key in {"model_eligible", "physical_onset_validated", "acquisition_eligible"}:
+                    if item not in (False, "False", "false"):
+                        raise ValueError(
+                            "recovery must retain false scientific/acquisition approvals"
+                        )
+                if key in {"events", "unseen_events"}:
+                    members = (
+                        json.loads(item) if isinstance(item, str) and item.startswith("[") else item
+                    )
+                    if isinstance(members, list):
+                        for member in cast(list[Any], members):
+                            if (
+                                not isinstance(member, str)
+                                or events.get(member, {}).get("role") != "development"
+                            ):
+                                raise ValueError("recovery graph contains reserved event")
+                inspect(item)
+        elif isinstance(value, list):
+            for item in cast(list[Any], value):
+                inspect(item)
+
+    for name, path in files.items():
+        inspect(_json(path) if name.endswith(".json") else _records(path))
+    if (
+        summary["counts"].get("reserved_rows") != 0
+        or summary["counts"].get("reports") != corpus_summary["source_rows"]
+        or summary["counts"].get("new_pairs") != corpus_summary["exact_pairs"]
+        or summary["counts"].get("exact_observed_values") != corpus_summary["exact_observed_values"]
+    ):
+        raise ValueError("recovery counts differ from current corpus")
+    delta = _json(files["recovery_delta.json"])
+    if len(delta) != len(report_events) or {row["report_id"] for row in delta} != set(
+        report_events
+    ):
+        raise ValueError("recovery delta does not conserve all reports")
+    for stem in stems:
+        if f"{stem}.csv" not in files:
+            continue
+        expected_rows = [
+            {
+                key: json.dumps(value, sort_keys=True)
+                if isinstance(value, (list, dict))
+                else str(value)
+                for key, value in row.items()
+            }
+            for row in _json(files[f"{stem}.json"])
+        ]
+        if _records(files[f"{stem}.csv"]) != expected_rows:
+            raise ValueError("recovery CSV/JSON content mismatch")
+    corpus_targets: list[dict[str, str]] = []
+    for relative in corpus_summary["output_sha256"]:
+        if Path(relative).name == "target_eligibility.csv.gz":
+            corpus_targets.extend(_records(_member(corpus, relative)))
+    target_counts: dict[str, int] = {}
+    for target, version in versions.items():
+        rows = _json(files[target.lower() + ".json"])
+        count = len(rows)
+        if (
+            len({row["report_id"] for row in rows}) != count
+            or any(row["target_id"] != target or row["target_version"] != version for row in rows)
+            or summary["targets"][target]["target_version"] != version
+            or summary["targets"][target]["eligible_reports"] != count
+            or corpus_summary["target_eligible"][target] != count
+        ):
+            raise ValueError("recovery target view/count/version mismatch")
+        eligible_ids = {
+            row["report_id"]
+            for row in corpus_targets
+            if row["target_id"] == target
+            and row["target_version"] == version
+            and _true(row["eligible"])
+        }
+        if eligible_ids != {row["report_id"] for row in rows}:
+            raise ValueError("recovery target view differs from corpus eligibility")
+        csv_name = target.lower() + ".csv"
+        if csv_name in files and len(_records(files[csv_name])) != count:
+            raise ValueError("recovery target CSV/JSON count mismatch")
+        target_counts[target] = count
+    metadata = dict(
+        path="paper/recovery",
+        source_directory=_relative(root, folder),
+        target_versions=versions,
+        target_eligible_reports=target_counts,
+        interpretation="Candidate reported targets and descriptive support; no model approval",
+        model_eligible=False,
+        physical_onset_validated=False,
+    )
+    return metadata, files, pins
+
+
 def build(
     root: Path,
     screen: Path,
@@ -475,6 +668,7 @@ def build(
     waveforms: Path,
     output: Path,
     contours: Path | None = None,
+    recovery_design: Path | None = None,
 ) -> dict[str, Any]:
     """Verify lineage, preserve every report, and publish a new immutable bundle."""
     if output.exists():
@@ -577,6 +771,13 @@ def build(
         _verify(_inside(root, Path(row["processed_path"])), row["processed_sha256"])
     waveform_manifest = _json(waveforms / "manifest.json")
     sources = _wave_sources(root, waveforms, waveform_manifest, events)
+    recovery_metadata: dict[str, Any] = {}
+    recovery_files: dict[str, Path] = {}
+    recovery_pins: dict[Path, str] = {}
+    if recovery_design is not None:
+        recovery_metadata, recovery_files, recovery_pins = _recovery_bundle(
+            root, recovery_design, corpus, crosswalk, summary, events, report_events
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=".multi-event-catalog-", dir=output.parent))
     try:
@@ -906,6 +1107,13 @@ def build(
             temporary / "catalog.json",
             {"schema_version": "multi-event-private-catalog-v1", "entries": private},
         )
+        if recovery_metadata:
+            dictionary["paper_recovery"] = recovery_metadata
+            destination = temporary / "paper/recovery"
+            destination.mkdir(parents=True)
+            for name, path in sorted(recovery_files.items()):
+                shutil.copyfile(path, destination / name)
+                _verify(destination / name, recovery_pins[path])
         _write_json(temporary / "data_dictionary.json", dictionary)
         inputs = [
             screen,
@@ -928,6 +1136,10 @@ def build(
             for name in tables
             if name.startswith("paper/") and (design / Path(name).name).exists()
         )
+        if recovery_metadata:
+            for path, digest in recovery_pins.items():
+                _verify(path, digest)
+            inputs.extend(recovery_pins)
         result: dict[str, Any] = {
             "schema_version": "multi-event-package-v1",
             "archive_entries": len(dispositions),
@@ -952,6 +1164,8 @@ def build(
                 "all sibling files are private paper evidence"
             ),
         }
+        if recovery_metadata:
+            result["paper_recovery"] = recovery_metadata
         _write_json(temporary / "manifest.json", result)
         if output.exists():
             raise FileExistsError(output)
@@ -966,6 +1180,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--contours", type=Path)
+    parser.add_argument(
+        "--recovery-design",
+        type=Path,
+        help="Copy verified candidate target/support tables into paper/recovery only.",
+    )
     for name in (
         "screen",
         "selection",
@@ -989,6 +1208,7 @@ def main() -> None:
         args.waveforms,
         args.output,
         args.contours,
+        args.recovery_design,
     )
     print(
         json.dumps(

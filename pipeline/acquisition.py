@@ -299,6 +299,10 @@ def load_contracts(path: Path) -> tuple[SourceContract, ...]:
                  and not (field == "expected_prefix" and cdx["expected_cdx_sha1"])]
         if blank:
             raise ContractError(f"asset {name!r} has blank fields: {', '.join(blank)}")
+        try:
+            _prefix_bytes(strings["expected_prefix"])
+        except ValueError as error:
+            raise ContractError(f"asset {name!r} has invalid expected_prefix") from error
         availability = strings["availability"]
         if availability not in {"approved", "blocked"}:
             raise ContractError(f"asset {name!r} has unsupported availability {availability!r}")
@@ -371,9 +375,21 @@ def _sha256(path: Path) -> tuple[int, str]:
     return size, digest.hexdigest()
 
 
+def _prefix_bytes(prefix: str) -> bytes:
+    if prefix.startswith("hex:"):
+        encoded = prefix.removeprefix("hex:")
+        if not re.fullmatch(r"(?:[0-9a-fA-F]{2})+", encoded):
+            raise ValueError("invalid binary expected_prefix")
+        return bytes.fromhex(encoded)
+    return prefix.encode("utf-8")
+
+
 def _matches_prefix(path: Path, expected_prefix: str) -> bool:
     with path.open("rb") as source:
-        return source.read(PREFIX_WINDOW_BYTES).lstrip().startswith(expected_prefix.encode("utf-8"))
+        leading = source.read(PREFIX_WINDOW_BYTES)
+    return (leading if expected_prefix.startswith("hex:") else leading.lstrip()).startswith(
+        _prefix_bytes(expected_prefix)
+    )
 
 
 def _content_error(path: Path, contract: SourceContract) -> str | None:

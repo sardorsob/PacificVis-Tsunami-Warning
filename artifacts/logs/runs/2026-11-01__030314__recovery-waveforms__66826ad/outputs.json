@@ -1,0 +1,6 @@
+{
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/waveform-format-independent-check-v2.json": "88e54a86854600957c67715a23a754a92172b4923337a8ca3ead2b012749fb37",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/waveform-v5-check.json": "6b2e0a895b616d31ffbf7ceec1aaaaeb2a8b2a94c3d3af2ceb9dff167232d7f9",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/waveform-v5-replay.json": "78c1238cebbea045208da7d3740bba038b14d83096774a457bda58fcc90440ab",
+  "data/processed/arrival-waveforms/foundation-v5/manifest.json": "2fe367fb7de7f23b758bc65477c55d739626e62699fc0fb7fdc74285831868d1"
+}

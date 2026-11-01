@@ -1,0 +1,31 @@
+{
+  "assessment_sha256": "2756e3472be3687b0348dc38ef90a92682a101c67b049fdbe4914b4973f39e01",
+  "baseline": "6907e10",
+  "candidate_rows": 68204,
+  "candidate_sources": 36,
+  "check_script_sha256": "b269734c2f7a9385f960599f1a75a1cc5b242b744bf42c546bc313a782ca1326",
+  "code_sha256": "e814d7d965e882bceb22349beb8729de4300b361771a77471a62e1e12c246ced",
+  "families": {
+    "headerless_encoded_clock": 9,
+    "headerless_fractional_day": 8,
+    "nctr_predetided_event_relative": 1,
+    "ntwc_header_filename_date_conflict": 3,
+    "ntwc_radar_unit_only_v1": 13,
+    "ntwc_variable_cadence_v1": 2
+  },
+  "focused_checks": {
+    "pyright": "0 errors, 0 warnings, 0 informations",
+    "pytest": "84 passed in 0.74s",
+    "ruff": "All checks passed!"
+  },
+  "limitations": [
+    "Parser-level comparison plus every frozen CSV parser-owned field and raw/output hashes verified; full foundation builder not rerun.",
+    "15 supported files are candidates pending versioned rebuild; no native rows published by this review.",
+    "Assessment and original verification artifacts predate the finite nominal-cadence guard; this independent receipt binds current guard/test source hashes."
+  ],
+  "no_project_files_modified": true,
+  "normalized_files": 1768,
+  "normalized_rows": 3688140,
+  "status": "PASS",
+  "test_sha256": "42cd069ca72f20401ac91cb90cf9b81e09aec415a38d6636b175ce9ea7f514bd"
+}

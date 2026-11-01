@@ -1,0 +1,7 @@
+{
+  "config/ntwc-reported-clock-context-v2.csv": "a30983be8ce41f57594ed509494b601634c4d8fd5875998c4b516e5f13dbed1f",
+  "config/ntwc-time-evidence-v1.csv": "a18f0e3b7f8c6196d5b052930f5952ea694b4220f06dd154fd885ff09117dd86",
+  "pipeline/arrival_corpus.py": "7711f263151d20b3a569c70550639bb5b8c0380b990a483d1bda283f01b4ee82",
+  "pipeline/reported_time.py": "200a8829061927b732df10a415c39398a7b89bf5d635962c58af280f972d9ed8",
+  "scripts/build_arrival_corpus.py": "c08ec5932649a94748c2c4b927c15bff98f9faa2472bb746f5d0ba7fc1a44d06"
+}

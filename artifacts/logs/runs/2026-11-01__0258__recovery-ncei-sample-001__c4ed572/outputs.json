@@ -1,0 +1,56 @@
+[
+  {
+    "bytes": 22840,
+    "content_type": "application/json",
+    "final_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2406&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+    "headers": {
+      "access-control-allow-headers": "[redacted]",
+      "access-control-allow-origin": "[redacted]",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "connection": "[redacted]",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 02:58:53 GMT",
+      "expires": "0",
+      "pragma": "[redacted]",
+      "server": "[redacted]",
+      "strict-transport-security": "[redacted]",
+      "transfer-encoding": "chunked",
+      "vary": "accept-encoding",
+      "x-content-type-options": "[redacted]",
+      "x-frame-options": "[redacted]",
+      "x-xss-protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/ncei-sample-v1/recovery-ncei-cf8ef33cf7f0b39d.json",
+    "reason": "not applicable",
+    "sha256": "dc04b370fbd5719dfffc2947947ae289ef806948d816a0bb5ea8da67c77613e0",
+    "source_id": "recovery-ncei-cf8ef33cf7f0b39d",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 50779,
+    "content_type": "application/json",
+    "final_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2373&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+    "headers": {
+      "access-control-allow-headers": "[redacted]",
+      "access-control-allow-origin": "[redacted]",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "connection": "[redacted]",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 02:58:54 GMT",
+      "expires": "0",
+      "pragma": "[redacted]",
+      "server": "[redacted]",
+      "strict-transport-security": "[redacted]",
+      "transfer-encoding": "chunked",
+      "vary": "accept-encoding",
+      "x-content-type-options": "[redacted]",
+      "x-frame-options": "[redacted]",
+      "x-xss-protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/ncei-sample-v1/recovery-ncei-f18e10b0dac4bde2.json",
+    "reason": "not applicable",
+    "sha256": "cbdca0ba7cb4be96768d1ca02acadcaa30fc7ff9a53d175aea014d3df7b2361d",
+    "source_id": "recovery-ncei-f18e10b0dac4bde2",
+    "status": "downloaded"
+  }
+]

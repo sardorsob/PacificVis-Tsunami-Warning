@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "files": 1785,
+  "byte_identical": true,
+  "manifest_sha256": "2fe367fb7de7f23b758bc65477c55d739626e62699fc0fb7fdc74285831868d1",
+  "recipe_sha256": "765b45add0e0634f17c158fd4d6ed4a90ccd31b598653821f846b47f22084730",
+  "source_rows": 3756344,
+  "normalized_source_files": 1783
+}

@@ -13,3 +13,5 @@ artifacts/logs/runs/** -text whitespace=-trailing-space,-blank-at-eof
 artifacts/provenance/*.csv -text whitespace=cr-at-eol
 config/*.csv -text whitespace=cr-at-eol
 config/ia-site-headers-v2.toml -text whitespace=-blank-at-eof
+config/arrival-recovery-evidence-v1.toml -text whitespace=-blank-at-eof
+config/arrival-recovery-ncei-sample-v1.toml -text whitespace=-blank-at-eof

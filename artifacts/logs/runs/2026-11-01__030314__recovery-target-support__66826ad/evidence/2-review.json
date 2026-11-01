@@ -1,0 +1,76 @@
+{
+  "actual_data_checks": {
+    "baseline_pairs_conserved": 314,
+    "evidence_locator_quotes_verified": 50,
+    "evidence_records": 12,
+    "input_hashes_checked": 850,
+    "model_or_onset_approval": false,
+    "numerical_fold_ranks_checked": 290,
+    "numerical_graphs": {
+      "T-CAL": {
+        "active_columns": 111,
+        "components": 3,
+        "edges": 159,
+        "events": 17,
+        "indicator_matrix_rank": 108,
+        "sites": 94
+      },
+      "T-OBS": {
+        "active_columns": 179,
+        "components": 3,
+        "edges": 241,
+        "events": 20,
+        "indicator_matrix_rank": 176,
+        "sites": 159
+      }
+    },
+    "output_hashes_checked": 15,
+    "promoted_clocks_independently_parsed": {
+      "explicit_doy": 5,
+      "inline_month_day": 227
+    },
+    "qualified_footnoted_values_withheld": 18,
+    "raw_reports_conserved": 1177,
+    "reviewed_code_sha256": "783f9374b2fd69fc3a7f32f2c9e9223a9607f3a0beeff43c2d3b8cc0eef7f2a1",
+    "reviewed_tests_sha256": "5b9fad5c253014f1f9229092d3c90d757aa1abf17dd7d87ed501661b60be016b",
+    "status": "actual_pinned_data_and_calculations_pass; QA code defects subsequently resolved above"
+  },
+  "actual_data_receipt_sha256": "842b35f257cd6611628af2a34bee807d2ec3faf61e72bfa51f9318ce2227fd00",
+  "limitations": [
+    "Ranks describe geographic event/site support only; they do not imply posterior identifiability or model readiness.",
+    "No physical-onset, deployment-continuity or pre-arrival forecast-availability approval is given.",
+    "No source code was edited by this Checker; all source corrections were made by the author."
+  ],
+  "pyright": "0 errors,0 warnings",
+  "real_direct_cli_replay": "success; all16canonicaloutputfilesbyte-identical",
+  "resolved_findings": [
+    {
+      "issue": "Coherent inline timestamp/component corruption could override raw month/day literal",
+      "resolution": "Independent source-literal/calendar agreement required for scoped promotions; original adversarial reproduction now rejected."
+    },
+    {
+      "issue": "DirectCLIcouldnotimportanalysiswithoutPYTHONPATH",
+      "resolution": "Project-root bootstrap added; no-PYTHONPATHsubprocesstestpasses."
+    }
+  ],
+  "review_scope": "R3 corpus-recovery QA CLI, tests, real recovery-design-v1 data and descriptive graph support",
+  "reviewed_source_sha256": "a4db7c6102eccf0263f227c7ffe9eadfee57c1816363f8911310871054b10f97",
+  "reviewed_tests_sha256": "427ab3d64f7b47b04aff26a2912a5e2a81009acb865d499d4b3633d47780efef",
+  "root_inputs_unchanged": true,
+  "ruff": "pass",
+  "status": "PASS",
+  "target_arithmetic_checks": {
+    "T-CAL_sign": "estimated_minus_observed_seconds; positive means later estimate",
+    "T-OBS_origin": "pinned event elapsed_origin_utc; positive duration independently checked",
+    "all_target_flags_remain_false": true,
+    "balance_axis_total_checks": 10,
+    "reserved_rows": 0,
+    "rows": {
+      "T-CAL": 159,
+      "T-OBS": 241
+    },
+    "status": "independent_target_arithmetic_and_balance_conservation_pass",
+    "target_versions_verified": 2
+  },
+  "tests": "34 passed in0.29s"
+}

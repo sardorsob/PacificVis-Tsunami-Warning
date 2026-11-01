@@ -1,0 +1,13 @@
+[
+  {
+    "bytes": 5313063,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/ncei-semantics-v1/main.4768c122.js",
+    "reason": "not applicable",
+    "sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+    "source_id": "recovery-ncei-official-help-4768c122",
+    "status": "cached"
+  }
+]

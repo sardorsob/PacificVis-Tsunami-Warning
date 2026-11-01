@@ -1,0 +1,40 @@
+{
+  "additional_waveform_occurrences": 6,
+  "additional_waveform_urls": 4,
+  "all_additional_waveform_events_compound_unresolved": true,
+  "all_link_occurrences": 7992,
+  "artifacts": "/var/folders/8f/x2b8rw4s3z9b2rl88csj2kx80000gn/T/all-links-independent-xh6rocvd",
+  "assessment_sha256": "ff2da09c2392bb32999dc3d046e7c17aece42f765ac6e7a17b027bb6247c15ea",
+  "baseline": "6907e10",
+  "code_sha256": {
+    "pipeline/ntwc_archive.py": "f5b4b084a4db0eefd2547e1e8a69d8bfd6d2db3e7c176bc46a813856b351dd36",
+    "scripts/inventory_ntwc_pilot.py": "af4eabf2ca0ca3bcddcc6140f2a11c45196fb829665b15c1e2d1abbf642868da",
+    "tests/test_ntwc_archive.py": "ed228c35a5265cf8b11bcb7cba90a0c8eaefd32003d40a926c0a90eacff43bcf"
+  },
+  "default_six_file_baseline_and_frozen_compatibility": true,
+  "development_pages": 57,
+  "focused_checks": {
+    "pyright": "0 errors, 0 warnings, 0 informations",
+    "pytest": "63 passed in 0.10s",
+    "ruff": "All checks passed!"
+  },
+  "legacy_data_links": 2300,
+  "limitations": [
+    "Source src-only embedded assets are outside href inventory.",
+    "Filename types and URL safety are discovery evidence only; all acquisition states remain not_requested.",
+    "Additional four URLs are blocked compound-event evidence, not newly approved observations."
+  ],
+  "network_requests": 0,
+  "opt_in_eight_file_actual_replay": true,
+  "project_files_modified": false,
+  "raw_row_link_occurrences": 3427,
+  "role_mask": "pass",
+  "safety": {
+    "rejected_unsafe_url": 4491,
+    "safe_archive_link": 3501
+  },
+  "sealed_pages": 18,
+  "source_order_provenance_and_positions": "all development hrefs independently verified",
+  "status": "PASS",
+  "structural_link_occurrences": 10
+}

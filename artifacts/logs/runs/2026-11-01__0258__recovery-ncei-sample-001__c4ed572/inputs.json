@@ -1,0 +1,40 @@
+[
+  {
+    "availability": "approved",
+    "coordinate_order": "source-defined",
+    "crs": "unknown",
+    "expected_content_signature": "JSON results for independently matched NCEI tsunami event ID; gauge types2/3; validate pagination",
+    "expected_prefix": "{",
+    "format": "NOAA NCEI HaZEL JSON",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/arrival-recovery/ncei-sample-v1/recovery-ncei-cf8ef33cf7f0b39d.json",
+    "publisher": "NOAA NCEI",
+    "reason": "D-025 bounded secondary reported gauge sample after independently matched exact-date NCEI metadata; no reserved outcomes",
+    "source_class": "secondary_reported station observations sample",
+    "source_id": "recovery-ncei-cf8ef33cf7f0b39d",
+    "station_metadata": "{\"event_id\": \"official20030925195006360_27\", \"ncei_event_id\": 2406, \"purpose\": \"Sample source-family/schema/arrival-duration assessment; no automatic NTWC replacement\"}",
+    "temporal_semantics": "Source-defined; no automatic arrival or historic deployment promotion",
+    "units": "source-defined; metadata/annotation evidence",
+    "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2406&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+    "vertical_datum": "not applicable"
+  },
+  {
+    "availability": "approved",
+    "coordinate_order": "source-defined",
+    "crs": "unknown",
+    "expected_content_signature": "JSON results for independently matched NCEI tsunami event ID; gauge types2/3; validate pagination",
+    "expected_prefix": "{",
+    "format": "NOAA NCEI HaZEL JSON",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/arrival-recovery/ncei-sample-v1/recovery-ncei-f18e10b0dac4bde2.json",
+    "publisher": "NOAA NCEI",
+    "reason": "D-025 bounded secondary reported gauge sample after independently matched exact-date NCEI metadata; no reserved outcomes",
+    "source_class": "secondary_reported station observations sample",
+    "source_id": "recovery-ncei-f18e10b0dac4bde2",
+    "station_metadata": "{\"event_id\": \"official20010623203314130_33\", \"ncei_event_id\": 2373, \"purpose\": \"Sample source-family/schema/arrival-duration assessment; no automatic NTWC replacement\"}",
+    "temporal_semantics": "Source-defined; no automatic arrival or historic deployment promotion",
+    "units": "source-defined; metadata/annotation evidence",
+    "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2373&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+    "vertical_datum": "not applicable"
+  }
+]

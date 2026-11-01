@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_with_documented_limits",
+  "git_sha": "66826ad9f41e5f4b3dfe9173570b0425f9a9f7ce",
+  "lane": "paper-data-recovery",
+  "mlflow_run_id": "a162c7cc05bc4e59b531f38bd62bf884",
+  "model_fitted": false,
+  "record_kind": "post-run-reviewed-registration",
+  "reserved_values_accessed": false,
+  "run_id": "2026-11-01__030314__recovery-waveforms__66826ad",
+  "timestamp_utc": "2026-11-01T03:03:14.645301+00:00"
+}

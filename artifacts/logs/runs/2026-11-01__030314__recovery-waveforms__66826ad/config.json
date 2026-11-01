@@ -1,0 +1,9 @@
+{
+  "processing": "deterministic stage; original build/acquisition times retained in pinned upstream receipts",
+  "source_code_sha256": {
+    "config/arrival-waveforms-foundation-v5.toml": "765b45add0e0634f17c158fd4d6ed4a90ccd31b598653821f846b47f22084730",
+    "scripts/build_waveform_foundation.py": "175ae1929399551ab68e2b59a86b7987433d9a76a985e335b3e78e358a699f6d",
+    "scripts/normalize_audit_waveforms.py": "e814d7d965e882bceb22349beb8729de4300b361771a77471a62e1e12c246ced"
+  },
+  "stage": "recovery-waveforms"
+}

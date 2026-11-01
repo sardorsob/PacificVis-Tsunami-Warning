@@ -1,0 +1,8 @@
+{
+  "processing": "deterministic stage; original build/acquisition times retained in pinned upstream receipts",
+  "source_code_sha256": {
+    "config/arrival-recovery-evidence-v1.toml": "15fff1e329793e5fd5567a4f3556eb2d3274f8e93cbdb8d495d5d1a82607455c",
+    "pipeline/acquisition.py": "388d960a50f18bfc5d72da2fcea4d1cdfb4a14f0113d5e1d43894365748fbbd5"
+  },
+  "stage": "recovery-evidence-sample"
+}

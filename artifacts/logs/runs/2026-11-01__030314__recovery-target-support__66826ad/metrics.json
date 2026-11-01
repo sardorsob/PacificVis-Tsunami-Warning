@@ -1,0 +1,10 @@
+{
+  "fold_ranks_independently_checked": 290,
+  "t_cal_events": 17,
+  "t_cal_rows": 159,
+  "t_cal_sites": 94,
+  "t_obs_events": 20,
+  "t_obs_rows": 241,
+  "t_obs_sites": 159,
+  "tests": 34
+}

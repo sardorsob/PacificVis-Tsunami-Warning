@@ -85,6 +85,31 @@ def fixture_fetcher(payload: bytes):
     return fetcher
 
 
+@pytest.mark.parametrize("payload", [b"\xff\xd8\xfffixture", b"<html>error</html>"])
+def test_binary_signature_checks_source_bytes_without_utf8_coercion(
+    tmp_path: Path, payload: bytes,
+) -> None:
+    contract = sample_contract(expected_prefix="hex:ffd8ff")
+    result = acquire_source(contract, tmp_path, fetcher=fixture_fetcher(payload))
+    assert result.status == ("downloaded" if payload.startswith(b"\xff\xd8\xff") else "quarantined")
+    if result.status == "downloaded":
+        assert (tmp_path / contract.local_path).read_bytes() == payload
+
+
+@pytest.mark.parametrize("prefix", ["hex:", "hex:f", "hex:zz"])
+def test_malformed_binary_signature_is_rejected_before_network(
+    tmp_path: Path, prefix: str,
+) -> None:
+    contract = sample_contract(expected_prefix=prefix)
+    config = tmp_path / "binary.toml"
+    values = {key: str(value) for key, value in asdict(contract).items()}
+    config.write_text("[assets.fixture]\n" + "\n".join(
+        key + " = " + json.dumps(value) for key, value in values.items()
+    ))
+    with pytest.raises(ValueError, match="prefix"):
+        load_contracts(config)
+
+
 def test_acquire_source_writes_verified_bytes_atomically(tmp_path: Path) -> None:
     contract = SourceContract(
         source_id="sample",

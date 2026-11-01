@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config artifacts/generated/ntwc-batch/recovery-evidence-review-v1/ncei-development-metadata-v1/events-002.toml --run-tag recovery-ncei-events-002 --lane paper --min-interval 1 --max-contracts 20 --max-total-bytes 49987873 --max-object-bytes 2000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "66826ad",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-11-01__0306__recovery-ncei-events-002__66826ad",
+  "timestamp_utc": "2026-11-01T03:06:00Z",
+  "working_tree": "dirty"
+}

@@ -1,0 +1,116 @@
+{
+  "additional_sources": [
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5723,
+      "source_id": "ia-window-0e9490f55b0eea502d18"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5739,
+      "source_id": "ia-window-22c3d66126fc69fa105c"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5757,
+      "source_id": "ia-window-415329b1af97ef47a431"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5018,
+      "source_id": "ia-window-49d721883150e2e22834"
+    },
+    {
+      "duplicates": 118,
+      "family": "ntwc_variable_cadence_v1",
+      "rows": 476,
+      "source_id": "ia-window-545e6d33bc70f1556b7e"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 4938,
+      "source_id": "ia-window-5e8f5223f4e729befa1d"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5758,
+      "source_id": "ia-window-6cce5640e21ad0bd6433"
+    },
+    {
+      "duplicates": 236,
+      "family": "ntwc_variable_cadence_v1",
+      "rows": 595,
+      "source_id": "ia-window-72ec93613c24b9d9449a"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 4221,
+      "source_id": "ia-window-8052f9dac8c7e9a44146"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5332,
+      "source_id": "ia-window-837e4f57b23549af5e32"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 4260,
+      "source_id": "ia-window-9045a0d7df80f0926a3a"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5723,
+      "source_id": "ia-window-a584a3491e8d80270397"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 5744,
+      "source_id": "ia-window-b82ca24101a64b46bbd7"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 4628,
+      "source_id": "ia-window-e524a9bce70c66996ac1"
+    },
+    {
+      "duplicates": 0,
+      "family": "ntwc_radar_unit_only_v1",
+      "rows": 4292,
+      "source_id": "ia-window-f3dd2e84019befe78556"
+    }
+  ],
+  "baseline_manifest_sha256": "253beaed20f01315e78d6af708b386e22735bb5d89a40dfe7be4d2c649b45d0b",
+  "baseline_rows_unchanged": 3688140,
+  "baseline_sources_unchanged": 1768,
+  "blank_value_fraction": 0.012818581045825408,
+  "blank_value_rows": 48151,
+  "claims": "All source/output hashes verified, all old normalized native bytes and metadata unchanged; every new native sample independently read back to raw epoch/calendar/value; no interpolation or onset labels.",
+  "current_manifest_sha256": "2fe367fb7de7f23b758bc65477c55d739626e62699fc0fb7fdc74285831868d1",
+  "normalized_sources": 1783,
+  "processing_status_counts": {
+    "normalized_source_samples": 1783,
+    "outside_observation_scope": 14,
+    "retained_unparsed_source": 21,
+    "unavailable": 9,
+    "unavailable_diagnostic": 4,
+    "unavailable_provider_response": 10,
+    "verified_header_evidence": 61
+  },
+  "qc_not_provided_fraction": 0.9389193322017366,
+  "qc_not_provided_rows": 3526904,
+  "source_entries": 1902,
+  "source_rows": 3756344,
+  "status": "PASS"
+}

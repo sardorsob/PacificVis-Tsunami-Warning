@@ -607,6 +607,240 @@ def test_exact_url_overlap_inventory_retains_snapshots_without_deduplication(
     dictionary = _json(tmp_path / "out/data_dictionary.json")
     assert "not unique measurements" in dictionary["conventions"]["observation_grain"]
     assert dictionary["tables"]["paper/source_url_overlaps.csv"]["primary_key"] == [
-        "source_url", "source_id"
+        "source_url",
+        "source_id",
     ]
     assert _json(tmp_path / "out/viewer/catalog.json")["events"] == []
+
+
+def recovery_fixture(root: Path, paths: dict[str, Path]) -> Path:
+    """Small accepted recovery bundle bound to this synthetic corpus and identity."""
+    config = root / "events.toml"
+    config.write_text(
+        '[events.dev]\nevent_id="dev"\nrole="development"\n'
+        '[events.reserved]\nevent_id="reserved"\nrole="sealed_evaluation"\n',
+        encoding="utf-8",
+    )
+    unique_path = paths["crosswalk"] / "unique_report_crosswalk.csv"
+    _write_csv(
+        unique_path,
+        [
+            dict(
+                event_id="dev",
+                report_id="dev:1:1",
+                role="development",
+                physical_site_id="site:dev",
+                site_identity_fit_tier=False,
+                explicit_both_values=True,
+            )
+        ],
+    )
+    target_versions = {
+        "T-OBS": "reported_duration_from_reviewed_reference_v1",
+        "T-CAL": "reported_absolute_difference_v1",
+    }
+    target_rows = [
+        dict(
+            event_id="dev",
+            report_id="dev:1:1",
+            target_id=target,
+            target_version=version,
+            eligible=target == "T-OBS",
+            model_eligible=False,
+        )
+        for target, version in target_versions.items()
+    ]
+    target_path = paths["corpus"] / "dev/target_eligibility.csv.gz"
+    _write_csv(target_path, target_rows)
+    corpus_summary = _json(paths["corpus"] / "summary.json")
+    corpus_summary.update(
+        exact_pairs=0, exact_observed_values=1, target_eligible={"T-OBS": 1, "T-CAL": 0}
+    )
+    corpus_summary["input_sha256"].update(config=_sha(config), crosswalk=_sha(unique_path))
+    corpus_summary["output_sha256"]["dev/target_eligibility.csv.gz"] = _sha(target_path)
+    _write_json(paths["corpus"] / "summary.json", corpus_summary)
+    folder = root / "recovery"
+    tables = {
+        "t-obs": [
+            dict(
+                event_id="dev",
+                report_id="dev:1:1",
+                physical_site_id="site:dev",
+                target_id="T-OBS",
+                target_version=target_versions["T-OBS"],
+                observed_utc="2011-03-11T12:00:00Z",
+                model_eligible=False,
+                physical_onset_validated=False,
+            )
+        ],
+        "t-cal": [],
+        "recovery_delta": [dict(event_id="dev", report_id="dev:1:1", promoted_pair=False)],
+        "fold_support": [
+            dict(
+                target_id="T-OBS",
+                target_version=target_versions["T-OBS"],
+                fold="LOEO",
+                held_out="dev",
+                unseen_events=["dev"],
+            )
+        ],
+        "site_degrees": [dict(target_id="T-OBS", physical_site_id="site:dev", events=["dev"])],
+        "balance": [dict(target_id="T-OBS", axis="region", value="fixture", events=1)],
+        "evidence_gap_queue": [
+            dict(event_id="dev", report_id="dev:1:1", acquisition_eligible=False)
+        ],
+    }
+    for name, rows in tables.items():
+        _write_json(folder / f"{name}.json", rows)
+        if rows:
+            _write_csv(
+                folder / f"{name}.csv",
+                [
+                    {k: json.dumps(v) if isinstance(v, list) else v for k, v in row.items()}
+                    for row in rows
+                ],
+            )
+    inputs = {
+        str(path.relative_to(root)): _sha(path)
+        for path in [
+            paths["corpus"] / "summary.json",
+            unique_path,
+            config,
+        ]
+    }
+    summary = dict(
+        schema_version="arrival-recovery-qa-v1",
+        input_sha256=inputs,
+        counts=dict(reports=1, new_pairs=0, exact_observed_values=1, reserved_rows=0),
+        targets={
+            target: dict(target_version=version, eligible_reports=int(target == "T-OBS"))
+            for target, version in target_versions.items()
+        },
+    )
+    _write_json(folder / "summary.json", summary)
+    _write_json(
+        folder / "manifest.json",
+        dict(
+            input_sha256=inputs,
+            output_sha256={
+                path.name: _sha(path) for path in folder.iterdir() if path.name != "manifest.json"
+            },
+        ),
+    )
+    return folder
+
+
+def test_optional_recovery_packaging_preserves_legacy_support_and_viewer(tmp_path: Path) -> None:
+    paths = fixture(tmp_path)
+    recovery = recovery_fixture(tmp_path, paths)
+    ordinary = package(tmp_path, paths, "ordinary")
+    expanded = build(tmp_path, **paths, output=tmp_path / "expanded", recovery_design=recovery)
+    for relative in ordinary["output_sha256"]:
+        if relative != "data_dictionary.json":
+            assert (tmp_path / "ordinary" / relative).read_bytes() == (
+                tmp_path / "expanded" / relative
+            ).read_bytes()
+    assert "paper_recovery" not in ordinary
+    assert expanded["paper_recovery"]["target_eligible_reports"] == {"T-OBS": 1, "T-CAL": 0}
+    assert (
+        expanded["paper_recovery"]["target_versions"]["T-CAL"] == "reported_absolute_difference_v1"
+    )
+    assert expanded["paper_recovery"]["path"] == "paper/recovery"
+    for path in recovery.iterdir():
+        assert path.read_bytes() == (tmp_path / "expanded/paper/recovery" / path.name).read_bytes()
+    viewer = (tmp_path / "expanded/viewer/catalog.json").read_text(encoding="utf-8")
+    assert "T-OBS" not in viewer and "T-CAL" not in viewer and "recovery" not in viewer
+    assert _records(tmp_path / "expanded/paper/event_index.csv")[0]["source_pair_values"] == "1"
+
+
+@pytest.mark.parametrize(
+    "violation",
+    [
+        "corrupt_output",
+        "stale_corpus",
+        "crosswalk",
+        "reserved",
+        "target_version",
+        "model_flag",
+        "path_escape",
+        "missing_corpus_pin",
+        "config_roles",
+        "graph_reserved",
+        "csv_json_mismatch",
+        "input_alias",
+    ],
+)
+def test_recovery_packaging_rejects_stale_corrupt_or_unsafe_evidence(
+    tmp_path: Path,
+    violation: str,
+) -> None:
+    paths = fixture(tmp_path)
+    folder = recovery_fixture(tmp_path, paths)
+    manifest = _json(folder / "manifest.json")
+    if violation == "corrupt_output":
+        (folder / "t-obs.json").write_text("changed", encoding="utf-8")
+    elif violation == "stale_corpus":
+        summary = _json(paths["corpus"] / "summary.json")
+        summary["updated"] = True
+        _write_json(paths["corpus"] / "summary.json", summary)
+    elif violation == "crosswalk":
+        path = paths["crosswalk"] / "unique_report_crosswalk.csv"
+        path.write_text(path.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+    elif violation == "path_escape":
+        manifest["output_sha256"]["../dev.html"] = _sha(tmp_path / "dev.html")
+        _write_json(folder / "manifest.json", manifest)
+    elif violation == "missing_corpus_pin":
+        manifest["input_sha256"].pop("corpus/summary.json")
+        summary = _json(folder / "summary.json")
+        summary["input_sha256"] = manifest["input_sha256"]
+        _write_json(folder / "summary.json", summary)
+        manifest["output_sha256"]["summary.json"] = _sha(folder / "summary.json")
+        _write_json(folder / "manifest.json", manifest)
+    elif violation in {"graph_reserved", "input_alias"}:
+        summary = _json(folder / "summary.json")
+        if violation == "graph_reserved":
+            summary["targets"]["T-OBS"]["graph"] = {
+                "component_membership": [{"events": ["reserved"]}]
+            }
+        else:
+            manifest["input_sha256"]["./events.toml"] = manifest["input_sha256"].pop("events.toml")
+            summary["input_sha256"] = manifest["input_sha256"]
+        _write_json(folder / "summary.json", summary)
+        manifest["output_sha256"]["summary.json"] = _sha(folder / "summary.json")
+        _write_json(folder / "manifest.json", manifest)
+    elif violation == "csv_json_mismatch":
+        path = folder / "t-obs.csv"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("12:00:00Z", "12:01:00Z"), encoding="utf-8"
+        )
+        manifest["output_sha256"]["t-obs.csv"] = _sha(path)
+        _write_json(folder / "manifest.json", manifest)
+    elif violation == "config_roles":
+        config = tmp_path / "events.toml"
+        config.write_text(
+            config.read_text(encoding="utf-8").replace(
+                'role="development"', 'role="sealed_evaluation"'
+            ),
+            encoding="utf-8",
+        )
+        new_hash = _sha(config)
+        manifest["input_sha256"]["events.toml"] = new_hash
+        summary = _json(folder / "summary.json")
+        summary["input_sha256"] = manifest["input_sha256"]
+        _write_json(folder / "summary.json", summary)
+        manifest["output_sha256"]["summary.json"] = _sha(folder / "summary.json")
+        _write_json(folder / "manifest.json", manifest)
+    else:
+        rows = _json(folder / "t-obs.json")
+        if violation == "reserved":
+            rows[0]["event_id"] = "reserved"
+        elif violation == "target_version":
+            rows[0]["target_version"] = "invented_version"
+        else:
+            rows[0]["model_eligible"] = True
+        _write_json(folder / "t-obs.json", rows)
+        manifest["output_sha256"]["t-obs.json"] = _sha(folder / "t-obs.json")
+        _write_json(folder / "manifest.json", manifest)
+    with pytest.raises(ValueError):
+        build(tmp_path, **paths, output=tmp_path / "out", recovery_design=folder)
+    assert not (tmp_path / "out").exists()

@@ -1,0 +1,8 @@
+{
+  "processing": "deterministic stage; original build/acquisition times retained in pinned upstream receipts",
+  "source_code_sha256": {
+    "scripts/inventory_arrival_recovery.py": "49e7a2aab578bbeebb3350795dce64d73cbef136eaff0bb81badd31b377f471d",
+    "tests/test_arrival_recovery_inventory.py": "20f77d3da502b67d57a0db4ec9dfbfade92e4e91ddaf71ae7fe1846c19b5ee92"
+  },
+  "stage": "recovery-inventory"
+}

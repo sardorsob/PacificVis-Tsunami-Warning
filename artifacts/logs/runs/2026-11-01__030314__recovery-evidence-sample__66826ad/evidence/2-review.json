@@ -1,0 +1,1006 @@
+{
+  "status": "PASS_acquisition_integrity_and_binary_prefix_code; source_yield_limited_requires_followup",
+  "reviewer": "time_evidence_review",
+  "run_id": "2026-11-01__0253__recovery-evidence-001__c4ed572",
+  "contracts": 20,
+  "downloaded": 20,
+  "bytes_verified": 880797,
+  "json_files_verified": 15,
+  "jpeg_files_fully_decoded": 5,
+  "JSON_error_objects": 0,
+  "body_hash_size_prefix_URL_checks": "20/20 pass",
+  "source_events_identified": [
+    {
+      "local_event_id": "official20010623203314130_33",
+      "ncei_event_id": 2373,
+      "ncei_earthquake_event_id": 5601,
+      "source_id": "recovery-evidence-f9a1ba7f9df7bec3",
+      "source_sha256": "193c26f4b041040d19f1bde8cde11e0aa298a40672f1ad9c73001f6c94c385c5",
+      "response_rows": 1,
+      "source_origin_components": {
+        "year": 2001,
+        "month": 6,
+        "day": 23,
+        "hour": 20,
+        "minute": 33,
+        "second": 14.1
+      },
+      "source_coordinates": {
+        "latitude": -16.265,
+        "longitude": -73.641
+      },
+      "ncei_country": "PERU",
+      "ncei_location": "S. PERU",
+      "ncei_magnitude_native": 8.4,
+      "local_USGS_magnitude_native": "8.4",
+      "ncei_all_measurement_runups": 154,
+      "event_match": "confirmed_by_single_exact_UTC_date_result_origin_to_subsecond_and_source_region",
+      "notes": "Keep NCEI and USGS/NTWC native magnitude/origin/location revisions separate; no source overwrite."
+    },
+    {
+      "local_event_id": "official20030925195006360_27",
+      "ncei_event_id": 2406,
+      "ncei_earthquake_event_id": 5724,
+      "source_id": "recovery-evidence-9784fe72323d8938",
+      "source_sha256": "f43bd7c5fef1979ebfe636535f40966691d5da0cb2303c2da04ded8536de94dd",
+      "response_rows": 1,
+      "source_origin_components": {
+        "year": 2003,
+        "month": 9,
+        "day": 25,
+        "hour": 19,
+        "minute": 50,
+        "second": 6.3
+      },
+      "source_coordinates": {
+        "latitude": 41.815,
+        "longitude": 143.91
+      },
+      "ncei_country": "JAPAN",
+      "ncei_location": "HOKKAIDO ISLAND",
+      "ncei_magnitude_native": 8.3,
+      "local_USGS_magnitude_native": "8.16",
+      "ncei_all_measurement_runups": 268,
+      "event_match": "confirmed_by_single_exact_UTC_date_result_origin_to_subsecond_and_source_region",
+      "notes": "Keep NCEI and USGS/NTWC native magnitude/origin/location revisions separate; no source overwrite."
+    }
+  ],
+  "station_metadata_review": [
+    {
+      "station_id": "1617760",
+      "station_name": "Hilo, Hilo Bay, Kuhio Bay",
+      "registry_latitude": 19.730278,
+      "registry_longitude": -155.05556,
+      "metadata_sources": {
+        "details": {
+          "source_id": "recovery-evidence-4c1d3ab0b59c5a42",
+          "sha256": "c9ab9a797e23b2787a31e2a4665e8a3062e11c4947a7cdbfff8fa2bdaf769040"
+        },
+        "benchmarks": {
+          "source_id": "recovery-evidence-b2920e8427181f52",
+          "sha256": "ebbe8cbea33b36bc3d3a63bc6bdc03c248ce25e2e5e920854949c0df8314d51c"
+        },
+        "sensors": {
+          "source_id": "recovery-evidence-ad1493a31b399caf",
+          "sha256": "8fa28bce4c3007364cc6384df2ced32565d8aabd246a2bfcbd8e0a57bc4e819b"
+        }
+      },
+      "details_raw": {
+        "id": "1617760",
+        "established": "1946-11-30 00:00:00",
+        "removed": "",
+        "noaachart": "19324",
+        "timemeridian": -150,
+        "timezone": -10.0,
+        "origyear": "1989-02-13 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1617760/details.json"
+      },
+      "affected_legacy_pair_records": [
+        "official20010623203314130_33:0:27",
+        "official20030925195006360_27:0:9",
+        "usp000cd1n:0:9",
+        "usp000eg5g:0:14"
+      ],
+      "benchmark_count": 26,
+      "historical_benchmark_dates": [
+        "1925-11-30",
+        "1951-09-26",
+        "1959-08-18",
+        "1966-11-30",
+        "1976-11-30",
+        "1983-01-17",
+        "1987-01-25",
+        "1994-02-02",
+        "2016-01-16",
+        "2018-01-14",
+        "2026-01-21"
+      ],
+      "selected_benchmark_notes": [
+        {
+          "json_pointer": "/benchmarks/0",
+          "designation": "TBM 161 7760 AQUATRAK",
+          "dateEst": null,
+          "lat": 19.730278,
+          "lng": -155.05594,
+          "description": "Aquatrak leveling point"
+        },
+        {
+          "json_pointer": "/benchmarks/1",
+          "designation": "TBM 161 77602 Pressure LP",
+          "dateEst": "2018-01-14",
+          "lat": 19.728472,
+          "lng": -155.0574,
+          "description": "Level point for Paros on DCP2. Mark is top of PVC cored through concrete deck of pier 4. Located in the NW corner of pier 4 by the Microwave water level stand.\r\nNote: The designation was TBM 161 7760 DCP4 Orifice LP. Transferred from DCP4 to DCP2 in 2020"
+        },
+        {
+          "json_pointer": "/benchmarks/2",
+          "designation": "TBM 161 77602 Single Orifice Zero",
+          "dateEst": null,
+          "lat": 19.7283,
+          "lng": -155.0575,
+          "description": "Single Orifice 0"
+        },
+        {
+          "json_pointer": "/benchmarks/3",
+          "designation": "TBM 161 77602 Single Orifice Zero",
+          "dateEst": "2018-01-14",
+          "lat": 19.728472,
+          "lng": -155.0574,
+          "description": "Orifice Leveling Point. Transferred from DCP4 to DCP2 during 2020 maintenance."
+        },
+        {
+          "json_pointer": "/benchmarks/4",
+          "designation": "TBM 161 77603 MET SRM",
+          "dateEst": "2018-01-14",
+          "lat": 19.72806,
+          "lng": -155.0572,
+          "description": "MET SRM\r\nMeteorological SRM for relocated station.  Mark is NE bolt on non-moving base of metropolitan mast hinge.  Located in NW corner of the pier 4 next to tide house of relocated station.\r\nNote: The designation was TBM 161 7760 DCP3/4 Met"
+        },
+        {
+          "json_pointer": "/benchmarks/7",
+          "designation": "TBM 161 7760 BAROMETER",
+          "dateEst": "2018-01-14",
+          "lat": 19.72825,
+          "lng": -155.05733,
+          "description": "Baro level point is bolt in tide house of tide station. Located in NW corner of the Pier 4."
+        }
+      ],
+      "station_location_description": "To reach the tidal bench marks, from Hilo Airport proceed out to the airport exit to Kanoelehua Avenue (Route 11) and turn right, proceed 1.1 km (0.7 mi) to Kamehameha Highway (Route 19) and turn right, bear NE onto Kalanianaole Street and proceed 1.1 km (0.7 mi) to Kuhio Street leading into the Port of Hilo, turn left onto Kuhio Street, pass through the gate into the Port of Hilo and bear W to Pier 4.  The bench marks are located inside the Port except for A which is behind the old USCG Port building outside the Port entrance gate.  The tide station has 2 fiberglass structures anchored to the pier deck near the SW end of Pier 4, and NNW of the bathrooms and the new Young Brothers office.",
+      "current_water_level_sensors": [
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "U1",
+          "name": "Tsunami WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        },
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "Y1",
+          "name": "Microwave WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        }
+      ],
+      "sensor_metadata_units": "feet",
+      "station_existence_before_event_years_supported": true,
+      "historical_event_instrument_id_link_verified": false,
+      "historical_coordinates_validity_interval_verified": false,
+      "deployment_continuity_verified": false,
+      "identity_promotion_approved": false,
+      "assessment": "NOAA station ID established before the 2001/2003/2006 events and geographic/benchmark metadata support a specific named harbor candidate. Establishment, nearby benchmark dates, and current sensors do not independently bind each historical NTWC report to an unchanged gauge/deployment. Hilo explicitly documents a relocated station and 2018/2020 changes. Keep raw station-local timestamps and empty removed values without UTC or continuity assumptions."
+    },
+    {
+      "station_id": "1615680",
+      "station_name": "Kahului, Kahului Harbor",
+      "registry_latitude": 20.894945,
+      "registry_longitude": -156.469,
+      "metadata_sources": {
+        "details": {
+          "source_id": "recovery-evidence-b22756b489437854",
+          "sha256": "6525c5394474947ed2ba4848c4eddaadeb2c7b596734ba2cfc97e0714b4cd657"
+        },
+        "benchmarks": {
+          "source_id": "recovery-evidence-79de9772ca5dafbb",
+          "sha256": "0322946d4aa7831ce85251b3d4ead15684a960108ad64c1277e57cc3812a9942"
+        },
+        "sensors": {
+          "source_id": "recovery-evidence-46d100901a75b8dc",
+          "sha256": "56ca92b0632634fae0f7f0d34c7eea4de222bdf4b56cf95fd6f64e3e8a04a739"
+        }
+      },
+      "details_raw": {
+        "id": "1615680",
+        "established": "1946-12-19 00:00:00",
+        "removed": "",
+        "noaachart": "19342",
+        "timemeridian": -150,
+        "timezone": -10.0,
+        "origyear": "1989-01-29 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1615680/details.json"
+      },
+      "affected_legacy_pair_records": [
+        "official20010623203314130_33:0:31",
+        "official20030925195006360_27:0:8",
+        "usp000cd1n:0:8",
+        "usp000eg5g:0:16"
+      ],
+      "benchmark_count": 14,
+      "historical_benchmark_dates": [
+        "1966-03-24",
+        "1971-05-26",
+        "1975-11-22",
+        "1978-11-30",
+        "1983-01-27",
+        "2000-07-24",
+        "2018-01-23"
+      ],
+      "selected_benchmark_notes": [
+        {
+          "json_pointer": "/benchmarks/0",
+          "designation": "TBM 161 5680 AQUATRAK",
+          "dateEst": null,
+          "lat": 20.895,
+          "lng": -156.46889,
+          "description": "Aquatrak leveling point"
+        },
+        {
+          "json_pointer": "/benchmarks/2",
+          "designation": "TBM Aquatrak LP",
+          "dateEst": null,
+          "lat": 20.895,
+          "lng": -156.469,
+          "description": "Aquatrak leveling point"
+        }
+      ],
+      "station_location_description": "To reach the tidal bench marks, from the Kahului Airport proceed out the airport exit, Keolani Place, 1.8 km (1.1 mi) until the intersection of Keolani Place, Hana Highway (State Highway 36) and Kuihelani Avenue (Route 380) also known as Dairy Road is reached. Turn SW onto Dairy Road and continue 1.6 km (1.0 mi) to South Puunene Avenue (Route 350).  Turn north onto South Puuene and proceed 1.6 km (1.0 mi) to Kaahumanu Avenue (State Highway 32).  Turn east and proceed 0.2 km (0.1 mi) to North Wharf Street and turn north.  Proceed 0.2 km (0.1 mi) to the gate of Pier #2, enter the gate and proceed to the NW corner of Pier #2 and the tide station.",
+      "current_water_level_sensors": [
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "A1",
+          "name": "Acoustic WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        },
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "U1",
+          "name": "Tsunami WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        }
+      ],
+      "sensor_metadata_units": "feet",
+      "station_existence_before_event_years_supported": true,
+      "historical_event_instrument_id_link_verified": false,
+      "historical_coordinates_validity_interval_verified": false,
+      "deployment_continuity_verified": false,
+      "identity_promotion_approved": false,
+      "assessment": "NOAA station ID established before the 2001/2003/2006 events and geographic/benchmark metadata support a specific named harbor candidate. Establishment, nearby benchmark dates, and current sensors do not independently bind each historical NTWC report to an unchanged gauge/deployment. Hilo explicitly documents a relocated station and 2018/2020 changes. Keep raw station-local timestamps and empty removed values without UTC or continuity assumptions."
+    },
+    {
+      "station_id": "1612340",
+      "station_name": "Honolulu",
+      "registry_latitude": 21.303333,
+      "registry_longitude": -157.86453,
+      "metadata_sources": {
+        "details": {
+          "source_id": "recovery-evidence-7986099c48835931",
+          "sha256": "d352744cde32e31a13d6074e456a24f8e6509e97eebfb304947ee0b72c914b43"
+        },
+        "benchmarks": {
+          "source_id": "recovery-evidence-6a7dbc27fc9120e2",
+          "sha256": "55ef7a775a2d666d7f58f960adbf2e7afd8a48a6666700448dd86f329f8096a2"
+        },
+        "sensors": {
+          "source_id": "recovery-evidence-b6f37bc039a0bddd",
+          "sha256": "c854de0dc0b53ac9b96118843edae32d46adc43ff118cb29d4285698d01dc5f0"
+        }
+      },
+      "details_raw": {
+        "id": "1612340",
+        "established": "1905-01-01 00:00:00",
+        "removed": "",
+        "noaachart": "19367",
+        "timemeridian": -150,
+        "timezone": -10.0,
+        "origyear": "1989-01-20 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/details.json"
+      },
+      "affected_legacy_pair_records": [
+        "official20010623203314130_33:0:33",
+        "official20030925195006360_27:0:7",
+        "usp000cd1n:0:7",
+        "usp000eg5g:0:15"
+      ],
+      "benchmark_count": 17,
+      "historical_benchmark_dates": [
+        "1912-11-30",
+        "1925-12-30",
+        "1925-12-31",
+        "1960-02-02",
+        "1965-01-05",
+        "1971-06-22",
+        "1983-01-08",
+        "1986-11-30"
+      ],
+      "selected_benchmark_notes": [
+        {
+          "json_pointer": "/benchmarks/0",
+          "designation": "TBM 161 2340 AQUATRAK",
+          "dateEst": null,
+          "lat": 21.303278,
+          "lng": -157.86456,
+          "description": "Aquatrak leveling point"
+        },
+        {
+          "json_pointer": "/benchmarks/12",
+          "designation": "161 2340 GPS Bolt",
+          "dateEst": null,
+          "lat": 21.303333,
+          "lng": -157.86453,
+          "description": "The bench mark is a bolt head, the southeastern-most of four bolts that secure the flange of the Hawaii Sea Level Center (HSLC) antenna mast, on the roof of the concrete tide house at the end of Pier 4 located half way between the roof and the permanent GPS antenna of the HSLC, at the SW corner of the roof of the tide station, at the west end of the Coast Guard pier (Pier 4) at the Honolulu Coast Guard Base.       \n\nNote: Steel ruler needed to shoot bolt because of antenna mounted directly above. HSLC requests you remain low and away from antenna as much as possible to avoid interference. 2023 measured offset from temporary bench mark to ARP at +0.440m."
+        }
+      ],
+      "station_location_description": "To reach the tidal bench marks, from Honolulu International Airport take the Nimitz Highway (Route 92) east approximately 8 km (5 mi) to Pier 4, the 14th U.S. Coast Guard District.  Nimitz Highway turns into Ala Moana Road approximately three-fourths of the way to the tide station.  The tide station is in a concrete block building at the end of Pier 4, and the bench marks are around building and in the vicinity.",
+      "current_water_level_sensors": [
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "U1",
+          "name": "Tsunami WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        },
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "Y1",
+          "name": "Microwave WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 1
+        }
+      ],
+      "sensor_metadata_units": "feet",
+      "station_existence_before_event_years_supported": true,
+      "historical_event_instrument_id_link_verified": false,
+      "historical_coordinates_validity_interval_verified": false,
+      "deployment_continuity_verified": false,
+      "identity_promotion_approved": false,
+      "assessment": "NOAA station ID established before the 2001/2003/2006 events and geographic/benchmark metadata support a specific named harbor candidate. Establishment, nearby benchmark dates, and current sensors do not independently bind each historical NTWC report to an unchanged gauge/deployment. Hilo explicitly documents a relocated station and 2018/2020 changes. Keep raw station-local timestamps and empty removed values without UTC or continuity assumptions."
+    },
+    {
+      "station_id": "1611400",
+      "station_name": "Nawiliwili",
+      "registry_latitude": 21.9544,
+      "registry_longitude": -159.3561,
+      "metadata_sources": {
+        "details": {
+          "source_id": "recovery-evidence-5e3ee919fb63c876",
+          "sha256": "99b86368fe19e40c5a90840c0ae8a35218da6359408851e1324c0799a7af89ad"
+        },
+        "benchmarks": {
+          "source_id": "recovery-evidence-f2082d78c6ff6758",
+          "sha256": "f658058e5385a6e86aa84c3649138c35eb238b35c9d7dd659a447baef131801c"
+        },
+        "sensors": {
+          "source_id": "recovery-evidence-2e8553e269902b98",
+          "sha256": "145c91b2a7f31895af0e3ba232527025472b5bb996f520662d50e91df01cab76"
+        }
+      },
+      "details_raw": {
+        "id": "1611400",
+        "established": "1954-11-24 00:00:00",
+        "removed": "",
+        "noaachart": "19383",
+        "timemeridian": -150,
+        "timezone": -10.0,
+        "origyear": "1991-02-16 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1611400/details.json"
+      },
+      "affected_legacy_pair_records": [
+        "official20010623203314130_33:0:34",
+        "usp000cd1n:0:10",
+        "usp000eg5g:0:13"
+      ],
+      "benchmark_count": 24,
+      "historical_benchmark_dates": [
+        "1927-01-07",
+        "1954-11-26",
+        "1964-05-21",
+        "1967-07-11",
+        "1969-09-13",
+        "1970-10-17",
+        "1974-04-16",
+        "1980-01-30",
+        "1983-02-11",
+        "1991-02-12",
+        "1991-02-21",
+        "1997-01-29",
+        "2007-01-25",
+        "2016-01-13"
+      ],
+      "selected_benchmark_notes": [],
+      "station_location_description": "To reach the tidal bench marks, from the Lihue Airport take a left on Ahukini Road (State Highway 57) and then go south on Kapule Highway (State Highway 51), then proceed 2.4 km (1.5 mi) and turn south on Rice Street.  Proceed 1.3 km (0.8 mi) and turn west on Waapa Road, then proceed 0.3 km (0.2 mi) to the gate to Pier # 2, and turn south through the gate to the Pier #2 Warehouse.  The bench marks are located along Waapa Road and Kapule Highway (State Highway 51) in the vicinity of Pier # 2.  The tide station is located in the NE corner of the Tug Pier west of the main dock and warehouse.",
+      "current_water_level_sensors": [
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "U1",
+          "name": "Tsunami WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 4
+        },
+        {
+          "status": 1,
+          "refdatum": "",
+          "sensorID": "Y1",
+          "name": "Microwave WL",
+          "elevation": null,
+          "message": "",
+          "dcp": 4
+        }
+      ],
+      "sensor_metadata_units": "feet",
+      "station_existence_before_event_years_supported": true,
+      "historical_event_instrument_id_link_verified": false,
+      "historical_coordinates_validity_interval_verified": false,
+      "deployment_continuity_verified": false,
+      "identity_promotion_approved": false,
+      "assessment": "NOAA station ID established before the 2001/2003/2006 events and geographic/benchmark metadata support a specific named harbor candidate. Establishment, nearby benchmark dates, and current sensors do not independently bind each historical NTWC report to an unchanged gauge/deployment. Hilo explicitly documents a relocated station and 2018/2020 changes. Keep raw station-local timestamps and empty removed values without UTC or continuity assumptions."
+    }
+  ],
+  "image_annotation_review": [
+    {
+      "source_id": "recovery-evidence-0cd25aaf9bb34c07",
+      "source_sha256": "04c44b8612f13942a58eb45e17fe984e56f6b4fe73d3a0b1269f22ba1f6b0241",
+      "source_path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-0cd25aaf9bb34c07.image",
+      "report_id": "official20100227063411530_30:1:87",
+      "source_station_title": "Kahului Maui, HI: kahuA",
+      "written_annotation": {
+        "text": "ETA: 21:43 (058)",
+        "clock": "2143",
+        "day_of_year": 58,
+        "explicit_calendar": "2/27/2010 to 3/1/2010",
+        "kind": "dated_ETA_annotation",
+        "candidate_UTC": "2010-02-27T21:43:00Z"
+      },
+      "table_estimated_raw": "\n    2143\n  ",
+      "table_observed_raw": "\n    2141\n  ",
+      "plot_clock_matches_estimated_cell": true,
+      "explicit_observed_arrival_annotation": false,
+      "explicit_UTC_text_visible_in_graph": false,
+      "UTC_basis_candidate": "Linked NTWC parent page defines computed arrival as UTC; confirm plot/table product correspondence before using the plot annotation to interpret a table cell.",
+      "primary_pair_promotion_approved": false,
+      "primary_observed_date_promotion_approved": false,
+      "assessment": "Axis dates alone do not date an observed arrival. Dated ETA annotation, when present, is source evidence for that plotted estimate product only. No ETA This Station is a statement about the plotted product and does not delete an ETA already present in the HTML report. Chile2007 plotted0600 differs from HTML estimated0559 and coincides with HTML observed0600; never swap their roles or infer equivalence from one-minute proximity."
+    },
+    {
+      "source_id": "recovery-evidence-5e0bd71f67e2fb77",
+      "source_sha256": "c6c2efca8bd06fc8f9ede354bd8a7caee6fe5a3fd18bd4f65c93f2f3826d98fe",
+      "source_path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-5e0bd71f67e2fb77.image",
+      "report_id": "usp000exfn:0:38",
+      "source_station_title": "Kahului Maui, HI: kahuA",
+      "written_annotation": {
+        "text": "No ETA This Station",
+        "kind": "no_ETA_in_plot_product",
+        "explicit_calendar": "11/15/2006 to 11/17/2006"
+      },
+      "table_estimated_raw": "\n  1757\n  ",
+      "table_observed_raw": "\n  1751\n  ",
+      "plot_clock_matches_estimated_cell": false,
+      "explicit_observed_arrival_annotation": false,
+      "explicit_UTC_text_visible_in_graph": false,
+      "UTC_basis_candidate": "Linked NTWC parent page defines computed arrival as UTC; confirm plot/table product correspondence before using the plot annotation to interpret a table cell.",
+      "primary_pair_promotion_approved": false,
+      "primary_observed_date_promotion_approved": false,
+      "assessment": "Axis dates alone do not date an observed arrival. Dated ETA annotation, when present, is source evidence for that plotted estimate product only. No ETA This Station is a statement about the plotted product and does not delete an ETA already present in the HTML report. Chile2007 plotted0600 differs from HTML estimated0559 and coincides with HTML observed0600; never swap their roles or infer equivalence from one-minute proximity."
+    },
+    {
+      "source_id": "recovery-evidence-13b91e3076b320f5",
+      "source_sha256": "80022b41b117cdc245f1dd2a596b21757bd893d5ad05da12695879a39f5acdc0",
+      "source_path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-13b91e3076b320f5.image",
+      "report_id": "usp000f2ab:1:20",
+      "source_station_title": "Kahului Maui, HI: kahuA",
+      "written_annotation": {
+        "text": "No ETA This Station",
+        "kind": "no_ETA_in_plot_product",
+        "explicit_calendar": "1/12/2007 to 1/14/2007"
+      },
+      "table_estimated_raw": "\n  1104",
+      "table_observed_raw": "\n  1108",
+      "plot_clock_matches_estimated_cell": false,
+      "explicit_observed_arrival_annotation": false,
+      "explicit_UTC_text_visible_in_graph": false,
+      "UTC_basis_candidate": "Linked NTWC parent page defines computed arrival as UTC; confirm plot/table product correspondence before using the plot annotation to interpret a table cell.",
+      "primary_pair_promotion_approved": false,
+      "primary_observed_date_promotion_approved": false,
+      "assessment": "Axis dates alone do not date an observed arrival. Dated ETA annotation, when present, is source evidence for that plotted estimate product only. No ETA This Station is a statement about the plotted product and does not delete an ETA already present in the HTML report. Chile2007 plotted0600 differs from HTML estimated0559 and coincides with HTML observed0600; never swap their roles or infer equivalence from one-minute proximity."
+    },
+    {
+      "source_id": "recovery-evidence-043f0d37a699e168",
+      "source_sha256": "b26043a9e147311b3cedffc4abc95daa6f472a66496c6218621d1394ce23654c",
+      "source_path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-043f0d37a699e168.image",
+      "report_id": "usp000fjta:1:22",
+      "source_station_title": "Kahului Maui, HI: kahuA",
+      "written_annotation": {
+        "text": "ETA: 12:45 (228)",
+        "clock": "1245",
+        "day_of_year": 228,
+        "explicit_calendar": "8/16/2007",
+        "kind": "dated_ETA_annotation",
+        "candidate_UTC": "2007-08-16T12:45:00Z"
+      },
+      "table_estimated_raw": "\n  1245\n  ",
+      "table_observed_raw": "\n  1247\n  ",
+      "plot_clock_matches_estimated_cell": true,
+      "explicit_observed_arrival_annotation": false,
+      "explicit_UTC_text_visible_in_graph": false,
+      "UTC_basis_candidate": "Linked NTWC parent page defines computed arrival as UTC; confirm plot/table product correspondence before using the plot annotation to interpret a table cell.",
+      "primary_pair_promotion_approved": false,
+      "primary_observed_date_promotion_approved": false,
+      "assessment": "Axis dates alone do not date an observed arrival. Dated ETA annotation, when present, is source evidence for that plotted estimate product only. No ETA This Station is a statement about the plotted product and does not delete an ETA already present in the HTML report. Chile2007 plotted0600 differs from HTML estimated0559 and coincides with HTML observed0600; never swap their roles or infer equivalence from one-minute proximity."
+    },
+    {
+      "source_id": "recovery-evidence-e87f89514f42eafb",
+      "source_sha256": "1edf185e1d811664fcc7a801f8a4b90322640f84b0d5901a917a301f437f8d0e",
+      "source_path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-e87f89514f42eafb.image",
+      "report_id": "usp000fshy:1:13",
+      "source_station_title": "Station title not visible in image; source link binds Kahului row",
+      "written_annotation": {
+        "text": "ETA: 06:00 (319)",
+        "clock": "0600",
+        "day_of_year": 319,
+        "explicit_calendar": "LASTUPDATE: 22:13:05 11-15-2007",
+        "kind": "dated_ETA_annotation_clock_differs_from_table",
+        "candidate_UTC": "2007-11-15T06:00:00Z"
+      },
+      "table_estimated_raw": "\n  0559\n  ",
+      "table_observed_raw": "\n  0600\n  ",
+      "plot_clock_matches_estimated_cell": false,
+      "explicit_observed_arrival_annotation": false,
+      "explicit_UTC_text_visible_in_graph": false,
+      "UTC_basis_candidate": "Linked NTWC parent page defines computed arrival as UTC; confirm plot/table product correspondence before using the plot annotation to interpret a table cell.",
+      "primary_pair_promotion_approved": false,
+      "primary_observed_date_promotion_approved": false,
+      "assessment": "Axis dates alone do not date an observed arrival. Dated ETA annotation, when present, is source evidence for that plotted estimate product only. No ETA This Station is a statement about the plotted product and does not delete an ETA already present in the HTML report. Chile2007 plotted0600 differs from HTML estimated0559 and coincides with HTML observed0600; never swap their roles or infer equivalence from one-minute proximity."
+    }
+  ],
+  "target_yield": {
+    "new_primary_pairs_approved": 0,
+    "new_primary_observed_dates_approved": 0,
+    "legacy_pairs_with_stronger_station_candidate_evidence": 15,
+    "legacy_identity_promotions_approved": 0,
+    "graphs_with_written_dated_ETA": 3,
+    "graphs_with_ETA_clock_matching_table_estimate": 2,
+    "graphs_with_explicit_observed_arrival_annotation": 0,
+    "graphs_without_plot_ETA_but_HTML_ETA_present": 2,
+    "graphs_with_plot_ETA_clock_different_from_HTML_estimate": 1
+  },
+  "recommended_next_request_contracts": [
+    {
+      "purpose": "event-specific instrumental observation geography and original source citations",
+      "local_event_id": "official20010623203314130_33",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2373&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+      "expected_prefix": "{",
+      "max_object_bytes": 2000000,
+      "required_postchecks": [
+        "Validate no JSON error object and pagination totals; follow subsequent pages only within bounded contract queue.",
+        "Each record tsunamiEventId must equal requested confirmed ID.",
+        "Retain typeMeasurementId,doubtful,locationName,country,area,latitude,longitude and native temporal fields.",
+        "Fetch observation-specific references/info for candidate matches before identity or timing promotion.",
+        "Retain copied-source dependence and geographic precision; do not treat city coordinates as unchanged historical deployment."
+      ],
+      "schema_source_id": "recovery-evidence-f036f966ecdb5a3e"
+    },
+    {
+      "purpose": "event-specific instrumental observation geography and original source citations",
+      "local_event_id": "official20030925195006360_27",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=2406&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1",
+      "expected_prefix": "{",
+      "max_object_bytes": 2000000,
+      "required_postchecks": [
+        "Validate no JSON error object and pagination totals; follow subsequent pages only within bounded contract queue.",
+        "Each record tsunamiEventId must equal requested confirmed ID.",
+        "Retain typeMeasurementId,doubtful,locationName,country,area,latitude,longitude and native temporal fields.",
+        "Fetch observation-specific references/info for candidate matches before identity or timing promotion.",
+        "Retain copied-source dependence and geographic precision; do not treat city coordinates as unchanged historical deployment."
+      ],
+      "schema_source_id": "recovery-evidence-f036f966ecdb5a3e"
+    }
+  ],
+  "acquisition_code_review": {
+    "status": "PASS",
+    "focused_test_result": "75 passed in 0.14s",
+    "files_sha256": {
+      "pipeline/acquisition.py": "388d960a50f18bfc5d72da2fcea4d1cdfb4a14f0113d5e1d43894365748fbbd5",
+      "tests/test_acquisition.py": "4ec0466c069d473cd0b5c4b361aa45f01654d71d69d6533057af5a9f96e4d24a"
+    },
+    "assessment": "Binary hex prefixes are validated as nonempty even-length hexadecimal before network contract execution. Binary matching preserves leading bytes; legacy text prefixes retain whitespace stripping. JPEG signature rejects HTML error body. No auth, URL or size-budget behavior changed. Prefix matching is format recognition rather than full image validity; this review separately decoded all five JPEGs.",
+    "necessary_findings": []
+  },
+  "input_sha256": {
+    "config": "15fff1e329793e5fd5567a4f3556eb2d3274f8e93cbdb8d495d5d1a82607455c",
+    "outputs": "1f5823aaebdb7f98d589acba2d1aeafd022eefcba6adf87ed97b2bc5d05fbfe6",
+    "metrics": "4ccabacebde0da8f9d4901207c810722a52ebc141dbe443687583f74224ad63f"
+  },
+  "scope": {
+    "network_requests_by_reviewer": 0,
+    "reserved_outcomes_read": false,
+    "source_code_modified": false,
+    "shared_context_modified": false,
+    "commits_created": false
+  },
+  "body_checks": [
+    {
+      "source_id": "recovery-evidence-043f0d37a699e168",
+      "url": "https://www.tsunami.gov/previous.events/08-15-07-Peru/Kahului.jpg",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-043f0d37a699e168.image",
+      "bytes": 91150,
+      "sha256": "b26043a9e147311b3cedffc4abc95daa6f472a66496c6218621d1394ce23654c",
+      "recorded_content_type": "image/jpeg",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "image_format": "JPEG",
+      "image_size": [
+        768,
+        536
+      ]
+    },
+    {
+      "source_id": "recovery-evidence-0cd25aaf9bb34c07",
+      "url": "https://www.tsunami.gov/previous.events/Chile_02-27-10/Images/kahuA.jpg",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-0cd25aaf9bb34c07.image",
+      "bytes": 147968,
+      "sha256": "04c44b8612f13942a58eb45e17fe984e56f6b4fe73d3a0b1269f22ba1f6b0241",
+      "recorded_content_type": "image/jpeg",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "image_format": "JPEG",
+      "image_size": [
+        960,
+        728
+      ]
+    },
+    {
+      "source_id": "recovery-evidence-13b91e3076b320f5",
+      "url": "https://www.tsunami.gov/previous.events/01-13-07/01-13-07_TG&DATA/kahuA011307.jpg",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-13b91e3076b320f5.image",
+      "bytes": 92319,
+      "sha256": "80022b41b117cdc245f1dd2a596b21757bd893d5ad05da12695879a39f5acdc0",
+      "recorded_content_type": "image/jpeg",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "image_format": "JPEG",
+      "image_size": [
+        768,
+        527
+      ]
+    },
+    {
+      "source_id": "recovery-evidence-2e8553e269902b98",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1611400/sensors.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-2e8553e269902b98.json",
+      "bytes": 1383,
+      "sha256": "145c91b2a7f31895af0e3ba232527025472b5bb996f520662d50e91df01cab76",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "units",
+        "sensors",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-46d100901a75b8dc",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1615680/sensors.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-46d100901a75b8dc.json",
+      "bytes": 1381,
+      "sha256": "56ca92b0632634fae0f7f0d34c7eea4de222bdf4b56cf95fd6f64e3e8a04a739",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "units",
+        "sensors",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-4c1d3ab0b59c5a42",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1617760/details.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-4c1d3ab0b59c5a42.json",
+      "bytes": 283,
+      "sha256": "c9ab9a797e23b2787a31e2a4665e8a3062e11c4947a7cdbfff8fa2bdaf769040",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "id",
+        "established",
+        "removed",
+        "noaachart",
+        "timemeridian",
+        "timezone",
+        "origyear",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-5e0bd71f67e2fb77",
+      "url": "https://www.tsunami.gov/previous.events/11-15-06/images/kahuA111506.jpg",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-5e0bd71f67e2fb77.image",
+      "bytes": 96446,
+      "sha256": "c6c2efca8bd06fc8f9ede354bd8a7caee6fe5a3fd18bd4f65c93f2f3826d98fe",
+      "recorded_content_type": "image/jpeg",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "image_format": "JPEG",
+      "image_size": [
+        768,
+        527
+      ]
+    },
+    {
+      "source_id": "recovery-evidence-5e3ee919fb63c876",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1611400/details.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-5e3ee919fb63c876.json",
+      "bytes": 283,
+      "sha256": "99b86368fe19e40c5a90840c0ae8a35218da6359408851e1324c0799a7af89ad",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "id",
+        "established",
+        "removed",
+        "noaachart",
+        "timemeridian",
+        "timezone",
+        "origyear",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-6a7dbc27fc9120e2",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/benchmarks.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-6a7dbc27fc9120e2.json",
+      "bytes": 21501,
+      "sha256": "55ef7a775a2d666d7f58f960adbf2e7afd8a48a6666700448dd86f329f8096a2",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "benchmarks",
+        "to_reach",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-7986099c48835931",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/details.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-7986099c48835931.json",
+      "bytes": 283,
+      "sha256": "d352744cde32e31a13d6074e456a24f8e6509e97eebfb304947ee0b72c914b43",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "id",
+        "established",
+        "removed",
+        "noaachart",
+        "timemeridian",
+        "timezone",
+        "origyear",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-79de9772ca5dafbb",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1615680/benchmarks.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-79de9772ca5dafbb.json",
+      "bytes": 17162,
+      "sha256": "0322946d4aa7831ce85251b3d4ead15684a960108ad64c1277e57cc3812a9942",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "benchmarks",
+        "to_reach",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-9784fe72323d8938",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/events?year=2003&month=9&day=25&op=and&itemsPerPage=20&page=1",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-9784fe72323d8938.json",
+      "bytes": 654,
+      "sha256": "f43bd7c5fef1979ebfe636535f40966691d5da0cb2303c2da04ded8536de94dd",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "items",
+        "page",
+        "totalPages",
+        "itemsPerPage",
+        "totalItems"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-ad1493a31b399caf",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1617760/sensors.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-ad1493a31b399caf.json",
+      "bytes": 1467,
+      "sha256": "8fa28bce4c3007364cc6384df2ced32565d8aabd246a2bfcbd8e0a57bc4e819b",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "units",
+        "sensors",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-b22756b489437854",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1615680/details.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-b22756b489437854.json",
+      "bytes": 283,
+      "sha256": "6525c5394474947ed2ba4848c4eddaadeb2c7b596734ba2cfc97e0714b4cd657",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "id",
+        "established",
+        "removed",
+        "noaachart",
+        "timemeridian",
+        "timezone",
+        "origyear",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-b2920e8427181f52",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1617760/benchmarks.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-b2920e8427181f52.json",
+      "bytes": 29649,
+      "sha256": "ebbe8cbea33b36bc3d3a63bc6bdc03c248ce25e2e5e920854949c0df8314d51c",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "benchmarks",
+        "to_reach",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-b6f37bc039a0bddd",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1612340/sensors.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-b6f37bc039a0bddd.json",
+      "bytes": 1381,
+      "sha256": "c854de0dc0b53ac9b96118843edae32d46adc43ff118cb29d4285698d01dc5f0",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "units",
+        "sensors",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-e87f89514f42eafb",
+      "url": "https://www.tsunami.gov/previous.events/11-14-07-Chile/Kahu.jpg",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-e87f89514f42eafb.image",
+      "bytes": 80999,
+      "sha256": "1edf185e1d811664fcc7a801f8a4b90322640f84b0d5901a917a301f437f8d0e",
+      "recorded_content_type": "image/jpeg",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "image_format": "JPEG",
+      "image_size": [
+        760,
+        490
+      ]
+    },
+    {
+      "source_id": "recovery-evidence-f036f966ecdb5a3e",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/docs/api.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-f036f966ecdb5a3e.json",
+      "bytes": 266819,
+      "sha256": "efd460d2e6f66f43a4eda7acf288a10609e0eba692aa2d1ef921c0f9b0ce16d9",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "openapi",
+        "info",
+        "servers",
+        "tags",
+        "paths",
+        "components"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-f2082d78c6ff6758",
+      "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/1611400/benchmarks.json",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-f2082d78c6ff6758.json",
+      "bytes": 28531,
+      "sha256": "f658058e5385a6e86aa84c3649138c35eb238b35c9d7dd659a447baef131801c",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "benchmarks",
+        "to_reach",
+        "self"
+      ],
+      "json_error_object": false
+    },
+    {
+      "source_id": "recovery-evidence-f9a1ba7f9df7bec3",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/events?year=2001&month=6&day=23&op=and&itemsPerPage=20&page=1",
+      "path": "data/raw/arrival-recovery/evidence-v1/recovery-evidence-f9a1ba7f9df7bec3.json",
+      "bytes": 855,
+      "sha256": "193c26f4b041040d19f1bde8cde11e0aa298a40672f1ad9c73001f6c94c385c5",
+      "recorded_content_type": "application/json",
+      "status": "downloaded",
+      "hash_size_url_prefix_check": "pass",
+      "json_type": "object",
+      "json_top_keys": [
+        "items",
+        "page",
+        "totalPages",
+        "itemsPerPage",
+        "totalItems"
+      ],
+      "json_error_object": false
+    }
+  ]
+}

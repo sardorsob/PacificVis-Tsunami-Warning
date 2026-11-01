@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/arrival-recovery-ncei-semantics-v1.toml --run-tag recovery-ncei-semantics --lane paper --offline --max-contracts 1 --max-total-bytes 10000000 --max-object-bytes 8000000",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "66826ad",
+  "lane": "paper",
+  "mode": "offline",
+  "run_id": "2026-11-01__0307__recovery-ncei-semantics__66826ad",
+  "timestamp_utc": "2026-11-01T03:07:00Z",
+  "working_tree": "dirty"
+}
