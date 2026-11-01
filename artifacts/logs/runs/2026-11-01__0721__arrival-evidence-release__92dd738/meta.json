@@ -1,0 +1,9 @@
+{
+  "coordinator_future_metadata_exposure": true,
+  "decision": "accepted_data_release",
+  "git_sha": "92dd73873116ab5c0b54773967860365ff3083c2",
+  "mlflow_run_id": "3b3c045a32cc4d2585bbf81d126e4f1b",
+  "model_fitted": false,
+  "timestamp_utc": "2026-11-01T06:59:18.116805+00:00",
+  "working_tree": "dirty; candidatebytespinnedinconfig"
+}

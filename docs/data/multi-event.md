@@ -14,21 +14,29 @@ Of those, **388 have source-supported paired reported timestamps**; the other
 789 remain present with their uncertainty or rejection reason. An exact
 observed timestamp is available for 578 reports, including reports without a
 resolved estimate. Only 159 paired reports also have reviewed geographic-site
-identity. These are reported times, not independently validated physical onsets.
+identity in the earlier release. The reviewed evidence release raises that to
+**169 pairs at 98 geographic sites across 18 events**, and supplies **258
+observed-arrival candidates at 166 sites across 20 events**. These are reported
+times, not independently validated physical onsets.
 
 The observation snapshot contains **3,756,344 retained source rows** in 1,783
 normalized files. Its 1,902 source entries also retain failed or unsupported
 requests, controls and 61 metadata-only headers; those headers contribute no
 observation rows. Twenty-one sources remain explicitly unparsed.
-The current source ledger covers **2,388 source IDs and 2,259 distinct retained
-raw paths** (192,434,079 bytes) across 41 acquisition runs. It preserves every
-record from the earlier 2,253-source ledger. These totals count different layers,
+The current source ledger covers **2,408 source IDs and 2,279 distinct retained
+raw paths** (192,447,446 bytes). It preserves every record from the earlier
+2,388-source ledger and adds the 20-contract reference/metadata pilot. These totals count different layers,
 not independent measurements.
 
 ## Where to start
 
-The local `data/processed/multi-event/foundation-v2/` package is the entry
-point. Its manifest records input and output checksums and row counts. Its
+For research, start with **`data/processed/arrival-evidence/foundation-v1/`**.
+It retains all 3,401 individual source records and separates original pairs,
+reported durations, geography, source ancestry and calendar evidence. Read its
+`schema.json`, `design_summary.json` and `manifest.json` before joining tables.
+
+The unchanged `data/processed/multi-event/foundation-v2/` package remains the
+viewer entry point. Its manifest records input and output checksums and row counts. Its
 private catalog covers all 118 entries. Paper tables retain source report IDs,
 station-match evidence and exclusions. The viewer catalog contains only
 eligible development records and separately attributed published contours.
@@ -38,12 +46,12 @@ pins the versions below.
 | Layer | Location | Purpose |
 | --- | --- | --- |
 | Immutable source evidence | `data/raw/ntwc/`, `data/raw/usgs/`, `data/raw/ia/`, `data/raw/coops/`, `data/raw/ncei/`, `data/raw/registries/`, `data/raw/arrival-recovery/` | Original responses and SHA-256 sidecars |
-| Source inventory | `artifacts/provenance/paper-source-manifest-v2.csv` | URLs, publishers, retrieval evidence, units, time basis, missingness and failed attempts; the earlier ledger remains immutable |
+| Source inventory | `artifacts/provenance/paper-source-manifest-v3.csv` | Appended provenance ledger; earlier versions remain immutable |
 | Archive inventory | `artifacts/generated/ntwc-batch/` | Frozen selection, report inventory and acquisition dispositions |
-| Station identities | `artifacts/generated/ntwc-batch/crosswalk-reviewed-v3/` | Report-to-site matches and identity evidence |
+| Station identities | `artifacts/generated/ntwc-batch/data-completion-v1/sites-reviewed/` | 571 reviewed report identities, including 38 new approvals; geography does not prove deployment continuity |
 | Earlier observing-network support | `artifacts/generated/ntwc-batch/design-reviewed-v3/` | Preserved source-pair support fields; not replaced by the target-specific views |
-| Reported arrival tables | `data/processed/arrival-corpus/foundation-v5/` | Per-event compressed tables, typed time evidence and target eligibility; every source report accounted for |
-| Target-specific support | `artifacts/generated/ntwc-batch/recovery-design-v1/` | T-OBS/T-CAL candidate views, recovery differences, event/site graphs and grouped-fold support |
+| Reported arrival tables | `data/processed/arrival-corpus/foundation-v6/` | Same original source rows and timestamps as v5, with reviewed geography eligibility |
+| Research evidence package | `data/processed/arrival-evidence/foundation-v1/` | Source records, individual observations, original pairs, native durations, calendar evidence, ancestry, opportunities and integrity diagnostics |
 | Observation records | `data/processed/arrival-waveforms/foundation-v5/` | Native observations, quality flags, source-window purposes and coverage |
 | Additional reported observations | `data/processed/ncei-arrivals/foundation-v1/` | Separate NCEI gauge reports and explicit travel-duration candidates; native fields and source lineage retained |
 | Published contour geometry | `data/processed/arrival-contours/foundation-v2/` | NCEI linework, hours, source URLs and geometry checks |
@@ -62,6 +70,103 @@ report IDs and raw cells, the earlier 314 paired timestamps, and all earlier
 explicit format support adds 15 waveform files and 68,204 native rows. Recovery
 uses literal source dates and reviewed, checksum-bound calendar evidence.
 It does not infer missing dates from forecasts, distance or waveform features.
+
+## Using the reviewed research tables
+
+Join `source_records.csv.gz`, `site_links.csv.gz`, `observations.csv.gz` and
+`lineage_members.csv.gz` on `source_record_id`. NTWC IDs are the original
+`report_id`; NCEI IDs preserve the acquired record occurrence. The complete
+earlier parsed record remains in `native_record_json`, including raw text and
+source locators. No incomplete record was discarded to create these tables.
+
+| Table or view | Records | Meaning |
+| --- | ---: | --- |
+| `source_records.csv.gz`, `observations.csv.gz` | 3,401 each | 1,177 NTWC and 2,224 NCEI records; individual measurements retained |
+| `pair_members.csv.gz` | 388 | All original exact NTWC comparisons; join the original estimate cell through `forecast_instance_id` |
+| `T-CAL.csv.gz` | 169 | Original pairs with reviewed geography; signed **estimated minus observed**, in seconds; positive means the estimate is late |
+| `T-OBS.csv.gz` | 258 | Observed UTC minus the reviewed USGS reference origin; this is not necessarily the origin used by the original forecast |
+| `NCEI-native-duration.csv.gz` | 1,221 | Reported duration from the NCEI-native origin; 1,141 coastal and 80 deep-ocean records, requiring separate scientific treatment |
+| `calendar_evidence.csv.gz` | 17,925 | Native components, accepted earlier evidence and separately attributed documentary statements |
+| `forecast_instances.csv.gz` | 1,177 | Every original estimate-cell instance, including missing estimates; original issue time/version/origin remain unresolved |
+
+The 57/18 development/evaluation reservation is unchanged. Geographic identity
+does not establish historical instrument continuity or interchangeable arrival
+definitions. NCEI geographic repeats are source-qualified positions, not verified
+deployment repeats. Target eligibility is a data-candidate status; every model
+and physical-onset approval remains false.
+
+The source pilot retained eight reference lists and eight information objects.
+All eight lists contained references, but only two records contained
+arrival-specific attribution: **2/8**, below the route's 50% expansion threshold.
+No additional reference-route expansion was attempted. Listed citations do not
+establish independent arrival picking. One NCEI comment gives separately
+attributed Papeete times of 21:00 and 21:02 UTC; they remain separate statements,
+and neither replaces the primary catalog measurement. Original citation
+documents were not newly fetched by this pilot.
+
+The first-future-clock diagnostic contradicted six of 578 dated NTWC reports
+across 34 events. It remains a sensitivity result, never an automatic calendar
+repair. NCEI arrival year/month remain unresolved in the primary record even
+when native day/hour/minute and travel duration are present. Missingness tables
+describe source and event associations; they do not identify MCAR, MAR or MNAR.
+
+`waveform_coverage.csv.gz` audits all 1,783 normalized files. Of 3,756,344 native
+rows, 48,151 lack a finite numeric value and 1,912 have unusable timestamps;
+these categories can overlap. There are 1,481 excess duplicate timestamp rows,
+including 223 conflicting timestamps within files. All remain in the native
+data. Absent QC is unknown QC, not passed QC. Grid gaps are counted only where
+timestamps align to a declared cadence, between the first and last valid sample.
+No interpolation, tide removal or validated onset detection was performed.
+
+The `audit/` packet contains 60 event cases across 31 events and nine quiet
+controls from the two available control events, totaling 98 stripped traces.
+Selection balances metadata and structural coverage without report or ETA
+agreement. It supports nonexpert descriptive review; no blindness or expert
+ground-truth claim is made. The older 69-case audit remains immutable.
+
+`metadata/expansion-candidates.csv.gz` contains six native event identities from
+four frozen queries. These are deferred candidates, not newly acquired outcome
+datasets. A coordinator diagnostic accidentally displayed embedded outcome
+fields from those metadata responses after query selection was frozen. No
+outcomes entered selection or modeling, and the independent reviewer inspected
+only whitelisted metadata. This exposure must be considered before any later
+evaluation protocol; the coordinator cannot claim blindness to those fields.
+The 18 reserved NTWC outcome files were not opened.
+
+## Reproducing and checking the evidence release
+
+Generated data remain local and Git-ignored; public-source acquisition contracts,
+source ledgers, scripts, tests and compact run receipts are tracked. Reproduction
+requires the pinned cached inputs; a Git checkout alone does not contain the
+downloaded data. Raw NCEI evidence retains NOAA/WDS credit and original-provider
+reference information; third-party references may have separate terms.
+
+The stage scripts run in this order with fresh output directories:
+`prepare_arrival_data_completion.py`, `build_arrival_site_registry.py` (using
+`config/ntwc-station-review-v4.csv`), `build_arrival_lineage.py`,
+`build_arrival_calendar_evidence.py`, `build_arrival_observations.py`,
+`build_arrival_waveform_quality.py`, and `prepare_arrival_expansion.py`.
+Each CLI's `--help` describes its input manifest and paths. Source lineage uses
+the already downloaded receipt directory
+`artifacts/logs/runs/2026-11-01__0615__arrival-completion-pilot-v1__e263bb7/`.
+No new network access is needed to replay those stages.
+
+To verify the assembled release against source records and protected inputs:
+
+```bash
+.venv/bin/python scripts/check_arrival_data_completion.py \
+  --inputs artifacts/generated/ntwc-batch/data-completion-v1/snapshot/inputs.json \
+  --release data/processed/arrival-evidence/foundation-v1 \
+  --output artifacts/generated/ntwc-batch/data-completion-v1/release-check
+```
+
+The same CLI can assemble a fresh release using `--assemble-from` and `--receipts`.
+Its report checks exact source IDs/payloads, original signed pairs, reviewed
+geography, target membership, calendar restrictions, source hashes, failure
+dispositions and protected bytes. Deterministic independent stage replays are
+recorded in the portable scientific run receipts under `artifacts/logs/runs/`.
+Unattended-worker readiness is a separate unresolved runtime limitation; this
+release was produced under foreground supervision.
 
 ## Additional reported observations from NCEI
 

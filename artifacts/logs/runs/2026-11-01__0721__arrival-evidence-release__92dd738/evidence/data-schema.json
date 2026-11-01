@@ -1,0 +1,15 @@
+{
+  "CRS_datum_units": "native metadata; unknown is not a common CRS/datum/unit claim",
+  "audit": "stripped CSVs; nonexpert structural review, no blindness/onset claim",
+  "calendar_evidence": "source components and cited statements; no new primary exact UTC",
+  "forecast_instances": "one estimate cell; original issue/version/origin unresolved",
+  "lineage_members": "unresolved placeholders are not independent replicate weights",
+  "missing": "unknown is missing; native_record_json retains literal blank cells",
+  "model_eligible": false,
+  "observations": "one measurement; entity clusters do not establish independent picks",
+  "opportunities": "actual records/requests only; no Cartesian station cross-product",
+  "pair_members": "one original NTWC pair; estimated minus observed in seconds",
+  "physical_onset_validated": false,
+  "sites": "lexical source record selects coordinate; native alternatives retained",
+  "source_records": "one source record; native_record_json preserves parser output"
+}

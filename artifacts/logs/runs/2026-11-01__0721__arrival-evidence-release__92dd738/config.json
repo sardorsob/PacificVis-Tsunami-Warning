@@ -1,0 +1,21 @@
+{
+  "conditional_F1_F2_F3_F4": "deferred_by_scope",
+  "frozen_stage_manifests": {
+    "calendars": "0e60818a562d7825934419e7ee2bfbee7847de5fb323478545a27d112993f1ca",
+    "expansion": "7962eb83640378d9b4dbb6a02f243e7de3dbd3059aa012559e0029070f855f85",
+    "lineage": "53a34c1c04ef9c6f0e9894faa9820efadf4d50f302443d6c3bfcac93c15030e8",
+    "observations": "8de740f7c2653c2797932b06b0be465614efb72e8e189ffffc5c4339b9b62b55",
+    "sites-reviewed": "1da55e3b28c163761d6e628fcc9af6aad91c900c00a5e13eb53a6aa370ecedfb",
+    "waveform-quality": "a5ca227eead4748e8dfbc0cd7af8ca8b3f8f00712a14759a8cad1c3512f5d26f"
+  },
+  "global_deadline": null,
+  "independent_review_receipt_sha256": "dd620184a3ef8668a156aef3db29916d46244e1d327980c058b6fcd0db7e5459",
+  "mode": "foreground_supervised",
+  "release": "data/processed/arrival-evidence/foundation-v1",
+  "source_code_sha256": {
+    "docs/data/multi-event.md": "8472fd88fb7299d8aa89014c3f87696bd96d2fe3ddf8deb11d2cd3b2554e67b8",
+    "scripts/check_arrival_data_completion.py": "a015d06c96cc2541735724acc8dc164d7e70f631555c9612418babb79ae0038e",
+    "tests/test_arrival_data_completion_release.py": "8f5be20024a3b7e211c40a37941cd71b46cbe3529b5cf9f89f038f8029d52d04"
+  },
+  "unattended_dispatch": "blocked_separately"
+}
