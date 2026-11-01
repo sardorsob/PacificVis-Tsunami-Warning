@@ -11,7 +11,8 @@ import pypdf
 root = Path(sys.argv[1]).resolve()
 output = Path(sys.argv[2])
 selected = {'documentary-b01-04','documentary-b01-05','documentary-b02-04',
-            'documentary-b02-05','documentary-b03-07','documentary-b03-08'}
+            'documentary-b02-05','documentary-b03-07','documentary-b03-08',
+            'documentary-b21-01','documentary-b21-03'}
 results = []
 for cf in sorted((root/'config').glob('arrival-documentary-b*.toml')):
     for c in tomllib.loads(cf.read_text())['assets'].values():
@@ -30,8 +31,8 @@ for cf in sorted((root/'config').glob('arrival-documentary-b*.toml')):
             pages=[{'page':0,'text':text}]
             extractor='macOS textutil; paragraph/line locators, original page unknown'
         results.append({'source_id':c['source_id'],'raw_path':c['local_path'],
-                        'raw_sha256':digest,'url':c['url'],'extractor':extractor,'pages':pages})
-if len(results)!=6:
+                        'raw_sha256':digest,'url':c['url'],'extractor':extractor,'pages':pages, 'tables_html': subprocess.check_output(['textutil','-convert','html','-stdout',str(p)],text=True) if c['source_id']=='documentary-b21-01' else ''})
+if len(results)!=8:
     raise ValueError('incomplete frozen document set')
 output.parent.mkdir(parents=True,exist_ok=True)
 output.write_text(json.dumps(results,sort_keys=True,ensure_ascii=False,indent=2)+'\n')

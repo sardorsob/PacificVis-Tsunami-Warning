@@ -3,7 +3,7 @@
 import pytest
 
 from analysis.arrival.documentary_recovery import extract_forecasts, observation_day
-from scripts.build_documentary_recovery import Cells
+from scripts.build_documentary_recovery import Cells, ptwc_observations
 
 
 def test_local_forecasts_preserve_issue_rollover_and_version() -> None:
@@ -92,3 +92,40 @@ LOS ANGELES     0430 PDT SEP 17
     rows = extract_forecasts(text, "dev", "src")
     assert len(rows) == 1
     assert rows[0]["kind"] == "forecast_start_of_tsunami"
+
+
+def test_full_width_station_field_keeps_one_space_clock_boundary() -> None:
+    text = """Public Tsunami Message Number 2
+105 AM AKST Tue Jan 23 2018
+0932 UTC Jan 23 2018
+FORECASTS OF TSUNAMI ACTIVITY
+Los Angeles Harb 0650 PST Jan 23
+OBSERVATIONS OF TSUNAMI ACTIVITY
+"""
+    row = extract_forecasts(text, "dev", "src")[0]
+    assert row["station_label"] == "Los Angeles Harb"
+    assert row["arrival_utc"] == "2018-01-23T14:50:00Z"
+
+
+def test_jma_bulletin_keeps_issuing_center_and_arrival_semantics() -> None:
+    text = """TSUNAMI BULLETIN NUMBER 001
+ISSUED BY NWPTAC(JMA)
+ISSUED AT 1130Z 15 NOV 2006
+ORIGIN TIME:1114Z 15 NOV 2006
+SEVERO_KURILSK        50.8N 156.1E 1159Z 15 NOV  1M
+"""
+    row = extract_forecasts(text, "dev", "src")[0]
+    assert row["issuing_center"] == "NWPTAC(JMA)"
+    assert row["kind"] == "estimated_tsunami_arrival"
+    assert row["arrival_utc"] == "2006-11-15T11:59:00Z"
+
+
+def test_ptwc_empty_first_arrival_never_uses_peak_time_or_guesses_day() -> None:
+    rows = ptwc_observations({"source_id": "src", "raw_sha256": "hash", "tables_html":
+        "<table><tr><td>Adak</td><td></td><td></td><td>39</td><td>15</td>"
+        "<td>8:41 AM</td><td></td></tr><tr><td>Hilo</td><td>8:03 AM</td>"
+        "<td>68</td><td>98</td><td>39</td><td>8:25 AM</td><td>2</td></tr></table>"})
+    assert rows[0]["native_clock"] == "unknown"
+    assert rows[0]["peak_time_native"] == "8:41 AM"
+    assert rows[1]["native_clock"] == "8:03 AM"
+    assert rows[1]["arrival_utc"] == "unknown"

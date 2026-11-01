@@ -1,0 +1,13 @@
+{
+  "extractors": [
+    "macOS textutil; paragraph/line locators, original page unknown",
+    "pypdf 6.10.0 layout"
+  ],
+  "max_additional_bytes": 100000000,
+  "max_http_attempts": 340,
+  "max_object_bytes": 5000000,
+  "min_noaa_interval_seconds": 1,
+  "new_pair_approval": false,
+  "original_pair_replacement": false,
+  "source_selection": "adaptive source evidence; frozen development roles"
+}

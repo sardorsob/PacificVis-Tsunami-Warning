@@ -23,7 +23,7 @@ The observation snapshot contains **3,756,344 retained source rows** in 1,783
 normalized files. Its 1,902 source entries also retain failed or unsupported
 requests, controls and 61 metadata-only headers; those headers contribute no
 observation rows. Twenty-one sources remain explicitly unparsed.
-The current source ledger covers **2,408 source IDs and 2,279 distinct retained
+The foundation source ledger covers **2,408 source IDs and 2,279 distinct retained
 raw paths** (192,447,446 bytes). It preserves every record from the earlier
 2,388-source ledger and adds the 20-contract reference/metadata pilot. These totals count different layers,
 not independent measurements.
@@ -47,11 +47,13 @@ pins the versions below.
 | --- | --- | --- |
 | Immutable source evidence | `data/raw/ntwc/`, `data/raw/usgs/`, `data/raw/ia/`, `data/raw/coops/`, `data/raw/ncei/`, `data/raw/registries/`, `data/raw/arrival-recovery/` | Original responses and SHA-256 sidecars |
 | Source inventory | `artifacts/provenance/paper-source-manifest-v3.csv` | Appended provenance ledger; earlier versions remain immutable |
+| Documentary source inventory | `artifacts/provenance/paper-source-manifest-v4.csv` | Preserves all v3 records and adds 304 original-document/search identities |
 | Archive inventory | `artifacts/generated/ntwc-batch/` | Frozen selection, report inventory and acquisition dispositions |
 | Station identities | `artifacts/generated/ntwc-batch/data-completion-v1/sites-reviewed/` | 571 reviewed report identities, including 38 new approvals; geography does not prove deployment continuity |
 | Earlier observing-network support | `artifacts/generated/ntwc-batch/design-reviewed-v3/` | Preserved source-pair support fields; not replaced by the target-specific views |
 | Reported arrival tables | `data/processed/arrival-corpus/foundation-v6/` | Same original source rows and timestamps as v5, with reviewed geography eligibility |
 | Research evidence package | `data/processed/arrival-evidence/foundation-v1/` | Source records, individual observations, original pairs, native durations, calendar evidence, ancestry, opportunities and integrity diagnostics |
+| Documentary supplement | `data/processed/arrival-evidence/documentary-v1/` | Separate dated forecast products, first-wave reports, source copies, unresolved clocks and unapproved linkage candidates |
 | Observation records | `data/processed/arrival-waveforms/foundation-v5/` | Native observations, quality flags, source-window purposes and coverage |
 | Additional reported observations | `data/processed/ncei-arrivals/foundation-v1/` | Separate NCEI gauge reports and explicit travel-duration candidates; native fields and source lineage retained |
 | Published contour geometry | `data/processed/arrival-contours/foundation-v2/` | NCEI linework, hours, source URLs and geometry checks |
@@ -132,6 +134,80 @@ outcomes entered selection or modeling, and the independent reviewer inspected
 only whitelisted metadata. This exposure must be considered before any later
 evaluation protocol; the coordinator cannot claim blindness to those fields.
 The 18 reserved NTWC outcome files were not opened.
+
+## Additional original documents
+
+The separate `documentary-v1` supplement adds **1,287 dated forecast instances
+across 75 products and nine development events**. It preserves all 108 message
+versions discovered in the current warning-center search archive for those
+development events, alongside original NOAA and JMA collections. Multiple copies
+of the same product-point-time instance have supporting membership records;
+different versions and issuing centers remain separate. Of the 75 products,
+74 have documented issue times. The Kuril 2007 forecast table has dated forecasts
+but an unknown issue time and version.
+
+These additions do **not** replace the original table cells or increase the
+388 original exact pairs. They recover original forecast information that the
+summary tables did not fully identify. The 592 normalized-name linkage candidates
+still need station/forecast-point and arrival-definition review; none is an
+approved new pair. A community forecast point is not automatically the gauge
+deployment that shares its name. Repeated forecasts are not independent events.
+
+The supplement also retains 87 observation-table rows. Rabinovich et al.'s
+Kuril 2006/2007 first-wave tables supply **22 dated arrivals** and two explicit
+missing arrivals. Their published clocks and native travel times agree on the
+calendar; maximum-wave columns are excluded. A separate PTWC compilation supplies
+19 additional arrival clocks in HST, whose individual arrival dates remain
+unknown, and 44 blank arrival cells. Peak-amplitude times remain separate.
+Five possible links between the paper and the NTWC tables disagree by one to
+seven minutes, so none repairs an original date. These are different reported
+picks, not evidence that either source should be overwritten.
+
+Forecast semantics remain explicit: 1,033 instances are estimated initial
+arrivals, 206 are forecasts of the start of tsunami activity, and 48 are JMA
+estimated tsunami arrivals. All clocks have minute reporting resolution; this
+does not establish minute accuracy or pick uncertainty. Paper instrument markers
+distinguish analog digitized tide gauges, digital bottom-pressure stations and
+digital tide gauges. Historical deployment identity, shared ancestry and
+physical-onset validity still require scientific review.
+
+Search coverage was checked against all 57 development entries. Extending the
+search end date by one day recovered messages missed by shorter queries, and
+returned product codes did not reliably follow the requested filter. The retained
+search results and message identities therefore govern coverage. No search hit
+the 100-result cap. Advertised historical TEX links returned 404; an observation
+endpoint silently returned current-event metadata and was excluded. Two linked
+documents were inaccessible. Empty searches and inaccessible sources do not prove
+that no historical record exists. Further observation recovery requires additional
+dated primary reports or independently validated waveform picks.
+
+Start with `summary.json` and `schema.json`. Use `forecast_instances.csv.gz` for
+distinct product instances, `forecast_evidence.csv.gz` and `forecast_members.csv.gz`
+for source copies, and `first_wave_observations.csv.gz` for reported observations.
+Raw sources, failures and candidate links remain available. The v4 ledger retains
+299 additional raw snapshots (9,920,310 bytes), including two wrong-event responses
+that are excluded from scientific extraction. Raw files and processed tables stay
+local and Git-ignored.
+
+Reproduce the supplement offline after acquiring the explicit contracts in
+`config/arrival-documentary-b01.toml` through `b21.toml`. Document extraction uses
+the pinned optional `pypdf` runtime and macOS `textutil`; the portable run records
+its versions and extraction recipe. These tools are not new project dependencies.
+
+```bash
+python artifacts/logs/runs/2026-11-01__1708__documentary-recovery__08ca9a1/extract_documents.py \
+  . artifacts/generated/ntwc-batch/documentary-recovery-v1/extracted-8.json
+.venv/bin/python scripts/build_documentary_recovery.py \
+  --inputs artifacts/generated/ntwc-batch/data-completion-v1/snapshot/inputs.json \
+  --extracted artifacts/generated/ntwc-batch/documentary-recovery-v1/extracted-8.json \
+  --output data/processed/arrival-evidence/documentary-v1
+```
+
+Use a fresh output path for replay. Source credit: NOAA NWS/PTWC/NTWC,
+JMA/NWPTAC and the UNESCO-IOC ITIC document archive;
+[Rabinovich et al. (2008), doi:10.5194/adgeo-14-105-2008](https://adgeo.copernicus.org/articles/14/105/2008/).
+Original-provider terms remain applicable; this repository does not redistribute
+the source documents.
 
 ## Reproducing and checking the evidence release
 

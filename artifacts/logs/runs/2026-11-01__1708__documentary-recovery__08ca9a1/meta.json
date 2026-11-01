@@ -1,0 +1,9 @@
+{
+  "disposition": "accepted_documentary_supplement",
+  "git_sha_at_registration": "99474abf7094228c3f441e875fce00681a782375",
+  "lane": "paper",
+  "mlflow_experiment": "ntwc-arrival-foundation",
+  "model_fitted": false,
+  "timestamp_utc": "2026-11-01T17:33:18.795087+00:00",
+  "working_tree_at_registration": "dirty; final verified commit is tagged after landing"
+}

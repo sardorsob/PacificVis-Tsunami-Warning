@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "candidate_5_scientific_file_differences": 0,
+    "focused_regression_tests_passed": 11,
+    "input_pin_failures": 0,
+    "input_pins_verified": 327,
+    "ledger_current_rows": 2712,
+    "ledger_previous_rows_preserved": 2408,
+    "production_files_replayed": 12,
+    "protected_hashes_verified_in_source_review": 14512,
+    "raw_hash_failures": 0,
+    "replay_byte_differences": 0,
+    "retained_raw_bytes": 9920310,
+    "retained_raw_paths_verified": 299
+  },
+  "code_sha256": {
+    "analysis/arrival/documentary_recovery.py": "112b1633d81204cf8dac6b7020c1f6e45501615323aee469f5bd5705bc93c653",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/lineage.py": "6aeef840bfc73db5047622275eb0cefde9594b7967facb6fa64c5cc0c313ec78",
+    "artifacts/logs/runs/2026-11-01__1708__documentary-recovery__08ca9a1/extract_documents.py": "43af219522b3d48ef43a23421eefdbe2078c66a1c1324f29eddc13433c9207ea",
+    "scripts/build_documentary_recovery.py": "d5f325c187f49603400593ae5f518aa2efd8124d9263e21ad44340680c9afd8b"
+  },
+  "counts": {
+    "approved_new_pairs": 0,
+    "dated_published_first_wave_rows": 22,
+    "forecast_events": 9,
+    "forecast_instances": 1287,
+    "forecast_products": 75,
+    "observation_rows": 87,
+    "original_pairs": 388,
+    "original_unresolved_reports": 789,
+    "partial_HST_arrival_clocks": 19,
+    "source_forecast_rows": 1629,
+    "source_missing_arrival_cells": 46,
+    "unapproved_label_links": 592,
+    "unpromoted_calendar_conflicts": 5
+  },
+  "disposition": "PASS",
+  "limits": [
+    "Documentary supplement; no parent-cell replacement.",
+    "Source reporting resolution is one minute; pick uncertainty is unknown.",
+    "Deployment identity, target compatibility and lineage require review.",
+    "No model fitting, physical-onset approval, prospective-skill or archival-exhaustion claim."
+  ],
+  "release_manifest_sha256": "ab52afa8ca73afee259676b52c6db9b3468b0d4cb5ca506ece6e822749cadd50",
+  "release_path": "data/processed/arrival-evidence/documentary-v1",
+  "schema_version": "documentary_scientific_qa_v1",
+  "source_ledger_sha256": "6b5320e2c26c2bcea8eaebfd1a096df65e6d6629b06c857bd9946a3c597db25d"
+}

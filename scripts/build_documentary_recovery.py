@@ -37,6 +37,7 @@ DOCUMENT_EVENTS = {
     "documentary-b02-05": "usp000exfn",
     "documentary-b03-07": "official20100227063411530_30",
     "documentary-b03-08": "official20100227063411530_30",
+    "documentary-b21-03": "usp000exfn",
 }
 
 
@@ -95,11 +96,16 @@ def paper_observations(document: dict[str, Any]) -> list[Row]:
                 "date_basis": "native_clock_and_published_travel_time_agree" if utc != "unknown"
                 else "source_missing", "latitude_native": lat, "longitude_native": lon,
                 "sampling_minutes_native": sampling, "precision_seconds": "60",
+                "reported_resolution_seconds": "60",
                 "locator": f"PDF page {page_number}; Table {1 if page_number == 3 else 2}; {label}",
                 "raw_excerpt": match[0].strip(), "source_sha256": document["raw_sha256"],
                 "model_approved": "False", "physical_onset_validated": "False",
                 "deployment_identity": "unknown", "independence": "unknown",
                 "parent_table_replacement_allowed": "False",
+                "instrument_provenance": "digital bottom pressure station (# footnote)"
+                if label.endswith("#") else "analog digitized float-type tide gauge (* footnote)"
+                if sampling.endswith("*") else "digital tide gauge (paper observation methods)",
+                "pick_uncertainty_seconds": "unknown",
             })
     return rows
 
@@ -134,9 +140,41 @@ def kuril_forecasts(path: Path, digest: str) -> list[Row]:
             "locator": f"table row {index}", "source_sha256": digest,
             "model_approved": "False", "parent_table_replacement_allowed": "False",
             "independence": "unknown", "deployment_identity": "unknown",
+            "reported_resolution_seconds": "60", "pick_uncertainty_seconds": "unknown",
         })
     if len(rows) != 21:
         raise ValueError("incomplete frozen Kuril forecast table")
+    return rows
+
+
+def ptwc_observations(document: dict[str, Any]) -> list[Row]:
+    """Keep blanks in the actual arrival column; never substitute peak time."""
+    parser = Cells()
+    parser.feed(document["tables_html"])
+    rows: list[Row] = []
+    for index, cells in enumerate(parser.rows):
+        if not any(cells) or cells[0] in {"Tide Gauge", "HAWAI`I"}:
+            continue
+        if len(cells) != 7:
+            raise ValueError("PTWC observation table shape changed")
+        if cells[1] and not re.fullmatch(r"\d{1,2}:\d{2} [AP]M", cells[1]):
+            raise ValueError("unrecognized PTWC first-arrival clock")
+        rows.append({
+            "record_id": stable_id("ptwc-first-arrival", str(index)),
+            "event_id": "usp000exfn", "source_id": document["source_id"],
+            "kind": "reported_arrival", "station_label": cells[0],
+            "native_clock": cells[1] or "unknown", "native_zone": "HST",
+            "arrival_utc": "unknown", "date_basis": "event_title_does_not_date_arrival_cell",
+            "peak_time_native": cells[5] or "unknown",
+            "peak_to_trough_cm_native": cells[3] or "unknown",
+            "raw_cells_json": json.dumps(cells, ensure_ascii=False),
+            "locator": f"DOC table row {index}; Arrival Time (HST) column",
+            "raw_excerpt": " | ".join(cells), "source_sha256": document["raw_sha256"],
+            "model_approved": "False", "physical_onset_validated": "False",
+            "deployment_identity": "unknown", "independence": "unknown",
+            "parent_table_replacement_allowed": "False", "reported_resolution_seconds": "60",
+            "pick_uncertainty_seconds": "unknown",
+        })
     return rows
 
 
@@ -206,7 +244,10 @@ def build(inputs: Path, extracted: Path, root: Path, output: Path) -> None:
         if sha256(root / source.local_path) != document["raw_sha256"]:
             raise ValueError("extracted text/raw binding changed")
         if document["source_id"] == "documentary-b01-05":
-            observations = paper_observations(document)
+            observations.extend(paper_observations(document))
+            continue
+        if document["source_id"] == "documentary-b21-01":
+            observations.extend(ptwc_observations(document))
             continue
         event = DOCUMENT_EVENTS[document["source_id"]]
         if event not in events:
@@ -222,6 +263,9 @@ def build(inputs: Path, extracted: Path, root: Path, output: Path) -> None:
             record.update(source_sha256=document["raw_sha256"],
                           locator="PDF page " + ",".join(pages) if pages != ["0"]
                           else "DOC text paragraph containing " + record["raw_excerpt"])
+            record["locator"] += "; " + record["product_heading_native"] + "; " + record[
+                "issue_native_text"
+            ]
         forecasts.extend(records)
     forecasts.extend(kuril_forecasts(root / sources["documentary-b01-01"].local_path,
                                     pins[sources["documentary-b01-01"].local_path.as_posix()]))
@@ -297,6 +341,13 @@ def build(inputs: Path, extracted: Path, root: Path, output: Path) -> None:
         "forecast_kinds": dict(Counter(r["kind"] for r in canonical.values())),
         "observation_records": len(observations),
         "exact_first_wave_observations": sum(r["arrival_utc"] != "unknown" for r in observations),
+        "additional_native_arrival_clocks_without_date": sum(
+            r["arrival_utc"] == "unknown" and r["native_clock"] not in {"?", "unknown"}
+            for r in observations
+        ),
+        "source_missing_arrival_cells_retained": sum(
+            r["native_clock"] in {"?", "unknown"} for r in observations
+        ),
         "normalized_label_candidates": len(candidates), "approved_new_pairs": 0,
         "observation_calendar_candidates": len(calendar_candidates),
         "original_pairs_unchanged": 388, "original_unresolved_pairs_unchanged": 789,
@@ -305,8 +356,32 @@ def build(inputs: Path, extracted: Path, root: Path, output: Path) -> None:
                  "independent observations, compatible forecast points or prospective skill.",
     }
     write_json(output / "summary.json", summary)
+    write_json(output / "schema.json", {
+        "schema_version": "arrival_documentary_supplement_v1",
+        "missing_value": "unknown; native '?' and blank cells also retained in excerpts/cell JSON",
+        "time_units": "ISO8601 UTC after explicit named-zone conversion; native clock preserved",
+        "reporting_resolution": "60 seconds; accuracy and pick uncertainty unknown",
+        "coordinates": "source-native labels; geodetic datum and deployment continuity unknown",
+        "forecast_instances": "One product/point/clock instance; versions and agencies "
+                              "stay separate",
+        "forecast_members": "Source copies linked to instance; not extra independent samples",
+        "first_wave_observations": "Reported first-wave/arrival cells; peak times remain separate",
+        "source_markers": "* analog digitized float gauge; + coastal analog tide gauge; "
+                          "# digital bottom pressure station, per Rabinovich et al. tables",
+        "link_candidates": "Normalized labels only; all pair approvals false",
+        "calendar_candidates": "Possible same-name observation links; none permits primary writes",
+        "parent_release": "foundation-v1 remains immutable; no original pair promotion",
+        "intended_use": "Documentary EDA and later reviewed forecast comparison",
+        "not_approved_for": "Model fitting, independent-sample claims or physical-onset truth",
+    })
     for p in sorted((root / "config").glob("arrival-documentary-b*.toml")):
         pins[p.relative_to(root).as_posix()] = sha256(p)
+    for relative in ["analysis/arrival/documentary_recovery.py",
+                     "analysis/arrival/evidence.py", "analysis/arrival/lineage.py",
+                     "scripts/build_documentary_recovery.py",
+                     "artifacts/logs/runs/2026-11-01__1708__documentary-recovery__08ca9a1/"
+                     "extract_documents.py"]:
+        pins[relative] = sha256(root / relative)
     write_json(output / "inputs.json", {"files": pins})
     write_json(output / "manifest.json", {p.name: sha256(p) for p in sorted(output.iterdir())})
     print(json.dumps(summary, indent=2))

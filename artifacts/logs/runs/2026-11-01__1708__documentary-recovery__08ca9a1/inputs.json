@@ -1,0 +1,6 @@
+{
+  "ledger_v3_sha256": "d3b329fafc209cc086dc0ee27084cf32dab93ac62fa89179430fe886bc275654",
+  "previous_release": "arrival-evidence/foundation-v1",
+  "product_inputs_path": "data/processed/arrival-evidence/documentary-v1/inputs.json",
+  "product_inputs_sha256": "1edae65f2363c4e88c57e3fafeefe2368d731469e4d1b6250e46043b1b30d88a"
+}

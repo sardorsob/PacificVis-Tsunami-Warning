@@ -24,8 +24,12 @@ PTWC_FORECAST = re.compile(
     r"^(.*?)\s+(\d+\.\d+[NS])\s+(\d+\.\d+[EW])\s+"
     r"(\d{4})Z\s+(\d{1,2})\s+([A-Z]{3})\s*$", re.MULTILINE | re.IGNORECASE
 )
+JMA_FORECAST = re.compile(
+    r"^\s*([A-Z][A-Z0-9_. -]*?)\s+(\d+\.\d+[NS])\s+(\d+\.\d+[EW])\s+"
+    r"(\d{4})Z\s+(\d{1,2})\s+([A-Z]{3})\s+[\d.]+M\s*$", re.MULTILINE | re.I
+)
 START_FORECAST = re.compile(
-    r"([A-Z][A-Z0-9 .'/()-]*?)\s{2,}(\d{4})\s+"
+    r"([A-Z][A-Z0-9 .'/()-]*?)\s+(\d{4})\s+"
     r"(AKST|AKDT|PST|PDT|HST)\s+([A-Z]{3})\s+(\d{1,2})\b", re.IGNORECASE
 )
 
@@ -47,7 +51,7 @@ def native_origins(text: str) -> set[str]:
                              text, re.IGNORECASE):
         hm, month, day, year = match.groups()
         origins.add(iso(local_clock(int(year), MONTHS[month.upper()], int(day), hm, "UTC")))
-    for match in re.finditer(r"ORIGIN TIME\s*-\s*(\d{4})Z\s+(\d{1,2})\s+"
+    for match in re.finditer(r"ORIGIN TIME\s*[-:]\s*(\d{4})Z\s+(\d{1,2})\s+"
                              r"([A-Z]{3})\s+(\d{4})", text, re.IGNORECASE):
         hm, day, month, year = match.groups()
         origins.add(iso(local_clock(int(year), MONTHS[month.upper()], int(day), hm, "UTC")))
@@ -81,7 +85,7 @@ def extract_forecasts(
         if ptwc_issue:
             hm, day, mon, year = ptwc_issue.groups()
             issue = local_clock(int(year), MONTHS[mon.upper()], int(day), hm, "UTC")
-            center = "PTWC"
+            center = "NWPTAC(JMA)" if "NWPTAC(JMA)" in block.upper() else "PTWC"
         elif issue_match:
             hour, minute, ap, zone, mon, day, year = issue_match.groups()
             hour24 = int(hour) % 12 + (12 if ap.upper() == "PM" else 0)
@@ -107,15 +111,23 @@ def extract_forecasts(
             r"(?=FOR ARRIVAL TIMES AT ADDITIONAL|\$\$|\Z)", block, re.DOTALL | re.I
         ))
         for section in sections:
-            for match in START_FORECAST.finditer(section):
+            matches = list(START_FORECAST.finditer(section))
+            clock_count = len(re.findall(
+                r"\b\d{4}\s+(?:AKST|AKDT|PST|PDT|HST)\s+[A-Z]{3}\s+\d{1,2}\b",
+                section, re.I
+            ))
+            if len(matches) != clock_count:
+                raise ValueError("forecast-section clock accounting failed")
+            for match in matches:
                 if LOCAL_FORECAST.search(match[0]):
                     continue
                 label, clock, zone, mon, day = match.groups()
                 rows.append((label.strip(), clock, zone.upper(), MONTHS[mon.upper()], int(day),
                              match[0].strip(), "unknown", "unknown"))
         # PTWC coordinates belong to a forecast point, not an observing deployment.
-        if center == "PTWC":
-            for match in PTWC_FORECAST.finditer(block):
+        if center in {"PTWC", "NWPTAC(JMA)"}:
+            pattern = JMA_FORECAST if center == "NWPTAC(JMA)" else PTWC_FORECAST
+            for match in pattern.finditer(block):
                 prefix, lat, lon, clock, day, mon = match.groups()
                 label = re.split(r"\s{2,}", prefix.strip())[-1]
                 rows.append((label, clock, "UTC", MONTHS[mon.upper()], int(day), match[0].strip(),
@@ -132,6 +144,7 @@ def extract_forecasts(
                 "issuing_center": center, "issue_utc": iso(issue),
                 "message_version": str(int(version[1])), "station_label": label,
                 "kind": "forecast_start_of_tsunami" if forecast_section
+                else "estimated_tsunami_arrival" if center == "NWPTAC(JMA)"
                 else "estimated_initial_arrival", "native_clock": clock,
                 "native_zone": zone, "native_month": str(month), "native_day": str(day),
                 "arrival_utc": utc, "date_basis": "explicit_month_day_same_month_dated_bulletin"
@@ -142,6 +155,10 @@ def extract_forecasts(
                 "parent_table_replacement_allowed": "False",
                 "independence": "unknown", "deployment_identity": "unknown",
                 "native_origin_utc": next(iter(origins)) if len(origins) == 1 else "unknown",
+                "reported_resolution_seconds": "60", "pick_uncertainty_seconds": "unknown",
+                "issue_native_text": ptwc_issue[0] if ptwc_issue else
+                issue_match[0] if issue_match else "unknown",
+                "product_heading_native": version[0],
             })
     return records
 

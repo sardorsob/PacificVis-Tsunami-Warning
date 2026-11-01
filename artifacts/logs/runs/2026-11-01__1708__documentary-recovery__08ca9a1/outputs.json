@@ -1,0 +1,6 @@
+{
+  "product_manifest_path": "data/processed/arrival-evidence/documentary-v1/manifest.json",
+  "product_manifest_sha256": "ab52afa8ca73afee259676b52c6db9b3468b0d4cb5ca506ece6e822749cadd50",
+  "scientific_qa_sha256": "dfd795915653f5c03486b46d5b9825d1cc0665197212912fc32184ff372f59a1",
+  "source_ledger_v4_sha256": "6b5320e2c26c2bcea8eaebfd1a096df65e6d6629b06c857bd9946a3c597db25d"
+}
