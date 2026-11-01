@@ -1,0 +1,9 @@
+{
+  "accepted_ntwc_release_sha256": "aeec2d24fc18002c2eae2cc85afab11818a051649804aa1fb0c0c3d5141cb2ec",
+  "global_deadline": null,
+  "source_code_sha256": {
+    "analysis/arrival/evidence.py": "fde7d66fd8c241efd7698cbaef766a4d7a680aebc41037c0778ce3e6db3634c3",
+    "scripts/prepare_arrival_data_completion.py": "8769b84abc1d987d7a9fa626e9f78d46478738efd3e65594e7dada32d2a5014f",
+    "tests/test_arrival_data_snapshot.py": "0d719a472ab0688d008e69d78ac446b31fee67179e6e652ece400cd725128b2d"
+  }
+}

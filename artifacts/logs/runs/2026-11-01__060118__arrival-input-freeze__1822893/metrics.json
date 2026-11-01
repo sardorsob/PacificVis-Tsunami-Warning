@@ -1,0 +1,13 @@
+{
+  "exact_estimated": 510,
+  "exact_observed": 578,
+  "exact_pairs": 388,
+  "frontend_tests_passed": 178,
+  "geography_candidates": 644,
+  "ncei_source_rows": 2224,
+  "ntwc_source_rows": 1177,
+  "pinned_inputs": 2794,
+  "protected_files": 14512,
+  "python_tests_passed": 767,
+  "snapshot_replay_files": 5
+}

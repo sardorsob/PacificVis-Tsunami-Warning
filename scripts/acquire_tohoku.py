@@ -35,6 +35,7 @@ from pipeline.acquisition import (  # noqa: E402
     load_contracts,
     stream_to_path,
 )
+from pipeline.acquisition_control import guarded_fetcher  # noqa: E402
 
 SAFE_RESPONSE_HEADER_NAMES = frozenset(
     {
@@ -394,6 +395,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run-tag", default="acquisition")
     parser.add_argument("--lane", choices=("shared", "paper", "story"), default="shared")
     parser.add_argument("--offline", action="store_true", help="do not access the network")
+    parser.add_argument("--control-state", type=Path,
+                        help="persist exact-URL pilot budgets; requires both byte limits")
     parser.add_argument("--min-interval", type=float, default=0,
                         help="minimum seconds between request starts, including retries")
     parser.add_argument("--max-contracts", type=int,
@@ -418,6 +421,14 @@ def main(argv: list[str] | None = None) -> int:
             args.max_total_bytes is not None or args.max_object_bytes is not None
         ) else None
         fetcher: Fetcher = offline_fetcher if args.offline else ioc_keychain_fetcher(budget=budget)
+        if args.control_state is not None:
+            if args.offline or budget is None:
+                raise ValueError("persistent source control requires a live, byte-capped pilot")
+            state = args.control_state.resolve()
+            if not state.is_relative_to(args.root.resolve()):
+                raise ValueError("control state must be inside the acquisition root")
+            fetcher = guarded_fetcher(state, frozenset(item.url for item in contracts), budget,
+                                      min_interval=max(1.0, args.min_interval))
         results = acquire_all(
             contracts, args.root, fetcher=fetcher, min_interval=args.min_interval,
             max_contracts=args.max_contracts,

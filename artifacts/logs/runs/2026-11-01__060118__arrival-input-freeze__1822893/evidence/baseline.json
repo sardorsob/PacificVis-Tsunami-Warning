@@ -1,0 +1,20 @@
+{
+  "exact_estimated": 510,
+  "exact_observed": 578,
+  "exact_pairs": 388,
+  "geography_candidates": 644,
+  "geography_only": {
+    "T-CAL_geography_only": 229,
+    "T-OBS_geography_only": 335
+  },
+  "ncei_source_rows": 2224,
+  "ntwc_source_rows": 1177,
+  "roles": {
+    "development": 57,
+    "sealed_evaluation": 18
+  },
+  "target_counts": {
+    "T-CAL": 159,
+    "T-OBS": 241
+  }
+}

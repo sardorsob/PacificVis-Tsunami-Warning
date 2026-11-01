@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "path": "baseline.json",
+      "sha256": "b6cac83b224503b56803bd726fd95d93710bff5deab11d77c3e6dbc4e7037606"
+    },
+    {
+      "path": "geography_queue.csv.gz",
+      "sha256": "c07d5d3bc51e7c2cf192047daaebe307ac50138a142516c940fb5a7f4adc1ce2"
+    },
+    {
+      "path": "inputs.json",
+      "sha256": "3e79bb69fffedf550698afc622e490e4961a67a44123d96385f331ef8742786e"
+    },
+    {
+      "path": "protected.json",
+      "sha256": "ac1a7c72c126a3cacb900b51d5dd5d229637e75fbbfe18df4f2cadab120c3b9b"
+    }
+  ]
+}

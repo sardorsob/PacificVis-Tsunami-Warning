@@ -1,0 +1,11 @@
+{
+  "decision": "accepted",
+  "git_sha": "1822893668b215a07a7880593ef72880f5be727d",
+  "lane": "paper-data-completion",
+  "mlflow_run_id": "af29a072d2514519ac272645d0da73a5",
+  "mode": "foreground_supervised",
+  "model_fitted": false,
+  "reserved_outcomes_accessed": false,
+  "run_id": "2026-11-01__060118__arrival-input-freeze__1822893",
+  "stage": "M0"
+}
