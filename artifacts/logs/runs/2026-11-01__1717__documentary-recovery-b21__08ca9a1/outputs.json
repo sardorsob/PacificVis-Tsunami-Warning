@@ -1,0 +1,53 @@
+[
+  {
+    "bytes": 142848,
+    "content_type": "application/msword",
+    "final_url": "https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/images/stories/list_of_tsunamis/2006/PTWC_TsunamiObservations_061115.doc",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "142848",
+      "Content-Type": "application/msword",
+      "Date": "Sun, 01 Nov 2026 17:17:51 GMT",
+      "ETag": "\"22e00-61e8a55bc7c40\"",
+      "Last-Modified": "Wed, 31 Jul 2024 12:35:53 GMT",
+      "Server": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b21-01.doc",
+    "reason": "not applicable",
+    "sha256": "94319c9fb33d6d8686a5bf47d0e372ce4d9941b1c12529a4e64103f6aaa901ce",
+    "source_id": "documentary-b21-01",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b21-02.pdf",
+    "reason": "local_or_download_error: HTTP Error 404: Not Found",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b21-02",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 65024,
+    "content_type": "application/msword",
+    "final_url": "https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/images/stories/list_of_tsunamis/2006/15nov06_NWPTAC_Msgs.doc",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "65024",
+      "Content-Type": "application/msword",
+      "Date": "Sun, 01 Nov 2026 17:17:55 GMT",
+      "ETag": "\"fe00-61e8a55bc7c40\"",
+      "Last-Modified": "Wed, 31 Jul 2024 12:35:53 GMT",
+      "Server": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b21-03.doc",
+    "reason": "not applicable",
+    "sha256": "a24c838a7ab458fd77b571fd9bda19b54f38a6380c88b49603836f133a9775c3",
+    "source_id": "documentary-b21-03",
+    "status": "downloaded"
+  }
+]

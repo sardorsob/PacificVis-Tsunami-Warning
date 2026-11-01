@@ -1,0 +1,77 @@
+[
+  {
+    "bytes": 23306,
+    "content_type": "text/html",
+    "final_url": "https://www.tsunami.gov/php/prevEventresults.php?products%5B%5D=WEAK51&start_date=2015-09-16&end_date=2015-09-17&bulletin_count=100&Submit=Submit",
+    "headers": {
+      "Connection": "[redacted]",
+      "Content-Length": "23306",
+      "Content-Security-Policy": "[redacted]",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Date": "Sun, 01 Nov 2026 17:06:30 GMT",
+      "Last-Modified": "Fri, 21 Feb 2025 04:58:42 GMT",
+      "Referrer-Policy": "[redacted]",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "Vary": "Accept-Encoding",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b11-01.html",
+    "reason": "not applicable",
+    "sha256": "d72947d09fea51c86b66e30f9090c2291b797801070341f9230fddca545a1e7e",
+    "source_id": "documentary-b11-01",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 67366,
+    "content_type": "text/html",
+    "final_url": "https://www.tsunami.gov/php/prevEventresults.php?products%5B%5D=WEPA41&start_date=2015-09-16&end_date=2015-09-18&bulletin_count=100&Submit=Submit",
+    "headers": {
+      "Connection": "[redacted]",
+      "Content-Security-Policy": "[redacted]",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Date": "Sun, 01 Nov 2026 17:06:31 GMT",
+      "Last-Modified": "Fri, 21 Feb 2025 04:58:42 GMT",
+      "Referrer-Policy": "[redacted]",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "Transfer-Encoding": "chunked",
+      "Vary": "Accept-Encoding",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b11-02.html",
+    "reason": "not applicable",
+    "sha256": "f07e752f33b87b688603f30ccf0175fa6f440a1274f5235f7f1ff3d632179f16",
+    "source_id": "documentary-b11-02",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 39145,
+    "content_type": "text/html",
+    "final_url": "https://www.tsunami.gov/php/prevEventresults.php?products%5B%5D=WEAK51&start_date=2018-01-23&end_date=2018-01-25&bulletin_count=100&Submit=Submit",
+    "headers": {
+      "Connection": "[redacted]",
+      "Content-Length": "39145",
+      "Content-Security-Policy": "[redacted]",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Date": "Sun, 01 Nov 2026 17:06:33 GMT",
+      "Last-Modified": "Fri, 21 Feb 2025 04:58:42 GMT",
+      "Referrer-Policy": "[redacted]",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "Vary": "Accept-Encoding",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b11-03.html",
+    "reason": "not applicable",
+    "sha256": "d006430ff194ada8920630a18c97b65edf792dbac1f1e2b19711d9e8e0ae01dd",
+    "source_id": "documentary-b11-03",
+    "status": "downloaded"
+  }
+]
