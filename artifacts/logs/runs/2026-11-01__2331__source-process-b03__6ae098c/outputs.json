@@ -1,0 +1,48 @@
+[
+  {
+    "bytes": 1698643,
+    "content_type": "application/pdf",
+    "final_url": "https://www.tsunami.gov/operations/opsmanual.pdf",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "1698643",
+      "Content-Security-Policy": "[redacted]",
+      "Content-Type": "application/pdf",
+      "Date": "Sun, 01 Nov 2026 23:31:02 GMT",
+      "Last-Modified": "Tue, 11 Apr 2017 15:54:47 GMT",
+      "Referrer-Policy": "[redacted]",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/source-process-v1/ntwc-guide2017-canonical.pdf",
+    "reason": "not applicable",
+    "sha256": "74a75de52751293370baef431e693687c17acb146b90e7375732cd741c30cd01",
+    "source_id": "source-process-b03-01",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 36194,
+    "content_type": "text/html",
+    "final_url": "https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/indexdd78.html?Itemid=1163&catid=1163&id=1610:262&option=com_content&view=article",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "36194",
+      "Content-Type": "text/html",
+      "Date": "Sun, 01 Nov 2026 23:31:04 GMT",
+      "ETag": "\"8d62-61e8a565512c0\"",
+      "Last-Modified": "Wed, 31 Jul 2024 12:36:03 GMT",
+      "Server": "[redacted]",
+      "Vary": "Accept-Encoding"
+    },
+    "local_path": "data/raw/arrival-recovery/source-process-v1/itic-product-eras.html",
+    "reason": "not applicable",
+    "sha256": "cf7b85348c3a4ce747ce0683f8158a85ce496ab234511fe8455d27e23c017f38",
+    "source_id": "source-process-b03-02",
+    "status": "downloaded"
+  }
+]

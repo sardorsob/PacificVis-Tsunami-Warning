@@ -1,0 +1,22 @@
+{
+  "conservative_response_bytes_spent": 28450010,
+  "http_attempts": 27,
+  "limits": {
+    "additional_bytes": 100000000,
+    "http_attempts": 160,
+    "object_bytes": 10000000
+  },
+  "new_ledger_rows": 26,
+  "new_ledger_total": 2738,
+  "no_primary_timestamp_changes": true,
+  "old_ledger_rows_preserved": 2712,
+  "outcomes": {
+    "downloaded": 21,
+    "quarantined": 4,
+    "skipped": 1
+  },
+  "raw_snapshots": 21,
+  "retained_bytes": 28450010,
+  "review_status": "retained acquisition and metadata; scientific applicability under review",
+  "source_contracts": 26
+}

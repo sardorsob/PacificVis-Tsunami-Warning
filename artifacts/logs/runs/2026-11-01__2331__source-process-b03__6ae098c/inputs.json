@@ -1,0 +1,40 @@
+[
+  {
+    "availability": "approved",
+    "coordinate_order": "unknown",
+    "crs": "unknown",
+    "expected_content_signature": "Inspect original title, edition, event scope and exact section before evidence use",
+    "expected_prefix": "%PDF",
+    "format": "PDF",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/arrival-recovery/source-process-v1/ntwc-guide2017-canonical.pdf",
+    "publisher": "NOAA NWS NTWC",
+    "reason": "Canonical www host separately contracted after nonwww301; version6.7April2017 observing procedures",
+    "source_class": "Original collection and reporting process evidence",
+    "source_id": "source-process-b03-01",
+    "station_metadata": "literal station or network names; deployment applicability requires separate review",
+    "temporal_semantics": "historical publication or current documentation as specified; no event-time substitution",
+    "units": "source-native; no scientific value conversion at acquisition",
+    "url": "https://www.tsunami.gov/operations/opsmanual.pdf",
+    "vertical_datum": "unknown"
+  },
+  {
+    "availability": "approved",
+    "coordinate_order": "unknown",
+    "crs": "unknown",
+    "expected_content_signature": "Inspect original title, edition, event scope and exact section before evidence use",
+    "expected_prefix": "<",
+    "format": "HTML",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/arrival-recovery/source-process-v1/itic-product-eras.html",
+    "publisher": "UNESCO IOC NOAA ITIC",
+    "reason": "Official product era guide:2011guide applies through2014, enhancedservicesdates",
+    "source_class": "Original collection and reporting process evidence",
+    "source_id": "source-process-b03-02",
+    "station_metadata": "literal station or network names; deployment applicability requires separate review",
+    "temporal_semantics": "historical publication or current documentation as specified; no event-time substitution",
+    "units": "source-native; no scientific value conversion at acquisition",
+    "url": "https://legacy.itic.ioc-unesco.org/legacy.itic.ioc-unesco.org/indexdd78.html?Itemid=1163&catid=1163&id=1610:262&option=com_content&view=article",
+    "vertical_datum": "unknown"
+  }
+]
