@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/arrival-documentary-b03.toml --run-tag documentary-recovery-b03 --lane paper --control-state artifacts/generated/ntwc-batch/documentary-recovery-v1/b03-control.json --min-interval 1 --max-contracts 8 --max-total-bytes 25000000 --max-object-bytes 5000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c2fdd85",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-11-01__1659__documentary-recovery-b03__c2fdd85",
+  "timestamp_utc": "2026-11-01T16:59:00Z",
+  "working_tree": "dirty"
+}

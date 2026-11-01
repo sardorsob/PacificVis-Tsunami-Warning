@@ -1,0 +1,79 @@
+[
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-01.html",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-01",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-02.html",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-02",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-03.txt",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-03",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-04.pdf",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-04",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-05.pdf",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-05",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-06.html",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-06",
+    "status": "skipped"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "final_url": "not-recorded",
+    "headers": {},
+    "local_path": "data/raw/arrival-recovery/documentary-v1/documentary-b01-07.html",
+    "reason": "unsettled prior provider request; review required",
+    "sha256": "not-downloaded",
+    "source_id": "documentary-b01-07",
+    "status": "skipped"
+  }
+]
