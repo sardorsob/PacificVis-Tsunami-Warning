@@ -1,0 +1,74 @@
+{
+  "scope": "Development cohort; bounded original-source investigation, not a census of every national archive",
+  "review_date": "2026-11-01",
+  "families": [
+    {
+      "family": "Retained NTWC originals",
+      "coverage": "All 46 source pages,1177 retained rows",
+      "result": "45 conditional observed-reporting definitions; Illapel near-arrival gaps and Chile transmission notes",
+      "stop_reason": "Literal source-page census complete"
+    },
+    {
+      "family": "Historical warning-product design",
+      "coverage": "Revised 2011 IOC guide,2017 NTWC guide and original ITIC product-era description",
+      "result": "Selected forecast points, optional ETA lifecycle, different clock meanings and operational monitoring sequence",
+      "stop_reason": "Relevant definitions verified; no universal full postevent first-arrival-picking SOP recovered"
+    },
+    {
+      "family": "Tide-gauge and DART collection",
+      "coverage": "NOAA 2000/2004/2011 guides, PMEL 2005 DART II engineering, NCEI product descriptions, current IOC stream policy",
+      "result": "Sampling versus transmission, averaging, recovered records, status-history route and processing distinctions",
+      "stop_reason": "Historical operating anchors checked; current policy not applied to every old deployment"
+    },
+    {
+      "family": "Archive construction and failures",
+      "coverage": "NCEI catalog/schema and original 2021 curator account",
+      "result": "Conditional source compilation, transfer gaps/backfills, API duplicate correction, selective small-event reporting",
+      "stop_reason": "No station/date allocation to current blanks supported by aggregate rescue account"
+    },
+    {
+      "family": "Tōhoku 2011",
+      "coverage": "JMA Technical Report 133, contemporaneous instrument-status notice, April/July restoration announcements",
+      "result": "Four undetermined first-wave starts; later data-interruption snapshot and replacement-deployment caution; four unapproved NCEI definition comparisons",
+      "stop_reason": "Direct primary mechanism and later incident states distinguished; exact failure-start clocks remain unstated"
+    },
+    {
+      "family": "Chile 2010",
+      "coverage": "Retained NTWC table and original IOC 92 assessment archived by VLIZ",
+      "result": "Station damage and hourly telemetry; positive-control arrival and seismic-seiche conflict",
+      "stop_reason": "Original reports checked; later failure cannot establish absent onset cause"
+    },
+    {
+      "family": "Samoa 2009",
+      "coverage": "Official NOAA service assessment",
+      "result": "All NOS Pacific gauges operational;26/32 DART available; hotline failure concerns warning delivery",
+      "stop_reason": "Unavailable DART deployment identities and individual component causes not supplied"
+    },
+    {
+      "family": "Kuril 2006/2007",
+      "coverage": "Original observing paper and NOAA Crescent City processing report; Craig draft lead",
+      "result": "Noise-limited Starodubsk onset; analog resolution/coverage and later gaps; published interpolation",
+      "stop_reason": "Craig draft redirect unresolved and no corresponding NTWC rows; no forecast/observation substitution"
+    },
+    {
+      "family": "Illapel 2015 regional gaps",
+      "coverage": "Five native gap annotations; narrow original regional source searches and Tonga national cancellation",
+      "result": "Four missing observations have gap support; approximate national Tonga arrival found; no component cause",
+      "stop_reason": "Repeated targeted searches yielded no original dated operator log or new applicable failure mechanism"
+    },
+    {
+      "family": "Additional development incidents",
+      "coverage": "Bounded Haida Gwaii 2012, Santa Cruz 2013 and Kodiak 2018 queries",
+      "result": "No applicable original incident explanation; Lata 2019 failure explicitly unsuitable for 2013",
+      "stop_reason": "No original station/time/channel evidence recovered; absence of evidence retained, not absence of incident claimed"
+    }
+  ],
+  "access_limits": [
+    "JODC three503responses stopped host; original IOC PDFs acquired from VLIZ with archive custody disclosed",
+    "Craig draft unapproved redirect retained as unavailable lead; no indexed-text-only cause promotion",
+    "No accessible historical CO-OPS sensor-status history collection recovered",
+    "Current station metadata and later failures are not historical causal assignments"
+  ],
+  "acquisition_accounting": "27 governed HTTP acquisition attempts; web search/reader discovery requests are separate and are not represented as downloads",
+  "unresolved_evidence": "Original operator incident histories, exact failure onset/end bounds, archive-transfer manifests, native pick definitions and deployment identity"
+}

@@ -532,3 +532,11 @@ Acquisition uses explicit source contracts, bounded streaming, provider error
 limits and checksum-based caching. An offline replay verifies retained files
 without requesting them again. It does not turn failed or withheld requests
 into acquired data.
+
+## Collection and reporting process evidence
+
+The [source-process supplement](source-process.md) records original provider
+policies, station incidents, archive failures and source-definition conflicts.
+It links four absent NTWC observations to explicit near-arrival gaps, flags four
+NCEI definition comparisons and retains one additional approximate national
+observation. It adds no exact pair and leaves earlier releases unchanged.
