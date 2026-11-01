@@ -1,0 +1,440 @@
+{
+  "status": "ready-for-check_schema_verified_runtime_event_queries_not_executed",
+  "reviewer": "time_evidence_review",
+  "official_documentation_url": "https://www.ngdc.noaa.gov/hazel/view/swagger",
+  "official_schema_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/docs/api.json",
+  "schema_sha256": "efd460d2e6f66f43a4eda7acf288a10609e0eba692aa2d1ef921c0f9b0ce16d9",
+  "schema_version": "3.1.0",
+  "api_info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "metadata_fetch_receipts": [
+    {
+      "url": "https://www.ngdc.noaa.gov/hazel/view/hazards/tsunami/runup-search",
+      "resolved_url": "https://www.ngdc.noaa.gov/hazel/view/hazards/tsunami/runup-search",
+      "status": 200,
+      "bytes": 1765,
+      "sha256": "3fec2a9935a8d6d3f351d6c2a0c49ccf4a904016e5ac2820e48c55e1122987b6",
+      "content_type": "text/plain;charset=UTF-8"
+    },
+    {
+      "url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "resolved_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "status": 200,
+      "bytes": 5313063,
+      "sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "content_type": "text/javascript"
+    },
+    {
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/docs/api.json",
+      "resolved_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/docs/api.json",
+      "status": 200,
+      "bytes": 266819,
+      "sha256": "efd460d2e6f66f43a4eda7acf288a10609e0eba692aa2d1ef921c0f9b0ce16d9",
+      "content_type": "application/json"
+    }
+  ],
+  "schema_confirmed_requests": [
+    {
+      "local_event_id": "official20010623203314130_33",
+      "stage": "source_event_identity_discovery",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/events?year=2001&month=6&day=23&op=and&itemsPerPage=10&page=1",
+      "query": {
+        "year": 2001,
+        "month": 6,
+        "day": 23,
+        "op": "and",
+        "itemsPerPage": 10,
+        "page": 1
+      },
+      "schema_locator": "#/paths/~1hazard-service~1api~1v1~1tsunamis~1events/get/parameters",
+      "runtime_response_tested": false,
+      "next_gate": "Match source date/time/location/earthquake link against frozen local metadata; stop on ambiguous or contradictory source identity. Do not pick first returned event automatically."
+    },
+    {
+      "local_event_id": "official20010623203314130_33",
+      "stage": "alternative_instrumental_runups_filtered_by_source_date",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?sourceMinYear=2001&sourceMaxYear=2001&sourceMonth=6&sourceDay=23&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1&op=and",
+      "query_pairs": [
+        [
+          "sourceMinYear",
+          2001
+        ],
+        [
+          "sourceMaxYear",
+          2001
+        ],
+        [
+          "sourceMonth",
+          6
+        ],
+        [
+          "sourceDay",
+          23
+        ],
+        [
+          "typeMeasurementId",
+          2
+        ],
+        [
+          "typeMeasurementId",
+          3
+        ],
+        [
+          "itemsPerPage",
+          200
+        ],
+        [
+          "page",
+          1
+        ],
+        [
+          "op",
+          "and"
+        ]
+      ],
+      "runtime_response_tested": false,
+      "next_gate": "Every returned record must link to the independently resolved tsunamiEventId; dates alone do not establish unique source identity."
+    },
+    {
+      "local_event_id": "official20030925195006360_27",
+      "stage": "source_event_identity_discovery",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/events?year=2003&month=9&day=25&op=and&itemsPerPage=10&page=1",
+      "query": {
+        "year": 2003,
+        "month": 9,
+        "day": 25,
+        "op": "and",
+        "itemsPerPage": 10,
+        "page": 1
+      },
+      "schema_locator": "#/paths/~1hazard-service~1api~1v1~1tsunamis~1events/get/parameters",
+      "runtime_response_tested": false,
+      "next_gate": "Match source date/time/location/earthquake link against frozen local metadata; stop on ambiguous or contradictory source identity. Do not pick first returned event automatically."
+    },
+    {
+      "local_event_id": "official20030925195006360_27",
+      "stage": "alternative_instrumental_runups_filtered_by_source_date",
+      "method": "GET",
+      "url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?sourceMinYear=2003&sourceMaxYear=2003&sourceMonth=9&sourceDay=25&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=1&op=and",
+      "query_pairs": [
+        [
+          "sourceMinYear",
+          2003
+        ],
+        [
+          "sourceMaxYear",
+          2003
+        ],
+        [
+          "sourceMonth",
+          9
+        ],
+        [
+          "sourceDay",
+          25
+        ],
+        [
+          "typeMeasurementId",
+          2
+        ],
+        [
+          "typeMeasurementId",
+          3
+        ],
+        [
+          "itemsPerPage",
+          200
+        ],
+        [
+          "page",
+          1
+        ],
+        [
+          "op",
+          "and"
+        ]
+      ],
+      "runtime_response_tested": false,
+      "next_gate": "Every returned record must link to the independently resolved tsunamiEventId; dates alone do not establish unique source identity."
+    }
+  ],
+  "schema_confirmed_templates": [
+    {
+      "method": "GET",
+      "url_template": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId={VERIFIED_EVENT_ID}&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page={PAGE}",
+      "description": "Preferred instrumental record query after event identity is resolved; documented array encoding repeats parameter names."
+    },
+    {
+      "method": "GET",
+      "url_template": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups/{RUNUP_ID}/info",
+      "description": "Source/context/comments for a selected instrumental observation."
+    },
+    {
+      "method": "GET",
+      "url_template": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups/{RUNUP_ID}/references?itemsPerPage=200&page={PAGE}",
+      "description": "Observation-specific source citations for provenance and dependence checks."
+    },
+    {
+      "method": "GET",
+      "url_template": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/events/{VERIFIED_EVENT_ID}/references?itemsPerPage=200&page={PAGE}",
+      "description": "Source-event citations; do not substitute event-level citation for observation-level lineage."
+    }
+  ],
+  "field_contract": {
+    "RunupView": {
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "tsunamiEventId": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "earthquakeEventId": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "year": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "month": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "day": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "hour": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "minute": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "second": {
+        "type": "number"
+      },
+      "country": {
+        "type": "string"
+      },
+      "area": {
+        "type": "string"
+      },
+      "locationName": {
+        "type": "string"
+      },
+      "latitude": {
+        "type": "number"
+      },
+      "longitude": {
+        "type": "number"
+      },
+      "typeMeasurementId": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "doubtful": {
+        "type": "string"
+      },
+      "arrDay": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "arrHour": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "arrMin": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "travHours": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "travMins": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "maxWaveArrDay": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "maxWaveArrHour": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "maxWaveArrMin": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "publish": {
+        "type": "boolean"
+      }
+    },
+    "RunupInfoView": {
+      "comments": {
+        "type": "string"
+      },
+      "sourceCountry": {
+        "type": "string"
+      },
+      "sourceLocationName": {
+        "type": "string"
+      },
+      "sourceLatitude": {
+        "type": "number"
+      },
+      "sourceLongitude": {
+        "type": "number"
+      }
+    },
+    "ReferenceView": {
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "author": {
+        "type": "string"
+      },
+      "year": {
+        "type": "string"
+      },
+      "citation": {
+        "type": "string"
+      },
+      "comments": {
+        "type": "string",
+        "maxLength": 4000,
+        "minLength": 0
+      },
+      "publish": {
+        "type": "boolean"
+      }
+    },
+    "ItemsViewRunupView": {
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RunupView"
+        }
+      },
+      "page": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "itemsPerPage": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "totalItems": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "totalPages": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "type_measurement_filter_proof": {
+    "name": "typeMeasurementId",
+    "in": "query",
+    "description": "<div>      <p>Type of Measurement</p>      <p>Valid values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</p>      <ul>        <li>1 - Water height - Eyewitness observation - the maximum elevation the wave.</li>        <li>2 - Tide Gauge - half of the maximum height (minus the normal tide)of a tsunami wave recorded at the coast by a tide gauge. Also called the amplitude.</li>        <li>3 - Deep Ocean Gauge - half of the maximum height (minus the normal tide) of a tsunami wave recorded in the open ocean by a seafloor bottom pressure recording system.</li>        <li>4 - Water height (Post-tsunami survey measurement) - the maximum elevation the wave.</li>        <li>5 - Runup Height (Post-tsunami survey measurement) - the maximum elevation the wave reaches at the maximum inundation.</li>        <li>6 - Atmospheric Wave - Tsunami-like phenomena generated by meteorological or atmospheric disturbances. These waves can be produced by atmospheric gravity waves, pressure jumps, frontal passages, squalls, gales, typhoons, hurricanes and other atmospheric sources. Meteotsunamis have the same temporal and spatial scales as tsunami waves and can similarly devastate coastal areas, especially in bays and inlets with strong amplification and well-defined resonant properties. Sometimes referred to as rissaga. The water height definition for an atmospheric wave depends on whether it was measured by a tide gauge (2), eyewitness (1), or field survey (4,5).</li>        <li>7 - Seiche - A standing wave oscillating in a partially or fully enclosed body of water. It may be initiated by long period seismic waves (an earthquake), wind and water waves, or a tsunami. The water height definition for a seiche depends on whether it was measured by a tide gauge (2), eyewitness (1), or field survey (4,5).</li>        <li>8 - Runup Height in Harbor (Post-tsunami survey measurement) - water height in the harbor.</li>        <li>9 - Splash mark (Post-tsunami survey measurement)</li>        <li>10 -  Flow Depth (Post-tsunami survey measurement) depth of the water.</li>      </ul>    </div>",
+    "required": false,
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "official_app_semantic_evidence": [
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 2381362,
+      "end_char": 2381402,
+      "text": "url:`${GA}/hazard-service/docs/api.json`"
+    },
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 325496,
+      "end_char": 325516,
+      "text": "arrayFormat:\"repeat\""
+    },
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 532939,
+      "end_char": 533095,
+      "text": "The arrival time is the universal coordinated time of the arrival of the initial tsunami wave at the location of the effects given in Day, Hour and Minutes."
+    },
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 533350,
+      "end_char": 533490,
+      "text": "The travel time is the time in hours and minutes that it took the initial tsunami wave to travel from the source to the location of effects."
+    },
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 532530,
+      "end_char": 532632,
+      "text": "The latitude and longitude of the location (city, state or island) where the tsunami effects occurred."
+    },
+    {
+      "source_url": "https://www.ngdc.noaa.gov/hazel/static/js/main.4768c122.js",
+      "source_sha256": "174dc6c34a03658d5b636dbecb8a7691808ae314f2fcdd4288997bd54224b61d",
+      "start_char": 539646,
+      "end_char": 539802,
+      "text": "The arrival time is the universal coordinated time of the arrival of the maximum tsunami wave at the location of the effects given in Day, Hour and Minutes."
+    }
+  ],
+  "verification": [
+    "Schema route/parameter/property presence asserted programmatically.",
+    "Every quoted semantics fragment is found at recorded offset in hash-bound official application source.",
+    "Only HTML shell, JavaScript application source and OpenAPI schema fetched; no event/runup observations downloaded."
+  ],
+  "consumption_requirements": [
+    "Archive each response body/status/query/retrieval date/hash; retain all source record IDs and citation links.",
+    "Validate pagination against totalPages/totalItems and preserve null versus zero.",
+    "Require event-ID match, measurement type 2/3, source geography/country/area/name consistency and doubtfulness review.",
+    "Treat runup coordinates as reported location geography; official help permits city/state/island support, so these are not automatically precise historical gauge/deployment coordinates. CRS/datum remains unknown unless separately documented.",
+    "Keep initial-wave arrDay/arrHour/arrMin separate from maxWaveArrDay/maxWaveArrHour/maxWaveArrMin and from event origin fields.",
+    "Arrival Day has no accompanying arrival month/year field; month/year rollover requires explicit source/reference evidence. Do not silently choose the nearest source day or nearest ETA.",
+    "Travel time is a reported observed duration under this database definition, not NTWC forecast duration or actionable warning time; original reference and origin basis need checking.",
+    "Observation-specific references may trace back to NTWC; agreement between copied records is not independent validation.",
+    "Do not merge NCEI observed timings or predicted GIS fields into NTWC calibration pairs without a versioned product/measurement correspondence contract.",
+    "Current OpenAPI RunupView has no predicted travel-time properties; GIS service schema contains different PRED_TRAV fields with a separate, unverified lineage."
+  ],
+  "unavailable_routes_or_tools": [
+    {
+      "tool": "ordinary sandbox urllib",
+      "outcome": "local DNS/network unavailable; retried once through authorized sandbox network exception, officialHTTP200."
+    },
+    {
+      "tool": "web text open officialHaZELpage",
+      "outcome": "JavaScript-only shell, actual publicpage not access-denied."
+    },
+    {
+      "tool": "Scrapling ordinary get",
+      "outcome": "MCP No active session available; no browser/stealth fallback used."
+    }
+  ],
+  "broad_data_downloaded": false,
+  "reserved_outcomes_read": false,
+  "credentials_used": false,
+  "production_changes": false
+}

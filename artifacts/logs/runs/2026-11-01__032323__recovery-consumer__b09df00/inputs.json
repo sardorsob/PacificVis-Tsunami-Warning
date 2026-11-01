@@ -1,0 +1,4 @@
+{
+  "scripts/build_multi_event_catalog.py": "53e06cea0b79ebc315a9e1e21523e60006a87408e9285774175598c226a32f38",
+  "tests/test_multi_event_catalog.py": "9c30d12df333a648d348a58461746b52e0fb5ae2e8b27869c673243198698ea7"
+}

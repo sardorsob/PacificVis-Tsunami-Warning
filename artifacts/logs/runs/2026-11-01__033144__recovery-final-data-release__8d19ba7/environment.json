@@ -1,0 +1,7 @@
+{
+  "python": "3.12.13",
+  "mlflow": "3.16.0",
+  "tracking_uri": ".mlflow/mlruns",
+  "MLFLOW_ALLOW_FILE_STORE": "true",
+  "new_services_or_dependency_upgrades": false
+}

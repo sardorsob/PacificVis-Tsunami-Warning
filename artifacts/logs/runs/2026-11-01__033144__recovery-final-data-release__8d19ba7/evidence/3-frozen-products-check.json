@@ -1,0 +1,18 @@
+{
+  "frozen_files_checked": 3143,
+  "frozen_foundation_groups": {
+    "audit": 228,
+    "catalog": 779,
+    "comparison": 5,
+    "corpus": 343,
+    "crosswalk": 6,
+    "design": 8,
+    "diagnostics": 4,
+    "waves": 1770
+  },
+  "frozen_output_manifest_sha256": "b94db727b2aa21d42064fba7363ee6a0d166c8562ef18a6742066cbf944f288e",
+  "original_story_files_checked": 72,
+  "script_sha256": "6401e3faf1bafc5cfd441b404c755e2a4b24a538e36871fb333a38cfd6660462",
+  "status": "PASS",
+  "story_reference_sha256": "0acc84c53a643b7a0c27a1b9edee70643bbd17954a7daa1e2cade5240a963ddd"
+}

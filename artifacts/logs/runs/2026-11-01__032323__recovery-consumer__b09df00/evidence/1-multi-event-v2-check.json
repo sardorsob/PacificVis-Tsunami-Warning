@@ -1,0 +1,27 @@
+{
+  "archive_entries": 118,
+  "code_sha256": "53e06cea0b79ebc315a9e1e21523e60006a87408e9285774175598c226a32f38",
+  "files": 795,
+  "manifest_sha256": "aeec2d24fc18002c2eae2cc85afab11818a051649804aa1fb0c0c3d5141cb2ec",
+  "paper_recovery": {
+    "interpretation": "Candidate reported targets and descriptive support; no model approval",
+    "model_eligible": false,
+    "path": "paper/recovery",
+    "physical_onset_validated": false,
+    "source_directory": "artifacts/generated/ntwc-batch/recovery-design-v1",
+    "target_eligible_reports": {
+      "T-CAL": 159,
+      "T-OBS": 241
+    },
+    "target_versions": {
+      "T-CAL": "reported_absolute_difference_v1",
+      "T-OBS": "reported_duration_from_reviewed_reference_v1"
+    }
+  },
+  "replay_byte_identical": true,
+  "source_reports": 1177,
+  "status": "PASS",
+  "tests": "48 passed; Ruff/Pyright pass",
+  "viewer_events": 13,
+  "viewer_files_unchanged_from_v1": 763
+}

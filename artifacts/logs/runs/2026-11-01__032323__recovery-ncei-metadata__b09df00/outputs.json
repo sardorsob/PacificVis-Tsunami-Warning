@@ -1,0 +1,7 @@
+{
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/development-event-match-review.json": "0119f04a9eb6ff17cf43449fa11a370f826d534b78431b4dea9dc616af758c1c",
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/event-match-readback-qa.json": "6cd2a7678237a7a12fcfbb28fc013998b176d9d9e5da08ba5ea11a58f53b6481",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/ncei-events-001-check.json": "0d25a8b11ea64ae98db777bbdb1f047377cff7a6a23ef2d693a5ba4b3563ba49",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/ncei-events-002-check.json": "1f0dff23ba38fa7e43b5b3c3d2f2bc0ab03e6442fee3edd9a0c5e2dcb57a4a84",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/ncei-events-003-check.json": "003a78ba8d6191c7087d5e1bd0f78a47da87befb4613d5935fc3c1063e754945"
+}

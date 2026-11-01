@@ -1,0 +1,14 @@
+{
+  "checker_adversarial_cases": 12,
+  "complete_event_collections": 57,
+  "deep_ocean_records": 142,
+  "duration_candidate_events": 47,
+  "missing_duration_components": 984,
+  "pages": 60,
+  "partial_duration_components": 18,
+  "positive_reported_durations": 1221,
+  "source_records": 2224,
+  "tests": 37,
+  "tide_gauge_records": 2082,
+  "zero_durations": 1
+}

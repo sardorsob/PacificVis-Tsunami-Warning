@@ -1,0 +1,10 @@
+{
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/final-code-review.json": "027f26a53a4602d5c2d5ce9ccc9a459c9d2b863630172885ddb9f503ec5b3053",
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/final-product-checker-receipt.json": "977f592df5f8ce7cb7ae7a1f81dd7cd13e06d891990174e82f430ee8cbea1641",
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/final-raw-review.json": "bec82d79f561c2683bdff40cd259a200ff6ac661769c58d8578c04171d8e4a81",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/ncei-final-build-command.json": "71819b0f4ede8b6a2143c2bb21811df0a36ee58d665e7708d0bc074dde12895e",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/ncei-replay-check.json": "67588518ef7b22cb31ec478f35b1acfb40b09a3255890950b5cac24c68872367",
+  "data/processed/ncei-arrivals/foundation-v1/data_dictionary.json": "9aacc311c377cace00ba6829a983bd4e2d2cca2993b341101b98a4668dc24f48",
+  "data/processed/ncei-arrivals/foundation-v1/manifest.json": "28321b0065ad086dbadab84eeb8ab0ae08111304152e240282dac958b682e898",
+  "data/processed/ncei-arrivals/foundation-v1/summary.json": "b4d89784b19f4be064a74fbe47aff5dbe55287a8fbf29618fcbb9ec704d4c112"
+}

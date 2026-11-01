@@ -1,0 +1,19 @@
+{
+  "acquisition_runs": 41,
+  "archive_entries": 118,
+  "frontend_tests_passed": 178,
+  "native_waveform_rows": 3756344,
+  "ncei_duration_candidates": 1221,
+  "ncei_duration_events": 47,
+  "ncei_records": 2224,
+  "ntwc_pairs": 388,
+  "ntwc_reports": 1177,
+  "original_story_inputs_unchanged": 72,
+  "prior_product_files_unchanged": 3143,
+  "python_tests_passed": 761,
+  "retained_raw_bytes": 192434079,
+  "retained_raw_paths": 2259,
+  "source_ids": 2388,
+  "t_cal": 159,
+  "t_obs": 241
+}

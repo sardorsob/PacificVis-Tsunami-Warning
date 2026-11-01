@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_with_documented_limits",
+  "git_sha": "b09df00b1140986f73595517faa58f1e8f445460",
+  "lane": "paper-data-recovery",
+  "mlflow_run_id": "00032140b335498c8fa918959b6cfd73",
+  "model_fitted": false,
+  "record_kind": "post-run-reviewed-registration",
+  "reserved_values_accessed": false,
+  "run_id": "2026-11-01__032323__recovery-ncei-metadata__b09df00",
+  "timestamp_utc": "2026-11-01T03:23:23.771550+00:00"
+}

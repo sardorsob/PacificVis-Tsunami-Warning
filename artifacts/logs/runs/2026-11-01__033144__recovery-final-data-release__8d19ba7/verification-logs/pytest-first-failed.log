@@ -1,0 +1,53 @@
+........................................................................ [  9%]
+................................................................F....... [ 18%]
+........................................................................ [ 28%]
+........................................................................ [ 37%]
+........................................................................ [ 47%]
+........................................................................ [ 56%]
+........................................................................ [ 66%]
+........................................................................ [ 75%]
+........................................................................ [ 85%]
+........................................................................ [ 94%]
+.........................................                                [100%]
+=================================== FAILURES ===================================
+__ test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts ___
+
+tmp_path = PosixPath('/private/var/folders/8f/x2b8rw4s3z9b2rl88csj2kx80000gn/T/pytest-of-sobirov/pytest-399/test_request_spacing_includes_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x131ce5550>
+
+    def test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import pipeline.acquisition as acquisition
+    
+        clock = [0.0]
+        starts: list[float] = []
+    
+        def sleep(delay: float) -> None:
+            clock[0] += delay
+    
+        monkeypatch.setattr(acquisition.time, "monotonic", lambda: clock[0])
+        monkeypatch.setattr(acquisition.time, "sleep", sleep)
+        cached = sample_contract(source_id="a", local_path=PurePosixPath("data/a"))
+        blocked = sample_contract(source_id="b", availability="blocked")
+        wanted = sample_contract(source_id="c", local_path=PurePosixPath("data/c"))
+        acquire_source(cached, tmp_path, fixture_fetcher(b"{}"))
+    
+        def fetch(url: str, destination: Path, timeout: float) -> ResponseMetadata:
+            starts.append(clock[0])
+            clock[0] += 0.25
+            if len(starts) == 1:
+                raise HTTPError(url, 503, "retry", Message(), None)
+            return fixture_fetcher(b"{}")(url, destination, timeout)
+    
+        results = acquire_all((wanted, blocked, cached), tmp_path, fetch, min_interval=1)
+>       assert starts == [0, 1]
+E       assert [529849.29994...50.2999484409] == [0, 1]
+E         
+E         At index 0 diff: 529849.2999484409 != 0
+E         Use -v to get more diff
+
+tests/test_acquisition.py:1200: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_acquisition.py::test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts
+1 failed, 760 passed in 26.72s

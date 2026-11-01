@@ -1,0 +1,245 @@
+{
+  "input_sha256": {
+    "data/processed/arrival-corpus/foundation-v5/summary.json": "d80a7312d02c648d1acd3c3f8caafc6dca4db331c8fda531f0f914a3363257d7",
+    "data/processed/arrival-waveforms/foundation-v5/manifest.json": "2fe367fb7de7f23b758bc65477c55d739626e62699fc0fb7fdc74285831868d1",
+    "data/processed/ncei-arrivals/foundation-v1/summary.json": "b4d89784b19f4be064a74fbe47aff5dbe55287a8fbf29618fcbb9ec704d4c112"
+  },
+  "interpretation": [
+    "Do not combine source-row denominators or treat source copies as independent measurements.",
+    "No imputation, invented calendar dates, origin substitution or homogeneous cadence/units/datum assumption.",
+    "MCAR is not established; MAR versus MNAR is not identifiable from these observed data alone.",
+    "Native source QC absent is distinct from a failed quality test; missing observations outside received windows have separate denominators."
+  ],
+  "ncei": {
+    "all_absolute_arrival_utc_unknown": true,
+    "arrival_component_states": {
+      "complete_components": 1408,
+      "missing_components": 803,
+      "partial_components": 13
+    },
+    "explicit_positive_durations": 1221,
+    "source_records": 2224,
+    "travel_states": {
+      "complete_positive": 1221,
+      "missing_components": 984,
+      "nonpositive_duration": 1,
+      "partial_components": 18
+    },
+    "unusable_duration_fraction": 0.45098920863309355
+  },
+  "ntwc": {
+    "resolved_pairs": 388,
+    "source_reports": 1177,
+    "target_eligible": {
+      "T-CAL": 159,
+      "T-OBS": 241
+    },
+    "target_rejection_reasons_nonexclusive": {
+      "T-CAL": {
+        "estimate:blank": 133,
+        "estimate:date_ambiguous": 330,
+        "estimate:footnoted_value": 3,
+        "estimate:legacy_semantics_unverified": 1,
+        "estimate:qualified_value": 1,
+        "estimate:source_absent_explicit": 199,
+        "event_attribution_unresolved": 57,
+        "geographic_identity_unreviewed": 644,
+        "observed:blank": 115,
+        "observed:calendar_context_missing": 1,
+        "observed:date_ambiguous": 257,
+        "observed:day_semantics_unverified": 2,
+        "observed:footnoted_value": 2,
+        "observed:legacy_semantics_unverified": 1,
+        "observed:qualified_value": 12,
+        "observed:source_absent_explicit": 209,
+        "structural_or_header_unresolved": 35
+      },
+      "T-OBS": {
+        "event_attribution_unresolved": 57,
+        "geographic_identity_unreviewed": 644,
+        "observed:blank": 115,
+        "observed:calendar_context_missing": 1,
+        "observed:date_ambiguous": 257,
+        "observed:day_semantics_unverified": 2,
+        "observed:footnoted_value": 2,
+        "observed:legacy_semantics_unverified": 1,
+        "observed:nonpositive_elapsed": 2,
+        "observed:qualified_value": 12,
+        "observed:source_absent_explicit": 209,
+        "reference_origin_unreviewed": 57,
+        "structural_or_header_unresolved": 35
+      }
+    },
+    "time_states_by_field": {
+      "estimated": {
+        "blank": 133,
+        "date_ambiguous": 330,
+        "exact_reported_timestamp": 510,
+        "footnoted_value": 3,
+        "legacy_semantics_unverified": 1,
+        "qualified_value": 1,
+        "source_absent_explicit": 199
+      },
+      "observed": {
+        "blank": 115,
+        "calendar_context_missing": 1,
+        "date_ambiguous": 257,
+        "day_semantics_unverified": 2,
+        "exact_reported_timestamp": 578,
+        "footnoted_value": 2,
+        "legacy_semantics_unverified": 1,
+        "qualified_value": 12,
+        "source_absent_explicit": 209
+      }
+    },
+    "unresolved_pair_fraction": 0.6703483432455395,
+    "unresolved_pairs": 789
+  },
+  "waveforms": {
+    "blank_fraction_of_retained_rows": 0.012818581045825408,
+    "homogeneity": {
+      "declared_cadence_seconds": {
+        "source_files": {
+          "10.0": 22,
+          "120.0": 92,
+          "15.0": 56,
+          "180.0": 7,
+          "360": 239,
+          "360.0": 38,
+          "60": 239,
+          "60.0": 1075,
+          "unknown": 15
+        },
+        "source_rows": {
+          "10.0": 186573,
+          "120.0": 64207,
+          "15.0": 302166,
+          "180.0": 3314,
+          "360": 229440,
+          "360.0": 13232,
+          "60": 1367542,
+          "60.0": 1521666,
+          "unknown": 68204
+        }
+      },
+      "provider": {
+        "source_files": {
+          "ATWC": 4,
+          "AUST": 4,
+          "AUST1": 18,
+          "AUST2": 11,
+          "AUST3": 3,
+          "AUST4": 2,
+          "AUSTC": 97,
+          "AUSTCREX": 1,
+          "CHILE": 106,
+          "CHS_Canada": 2,
+          "CO-OPS": 478,
+          "Chile": 34,
+          "Ecuador": 1,
+          "El_Salvador": 1,
+          "El_Salvodor": 2,
+          "France": 6,
+          "French": 4,
+          "GMS": 1,
+          "GNS": 88,
+          "JMA": 79,
+          "Mexico": 12,
+          "NATWC": 23,
+          "NDBC": 6,
+          "NOS": 531,
+          "NTWC": 19,
+          "NWSARH": 6,
+          "Neptune,_BC,_Ca": 4,
+          "PTWC": 52,
+          "SHOA": 21,
+          "SHOM": 23,
+          "UHSLC": 139,
+          "shoa": 5
+        },
+        "source_rows": {
+          "ATWC": 18501,
+          "AUST": 960,
+          "AUST1": 15727,
+          "AUST2": 2580,
+          "AUST3": 720,
+          "AUST4": 470,
+          "AUSTC": 136047,
+          "AUSTCREX": 1440,
+          "CHILE": 110245,
+          "CHS_Canada": 2675,
+          "CO-OPS": 1596982,
+          "Chile": 48138,
+          "Ecuador": 1440,
+          "El_Salvador": 1440,
+          "El_Salvodor": 2880,
+          "France": 5760,
+          "French": 4320,
+          "GMS": 1440,
+          "GNS": 224657,
+          "JMA": 111540,
+          "Mexico": 17239,
+          "NATWC": 123462,
+          "NDBC": 2123,
+          "NOS": 754252,
+          "NTWC": 94978,
+          "NWSARH": 8635,
+          "Neptune,_BC,_Ca": 5671,
+          "PTWC": 208736,
+          "SHOA": 28651,
+          "SHOM": 30180,
+          "UHSLC": 187290,
+          "shoa": 7165
+        }
+      },
+      "units": {
+        "source_files": {
+          "cm": 74,
+          "m": 1684,
+          "mm": 25
+        },
+        "source_rows": {
+          "cm": 426246,
+          "m": 3196669,
+          "mm": 133429
+        }
+      },
+      "vertical_datum": {
+        "source_files": {
+          "MLLW": 578,
+          "NONE": 22,
+          "None": 33,
+          "STND": 478,
+          "Unknown": 612,
+          "Unkown": 3,
+          "WGS84": 3,
+          "Water_Depth": 16,
+          "none": 13,
+          "unknown": 25
+        },
+        "source_rows": {
+          "MLLW": 842463,
+          "NONE": 186573,
+          "None": 170442,
+          "STND": 1596982,
+          "Unknown": 785115,
+          "Unkown": 4305,
+          "WGS84": 4311,
+          "Water_Depth": 15667,
+          "none": 66181,
+          "unknown": 84305
+        }
+      }
+    },
+    "normalized_files": 1783,
+    "qc_states": {
+      "not_provided": 3526904,
+      "provided": 229440
+    },
+    "source_rows": 3756344,
+    "value_states": {
+      "blank": 48151,
+      "finite_numeric": 3708193
+    }
+  }
+}

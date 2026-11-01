@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_with_documented_limits",
+  "git_sha": "8d19ba70c3e1465b95d06a3160573cdc90e6f3b5",
+  "lane": "paper-data-recovery",
+  "mlflow_run_id": "ea1886e44fec4461af972707a2d5e86d",
+  "model_fitted": false,
+  "record_kind": "post-run-reviewed-registration",
+  "reserved_values_accessed": false,
+  "run_id": "2026-11-01__033144__recovery-final-data-release__8d19ba7",
+  "timestamp_utc": "2026-11-01T03:31:44.714842+00:00"
+}

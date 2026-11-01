@@ -1,0 +1,22 @@
+{
+  "candidate_coordinate_states": {
+    "reported_native_coordinates": 1221
+  },
+  "candidate_measurement_families": {
+    "deep_ocean_gauge": 80,
+    "tide_gauge": 1141
+  },
+  "duration_candidate_events": 47,
+  "duration_candidates": 1221,
+  "files": 6,
+  "output_sha256": {
+    "data_dictionary.json": "9aacc311c377cace00ba6829a983bd4e2d2cca2993b341101b98a4668dc24f48",
+    "manifest.json": "28321b0065ad086dbadab84eeb8ab0ae08111304152e240282dac958b682e898",
+    "observations.csv.gz": "61a936eb5cac291612cabbf330ce1bde34bcffff540f34e03ae522ee82253299",
+    "reported_duration_candidates.csv.gz": "ee00cce3ae7bcb46d63715b83361ed9f946f040c3a7a53e42ff8748b982e5e7c",
+    "source_pages.csv.gz": "840faa0d60c24f4cc414eded77d1561574368d13a7cf7a782a97f24039906dff",
+    "summary.json": "b4d89784b19f4be064a74fbe47aff5dbe55287a8fbf29618fcbb9ec704d4c112"
+  },
+  "replay_byte_identical": true,
+  "status": "PASS"
+}

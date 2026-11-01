@@ -1,0 +1,48 @@
+
+> pacific-tsunami-warning-time@0.1.0 check
+> npm run typecheck && npm run test && npm run build
+
+
+> pacific-tsunami-warning-time@0.1.0 typecheck
+> npm --workspace app run typecheck
+
+
+> pacific-tsunami-warning-time-app@0.1.0 typecheck
+> tsc --noEmit --pretty false
+
+
+> pacific-tsunami-warning-time@0.1.0 test
+> npm --workspace app run test
+
+
+> pacific-tsunami-warning-time-app@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.0 /Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/app
+
+
+ Test Files  11 passed (11)
+      Tests  178 passed (178)
+   Start at  20:22:31
+   Duration  424ms (transform 63%, tests 22%, import 14%, worker 2%)
+
+
+> pacific-tsunami-warning-time@0.1.0 build
+> npm --workspace app run build
+
+
+> pacific-tsunami-warning-time-app@0.1.0 build
+> tsc --noEmit && vite build && node scripts/check-build.mjs
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.54 kB │ gzip:  0.32 kB
+dist/assets/index-gkO_kyKx.css    1.18 kB │ gzip:  0.64 kB
+dist/assets/index-raT9DZpk.js   191.65 kB │ gzip: 60.47 kB
+
+✓ built in 62ms
+Verified 2 required build outputs.

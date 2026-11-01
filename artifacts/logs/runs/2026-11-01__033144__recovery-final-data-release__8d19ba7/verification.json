@@ -1,0 +1,89 @@
+{
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check .",
+      "result": "PASS; full run plus scoped post-test-fix check"
+    },
+    {
+      "command": ".venv/bin/pyright",
+      "result": "0 errors,0 warnings; full run plus scoped post-test-fix check"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "result": "761 passed in25.04s; full rerun after test-isolation fix; local socket access enabled for notebook export tests"
+    },
+    {
+      "command": "npm run check",
+      "result": "typecheck PASS;178tests/11filesPASS;productionbuildPASS"
+    },
+    {
+      "command": ".venv/bin/python -m pipeline.provenance source-manifest.csv / paper-source-manifest.csv / paper-source-manifest-v2.csv",
+      "result": "19 /2253 /2388 records validated"
+    },
+    {
+      "command": "graphify update .",
+      "result": "2758nodes7111edges167communities;ignored local graph updated"
+    },
+    {
+      "command": "verify_frozen_products.py",
+      "result": "3143prior scientific product files+72originalstoryinputsunchanged"
+    },
+    {
+      "command": "root+independent deterministic replay",
+      "result": "corpus457,waveforms1785,consumer795,NCEI6filesbyte-identical;763viewerfilesunchanged"
+    },
+    {
+      "command": "independent source/data review",
+      "result": "R3all290foldranks,232promotedrawclockvalues+sourcequotes;NCEIall2224nativerows+256input/codepins PASS"
+    }
+  ],
+  "current_code_sha256": {
+    "pipeline/acquisition.py": "388d960a50f18bfc5d72da2fcea4d1cdfb4a14f0113d5e1d43894365748fbbd5",
+    "pipeline/arrival_corpus.py": "7711f263151d20b3a569c70550639bb5b8c0380b990a483d1bda283f01b4ee82",
+    "pipeline/ntwc_archive.py": "f5b4b084a4db0eefd2547e1e8a69d8bfd6d2db3e7c176bc46a813856b351dd36",
+    "pipeline/reported_time.py": "200a8829061927b732df10a415c39398a7b89bf5d635962c58af280f972d9ed8",
+    "scripts/build_arrival_corpus.py": "c08ec5932649a94748c2c4b927c15bff98f9faa2472bb746f5d0ba7fc1a44d06",
+    "scripts/build_multi_event_catalog.py": "53e06cea0b79ebc315a9e1e21523e60006a87408e9285774175598c226a32f38",
+    "scripts/build_ncei_observations.py": "ec781889ad906c903693a7a0f23cc2d294952baa90e28ae91529a0f54e26e89e",
+    "scripts/check_arrival_recovery.py": "a4db7c6102eccf0263f227c7ffe9eadfee57c1816363f8911310871054b10f97",
+    "scripts/inventory_arrival_recovery.py": "49e7a2aab578bbeebb3350795dce64d73cbef136eaff0bb81badd31b377f471d",
+    "scripts/inventory_ntwc_pilot.py": "af4eabf2ca0ca3bcddcc6140f2a11c45196fb829665b15c1e2d1abbf642868da",
+    "scripts/normalize_audit_waveforms.py": "e814d7d965e882bceb22349beb8729de4300b361771a77471a62e1e12c246ced",
+    "tests/test_acquisition.py": "fe70974cdf00a6e427a46f3c9c71cbc71da16d3e8fb67a17ffb3c79385fc0b60",
+    "tests/test_arrival_recovery_qa.py": "427ab3d64f7b47b04aff26a2912a5e2a81009acb865d499d4b3633d47780efef",
+    "tests/test_ncei_observations.py": "b7638d0a811f8d06a807f50c4d4ca5212f07416e6087a102ed6293ef7e6b1557"
+  },
+  "data_disposition": "accepted_source_report_and_native_sample_foundation;candidate_targets_only",
+  "deferred_engineering": [
+    "Optional generic rejected-body diagnostic retention; no new tranche required it"
+  ],
+  "git_sha": "8d19ba70c3e1465b95d06a3160573cdc90e6f3b5",
+  "imputation": false,
+  "initial_full_test_failure": {
+    "affected_data": false,
+    "production_code_changed": false,
+    "regression": "process clock identity guard fails before module-local mock fix; full761tests pass after independent review",
+    "symptom": "global test clock patch affected background workers"
+  },
+  "model_fitted": false,
+  "primary_calendar_inference_from_physics": false,
+  "python": "3.12.13",
+  "receipt_sha256": {
+    "frozen-products-check.json": "4fbefa88d122f04ddd317cfd6b3051d8538ee9ddbe175dbc33851af662bddae5",
+    "multi-event-v2-check.json": "a628b317eb23f0121b75a555545d8ad3b8ddad55e47122f7841db4409a151fcb",
+    "ncei-replay-check.json": "67588518ef7b22cb31ec478f35b1acfb40b09a3255890950b5cac24c68872367",
+    "quality-summary.json": "af4efcb02329c6c6a49ea7041fda24d37289c187d8f193605ee1eb6f0016403c",
+    "source-ledger-v2-check.json": "fc1389e20cf067ddc19182f62987f1cf24455eff3549867bb1d235f3401636cc",
+    "waveform-v5-check.json": "6b2e0a895b616d31ffbf7ceec1aaaaeb2a8b2a94c3d3af2ceb9dff167232d7f9",
+    "waveform-v5-replay.json": "78c1238cebbea045208da7d3740bba038b14d83096774a457bda58fcc90440ab"
+  },
+  "remaining_scientific_work": [
+    "Original-reference deduplication/source comparability",
+    "Reviewed geographic identity expansion and deployment distinction",
+    "ETA-blind independent onset/detection validation if that target is chosen",
+    "Final target/information-budget/model selection and grouped evaluation"
+  ],
+  "reserved_values_opened": false,
+  "status": "PASS",
+  "timestamp_utc": "2026-11-01T03:31:43.948504+00:00"
+}

@@ -1,0 +1,32 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts ___
+
+tmp_path = PosixPath('/private/var/folders/8f/x2b8rw4s3z9b2rl88csj2kx80000gn/T/pytest-of-sobirov/pytest-402/test_request_spacing_includes_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10715ba40>
+
+    def test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import time as process_time
+    
+        import pipeline.acquisition as acquisition
+    
+        original_monotonic, original_sleep = process_time.monotonic, process_time.sleep
+        clock = [0.0]
+        starts: list[float] = []
+    
+        def sleep(delay: float) -> None:
+            clock[0] += delay
+    
+        monkeypatch.setattr(acquisition.time, "monotonic", lambda: clock[0])
+        monkeypatch.setattr(acquisition.time, "sleep", sleep)
+        # Background workers must keep the real process clock while this test runs.
+>       assert process_time.monotonic is original_monotonic
+E       AssertionError: assert <function test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts.<locals>.<lambda> at 0x107151580> is <built-in function monotonic>
+E        +  where <function test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts.<locals>.<lambda> at 0x107151580> = <module 'time' (built-in)>.monotonic
+
+tests/test_acquisition.py:1191: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_acquisition.py::test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts
+1 failed in 0.53s

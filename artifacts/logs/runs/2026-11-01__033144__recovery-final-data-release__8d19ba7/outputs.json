@@ -1,0 +1,7 @@
+{
+  "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/final-test-isolation-review.json": "7c9bf79395b4ec16be6d0260f8acccf847f212eb86826716f8ed0310ef26e5a0",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/final-verification.json": "d39f6b0f81ddc393a43f673ab4c0564b229ef3d583dd700701b0843a9e8d57be",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/frozen-products-check.json": "4fbefa88d122f04ddd317cfd6b3051d8538ee9ddbe175dbc33851af662bddae5",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/quality-summary.json": "af4efcb02329c6c6a49ea7041fda24d37289c187d8f193605ee1eb6f0016403c",
+  "artifacts/generated/ntwc-batch/recovery-execution-v1/source-ledger-v2-check.json": "fc1389e20cf067ddc19182f62987f1cf24455eff3549867bb1d235f3401636cc"
+}

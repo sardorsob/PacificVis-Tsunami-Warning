@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "product_path": "data/processed/ncei-arrivals/foundation-v1",
+  "checker": "time_evidence_review",
+  "code_sha256": "ec781889ad906c903693a7a0f23cc2d294952baa90e28ae91529a0f54e26e89e",
+  "test_sha256": "b7638d0a811f8d06a807f50c4d4ca5212f07416e6087a102ed6293ef7e6b1557",
+  "source_pages": 60,
+  "complete_development_events": 57,
+  "native_source_records": 2224,
+  "unique_global_runup_ids": 2224,
+  "native_field_row_comparisons": 2224,
+  "explicit_positive_duration_candidates": 1221,
+  "events_with_positive_duration_candidates": 47,
+  "events_without_duration_candidates": [
+    "usp0007swp",
+    "usp0008btk",
+    "usp000e462",
+    "usb000pq41",
+    "usb000pr89",
+    "usb000sk6k",
+    "us20002yaw",
+    "us20007z80",
+    "us20009x42",
+    "us1000gjaz"
+  ],
+  "zero_observation_events": [
+    "usp000e462"
+  ],
+  "model_eligible_records": 0,
+  "physical_onset_validated_records": 0,
+  "arrival_utc_known_records": 0,
+  "compound_and_origin_conflict_restrictions": "Every event_match_json exactly equals the reviewed match CSV row; all4compound restrictions and the80.19s conflict retained.",
+  "raw_record_preservation": "Every JSON object and every native_ column independently compared; no missing component zero-filled.",
+  "all_file_hashes_verified": true,
+  "input_and_code_pins_verified": 256,
+  "record_candidate_page_order_verified": true,
+  "deterministic_replay": {
+    "files": 6,
+    "all_byte_identical": true,
+    "path": "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/final-product-replay"
+  },
+  "product_sha256": {
+    "data_dictionary.json": "9aacc311c377cace00ba6829a983bd4e2d2cca2993b341101b98a4668dc24f48",
+    "manifest.json": "28321b0065ad086dbadab84eeb8ab0ae08111304152e240282dac958b682e898",
+    "observations.csv.gz": "61a936eb5cac291612cabbf330ce1bde34bcffff540f34e03ae522ee82253299",
+    "reported_duration_candidates.csv.gz": "ee00cce3ae7bcb46d63715b83361ed9f946f040c3a7a53e42ff8748b982e5e7c",
+    "source_pages.csv.gz": "840faa0d60c24f4cc414eded77d1561574368d13a7cf7a782a97f24039906dff",
+    "summary.json": "b4d89784b19f4be064a74fbe47aff5dbe55287a8fbf29618fcbb9ec704d4c112"
+  },
+  "raw_review_sha256": "bec82d79f561c2683bdff40cd259a200ff6ac661769c58d8578c04171d8e4a81",
+  "code_review_sha256": "027f26a53a4602d5c2d5ce9ccc9a459c9d2b863630172885ddb9f503ec5b3053",
+  "checker_script_sha256": "ab4995756bfd1849c8460285ae1aaf66d1094393b919b5ee953d51b7c30dddcd",
+  "necessary_fixes": [],
+  "network_requests": 0,
+  "production_edits": 0
+}

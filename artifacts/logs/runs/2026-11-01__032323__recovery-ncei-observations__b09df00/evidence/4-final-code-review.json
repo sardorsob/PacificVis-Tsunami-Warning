@@ -1,0 +1,75 @@
+{
+  "status": "PASS_current_frozen_code_and_scoped_data_contract",
+  "code_path": "scripts/build_ncei_observations.py",
+  "code_sha256": "ec781889ad906c903693a7a0f23cc2d294952baa90e28ae91529a0f54e26e89e",
+  "test_path": "tests/test_ncei_observations.py",
+  "test_sha256": "b7638d0a811f8d06a807f50c4d4ca5212f07416e6087a102ed6293ef7e6b1557",
+  "adversarial_checks": [
+    {
+      "case": "zero-hour-positive-duration",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "missing-minute-not-zero-filled",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "explicit-null-not-absent",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "fractional-hour-rejected",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "maximum-arrival-cannot-fill-initial",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "invalid-arrival-retained-separate",
+      "status": "PASS",
+      "details": "Native explicit duration is independent of an invalid partial calendar clock; all model/onset flags stay false."
+    },
+    {
+      "case": "partial-coordinate-remains-unknown",
+      "status": "PASS",
+      "details": "Duration contract permits unknown coordinates; does not invent a deployment."
+    },
+    {
+      "case": "null-doubtful-withheld",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "truthy-publication-string-withheld",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "origin-conflict-and-compound-preserved",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "zero-record-page-count-zero",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "case": "json-error-wrapper-investigation",
+      "status": "PASS",
+      "details": "Error wrapper rejected.",
+      "actual_source_affected": false,
+      "release_effect": "All actual raw source bodies are separately checked free of error/status wrappers; no current-data promotion occurs."
+    }
+  ],
+  "necessary_current_data_fixes": [],
+  "error_wrapper_status": "Original checker observation resolved by explicit wrapper rejection; independently reverified.",
+  "network_requests": 0,
+  "production_edits": 0
+}

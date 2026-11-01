@@ -1,0 +1,6 @@
+{
+  "config/arrival-recovery-ncei-sample-v1.toml": "6d28636f1aed073d99e288694bcff933bc177c592003a154ff7187cc1788f3ca",
+  "config/arrival-recovery-ncei-semantics-v1.toml": "4ea619e65f6661d8573495d83c867dd463397bbe744e7fb83914c14bc462853c",
+  "scripts/build_ncei_observations.py": "ec781889ad906c903693a7a0f23cc2d294952baa90e28ae91529a0f54e26e89e",
+  "tests/test_ncei_observations.py": "b7638d0a811f8d06a807f50c4d4ca5212f07416e6087a102ed6293ef7e6b1557"
+}

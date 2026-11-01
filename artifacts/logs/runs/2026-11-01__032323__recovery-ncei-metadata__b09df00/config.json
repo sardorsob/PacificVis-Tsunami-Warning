@@ -1,0 +1,8 @@
+{
+  "processing": "deterministic stage; original build/acquisition times retained in pinned upstream receipts",
+  "source_code_sha256": {
+    "artifacts/generated/ntwc-batch/recovery-evidence-review-v1/event-matches.csv": "e5a9cf33db8830289265abf0c3e66f366c2befcd0e897ec502a5b66105d816e2",
+    "scripts/acquire_tohoku.py": "e2837ea1f50b419c0fe00bca45a13e99f11123d77c547911b93a2353480166bf"
+  },
+  "stage": "recovery-ncei-metadata"
+}

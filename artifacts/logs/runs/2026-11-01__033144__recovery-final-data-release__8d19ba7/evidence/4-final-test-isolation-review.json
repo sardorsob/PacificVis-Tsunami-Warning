@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "reviewer": "time_evidence_review",
+  "scope": "Read-only review of acquisition test isolation fix; no production/data edits",
+  "test_path": "tests/test_acquisition.py",
+  "test_sha256": "fe70974cdf00a6e427a46f3c9c71cbc71da16d3e8fb67a17ffb3c79385fc0b60",
+  "diff_sha256": "94cc5060a779afd72a2c535dbd8f19a7469095b18cd95b757a39c2a2b07eb7a4",
+  "production_path": "pipeline/acquisition.py",
+  "production_sha256": "388d960a50f18bfc5d72da2fcea4d1cdfb4a14f0113d5e1d43894365748fbbd5",
+  "focused_test": "tests/test_acquisition.py::test_request_spacing_includes_retries_but_not_cached_or_blocked_contracts",
+  "focused_exit_code": 0,
+  "findings": [],
+  "review_basis": [
+    "Diff only adds SimpleNamespace import, replaces shared stdlib time attribute monkeypatches with acquisition.time object replacement, and asserts process stdlib identities remain unchanged.",
+    "Acquisition rate-limit code uses only time.monotonic and time.sleep, both provided by the local fake.",
+    "Fake clock still begins at zero and exercises real acquisition retry/minimum-interval logic: actual start assertions remain [0,1].",
+    "Cached/blocked source-order and disposition assertions remain unchanged.",
+    "Independent pytest execution in this process passed; stdlib monotonic/sleep identities and acquisition.time module identity verified unchanged/restored afterward.",
+    "Production code checksum unchanged throughout review; all6 accepted NCEI product hashes unchanged."
+  ],
+  "test_result": "1 passed",
+  "production_changed_by_reviewer": false,
+  "data_changed_by_reviewer": false,
+  "mock_seam": "module-local acquisition.time reference, restored by pytest monkeypatch fixture",
+  "full_suite_status": "Coordinator rerun pending"
+}

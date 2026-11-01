@@ -39,14 +39,21 @@ The multi-event data foundation preserves **all 118 entries in the frozen NTWC
 archive snapshot**.
 The frozen metadata screen retains 57 development and 18 reserved entries;
 43 others keep their exclusion or uncertainty reasons. The development corpus
-retains 1,177 source reports, including 314 parseable reported-time pairs.
-The observation snapshot retains 3,688,140 source rows in 1,768 normalized files.
+retains 1,177 source reports, including 388 source-supported reported-time pairs.
+The observation snapshot retains 3,756,344 source rows in 1,783 normalized files.
 These counts do not imply independent measurements or validated physical onsets.
+Separate candidate views contain 241 reported durations from reviewed USGS
+reference origins and 159 signed estimated-minus-observed UTC differences;
+neither view is approved for modeling.
 The viewer export contains 13 development events that meet its station-ID and
 coverage rules; this display subset does not limit the broader acquisition.
 The browser demos do not yet load the multi-event export.
 
-Start with `data/processed/multi-event/foundation-v1/` and the
+A separate NCEI collection adds 2,224 source reports, including 1,221 explicit
+reported travel-duration candidates across 47 development events. Source families
+remain separate; these are not independently validated physical onsets.
+
+Start with `data/processed/multi-event/foundation-v2/` and the
 [multi-event data guide](docs/data/multi-event.md) for exact versions, ordered
 raw, observation and paper tables, viewer limits, and reproduction commands.
 
@@ -82,7 +89,7 @@ usable merely because it can be downloaded.
 ### Source inventory
 
 The inventory below describes the original Tōhoku data proof. The expanded
-archive has its own [source ledger](artifacts/provenance/paper-source-manifest.csv)
+archive has its own [source ledger](artifacts/provenance/paper-source-manifest-v2.csv)
 and [data guide](docs/data/multi-event.md).
 
 | Source class | Publisher and assets | Role | Status |
@@ -354,6 +361,7 @@ uv run pyright
 uv run pytest -q
 uv run python -m pipeline.provenance artifacts/provenance/source-manifest.csv
 uv run python -m pipeline.provenance artifacts/provenance/paper-source-manifest.csv
+uv run python -m pipeline.provenance artifacts/provenance/paper-source-manifest-v2.csv
 npm run check
 ```
 

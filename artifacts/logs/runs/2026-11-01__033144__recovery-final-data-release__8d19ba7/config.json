@@ -1,0 +1,11 @@
+{
+  "processing": "deterministic stage; original build/acquisition times retained in pinned upstream receipts",
+  "source_code_sha256": {
+    "artifacts/provenance/paper-source-manifest-v2.csv": "a6c4a2584899affd4e18f57ba0eb2c4c4c430735e805db877226c6795ee122ac",
+    "scripts/build_multi_event_catalog.py": "53e06cea0b79ebc315a9e1e21523e60006a87408e9285774175598c226a32f38",
+    "scripts/build_ncei_observations.py": "ec781889ad906c903693a7a0f23cc2d294952baa90e28ae91529a0f54e26e89e",
+    "scripts/check_arrival_recovery.py": "a4db7c6102eccf0263f227c7ffe9eadfee57c1816363f8911310871054b10f97",
+    "tests/test_acquisition.py": "fe70974cdf00a6e427a46f3c9c71cbc71da16d3e8fb67a17ffb3c79385fc0b60"
+  },
+  "stage": "recovery-final-data-release"
+}
