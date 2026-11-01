@@ -205,4 +205,3 @@ def parse_reported_time(
     if header_family.startswith("arrival_eta_") and result["state"] == "exact_reported_timestamp":
         result["rule_id"] = "legacy_definition_v1+" + str(result["rule_id"])
     return result
-
