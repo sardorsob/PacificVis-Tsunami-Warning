@@ -1,0 +1,8 @@
+{
+  "decision": "accepted_with_structural_limits",
+  "git_sha": "f8e3e3a42080126897c82bdd420f6b50a93fe448",
+  "mlflow_run_id": "af443371c67c4d5cb68da306c1e9e695",
+  "model_fitted": false,
+  "timestamp_utc": "2026-11-01T06:55:55.558799+00:00",
+  "working_tree": "dirty; exactsourcehashesinconfig"
+}

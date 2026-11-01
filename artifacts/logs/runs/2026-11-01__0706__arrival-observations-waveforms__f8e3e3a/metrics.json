@@ -1,0 +1,20 @@
+{
+  "T_CAL": 169,
+  "T_OBS": 258,
+  "duplicate_timestamp_excess_rows": 1481,
+  "event_packet_cases": 60,
+  "finite_numeric_rows": 3708193,
+  "frontend_tests": 178,
+  "matched_assets": 1510,
+  "native_durations": 1221,
+  "native_waveform_rows": 3756344,
+  "original_pairs": 388,
+  "packet_traces": 98,
+  "protected_files": 14512,
+  "python_tests": 791,
+  "quiet_control_cases": 9,
+  "source_records": 3401,
+  "unusable_timestamp_rows": 1912,
+  "waveform_assets": 1783,
+  "within_asset_conflicting_timestamps": 223
+}

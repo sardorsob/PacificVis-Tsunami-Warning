@@ -1,0 +1,16 @@
+{
+  "inputs_sha256": "3e79bb69fffedf550698afc622e490e4961a67a44123d96385f331ef8742786e",
+  "model_fitting": false,
+  "review_scope": "nonexpert_structural_descriptive",
+  "source_code_sha256": {
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/waveform_quality.py": "b3fe39b0df3cee3846b8618a65ce8d1b7e1bad645a0afd5ff8e8a9be0e51f67c",
+    "scripts/build_arrival_observations.py": "9c74e01fc875a400d752f440a775ad8adefd53ef0928108e53643f87314d4350",
+    "scripts/build_arrival_waveform_quality.py": "c060841b225cdda8ef1712fc1df92f014eb885cc809011ee8978811389e117c2"
+  },
+  "stages": [
+    "D",
+    "E"
+  ],
+  "tide_removal": false
+}
