@@ -11,7 +11,6 @@ a physical site, a validated arrival, or Stage-D eligibility.
 
 from __future__ import annotations
 
-import calendar
 import csv
 import gzip
 import hashlib
@@ -28,7 +27,7 @@ from pathlib import Path
 from typing import Any, cast
 
 from analysis.arrival.stations import StationError, validate_reviewed_site_evidence
-from pipeline.ntwc_archive import arrival_value_flags
+from pipeline.reported_time import EVIDENCE_RULES, parse_reported_time, time_rule_id
 
 CORPUS_SCHEMAS: dict[str, tuple[str, ...]] = {
     "event": (
@@ -171,6 +170,18 @@ IDENTITY_TIERS = {
     "unmatched",
 }
 
+RECOVERY_SCHEMAS: dict[str, tuple[str, ...]] = {
+    "reported_time_value": (
+        "event_id", "report_id", "field_role", "source_id", "source_sha256",
+        "raw_value", "state", "hour", "minute", "day_of_year", "timestamp_utc",
+        "parsed_timestamp_utc", "rule_id", "evidence_id", "qualifier", "footnote",
+    ),
+    "target_eligibility": (
+        "event_id", "report_id", "target_id", "target_version", "eligible",
+        "reason_codes", "physical_site_id", "origin_basis", "model_eligible",
+    ),
+}
+
 
 class CorpusError(ValueError):
     """Inputs cannot be reconciled under the corpus's source and role contracts."""
@@ -233,75 +244,45 @@ def _time_contexts(path: Path | None, development: set[str]) -> dict[str, dict[s
     return result
 
 
-def time_rule_id(header_family: str) -> str:
-    if re.fullmatch(r"(?:estimated|computed)_observed_(?:utc|gmt)_jday", header_family):
-        return "reported_hhmm_explicit_doy_v1"
-    if re.fullmatch(r"(?:estimated|computed)_observed_(?:utc|gmt)", header_family):
-        return "reported_clock_date_unresolved_v1"
-    if header_family.startswith("arrival_eta_"):
-        return "legacy_arrival_semantics_unresolved_v1"
-    return "unknown_header_rule"
-
-
-def parse_reported_time(
-    raw: str,
-    header_family: str,
-    context: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    """Preserve exact components; never infer a missing date or erase qualifiers."""
-    result: dict[str, Any] = {
-        "state": "unknown_format",
-        "hour": "unknown",
-        "minute": "unknown",
-        "day_of_year": "unknown",
-        "timestamp_utc": "unknown",
+def _time_evidence(
+    path: Path | None, pages: dict[str, dict[str, Any]],
+    tables: dict[tuple[str, int], dict[str, Any]], development: set[str],
+) -> dict[tuple[str, int], dict[str, Any]]:
+    result: dict[tuple[str, int], dict[str, Any]] = {}
+    required = {
+        "event_id", "source_id", "source_sha256", "source_path", "table_index",
+        "header_family", "rule_ids", "evidence_id", "review_status", "reviewer", "scope",
     }
-    if not raw.strip():
-        return {**result, "state": "blank"}
-    if not arrival_value_flags({"observed_arrival": raw})["observed_value"]:
-        return {**result, "state": "source_missing_token"}
-    text = " ".join(raw.replace("\xa0", " ").split())
-    rule = time_rule_id(header_family)
-    if rule == "legacy_arrival_semantics_unresolved_v1":
-        return {**result, "state": "legacy_semantics_unverified"}
-    if rule == "unknown_header_rule":
-        return {**result, "state": "unknown_time_rule"}
-    if "?" in text or "~" in text or re.search(r"\bapprox", text, re.IGNORECASE):
-        return {**result, "state": "qualified_value"}
-    match = re.fullmatch(
-        r"(?:(\d{2})(\d{2})|(\d{1,2}):(\d{2}))"
-        r"(?:\s*\((?:JD\s*)?(\d{1,3})\))?",
-        text,
-        re.IGNORECASE,
-    )
-    if not match:
-        return result
-    hour, minute = int(match[1] or match[3]), int(match[2] or match[4])
-    result.update(hour=hour, minute=minute)
-    if not 0 <= hour <= 23 or not 0 <= minute <= 59:
-        return {**result, "state": "invalid_clock"}
-    if match[5] is None:
-        return {**result, "state": "date_ambiguous"}
-    day = int(match[5])
-    result["day_of_year"] = day
-    if not 1 <= day <= 366:
-        return {**result, "state": "invalid_day_of_year"}
-    if rule != "reported_hhmm_explicit_doy_v1":
-        return {**result, "state": "day_semantics_unverified"}
-    if context is None:
-        return {**result, "state": "calendar_context_missing"}
-    year = int(context["calendar_year"])
-    if day == 366 and not calendar.isleap(year):
-        return {**result, "state": "invalid_day_of_year"}
-    stamp = datetime(year, 1, 1, hour, minute, tzinfo=UTC) + timedelta(days=day - 1)
-    origin = cast(datetime, context["origin"])
-    if (origin.month, stamp.month) in {(12, 1), (1, 12)}:
-        return {**result, "state": "year_boundary_review_required"}
-    return {
-        **result,
-        "state": "exact_reported_timestamp",
-        "timestamp_utc": stamp.strftime("%Y-%m-%dT%H:%M:%SZ"),
-    }
+    for row in _records(path) if path else []:
+        if not required.issubset(row) or any(not str(row[k]).strip() for k in required):
+            raise CorpusError("time evidence requires scoped source and review fields")
+        eid = row["event_id"]
+        key = (eid, int(row["table_index"]))
+        if eid not in development or key not in tables or key in result:
+            raise CorpusError("time evidence has reserved/unknown/duplicate source scope")
+        page, table = pages[eid], tables[key]
+        if (
+            row["source_id"] != page["source_id"]
+            or row["source_sha256"] != page["sha256"]
+            or row["header_family"] != table["header_family"]
+            or row["review_status"] != "independently_reviewed"
+        ):
+            raise CorpusError("time evidence source identity, header or review mismatch")
+        source = Path(row["source_path"])
+        root = Path.cwd().resolve()
+        if source.is_absolute() or not (root / source).resolve().is_relative_to(root):
+            raise CorpusError("time evidence source path must remain inside project root")
+        if hashlib.sha256((root / source).read_bytes()).hexdigest() != page["sha256"]:
+            raise CorpusError("time evidence raw source checksum mismatch")
+        rules = json.loads(row["rule_ids"])
+        if not isinstance(rules, list) or any(
+            not isinstance(rule, str) or rule not in EVIDENCE_RULES
+            for rule in cast(list[Any], rules)
+        ):
+            raise CorpusError("unknown time evidence rule")
+        result[key] = {**row, "rule_ids": rules}
+    return result
+
 
 
 def _crosswalk(
@@ -354,6 +335,7 @@ def build_corpus(
     rows_path: Path | None = None,
     time_context: Path | None = None,
     crosswalk: Path | None = None,
+    time_evidence: Path | None = None,
 ) -> dict[str, Any]:
     """Build immutable per-event tables with complete source-row accounting."""
     if output.exists():
@@ -421,8 +403,10 @@ def build_corpus(
         raise CorpusError("source row accounting mismatch")
     contexts = _time_contexts(time_context, development)
     matches = _crosswalk(crosswalk, development, set(reports))
+    reviewed_times = _time_evidence(time_evidence, pages, tables, development)
+    schemas = {**CORPUS_SCHEMAS, **RECOVERY_SCHEMAS} if time_evidence else CORPUS_SCHEMAS
     records: dict[str, dict[str, list[dict[str, Any]]]] = {
-        eid: {name: [] for name in CORPUS_SCHEMAS} for eid in sorted(development)
+        eid: {name: [] for name in schemas} for eid in sorted(development)
     }
     for eid in sorted(development):
         event, page, context = events[eid], pages[eid], contexts.get(eid, {})
@@ -506,8 +490,12 @@ def build_corpus(
             )
         estimated_raw = fields.get("estimated_arrival", fields.get("eta_as_labeled", ""))
         observed_raw = fields.get("observed_arrival", fields.get("arrival_as_labeled", ""))
-        estimated = parse_reported_time(estimated_raw, family, context)
-        observed = parse_reported_time(observed_raw, family, context)
+        evidence = reviewed_times.get((eid, row["table_index"]), {}) if time_evidence else None
+        estimated = parse_reported_time(estimated_raw, family, context, evidence=evidence)
+        observed = parse_reported_time(observed_raw, family, context, evidence=evidence)
+        effective_rule = time_rule_id(family) if time_evidence is None else "+".join(
+            sorted({str(estimated["rule_id"]), str(observed["rule_id"])})
+        )
         rejected: list[str] = []
         if structural != "accepted_source_row":
             rejected.append("structural:" + structural)
@@ -535,7 +523,7 @@ def build_corpus(
                 "source_sha256": pages[eid]["sha256"],
                 "structural_status": structural,
                 "header_family": family,
-                "time_rule_id": time_rule_id(family),
+                "time_rule_id": effective_rule,
                 "source_label": label,
                 "site_record_id": site_ref,
                 "estimated_raw": fields.get("estimated_arrival", ""),
@@ -557,6 +545,49 @@ def build_corpus(
                 "raw_row_json": raw_row,
             }
         )
+        if time_evidence:
+            for field, raw, value in (
+                ("estimated", estimated_raw, estimated), ("observed", observed_raw, observed),
+            ):
+                target["reported_time_value"].append({
+                    "event_id": eid, "report_id": report_id, "field_role": field,
+                    "source_id": row["source_id"], "source_sha256": pages[eid]["sha256"],
+                    "raw_value": raw,
+                    **{k: value.get(k, "unknown") for k in (
+                        "state", "hour", "minute", "day_of_year", "timestamp_utc",
+                        "parsed_timestamp_utc", "rule_id", "evidence_id", "qualifier", "footnote",
+                    )},
+                })
+            for target_id in ("T-OBS", "T-CAL"):
+                why: list[str] = []
+                if structural != "accepted_source_row" or table["status"] != "recognized":
+                    why.append("structural_or_header_unresolved")
+                if observed["state"] != "exact_reported_timestamp":
+                    why.append("observed:" + observed["state"])
+                if not fit_identity:
+                    why.append("geographic_identity_unreviewed")
+                if events[eid].get("attribution_status") != "single_source_metadata":
+                    why.append("event_attribution_unresolved")
+                if target_id == "T-OBS":
+                    if context is None:
+                        why.append("reference_origin_unreviewed")
+                    elif observed["state"] == "exact_reported_timestamp" and (
+                        _utc(observed["timestamp_utc"]) - context["origin"]
+                    ).total_seconds() <= 0:
+                        why.append("observed:nonpositive_elapsed")
+                elif estimated["state"] != "exact_reported_timestamp":
+                    why.append("estimate:" + estimated["state"])
+                target["target_eligibility"].append({
+                    "event_id": eid, "report_id": report_id, "target_id": target_id,
+                    "target_version": (
+                        "reported_duration_from_reviewed_reference_v1" if target_id == "T-OBS"
+                        else "reported_absolute_difference_v1"
+                    ),
+                    "eligible": not why, "reason_codes": _json(why),
+                    "physical_site_id": identity["physical_site_id"],
+                    "origin_basis": context["origin_basis"] if context else "unknown",
+                    "model_eligible": False,
+                })
         if exact and context is not None:
             target["pair"].append(
                 {
@@ -565,7 +596,7 @@ def build_corpus(
                     "site_record_id": site_ref,
                     "source_id": row["source_id"],
                     "source_sha256": pages[eid]["sha256"],
-                    "time_rule_id": time_rule_id(family),
+                    "time_rule_id": effective_rule,
                     "estimated_utc": estimated["timestamp_utc"],
                     "observed_utc": observed["timestamp_utc"],
                     "origin_utc": context["origin_utc"],
@@ -608,6 +639,8 @@ def build_corpus(
         inputs["time_context"] = time_context
     if crosswalk:
         inputs["crosswalk"] = crosswalk
+    if time_evidence:
+        inputs["time_evidence"] = time_evidence
     summary: dict[str, Any] = {
         "schema_version": "reported-arrival-corpus-v1",
         "lane": "paper",
@@ -634,13 +667,38 @@ def build_corpus(
             "from source labels or pair counts.",
         ],
     }
+    if time_evidence:
+        summary.update(
+            schema_version="reported-arrival-corpus-v2",
+            exact_observed_values=sum(
+                r["field_role"] == "observed" and r["state"] == "exact_reported_timestamp"
+                for d in records.values() for r in d["reported_time_value"]
+            ),
+            target_eligible={
+                target_id: sum(r["eligible"] and r["target_id"] == target_id
+                               for d in records.values() for r in d["target_eligibility"])
+                for target_id in ("T-OBS", "T-CAL")
+            },
+            time_evidence_records=len(reviewed_times),
+        )
+        summary["interpretation"] = [
+            "Source-supported reported timestamps are not independently validated physical onsets.",
+            "T-OBS uses a named reviewed origin reference, not the unknown historical "
+            "model origin.",
+            "T-CAL eligibility concerns absolute clock differences; log-duration calibration "
+            "requires a separate origin/product contract.",
+            "Minute precision does not establish a rounding or picking uncertainty model.",
+            "Qualified values retain parsed components; primary UTC remains withheld.",
+            "Bare clock dates are never inferred from forecasts, distance or waveform onset.",
+            "Geographic identity does not establish deployment continuity or model eligibility.",
+        ]
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=f".{output.name}.", dir=output.parent))
     try:
         hashes: dict[str, str] = {}
         for eid, data in records.items():
             (temporary / eid).mkdir()
-            for name, columns in CORPUS_SCHEMAS.items():
+            for name, columns in schemas.items():
                 path = temporary / eid / f"{name}.csv.gz"
                 _gzip_csv(path, columns, data[name])
                 hashes[f"{eid}/{path.name}"] = hashlib.sha256(path.read_bytes()).hexdigest()

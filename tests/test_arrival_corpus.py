@@ -210,6 +210,80 @@ def read_table(output: Path, name: str, event: str = "event-a") -> list[dict[str
         return list(csv.DictReader(f))
 
 
+def time_evidence_fixture(tmp_path: Path, census: Path) -> Path:
+    raw = tmp_path / "page.html"
+    raw.write_text("<h1>Fixture 29 February 2012; UTC Arrival and ETA definitions</h1>")
+    digest = hashlib.sha256(raw.read_bytes()).hexdigest()
+    pages = json.loads((census / "census.json").read_text())
+    pages[0]["sha256"] = digest
+    (census / "census.json").write_text(json.dumps(pages))
+    path = tmp_path / "evidence.csv"
+    with path.open("w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=[
+            "event_id", "source_id", "source_sha256", "source_path", "table_index",
+            "header_family", "rule_ids", "evidence_id", "review_status", "reviewer", "scope",
+        ])
+        writer.writeheader()
+        writer.writerow({
+            "event_id": "event-a", "source_id": "source-a", "source_sha256": digest,
+            "source_path": "page.html", "table_index": 1, "header_family": "arrival_eta_utc",
+            "rule_ids": '["inline_month_day_v1","legacy_definition_v1"]',
+            "evidence_id": "fixture-legacy-definitions", "review_status": "independently_reviewed",
+            "reviewer": "fixture independent checker", "scope": "table 1 UTC definitions",
+        })
+    return path
+
+
+def test_reviewed_time_evidence_preserves_observed_only_rows_and_accounting(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config, census, years = inputs(tmp_path)
+    evidence = time_evidence_fixture(tmp_path, census)
+    monkeypatch.chdir(tmp_path)
+    output = tmp_path / "v5"
+    summary = build_corpus(config, census, output, time_context=years, time_evidence=evidence)
+    assert summary["source_rows"] == 6 and summary["exact_pairs"] == 2
+    assert summary["exact_observed_values"] == 4
+    legacy = next(x for x in read_table(output, "pair") if x["report_id"] == "event-a:1:1")
+    assert "legacy_definition_v1" in legacy["time_rule_id"]
+    assert "unresolved" not in legacy["time_rule_id"]
+    values = read_table(output, "reported_time_value")
+    assert len(values) == 12
+    value = next(x for x in values if x["report_id"] == "event-a:0:3"
+                 and x["field_role"] == "observed")
+    assert value["timestamp_utc"] == "2012-02-29T00:20:00Z"
+    eligibility = read_table(output, "target_eligibility")
+    assert len(eligibility) == 12
+    partial = [x for x in eligibility if x["report_id"] == "event-a:0:3"]
+    assert all(x["model_eligible"] == "False" for x in partial)
+    obs = next(x for x in partial if x["target_id"] == "T-OBS")
+    assert "estimate" not in obs["reason_codes"]
+    assert "geographic_identity_unreviewed" in obs["reason_codes"]
+    cal = next(x for x in partial if x["target_id"] == "T-CAL")
+    assert "estimate:source_absent_explicit" in cal["reason_codes"]
+    assert not (output / "event-sealed").exists()
+
+
+@pytest.mark.parametrize("bad_field", ["source_sha256", "event_id", "review_status"])
+def test_invalid_time_evidence_cannot_publish_a_corpus(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, bad_field: str,
+) -> None:
+    config, census, years = inputs(tmp_path)
+    evidence = time_evidence_fixture(tmp_path, census)
+    rows = list(csv.DictReader(evidence.open()))
+    rows[0][bad_field] = {"source_sha256": "b" * 64, "event_id": "event-sealed",
+                          "review_status": "pending"}[bad_field]
+    with evidence.open("w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+    monkeypatch.chdir(tmp_path)
+    output = tmp_path / "v5"
+    with pytest.raises(CorpusError, match="evidence"):
+        build_corpus(config, census, output, time_context=years, time_evidence=evidence)
+    assert not output.exists()
+
+
 def test_all_rows_accounted_and_raw_strings_round_trip_without_released_timestamps(
     tmp_path: Path,
 ) -> None:

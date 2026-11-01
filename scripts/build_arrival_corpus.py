@@ -21,6 +21,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--rows", type=Path, help="optional rows.csv instead of census/rows.json")
     parser.add_argument("--time-context", type=Path, help="reviewed event year/origin context CSV")
     parser.add_argument("--crosswalk", type=Path, help="reviewed report-to-site/deployment CSV")
+    parser.add_argument("--time-evidence", type=Path, help="hash-bound reviewed time-rule CSV")
     args = parser.parse_args(argv)
     try:
         result = build_corpus(
@@ -30,6 +31,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             rows_path=args.rows,
             time_context=args.time_context,
             crosswalk=args.crosswalk,
+            time_evidence=args.time_evidence,
         )
     except (CorpusError, OSError, ValueError, KeyError, TypeError) as error:
         parser.error(str(error))
