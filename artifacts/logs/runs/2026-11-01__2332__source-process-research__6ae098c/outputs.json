@@ -1,0 +1,7 @@
+{
+  "ledger_path": "artifacts/provenance/paper-source-manifest-v5.csv",
+  "ledger_sha256": "79e17037640902ae29881140d7e31b174a9fe998d3eb1e05c4e3bc8d43dc246e",
+  "product_manifest_path": "data/processed/arrival-evidence/source-process-v1/manifest.json",
+  "product_manifest_sha256": "fd36b8e332d66a6f739c736fb9dd15eda141886186bc61cb9218f1503e732ab3",
+  "scientific_qa_sha256": "cc3a03354022ae9e11f05329d1878b25b59c9f93895d71becf5f3f1d5539b965"
+}

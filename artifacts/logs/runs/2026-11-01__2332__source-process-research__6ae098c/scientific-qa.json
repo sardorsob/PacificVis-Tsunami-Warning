@@ -1,0 +1,61 @@
+{
+  "accepted_parent_products_verified": [
+    "foundation-v1",
+    "documentary-v1"
+  ],
+  "build": "PASS",
+  "frontend_tests_passed": 178,
+  "independent_acceptance": {
+    "all_absent_fields_supported_reports": 3,
+    "candidate": "artifacts/generated/ntwc-batch/source-process-v1/candidate-3",
+    "checker": "/root/source_process_checker",
+    "direct_absent_observation_fields": 4,
+    "evidence": [
+      "inventory.json",
+      "selected-source-review.md",
+      "candidate-review.md",
+      "candidate-check.json",
+      "replay-final-check.json",
+      "adversaries-final-2/results.json"
+    ],
+    "independent_baseline_reports": 1177,
+    "input_pins_verified": 77,
+    "limits": [
+      "Full repository gate and final local integration owned by root; not independently rerun here.",
+      "No live URL/network recheck; retained original byte integrity and applicable contents verified.",
+      "Causal explanation remains narrow and many historical source options remain inaccessible or unstated; no claim of global source exhaustion."
+    ],
+    "manifest_sha256": "fd36b8e332d66a6f739c736fb9dd15eda141886186bc61cb9218f1503e732ab3",
+    "ncei_comparisons_identity_approved": false,
+    "new_exact_pairs": 0,
+    "output_replay_files": 12,
+    "overwrite_rejected_without_mutation": true,
+    "raw_field_mappings": 1142,
+    "raw_html_memberships": 1177,
+    "rejected_mutation_adversaries": 11,
+    "reviewed_files": {
+      "analysis/arrival/source_process.py": "953c064bc2f0fb1fd5e03f0954e7f0b3f6ce13f365f5b663b67776effd558c31",
+      "artifacts/provenance/paper-source-manifest-v5.csv": "79e17037640902ae29881140d7e31b174a9fe998d3eb1e05c4e3bc8d43dc246e",
+      "config/arrival-source-process-review-v1.json": "6750cca7726c3b0dd49c07065580bed119c23c603f741c58271b781761d21f56",
+      "docs/data/source-process.md": "ab4cbe04c1c41db29e6b668f9afbfcecace15398a2936feefe7ea31fd9e1b05b",
+      "scripts/build_source_process.py": "0f35f34dcafa531abe82867c5c82294c245e502c6ae6096304b079d1df075fc3"
+    },
+    "source_snapshots_verified": 69,
+    "status": "accepted_scientific_and_replay_scope",
+    "technical_causes_assigned_to_NTWC_blanks": 0,
+    "tonga_UTC_approved": false
+  },
+  "input_pins_verified": 77,
+  "model_fitted": false,
+  "new_exact_pairs": 0,
+  "original_pair_count": 388,
+  "original_unresolved": 789,
+  "output_files_identical_to_independent_replay": 12,
+  "product_manifest_sha256": "fd36b8e332d66a6f739c736fb9dd15eda141886186bc61cb9218f1503e732ab3",
+  "protected_hashes_unchanged": 14512,
+  "pyright": "PASS",
+  "python_tests_passed": 815,
+  "ruff": "PASS",
+  "source_manifest_records": 2738,
+  "status": "PASS"
+}

@@ -1,0 +1,10 @@
+{
+  "curation_path": "config/arrival-source-process-review-v1.json",
+  "curation_sha256": "6750cca7726c3b0dd49c07065580bed119c23c603f741c58271b781761d21f56",
+  "parent_releases": [
+    "arrival-evidence/foundation-v1",
+    "arrival-evidence/documentary-v1"
+  ],
+  "product_input_pins_path": "data/processed/arrival-evidence/source-process-v1/inputs.json",
+  "product_inputs_sha256": "a78074e24a5f44b91a990495f0384c74953fd16c394d82daf7f1b273536f2657"
+}

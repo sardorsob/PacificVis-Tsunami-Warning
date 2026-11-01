@@ -1,0 +1,11 @@
+{
+  "attribution": "direct field reason counted separately from policy and context",
+  "max_additional_bytes": 100000000,
+  "max_attempts_per_exact_url": 3,
+  "max_http_attempts": 160,
+  "max_object_bytes": 10000000,
+  "min_noaa_interval_seconds": 1,
+  "original_label_replacement": false,
+  "pair_approval": false,
+  "source_scope": "frozen development cohort"
+}

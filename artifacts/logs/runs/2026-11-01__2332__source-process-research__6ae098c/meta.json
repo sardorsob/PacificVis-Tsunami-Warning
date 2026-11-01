@@ -1,0 +1,9 @@
+{
+  "disposition": "accepted_source_process_supplement",
+  "git_sha_at_registration": "17df6579978909d02b9f3e5bbaf60d9698f29cc2",
+  "lane": "paper",
+  "model_fitted": false,
+  "timestamp_utc": "2026-11-01T23:48:45.180222+00:00",
+  "tracking": "project-local .mlflow/mlruns; no remote action",
+  "working_tree": "final scientific receipts pending local commit"
+}
