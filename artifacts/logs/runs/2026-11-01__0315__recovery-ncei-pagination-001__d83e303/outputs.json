@@ -1,0 +1,83 @@
+[
+  {
+    "bytes": 7596,
+    "content_type": "application/json",
+    "final_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=5590&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=2",
+    "headers": {
+      "access-control-allow-headers": "[redacted]",
+      "access-control-allow-origin": "[redacted]",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "connection": "[redacted]",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 03:15:23 GMT",
+      "expires": "0",
+      "pragma": "[redacted]",
+      "server": "[redacted]",
+      "strict-transport-security": "[redacted]",
+      "transfer-encoding": "chunked",
+      "vary": "accept-encoding",
+      "x-content-type-options": "[redacted]",
+      "x-frame-options": "[redacted]",
+      "x-xss-protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/ncei-development-runups-v1/recovery-ncei-2584b86a786a25b2.json",
+    "reason": "not applicable",
+    "sha256": "0b671e45674d08345505fe81ba2ce45e0569729c480b8fba55aa2b0b29cc8570",
+    "source_id": "recovery-ncei-2584b86a786a25b2",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 108920,
+    "content_type": "application/json",
+    "final_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=5413&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=2",
+    "headers": {
+      "access-control-allow-headers": "[redacted]",
+      "access-control-allow-origin": "[redacted]",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "connection": "[redacted]",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 03:15:24 GMT",
+      "expires": "0",
+      "pragma": "[redacted]",
+      "server": "[redacted]",
+      "strict-transport-security": "[redacted]",
+      "transfer-encoding": "chunked",
+      "vary": "accept-encoding",
+      "x-content-type-options": "[redacted]",
+      "x-frame-options": "[redacted]",
+      "x-xss-protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/ncei-development-runups-v1/recovery-ncei-66bfa3cd99cb7161.json",
+    "reason": "not applicable",
+    "sha256": "5246aa7026399d739ce349e9113594fbfc75097157eaa14f928761f046ec07aa",
+    "source_id": "recovery-ncei-66bfa3cd99cb7161",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 19946,
+    "content_type": "application/json",
+    "final_url": "https://www.ngdc.noaa.gov/hazel/hazard-service/api/v1/tsunamis/runups?tsunamiEventId=5413&typeMeasurementId=2&typeMeasurementId=3&itemsPerPage=200&page=3",
+    "headers": {
+      "access-control-allow-headers": "[redacted]",
+      "access-control-allow-origin": "[redacted]",
+      "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+      "connection": "[redacted]",
+      "content-type": "application/json",
+      "date": "Sun, 01 Nov 2026 03:15:27 GMT",
+      "expires": "0",
+      "pragma": "[redacted]",
+      "server": "[redacted]",
+      "strict-transport-security": "[redacted]",
+      "transfer-encoding": "chunked",
+      "vary": "accept-encoding",
+      "x-content-type-options": "[redacted]",
+      "x-frame-options": "[redacted]",
+      "x-xss-protection": "[redacted]"
+    },
+    "local_path": "data/raw/arrival-recovery/ncei-development-runups-v1/recovery-ncei-c79369ef057c39df.json",
+    "reason": "not applicable",
+    "sha256": "35a89cfb25d054a7baf7e8f8b9ae246433152600e978d6b73d0dbc94c539087b",
+    "source_id": "recovery-ncei-c79369ef057c39df",
+    "status": "downloaded"
+  }
+]
