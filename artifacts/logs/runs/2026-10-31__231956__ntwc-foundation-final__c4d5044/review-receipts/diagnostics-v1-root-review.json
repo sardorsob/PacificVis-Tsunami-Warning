@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "reviewer": "root independent review",
+  "verified": [
+    "source code: eight-setting freeze, no label-dependent settings",
+    "blinded input hashes and path bounds",
+    "units m/cm only, native cadence, missing/QC/duplicate exclusions",
+    "23 detector/diagnostic tests",
+    "all four output files byte-identical replay",
+    "control rates labeled raw excursions, no physical-onset claim"
+  ],
+  "manifest_sha256": "4827faf5912e516013716e3914b65e4939686f8e99cefa28c38dc88fd96653fc"
+}

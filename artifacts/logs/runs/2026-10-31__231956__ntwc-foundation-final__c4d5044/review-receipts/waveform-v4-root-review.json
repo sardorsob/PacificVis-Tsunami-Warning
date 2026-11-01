@@ -1,0 +1,62 @@
+{
+  "checks": [
+    "Every preview and final file byte-identical",
+    "Every normalized raw record independently equals its retained CSV raw_row_json in original order",
+    "All source-row IDs and counts conserved, including malformed and duplicate rows",
+    "Finite numeric values preserve source units and values",
+    "All raw and normalized hashes match; no deployment or physical-site identity silently inferred in observations"
+  ],
+  "counts": {
+    "normalized_source_samples": 1768,
+    "outside_observation_scope": 14,
+    "retained_unparsed_source": 36,
+    "source_rows": 3688140,
+    "unavailable": 9,
+    "unavailable_diagnostic": 4,
+    "unavailable_provider_response": 10,
+    "verified_header_evidence": 61
+  },
+  "files_replayed": 1770,
+  "manifest_sha256": "253beaed20f01315e78d6af708b386e22735bb5d89a40dfe7be4d2c649b45d0b",
+  "native_cadence_file_counts": {
+    "10.0": 22,
+    "120.0": 92,
+    "15.0": 56,
+    "180.0": 7,
+    "360": 239,
+    "360.0": 38,
+    "60": 239,
+    "60.0": 1075
+  },
+  "native_unit_file_counts": {
+    "cm": 61,
+    "m": 1684,
+    "mm": 23
+  },
+  "qc_states": {
+    "not_provided": 3458700,
+    "provided": 229440
+  },
+  "reviewer": "root independent raw-record conservation and deterministic replay",
+  "source_entries": 1902,
+  "source_purposes": {
+    "diagnostic": 4,
+    "event_window": 1805,
+    "header_evidence": 61,
+    "outside_observation_scope": 14,
+    "quiet_control": 18
+  },
+  "status": "pass",
+  "timestamp_states": {
+    "epoch_calendar_agree": 1591047,
+    "epoch_calendar_minute_agree": 498055,
+    "header_day_end_boundary": 144,
+    "malformed_row": 1,
+    "outside_header_day": 1911,
+    "reported_utc": 1596982
+  },
+  "value_states": {
+    "blank": 48151,
+    "finite_numeric": 3639989
+  }
+}

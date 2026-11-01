@@ -1,0 +1,27 @@
+{
+  "archive_entries": 118,
+  "files_including_manifest": 779,
+  "header_only_entries": 61,
+  "lossless_contour_features": 306,
+  "manifest_sha256": "180415c6940204b7735a690f93461bc5a0ae91d9132dd7a44ebf5886f1879fe6",
+  "max_viewer_asset_bytes": 1056995,
+  "overlap_members": 178,
+  "private_event_origins_known": 112,
+  "purpose_counts": {
+    "diagnostic": 4,
+    "event_window": 1805,
+    "header_evidence": 61,
+    "outside_observation_scope": 14,
+    "quiet_control": 18
+  },
+  "repeated_url_groups": 89,
+  "reports": 1177,
+  "retained_source_rows": 3688140,
+  "series_coverage_rows": 1168,
+  "source_entries": 1902,
+  "status": "PASS",
+  "viewer_contour_assets": 7,
+  "viewer_events": 13,
+  "viewer_waveform_assets": 755,
+  "viewer_waveform_rows": 826316
+}

@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/station-registry-discovery.toml --lane paper --run-tag station-discovery --min-interval 4 --max-contracts 10 --max-total-bytes 8000000 --max-object-bytes 4000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-31__1911__station-discovery__c4d5044",
+  "timestamp_utc": "2026-10-31T19:11:00Z",
+  "working_tree": "dirty"
+}

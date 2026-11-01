@@ -1,0 +1,17 @@
+{
+  "rows": 3688140,
+  "blank": 48151,
+  "finite": 3639989,
+  "invalid_timestamp": 1912,
+  "qc_not_provided": 3458700,
+  "duplicate_excess": 1127,
+  "duplicate_affected_rows": 2233,
+  "value_blank_pct": 1.305563237838043,
+  "unreleased_timestamp_pct": 0.05184184982131915,
+  "qc_not_provided_pct": 93.7789780214417,
+  "reports": 1177,
+  "parseable_pairs": 314,
+  "unresolved_report_pct": 73.32200509770603,
+  "reviewed_identity_pairs": 148,
+  "normalized_events": 31
+}

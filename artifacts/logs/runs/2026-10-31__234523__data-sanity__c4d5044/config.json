@@ -1,0 +1,11 @@
+{
+  "scope": "Read-only quick data sanity profile, with existing row-audit counts reused only after fresh checksums",
+  "no_imputation": true,
+  "no_model_fitting": true,
+  "no_new_physical_qc": true,
+  "seed": "not_applicable_deterministic_counts",
+  "waveform_population": "All 1768 normalized source snapshots, including18quiet-control snapshots; request-weighted, not unique independent measurements",
+  "grid_population": "Only478CO-OPS snapshots have verified requested-grid denominators; exact missingness outside these windows is unknown",
+  "modern_arrival_population": "999 structurally accepted Estimated/Computed\u2013Observed source rows;143legacy Arrival/ETA rows retain separate semantics",
+  "formal_missingness_test": "not performed; no MAR/MNAR identifiability claimed"
+}

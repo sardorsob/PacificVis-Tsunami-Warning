@@ -1,0 +1,1721 @@
+{
+  "all_bulk_raw_review": "artifacts/generated/ntwc-batch/full-acquisition-root-review-v1.json",
+  "candidate_unique_report_sha256": "f1e764997855637ff050c5f692247e38f530ab771f5b112228e6d1fb61602447",
+  "checks": [
+    "All1177 report IDs conserved; no reserved or model/physical-onset promotion",
+    "Every candidate raw SHA/header name/provider/ID/coordinates/date exact",
+    "Each report exact linked-day/source URL verified",
+    "Every provider identity independently matched pinned registry ID and geodesic distance<=2km",
+    "All source-qualified geographic signatures independently recomputed; full names agree; sensors not part of site",
+    "Geographic identity only; deployment continuity unknown",
+    "Pinned CDX evidence: exact capture rows and body SHA-1; statuscode200 supplied by independently checked receipted query filter because source response omits that column",
+    "All 533 approved matches retain model eligibility, physical-onset validity and deployment continuity as false"
+  ],
+  "distinct_site_ids": 236,
+  "geographic_identity_only": true,
+  "label_review": "All 110 authoritative-provider report/header label variants inspected by root; regional abbreviations, reviewed Hawaiian island qualifiers, Unalaska/Dutch Harbor and Midway/Sand Island variants agree with exact provider IDs and <=2km registry proximity.172 source-qualified variants independently require full normalized label equality; no first-comma or generic name join.",
+  "ledger_path": "config/ntwc-station-review-v3.csv",
+  "registry_distance_km": [
+    0.0,
+    1.9592435012622607
+  ],
+  "report_header_labels_inspected": [
+    [
+      "authoritative_provider_site",
+      "Adak, AK",
+      "Adak,_AK",
+      "9461380"
+    ],
+    [
+      "authoritative_provider_site",
+      "Adak, Alaska",
+      "Adak,_AK",
+      "9461380"
+    ],
+    [
+      "authoritative_provider_site",
+      "Alameda, CA",
+      "Alameda,_CA",
+      "9414750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Alameda, California",
+      "Alameda,_CA",
+      "9414750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Alitak, AK",
+      "Alitak,_AK",
+      "9457804"
+    ],
+    [
+      "authoritative_provider_site",
+      "Arena Cove, CA",
+      "Arena_Cove,_CA",
+      "9416841"
+    ],
+    [
+      "authoritative_provider_site",
+      "Arena Cove, California",
+      "Arena_Cove,_CA",
+      "9416841"
+    ],
+    [
+      "authoritative_provider_site",
+      "Astoria, OR",
+      "Astoria,_OR",
+      "9439040"
+    ],
+    [
+      "authoritative_provider_site",
+      "Astoria, Oregon",
+      "Astoria,_OR",
+      "9439040"
+    ],
+    [
+      "authoritative_provider_site",
+      "Atka, AK",
+      "Atka,_AK",
+      "9461710"
+    ],
+    [
+      "authoritative_provider_site",
+      "Atka, Alaska",
+      "Atka,_AK",
+      "9461710"
+    ],
+    [
+      "authoritative_provider_site",
+      "Charleston, OR",
+      "Charleston,_OR",
+      "9432780"
+    ],
+    [
+      "authoritative_provider_site",
+      "Charleston, Oregon",
+      "Charleston,_OR",
+      "9432780"
+    ],
+    [
+      "authoritative_provider_site",
+      "Cordova, Alaska",
+      "Cordova,_AK",
+      "9454050"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, CA",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, Ca",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, California",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Dutch Harbor, AK",
+      "Dutch_Harbor,_AK",
+      "9462620"
+    ],
+    [
+      "authoritative_provider_site",
+      "Elfin Cove, AK",
+      "Elfin_Cove,_AK",
+      "9452634"
+    ],
+    [
+      "authoritative_provider_site",
+      "Elfin Cove, Alaska",
+      "Elfin_Cove,_AK",
+      "9452634"
+    ],
+    [
+      "authoritative_provider_site",
+      "Elfin cove, Alaska",
+      "Elfin_Cove,_AK",
+      "9452634"
+    ],
+    [
+      "authoritative_provider_site",
+      "Garibaldi, OR",
+      "Garibaldi,_OR",
+      "9437540"
+    ],
+    [
+      "authoritative_provider_site",
+      "Garibaldi, Oregon",
+      "Garibaldi,_OR",
+      "9437540"
+    ],
+    [
+      "authoritative_provider_site",
+      "Hilo, HI",
+      "Hilo,_HI",
+      "1617760"
+    ],
+    [
+      "authoritative_provider_site",
+      "Hilo, Hawaii",
+      "Hilo,_HI",
+      "1617760"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, Hawaii",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, Oahu, HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Juneau, Alaska",
+      "Juneau,_AK",
+      "9452210"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului Maui, Hawaii",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, Hawaii",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, Maui, HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kawaihae HI",
+      "Kawaihae,_HI",
+      "1617433"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kawaihae, HI",
+      "Kawaihae,_HI",
+      "1617433"
+    ],
+    [
+      "authoritative_provider_site",
+      "Ketchikan, Alaska",
+      "Ketchikan,_AK",
+      "9450460"
+    ],
+    [
+      "authoritative_provider_site",
+      "King Cove, AK",
+      "King_Cove,_AK",
+      "9459881"
+    ],
+    [
+      "authoritative_provider_site",
+      "King Cove, Alaska",
+      "King_Cove,_AK",
+      "9459881"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kodiak, AK",
+      "Kodiak,_AK",
+      "9457292"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kodiak, Alaska",
+      "Kodiak,_AK",
+      "9457292"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kwajalein, Marshall Is.",
+      "Kwajalein,_Marshall_Islands",
+      "1820000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kwajalein, Marshall Islands",
+      "Kwajalein,_Marshall_Islands",
+      "1820000"
+    ],
+    [
+      "authoritative_provider_site",
+      "La Jolla, CA",
+      "La_Jolla,_CA",
+      "9410230"
+    ],
+    [
+      "authoritative_provider_site",
+      "La Jolla, California",
+      "La_Jolla,_CA",
+      "9410230"
+    ],
+    [
+      "authoritative_provider_site",
+      "Los Angeles, CA",
+      "Los_Angeles,_CA",
+      "9410660"
+    ],
+    [
+      "authoritative_provider_site",
+      "Los Angeles, California",
+      "Los_Angeles,_CA",
+      "9410660"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Is. USA",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Is., HI",
+      "Sand_Island_(Midway_Is.),_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Is., USA",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Island",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "MidwayIsland",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Monterey Harbor, CA",
+      "Monterey_Harbor,_CA",
+      "9413450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Monterey Harbor, California",
+      "Monterey_Harbor,_CA",
+      "9413450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nawiliwili HI",
+      "Nawiliwili_Kauai,_HI",
+      "1611400"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nawiliwili, HI",
+      "Nawiliwili_Kauai,_HI",
+      "1611400"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nawiliwili, Kauai, HI",
+      "Nawiliwili_Kauai,_HI",
+      "1611400"
+    ],
+    [
+      "authoritative_provider_site",
+      "Neah Bay, WA",
+      "Neah_Bay,_WA",
+      "9443090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Neah Bay, Washington",
+      "Neah_Bay,_WA",
+      "9443090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nikolski, AK",
+      "Nikolski,_AK",
+      "9462450"
+    ],
+    [
+      "authoritative_provider_site",
+      "North Spit, CA",
+      "North_Spit,_CA",
+      "9418767"
+    ],
+    [
+      "authoritative_provider_site",
+      "North Spit, California",
+      "North_Spit,_CA",
+      "9418767"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, Am. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, Amer. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, America Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, American Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "PagoPago",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "PagoPago, Amer. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Point Reyes, CA",
+      "Point_Reyes,_CA",
+      "9415020"
+    ],
+    [
+      "authoritative_provider_site",
+      "Point Reyes, California",
+      "Point_Reyes,_CA",
+      "9415020"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Alexander, AK",
+      "Port_Alexander,_AK",
+      "9451054"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Alexander, Alaska",
+      "Port_Alexander,_AK",
+      "9451054"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Angeles, WA",
+      "Port_Angeles,_WA",
+      "9444090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Angeles, Washington",
+      "Port_Angeles,_WA",
+      "9444090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Orford, OR",
+      "Port_Orford,_OR",
+      "9431647"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Orford, Oregon",
+      "Port_Orford,_OR",
+      "9431647"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port San Luis, CA",
+      "Port_San_Luis,_CA",
+      "9412110"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port San Luis, California",
+      "Port_San_Luis,_CA",
+      "9412110"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Townsend, Washington",
+      "Port_Townsend,_WA",
+      "9444900"
+    ],
+    [
+      "authoritative_provider_site",
+      "Richmond, CA",
+      "Richmond,_CA",
+      "9414863"
+    ],
+    [
+      "authoritative_provider_site",
+      "Richmond, California",
+      "Richmond,_CA",
+      "9414863"
+    ],
+    [
+      "authoritative_provider_site",
+      "San Diego, California",
+      "San_Diego,_CA",
+      "9410170"
+    ],
+    [
+      "authoritative_provider_site",
+      "San Francisco, CA",
+      "San_Francisco,_CA",
+      "9414290"
+    ],
+    [
+      "authoritative_provider_site",
+      "San Francisco, California",
+      "San_Francisco,_CA",
+      "9414290"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Island, Midway",
+      "Sand_Island,_Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Point, AK",
+      "Sand_Point,_AK",
+      "9459450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Point, Alaska",
+      "Sand_Point,_AK",
+      "9459450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Barbara, CA",
+      "Santa_Barbara,_CA",
+      "9411340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Barbara, California",
+      "Santa_Barbara,_CA",
+      "9411340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Monica, CA",
+      "Santa_Monica,_CA",
+      "9410840"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Monica, California",
+      "Santa_Monica,_CA",
+      "9410840"
+    ],
+    [
+      "authoritative_provider_site",
+      "Seldovia, Alaska",
+      "Seldovia,_AK",
+      "9455500"
+    ],
+    [
+      "authoritative_provider_site",
+      "Seward, AK",
+      "Seward,_AK",
+      "9455090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Seward, Alaska",
+      "Seward,_AK",
+      "9455090"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sitka, AK",
+      "Sitka,_AK",
+      "9451600"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sitka, Alaska",
+      "Sitka,_AK",
+      "9451600"
+    ],
+    [
+      "authoritative_provider_site",
+      "South Beach , OR",
+      "South_Beach,_OR",
+      "9435380"
+    ],
+    [
+      "authoritative_provider_site",
+      "South Beach, OR",
+      "South_Beach,_OR",
+      "9435380"
+    ],
+    [
+      "authoritative_provider_site",
+      "South Beach, Oregon",
+      "South_Beach,_OR",
+      "9435380"
+    ],
+    [
+      "authoritative_provider_site",
+      "Toke Point, Washington",
+      "Toke_Point,_WA",
+      "9440910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Unalaska, Alaska",
+      "Dutch_Harbor,_AK",
+      "9462620"
+    ],
+    [
+      "authoritative_provider_site",
+      "Valdez, Alaska",
+      "Valdez,_AK",
+      "9454240"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Is., USA",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Island",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Island, USA",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "West Port, WA",
+      "Westport,_WA",
+      "9441102"
+    ],
+    [
+      "authoritative_provider_site",
+      "Westport, Washington",
+      "Westport,_WA",
+      "9441102"
+    ],
+    [
+      "authoritative_provider_site",
+      "Yakutat, AK",
+      "Yakutat,_AK",
+      "9453220"
+    ],
+    [
+      "authoritative_provider_site",
+      "Yakutat, Alaska",
+      "Yakutat,_AK",
+      "9453220"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Aburatsu, Japan",
+      "Aburatsu,_Japan",
+      "ABURATSU"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Acajutla, El Salvador",
+      "Acajutla,_El_Salvador",
+      "50313520"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Acapulco, Mexico",
+      "Acapulco,_Mexico",
+      "0100D7CA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Acapulco, Mexico",
+      "Acapulco,_Mexico",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Akutan, AK",
+      "Akutan,_AK",
+      "9462693"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Akutan, AK",
+      "Akutan,_AK",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Amchitka, AK",
+      "Amchitka,_AK",
+      "9460901"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ancud, Chile",
+      "Ancud,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Antofagasta, Chile",
+      "Antofagasta,_Chile",
+      "ADC0F6BA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Antofagasta, Chile",
+      "Antofagasta,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Apia, West Samoa",
+      "Apia,_West_Samoa",
+      "66840"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Apia, West Samoa",
+      "Apia,_West_Samoa",
+      "91756"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Arica, Chile",
+      "Arica,_Chile",
+      "ADC0D056"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Arica, Chile",
+      "Arica,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Atico, Peru",
+      "Atico,_Peru",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Atka, AK",
+      "Atka,_AK",
+      "9407804"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Auckland, NZ",
+      "Auckland,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Bahia Mansa, Chile",
+      "Bahia_Mansa,_Chile",
+      "14063458"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Baltra, Ecuador",
+      "Baltra,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Baltra,_Ecuador",
+      "Baltra,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Bamfield, BC",
+      "Bamfield,_BC",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Barbers Point, HI",
+      "Barbers_Point,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Betio, Tarawa, Kiribati",
+      "Betio,_Tarawa,_Kiribati",
+      "67590"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Burnie, Tasmania",
+      "Burnie,_Tasmania",
+      "60910"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Cabo San Lucas, Mexico",
+      "Cabo_San_Lucas,_Mexico",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Caldera, Chile",
+      "Caldera,_Chile",
+      "ADC104C4"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Caldera, Chile",
+      "Caldera,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Callao La Punta, Peru",
+      "Callao_La_Punta,_Peru",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Callao LaPunta, Peru",
+      "Callao_La_Punta,_Peru",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Callao-La Punta, Peru",
+      "Callao_La_Punta,_Peru",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Cape Ferguson, Australia",
+      "Cape_Ferguson,_Australia",
+      "59260"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Castlepoint, NZ",
+      "Castlepoint,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chanaral, Chile",
+      "Chanaral,_Chile",
+      "ADC296A8"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chanaral, Chile",
+      "Chanaral,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chatham Island, NZ",
+      "Chatham_Island,_NZ",
+      "CHIT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chatham Island, NZ",
+      "Chatham_Island,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chichijima, Japan",
+      "Chichijima,_Japan",
+      "CHICHIJIMA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chignik, AK",
+      "Chignik,_AK",
+      "9458912"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chignik, AK",
+      "Chignik,_AK",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Christmas Is., Kiribati",
+      "Christmas_Is.,_Kiribati",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Constitucion, Chile",
+      "Constitucion,_Chile",
+      "ADC154B8"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Coquimbo, Chile",
+      "Coquimbo,_Chile",
+      "ADC117B2"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Coquimbo, Chile",
+      "Coquimbo,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Coronel, Chile",
+      "Coronel,_Chile",
+      "ADC1C1DA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Corral, Chile",
+      "Corral,_Chile",
+      "14066424"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Corral, Chile",
+      "Corral,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Currimao, Philippines",
+      "Currimao,_Philippines",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Davao, Philippines",
+      "Davao,_Philippines",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Dunedin, NZ",
+      "Dunedin,_NZ",
+      "OTAT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "East Cape, NZ",
+      "East_Cape,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Easter Island, Chile",
+      "Easter_Island,_Chile",
+      "93202BDA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Easter Island, Chile",
+      "Easter_Island,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "French Frigate Shoals, HI",
+      "French_Frigate_Shoals,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Fukaura, Japan",
+      "Fukaura,_Japan",
+      "FUKAURA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Funafuti, Tuvalu",
+      "Funafuti,_Tuvalu",
+      "67440"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Gisborn, NZ",
+      "Gisborn,_NZ",
+      "GIST"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Gisborn, NZ",
+      "Gisborn,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Haleiwa, HI",
+      "Haleiwa,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Hanalei, HI",
+      "Hanalei,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Hanasaki, Japan",
+      "Hanasaki,_Japan",
+      "HANASAKI"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Hienghene, New Caledonia, Fr",
+      "Hienghene,_New_Caledonia,_Fr",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Honiara, Solomon Islands",
+      "Honiara,_Solomon_Islands",
+      "56670"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Huahine, Fr. Polynesia",
+      "Huahine,_Fr._Polynesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Huasco, Chile",
+      "Huasco,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Iquique, Chile",
+      "Iquique,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ishigakijima, Japan",
+      "Ishigakijima,_Japan",
+      "ISHIGAKIJIMA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Jackson Bay, New Zealand",
+      "Jackson_Bay,_New_Zealand",
+      "93713"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Juan Fernandez, Chile",
+      "Juan_Fernandez,_Chile",
+      "ADC0B5B0"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Juan Fernandez, Chile",
+      "Juan_Fernandez,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Kaikoura North Wharf, NZ",
+      "Kaikoura_North_Wharf,_NZ",
+      "KAIT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Kaumalapau, HI",
+      "Kaumalapau,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Kaumialapa, HI",
+      "Kaumialapa,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Korotiti Bay, NZ",
+      "Korotiti_Bay,_NZ",
+      "GBIT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Korotiti Bay, NZ",
+      "Korotiti_Bay,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Korotiti Bay, Nz",
+      "Korotiti_Bay,_NZ",
+      "GBIT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Kushimoto, Japan",
+      "Kushimoto,_Japan",
+      "KUSHIMOTO"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "La Libertad, Ecuador",
+      "LaLibertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "La Libertad, Ecuador",
+      "La_Libertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "La Union, El Salvador",
+      "La_Union,_El_Salvador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "LaLibertad, Ecuador",
+      "LaLibertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "LaLibertad, Ecuador",
+      "La_Libertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lahaina, HI",
+      "Lahaina,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Langara Point, BC",
+      "Langara_Point,_BC",
+      "15C396A6"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Langara Point, BC",
+      "Langara_Point,_BC",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lata Wharf, Solomon Islands",
+      "Lata_Wharf,_Solomon_Islands",
+      "57131"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lautoka, Fiji",
+      "Lautoka,_Fiji",
+      "67070"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lautoka, Fiji",
+      "Lautoka,_Fiji",
+      "91679"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lebu, Chile",
+      "Lebu,_Chile",
+      "ADC16122"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Legaspi, Philippines",
+      "Legaspi,_Philippines",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lifou, New Caledonia, Fr",
+      "Lifou,_New_Caledonia,_Fr",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lottin Point, N.Z.",
+      "Lottin_Point,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lottin Point, NZ",
+      "Lottin_Point,_NZ",
+      "LOTT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lottin Point, NZ",
+      "Lottin_Point,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lottin Point, Nz",
+      "Lottin_Point,_NZ",
+      "LOTT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Makapuu, HI",
+      "Makapuu,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Manilla, Philippines",
+      "Manilla,_Philippines",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Manus, Papua New Guinea",
+      "Manus,_Papua_New_Guinea",
+      "56130"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Manzanillo, Mexico",
+      "Manzanillo,_Mexico",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Matarani, Peru",
+      "Matarani,_Peru",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Mejillones, Chile",
+      "Mejillones,_Chile",
+      "01032040"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Mera, Japan",
+      "Mera,_Japan",
+      "MERA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Naha, Japan",
+      "Naha,_Japan",
+      "NAHA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Neptune05, BC",
+      "Neptune05,_BC",
+      "8812a"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "North Cape, NZ",
+      "North_Cape,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Nuku Hiva, Fr. Polynesia",
+      "Nuku_Hiva,_Fr._Polynesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Nuku'alofa, Tonga",
+      "Nukualofa,_Tonga",
+      "91789"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Nukualofa, Tonga",
+      "Nukualofa,_Tonga",
+      "66600"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Nukualofa, Tonga",
+      "Nukualofa,_Tonga",
+      "91789"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Nukualofa,Tonga",
+      "Nukualofa,_Tonga",
+      "91789"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ofunato, Japan",
+      "Ofunato,_Japan",
+      "OFUNATO"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Old Harbor, AK",
+      "Old_Harbor,_AK",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Omaezaki, Japan",
+      "Omaezaki,_Japan",
+      "OMAEZAKI"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ouinne, New Caledonia, Fr",
+      "Ouinne,_New_Caledonia,_Fr",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Owenga, Chatham, NZ",
+      "Owenga,_Chatham,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Papeete, Fr. Polynesia",
+      "Papeete,_Fr._Polynesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Paposo, Chile",
+      "Paposo,_Chile",
+      "ADC285DE"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Patache, Chile",
+      "Patache,_Chile",
+      "ADC22526"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Pisagua, Chile",
+      "Pisagua,_Chile",
+      "ADC17254"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Kembla, Australia",
+      "Port_Kembla,_Australia",
+      "60420"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Tauranga, NZ",
+      "Port_Tauranga,_NZ",
+      "TAUT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Tauranga, Nz",
+      "Port_Tauranga,_NZ",
+      "TAUT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Vila, Vanuatu",
+      "Port_Vila,_Vanuatu",
+      "57320"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port of Napier, NZ",
+      "Port_of_Napier,_NZ",
+      "NAPT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port-Vila, Vanuatu",
+      "Port_Vila,_Vanuatu",
+      "57320"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Puerto Chiapas, Mexico",
+      "Puerto_Chiapas,_Mexico",
+      "0100A15A"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Puerto Melinka, Chile",
+      "Puerto_Melinka,_Chile",
+      "14000FDE"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Puerto Williams, Chile",
+      "Puerto_Williams,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Queens Wharf, NZ",
+      "Queens_Wharf,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Quepo, Costa Rica",
+      "Quepo,_Costa_Rica",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Quepos, Costa Rica",
+      "Quepos,_Costa_Rica",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Queule, Chile",
+      "Queule,_Chile",
+      "ADC1E736"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Quintero, Chile",
+      "Quintero,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Quiriquina, Chile",
+      "Quiriquina,_Chile",
+      "ADC2755A"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Rangiroa Atoll, Fr. Polynesia",
+      "Rangiroa_Atoll,_Fr._Polynesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Raoul Is. Fishing Rock, NZ",
+      "Raoul_Is._Fishing_Rock,_NZ",
+      "RFRT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Raoul Is. Fishing Rock, NZ",
+      "Raoul_Is._Fishing_Rock,_NZ",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Rarotonga, Cook Is. (NZ)",
+      "Rarotonga,_Cook_Is._(NZ)",
+      "65980"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Rarotonga, Cook Is., NZ",
+      "Rarotonga,_Cook_Is._(NZ)",
+      "65980"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Rikitea, Fr. Polynesia",
+      "Rikitea,_Fr._Polynesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Rosslyn Bay, Australia",
+      "Rosslyn_Bay,_Australia",
+      "59670"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Saipan, USA",
+      "Saipan,_USA",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Salina Cruz, Mexico",
+      "Salina_Cruz,_Mexico",
+      "0103703C"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "San Antonio, Chile",
+      "San_Antonio,_Chile",
+      "1401F372"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "San Antonio, Chile",
+      "San_Antonio,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "San Felix, Chile",
+      "San_Felix,_Chile",
+      "ADC0A6C6"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "San Felix, Chile",
+      "San_Felix,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "San Pedro, Chile",
+      "San_Pedro,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Santa Cruz, Galapagos, Ecuador",
+      "Santa_Cruz,_Galapagos_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Santa_Cruz,_Galapagos_Ecuador",
+      "Santa_Cruz,_Galapagos_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Severo Kurilsk, Russia",
+      "Severo_Kurilsk,_Russia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Shemya, AK",
+      "Shemya,_AK",
+      "9460261"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Sitka, AK",
+      "Sitka,_AK",
+      "9451600"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Spring Bay, Tasmania",
+      "Spring_Bay,_Tasmania",
+      "61170"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Sumner Head Christchurch, NZ",
+      "Sumner_Head_Christchurch,_NZ",
+      "SUMT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Suva Viti Levu, Fiji",
+      "Suva_Viti_Levu,_Fiji",
+      "67050"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Talcahuano, Chile",
+      "Talcahuano,_Chile",
+      "ADC0C320"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Talcahuano, Chile",
+      "Talcahuano,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Taltal, Chile",
+      "Taltal,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tarekukure Wharf, Solomon Islands",
+      "Tarekukure_Wharf,_Solomon_Islands",
+      "56363"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Thevenard, Australia",
+      "Thevenard,_Australia",
+      "62000"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tocopilla, Chile",
+      "Tocopilla,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tofino, BC",
+      "Tofino,_BC",
+      "15C3A33C"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tofino, BC",
+      "Tofino,_BC",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tosa-Shimizu, Japan",
+      "Tosashimizu,_Japan",
+      "TOSASHIMIZU"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tosashimizu, Japan",
+      "Tosashimizu,_Japan",
+      "TOSASHIMIZU"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Valparaiso, Chile",
+      "Valparaiso,_Chile",
+      "35402444"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Valparaiso, Chile",
+      "Valparaiso,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ventura, CA",
+      "Ventura,_CA",
+      "9411166"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Waianea, HI",
+      "Waianea,_HI",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Winter Harbour, BC",
+      "Winter_Harbour,_BC",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Yap, Micronesia",
+      "Yap,_Micronesia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Zihuatanejo, Mexico",
+      "Zihuatanejo,_Mexico",
+      "0102D23E"
+    ]
+  ],
+  "report_matches_approved": 533,
+  "review_ledger_sha256": "e597e863b19101b10e96ac0dac47583b8b2657d1704f857bcabd84a9734b2ae9",
+  "reviewer": "root independent raw-source and registry check",
+  "status": "pass",
+  "unique_raw_header_sources": 1016
+}

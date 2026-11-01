@@ -1,0 +1,7 @@
+{
+  "mismatches": [],
+  "reference_manifest": "artifacts/logs/runs/2026-10-14-story-followups-v3/inputs.json",
+  "reference_sha256": "0acc84c53a643b7a0c27a1b9edee70643bbd17954a7daa1e2cade5240a963ddd",
+  "verified_bytes": 50090612,
+  "verified_files": 72
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "bytes": 29840,
+    "content_type": "text/html",
+    "headers": {
+      "Connection": "[redacted]",
+      "Content-Length": "29840",
+      "Content-Security-Policy": "[redacted]",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Date": "Fri, 30 Oct 2026 22:07:25 GMT",
+      "Referrer-Policy": "[redacted]",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "Vary": "Accept-Encoding",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/ntwc/batch-2026-10-30/index.html",
+    "reason": "not applicable",
+    "sha256": "c0c3cb872b6a0dcd03a7f18730e1be7f47aad19df296c9363374d529a6f23867",
+    "source_id": "ntwc-event-index",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 42753,
+    "content_type": "text/csv",
+    "headers": {
+      "Access-Control-Allow-Headers": "[redacted]",
+      "Access-Control-Allow-Methods": "[redacted]",
+      "Access-Control-Allow-Origin": "[redacted]",
+      "Access-Control-Max-Age": "[redacted]",
+      "Cache-Control": "public, max-age=60",
+      "Connection": "[redacted]",
+      "Content-Type": "text/csv; charset=utf-8",
+      "Date": "Fri, 30 Oct 2026 22:07:26 GMT",
+      "Expires": "Fri, 30 Oct 2026 22:08:26 GMT",
+      "Last-Modified": "Fri, 30 Oct 2026 22:07:26 GMT",
+      "Server": "[redacted]",
+      "Strict-Transport-Security": "[redacted]",
+      "Transfer-Encoding": "chunked",
+      "Vary": "Accept-Encoding",
+      "Via": "[redacted]",
+      "X-Amz-Cf-Id": "[redacted]",
+      "X-Amz-Cf-Pop": "[redacted]",
+      "X-Cache": "[redacted]",
+      "X-Content-Type-Options": "[redacted]",
+      "X-Frame-Options": "[redacted]",
+      "X-XSS-Protection": "[redacted]"
+    },
+    "local_path": "data/raw/ntwc/batch-2026-10-30/usgs-catalog.csv",
+    "reason": "not applicable",
+    "sha256": "35608672bf9628fe00c2ed0d8636cc4a9a9bc0cd4d2d54e299b294f5f82d94c4",
+    "source_id": "usgs-shallow-m7-1996-2018",
+    "status": "downloaded"
+  }
+]

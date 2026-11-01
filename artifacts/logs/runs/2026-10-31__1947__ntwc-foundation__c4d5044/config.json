@@ -1,0 +1,13 @@
+{
+  "commands": [
+    ".venv/bin/python scripts/screen_ntwc_index.py --stage screen",
+    ".venv/bin/python scripts/screen_ntwc_index.py --stage reserve",
+    ".venv/bin/python scripts/inventory_ntwc_pilot.py --config config/ntwc-archive-batch-v2.toml --output artifacts/generated/ntwc-batch/census-v4",
+    ".venv/bin/python scripts/build_arrival_design.py --config config/ntwc-archive-batch-v2.toml --census artifacts/generated/ntwc-batch/census-v4 --annotations config/ntwc-event-annotations-v2.csv --output artifacts/generated/ntwc-batch/design-v1",
+    ".venv/bin/python scripts/build_station_crosswalk.py --events config/ntwc-archive-batch-v2.toml --census artifacts/generated/ntwc-batch/census-v4 --registry-config config/station-registries-verified.toml --registry-config config/coops-waveform-audit.toml --header-config config/tohoku-data-proof.toml --header-config config/ia-header-probes-reviewed.toml --coops-config config/coops-waveform-audit.toml --coops-receipts artifacts/logs/runs/2026-10-30__2224__coops-waveform-recovery__c4d5044/outputs.json --output artifacts/generated/ntwc-batch/crosswalk-prep-v3",
+    ".venv/bin/python scripts/prepare_arrival_time_context.py --selection artifacts/generated/ntwc-batch/screen-v1/selection-v2.json --output config/ntwc-reported-clock-context-v1.csv",
+    ".venv/bin/python scripts/build_arrival_corpus.py --config config/ntwc-archive-batch-v2.toml --census artifacts/generated/ntwc-batch/census-v4 --time-context config/ntwc-reported-clock-context-v1.csv --output data/processed/arrival-corpus/foundation-v1",
+    ".venv/bin/python scripts/normalize_audit_waveforms.py --events config/ntwc-archive-batch-v2.toml --config config/coops-waveform-audit.toml --receipts artifacts/logs/runs/2026-10-30__2224__coops-waveform-recovery__c4d5044/outputs.json --config config/coops-unavailable-responses.toml --receipts artifacts/logs/runs/2026-10-30__2231__coops-availability__c4d5044/outputs.json --config config/ia-header-probes-reviewed.toml --receipts artifacts/logs/runs/2026-10-31__1933__ia-headers-reviewed__c4d5044/outputs.json --output data/processed/arrival-waveforms/foundation-v1"
+  ],
+  "selection_version": "v2"
+}

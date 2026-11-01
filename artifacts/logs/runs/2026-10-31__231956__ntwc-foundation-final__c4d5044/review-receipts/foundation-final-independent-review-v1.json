@@ -1,0 +1,76 @@
+{
+  "checks": [
+    "Verified all eight final/frozen package manifests, their available input/output hash maps, and full package file inventories.",
+    "Rehashed retained raw paths across all 31 completed paper acquisition runs; reproduced the final 2253-row paper source ledger exactly.",
+    "Revalidated final recipe membership at 1902 source entries against 80 pinned inputs, complete main preflight batches and supplemental receipts.",
+    "Verified all 100 current Python code-gate fingerprints; did not rerun the already accepted broad test suite.",
+    "Checked 57 development and 18 reserved roles, corpus/event membership and no fit/model/onset/deployment-continuity promotion.",
+    "Verified 1177 unique reports, 533 reviewed report/site matches across 236 sites, 314 parseable clock pairs and all 863 uncertain/rejected reports.",
+    "Independently recomputed the parseable-pair/site intersection: 148 edges, 12 events, 92 sites, rank 102 of 104 indicator columns and median site event degree 1.",
+    "Verified all 13 viewer events and 755 waveform assets bind exact development event-window source IDs, hashes, CO-OPS station IDs and the fixed coverage rule; no controls or reserved outcomes exported.",
+    "Independently rehashed all 72 Tohoku baseline files (50090612 bytes), 343 frozen corpus-v3 files and 155 frozen waveform-v2 files unchanged.",
+    "Reviewed final QA receipts and public docs; corrected recipe reference now points to v4 and counts, grains and scientific limitations agree with the data.",
+    "Verified the 3180-file root acceptance hash map and the final portable run reports the expected local MLflow run ID as logged."
+  ],
+  "counts": {
+    "acceptance_files": 3180,
+    "contract_outcomes": 2366,
+    "header_only_entries": 61,
+    "historical_attempts_separate": 108,
+    "normalized_waveform_files": 1768,
+    "paper_acquisition_runs": 31,
+    "raw_distinct_content_hashes": 2067,
+    "raw_unique_path_bytes": 185057552,
+    "raw_unique_paths": 2124,
+    "retained_normalized_rows": 3688140,
+    "source_entries": 1902,
+    "unique_source_ids": 2253,
+    "viewer_events": 13,
+    "viewer_waveform_assets": 755
+  },
+  "docs_checked": {
+    "README.md": "01cc305ba174b84b82be95f4d6565e49b87823829f2851d761a8af41527bea74",
+    "docs/data-sources.md": "a73066ff0cc904d7418e3af3d22a4b488632128126bc309a47a201d7da9394d0",
+    "docs/data/multi-event.md": "46010c26154d2265f039198c960ef5c813f53d21b0a0d0b783a5059aa62ab7d0"
+  },
+  "findings": [],
+  "key_sha256": {
+    "artifacts/generated/ntwc-batch/catalog-v1-root-replay.json": "3050bd03cf9e5f59d555faa5a1c3d4ce27972274a668422beb989182d313bf66",
+    "artifacts/generated/ntwc-batch/catalog-v1-root-semantic-review.json": "ef17d63ad3b47a7ed017be2d1dc7ecccddb56d26a277a25f4858872102551e7e",
+    "artifacts/generated/ntwc-batch/corpus-v4-root-review.json": "414a6c69e547300709064fe4dd6b9b7a5a9b78baba6711962a160494f6e5e0ff",
+    "artifacts/generated/ntwc-batch/crosswalk-reviewed-v3/unique_report_crosswalk.csv": "d8a6faca620c4b23ce0737e23b2a22660c591dcbe3615c7a781bf50fb6f08ae8",
+    "artifacts/generated/ntwc-batch/design-reviewed-v3/summary.json": "86b5f881f923f2dd7e86d28b3de96414b06bcd2a9ae55944a7595d0887127a55",
+    "artifacts/generated/ntwc-batch/f3-reviewed-v3-checks.json": "fa0db1237f7c35d28c3f748fe27c7a9f2f1d4fcfb5d655430e56fd37902039bb",
+    "artifacts/generated/ntwc-batch/foundation-code-gate-v3.json": "1b31d8160bbe50a98937b31edda881a4ffbf9eada7602eca04870c554cda4e04",
+    "artifacts/generated/ntwc-batch/foundation-final-root-acceptance-v1.json": "f400fa42ab9a23749fd0df40e1c8b7c3ca62c2b9cb06fc270cec61a63191def4",
+    "artifacts/generated/ntwc-batch/full-acquisition-root-review-v1.json": "3779a93fdf40cecc556cae6d0f623a78680a1fa39818f1358d52cd5ab6aaa5b4",
+    "artifacts/generated/ntwc-batch/full-continuation-acquisition-v1.json": "d93e7c33f1003b8faa7134ba6833e4bcfa6133def3944959e3357d9e082d34ed",
+    "artifacts/generated/ntwc-batch/noaa-delta-completion-v1.json": "aeec78c317c1dc8f853416d59f06dd07763cae81632fee0bbe166d32c107bf17",
+    "artifacts/generated/ntwc-batch/paper-ledger-final-root-review.json": "dd85f03d66d3b52373c18a05f524ed65b4b16cd3fe8db7521e9a02dc02ccdc0e",
+    "artifacts/generated/ntwc-batch/parseable-pair-identity-design-v1.json": "39aa6d1e5c3da633e71c43b964c196d180c76abbd4f1ad15c60692a72ab0c3f1",
+    "artifacts/generated/ntwc-batch/tohoku-baseline-full-review.json": "83d43e319a7ebcb1718a7db380e499ec514f296955fcd400f27a0be073caafa5",
+    "artifacts/generated/ntwc-batch/waveform-v4-root-review.json": "bc9f259981395a8604684149eb915b1da3a38a044023c8307881c830f38edb13",
+    "artifacts/provenance/paper-source-manifest.csv": "db2a50c091aef7ad89cf8b24b8b95ec824cf28d3d8fafc0d8fb8c42e7b6c150b",
+    "config/arrival-waveforms-foundation-v4.toml": "2839d10a64e68cb1cb094a633c61f115121e18b887c90c0265069aeea79e238e",
+    "data/processed/arrival-audit/comparison-v1/manifest.json": "0983c070124ce5365872a5525afbbfb99b893521c19a5a4d3a8522833e7276c3",
+    "data/processed/arrival-audit/diagnostics-v1/manifest.json": "4827faf5912e516013716e3914b65e4939686f8e99cefa28c38dc88fd96653fc",
+    "data/processed/arrival-audit/foundation-v2/manifest.json": "d8f19d8a018ef638883de4ae57119ed2701e3019e5e5c778acb6c8229354654d",
+    "data/processed/arrival-corpus/foundation-v4/summary.json": "d326b6a5a1b098de19ab8eecfe02b8edb7782e4a4da5ae5335d07404ac8657c0",
+    "data/processed/arrival-waveforms/foundation-v4/manifest.json": "253beaed20f01315e78d6af708b386e22735bb5d89a40dfe7be4d2c649b45d0b",
+    "data/processed/arrival-waveforms/foundation-v4/reproduction.json": "1c0da3f399e9a96f56db3d6c5569e2a2bea284966db4e9695fd8efb1efdf1815",
+    "data/processed/multi-event/foundation-v1/manifest.json": "180415c6940204b7735a690f93461bc5a0ae91d9132dd7a44ebf5886f1879fe6"
+  },
+  "post_run_delivery_checks": "Root is adding exact temporary proof-script copies and QA receipts to the bundle, then creating an output hash inventory and re-logging/reading back MLflow artifacts. Those final supplement/readback actions are not claimed by this dataset acceptance.",
+  "recorded_run": {
+    "bundle": "artifacts/logs/runs/2026-10-31__231956__ntwc-foundation-final__c4d5044",
+    "mlflow_run_id": "88afa5ae27c54659bf6dedb59fc52432",
+    "status_from_meta": "logged"
+  },
+  "resolved_findings": [
+    "Public reproduction instructions referenced recipe-v3; owner corrected all references to recipe-v4 before this acceptance."
+  ],
+  "reviewed_utc": "2026-10-31T23:21:00.704246+00:00",
+  "reviewer": "acquisition_checker independent cross-package and scientific-boundary review",
+  "scope": "Final local data foundation, provenance and public documentation; no model fitting or expert physical-onset validation.",
+  "status": "pass"
+}

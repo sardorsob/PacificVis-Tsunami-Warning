@@ -1,0 +1,19 @@
+{
+  "bytes_by_status": {
+    "downloaded": 178404,
+    "quarantined": 4000000
+  },
+  "status_counts": {
+    "downloaded": 5,
+    "quarantined": 1
+  },
+  "total_bytes": 4178404,
+  "total_contracts": 6,
+  "total_outcomes": 6,
+  "transfer_budget": {
+    "max_object_bytes": 4000000,
+    "max_total_bytes": 8000000,
+    "received_response_bytes": 4178404,
+    "scope": "new response bodies including failed attempts; excludes cached objects"
+  }
+}

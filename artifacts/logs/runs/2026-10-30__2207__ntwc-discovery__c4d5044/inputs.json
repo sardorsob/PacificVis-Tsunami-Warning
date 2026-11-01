@@ -1,0 +1,40 @@
+[
+  {
+    "availability": "approved",
+    "coordinate_order": "not applicable",
+    "crs": "not applicable",
+    "expected_content_signature": "Recent Tsunamis index with links to previous.events; validate structurally after retrieval",
+    "expected_prefix": "<",
+    "format": "HTML",
+    "horizontal_datum": "not applicable",
+    "local_path": "data/raw/ntwc/batch-2026-10-30/index.html",
+    "publisher": "NOAA National Tsunami Warning Center",
+    "reason": "User authorized multi-event acquisition 2026-10-30",
+    "source_class": "event archive index",
+    "source_id": "ntwc-event-index",
+    "station_metadata": "not applicable",
+    "temporal_semantics": "Index date labels; exact event origin comes from USGS",
+    "units": "not applicable",
+    "url": "https://www.tsunami.gov/recent_tsunamis/",
+    "vertical_datum": "not applicable"
+  },
+  {
+    "availability": "approved",
+    "coordinate_order": "latitude, longitude",
+    "crs": "WGS84",
+    "expected_content_signature": "USGS CSV event catalog; retained reviewed magnitude types, UTC origins and WGS84 coordinates",
+    "expected_prefix": "time,latitude,longitude,depth",
+    "format": "USGS FDSN CSV",
+    "horizontal_datum": "WGS84",
+    "local_path": "data/raw/ntwc/batch-2026-10-30/usgs-catalog.csv",
+    "publisher": "United States Geological Survey",
+    "reason": "User authorized multi-event acquisition 2026-10-30",
+    "source_class": "event metadata catalog",
+    "source_id": "usgs-shallow-m7-1996-2018",
+    "station_metadata": "not applicable",
+    "temporal_semantics": "UTC event origins; updated timestamps retained as source metadata",
+    "units": "depth km; magnitude with source magType",
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=1996-06-01&endtime=2018-09-01&minmagnitude=7&maxdepth=70&orderby=time-asc",
+    "vertical_datum": "unknown; source-dependent earthquake depth reference"
+  }
+]

@@ -1,0 +1,41 @@
+event_id,archive_key,name,region,mechanism_status
+official20100227063411530_30,Chile_02-27-10,Maule 2010,southeast_pacific,thrust
+official20110311054624120_30,03-11-11_Honshu,Tohoku 2011,northwest_pacific,thrust
+us20003k7a,09-16-2015-Chile(M8.3),Illapel 2015,southeast_pacific,thrust
+usp000juhz,10-28-12,Haida Gwaii 2012,northeast_pacific,thrust
+usc000f1s0,02-06-13,Santa Cruz 2013,southwest_pacific,thrust
+usp000j48h,07-06-11,Kermadec 2011,tonga_kermadec_nz,normal_transfer
+us1000gjaz,08-29-2018_LoyaltyIslands,Loyalty Islands 2018,southwest_pacific,unreviewed
+us2000cmy3,1-23-2018_Kodiak,Kodiak 2018,alaska_aleutians,unreviewed
+us20009x42,07-17-2017_Shemya,Komandorski 2017,alaska_aleutians,unreviewed
+us20007z80,12-8-16_SolomonIs,Solomon Islands 2016,southwest_pacific,unreviewed
+us1000778i,11-13-16_NewZealand,Kaikoura 2016,tonga_kermadec_nz,complex_transfer
+us10006jbi,09-01-16_NewZealand,Gisborne 2016,tonga_kermadec_nz,unreviewed
+us10006d5h,08-12-2016_Vanuatu,Loyalty Islands 2016,southwest_pacific,unreviewed
+us20002yaw,07-18-15_SolomonIs(M7),Solomon Islands 2015,southwest_pacific,unreviewed
+usb000pq41,04-18-14_GuerreroMexico(M7.2),Guerrero 2014,central_america_mexico,unreviewed
+usb000pr89,04-19-14_SolomonIs(M7.5),Bougainville 2014,southwest_pacific,unreviewed
+usc000nzvd,04-01-14,Iquique 2014,southeast_pacific,unreviewed
+usc000kn4n,10-25-13,Honshu 2013,northwest_pacific,unreviewed
+ak0138esnzr,01-05-13,Craig Alaska 2013,alaska_aleutians,unreviewed
+usp000jwjn,12-07-12,Honshu 2012,northwest_pacific,unreviewed
+usp000jv5f,11-07-12,Guatemala 2012,central_america_mexico,unreviewed
+usp000jrsw,09-05-12,Costa Rica 2012,central_america_mexico,unreviewed
+usp000jr83,08-31-12,Philippines 2012,western_pacific,unreviewed
+usp000jqvm,08-27-12,El Salvador 2012,central_america_mexico,unreviewed
+usp000jeag,02-02-12_Vanuatu,Vanuatu 2012,southwest_pacific,unreviewed
+usp000j3mq,06-24-11_Aleutians,Aleutian Islands 2011,alaska_aleutians,unreviewed
+usp000hr97,12-21-10,Bonin Islands 2010,northwest_pacific,unreviewed
+usp000h5np,01-03-10_Solomon,Solomon Islands 2010,southwest_pacific,unreviewed
+usp000h1ys,09-29-09-Samoa,Samoa 2009,tonga_kermadec_nz,compound_transfer
+usp000gv5p,03-19-09-Tonga,Tonga 2009,tonga_kermadec_nz,unreviewed
+usp000gsmz,01-15-09-Kuril_Is,Kuril Islands 2009,northwest_pacific,unreviewed
+usp000fjta,08-15-07-Peru,Peru 2007,southeast_pacific,unreviewed
+usp000f83m,04-01-07,Solomon Islands 2007,southwest_pacific,unreviewed
+usp000f2ab,01-13-07,Kuril Islands 2007,northwest_pacific,normal_transfer
+usp000exfn,11-15-06,Kuril Islands 2006,northwest_pacific,unreviewed
+usp000eg5g,05-03-06,Tonga 2006,tonga_kermadec_nz,unreviewed
+official20030925195006360_27,09-25-03,Tokachi Oki 2003,northwest_pacific,unreviewed
+official20010623203314130_33,06-23-01,Peru 2001,southeast_pacific,unreviewed
+usp000dt25,06-15-05,Northern California 2005,northeast_pacific,unreviewed
+usp000bnyr,01-22-03,Colima Mexico 2003,central_america_mexico,unreviewed

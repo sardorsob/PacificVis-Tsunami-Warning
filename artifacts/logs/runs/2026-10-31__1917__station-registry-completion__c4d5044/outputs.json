@@ -1,0 +1,44 @@
+[
+  {
+    "bytes": 7510972,
+    "content_type": "application/json",
+    "headers": {
+      "Access-Control-Allow-Headers": "[redacted]",
+      "Access-Control-Allow-Methods": "[redacted]",
+      "Access-Control-Allow-Origin": "[redacted]",
+      "Connection": "[redacted]",
+      "Content-Length": "7510972",
+      "Content-Type": "application/json",
+      "Date": "Sat, 31 Oct 2026 19:17:21 GMT",
+      "x-amz-apigw-id": "[redacted]",
+      "x-amzn-Remapped-Connection": "[redacted]",
+      "x-amzn-Remapped-Date": "[redacted]",
+      "x-amzn-Remapped-Server": "[redacted]",
+      "x-amzn-RequestId": "[redacted]"
+    },
+    "local_path": "data/raw/registries/coops-historicwl-list-20261031.json",
+    "reason": "not applicable",
+    "sha256": "61b6c61409459bd188ed7af4a164127e8432e57174913003c44feb1d6642be7e",
+    "source_id": "coops-historicwl-list",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 240498,
+    "content_type": "text/html",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "240498",
+      "Content-Type": "text/html",
+      "Date": "Sat, 31 Oct 2026 19:16:51 GMT",
+      "ETag": "\"6ae5dc15-3ab72\"",
+      "Last-Modified": "Sat, 31 Oct 2026 12:16:21 GMT",
+      "Server": "[redacted]"
+    },
+    "local_path": "data/raw/registries/uhslc-fast-delivery-stations-20261031.html",
+    "reason": "not applicable",
+    "sha256": "3b1c7bc2574f254738a5668af97ba6b3a7699a9362f2725196499344efcb7212",
+    "source_id": "uhslc-fast-delivery-station-metadata",
+    "status": "downloaded"
+  }
+]

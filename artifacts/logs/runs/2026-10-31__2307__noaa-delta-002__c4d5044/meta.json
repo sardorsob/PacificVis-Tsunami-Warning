@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/coops-002.toml --root . --run-tag noaa-delta-002 --lane paper --min-interval 1 --max-contracts 200 --max-total-bytes 54263808 --max-object-bytes 20000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-31__2307__noaa-delta-002__c4d5044",
+  "timestamp_utc": "2026-10-31T23:07:00Z",
+  "working_tree": "dirty"
+}

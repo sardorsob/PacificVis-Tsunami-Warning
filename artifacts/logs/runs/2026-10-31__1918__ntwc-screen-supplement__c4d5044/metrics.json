@@ -1,0 +1,17 @@
+{
+  "bytes_by_status": {
+    "downloaded": 1114374
+  },
+  "status_counts": {
+    "downloaded": 21
+  },
+  "total_bytes": 1114374,
+  "total_contracts": 21,
+  "total_outcomes": 21,
+  "transfer_budget": {
+    "max_object_bytes": 2000000,
+    "max_total_bytes": 5000000,
+    "received_response_bytes": 1114374,
+    "scope": "new response bodies including failed attempts; excludes cached objects"
+  }
+}

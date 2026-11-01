@@ -7,3 +7,9 @@
 # Preserve the original rejected exploratory run's checksummed CSV bytes.
 # Subsequent shared-audit writers emit LF explicitly.
 artifacts/eda/shared/2026-10-05-ad040a7/*.csv -text
+
+# Preserve byte-identical scientific receipts and hash-bound source contracts.
+artifacts/logs/runs/** -text whitespace=-trailing-space,-blank-at-eof
+artifacts/provenance/*.csv -text
+config/*.csv -text
+config/ia-site-headers-v2.toml -text whitespace=-blank-at-eof

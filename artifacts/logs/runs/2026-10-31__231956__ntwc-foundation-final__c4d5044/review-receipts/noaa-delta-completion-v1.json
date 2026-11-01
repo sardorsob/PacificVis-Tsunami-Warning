@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "contracts_verified": 338,
+  "observation_responses": 333,
+  "provider_error_responses": 5,
+  "native_rows": 1104879,
+  "blank_or_nonfinite_values": 33837,
+  "missing_timestamps": 2001,
+  "duplicate_timestamps": 0,
+  "response_bytes": 47753246,
+  "purpose": "event_window; no new control or IA requests",
+  "runs": [
+    "artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044",
+    "artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044"
+  ]
+}

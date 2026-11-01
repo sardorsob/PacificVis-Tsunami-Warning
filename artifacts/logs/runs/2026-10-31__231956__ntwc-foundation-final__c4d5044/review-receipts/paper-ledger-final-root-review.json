@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "reviewer": "root independent final paper ledger raw rehash",
+  "source_records": 2253,
+  "status_counts": {
+    "candidate": 2185,
+    "blocked": 68
+  },
+  "raw_unique_paths": 2124,
+  "raw_bytes": 185057552,
+  "unique_content_hashes": 2067,
+  "manifest_sha256": "db2a50c091aef7ad89cf8b24b8b95ec824cf28d3d8fafc0d8fb8c42e7b6c150b",
+  "checks": [
+    "All31 completed paper acquisition runs used to regenerate ledger",
+    "Every retained paper-ledger raw path and sidecar independently rehashed",
+    "2253 records pass unchanged pipeline.provenance validation",
+    "Distinct local paths and content hashes counted separately; failed requests retained"
+  ]
+}

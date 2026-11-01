@@ -1,0 +1,12 @@
+{
+  "run_id": "2026-10-31__234523__data-sanity__c4d5044",
+  "timestamp_utc": "2026-10-31T23:45:23.206083+00:00",
+  "git_sha": "c4d50443893bc8c2a67ba383f56603acb05ac81a",
+  "lane": "paper-data-quality",
+  "status": "descriptive_sanity_check",
+  "command": [
+    "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/.venv/bin/python",
+    "/private/tmp/ntwc_quick_sanity.py"
+  ],
+  "mlflow_run_id": "f5ffb918921b4b69b34ee9daefff13f9"
+}

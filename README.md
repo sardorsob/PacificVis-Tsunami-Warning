@@ -9,9 +9,9 @@ timing experiences.
 This repository is a reproducible research and communication workspace for two
 related—but materially different—PacificVis 2027 submissions:
 
-1. a **Conference Paper** investigating discrepancies among modeled and
-   observed tsunami arrival times with uncertainty-aware visual analytics and
-   statistical or machine-learning methods; and
+1. a **Conference Paper** investigating NTWC-reported arrival times and their
+   differences from published estimates through hierarchical Bayesian models
+   and uncertainty-aware visual analytics; and
 2. an **interactive visual data story** that uses one historical event to
    explain why distance alone is a poor account of when a tsunami arrives.
 
@@ -23,8 +23,8 @@ design, or submission claim.
 
 | Lane | Main question | Intended output | Current state |
 | --- | --- | --- | --- |
-| Shared scientific foundation | What source data can be acquired, normalized, and interpreted defensibly? | Versioned source contracts, checksums, tables, quality evidence, and release manifests | Descriptive EDA accepted; arrival comparisons require revision |
-| Conference Paper | How can uncertainty-aware visual analytics and statistical learning reveal systematic modeled-versus-observed timing discrepancies? | Multi-event research corpus, methods, evaluation, figures, and manuscript | Dual-track direction approved; paper-specific analysis not started |
+| Shared scientific foundation | What source data can be acquired, normalized, and interpreted defensibly? | Versioned source contracts, checksums, tables, quality evidence, and release manifests | All 118 entries in the frozen archive snapshot preserved; separate reported-arrival, observation and display layers |
+| Conference Paper | How do reported coastal arrivals differ from published estimates, and what uncertainty can the observing network support? | Multi-event research corpus, hierarchical Bayesian methods, evaluation, figures, and manuscript | Versioned data foundation and descriptive audits available; no model fitted or physical onsets validated |
 | Visual Data Story | How did one tsunami produce different arrival-time experiences around the Pacific, and why is distance alone misleading? | Guided browser story in `app/` | Data proof in progress; production story not started |
 
 The **2011 Tōhoku earthquake and tsunami** is the provisional source event for
@@ -35,13 +35,23 @@ Hawaiʻi, California, American Samoa, Saipan, and Chile.
 
 ## Current status
 
-The repository is in the **data-proof and adaptive exploratory-analysis phase**.
-The source inventory, acquisition, and normalization have passed review; the
-first missingness slice is implemented and verified. Tōhoku is still
-provisional until the remaining arrival, spatial, join, NCTR-structure, and
-distance-versus-arrival checks pass the final data-proof review.
+The multi-event data foundation preserves **all 118 entries in the frozen NTWC
+archive snapshot**.
+The frozen metadata screen retains 57 development and 18 reserved entries;
+43 others keep their exclusion or uncertainty reasons. The development corpus
+retains 1,177 source reports, including 314 parseable reported-time pairs.
+The observation snapshot retains 3,688,140 source rows in 1,768 normalized files.
+These counts do not imply independent measurements or validated physical onsets.
+The viewer export contains 13 development events that meet its station-ID and
+coverage rules; this display subset does not limit the broader acquisition.
+The browser demos do not yet load the multi-event export.
 
-The current local evidence contains:
+Start with `data/processed/multi-event/foundation-v1/` and the
+[multi-event data guide](docs/data/multi-event.md) for exact versions, ordered
+raw, observation and paper tables, viewer limits, and reproduction commands.
+
+The original Tōhoku data proof remains separately preserved. Its evidence
+contains:
 
 - 18 exact source contracts: 17 acquired and checksummed, 1 explicitly blocked;
 - 1 reviewed USGS event record;
@@ -70,6 +80,10 @@ The data workflow follows the same principle used throughout the repository:
 usable merely because it can be downloaded.
 
 ### Source inventory
+
+The inventory below describes the original Tōhoku data proof. The expanded
+archive has its own [source ledger](artifacts/provenance/paper-source-manifest.csv)
+and [data guide](docs/data/multi-event.md).
 
 | Source class | Publisher and assets | Role | Status |
 | --- | --- | --- | --- |
@@ -245,8 +259,8 @@ may consume it, but neither may consume the other's derived artifacts.
 
 | Surface | Shared foundation | Conference Paper | Visual Data Story |
 | --- | --- | --- | --- |
-| Data scope | Reviewed public sources and source-faithful tables | Multi-event, multi-station corpus planned | One reviewed Tōhoku event and small observation chain |
-| Analysis | Data quality, missingness, schemas, and transparent source-factual derivations | Statistical/ML modeling, calibration, uncertainty, sensitivity, and visual-analytics evaluation | Descriptive EDA used to choose defensible narrative contrasts |
+| Data scope | Reviewed public sources and source-faithful tables | Versioned multi-event, multi-station corpus | One reviewed Tōhoku event and small observation chain |
+| Analysis | Data quality, missingness, schemas, and transparent source-factual derivations | Planned hierarchical Bayesian modeling, calibration, uncertainty, sensitivity, and visual-analytics evaluation | Descriptive EDA used to choose defensible narrative contrasts |
 | Main contribution | Trustworthy, reusable evidence | Scientific visual-analytics method and evaluated research claim | Original guided narrative and interaction design |
 | Outputs | Release manifests and shared reports | Paper-only models, figures, tables, supplements, and manuscript | Story-only static exports, scenes, prose, and browser application |
 | Prohibited crossover | No fitted submission-specific result | Must not import story modules or reuse story figures/prose | Must not import paper modules or expose paper-model results |
@@ -339,6 +353,7 @@ uv run ruff check .
 uv run pyright
 uv run pytest -q
 uv run python -m pipeline.provenance artifacts/provenance/source-manifest.csv
+uv run python -m pipeline.provenance artifacts/provenance/paper-source-manifest.csv
 npm run check
 ```
 

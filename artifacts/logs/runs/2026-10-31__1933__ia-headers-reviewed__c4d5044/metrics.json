@@ -1,0 +1,11 @@
+{
+  "bytes_by_status": {
+    "cached": 1228039
+  },
+  "status_counts": {
+    "cached": 24
+  },
+  "total_bytes": 1228039,
+  "total_contracts": 24,
+  "total_outcomes": 24
+}

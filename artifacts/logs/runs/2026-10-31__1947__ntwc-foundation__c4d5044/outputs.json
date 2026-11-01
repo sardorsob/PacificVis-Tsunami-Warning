@@ -1,0 +1,42 @@
+[
+  {
+    "bytes": 357493,
+    "path": "artifacts/generated/ntwc-batch/screen-v1/screen.json",
+    "sha256": "21805983584aa259d56d4f76117cf5f418b1a72ce7cb63839663ce7b08595be4"
+  },
+  {
+    "bytes": 207742,
+    "path": "artifacts/generated/ntwc-batch/screen-v1/selection-v2.json",
+    "sha256": "f1365ee2d5926454de5273a2365703d3e40be3a1ff7393e0adbd1d6046872177"
+  },
+  {
+    "bytes": 290066,
+    "path": "artifacts/generated/ntwc-batch/census-v4/census.json",
+    "sha256": "803155624768999e829bcf2eef9ccb9912fb7a0d0af76190c1d9711fe65cf982"
+  },
+  {
+    "bytes": 2260,
+    "path": "artifacts/generated/ntwc-batch/design-v1/summary.json",
+    "sha256": "aa12b231549296c6e9674f5e641b6a62797ef95b214148577af102eb66881249"
+  },
+  {
+    "bytes": 1991154,
+    "path": "artifacts/generated/ntwc-batch/crosswalk-prep-v3/connectivity.json",
+    "sha256": "e6a71ec5f57f11ff90fbd6d4a1521e13dd11b4a0ffaba6b4d93390758ffb8e88"
+  },
+  {
+    "bytes": 46235,
+    "path": "data/processed/arrival-corpus/foundation-v1/summary.json",
+    "sha256": "3f82d7a597f17a0f848b7f52d52b19937eb8e31bf15aa6af6949674d77281756"
+  },
+  {
+    "bytes": 84226,
+    "path": "data/processed/arrival-waveforms/foundation-v1/manifest.json",
+    "sha256": "6a26048c5d27eddb925cad8ce9be4ddac4e7098238e46c81af161d961bcabb8e"
+  },
+  {
+    "bytes": 335995,
+    "path": "artifacts/provenance/paper-source-manifest.csv",
+    "sha256": "bc2843bb38238f5182a79212b38c5bef16ecc1de579232fe7fb65024fea0b154"
+  }
+]

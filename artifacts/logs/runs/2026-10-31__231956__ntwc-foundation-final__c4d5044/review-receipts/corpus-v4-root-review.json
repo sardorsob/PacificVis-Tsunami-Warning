@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "reviewer": "root independent final build and byte comparison",
+  "files_replayed": 343,
+  "summary_sha256": "d326b6a5a1b098de19ab8eecfe02b8edb7782e4a4da5ae5335d07404ac8657c0",
+  "source_reports": 1177,
+  "exact_reference_clock_pairs": 314,
+  "uncertain_or_rejected": 863,
+  "checks": [
+    "All 343 preview and final files byte-identical",
+    "All 1177 input reports accounted; 57 development and 18 excluded reserved entries",
+    "Reported clocks and reviewed site identity remain separate from physical-onset validity"
+  ]
+}

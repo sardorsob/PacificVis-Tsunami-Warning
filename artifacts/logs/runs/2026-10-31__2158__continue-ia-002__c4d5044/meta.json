@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --root /Users/sobirov/Workspace/Projects/Tsunami-Warning-Times --config artifacts/generated/ntwc-batch/waveform-full-contracts-v2/ia-002.toml --run-tag continue-ia-002 --lane paper --min-interval 4 --max-contracts 200 --max-total-bytes 38675803 --max-object-bytes 20000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-31__2158__continue-ia-002__c4d5044",
+  "timestamp_utc": "2026-10-31T21:58:00Z",
+  "working_tree": "dirty"
+}

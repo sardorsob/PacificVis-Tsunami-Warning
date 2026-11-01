@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "reviewer": "root independent implementation/artifact check",
+  "byte_identical_files": 5,
+  "all90_opinions_preserved": true,
+  "numpy_sample_variances_independently_verified": true,
+  "both_freezes_verified_before_unblinding": true,
+  "AI_shared_model_bias_disclosed": true,
+  "manifest_sha256": "0983c070124ce5365872a5525afbbfb99b893521c19a5a4d3a8522833e7276c3"
+}

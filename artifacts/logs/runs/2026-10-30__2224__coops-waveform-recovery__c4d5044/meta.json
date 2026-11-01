@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/coops-waveform-audit.toml --lane paper --run-tag coops-waveform-recovery",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-30__2224__coops-waveform-recovery__c4d5044",
+  "timestamp_utc": "2026-10-30T22:24:00Z",
+  "working_tree": "dirty"
+}

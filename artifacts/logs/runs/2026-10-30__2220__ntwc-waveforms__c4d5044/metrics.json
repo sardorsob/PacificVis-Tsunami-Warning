@@ -1,0 +1,11 @@
+{
+  "bytes_by_status": {
+    "quarantined": 0
+  },
+  "status_counts": {
+    "quarantined": 58
+  },
+  "total_bytes": 0,
+  "total_contracts": 58,
+  "total_outcomes": 58
+}

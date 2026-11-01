@@ -1,0 +1,6 @@
+{
+  "data/processed/arrival-corpus/foundation-v4/summary.json": "d326b6a5a1b098de19ab8eecfe02b8edb7782e4a4da5ae5335d07404ac8657c0",
+  "artifacts/generated/ntwc-batch/crosswalk-reviewed-v3/unique_report_crosswalk.csv": "d8a6faca620c4b23ce0737e23b2a22660c591dcbe3615c7a781bf50fb6f08ae8",
+  "pipeline/arrival_corpus.py": "5ce716cac833f0aac3f1ec02663ed4aa3e77eb0d8ee9bf5ba1208ed2a01ed914",
+  "pipeline/ntwc_archive.py": "700ee5307171b94e0d5e997ce8264f4e01f4bdd3c6bf5d03f3bca7c6aabcf506"
+}

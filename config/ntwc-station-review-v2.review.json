@@ -1,0 +1,484 @@
+{
+  "status": "pass",
+  "reviewer": "root independent raw-source and registry check",
+  "candidate_unique_report_sha256": "9fe7fed4f74630fd468062fdd56e13e79598727f325e69d9a6452b0397b19283",
+  "review_ledger_sha256": "3ad666959f1cbca11e66b4af7764c81ac4814bae8bc0359feea2a9e53236ae69",
+  "identities_approved": 108,
+  "unique_raw_header_sources": 128,
+  "report_header_labels_inspected": [
+    [
+      "authoritative_provider_site",
+      "Alitak, AK",
+      "Alitak,_AK",
+      "9457804"
+    ],
+    [
+      "authoritative_provider_site",
+      "Arena Cove, CA",
+      "Arena_Cove,_CA",
+      "9416841"
+    ],
+    [
+      "authoritative_provider_site",
+      "Arena Cove, California",
+      "Arena_Cove,_CA",
+      "9416841"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, CA",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, Ca",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Crescent City, California",
+      "Crescent_City,_CA",
+      "9419750"
+    ],
+    [
+      "authoritative_provider_site",
+      "Elfin Cove, Alaska",
+      "Elfin_Cove,_AK",
+      "9452634"
+    ],
+    [
+      "authoritative_provider_site",
+      "Hilo, HI",
+      "Hilo,_HI",
+      "1617760"
+    ],
+    [
+      "authoritative_provider_site",
+      "Hilo, Hawaii",
+      "Hilo,_HI",
+      "1617760"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, Hawaii",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Honolulu, Oahu, HI",
+      "Honolulu_Oahu,_HI",
+      "1612340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului Maui, Hawaii",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, Hawaii",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kahului, Maui, HI",
+      "Kahului_Maui,_HI",
+      "1615680"
+    ],
+    [
+      "authoritative_provider_site",
+      "Kawaihae HI",
+      "Kawaihae,_HI",
+      "1617433"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Is. USA",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Is., HI",
+      "Sand_Island_(Midway_Is.),_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Midway Island",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "MidwayIsland",
+      "Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nawiliwili HI",
+      "Nawiliwili_Kauai,_HI",
+      "1611400"
+    ],
+    [
+      "authoritative_provider_site",
+      "Nikolski, AK",
+      "Nikolski,_AK",
+      "9462450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, Am. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, Amer. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, America Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Pago Pago, American Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "PagoPago",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "PagoPago, Amer. Samoa",
+      "Pago_Pago,_Amer._Samoa",
+      "1770000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Point Reyes, CA",
+      "Point_Reyes,_CA",
+      "9415020"
+    ],
+    [
+      "authoritative_provider_site",
+      "Point Reyes, California",
+      "Point_Reyes,_CA",
+      "9415020"
+    ],
+    [
+      "authoritative_provider_site",
+      "Port Alexander, AK",
+      "Port_Alexander,_AK",
+      "9451054"
+    ],
+    [
+      "authoritative_provider_site",
+      "Richmond, CA",
+      "Richmond,_CA",
+      "9414863"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Island, Midway",
+      "Sand_Island,_Midway_Is.,_USA",
+      "1619910"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Point, AK",
+      "Sand_Point,_AK",
+      "9459450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Sand Point, Alaska",
+      "Sand_Point,_AK",
+      "9459450"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Barbara, CA",
+      "Santa_Barbara,_CA",
+      "9411340"
+    ],
+    [
+      "authoritative_provider_site",
+      "Santa Monica, California",
+      "Santa_Monica,_CA",
+      "9410840"
+    ],
+    [
+      "authoritative_provider_site",
+      "Unalaska, Alaska",
+      "Dutch_Harbor,_AK",
+      "9462620"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Is., USA",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Island",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Wake Island, USA",
+      "Wake_Is.,_USA",
+      "1890000"
+    ],
+    [
+      "authoritative_provider_site",
+      "Yakutat, AK",
+      "Yakutat,_AK",
+      "9453220"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Akutan, AK",
+      "Akutan,_AK",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Antofagasta, Chile",
+      "Antofagasta,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Apia, West Samoa",
+      "Apia,_West_Samoa",
+      "91756"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Arica, Chile",
+      "Arica,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Baltra, Ecuador",
+      "Baltra,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Cabo San Lucas, Mexico",
+      "Cabo_San_Lucas,_Mexico",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Caldera, Chile",
+      "Caldera,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Chichijima, Japan",
+      "Chichijima,_Japan",
+      "CHICHIJIMA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Coquimbo, Chile",
+      "Coquimbo,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Davao, Philippines",
+      "Davao,_Philippines",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Hienghene, New Caledonia, Fr",
+      "Hienghene,_New_Caledonia,_Fr",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Honiara, Solomon Islands",
+      "Honiara,_Solomon_Islands",
+      "56670"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Iquique, Chile",
+      "Iquique,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Juan Fernandez, Chile",
+      "Juan_Fernandez,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Korotiti Bay, Nz",
+      "Korotiti_Bay,_NZ",
+      "GBIT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "La Libertad, Ecuador",
+      "LaLibertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "La Union, El Salvador",
+      "La_Union,_El_Salvador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "LaLibertad, Ecuador",
+      "LaLibertad,_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Lottin Point, Nz",
+      "Lottin_Point,_NZ",
+      "LOTT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Manus, Papua New Guinea",
+      "Manus,_Papua_New_Guinea",
+      "56130"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Mera, Japan",
+      "Mera,_Japan",
+      "MERA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Naha, Japan",
+      "Naha,_Japan",
+      "NAHA"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ofunato, Japan",
+      "Ofunato,_Japan",
+      "OFUNATO"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Ouinne, New Caledonia, Fr",
+      "Ouinne,_New_Caledonia,_Fr",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Tauranga, Nz",
+      "Port_Tauranga,_NZ",
+      "TAUT"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Port Vila, Vanuatu",
+      "Port_Vila,_Vanuatu",
+      "57320"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Puerto Williams, Chile",
+      "Puerto_Williams,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Santa_Cruz,_Galapagos_Ecuador",
+      "Santa_Cruz,_Galapagos_Ecuador",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Severo Kurilsk, Russia",
+      "Severo_Kurilsk,_Russia",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Talcahuano, Chile",
+      "Talcahuano,_Chile",
+      "unknown"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Tarekukure Wharf, Solomon Islands",
+      "Tarekukure_Wharf,_Solomon_Islands",
+      "56363"
+    ],
+    [
+      "source_qualified_geographic_site",
+      "Valparaiso, Chile",
+      "Valparaiso,_Chile",
+      "unknown"
+    ]
+  ],
+  "checks": [
+    "All1177 report IDs conserved; no reserved or model/physical-onset promotion",
+    "Every candidate raw SHA/header name/provider/ID/coordinates/date exact",
+    "Each report exact linked-day/source URL verified",
+    "Every provider identity independently matched pinned registry ID and geodesic distance<=2km",
+    "All source-qualified geographic signatures independently recomputed; full names agree; sensors not part of site",
+    "Geographic identity only; deployment continuity unknown"
+  ],
+  "registry_distance_km": [
+    0.0,
+    1.6500762293697535
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "bytes_by_status": {
+    "cached": 2187199,
+    "downloaded": 2618990,
+    "quarantined": 460
+  },
+  "status_counts": {
+    "cached": 12,
+    "downloaded": 12,
+    "quarantined": 4
+  },
+  "total_bytes": 4806649,
+  "total_contracts": 28,
+  "total_outcomes": 28
+}

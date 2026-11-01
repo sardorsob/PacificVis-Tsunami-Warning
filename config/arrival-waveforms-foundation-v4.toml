@@ -1,0 +1,92 @@
+# Complete receipt-backed normalization; refuses partial acquisitions.
+expected_source_entries = 1902
+events = "config/ntwc-archive-batch-v2.toml"
+selection = "artifacts/generated/ntwc-batch/screen-v1/selection-v2.json"
+known_catalog = "data/raw/usgs/ntwc-1996-2018-m65-all-depth.csv"
+preflight = "artifacts/generated/ntwc-batch/waveform-full-contracts-v2/preflight.json"
+historical_runs = ["artifacts/logs/runs/2026-10-30__2220__ntwc-waveforms__c4d5044", "artifacts/logs/runs/2026-10-30__2222__coops-waveform-audit__c4d5044", "artifacts/logs/runs/2026-10-31__1929__ia-audit-headers__c4d5044"]
+
+[[sources]]
+config = "config/coops-waveform-audit.toml"
+receipts = "artifacts/logs/runs/2026-10-30__2224__coops-waveform-recovery__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "config/coops-unavailable-responses.toml"
+receipts = "artifacts/logs/runs/2026-10-30__2231__coops-availability__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "config/ia-header-probes-reviewed.toml"
+receipts = "artifacts/logs/runs/2026-10-31__1933__ia-headers-reviewed__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "artifacts/generated/ntwc-batch/waveform-contract-candidates-v3/coops-001.toml"
+receipts = "artifacts/logs/runs/2026-10-31__2045__coops-audit-windows__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "artifacts/generated/ntwc-batch/waveform-contracts-v1/ia-001.toml"
+receipts = "artifacts/logs/runs/2026-10-31__2053__ia-audit-windows__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "config/ia-site-headers-v2.toml"
+receipts = "artifacts/logs/runs/2026-10-31__2108__ia-site-headers__c4d5044/outputs.json"
+purpose = "header_evidence"
+
+[[sources]]
+config = "artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/coops-001.toml"
+receipts = "artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[sources]]
+config = "artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/coops-002.toml"
+receipts = "artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/outputs.json"
+purpose = "source_samples"
+
+[[bulk]]
+provider = "all"
+checkpoint = "artifacts/generated/ntwc-batch/full-continuation-acquisition-v1.json"
+
+[fixed_sha256]
+"artifacts/generated/ntwc-batch/screen-v1/selection-v2.json" = "f1365ee2d5926454de5273a2365703d3e40be3a1ff7393e0adbd1d6046872177"
+"artifacts/generated/ntwc-batch/waveform-contract-candidates-v3/coops-001.toml" = "3e00e7db7f06ea6da50a9b161a8be8911018b11cd7bf6b37f5cbdbe0d8227bfd"
+"artifacts/generated/ntwc-batch/waveform-contracts-v1/ia-001.toml" = "a7a5f9d982ab68167ddafe2dbc1638db811d0e34861d5d57351d7d03b268d6f0"
+"artifacts/generated/ntwc-batch/waveform-full-contracts-v2/preflight.json" = "69018db539879f91713e73267fc2806bc91902f1deac3263bb9e887d63075d25"
+"artifacts/logs/runs/2026-10-30__2220__ntwc-waveforms__c4d5044/inputs.json" = "4b01b78dce3fa5931ee99eda9746923fa3aa51bff1ffc91f4188684b33d7e51f"
+"artifacts/logs/runs/2026-10-30__2220__ntwc-waveforms__c4d5044/outputs.json" = "9e24152bc21fd29fb0d166eaa057790f145177163929eb309f4bd92169f3865c"
+"artifacts/logs/runs/2026-10-30__2222__coops-waveform-audit__c4d5044/inputs.json" = "19be26f610b3fe6a761af3bb0e2a8801aa310fa565de055abaf118d428d2a021"
+"artifacts/logs/runs/2026-10-30__2222__coops-waveform-audit__c4d5044/outputs.json" = "00e7ebe9a681b4735e7318758d1b8ab56a1e92fe206363154fdfbc53f2ba5fe0"
+"artifacts/logs/runs/2026-10-30__2224__coops-waveform-recovery__c4d5044/outputs.json" = "bcbe179bec1c3f48f876a6f3d780b41113967a9986c7a9e70424fb4c8ee87d48"
+"artifacts/logs/runs/2026-10-30__2231__coops-availability__c4d5044/outputs.json" = "bca8ab1bd8b9c265e1474ac642a9e560815a4279a9e9a4028a801b50f38c7b22"
+"artifacts/logs/runs/2026-10-31__1929__ia-audit-headers__c4d5044/inputs.json" = "20e3429e33243510616c7cd156c9547e124d9687a6dd8ad9353818528743bd36"
+"artifacts/logs/runs/2026-10-31__1929__ia-audit-headers__c4d5044/outputs.json" = "b97fd63282e96d64a5a281ee079a1d4c492360815fae6f290707356728291249"
+"artifacts/logs/runs/2026-10-31__1933__ia-headers-reviewed__c4d5044/outputs.json" = "f2198750dd8fc33aafd925a3495a909f332985a71d7d97490b36065e4a5bf218"
+"artifacts/logs/runs/2026-10-31__2045__coops-audit-windows__c4d5044/outputs.json" = "3d9275f1dc7e2647a72062d05ebcd6dd837e7382a70c2e334b1fa037aa908059"
+"artifacts/logs/runs/2026-10-31__2053__ia-audit-windows__c4d5044/outputs.json" = "ef807e346b52465678941b03277ca3b01e9d0a49176168ff4773368d53d81b21"
+"artifacts/logs/runs/2026-10-31__2108__ia-site-headers__c4d5044/outputs.json" = "7fb11fcd0e86f787c434e25ebda5a31c9322983ad90e0d6a16a59f0deefb8c32"
+"config/coops-unavailable-responses.toml" = "b5d17a6665546c54044cb17d6d10e609f1b845299c7f635c72f73db048b49ef5"
+"config/coops-waveform-audit.toml" = "39a2161644355308f45544bd9ad2d09d78018d2db5893d714edd2da788ff3d54"
+"config/ia-header-probes-reviewed.toml" = "af20ed64abc35fc6abda8ae99e6e39422bd5370da745d6819cd91f1ddc768927"
+"config/ia-site-headers-v2.toml" = "b15e2f0dcd0c4f1280254d69564dd16234669b1d84eb6801320c7c345cd17e61"
+"config/ntwc-archive-batch-v2.toml" = "8ed90d42216d09d83ba73d521e85df21fab2eeeaa0f1eac02252568b756b8097"
+"data/raw/usgs/ntwc-1996-2018-m65-all-depth.csv" = "7aa59235c59fdfd80a8e98721fcbd7352338173bc70447fc4b0725df2b7a515f"
+"artifacts/generated/ntwc-batch/full-acquisition-root-review-v1.json" = "3779a93fdf40cecc556cae6d0f623a78680a1fa39818f1358d52cd5ab6aaa5b4"
+"artifacts/generated/ntwc-batch/full-continuation-acquisition-v1.json" = "d93e7c33f1003b8faa7134ba6833e4bcfa6133def3944959e3357d9e082d34ed"
+"artifacts/generated/ntwc-batch/waveform-noaa-delta-v3-independent-review.json" = "f80f2fc276dbb3a2f7ea4e0cdb7c5ed4aa88bb3e536afe7a691f2e7b4df99092"
+"artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/coops-001.toml" = "cde201ca5c45008e34700de02c3b4d5f8e29e16672ad49f536ed97388c0af213"
+"artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/coops-002.toml" = "f3339de826ed4dcb1e16dfd0b285c6b12817c8f3379aeaee54e010055450c367"
+"artifacts/generated/ntwc-batch/waveform-noaa-delta-v3/preflight.json" = "2cbaa18c37a17750c8a8f8a44c8668ed0b5bf6dc65e4af762a8591bb39d77a97"
+"artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/config.json" = "f6c50f45515016a3da7a90d3f454c0b1efcbc43c29631c941f8b13be6a64e1f1"
+"artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/inputs.json" = "32d0c9c26745a1aaab8bea2a4b86bfd193840fa61ce83965c599eca61812e28a"
+"artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/meta.json" = "384ff64750c24c3dda6a26475989802e96946d6d18a731ca4b2ff22e9cf56dd2"
+"artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/metrics.json" = "d6140f5e0a13b6c3db09c4d811f3fa66a0400c2c2263f6e303e2e9bdefff60e0"
+"artifacts/logs/runs/2026-10-31__2303__noaa-delta-001__c4d5044/outputs.json" = "e0541a6ec0a861435a30ffb0c0bf67f9dbf0ca6de5fb938fbd2f139e190336ef"
+"artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/config.json" = "5c32a7c317506ee6bb03d8c1a00cb87d276f4e514ccdb0997d90d49a4229f243"
+"artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/inputs.json" = "c12c13431d9e3530a48f355b08c4f9c4f6b75f9bfd9683e0a9c0e836087252cf"
+"artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/meta.json" = "17321429fb4b7bca1cac9557a92ab22c3dfcefad76304147c02eee2126d98536"
+"artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/metrics.json" = "f8869bf9e15001b3442c424f9559081d9387f01049ba0e4d769c7d0601d1cbae"
+"artifacts/logs/runs/2026-10-31__2307__noaa-delta-002__c4d5044/outputs.json" = "a5946f8c36d51702bb99380504ddebe37125412840168791c70c52efd0ce691a"
+"artifacts/generated/ntwc-batch/noaa-delta-completion-v1.json" = "aeec78c317c1dc8f853416d59f06dd07763cae81632fee0bbe166d32c107bf17"

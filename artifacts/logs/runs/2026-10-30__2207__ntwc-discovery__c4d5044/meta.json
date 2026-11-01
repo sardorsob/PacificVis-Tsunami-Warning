@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/ntwc-archive-discovery.toml --lane paper --run-tag ntwc-discovery",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-30__2207__ntwc-discovery__c4d5044",
+  "timestamp_utc": "2026-10-30T22:07:00Z",
+  "working_tree": "dirty"
+}

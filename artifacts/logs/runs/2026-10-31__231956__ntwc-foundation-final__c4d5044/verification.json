@@ -1,0 +1,22 @@
+{
+  "current_code_gate_fingerprints": "verified",
+  "declared_independent_checks": [
+    "All 31 completed paper acquisition runs and 2124 retained raw paths rehashed; exact IA capture digests independently verified.",
+    "All 1902 waveform source entries reconciled; every one of 3688140 normalized rows compared with original raw record; all 1770 preview files replayed exactly.",
+    "All 343 corpus files and all 14 reviewed crosswalk/design files replayed exactly; every 151 event/site fold rank independently computed.",
+    "All 779 catalog files replayed exactly; chronology, keys, row order, 89 repeated URL groups, purpose and role boundaries independently checked.",
+    "Every viewer waveform slice compared with native-order data; all 7 contour exports decoded and compared to source geometry; every viewer asset at most 2000000 bytes.",
+    "314 parseable reported-clock pairs remain distinct from 148 reviewed-identity pairs; no physical-onset, deployment-continuity or modeling promotion.",
+    "18 reserved entries remain masked; frozen AI-assisted audit inputs and reviewer opinions unchanged; audit is descriptive, not independent expert physical truth.",
+    "Existing 72 Tohoku/story inputs verified unchanged against saved evidence; Python 614 tests and static checks current, 178 frontend tests/build previously passed unchanged."
+  ],
+  "independent_acceptance": {
+    "bytes": 582998,
+    "path": "artifacts/generated/ntwc-batch/foundation-final-root-acceptance-v1.json",
+    "sha256": "f400fa42ab9a23749fd0df40e1c8b7c3ca62c2b9cb06fc270cec61a63191def4"
+  },
+  "independent_reviewer": "root independent raw-source checks and complete deterministic replay, after separate Maker and Checker reviews",
+  "package_inputs_and_outputs": "verified",
+  "paper_manifest_reproduction": "exact",
+  "waveform_terminal_checkpoint": "verified"
+}

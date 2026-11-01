@@ -1,0 +1,40 @@
+[
+  {
+    "availability": "approved",
+    "coordinate_order": "source-defined",
+    "crs": "unknown",
+    "expected_content_signature": "Historical and active station list; details fetched separately when needed",
+    "expected_prefix": "{",
+    "format": "JSON",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/registries/coops-historicwl-list-20261031.json",
+    "publisher": "NOAA CO-OPS",
+    "reason": "Owner-authorized metadata screening",
+    "source_class": "station registry",
+    "source_id": "coops-historicwl-list",
+    "station_metadata": "not applicable",
+    "temporal_semantics": "Current metadata snapshot; event-specific continuity requires evidence",
+    "units": "source-defined",
+    "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=historicwl&units=metric",
+    "vertical_datum": "unknown"
+  },
+  {
+    "availability": "approved",
+    "coordinate_order": "source-defined",
+    "crs": "unknown",
+    "expected_content_signature": "UHSLC station table; hourly/daily record availability metadata only",
+    "expected_prefix": "<",
+    "format": "HTML",
+    "horizontal_datum": "unknown",
+    "local_path": "data/raw/registries/uhslc-fast-delivery-stations-20261031.html",
+    "publisher": "University of Hawaii Sea Level Center",
+    "reason": "Owner-authorized metadata screening",
+    "source_class": "metadata discovery page",
+    "source_id": "uhslc-fast-delivery-station-metadata",
+    "station_metadata": "not applicable",
+    "temporal_semantics": "Current discovery page; not observations",
+    "units": "source-defined",
+    "url": "https://uhslc.soest.hawaii.edu/data/fd.html",
+    "vertical_datum": "unknown"
+  }
+]

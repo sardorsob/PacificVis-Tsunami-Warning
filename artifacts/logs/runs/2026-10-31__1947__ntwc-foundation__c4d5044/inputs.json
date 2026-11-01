@@ -1,0 +1,27 @@
+[
+  {
+    "bytes": 107338,
+    "path": "config/ntwc-archive-batch-v2.toml",
+    "sha256": "8ed90d42216d09d83ba73d521e85df21fab2eeeaa0f1eac02252568b756b8097"
+  },
+  {
+    "bytes": 25120,
+    "path": "config/ntwc-event-annotations-v2.csv",
+    "sha256": "621a35b8a78cade781150a0dc646181b4b1cf39d29563828f194e027ea36a4b5"
+  },
+  {
+    "bytes": 27544,
+    "path": "config/ntwc-reported-clock-context-v1.csv",
+    "sha256": "ee823138a8bf5bc30a4d01f50db9c9e17c8aab0a3b9317e8d069952398caf8cf"
+  },
+  {
+    "bytes": 31645,
+    "path": "config/ia-header-probes-reviewed.toml",
+    "sha256": "af20ed64abc35fc6abda8ae99e6e39422bd5370da745d6819cd91f1ddc768927"
+  },
+  {
+    "bytes": 2400,
+    "path": "config/station-registries-verified.toml",
+    "sha256": "574546292c574f24b520abe45c62e4df3a82292696a3198f112483288bda3664"
+  }
+]

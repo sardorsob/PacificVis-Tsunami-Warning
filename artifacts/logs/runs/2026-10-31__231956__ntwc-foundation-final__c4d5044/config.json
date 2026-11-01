@@ -1,0 +1,23 @@
+{
+  "acceptance": "artifacts/generated/ntwc-batch/foundation-final-root-acceptance-v1.json",
+  "annotations": "config/ntwc-event-annotations-v2.csv",
+  "audit": "data/processed/arrival-audit/foundation-v2",
+  "catalog": "data/processed/multi-event/foundation-v1",
+  "census": "artifacts/generated/ntwc-batch/census-v4",
+  "check_only": "False",
+  "checkpoint": "artifacts/generated/ntwc-batch/full-continuation-acquisition-v1.json",
+  "code_gate": "artifacts/generated/ntwc-batch/foundation-code-gate-v3.json",
+  "comparison": "data/processed/arrival-audit/comparison-v1",
+  "corpus": "data/processed/arrival-corpus/foundation-v4",
+  "crosswalk": "artifacts/generated/ntwc-batch/crosswalk-reviewed-v3",
+  "design": "artifacts/generated/ntwc-batch/design-reviewed-v3",
+  "diagnostics": "data/processed/arrival-audit/diagnostics-v1",
+  "events": "config/ntwc-archive-batch-v2.toml",
+  "experiment": "ntwc-arrival-foundation",
+  "no_mlflow": "False",
+  "provenance": "artifacts/provenance/paper-source-manifest.csv",
+  "root": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times",
+  "runs": "artifacts/logs/runs",
+  "time_context": "config/ntwc-reported-clock-context-v1.csv",
+  "waves": "data/processed/arrival-waveforms/foundation-v4"
+}

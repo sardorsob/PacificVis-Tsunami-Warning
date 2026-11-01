@@ -29,9 +29,11 @@ from pipeline.acquisition import (  # noqa: E402
     Fetcher,
     ResponseMetadata,
     SourceContract,
+    TransferBudget,
     acquire_all,
     download_url,
     load_contracts,
+    stream_to_path,
 )
 
 SAFE_RESPONSE_HEADER_NAMES = frozenset(
@@ -104,7 +106,8 @@ def _is_exact_ioc_url(url: str) -> bool:
 
 
 def download_ioc_url(
-    url: str, destination: Path, timeout_seconds: float, api_key: str
+    url: str, destination: Path, timeout_seconds: float, api_key: str,
+    *, budget: TransferBudget | None = None,
 ) -> ResponseMetadata:
     """Download one IOC API response without exposing or forwarding its key."""
     if not _is_exact_ioc_url(url):
@@ -114,25 +117,28 @@ def download_ioc_url(
     request = Request(url, headers={"X-API-KEY": api_key, "Accept": "application/json"})
     opener = build_opener(RejectAuthenticatedRedirects())
     with opener.open(request, timeout=timeout_seconds) as response:
-        with destination.open("wb") as target:
-            while chunk := response.read(1024 * 1024):
-                target.write(chunk)
+        stream_to_path(response.read, destination, budget=budget,
+                       content_length=response.headers.get("Content-Length"))
         return ResponseMetadata(
             content_type=response.headers.get_content_type(),
             headers=dict(response.headers.items()),
         )
 
 
-def ioc_keychain_fetcher() -> Fetcher:
+def ioc_keychain_fetcher(*, budget: TransferBudget | None = None) -> Fetcher:
     """Return a fetcher that adds the Keychain key only for the exact IOC host."""
     api_key: str | None = None
 
     def fetcher(url: str, destination: Path, timeout_seconds: float) -> ResponseMetadata:
         nonlocal api_key
         if not _is_exact_ioc_url(url):
+            if budget is not None:
+                return download_url(url, destination, timeout_seconds, budget=budget)
             return download_url(url, destination, timeout_seconds)
         if api_key is None:
             api_key = read_ioc_api_key()
+        if budget is not None:
+            return download_ioc_url(url, destination, timeout_seconds, api_key, budget=budget)
         return download_ioc_url(url, destination, timeout_seconds, api_key)
 
     return fetcher
@@ -195,7 +201,7 @@ def _write_json(path: Path, value: object) -> None:
 
 
 def _contract_record(contract: SourceContract) -> dict[str, str]:
-    return {
+    record = {
         "availability": contract.availability,
         "coordinate_order": contract.coordinate_order,
         "crs": contract.crs,
@@ -214,6 +220,13 @@ def _contract_record(contract: SourceContract) -> dict[str, str]:
         "url": contract.url,
         "vertical_datum": contract.vertical_datum,
     }
+    if contract.expected_cdx_sha1:
+        record.update(
+            expected_cdx_sha1=contract.expected_cdx_sha1,
+            cdx_evidence_path=contract.cdx_evidence_path,
+            cdx_evidence_sha256=contract.cdx_evidence_sha256,
+        )
+    return record
 
 
 def _safe_response_headers(headers: dict[str, str]) -> dict[str, str]:
@@ -224,16 +237,20 @@ def _safe_response_headers(headers: dict[str, str]) -> dict[str, str]:
 
 
 def _result_record(result: AcquisitionResult) -> dict[str, object]:
-    return {
+    record: dict[str, object] = {
         "bytes": result.bytes,
         "content_type": result.content_type,
         "headers": _safe_response_headers(result.headers),
+        "final_url": result.final_url,
         "local_path": result.local_path.as_posix(),
         "reason": result.reason,
         "sha256": result.sha256,
         "source_id": result.source_id,
         "status": result.status,
     }
+    if result.verified_cdx_sha1:
+        record["verified_cdx_sha1"] = result.verified_cdx_sha1
+    return record
 
 
 def _validate_evidence_ids(
@@ -264,6 +281,7 @@ def write_run_evidence(
     now_utc: Callable[[], datetime] = utc_now,
     git_sha: Callable[[], str] | None = None,
     working_tree: Callable[[], str] | None = None,
+    transfer_budget: TransferBudget | None = None,
 ) -> Path:
     """Write one immutable portable bundle without copying raw scientific data."""
     if lane not in {"shared", "paper", "story"}:
@@ -289,6 +307,20 @@ def write_run_evidence(
         status: sum(result.bytes for result in ordered_results if result.status == status)
         for status in sorted(status_counts)
     }
+    metrics: dict[str, object] = {
+        "bytes_by_status": bytes_by_status,
+        "status_counts": dict(sorted(status_counts.items())),
+        "total_bytes": sum(result.bytes for result in ordered_results),
+        "total_contracts": len(ordered_contracts),
+        "total_outcomes": len(ordered_results),
+    }
+    if transfer_budget is not None:
+        metrics["transfer_budget"] = {
+            "max_total_bytes": transfer_budget.max_total_bytes,
+            "max_object_bytes": transfer_budget.max_object_bytes,
+            "received_response_bytes": transfer_budget.received_bytes,
+            "scope": "new response bodies including failed attempts; excludes cached objects",
+        }
     run_path.parent.mkdir(parents=True, exist_ok=True)
     lock_path = run_path.parent / f".{run_id}.lock"
     lock_fd = os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -328,13 +360,7 @@ def write_run_evidence(
         )
         _write_json(
             temporary_path / "metrics.json",
-            {
-                "bytes_by_status": bytes_by_status,
-                "status_counts": dict(sorted(status_counts.items())),
-                "total_bytes": sum(result.bytes for result in ordered_results),
-                "total_contracts": len(ordered_contracts),
-                "total_outcomes": len(ordered_results),
-            },
+            metrics,
         )
         (temporary_path / "notes.md").write_text(
             "# Acquisition run notes\n\n"
@@ -368,6 +394,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run-tag", default="acquisition")
     parser.add_argument("--lane", choices=("shared", "paper", "story"), default="shared")
     parser.add_argument("--offline", action="store_true", help="do not access the network")
+    parser.add_argument("--min-interval", type=float, default=0,
+                        help="minimum seconds between request starts, including retries")
+    parser.add_argument("--max-contracts", type=int,
+                        help="process at most this many contracts; retain skipped receipts")
+    parser.add_argument("--max-total-bytes", type=int,
+                        help="cap new response-body bytes across all requests and retries")
+    parser.add_argument("--max-object-bytes", type=int,
+                        help="cap each streamed response body before publication")
+    parser.add_argument("--max-consecutive-provider-errors", type=int,
+                        help="stop a host after this many consecutive 403/429/5xx responses")
     args = parser.parse_args(effective_argv)
     if not sanitize_run_tag(args.run_tag):
         parser.error("--run-tag must include at least one letter or number")
@@ -377,8 +413,18 @@ def main(argv: list[str] | None = None) -> int:
     except ContractError as error:
         parser.error(str(error))
 
-    fetcher: Fetcher = offline_fetcher if args.offline else ioc_keychain_fetcher()
-    results = acquire_all(contracts, args.root, fetcher=fetcher)
+    try:
+        budget = TransferBudget(args.max_total_bytes, args.max_object_bytes) if (
+            args.max_total_bytes is not None or args.max_object_bytes is not None
+        ) else None
+        fetcher: Fetcher = offline_fetcher if args.offline else ioc_keychain_fetcher(budget=budget)
+        results = acquire_all(
+            contracts, args.root, fetcher=fetcher, min_interval=args.min_interval,
+            max_contracts=args.max_contracts,
+            max_consecutive_provider_errors=args.max_consecutive_provider_errors, budget=budget,
+        )
+    except ValueError as error:
+        parser.error(str(error))
     command = shlex.join(
         ["uv", "run", "python", "scripts/acquire_tohoku.py", *effective_argv]
     )
@@ -392,6 +438,7 @@ def main(argv: list[str] | None = None) -> int:
             command=command,
             mode="offline" if args.offline else "live",
             lane=args.lane,
+            transfer_budget=budget,
         )
     except (OSError, ValueError, UnicodeDecodeError) as error:
         parser.error(f"could not write run evidence: {error}")

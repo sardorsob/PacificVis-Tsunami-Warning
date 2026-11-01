@@ -1,0 +1,48 @@
+[
+  {
+    "bytes": 3000000,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/registries/coops-historicwl-20261031.json",
+    "reason": "max_object_bytes",
+    "sha256": "not-downloaded",
+    "source_id": "coops-historicwl-registry",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 527889,
+    "content_type": "application/json",
+    "headers": {
+      "Connection": "[redacted]",
+      "Content-Type": "application/json; charset=UTF-8;",
+      "Date": "Sat, 31 Oct 2026 19:08:52 GMT",
+      "Server": "[redacted]",
+      "Transfer-Encoding": "chunked",
+      "X-Powered-By": "[redacted]"
+    },
+    "local_path": "data/raw/registries/ioc-ssc-20261031.json",
+    "reason": "not applicable",
+    "sha256": "f03dc4b18418d480e9dc69d67999ed70c19e6aff9531c8c85d351af94b19f49a",
+    "source_id": "ioc-ssc-registry",
+    "status": "downloaded"
+  },
+  {
+    "bytes": 4739,
+    "content_type": "text/html",
+    "headers": {
+      "Accept-Ranges": "bytes",
+      "Connection": "[redacted]",
+      "Content-Length": "4739",
+      "Content-Type": "text/html",
+      "Date": "Sat, 31 Oct 2026 19:08:08 GMT",
+      "ETag": "\"68d2f856-1283\"",
+      "Last-Modified": "Tue, 23 Sep 2025 19:43:18 GMT",
+      "Server": "[redacted]"
+    },
+    "local_path": "data/raw/registries/uhslc-data-portal-20261031.html",
+    "reason": "not applicable",
+    "sha256": "2f63b5fa40f490d40f7987e2601e6a774ec0d316a666724c6bb639ec26bb3819",
+    "source_id": "uhslc-data-portal",
+    "status": "downloaded"
+  }
+]

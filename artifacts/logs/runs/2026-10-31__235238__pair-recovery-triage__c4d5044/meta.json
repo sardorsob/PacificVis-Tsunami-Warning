@@ -1,0 +1,10 @@
+{
+  "run_id": "2026-10-31__235238__pair-recovery-triage__c4d5044",
+  "git_sha": "c4d50443893bc8c2a67ba383f56603acb05ac81a",
+  "timestamp_utc": "2026-10-31T23:52:38.625520+00:00",
+  "lane": "paper-label-recovery-triage",
+  "decision": "prioritize_source_semantics_before_more_bulk_downloads",
+  "command": "PYTHONPATH=. .venv/bin/python triage.py from project root",
+  "no_label_promotion": true,
+  "mlflow_run_id": "791852c854a04b6898688ee382d53778"
+}

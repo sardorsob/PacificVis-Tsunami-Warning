@@ -1,0 +1,582 @@
+[
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/adak_A_2010.059",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-adak_A_2010.059",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/adak_A_2010.060",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-adak_A_2010.060",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/adak_A_2010.061",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-adak_A_2010.061",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/cres_A_2010.058",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-cres_A_2010.058",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/cres_A_2010.059",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-cres_A_2010.059",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/cres_A_2010.060",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-cres_A_2010.060",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/official20100227063411530_30/cres_A_2010.061",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-official20100227063411530_30-cres_A_2010.061",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/cres_A_2015.260",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-cres_A_2015.260",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/cres_A_2015.261",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-cres_A_2015.261",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/cres_A_2015.262",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-cres_A_2015.262",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/cres_A_2015.263",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-cres_A_2015.263",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/hilo_A_2015.260",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-hilo_A_2015.260",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/hilo_A_2015.261",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-hilo_A_2015.261",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20003k7a/hilo_A_2015.262",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20003k7a-hilo_A_2015.262",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/cres_A_2016.343",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-cres_A_2016.343",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/cres_A_2016.344",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-cres_A_2016.344",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/cres_A_2016.345",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-cres_A_2016.345",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/hilo_A_2016.343",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-hilo_A_2016.343",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/hilo_A_2016.344",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-hilo_A_2016.344",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us20007z80/hilo_A_2016.345",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us20007z80-hilo_A_2016.345",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us2000cmy3/cres_A_2018.023",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us2000cmy3-cres_A_2018.023",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us2000cmy3/cres_A_2018.024",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us2000cmy3-cres_A_2018.024",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us2000cmy3/hilo_A_2018.023",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us2000cmy3-hilo_A_2018.023",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/us2000cmy3/hilo_A_2018.024",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-us2000cmy3-hilo_A_2018.024",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usc000f1s0/adak_A_2013.037",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usc000f1s0-adak_A_2013.037",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usc000f1s0/cres_A_2013.037",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usc000f1s0-cres_A_2013.037",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usc000f1s0/cres_A_2013.038",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usc000f1s0-cres_A_2013.038",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000exfn/cresA2006.319",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000exfn-cresA2006.319",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000exfn/cresA2006.320",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000exfn-cresA2006.320",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000exfn/hiloA2006.319",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000exfn-hiloA2006.319",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000exfn/hiloA2006.320",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000exfn-hiloA2006.320",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000f2ab/cresA2007.013",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000f2ab-cresA2007.013",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000f2ab/cresA2007.014",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000f2ab-cresA2007.014",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000f2ab/hiloA2007.013",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000f2ab-hiloA2007.013",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000f2ab/hiloA2007.014",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000f2ab-hiloA2007.014",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000fjta/cres_A_2007.228",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000fjta-cres_A_2007.228",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000fjta/hilo_A_2007.228",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000fjta-hilo_A_2007.228",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000fjta/hilo_A_2007.229",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000fjta-hilo_A_2007.229",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000gv5p/pago_A_2009.078",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000gv5p-pago_A_2009.078",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000gv5p/valp_B_2009.079",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000gv5p-valp_B_2009.079",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000h1ys/cres_A_2009.273",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000h1ys-cres_A_2009.273",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000h1ys/hilo_A_2009.272",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000h1ys-hilo_A_2009.272",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000h1ys/hilo_A_2009.273",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000h1ys-hilo_A_2009.273",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000hr97/saip_A_2010.355",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000hr97-saip_A_2010.355",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000hr97/saip_A_2010.356",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000hr97-saip_A_2010.356",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j3mq/adak_A_2011.175",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j3mq-adak_A_2011.175",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j3mq/adak_A_2011.176",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j3mq-adak_A_2011.176",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j3mq/hilo_A_2011.175",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j3mq-hilo_A_2011.175",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j3mq/hilo_A_2011.176",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j3mq-hilo_A_2011.176",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j48h/hilo_A_2011.188",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j48h-hilo_A_2011.188",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000j48h/hilo_A_2011.189",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000j48h-hilo_A_2011.189",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000jqvm/valp_A_2012.240",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000jqvm-valp_A_2012.240",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000jqvm/valp_A_2012.241",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000jqvm-valp_A_2012.241",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000jr83/saip_E_2012.244",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000jr83-saip_E_2012.244",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000juhz/cres_A_2012.302",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000juhz-cres_A_2012.302",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000juhz/cres_A_2012.303",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000juhz-cres_A_2012.303",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000juhz/hilo_A_2012.302",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000juhz-hilo_A_2012.302",
+    "status": "quarantined"
+  },
+  {
+    "bytes": 0,
+    "content_type": "not-downloaded",
+    "headers": {},
+    "local_path": "data/raw/ntwc/batch-2026-10-30/waveforms/usp000juhz/hilo_A_2012.303",
+    "reason": "local_or_download_error: HTTP Error 403: Forbidden",
+    "sha256": "not-downloaded",
+    "source_id": "ntwc-waveform-usp000juhz-hilo_A_2012.303",
+    "status": "quarantined"
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "counts_exclusive": {
+    "at_least_one_source_time_absent": 513,
+    "both_clocks_date_context_only": 230,
+    "currently_resolved_pair": 314,
+    "legacy_semantics_both_candidate_entries": 62,
+    "modern_format_or_footnote_review": 18,
+    "modern_qualified_time_review": 5,
+    "structural_review": 35
+  },
+  "current_plus_all_date_candidates_events_upper_bound": 31,
+  "current_plus_all_date_candidates_rows_upper_bound": 544,
+  "current_resolved_pair_events": 17,
+  "date_candidates_events": 15,
+  "date_candidates_reviewed_geographic_identity": 150,
+  "explicit_no_eta_cells_previously_unknown_format": 5,
+  "limitations": [
+    "Recovery candidates are not additional accepted pairs.",
+    "Clock-only dates require independently supported conventions; do not infer observed date by closest ETA or model agreement.",
+    "Legacy headers and footnotes/approximation signs need source-specific semantic review.",
+    "Original source-present-cell count634is a syntactic inventory and includes five No ETA strings; it is not634validated numeric pairs.",
+    "Geographic identity does not establish instrument/deployment continuity or physical onset.",
+    "A residual calibration target requires compatible predicted and observed evidence; Bayesian imputation is not independent validation."
+  ],
+  "original_863_unresolved_breakdown": {
+    "date_context_only": 230,
+    "legacy_both_entries_semantics": 62,
+    "modern_format_or_footnote": 18,
+    "modern_qualified_time": 5,
+    "source_time_absent": 513,
+    "structural_review": 35
+  },
+  "recommended_order": [
+    "Source-specific date and inline-date adapters with provenance and adversarial date-rollover tests; prioritize230date-context rows and18format/footnote rows.",
+    "Review62legacy candidate pairs and5qualified modern pairs, keeping uncertainty and footnotes explicit.",
+    "For513source-absent rows, target compatible independent station/event reports or waveform annotation; preserve model product/version and published-vs-derived target distinction.",
+    "Recompute accepted event/station graph and holdout support, then design simulations before fitting hierarchy."
+  ],
+  "source_absence_breakdown": {
+    "legacy_at_least_one_time_absent": 81,
+    "modern_existing_blank_or_missing_token": 427,
+    "modern_explicit_no_eta": 5
+  },
+  "status": "descriptive_triage_complete_no_labels_promoted",
+  "total_reports": 1177,
+  "verified_external_sources": [
+    {
+      "relevance": "Official table distinguishes Observed vs Computed UTC arrival; Iquique row has explicit inline1/14dates0007/0048, demonstrating one recoverable format case.",
+      "url": "https://www.tsunami.gov/previous.events/01-13-07/01-13-07.html"
+    },
+    {
+      "relevance": "Official alternative source inventory; observations must be matched by event, site, definition, references, instrument and chronology rather than merged as interchangeable labels.",
+      "url": "https://www.ncei.noaa.gov/products/natural-hazards/tsunamis-earthquakes-volcanoes/tsunamis/global-historical-data"
+    }
+  ]
+}

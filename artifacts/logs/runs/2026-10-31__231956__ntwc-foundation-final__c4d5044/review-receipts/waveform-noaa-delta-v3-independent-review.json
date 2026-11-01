@@ -1,0 +1,50 @@
+{
+  "batch_sha256": {
+    "coops-001.toml": "cde201ca5c45008e34700de02c3b4d5f8e29e16672ad49f536ed97388c0af213",
+    "coops-002.toml": "f3339de826ed4dcb1e16dfd0b285c6b12817c8f3379aeaee54e010055450c367"
+  },
+  "checks": [
+    "all frozen selection/config/input digests verified",
+    "all 533 reviewed evidence records validated; every new NOAA station binds approved provider evidence",
+    "all new IDs and URLs unique and absent from all 15 prior configs",
+    "exact four-calendar-day request bounds and reserved origin..+48h exclusion",
+    "only two approved water-level products; metric UTC STND explicit",
+    "all 1582 prior IDs accounted; all 61 cache URL/path/prefix/body hashes preserved",
+    "no network; runtime budget enforcement remains root responsibility"
+  ],
+  "contracts": 338,
+  "deterministic_replay": {
+    "files_byte_identical": 7,
+    "path": "/private/tmp/ntwc-noaa-delta-v3-independent-replay"
+  },
+  "estimated_bytes": 110755840,
+  "event_station_pairs": 169,
+  "events": 12,
+  "new_controls": 0,
+  "new_event_counts": {
+    "official20100227063411530_30": 31,
+    "us20003k7a": 25,
+    "usc000f1s0": 13,
+    "usp000exfn": 17,
+    "usp000f2ab": 14,
+    "usp000fjta": 8,
+    "usp000gsmz": 2,
+    "usp000h1ys": 25,
+    "usp000hr97": 1,
+    "usp000j3mq": 4,
+    "usp000j48h": 4,
+    "usp000juhz": 25
+  },
+  "new_ia": 0,
+  "preflight_sha256": "2cbaa18c37a17750c8a8f8a44c8668ed0b5bf6dc65e4af762a8591bb39d77a97",
+  "prior_contracts_accounted": 1582,
+  "prior_controls_retained": 18,
+  "prior_outside_current": 153,
+  "provider_station_ids": 50,
+  "retained_current": 1429,
+  "review_script_sha256": "99cc9e4d90fbadb9bb1c3c97c8987bf0562a0b98bcccb9f14536efe734c7de3f",
+  "reviewed_all_event_site_evidence": 533,
+  "reviewer": "ntwc_census_parser",
+  "status": "PASS",
+  "verified_cached_capture_reuse": 61
+}

@@ -1,0 +1,41 @@
+event_id,mechanism_class,cohort,citation,qualification
+ak0138esnzr,strike_slip,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ak0138esnzr&format=geojson,Craig 2013: strike-slip near boundary; related to Haida Gwaii
+official20010623203314130_33,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=official20010623203314130_33&format=geojson,Peru 2001: plate-interface thrust
+official20030925195006360_27,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=official20030925195006360_27&format=geojson,Tokachi 2003: thrust on/near plate interface
+official20100227063411530_30,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=official20100227063411530_30&format=geojson,Maule 2010: interface thrust
+official20110311054624120_30,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=official20110311054624120_30&format=geojson,Tōhoku 2011: interface thrust
+us10006d5h,strike_slip,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us10006d5h&format=geojson,"Loyalty/Vanuatu August 2016: strike-slip, not normal faulting"
+us10006jbi,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us10006jbi&format=geojson,Gisborne 2016: oblique normal
+us1000778i,complex_compound,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us1000778i&format=geojson,Kaikōura 2016: complex multi-fault rupture
+us1000gjaz,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us1000gjaz&format=geojson,Loyalty August 2018: interface thrust
+us20002yaw,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us20002yaw&format=geojson,Solomon 2015: normal; Santa Cruz sequence context
+us20003k7a,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us20003k7a&format=geojson,Illapel 2015: interface thrust
+us20007z80,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us20007z80&format=geojson,Solomon December 2016: oblique reverse on/near boundary
+us20009x42,strike_slip,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us20009x42&format=geojson,Komandorski 2017: transform/strike-slip
+us2000cmy3,strike_slip,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us2000cmy3&format=geojson,Kodiak 2018: strike-slip within Pacific plate
+usb000pq41,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usb000pq41&format=geojson,"Guerrero 2014: reverse, consistent with interface slip"
+usb000pr89,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usb000pr89&format=geojson,Bougainville 2014: thrust on/near interface
+usc000f1s0,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usc000f1s0&format=geojson,Santa Cruz 2013: thrust on/near interface
+usc000kn4n,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usc000kn4n&format=geojson,Honshu 2013: normal outside Japan Trench
+usc000nzvd,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usc000nzvd&format=geojson,Iquique 2014: interface thrust
+usp000bnyr,thrust_near_plate_junction,review_required,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000bnyr&format=geojson,Colima 2003: shallow thrust near plate junction
+usp000dt25,strike_slip,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000dt25&format=geojson,Northern California 2005: strike-slip within Gorda plate
+usp000eg5g,intraplate_reverse,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000eg5g&format=geojson,"Tonga 2006: reverse; intraplate interpretation, not automatic interface thrust"
+usp000exfn,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000exfn&format=geojson,Kuril 2006: interface thrust
+usp000f2ab,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000f2ab&format=geojson,Kuril 2007: normal within Pacific lithosphere; related sequence
+usp000f83m,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000f83m&format=geojson,Solomon 2007: boundary thrust
+usp000fjta,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000fjta&format=geojson,Peru 2007: interface thrust
+usp000gsmz,intraplate_reverse,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000gsmz&format=geojson,Kuril 2009: reverse within Pacific plate near outer rise
+usp000gv5p,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000gv5p&format=geojson,Tonga 2009: reverse on/near interface; source-plane qualification required
+usp000h1ys,complex_compound,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000h1ys&format=geojson,Samoa 2009: compound normal plus thrust sub-event(s)
+usp000h5np,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000h5np&format=geojson,Solomon 2010: boundary thrust; two-source archive page
+usp000hr97,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000hr97&format=geojson,Bonin 2010: normal within Pacific plate
+usp000j3mq,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000j3mq&format=geojson,Aleutian 2011: normal within downgoing Pacific slab
+usp000j48h,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000j48h&format=geojson,Kermadec July 2011: shallow normal
+usp000jeag,normal,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jeag&format=geojson,Vanuatu 2012: oblique normal within Australia plate
+usp000jqvm,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jqvm&format=geojson,El Salvador 2012: shallow thrust on/near boundary
+usp000jr83,intraplate_reverse,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jr83&format=geojson,Philippines 2012: reverse within Philippine Sea plate
+usp000jrsw,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jrsw&format=geojson,Costa Rica 2012: thrust on/near interface
+usp000juhz,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000juhz&format=geojson,Haida Gwaii 2012: oblique thrust near boundary
+usp000jv5f,boundary_or_interface_thrust,thrust_core,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jv5f&format=geojson,Guatemala 2012: thrust on/near interface
+usp000jwjn,intraplate_reverse,contrast,https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=usp000jwjn&format=geojson,Honshu 2012: oblique reverse within oceanic lithosphere; complex-source follow-up

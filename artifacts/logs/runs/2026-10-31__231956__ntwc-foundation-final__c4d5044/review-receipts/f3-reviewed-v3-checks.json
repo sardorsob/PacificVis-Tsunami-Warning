@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "reviewer": "root independent replay and NumPy design-matrix ranks",
+  "files_replayed": {
+    "crosswalk-reviewed-v3": 6,
+    "design-reviewed-v3": 8
+  },
+  "folds_independently_checked": 151,
+  "explicit_pair_edges": 315,
+  "events": 26,
+  "sites": 125,
+  "components": 4,
+  "indicator_rank": 147,
+  "indicator_columns": 151,
+  "checks": [
+    "All reviewed crosswalk/design files replay byte-identically",
+    "Every leave-one-event/site fold rank independently computed using NumPy",
+    "All report/site identities retain geographic-only scope; no model or deployment promotion"
+  ]
+}

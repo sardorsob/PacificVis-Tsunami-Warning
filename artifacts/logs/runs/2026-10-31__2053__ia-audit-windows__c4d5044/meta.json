@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config artifacts/generated/ntwc-batch/waveform-contracts-v1/ia-001.toml --lane paper --run-tag ia-audit-windows --min-interval 4 --max-contracts 200 --max-total-bytes 20000000 --max-object-bytes 1000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-31__2053__ia-audit-windows__c4d5044",
+  "timestamp_utc": "2026-10-31T20:53:00Z",
+  "working_tree": "dirty"
+}

@@ -1,0 +1,13 @@
+{
+  "bytes_by_status": {
+    "downloaded": 2187199,
+    "quarantined": 2619220
+  },
+  "status_counts": {
+    "downloaded": 12,
+    "quarantined": 14
+  },
+  "total_bytes": 4806419,
+  "total_contracts": 26,
+  "total_outcomes": 26
+}

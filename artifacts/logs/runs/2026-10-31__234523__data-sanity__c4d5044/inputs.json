@@ -1,0 +1,7 @@
+{
+  "data/processed/arrival-waveforms/foundation-v4/manifest.json": "253beaed20f01315e78d6af708b386e22735bb5d89a40dfe7be4d2c649b45d0b",
+  "data/processed/arrival-corpus/foundation-v4/summary.json": "d326b6a5a1b098de19ab8eecfe02b8edb7782e4a4da5ae5335d07404ac8657c0",
+  "artifacts/generated/ntwc-batch/screen-v1/selection-v2.json": "f1365ee2d5926454de5273a2365703d3e40be3a1ff7393e0adbd1d6046872177",
+  "artifacts/generated/ntwc-batch/waveform-v4-root-review.json": "bc9f259981395a8604684149eb915b1da3a38a044023c8307881c830f38edb13",
+  "data/processed/multi-event/foundation-v1/manifest.json": "180415c6940204b7735a690f93461bc5a0ae91d9132dd7a44ebf5886f1879fe6"
+}

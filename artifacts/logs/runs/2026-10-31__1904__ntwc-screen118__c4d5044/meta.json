@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/ntwc-archive-screen.toml --lane paper --run-tag ntwc-screen118 --min-interval 1 --max-contracts 200 --max-total-bytes 50000000 --max-object-bytes 10000000 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "c4d5044",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-10-31__1904__ntwc-screen118__c4d5044",
+  "timestamp_utc": "2026-10-31T19:04:00Z",
+  "working_tree": "dirty"
+}

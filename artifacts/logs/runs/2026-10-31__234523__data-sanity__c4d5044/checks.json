@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "checks": {
+    "corpus_files_rehashed": 342,
+    "pair_primary_keys_unique": true,
+    "pair_report_foreign_keys_valid": true,
+    "report_primary_keys_unique": true,
+    "reserved_report_rows": 0,
+    "waveform_counts_match_previous_raw_row_audit": true,
+    "waveform_files_rehashed": 1768
+  },
+  "fresh_check_pass": [
+    "All weighted numerator/denominator totals independently reconciled",
+    "Modern-report absent-value states distinguished from semantics/date uncertainty",
+    "Controls and reserved-by-design roles distinguished from missingness",
+    "Cadence/unit/source variability and unverified sentinel conventions retained"
+  ]
+}
