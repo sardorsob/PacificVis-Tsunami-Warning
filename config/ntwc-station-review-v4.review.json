@@ -1,0 +1,13 @@
+{
+  "baseline_crosswalk": "artifacts/generated/ntwc-batch/crosswalk-reviewed-v3/unique_report_crosswalk.csv",
+  "baseline_sha256": "d8a6faca620c4b23ce0737e23b2a22660c591dcbe3615c7a781bf50fb6f08ae8",
+  "baseline_unchanged_reviewed_reports": 533,
+  "delta_only": true,
+  "deployment_continuity": "unknown",
+  "method": "Full historical report/header location with bounded spelling/region aliases, native header checksum and either numeric provider ID/coordinates or same-event full-name NCEI geography; no clock matching.",
+  "model_eligible": false,
+  "physical_onset_validated": false,
+  "review_csv_sha256": "21ee65bc707bf7a417d0b6cdb4988605aa5395906f38b91cf23ba40e9a9021af",
+  "reviewed_promotions": 38,
+  "schema_version": "reviewed_header_alias_delta_v1"
+}

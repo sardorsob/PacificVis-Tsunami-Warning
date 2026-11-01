@@ -1,0 +1,10 @@
+{
+  "command": "uv run python scripts/acquire_tohoku.py --config config/arrival-completion-pilot-v1.toml --root . --lane paper --run-tag arrival-completion-pilot-v1 --control-state artifacts/generated/ntwc-batch/data-completion-v1/source-control.json --max-contracts 20 --max-total-bytes 50000000 --max-object-bytes 5000000 --min-interval 1 --max-consecutive-provider-errors 3",
+  "evidence_disposition": "implementation-under-review",
+  "git_sha": "e263bb7",
+  "lane": "paper",
+  "mode": "live",
+  "run_id": "2026-11-01__0615__arrival-completion-pilot-v1__e263bb7",
+  "timestamp_utc": "2026-11-01T06:15:00Z",
+  "working_tree": "dirty"
+}

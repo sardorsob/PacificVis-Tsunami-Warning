@@ -1,0 +1,9 @@
+{
+  "coordinator_future_metadata_exposure": true,
+  "decision": "accepted",
+  "git_sha": "e263bb7bc722e0d32ca2486a5cadabe305c3caa9",
+  "mlflow_run_id": "7a7e48abc5a74ad8a47d67c3249d1e7b",
+  "mode": "foreground_supervised",
+  "model_fitted": false,
+  "stage": "A"
+}

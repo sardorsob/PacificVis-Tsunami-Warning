@@ -178,7 +178,12 @@ def validate_reviewed_site_evidence(row: dict[str, Any]) -> None:
         if not headers:
             raise StationError("reviewed site has no linked header")
         registry = alternative.get("registry_id_checks", [])
-        tier, _, matched, checked = _header_identity(headers, alternative["report_label"], registry)
+        label = alternative["report_label"]
+        if "label_alias_review" in alternative:
+            from analysis.arrival.site_registry import validate_alias_review
+
+            label = validate_alias_review(alternative)
+        tier, _, matched, checked = _header_identity(headers, label, registry)
         if tier != "header_exact" or not matched:
             raise StationError("reviewed site has inconsistent header evidence")
         for header in headers:

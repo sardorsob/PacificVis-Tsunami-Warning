@@ -1,0 +1,18 @@
+{
+  "frontend_tests": 178,
+  "live_pilot_bytes": 13367,
+  "live_pilot_requests": 20,
+  "ncei_reports": 2224,
+  "new_identity_reviews": 38,
+  "ntwc_reports": 1177,
+  "original_exact_pairs": 388,
+  "protected_files": 14512,
+  "python_tests": 778,
+  "reviewed_geographies": 571,
+  "t_cal": 169,
+  "t_cal_events": 18,
+  "t_cal_sites": 98,
+  "t_obs": 258,
+  "t_obs_events": 20,
+  "t_obs_sites": 166
+}
