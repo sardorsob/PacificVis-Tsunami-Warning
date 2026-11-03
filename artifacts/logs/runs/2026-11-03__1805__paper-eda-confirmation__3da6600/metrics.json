@@ -1,0 +1,16 @@
+{
+  "confirmation_questions": 19,
+  "csv_tables": 267,
+  "exploration_questions": 20,
+  "figure_sets": 71,
+  "frontend_tests": 178,
+  "matched_screen_rows": 6,
+  "original_pairs_unchanged": 388,
+  "protected_input_files_unchanged": 14512,
+  "proven_source_value_errors": 0,
+  "python_tests": 839,
+  "tail_cases_source_checked": 176,
+  "tentative_rows": 9,
+  "unresolved_original_pairs_unchanged": 789,
+  "unresolved_rows": 5
+}

@@ -42,8 +42,8 @@ The frozen metadata screen retains 57 development and 18 reserved entries;
 retains 1,177 source reports, including 388 source-supported reported-time pairs.
 The observation snapshot retains 3,756,344 source rows in 1,783 normalized files.
 These counts do not imply independent measurements or validated physical onsets.
-Separate candidate views contain 241 reported durations from reviewed USGS
-reference origins and 159 signed estimated-minus-observed UTC differences;
+Separate candidate views contain 258 reported durations from reviewed USGS
+reference origins and 169 signed estimated-minus-observed UTC differences;
 neither view is approved for modeling.
 The viewer export contains 13 development events that meet its station-ID and
 coverage rules; this display subset does not limit the broader acquisition.
@@ -56,6 +56,10 @@ remain separate; these are not independently validated physical onsets.
 Start with `data/processed/multi-event/foundation-v2/` and the
 [multi-event data guide](docs/data/multi-event.md) for exact versions, ordered
 raw, observation and paper tables, viewer limits, and reproduction commands.
+
+The [preliminary arrival-timing EDA](artifacts/eda/paper/report.md) separates
+these targets, records the frozen exploration/confirmation design, and links
+all saved figures, tables and modeling limitations. No Bayesian model is fitted.
 
 The original Tōhoku data proof remains separately preserved. Its evidence
 contains:

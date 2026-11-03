@@ -1,0 +1,39 @@
+{
+  "T-CAL": {
+    "branch": "B10",
+    "checks_maximum": 2,
+    "detail": {
+      "era": "constant within event; separate era effect not identifiable",
+      "within_event_trends": [
+        {
+          "event_id": "usb000sk6k",
+          "n": 2,
+          "rho": "unknown"
+        },
+        {
+          "event_id": "usp000gv5p",
+          "n": 6,
+          "rho": -0.7714285714285715
+        },
+        {
+          "event_id": "usp000jeag",
+          "n": 1,
+          "rho": "unknown"
+        },
+        {
+          "event_id": "usp000jr83",
+          "n": 3,
+          "rho": -0.5
+        },
+        {
+          "event_id": "usp000jrsw",
+          "n": 1,
+          "rho": "unknown"
+        }
+      ]
+    },
+    "scalar": -0.6357142857142857,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

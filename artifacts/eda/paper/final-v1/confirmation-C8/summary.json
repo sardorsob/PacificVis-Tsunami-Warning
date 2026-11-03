@@ -1,0 +1,129 @@
+{
+  "T-CAL": {
+    "by-era": [
+      {
+        "finite_n": 11,
+        "group": "2007-2013",
+        "mad": 17.0,
+        "max": 19.0,
+        "median": -5.0,
+        "min": -40.0,
+        "n": 11,
+        "q10": -29.0,
+        "q90": 12.0
+      },
+      {
+        "finite_n": 2,
+        "group": "2014plus",
+        "mad": 6.0,
+        "max": -13.0,
+        "median": -19.0,
+        "min": -25.0,
+        "n": 2,
+        "q10": -23.8,
+        "q90": -14.2
+      }
+    ],
+    "by-event_id": [
+      {
+        "finite_n": 2,
+        "group": "usb000sk6k",
+        "mad": 6.0,
+        "max": -13.0,
+        "median": -19.0,
+        "min": -25.0,
+        "n": 2,
+        "q10": -23.8,
+        "q90": -14.2
+      },
+      {
+        "finite_n": 6,
+        "group": "usp000gv5p",
+        "mad": 9.5,
+        "max": 12.0,
+        "median": -16.5,
+        "min": -40.0,
+        "n": 6,
+        "q10": -32.0,
+        "q90": 3.5
+      },
+      {
+        "finite_n": 1,
+        "group": "usp000jeag",
+        "mad": 0.0,
+        "max": 4.0,
+        "median": 4.0,
+        "min": 4.0,
+        "n": 1,
+        "q10": 4.0,
+        "q90": 4.0
+      },
+      {
+        "finite_n": 3,
+        "group": "usp000jr83",
+        "mad": 13.0,
+        "max": 12.0,
+        "median": -1.0,
+        "min": -29.0,
+        "n": 3,
+        "q10": -23.4,
+        "q90": 9.4
+      },
+      {
+        "finite_n": 1,
+        "group": "usp000jrsw",
+        "mad": 0.0,
+        "max": 19.0,
+        "median": 19.0,
+        "min": 19.0,
+        "n": 1,
+        "q10": 19.0,
+        "q90": 19.0
+      }
+    ],
+    "by-header_family": [
+      {
+        "finite_n": 6,
+        "group": "computed_observed_utc",
+        "mad": 9.5,
+        "max": 12.0,
+        "median": -16.5,
+        "min": -40.0,
+        "n": 6,
+        "q10": -32.0,
+        "q90": 3.5
+      },
+      {
+        "finite_n": 7,
+        "group": "estimated_observed_utc_jday",
+        "mad": 13.0,
+        "max": 19.0,
+        "median": -1.0,
+        "min": -29.0,
+        "n": 7,
+        "q10": -26.6,
+        "q90": 14.800000000000002
+      }
+    ],
+    "finite_n": 13,
+    "integer_minute_share": 1.0,
+    "mad": 12.0,
+    "max": 19.0,
+    "median": -13.0,
+    "min": -40.0,
+    "n": 13,
+    "native_clock_second_summary": {
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 13,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "negative_share": 0.6923076923076923,
+    "nonpositive": 9,
+    "outside_fixed_histogram": 0,
+    "q10": -28.2,
+    "q90": 12.0
+  }
+}

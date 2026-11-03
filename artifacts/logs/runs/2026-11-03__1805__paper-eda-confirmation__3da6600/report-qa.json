@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "C9support_table_rows": 6,
+    "PNG_SVG_CSV_figure_sets": 71,
+    "branch_target_dispositions": 20,
+    "disposition_counts": {
+      "confirmed": 6,
+      "tentative": 9,
+      "unresolved": 5
+    },
+    "local_links_resolve": 231,
+    "observable_scales_exploration_only": true,
+    "tagged_decision_cells": 27,
+    "target_summary_rows": 6
+  },
+  "claim_boundaries_verified": [
+    "Three targets and source families separate; no alert-lead-time or physical-onset validation",
+    "B1/B9same contrast disclosed, not independent corroboration",
+    "Low-support B1/B9T-OBS andB10T-CAL, inconclusiveB6, unstableB3 remain tentative",
+    "B5/B7/B8nonnegative screens not ordered causal effects",
+    "Zero direct cross-family links and zero confirmationP1explicit",
+    "Native NCEI distance units, source ancestry and onset truth unresolved",
+    "Four individual missing-observation reasons unchanged; MCAR/MAR/MNAR unidentified",
+    "Very large relative influence can reflect near-zero baseline",
+    "No likelihood or prior selected; later model candidates tentative/unresolved",
+    "Rank and concentration not variance identifiability or posteriorESS",
+    "Physical sequence crosses halves; future grouped evaluation required"
+  ],
+  "evidence": [
+    "report-review.json",
+    "report-final-additions-review.json",
+    "confirmation-acceptance.json",
+    "final-exploration-accepted-render.json"
+  ],
+  "files": {
+    "figures.md": "4a5b31fff2d9a40470b2106cbc725d318d1bd126360f6cef2cf056812eb9b89c",
+    "report.md": "9d212cd209fd77785982a89a5909bb8d52e4de99fb20f8c0983b8fb19d4321f6",
+    "scripts/report_paper_eda.py": "e525627c6ed181dbd304b8c5d6c931fcecab61adb3e92f6b56399ce397b885a7"
+  },
+  "presentation_followups_resolved": [
+    "Zero confirmationP1comparison statement",
+    "Clipped optional C4ID full identities/values correctly captioned inreport/gallery"
+  ],
+  "remaining_limit": "Frozen confirmation-C4 T-OBS plot retains optional clipped annotation; matching fullIDs/values supplied inCSV/report/gallery",
+  "status": "ACCEPTED exact reader report and gallery within descriptive scope",
+  "validation_boundary": "Arithmetic, provenance, frozen replication discipline and supported descriptive claims; no validation of physical onset, missingness cause, causal effects or a Bayesian model"
+}

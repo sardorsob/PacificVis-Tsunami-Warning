@@ -1,0 +1,45 @@
+{
+  "NTWC-reports": {
+    "branch": "B7",
+    "checks_maximum": 2,
+    "detail": {
+      "availability_era": [
+        {
+          "accepted_rows": 50,
+          "availability": 0.4,
+          "events": 7,
+          "exact_observed": 20,
+          "group": "2007-2013",
+          "retained_rows": 55,
+          "structural_rows": 5
+        },
+        {
+          "accepted_rows": 11,
+          "availability": 0.8181818181818182,
+          "events": 4,
+          "exact_observed": 9,
+          "group": "2014plus",
+          "retained_rows": 11,
+          "structural_rows": 0
+        },
+        {
+          "accepted_rows": 100,
+          "availability": 0.54,
+          "events": 3,
+          "exact_observed": 54,
+          "group": "pre2007",
+          "retained_rows": 100,
+          "structural_rows": 0
+        }
+      ],
+      "mechanism": "not identified; calendar/format/era confounding",
+      "peak_size_contrast_present": true,
+      "scope": "NTWC exact-UTC availability only; NCEI availability not measured here",
+      "selected_route": "era",
+      "within_event": []
+    },
+    "scalar": 0.4181818181818182,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

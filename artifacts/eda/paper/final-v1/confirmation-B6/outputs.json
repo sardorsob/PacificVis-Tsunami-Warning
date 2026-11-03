@@ -1,0 +1,62 @@
+[
+  {
+    "path": "B6-screen.csv",
+    "sha256": "1a318420709a40c2ccb61a52366bb04abe6772e476edb30605330b265fdb588b"
+  },
+  {
+    "path": "B6-screen.png",
+    "sha256": "099aaf1772355ad0ab72863f2132577a1650db4ba32628aa02971cd521627901"
+  },
+  {
+    "path": "B6-screen.svg",
+    "sha256": "749c7f1db74af0ddd4f1303122469378532acf24972c7089519dfb52a0985c5d"
+  },
+  {
+    "path": "NCEI-native-duration-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "NCEI-native-duration-within-event-source-contrasts.csv",
+    "sha256": "7e04be7459931efff35979f277ff3e7c860ba67939076af27581f31db8dc02b1"
+  },
+  {
+    "path": "T-OBS-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "T-OBS-within-event-source-contrasts.csv",
+    "sha256": "2532fc6f91605bda583ce43724d4f3df0fc347a74a308b700102b3b25b13710c"
+  },
+  {
+    "path": "config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "meta.json",
+    "sha256": "38add6ef093d274cc9ce830e4186067aa045a8710b71227a740e2fdd5c51abd4"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "ccdbcc7798ac0fe7a5ee00b50b693ab347097227f6ef84fdafec39f98ee3fd5f"
+  },
+  {
+    "path": "notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "report.md",
+    "sha256": "82c824a31ede6e5e4f64fbc72c01dc276c9489273acb7e3c86a22d7075e6888c"
+  },
+  {
+    "path": "seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "ccdbcc7798ac0fe7a5ee00b50b693ab347097227f6ef84fdafec39f98ee3fd5f"
+  }
+]

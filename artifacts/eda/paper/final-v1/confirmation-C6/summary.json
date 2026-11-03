@@ -1,0 +1,327 @@
+{
+  "absent_observed": 56,
+  "absent_observed_with_peak": 11,
+  "accepted": 161,
+  "exact_observed": 83,
+  "mechanism": "MCAR/MAR/MNAR unidentified; contrasts descriptive only",
+  "opportunities": "Heterogeneous opportunities; not an operating-station census",
+  "retained": 166,
+  "structural": 5,
+  "tables": {
+    "availability-by-event": [
+      {
+        "accepted_rows": 61,
+        "availability": 0.3770491803278688,
+        "events": 1,
+        "exact_observed": 23,
+        "group": "official20010623203314130_33",
+        "retained_rows": 61,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 20,
+        "availability": 0.75,
+        "events": 1,
+        "exact_observed": 15,
+        "group": "official20030925195006360_27",
+        "retained_rows": 20,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 4,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 4,
+        "group": "us1000gjaz",
+        "retained_rows": 4,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 1,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 1,
+        "group": "us20009x42",
+        "retained_rows": 1,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 1,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 1,
+        "group": "usb000pr89",
+        "retained_rows": 1,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 5,
+        "availability": 0.6,
+        "events": 1,
+        "exact_observed": 3,
+        "group": "usb000sk6k",
+        "retained_rows": 5,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 19,
+        "availability": 0.8421052631578947,
+        "events": 1,
+        "exact_observed": 16,
+        "group": "usp000cd1n",
+        "retained_rows": 19,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 13,
+        "availability": 0.0,
+        "events": 1,
+        "exact_observed": 0,
+        "group": "usp000fshy",
+        "retained_rows": 14,
+        "structural_rows": 1
+      },
+      {
+        "accepted_rows": 1,
+        "availability": 0.0,
+        "events": 1,
+        "exact_observed": 0,
+        "group": "usp000g3eq",
+        "retained_rows": 1,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 21,
+        "availability": 0.2857142857142857,
+        "events": 1,
+        "exact_observed": 6,
+        "group": "usp000gv5p",
+        "retained_rows": 21,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 0,
+        "availability": "unknown",
+        "events": 0,
+        "exact_observed": 0,
+        "group": "usp000h5np",
+        "retained_rows": 4,
+        "structural_rows": 4
+      },
+      {
+        "accepted_rows": 5,
+        "availability": 0.8,
+        "events": 1,
+        "exact_observed": 4,
+        "group": "usp000hr97",
+        "retained_rows": 5,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 1,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 1,
+        "group": "usp000jeag",
+        "retained_rows": 1,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 7,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 7,
+        "group": "usp000jr83",
+        "retained_rows": 7,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 2,
+        "availability": 1.0,
+        "events": 1,
+        "exact_observed": 2,
+        "group": "usp000jrsw",
+        "retained_rows": 2,
+        "structural_rows": 0
+      }
+    ],
+    "availability-distance_band": [
+      {
+        "accepted_rows": 5,
+        "availability": 0.2,
+        "events": 3,
+        "exact_observed": 1,
+        "group": "0–500km",
+        "retained_rows": 5,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 7,
+        "availability": 0.0,
+        "events": 2,
+        "exact_observed": 0,
+        "group": "10000–20050km",
+        "retained_rows": 7,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 8,
+        "availability": 0.875,
+        "events": 3,
+        "exact_observed": 7,
+        "group": "2000–5000km",
+        "retained_rows": 8,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 9,
+        "availability": 0.6666666666666666,
+        "events": 2,
+        "exact_observed": 6,
+        "group": "5000–10000km",
+        "retained_rows": 9,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 14,
+        "availability": 0.5714285714285714,
+        "events": 5,
+        "exact_observed": 8,
+        "group": "500–2000km",
+        "retained_rows": 14,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 118,
+        "availability": 0.5169491525423728,
+        "events": 10,
+        "exact_observed": 61,
+        "group": "unknown",
+        "retained_rows": 123,
+        "structural_rows": 5
+      }
+    ],
+    "availability-era": [
+      {
+        "accepted_rows": 50,
+        "availability": 0.4,
+        "events": 7,
+        "exact_observed": 20,
+        "group": "2007-2013",
+        "retained_rows": 55,
+        "structural_rows": 5
+      },
+      {
+        "accepted_rows": 11,
+        "availability": 0.8181818181818182,
+        "events": 4,
+        "exact_observed": 9,
+        "group": "2014plus",
+        "retained_rows": 11,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 100,
+        "availability": 0.54,
+        "events": 3,
+        "exact_observed": 54,
+        "group": "pre2007",
+        "retained_rows": 100,
+        "structural_rows": 0
+      }
+    ],
+    "availability-header_family": [
+      {
+        "accepted_rows": 100,
+        "availability": 0.54,
+        "events": 3,
+        "exact_observed": 54,
+        "group": "arrival_eta_utc",
+        "retained_rows": 100,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 35,
+        "availability": 0.17142857142857143,
+        "events": 3,
+        "exact_observed": 6,
+        "group": "computed_observed_utc",
+        "retained_rows": 36,
+        "structural_rows": 1
+      },
+      {
+        "accepted_rows": 26,
+        "availability": 0.8846153846153846,
+        "events": 8,
+        "exact_observed": 23,
+        "group": "estimated_observed_utc_jday",
+        "retained_rows": 26,
+        "structural_rows": 0
+      },
+      {
+        "accepted_rows": 0,
+        "availability": "unknown",
+        "events": 0,
+        "exact_observed": 0,
+        "group": "unknown",
+        "retained_rows": 4,
+        "structural_rows": 4
+      }
+    ],
+    "availability-peak_present": [
+      {
+        "accepted_rows": 100,
+        "availability": 0.54,
+        "events": 3,
+        "exact_observed": 54,
+        "group": "False",
+        "retained_rows": 105,
+        "structural_rows": 5
+      },
+      {
+        "accepted_rows": 61,
+        "availability": 0.47540983606557374,
+        "events": 11,
+        "exact_observed": 29,
+        "group": "True",
+        "retained_rows": 61,
+        "structural_rows": 0
+      }
+    ],
+    "availability-provider": [
+      {
+        "accepted_rows": 161,
+        "availability": 0.515527950310559,
+        "events": 14,
+        "exact_observed": 83,
+        "group": "unknown",
+        "retained_rows": 166,
+        "structural_rows": 5
+      }
+    ],
+    "within-event-peak-presence": [],
+    "within-event-peak-size": [
+      {
+        "event_id": "usb000sk6k",
+        "exact_observed_n": 3,
+        "native_median_difference": -18.5,
+        "not_exact_observed_n": 2,
+        "unit_scope": "usb000sk6k/1/estimated_observed_utc_jday; native units unknown; no pooled size"
+      },
+      {
+        "event_id": "usp000gv5p",
+        "exact_observed_n": 6,
+        "native_median_difference": -0.6000000000000005,
+        "not_exact_observed_n": 15,
+        "unit_scope": "usp000gv5p/1/computed_observed_utc; native units unknown; no pooled size"
+      },
+      {
+        "event_id": "usp000hr97",
+        "exact_observed_n": 4,
+        "native_median_difference": 3.5,
+        "not_exact_observed_n": 1,
+        "unit_scope": "usp000hr97/1/estimated_observed_utc_jday; native units unknown; no pooled size"
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "scope": "Locked confirmation only; native units/reference geodesics, not physical-onset validation",
+  "status": "PASS",
+  "targets": {
+    "NCEI-native-duration": {
+      "all_geodesics_reference_r0_verified": 151,
+      "all_native_clock_or_HM_durations_verified": 151
+    },
+    "T-OBS": {
+      "all_geodesics_reference_r0_verified": 22,
+      "all_native_clock_or_HM_durations_verified": 22
+    }
+  },
+  "traces": [
+    {
+      "geodesic_km": 9421.272642103959,
+      "minutes": 831.3255,
+      "r0": 0.04744042323772427,
+      "record_id": "usp000gv5p:1:16",
+      "reference_minutes": 792.8079349051208,
+      "target": "T-OBS"
+    },
+    {
+      "geodesic_km": 5233.614396435545,
+      "minutes": 400.3255,
+      "r0": -0.09543497457768065,
+      "record_id": "usp000gv5p:1:11",
+      "reference_minutes": 440.41300781219763,
+      "target": "T-OBS"
+    },
+    {
+      "geodesic_km": 1606.4703521487286,
+      "minutes": 283.0,
+      "r0": 0.7387966409722744,
+      "record_id": "recovery-ncei-0df9a0c1d413a868:3",
+      "reference_minutes": 135.18581732593933,
+      "target": "NCEI-native-duration"
+    },
+    {
+      "geodesic_km": 1275.5013742554822,
+      "minutes": 86.0,
+      "r0": -0.22160285197191568,
+      "record_id": "recovery-ncei-1744531a086063cf:4",
+      "reference_minutes": 107.33450234450544,
+      "target": "NCEI-native-duration"
+    }
+  ]
+}

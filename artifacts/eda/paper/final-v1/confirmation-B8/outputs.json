@@ -1,0 +1,54 @@
+[
+  {
+    "path": "B8-screen.csv",
+    "sha256": "89a156df377ad421351b35ff306ba6962e9f899183ebeac850a64a25327ceea2"
+  },
+  {
+    "path": "B8-screen.png",
+    "sha256": "713ece8f009d374a5c244647ebebdd6198d627e6a01fbdefac9aa559df2f75b9"
+  },
+  {
+    "path": "B8-screen.svg",
+    "sha256": "5af0e4d3580030a49ea17f160d8f71447add3561fd4ddb539eb31960dea437b9"
+  },
+  {
+    "path": "NCEI-native-duration-full-influence.csv",
+    "sha256": "04ff1f60e0652e4486d5288481ca2ff93acde0e320b3613e6bb45b7d1f9f5ee9"
+  },
+  {
+    "path": "T-OBS-full-influence.csv",
+    "sha256": "fec70ad9a8fa102cd0f0b811a342a19e93e60700e66d702d0daf6f474412d050"
+  },
+  {
+    "path": "config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "meta.json",
+    "sha256": "f65f7509296acb46e1d5531790a7284f58ff5e6bc9d3590324e9d7f9c0e7330c"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "c11025752f7d38d0b09c50b87497bea7223b2e3d0a5d39aaefdd66390ca934d3"
+  },
+  {
+    "path": "notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "report.md",
+    "sha256": "d3491bac19a895d04fd467b45623ed3bfdcc70d1ec378e348e30c85084de6a40"
+  },
+  {
+    "path": "seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "c11025752f7d38d0b09c50b87497bea7223b2e3d0a5d39aaefdd66390ca934d3"
+  }
+]

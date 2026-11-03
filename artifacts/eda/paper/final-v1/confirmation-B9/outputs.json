@@ -1,0 +1,54 @@
+[
+  {
+    "path": "B9-screen.csv",
+    "sha256": "39ddfaf321bf874692a914d7a6616919f57667ed61bb8f9c6e7e7115a25dfd36"
+  },
+  {
+    "path": "B9-screen.png",
+    "sha256": "5fad199bfbfcc2b376bf2a8b05ea7c6a6c9d1d2d13ace63dd9a099694d85d2e6"
+  },
+  {
+    "path": "B9-screen.svg",
+    "sha256": "ce278e17984b2509c53e8f4093fa45fceb456f5ac17f7fcc36f17e1fd653edb3"
+  },
+  {
+    "path": "NCEI-native-duration-cutoff-profile.csv",
+    "sha256": "3ffb9e044755988b474e2cd8d75989a05a42805dc8e0c2a41c9f6796768e30dc"
+  },
+  {
+    "path": "T-OBS-cutoff-profile.csv",
+    "sha256": "2226db962a5d7c05726e5d1df1ba79902f8065a4a166ba6aaea3fae4c33ba85b"
+  },
+  {
+    "path": "config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "meta.json",
+    "sha256": "5fd7323ec4e30aeea598f8eb3be7ee78eacb4fe7e3dd20af31b53fa411f6884f"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "3edb236a77038fc4ecb4b032dbf343532032fe63a25216493d89484c035e44e5"
+  },
+  {
+    "path": "notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "report.md",
+    "sha256": "8a2d16cb5cea61b8eedd1afdc11c0ff9ebdc67f51cfc110868320e60a2cc3f12"
+  },
+  {
+    "path": "seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "3edb236a77038fc4ecb4b032dbf343532032fe63a25216493d89484c035e44e5"
+  }
+]

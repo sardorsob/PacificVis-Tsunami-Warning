@@ -1,0 +1,4 @@
+comparison_id,difference,event_id,key,n_other,n_reference,other,reference
+precision_seconds|60|unknown,-16.0,usp000jrsw,precision_seconds,1,1,unknown,60
+precision_seconds|60|unknown,51.5,usb000sk6k,precision_seconds,1,2,unknown,60
+precision_seconds|60|unknown,70.0,usp000jr83,precision_seconds,3,3,unknown,60

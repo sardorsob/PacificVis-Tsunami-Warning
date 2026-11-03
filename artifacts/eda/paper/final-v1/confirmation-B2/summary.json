@@ -1,0 +1,38 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B2",
+    "checks_maximum": 2,
+    "detail": {
+      "classifications": [
+        {
+          "finite_n": 26,
+          "group": "original_duration_retained; specific_cause_unresolved",
+          "mad": 0.1753389955786827,
+          "max": 2.5170635841660056,
+          "median": 0.9460251216404337,
+          "min": -1.2388652818750974,
+          "n": 26,
+          "q10": 0.6955636017921125,
+          "q90": 1.4269735608959087
+        }
+      ],
+      "flagged": 26,
+      "retained_all": true
+    },
+    "scalar": 0.17218543046357615,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B2",
+    "checks_maximum": 2,
+    "detail": {
+      "classifications": [],
+      "flagged": 0,
+      "retained_all": true
+    },
+    "scalar": 0.0,
+    "status": "exploratory_screen",
+    "triggered": false
+  }
+}

@@ -1,0 +1,3054 @@
+[
+  {
+    "path": "artifacts/eda/paper/final-v1/branch-replication.csv",
+    "sha256": "e4eccf291641df327549836faa4ee42fae51484dd844d87e4cebe4f0776bee9a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/branch-replication.json",
+    "sha256": "2f6b5663e27cc8683a9259e4e1457c7ff3710ff665b9b7f28165bbc3801b34e0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/B1-screen.csv",
+    "sha256": "39ddfaf321bf874692a914d7a6616919f57667ed61bb8f9c6e7e7115a25dfd36"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/B1-screen.png",
+    "sha256": "9132339008f0e32ba19b2d23904918cee42dd8b44524461e9b65e5a77f77a7af"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/B1-screen.svg",
+    "sha256": "556cdcb6a0f3bab98236bda31a7d76052cfa7ad3c5015ccc6149a99185919395"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/NCEI-native-duration-cutoff-profile.csv",
+    "sha256": "3ffb9e044755988b474e2cd8d75989a05a42805dc8e0c2a41c9f6796768e30dc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/NCEI-native-duration-native-distance-comparison.csv",
+    "sha256": "3aa28d7af6e8c1ee01e7d5232ea2eba11b61067df2a582601067800c411e429c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/T-OBS-cutoff-profile.csv",
+    "sha256": "2226db962a5d7c05726e5d1df1ba79902f8065a4a166ba6aaea3fae4c33ba85b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/T-OBS-native-distance-comparison.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/meta.json",
+    "sha256": "1a94bf210d41ae2e0cab3bef850c695db9b53e8684da6f389a6740cccb515905"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/metrics.json",
+    "sha256": "b517481d04e6dc48c6e79fead353fe829db74e3bc8303dfc10cb14c18f3eb742"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/outputs.json",
+    "sha256": "350828043ce3f82faa4ca65c947a63bb8a159a2b621a394debb82e1bd24dc2dc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/report.md",
+    "sha256": "fc52585ed1df5f6b697966924271439b71de0df81559b2708be34e77235dbb60"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B1/summary.json",
+    "sha256": "b517481d04e6dc48c6e79fead353fe829db74e3bc8303dfc10cb14c18f3eb742"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/B10-screen.csv",
+    "sha256": "c1f2211668b3891a60a8e42cb4d779441adbd247408f3c8aa61fcbf251f482dc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/B10-screen.png",
+    "sha256": "977b5559c9b2bbedd46b601d41f39cb303c3884325a5436ca0cdb1e61dcc832e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/B10-screen.svg",
+    "sha256": "8449d8099de54ab549c09275f29780ade683b30da9cde3270e105000ebc66fe6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/T-CAL-within-event-distance.csv",
+    "sha256": "13c7ee6699f267d719bf749ebf55fd8fddb13156dd6d3ab22f4dfe05d27b5196"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/meta.json",
+    "sha256": "a92be711485107cd8eae0a78c1143a99afd78913b96dddc255c0b81e54c3dd70"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/metrics.json",
+    "sha256": "3d42cd44db691a8c51060a387dca45245afb2f35fbe1380eb039768c642233d9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/outputs.json",
+    "sha256": "6fbfbe3c53c7b5bec8d6509a9de9636fb224d996af4390eff8f400b2d8f87916"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/report.md",
+    "sha256": "2f887521279fe24119f95935b5d4583d2a44ae89684656e66a3c8c43df8d7dab"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B10/summary.json",
+    "sha256": "3d42cd44db691a8c51060a387dca45245afb2f35fbe1380eb039768c642233d9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/B2-screen.csv",
+    "sha256": "8b33e81495b9fa60d30584bf7a0fc470b99d069b8fe27c9aa4b8dd5f21c2efb9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/B2-screen.png",
+    "sha256": "ded481fa122cebaef3b92566d8123b36aa816c5b0d76cbeffcf36a3c945c7af8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/B2-screen.svg",
+    "sha256": "3b147e30db99d2c26db24e6c278d82601dc0d695a66e78bf29d2e6894fb008a2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/NCEI-native-duration-tail-source-cases.csv",
+    "sha256": "20ec1522b208b6b2a823318bf0ad9aaec5afccbeaf67058d066c433bca56d6cf"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/T-OBS-tail-source-cases.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/meta.json",
+    "sha256": "cac4002b48575d37ed4f1be5af4d297c2baa6f317d13b056ead0d53da6e7a438"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/metrics.json",
+    "sha256": "ee5dbdf6b16e974d27f02bf53ec8a7a2e0a0505602511b9dd7ef7f6dc79e1ba0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/outputs.json",
+    "sha256": "ac0fa3e6005153624fe64dc4ce8f13700cc8a7888bdfca582a2436de14ad96e5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/report.md",
+    "sha256": "e6b6b3f267113dfd3789ec4757a8d78d8d5afa0750ca4bb362f05fd1e4725ef9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B2/summary.json",
+    "sha256": "ee5dbdf6b16e974d27f02bf53ec8a7a2e0a0505602511b9dd7ef7f6dc79e1ba0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/B3-screen.csv",
+    "sha256": "63a4ea3d1e8a76b6425fa967085bb315f8d507a2daa5d27c989e2b2f9955fe57"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/B3-screen.png",
+    "sha256": "3e94ec45d9b05334104ad686a7b555b5f3a5bca6ba087b73b15162ddba0be954"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/B3-screen.svg",
+    "sha256": "ed68896abec3989d30ac623a6f9b139235f651e51db5646a931fd2c3638fae67"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/NCEI-native-duration-site-type-contrasts.csv",
+    "sha256": "04448e278509eccccf3ef5a12aa4522811b8c2dfef5c01e318bd87b76401737b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/T-OBS-site-type-contrasts.csv",
+    "sha256": "e8a6b3e5422a90fa956dd71c8a103830c5a4a6a3158f7368c237d2af476eeaa0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/meta.json",
+    "sha256": "449dc8ea401d2a27bba7153350c00e51531d939f6c4d4967a5e3e960eef7955e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/metrics.json",
+    "sha256": "a50b96effa9f216c3883874980d57d3e9f2c6e03d80efdd3e4810ba38442b82a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/outputs.json",
+    "sha256": "ae56aa1af0eaf1d0289e600718908a3d134e1aebe3306db1bffe4d7cfe43881c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/report.md",
+    "sha256": "7de0705605574876edc1c4ad3deb2ade082195ab48157b9370304cd855c39177"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B3/summary.json",
+    "sha256": "a50b96effa9f216c3883874980d57d3e9f2c6e03d80efdd3e4810ba38442b82a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/B4-screen.csv",
+    "sha256": "855a68fe7f243fac9e83e591d697f51b011ca425632460150fe49cb5aab832b4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/B4-screen.png",
+    "sha256": "a6069dafbaccaa73fc077abe0bb060adb578336c35a4a0f53073ca004cf40261"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/B4-screen.svg",
+    "sha256": "698a83477e79e86f7ae7109cacf25ab6339b0fc561044757b2d73212327f5784"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/NCEI-native-duration-event-covariates.csv",
+    "sha256": "fa2757a5a61116658e920671c53fdf773a055d500ac175bebd3b4dfcd0581c8c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/T-OBS-event-covariates.csv",
+    "sha256": "3edb4fef6dfb598db43d0fa02711ec9c7b7acf116519ebd595ea8b69e22e5d0c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/meta.json",
+    "sha256": "906fcf170f045bcbda496d36e029a0c35e2fc8d9d0bf0a3c9afb8b68cd63d8df"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/metrics.json",
+    "sha256": "1538d764f7739e7e4490936b5759dc76c633b9a8abe3c6bc8d6f3af15f8ff984"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/outputs.json",
+    "sha256": "82f77467637dcf1a5431aae0a4e34820d86c644919183a1990e729ad016e47e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/report.md",
+    "sha256": "cd9d912e6de7a291c867531334d702183c242859c0ce8daf8f24eb6f792048c7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B4/summary.json",
+    "sha256": "1538d764f7739e7e4490936b5759dc76c633b9a8abe3c6bc8d6f3af15f8ff984"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/B5-screen.csv",
+    "sha256": "7410f5cc785a3a541cfb2bfa701f3af025bfad56300c5c3bd90fb0f57a6aa826"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/B5-screen.png",
+    "sha256": "6d95c6c3deff25ea20071a3262331a66756e2c5a295e9191f06cf51c4192fe0f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/B5-screen.svg",
+    "sha256": "33202a2835e76ea6bde7f9ebbb19d06e60384cd013aaf064b39d4dbf66c66c3c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/NCEI-native-duration-distance-spread.csv",
+    "sha256": "a07d46490e0782b5821f262cf26c2503a6bbbf93070eccf4aa262c6170ae92b1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/NCEI-native-duration-precision-spread.csv",
+    "sha256": "b2e90def2e78a5eefb75e494370b05c9209d7b156c3fe2a30b2d9e11a02537b5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/T-OBS-distance-spread.csv",
+    "sha256": "f1cf47c48e77ceef14a74e85b9255e052edb77f0bba886849128ef9b4678647b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/T-OBS-precision-spread.csv",
+    "sha256": "a4c140f7f7bcd835fafb2c9a0845d724398f6ab44d983df8cae237bd0d72e359"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/meta.json",
+    "sha256": "a0f0e02b73f81b24dcbf38809eec177bf7b0b343ef44b086e1404f8eba29d460"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/metrics.json",
+    "sha256": "8f1e92fa111ba5a85eee9295437a1e778ce5d1725d206516bdde2f706a2dd784"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/outputs.json",
+    "sha256": "fe8b88416c3828b8c6095d1739e693ca8ac82227cd29f55077f88090cb521f85"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/report.md",
+    "sha256": "da4bbc458b98c2f79cca4400ca3c2a7167de67b6568e1dad957958b708bc7a0e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B5/summary.json",
+    "sha256": "8f1e92fa111ba5a85eee9295437a1e778ce5d1725d206516bdde2f706a2dd784"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/B6-screen.csv",
+    "sha256": "1a318420709a40c2ccb61a52366bb04abe6772e476edb30605330b265fdb588b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/B6-screen.png",
+    "sha256": "099aaf1772355ad0ab72863f2132577a1650db4ba32628aa02971cd521627901"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/B6-screen.svg",
+    "sha256": "749c7f1db74af0ddd4f1303122469378532acf24972c7089519dfb52a0985c5d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/NCEI-native-duration-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/NCEI-native-duration-within-event-source-contrasts.csv",
+    "sha256": "7e04be7459931efff35979f277ff3e7c860ba67939076af27581f31db8dc02b1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/T-OBS-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/T-OBS-within-event-source-contrasts.csv",
+    "sha256": "2532fc6f91605bda583ce43724d4f3df0fc347a74a308b700102b3b25b13710c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/meta.json",
+    "sha256": "38add6ef093d274cc9ce830e4186067aa045a8710b71227a740e2fdd5c51abd4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/metrics.json",
+    "sha256": "ccdbcc7798ac0fe7a5ee00b50b693ab347097227f6ef84fdafec39f98ee3fd5f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/outputs.json",
+    "sha256": "af17eeb8526c1dcf507cb3bb7731faeb8b330f69381348bed2ff030766a4ed59"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/report.md",
+    "sha256": "82c824a31ede6e5e4f64fbc72c01dc276c9489273acb7e3c86a22d7075e6888c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B6/summary.json",
+    "sha256": "ccdbcc7798ac0fe7a5ee00b50b693ab347097227f6ef84fdafec39f98ee3fd5f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/B7-screen.csv",
+    "sha256": "99979d80cdd7c3c9e44e5d978f6ac52be7fd6306ba317a897ab156e57ac14170"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/B7-screen.png",
+    "sha256": "f892918a788d2a43989972d3198a4b80251cd2059f4ece104e76f52d1e0dc2cd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/B7-screen.svg",
+    "sha256": "0dd091d9a976a08c3a7782ed58514369cb27ce4486165bc527054ba53f465304"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/NTWC-reports-availability-era.csv",
+    "sha256": "6970d2907704c58de3d56d9011962ce28068fec4cd1d3e7896d6fd41a8fac883"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/meta.json",
+    "sha256": "06ae79a04194a0acdcc5cccb46f765d24f7c44119d610bd76ba04bee39c3f624"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/metrics.json",
+    "sha256": "141f0e9af7c0301373580e43f66dbcfc2bceda800f76e3887776c2d337359cbb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/outputs.json",
+    "sha256": "356442a7fbc60501663934e35e8d6d034c04e70ff9a3d98569d1c580a324cd45"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/report.md",
+    "sha256": "0ec0b0640519ce5f8811468dda6a1e913abc0e5e24d0d57e8317ec732f05741f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B7/summary.json",
+    "sha256": "141f0e9af7c0301373580e43f66dbcfc2bceda800f76e3887776c2d337359cbb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/B8-screen.csv",
+    "sha256": "89a156df377ad421351b35ff306ba6962e9f899183ebeac850a64a25327ceea2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/B8-screen.png",
+    "sha256": "713ece8f009d374a5c244647ebebdd6198d627e6a01fbdefac9aa559df2f75b9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/B8-screen.svg",
+    "sha256": "5af0e4d3580030a49ea17f160d8f71447add3561fd4ddb539eb31960dea437b9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/NCEI-native-duration-full-influence.csv",
+    "sha256": "04ff1f60e0652e4486d5288481ca2ff93acde0e320b3613e6bb45b7d1f9f5ee9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/T-OBS-full-influence.csv",
+    "sha256": "fec70ad9a8fa102cd0f0b811a342a19e93e60700e66d702d0daf6f474412d050"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/meta.json",
+    "sha256": "f65f7509296acb46e1d5531790a7284f58ff5e6bc9d3590324e9d7f9c0e7330c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/metrics.json",
+    "sha256": "c11025752f7d38d0b09c50b87497bea7223b2e3d0a5d39aaefdd66390ca934d3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/outputs.json",
+    "sha256": "3fc8df0eb462fefd89ddafafd86d1ced901ebcdb2764779dec6ea2556433edeb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/report.md",
+    "sha256": "d3491bac19a895d04fd467b45623ed3bfdcc70d1ec378e348e30c85084de6a40"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B8/summary.json",
+    "sha256": "c11025752f7d38d0b09c50b87497bea7223b2e3d0a5d39aaefdd66390ca934d3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/B9-screen.csv",
+    "sha256": "39ddfaf321bf874692a914d7a6616919f57667ed61bb8f9c6e7e7115a25dfd36"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/B9-screen.png",
+    "sha256": "5fad199bfbfcc2b376bf2a8b05ea7c6a6c9d1d2d13ace63dd9a099694d85d2e6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/B9-screen.svg",
+    "sha256": "ce278e17984b2509c53e8f4093fa45fceb456f5ac17f7fcc36f17e1fd653edb3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/NCEI-native-duration-cutoff-profile.csv",
+    "sha256": "3ffb9e044755988b474e2cd8d75989a05a42805dc8e0c2a41c9f6796768e30dc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/T-OBS-cutoff-profile.csv",
+    "sha256": "2226db962a5d7c05726e5d1df1ba79902f8065a4a166ba6aaea3fae4c33ba85b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/meta.json",
+    "sha256": "5fd7323ec4e30aeea598f8eb3be7ee78eacb4fe7e3dd20af31b53fa411f6884f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/metrics.json",
+    "sha256": "3edb236a77038fc4ecb4b032dbf343532032fe63a25216493d89484c035e44e5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/outputs.json",
+    "sha256": "167f76f09d30f5e7d023b939172f3c4fdb42decdd489c9eab87bd43456cd115f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/report.md",
+    "sha256": "8a2d16cb5cea61b8eedd1afdc11c0ff9ebdc67f51cfc110868320e60a2cc3f12"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-B9/summary.json",
+    "sha256": "3edb236a77038fc4ecb4b032dbf343532032fe63a25216493d89484c035e44e5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/NCEI-native-duration-data-findings.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/NCEI-native-duration-event-counts.csv",
+    "sha256": "bf64bb226070afaf9f547db55a9379b9bda5d7327819e4ee3caf337ec45156aa"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/NCEI-native-duration-event-counts.png",
+    "sha256": "b9f251b3996db049b55f79310a43e8c73b9aab6a2edd9f81de71e3046c2815ca"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/NCEI-native-duration-event-counts.svg",
+    "sha256": "cccd9cf7a82d4024f8c7331d3ce1ef41eca1407bd00fe64e7722a19e25eabb35"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/NCEI-native-duration.csv",
+    "sha256": "c5b8c7c118d09b846f6594795f6df802c4d4a0d6cea1efff0a7c488b481030fe"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/T-OBS-data-findings.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/T-OBS-event-counts.csv",
+    "sha256": "d5b113bc05cae1e53023866d7ddc28c459ebe3bda6fcab6e29fda597d2eb6f84"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/T-OBS-event-counts.png",
+    "sha256": "9b41ef21fe7be647d3aaa4724b97f6151e514f886903d2fe0375807f86ccefd2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/T-OBS-event-counts.svg",
+    "sha256": "2e7c5a6395e6ecbd98673f26ca5b48ce1f938e0161d4fc69d7c230ea7a29389a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/T-OBS.csv",
+    "sha256": "e0fa1fe58d9b026f874591a0953ec20600d1ecc71916e0c59cd2bf0b813fa5c0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/documentary-origin-comparison.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/meta.json",
+    "sha256": "7c72a9e98d215986a3a36587e478dd313fc577459f7e4a1aae8903343ed1aafe"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/metrics.json",
+    "sha256": "69cf2b059f37e89e3d84c7fcfee664e72fd31f3a4aa9296807bc6d23a36fa711"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/outputs.json",
+    "sha256": "aaaad50a93a928b3d88477c232c6c85788e92098bdd4923b3d55f4faaf3b867d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/report.md",
+    "sha256": "678fb40ac582d53450a6c99df7512aec7b86a149b6276c13218af6347ac6bcb2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C1/summary.json",
+    "sha256": "69cf2b059f37e89e3d84c7fcfee664e72fd31f3a4aa9296807bc6d23a36fa711"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-distribution.csv",
+    "sha256": "d36af6d7d8e4c22f05970dbd9857bd89e2d2bf1eae3bbd21467008f5046f6efa"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-distribution.png",
+    "sha256": "f542ec296dc114bcd8ea4efe4a1e1d5500eaa9d60dd91a59779605d7c3ac0f13"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-distribution.svg",
+    "sha256": "17a28ccf52492a60279180a8251c6b5d805219c45330845d91fea63040d1bea8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-qq.csv",
+    "sha256": "be0162152af13f5bb7fb6fc1780446e33c2566e2eab9c33cb0b8cdef7f6024be"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-qq.png",
+    "sha256": "18a8b5b6ae3f31161d6823f37ca2cd35c47fcba9650d658d77b075f29192b480"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/NCEI-native-duration-qq.svg",
+    "sha256": "b6cebd08524df7b279be868aded3277b9324e2e3bb7b2045ff791c7b45aea543"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-distribution.csv",
+    "sha256": "8f6a7a75c8ff9decd6819043d5150df13add6f8705b0f728aede7b6621a494f9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-distribution.png",
+    "sha256": "5681eb21ef6574d442cf7490c69e9120395f80188143de1ffaa05d2459b2c830"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-distribution.svg",
+    "sha256": "d7496a439a8b01b54a4aed2475909bc0f3d4a023ae81be7fba411622ea272f6f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-qq.csv",
+    "sha256": "1272d72f1398e0d34a01df9e20d0a5b08317f982eb02450f488076a39dcd2526"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-qq.png",
+    "sha256": "0334962bd55a7cdcf2d30680e44a8494f6ba29fa1adf50820584633cc9638985"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/T-OBS-qq.svg",
+    "sha256": "3678da4a945bd974fad0f911b60fe74444f0c9e8d7c2359c47d50d0f4ee1fefa"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/meta.json",
+    "sha256": "00f3e4650f9109f6158c6cf79926f45aad8a6267127f2b94768e5cb01f052b03"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/metrics.json",
+    "sha256": "c004293a7239c88817e002efeb2f941740a26436092dd9d0bd227fd1f6a2b4f1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/outputs.json",
+    "sha256": "87ff858e7c1165170e94a575555de57d24727b0768b96feef0daf6c115f6201b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/report.md",
+    "sha256": "e9c9cf08a6eefa03fe2c8ee82d634f0537fe5a6be6c4a1daf1d7ead4bf2c4479"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C2/summary.json",
+    "sha256": "c004293a7239c88817e002efeb2f941740a26436092dd9d0bd227fd1f6a2b4f1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics-bins.csv",
+    "sha256": "3565355546a519ba956a657c402bfb6925dd74627aacbd9ea377bf8e8924b1f4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics-bins.png",
+    "sha256": "91991ab925372b3c1174075080f3b71a39738ab6745caf7023d15a0d4a4c12a8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics-bins.svg",
+    "sha256": "efd3636ed78565a02e54dd10728b30ec079e93a1581901f3711b0fc01899a96c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics.csv",
+    "sha256": "c5b8c7c118d09b846f6594795f6df802c4d4a0d6cea1efff0a7c488b481030fe"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics.png",
+    "sha256": "454a579588cc29e1184d86ffca7a2d82a9b6e0ffa2d66b1f6586a1e077cafd60"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/NCEI-native-duration-physics.svg",
+    "sha256": "b94e267ee94ae6ea79f5240f998a7243333a3b87cf8133dfb1b41398c9070fd9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics-bins.csv",
+    "sha256": "250e0a4be1fcfaf1b7c2d38e3e1baf76745376802db1ea11f5cc4100a2d7bf99"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics-bins.png",
+    "sha256": "9c0a64df5fb94a6b889a439c1cc849ab463c15fce8e2b8f9d3d2473cb4de1a43"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics-bins.svg",
+    "sha256": "7a63489cca10da2fcae72fa4ed0a6b08b29b262625448591cf2d5fb6685c0cf8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics.csv",
+    "sha256": "e0fa1fe58d9b026f874591a0953ec20600d1ecc71916e0c59cd2bf0b813fa5c0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics.png",
+    "sha256": "eec55f508399051844b2b5e42e8ed50c42d391e107db4c62043b4e589636a973"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/T-OBS-physics.svg",
+    "sha256": "c3621da9972b2c4bb81c554c0ec541cda98533892fe4ccf664ea8a79a05f5e8a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/meta.json",
+    "sha256": "17b0def5a84ad35361866bdbb21ea6b7f0c87c50b2dcba9d5e183e89266592a0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/metrics.json",
+    "sha256": "8f7fe6bd8f1b8e8a84815f1c6c5d27ef79ddad0537e818ff66fcaa5b2f35793a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/outputs.json",
+    "sha256": "eced6fda0d6cddb7f1ae22692cfc1f6ad56a8e5bf994df22b1e5a0b696f78de7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/report.md",
+    "sha256": "16fde669cfec439cc79ce354d42b749127174838bb1e37a75b219646fcef6efb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C3/summary.json",
+    "sha256": "8f7fe6bd8f1b8e8a84815f1c6c5d27ef79ddad0537e818ff66fcaa5b2f35793a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-event-effects.csv",
+    "sha256": "9b23c547e27a04d4574725bc57e7e9d777d2da99e16463375944dbc96068a787"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-event-effects.png",
+    "sha256": "ec7a3adc1c572604cbb02583724a0c2ae15a9dae736dc26bffc6b1ed3bb0ea6c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-event-effects.svg",
+    "sha256": "2a1b51a1718b4c371e254f70246491e0773eb4492fbc535bc99df695efeb773f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-physical_site_id-effects.csv",
+    "sha256": "f5791192e44c51747d5567813926aecd97e18f6755ead8507395efea3e8865e9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site-effects.csv",
+    "sha256": "3a7abde34a8aa3d929e5df77f60dcabb27a2d534f134acdd70fb8424abd71828"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site-effects.png",
+    "sha256": "4972e4db2470061d81b958a97f0bcd784067ec50accda0ddac4f44aaf96125a9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site-effects.svg",
+    "sha256": "be356250d6e96650551a5b3870b045f4720d43eccddce3793c4ce1d258fb7b10"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site_1km-effects.csv",
+    "sha256": "427c25c608909a55deeda86c365fb42e9c7014d59a8d48e2afb94ba8c473b80d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site_2km-effects.csv",
+    "sha256": "ff9992fbf633a175526a970bdae7d05f3139d3f501551206663d32b86ec9289c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/NCEI-native-duration-site_5km-effects.csv",
+    "sha256": "6366771c0403f9d6210cf5b11070314c03bde366327ffadbbe754fcc59cf30fe"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-event-effects.csv",
+    "sha256": "d2c4bb9651b6ceb28a9322f85311bb809ab5bc7ef6c0968d3d2ce074c0532529"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-event-effects.png",
+    "sha256": "498165215c4e76f6eaee20e920cfdde378d11c6b8c1291bbbef869418e22bf9e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-event-effects.svg",
+    "sha256": "d8d2794ffede9e46a23f6ad89266a378bd6654a6550b5656dd9846ba76226ac9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-physical_site_id-effects.csv",
+    "sha256": "e820f8bbd5ca0d68205d692d6c1c27e7b34aca2017d9c4b87080beeb948e0e39"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site-effects.csv",
+    "sha256": "ccaad1451c2fd3d302707dbb7fa43269ea3ed16e921e5a0dc950d3a3a0834a62"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site-effects.png",
+    "sha256": "d6ba884eece65f70fb7c3ecc8bedd7b2f53d5e69e66d4dd74cc0b23246a91706"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site-effects.svg",
+    "sha256": "5ca702b6dd6ed901854a600603dfcfe457d05ce14b3b3d43a208fb083ae23edd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site_1km-effects.csv",
+    "sha256": "e03294e4fef073c73a4b7a7adb21adaa3234a35382cc1375906d3e994fd0d10c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site_2km-effects.csv",
+    "sha256": "14f4f532458fff4baef1989654694716c2dde77b6f76d5916dd9b808b3996192"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/T-OBS-site_5km-effects.csv",
+    "sha256": "a311dfda90497fe342f75caebee1e902dae00ec7c6235db2075993d02fc44526"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/meta.json",
+    "sha256": "4a1a2aa68a4fde8d78128627b9267f96318d80d283842d29e39cad899c72708d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/metrics.json",
+    "sha256": "f6edfb938b3d103aceaaf1d18723f02aa3d635a3e4c7f1801282f4e66f192f11"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/outputs.json",
+    "sha256": "0f4bf0af8311979dd03742776893673bbb0e964dcf9a06342c90aa8249b8f506"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/report.md",
+    "sha256": "24201bd3c4dc2d78f44e32047df8f23ff885bd9ed42011127df85190cddbc350"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C4/summary.json",
+    "sha256": "f6edfb938b3d103aceaaf1d18723f02aa3d635a3e4c7f1801282f4e66f192f11"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-era.csv",
+    "sha256": "be072ead088d24ec41db7f9cf5e7a22c10f30042edebfe8619bab46f361639d4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-header_family.csv",
+    "sha256": "2eba2af68bf867b011c931f9e82333dd949bedcf0a9524a8aef10126a4636846"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-identity_scope.csv",
+    "sha256": "f9ab806af267eb3beee5d77025ee4410145ba4e2f76a95e0653d33e07fadde95"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-identity_tier.csv",
+    "sha256": "6772ec6c95a0e4eb9913227fb9982c91b5368be6052b7e4b0fe6b719729fa7e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-measurement_family.csv",
+    "sha256": "04448e278509eccccf3ef5a12aa4522811b8c2dfef5c01e318bd87b76401737b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-precision_seconds.csv",
+    "sha256": "b2e90def2e78a5eefb75e494370b05c9209d7b156c3fe2a30b2d9e11a02537b5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-provider.csv",
+    "sha256": "6772ec6c95a0e4eb9913227fb9982c91b5368be6052b7e4b0fe6b719729fa7e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-qualifier.csv",
+    "sha256": "9468bdb7478d29e6cd09e783b0968ae8b959727da2d62df9c8e6e895417d6a34"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-time_evidence_tier.csv",
+    "sha256": "6772ec6c95a0e4eb9913227fb9982c91b5368be6052b7e4b0fe6b719729fa7e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-header_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-identity_scope.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-identity_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-measurement_family.csv",
+    "sha256": "31a7c640e21e2816ecc0804e1e343a6a1994c35549af8f639ceee35e895e6ae9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-precision_seconds.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-qualifier.csv",
+    "sha256": "7761340b8acd7c01a9f2584d8f5b278b95dd4036c74038ca046f620d636369c2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/NCEI-native-duration-within-time_evidence_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-era.csv",
+    "sha256": "e889a1a640b80c1711b56cbf5b9c26362521b4240ce991747ff6b082828bb845"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-header_family.csv",
+    "sha256": "67afd9ffb2ab6360fb98bfdc6a59014f7b46fe3941c794e6271aa9153aa6b4c0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-identity_scope.csv",
+    "sha256": "30e03e00c96b29929da7f02bea9ff313f2362bc478463f0fc01e47968261b461"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-identity_tier.csv",
+    "sha256": "d3712d86e26864fc10607360932454148f4fd0b7bda66428e15c4f0afd51259d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-measurement_family.csv",
+    "sha256": "e8a6b3e5422a90fa956dd71c8a103830c5a4a6a3158f7368c237d2af476eeaa0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-precision_seconds.csv",
+    "sha256": "a4c140f7f7bcd835fafb2c9a0845d724398f6ab44d983df8cae237bd0d72e359"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-provider.csv",
+    "sha256": "389d923212f1b42664d08780bd79500b0f2c9619486f5b71a51f523576254fc6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-qualifier.csv",
+    "sha256": "7625030fde8a740f8404a7539825d8eeb1159a219a3f393f5cc0ce8dd4596df5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-time_evidence_tier.csv",
+    "sha256": "d323c30c3797dab533ee07ab5042c191df7e2cc4c76dbb1339cf3850852a0cb8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-header_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-identity_scope.csv",
+    "sha256": "6cd5264b4b20703f2fea982b6e749fd6b5465179bca84049ba55a21de6d36ffd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-identity_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-measurement_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-precision_seconds.csv",
+    "sha256": "d157005ce953c0807497f6dff61c299bf9040010cf8c8e5e11a7ead4ab695e8f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-qualifier.csv",
+    "sha256": "d95ebda55109cbb266582144866f8ffa680b8f1532c5884b76d9c7101a4ff8d3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/T-OBS-within-time_evidence_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/linked-differences.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/linked-differences.png",
+    "sha256": "7789873daf8e9607aba4c599cac3d32679f94a1f0867960ea5be186ac9d64f94"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/linked-differences.svg",
+    "sha256": "3392fe235f0c4bd04bafb15e16a8133536fd9dd4b6ffba34b7d9799b227d250c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/linked-geographic-comparisons.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/meta.json",
+    "sha256": "fd19a5177780ca237d8bd8da4417fa8900ca23ac64001a7ae901fb3f370336a3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/metrics.json",
+    "sha256": "d9bd4222c11e829e581725a0fe9e1d54a2e658a4baa33308a32b70118f7e418b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/outputs.json",
+    "sha256": "899eddf6b3c72b548076d3bba1b1e7670a701a084d258a9aaf076c6555751cdf"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/posthoc-P1-colocation-comparisons.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/posthoc-P1-differences.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/posthoc-P1-differences.png",
+    "sha256": "2a67f9bc94c7080567a15c247184ebff0626ddad067125804d609ba25be554d4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/posthoc-P1-differences.svg",
+    "sha256": "53c47a5cdfdb2a2c0b05b1628ce62e3acd5335520251ac86a6ff639a2b7ada31"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/report.md",
+    "sha256": "d3b57009f38096c0a6428f721154b580dfa0961606349f57751b8dbc95707229"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C5/summary.json",
+    "sha256": "d9bd4222c11e829e581725a0fe9e1d54a2e658a4baa33308a32b70118f7e418b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-by-event.csv",
+    "sha256": "7777c5e724481d4f033da2dd76c3435dbdd63a28af53908f7d3dd237717c0eb8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-distance_band.csv",
+    "sha256": "fdcc09899bf9c28a01b82e9e6128590d3748f0dbb1354c9f2efabc7cd93dbccd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-era.csv",
+    "sha256": "f6dae742b6efcd09b50c97be0ef74c964c99daac794864b0587a8c1dd8c78ea8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-era.png",
+    "sha256": "80b0057227a2cc6a453adfb262cc801aa233f788fdf8ff95a6e5cdefcc88b9e0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-era.svg",
+    "sha256": "0ba23afc38d0c3f7efe6a26486891ffbca3c54920c0b2b1b9a4b715a25cb7b72"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-header_family.csv",
+    "sha256": "5b143fd8d08a0eb88ca15c71713854b4f678c71945ba4b0a4f02b17efc82178b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-peak_present.csv",
+    "sha256": "f66a5f74c121b6c994114f60d1103890ccd1144edc25c89d3e893a8b1c820476"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-provider.csv",
+    "sha256": "baaa0063d9534e3a359c9dfb12c08d047d69356beaf5ebe5e41d7690d8f0104b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/availability-records.csv",
+    "sha256": "03ec577486443419754afe8df189678677ea2a66b7671e049698a774b8158657"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/meta.json",
+    "sha256": "9a750b7b8799f8b058b31463f5fc76b19703f38f3c548276ac5869f89fd812bb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/metrics.json",
+    "sha256": "a0322505bc1d8b108fd1d501cfc43e50e51a8ae828c84631efcd36a471059bcc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/outputs.json",
+    "sha256": "54a04d0081a1402c6cb90d7323cb968c506d9bd81d9b8e254cb86eecf628ba73"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/report.md",
+    "sha256": "bf63701ad4b229e2ef1c46fa83152e51ab93972fab1e35aaff729d0d0c45fe84"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/summary.json",
+    "sha256": "a0322505bc1d8b108fd1d501cfc43e50e51a8ae828c84631efcd36a471059bcc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/within-event-peak-presence.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C6/within-event-peak-size.csv",
+    "sha256": "fca22dc405406cee5056286dd5087a25c5aa24b2d34059728e0b690e334418bb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/NCEI-native-duration-C7.csv",
+    "sha256": "1039e745db5581be139c7f5e4771d69cd18c572b2fd7092feac0dfe3cf8fb2eb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/NCEI-native-duration-C7.png",
+    "sha256": "194fc26ace5c5bddbe40c2f4207f0b4436d11320f348b5eaa93e0cb160b76cc0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/NCEI-native-duration-C7.svg",
+    "sha256": "9021faa2dd5af43bef76b76705e5e97e5d9c41db5d114c023f0ef015d8841dc7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/NCEI-native-duration-leave-one-event-out.csv",
+    "sha256": "04ff1f60e0652e4486d5288481ca2ff93acde0e320b3613e6bb45b7d1f9f5ee9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/T-OBS-C7.csv",
+    "sha256": "e648f39d78b5a304349ded7ee2d76dc9b941ce6ad742bd9ce955b64304d28256"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/T-OBS-C7.png",
+    "sha256": "3b02b7273fb3df9b4c59e473066c9fcddcda6e3bf6986d0726c41ed68ba1fad6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/T-OBS-C7.svg",
+    "sha256": "a3da9974ecb37e698d15fba41a51d1c867c451b15465d624f2b9b4777966fd08"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/T-OBS-leave-one-event-out.csv",
+    "sha256": "fec70ad9a8fa102cd0f0b811a342a19e93e60700e66d702d0daf6f474412d050"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/meta.json",
+    "sha256": "b1e51d48e1ee8860f16c647aa20bb3e55c8c424c7d475e160b816b2551ebe30b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/metrics.json",
+    "sha256": "4c620dd332a530215ab0949df5e0aba97ec20b0216bca021852710b4e4a189ab"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/outputs.json",
+    "sha256": "cf1325cc7f8988fa02db34498bf9e2ebd86bed1650a7c468a505353d8bc3b349"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/report.md",
+    "sha256": "a22dc6e10c74f29dd8c083c6dc4be47e893a1f815025ee597be4113997bdd49f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C7/summary.json",
+    "sha256": "4c620dd332a530215ab0949df5e0aba97ec20b0216bca021852710b4e4a189ab"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-by-era.csv",
+    "sha256": "faa98f31d3a0c01d30fb35e168b87584d86b96693c6d77fd60861ceb8315904d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-by-event_id.csv",
+    "sha256": "6c7a9a087e6f5cfa4194ed143880c18d3ae73289e69618546e9174569587c962"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-by-header_family.csv",
+    "sha256": "ceb645690ab15e4923a5a47aee392212896a967f476863983ca729fbe068056f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distance.csv",
+    "sha256": "325900a2c5c758325588c05f3613d3b5e93f3d9419ae054a70e44e0645231e0e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distance.png",
+    "sha256": "c3bac09da380308d46960cf0c2efbaa87f13e9143cf050d2a3c5e004ef8f18f5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distance.svg",
+    "sha256": "0e5d3fd8e4f9286d64b394c9a47ec9429a1a031b827468b01c5509d39e58737e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distribution.csv",
+    "sha256": "65b7ef9d04c8230d8401ad3740350477ffd358386f39f8977d6faccf0dfb5b59"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distribution.png",
+    "sha256": "5812792f4b821515605cd10520ef415f0843f2f5a257f4f86e8822d6e38627e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-distribution.svg",
+    "sha256": "c1ba05afb3c2775f90d0a92b0632d572a45aa8c809c3f8579e5c2f4401795bc0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-qq.csv",
+    "sha256": "da4a637f1db91b4af63fa2c23019d05af44c6ee1094dcfcbb4a3ad382ff154d4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-qq.png",
+    "sha256": "9dba2d3e51ada02f9b81f7df40cc1738b88f5b928326daf3b0d5045ad8dcf715"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/T-CAL-qq.svg",
+    "sha256": "0782d0557aff948c8640124193d88c458610afe53fb0d838aa9a29cb1ed30e68"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/meta.json",
+    "sha256": "ae72c94c24b250a63d6361b327d9c375cd1521d76f0bc488b5a34070e23d5c75"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/metrics.json",
+    "sha256": "dda9d61e055747e24e50fa5e906a0ccccd579916ddc1d473fe500b0853416543"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/outputs.json",
+    "sha256": "5bf73f1a651c0ef9f32aacf42293e788fb5512b1267cf13b780e5c5eaa2098c7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/report.md",
+    "sha256": "94b4eefd913a848d52dbc13eb97532a449f1f4f98bb6a6ec78e850a8a9d38393"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C8/summary.json",
+    "sha256": "dda9d61e055747e24e50fa5e906a0ccccd579916ddc1d473fe500b0853416543"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/NCEI-native-duration-C9.csv",
+    "sha256": "c1404e05b3919d7df2818a719a85e1dbc83097b54e66e427b6c5d476a7eb537b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/NCEI-native-duration-C9.png",
+    "sha256": "5000e670244f3975ca383cd0152f643d51d5f85536ea5f93ec388aab3737506b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/NCEI-native-duration-C9.svg",
+    "sha256": "1a95f8765c58da9bfd5595e8a374f8a93a9f5fd4612375a26fbf72c3257fea91"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/NCEI-native-duration-LOEO-support.csv",
+    "sha256": "ce4306583bb869bc484e876e832821cb9fcc35a566724ad43bd8aa1bed6e2083"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/NCEI-native-duration-LOSO-support.csv",
+    "sha256": "d5798d2f942e8d399206faf6c98dd0e108a14bcf20414c8e8f4d7de4273e585c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-CAL-C9.csv",
+    "sha256": "97306cb3cece4f952bf8ea7e7a69fc0b11b92e4d427b58e288a521cc27f451ea"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-CAL-C9.png",
+    "sha256": "f801d7b558ca0183064cc36a8d9870f045b6fe3bbead25da8de2095e71dda262"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-CAL-C9.svg",
+    "sha256": "cb5226e6d37dc19f86bf15a95296fdc4bd42f9ed2cbc6ebe05498a5ec527866c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-CAL-LOEO-support.csv",
+    "sha256": "3f83219654fe04b572b015dffcb30389aa4a2d903866e2900d2031913eae9a76"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-CAL-LOSO-support.csv",
+    "sha256": "04855946c5c06b5bf935f44b5f4fdd3e866146924aca9d13a9c71fa4c0b1b70c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-OBS-C9.csv",
+    "sha256": "174ab78480112f18cf3278520236e288dc2c8c5b3bcd7319e8b90e549a2171c2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-OBS-C9.png",
+    "sha256": "be4ac39aebd3285d7db6285149924ec76c1beafa613f154110de784bc7c78777"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-OBS-C9.svg",
+    "sha256": "68513e480f2c03098bdf4be0d619bad13fc0312da5e09c289068dd82b424f712"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-OBS-LOEO-support.csv",
+    "sha256": "2917440021e71086e7f26065c89668f4fd8c648c4f36a95992096d556bb271ce"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/T-OBS-LOSO-support.csv",
+    "sha256": "0accc581b8c4c70c186a050b6a0db598b2f9970489daa74babbfe2b7aa0a88f4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/meta.json",
+    "sha256": "8b1f77f1a7d972f7d0bcdba3f3d304f7eb92dba5c8d6a47c7605c6381a2d0f6f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/metrics.json",
+    "sha256": "e0bf09019093923b7e9591849711acb206be55c6beacb9af981088c168079b18"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/outputs.json",
+    "sha256": "ff4c8c37c444f65fc7f2c365fe6206546fee33160a2d5f0847a882aa09bf16db"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/report.md",
+    "sha256": "db178fdf12647ad4d32b7498ffe473239d86fa394fb8f600d25a17b8e07a6786"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/confirmation-C9/summary.json",
+    "sha256": "e0bf09019093923b7e9591849711acb206be55c6beacb9af981088c168079b18"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/B1-screen.csv",
+    "sha256": "63e70dc80593fa5b4180094c6926c1a9a481d5be56acc906ee89fde13b92c98e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/B1-screen.png",
+    "sha256": "ca0b5c8ab2913aa7bacb3149f22ab2ec35dc429998fc73238cf900c2678164ff"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/B1-screen.svg",
+    "sha256": "6bd8926d8d77002734ae25ff7304c44b86d001424d06f18605c6a8a1ba02cd72"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/NCEI-native-duration-cutoff-profile.csv",
+    "sha256": "0878086056d8d30822e146a846bbf272cb6a82a043d9b89c2c4efdfcd649712b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/NCEI-native-duration-native-distance-comparison.csv",
+    "sha256": "d407e82d4c54279baad238685d20e592d1359ac95a1bfb5eec92de4defe79ecc"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/T-OBS-cutoff-profile.csv",
+    "sha256": "c499da106955b1a04bba70298169fcc1ba41fa8fc1fc6d4be10897ff9ef8cc34"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/T-OBS-native-distance-comparison.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/meta.json",
+    "sha256": "8f8a29b9665f8a2a9ab11b30e4f9965df95261a7279c8a810087a5dd181aff61"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/metrics.json",
+    "sha256": "c0de26db4ea4af9c7d2b50396d81687590a25686f20b8dc7492ae36a077b0215"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/outputs.json",
+    "sha256": "227954a366efffb2f942c641e38cbdd81e9c6663eae6d74239dca37d3a771c58"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/report.md",
+    "sha256": "3bc1d3f33b545030954c5f4e9ea66f2027b71b1d5a200b5f92cfbe41cb17b249"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B1/summary.json",
+    "sha256": "c0de26db4ea4af9c7d2b50396d81687590a25686f20b8dc7492ae36a077b0215"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/B10-screen.csv",
+    "sha256": "6160e2d5286a8b810d5228aa8a53d28a7270dc7f03f37121f1d6e8ad408a173e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/B10-screen.png",
+    "sha256": "75ac0fafc56c56e10ca18a9c6089d565c01f9be62bb3ac5dad279292ef23ae21"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/B10-screen.svg",
+    "sha256": "310ba6601a579d3d3b697c0e9b1d40cfcf5f45a0a3b58fcc52f74a92e885175f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/T-CAL-within-event-distance.csv",
+    "sha256": "264e17c5d0a46922c756c5bf19f5f2ada64762a30e4df092f8fd5c9afe931c08"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/meta.json",
+    "sha256": "982e4cd59572126c1135df77a739aae21d2ebf93aa4d287f2c82379e16d3e216"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/metrics.json",
+    "sha256": "ba88c92e61b6063a730d61700b39451b567bb70b9a3e3f2336f60617524ce3e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/outputs.json",
+    "sha256": "e2ec17c82dce7804167e88baf978601db52d0a045f4dff00e27cc6521c8e3811"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/report.md",
+    "sha256": "7a2b66352e344831027b0fbd16c2b676cefddbf46a19a16ae0dc987ca69cde9a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B10/summary.json",
+    "sha256": "ba88c92e61b6063a730d61700b39451b567bb70b9a3e3f2336f60617524ce3e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/B11-screen.csv",
+    "sha256": "13f4e530b48847c882a9788285cff5c7515bafc443b807014cde0f28acd8495a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/B11-screen.png",
+    "sha256": "01c09983cd0a78928c7d0ced0d280f40508843ea34df6fe9e33bc94feace6f6d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/B11-screen.svg",
+    "sha256": "b38d2dcb0ed659775cdaf01bb4910bad0553f07786c2755f4c58b1cfb6de3dde"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/NCEI-native-duration-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/NCEI-native-duration-within-event-source-contrasts.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/T-OBS-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/T-OBS-within-event-source-contrasts.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/meta.json",
+    "sha256": "91b9eec1befde3e3851f0fdac1cb25c41383134012205cdb97e7e55669a6e6e6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/metrics.json",
+    "sha256": "ca010e70ad5f9731451e62d9f5170a44b9ca68e8d1d0b6e5e5f6b3616872e9fa"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/outputs.json",
+    "sha256": "23a138d320f1b81f136481f58598d39fa2949d91bc325ed8d3e2861ce3057e8b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/report.md",
+    "sha256": "555532742f3f5f6866410ff455f0c16fea6c2ce637edb128afc7dc4defa6777e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B11/summary.json",
+    "sha256": "ca010e70ad5f9731451e62d9f5170a44b9ca68e8d1d0b6e5e5f6b3616872e9fa"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/B2-screen.csv",
+    "sha256": "46ce9ad6d1563d0544eb0a8d3c6d130342b60351132accbb3d71a96a8987387d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/B2-screen.png",
+    "sha256": "8a4787c31c18400e82ffbeab98d6124fcdb1c748c67b1a5a9ed1dbd20a4605be"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/B2-screen.svg",
+    "sha256": "7b44d6647edf00fafcaddd371d8b2ebb020508601d1432a577aa37824c35310c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/NCEI-native-duration-tail-source-cases.csv",
+    "sha256": "addf6d340cf4c1e0c09c12dd71e955f9f5ee461b209d03a6f5ed1aa7a4eca154"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/T-OBS-tail-source-cases.csv",
+    "sha256": "b88df789f89b11d767f87b3ff35766490454b5bbd4612f4645ba9c52f114479e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/meta.json",
+    "sha256": "27b03ad9f5a0f5733302a910a8e99658136a0d5dccc82e47005b78812805c592"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/metrics.json",
+    "sha256": "3979c97e1d9714fbb96945c28c221eb114f8540fa65dda23709274c19c9a4b2b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/outputs.json",
+    "sha256": "ad083665af10fd070404fe94aad6fd389d3c13402788304c6e87c0c232efe1bd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/report.md",
+    "sha256": "42c2d353a9d0f4ec8711ed58856e88844cecf2b41cc74d7788ac04a9ba467e81"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B2/summary.json",
+    "sha256": "3979c97e1d9714fbb96945c28c221eb114f8540fa65dda23709274c19c9a4b2b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/B3-screen.csv",
+    "sha256": "0d0146286fcb6ce165824c2d50d06557875d398396975a82a8155263d820cb30"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/B3-screen.png",
+    "sha256": "bc022dcfea8d1c5896abfe5028e3d167e90daa732dfaa45429ed4dda8c74abe8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/B3-screen.svg",
+    "sha256": "3a21ba532e1336cbd49d63974dda41ad517152a684893259d1797693bbfbd490"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/NCEI-native-duration-site-type-contrasts.csv",
+    "sha256": "732a1e3b3b4ddb29c4e82894c021d4ee885f0f3aeabde7f12b4f442a9863f7f0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/T-OBS-site-type-contrasts.csv",
+    "sha256": "cfb9cd82a67affb6dd7ae8e64b66995716f9934b92912cc7a60b7befe526a80c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/meta.json",
+    "sha256": "ba8761445f11803e7849f7feb6336a995083060b2ea2a87b961ceb660e06316b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/metrics.json",
+    "sha256": "40b7f97618b93151c6519603fa361917385ebdf90216b7a274c152f2e68ef584"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/outputs.json",
+    "sha256": "c1d1f191f5d07f94de8f579b2f52667d43562a0e1139124c020ac89463e57cab"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/report.md",
+    "sha256": "49e8bc18e9ab4eee28666d66f48470e367f11fe54cd4c9a205c67cd2a88e4db5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B3/summary.json",
+    "sha256": "40b7f97618b93151c6519603fa361917385ebdf90216b7a274c152f2e68ef584"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/B4-screen.csv",
+    "sha256": "34c9a989779c394214b46e36b4e45793f76e7abd61e1477ce8074bf0779be09c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/B4-screen.png",
+    "sha256": "0003dc3b225d3e6344d8b8a2d9babbc3758ecc7d93819b1675bd829209bfeb9e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/B4-screen.svg",
+    "sha256": "0380867cc7ce77c3bdde3688777ca36e9e7b2ff395ce29cc6898d74913fb0d73"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/NCEI-native-duration-event-covariates.csv",
+    "sha256": "14ec41dbfd5c0196674867e78ffe8d432da69b131a9929caba652984645f4ddb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/T-OBS-event-covariates.csv",
+    "sha256": "47a7aadb91b7136511a8b9a8501e1165711a9e15823097ea08c518f253a5003f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/meta.json",
+    "sha256": "6a5c23745fd713068b834c135804ecc852b9adada7591a60efed072d856a8581"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/metrics.json",
+    "sha256": "c0f468fc9ef284d6e9249ce5d397399c16c28767a2d139681f3a7141890bc01c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/outputs.json",
+    "sha256": "27f5372984a23ceb790e8d74c85c4e657bca25901cc19f6d61a61efa118b0f7c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/report.md",
+    "sha256": "dfa28aa07fe1f784d2b63c9c138b64932f8edddcc13bc37d4788ad136185e0d8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B4/summary.json",
+    "sha256": "c0f468fc9ef284d6e9249ce5d397399c16c28767a2d139681f3a7141890bc01c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/B5-screen.csv",
+    "sha256": "3f4e16a45939a0a2fcf056d072669d3472f1697afe9f7c4ae4be089c07a78cd2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/B5-screen.png",
+    "sha256": "6ebec9445623bbe75c5e8bfde0be8a9f95f1493c2ca1a5331ef80648cf24c01c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/B5-screen.svg",
+    "sha256": "f3705f34eef2fd1740132c21d7a684cc440b756c5f9d10ef48e2c381a1f5bdb1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/NCEI-native-duration-distance-spread.csv",
+    "sha256": "0e687c1a0f4a2dc811e046b817d081606bebe4a23c941edf2f73451946a69e70"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/NCEI-native-duration-precision-spread.csv",
+    "sha256": "2050b4777edceeaced7cf685c616843a4ad02eac4bb5a03798dcaad6f9a1fc77"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/T-OBS-distance-spread.csv",
+    "sha256": "9e1377fcfc18b4f32752d4f53997f0749129827aac76727c8727a2388bf9e128"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/T-OBS-precision-spread.csv",
+    "sha256": "5306d5c1d6021c77bf15ea14c210c8e5242e86e1f8ae08d5bd31585d6710f69c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/meta.json",
+    "sha256": "dcccd99b32af8e1eef0f7edd0a167f52683a61f5950ef40934cb62ff5e8729f7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/metrics.json",
+    "sha256": "43372fc4dd2719e7cd38d0880f842e5d9c02bd18f441a3092442581828253059"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/outputs.json",
+    "sha256": "176fb9b273070867da14721af50c40fee5d8b4d3391986048981809bcea6fcd3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/report.md",
+    "sha256": "f494b715ab5d20791ae2cb241559d473f526f10498695e3530d48f77ab78331d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B5/summary.json",
+    "sha256": "43372fc4dd2719e7cd38d0880f842e5d9c02bd18f441a3092442581828253059"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/B6-screen.csv",
+    "sha256": "22c9ff0ed480d6beac5c7f4846b63f8b78a318aacf391c410ec691d22aacf92d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/B6-screen.png",
+    "sha256": "79c81f085d86ffa532b660680be50c29372f5a1f7e4e1946867104adcd5e5fd9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/B6-screen.svg",
+    "sha256": "60ce6500bbb26b10c6670c8a969dfafa6ba229a555968c302e2edfb700104a7d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/NCEI-native-duration-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/NCEI-native-duration-within-event-source-contrasts.csv",
+    "sha256": "3c62304b9f0a7f237fad46dacbca87a0f3a83f8714a258d8d2d258e04970efac"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/T-OBS-linked-definition-review.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/T-OBS-within-event-source-contrasts.csv",
+    "sha256": "ccdd3c745bf05590b66d3c6747040c669d5006897c93ee49e8ccb3d7c17c86b4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/meta.json",
+    "sha256": "38081bad7218626fdeb16cab3612213b9f758da98103acfcb3614bc9aa0d94ad"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/metrics.json",
+    "sha256": "9b2b678c1a07d9db4d2d9a78c9a45a3c2b98d00b69c44fe8056f08825ec16a96"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/outputs.json",
+    "sha256": "028d93acbcedd930eb2a64e68d2abf636f5fc3bc9b37b99e8fe2d34620b75ed7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/report.md",
+    "sha256": "ecaff0f5c6e3b64be3af9265727d70d2a8fe17b7d45e04b33bfeccd761409326"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B6/summary.json",
+    "sha256": "9b2b678c1a07d9db4d2d9a78c9a45a3c2b98d00b69c44fe8056f08825ec16a96"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/B7-screen.csv",
+    "sha256": "37a80706e3b8297bc52ab48a50ca94960a8b12bfbc81075624ae6010b66883fb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/B7-screen.png",
+    "sha256": "c9a423d0e2535819dca7ae7735d232e8e2ad35ed81e664ba62dc2e998fbe4b44"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/B7-screen.svg",
+    "sha256": "b5ca5fbbce6ee2ce4044dc33b9c674aef438f2a2b458797506d62c605bdb066f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/NTWC-reports-availability-era.csv",
+    "sha256": "eacc6e63cdaa618c6c8cf729a04596059303eb8a01ad561ced178304e319c900"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/meta.json",
+    "sha256": "562c86a4aa68682750a9eb24f8ce71c62d61d6649f4e35c1f7442bcebb34c3dd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/metrics.json",
+    "sha256": "bc34bc6a973e20568b2795f8ab49fdc93e56429bb0a2284693d94da1788763c6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/outputs.json",
+    "sha256": "f2c04c62db94f3b8271aed9705397941f6b4969e534753016cca78cb22c53ef0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/report.md",
+    "sha256": "49ded813e56949367e3a5dc67d8f48234044484184e6d74ebc28920c56bef9cb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B7/summary.json",
+    "sha256": "bc34bc6a973e20568b2795f8ab49fdc93e56429bb0a2284693d94da1788763c6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/B8-screen.csv",
+    "sha256": "31bd1590fc3699e05f545845ef15218b8b158bd9ae5a9c52769c1ca0324db07e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/B8-screen.png",
+    "sha256": "ec31a6f2cb94e5a4c2f7ca6b34c396f20ad2101b5e1624e74e8d9b6aacab0114"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/B8-screen.svg",
+    "sha256": "3bf03611ca889604503c30a73758881dc3c22c9e69f471ce48015bafa5893821"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/NCEI-native-duration-full-influence.csv",
+    "sha256": "818337875e031a04a68d51c71755608a553c8638fccea75b0bde73701d344ea6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/T-OBS-full-influence.csv",
+    "sha256": "55a1cfca488fad2cb1e67dd9acdac38c9e77ecc1d11713adaa8bff971fc4e0da"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/meta.json",
+    "sha256": "6dad5a8df19a5d46418bc3a074329605b696ec0e16b6d2e8702476bda2e5dda1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/metrics.json",
+    "sha256": "22d5e31f3ffee3c261a8a4fc9966ca624fcc3cf82f50ffea41fbf6da290d447e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/outputs.json",
+    "sha256": "8b841c99d869811882189b95838dc1994027c05336b5344201032ea7f187bbf3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/report.md",
+    "sha256": "466a16cea1abd60e82b083e4ef8acc70dc722c36376644ec1139f0bd9e9f6d76"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B8/summary.json",
+    "sha256": "22d5e31f3ffee3c261a8a4fc9966ca624fcc3cf82f50ffea41fbf6da290d447e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/B9-screen.csv",
+    "sha256": "63e70dc80593fa5b4180094c6926c1a9a481d5be56acc906ee89fde13b92c98e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/B9-screen.png",
+    "sha256": "97b93c10896fa30a29414e3c21175e8436b69355a188daa53671a70e60272091"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/B9-screen.svg",
+    "sha256": "1093a2372367c9f64cfddd37402b7dc1e2c2cf5890b3d4d8a85b395bb08bd839"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/NCEI-native-duration-cutoff-profile.csv",
+    "sha256": "0878086056d8d30822e146a846bbf272cb6a82a043d9b89c2c4efdfcd649712b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/T-OBS-cutoff-profile.csv",
+    "sha256": "c499da106955b1a04bba70298169fcc1ba41fa8fc1fc6d4be10897ff9ef8cc34"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/meta.json",
+    "sha256": "26978c3488aff422d79d7849e2185c65a8ecf47ff79278509c6033dbd23a0652"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/metrics.json",
+    "sha256": "52c67ad56ab2d356e4f793554dda6a36330f41608b6f3800e3956dc1fdba8a79"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/outputs.json",
+    "sha256": "d3740220cb19fd6d343ae38d2f0ecd680bd40d90a680a47fe2a73dd1c7cd6a7c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/report.md",
+    "sha256": "48194ad3541cc102dcacecb0af33f26ef5fc320c60b7cade68861689e0a36c3b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-B9/summary.json",
+    "sha256": "52c67ad56ab2d356e4f793554dda6a36330f41608b6f3800e3956dc1fdba8a79"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/NCEI-native-duration-data-findings.csv",
+    "sha256": "bf613966a48fbe8eed628171f510295008bd5729e5ecbd1acb9240149eaf3c50"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/NCEI-native-duration-event-counts.csv",
+    "sha256": "76a107c010997bc43d084dcecabba4ed5ad2175a8e5835ee03d0dfd572038bc8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/NCEI-native-duration-event-counts.png",
+    "sha256": "39c2daa12d87308cd1d2fba0b0b23da72d725b7086a551109c43dc85d6b62e20"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/NCEI-native-duration-event-counts.svg",
+    "sha256": "93e38e699ae1ff5d613d67620728f9fba2ed64c09f8d2308f774eda04f7ad768"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/NCEI-native-duration.csv",
+    "sha256": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/T-OBS-data-findings.csv",
+    "sha256": "ffed1e0c7c5d4be4784bc59881d5e231e8f37d2233ef61b307da49f98f31e09d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/T-OBS-event-counts.csv",
+    "sha256": "bce4dbb71c5bd772aa96c4417214455d0c06a1a5c51d1d858acf5ea43b180b94"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/T-OBS-event-counts.png",
+    "sha256": "866bcc141cbdfa0817d1b94ecbfa783244d774d18ae2a5ea59f7ee12a04ef408"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/T-OBS-event-counts.svg",
+    "sha256": "c1dc2fedefa3c062ab787ddad25ce57d344f3195d0d3e9a6bdd28f603e511c22"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/T-OBS.csv",
+    "sha256": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/documentary-origin-comparison.csv",
+    "sha256": "901e888be7a54a0993e8ab33af7dda92d883f7acb602faa2fcf3f624b8104ef0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/meta.json",
+    "sha256": "335b2dcada105b6a4d0e1684dc6bc668aecc9dc0588afccf4fc6d900db0d0611"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/metrics.json",
+    "sha256": "551bce8b8c5e6552069241aae6d3a45c4df9ab9d9d35d640ed5455a473bfd31a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/outputs.json",
+    "sha256": "10880f4a6c0ff98c37d1f92f0164110ee6c3aa856618566c11e1e7c2deccd2c8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/report.md",
+    "sha256": "42e52f107f6400f45fafee8d65cb1e29830263c51a359538d186a8dcf2067a56"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C1/summary.json",
+    "sha256": "551bce8b8c5e6552069241aae6d3a45c4df9ab9d9d35d640ed5455a473bfd31a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-distribution.csv",
+    "sha256": "e61511e90559c19ddd4517ffe6a7bd5bd3bb49d63e631c99d41606ede01b0e8c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-distribution.png",
+    "sha256": "e1ffc9a75f2a7cf4cba7a6b70ba39b7152d6e5562d7b5e2a2ca2021503a14b01"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-distribution.svg",
+    "sha256": "e3cc5ea26a7d66f671eb767ccb7b7cfa2c3e3cffce3213c76a99421139ffec0f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-qq.csv",
+    "sha256": "c32b8f14d64a022f577b273a0995d849b396c2a7d8765f3ccd4ddf008d03c8f4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-qq.png",
+    "sha256": "68d87ba03126c886d31b9879ac1bd19fcce7095ecaf91a8acf9046ed88806601"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/NCEI-native-duration-qq.svg",
+    "sha256": "efd0307352c98b1c8d5b5dd79765a849d001c9a04c6842700597e9a0444cfe3c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-distribution.csv",
+    "sha256": "6f138d5e46d684f7baf3ff9e169d950755da45716b6358c09ca25b603114a641"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-distribution.png",
+    "sha256": "7f4d0e7977750ffbd1259ec7f7b5ec000041a9a096703ac804953f83f06cf62f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-distribution.svg",
+    "sha256": "68abd3485e47a6aec4b479092773678725aa76a9f4fb8c825e10ccd6aec00fcb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-qq.csv",
+    "sha256": "f2e929d7b99a321375f5236f13bdb97e444246a98684ce5b932190dc21e26df6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-qq.png",
+    "sha256": "d88ce2ae7fd34a1e0490525f1ad64e607ad9aed7fa6b809b4def3976f455f5c4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/T-OBS-qq.svg",
+    "sha256": "a7a529f6af1f03ed9d122035af94ca065ea8d6aa465269d741b96cbd0a93b8f8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/meta.json",
+    "sha256": "d3caf9fdca4410d29b8393a46777245bf6a1f45b25ac099cefa3bf7d728a04dd"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/metrics.json",
+    "sha256": "c6a6b76eba3b1f90680a73898576b56a8511cec3a30caea2ec61714480aced74"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/outputs.json",
+    "sha256": "54a38d5a43ce684f906a9aa9ebaadabbe3237f8165cefdbd3af707df6eeaa0e5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/report.md",
+    "sha256": "7e16ccbc7381fd76664e29b28f8cd2add2101cb44063ab7292ffd3ed1848403f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C2/summary.json",
+    "sha256": "c6a6b76eba3b1f90680a73898576b56a8511cec3a30caea2ec61714480aced74"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics-bins.csv",
+    "sha256": "71d0e93f95bef0774d3f19fbdb545ec2cd3bacb72f0681c9a0ce90f8dd280a96"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics-bins.png",
+    "sha256": "8a042edf2633033b7fab312dbf37f00d27153d0dea3e8d4e78686fb1fd6add49"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics-bins.svg",
+    "sha256": "4d6094027186a36648a98bd05ed3da69877e4817a4f9ca13eb99cc1535ad503c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics.csv",
+    "sha256": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics.png",
+    "sha256": "65694ac4279f8fc9af233b518a8aecdaf14e82b7bb65f3bdbf0bbcc5a6200f8f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/NCEI-native-duration-physics.svg",
+    "sha256": "e2ba300855ff68cca50d4db46c83a0782bc177d0ba0b0c668a469877b269cba2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics-bins.csv",
+    "sha256": "1dc7c35d33aa710a0273697e8fa9a0357ff252d331c221b499471b3c232c3fd2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics-bins.png",
+    "sha256": "01ef13a741746cd4d3833852cdcae8f54365d7f1e82cfb519135d2aa9b13ba32"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics-bins.svg",
+    "sha256": "bb528f9f63d90b4bf52da19115dae70904771f8543934a6f17a27315c524e5b9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics.csv",
+    "sha256": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics.png",
+    "sha256": "bac3ff545e1382e69e3e894803c64418d1646564972699edc8ae64a885edc5b3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/T-OBS-physics.svg",
+    "sha256": "de0d05bd622e6c96f17cbe02101fd724a456d5df953319842a0d44efa48d560b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/meta.json",
+    "sha256": "8cd5adb1b7c52ec83074bd7a29f98c1e7289a2089b44d4a813b13f443521bfac"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/metrics.json",
+    "sha256": "8ce79a9a6482446c95a5f3d9758f209e664c53b484c03838761db295ea85886a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/outputs.json",
+    "sha256": "61a1bbb9e32769b42c2739de78442e2c247289ab2dff66abfa1236945cf1972d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/report.md",
+    "sha256": "cbc41058a37b1b47f78e8a31edca6e7004a31109699d54c37d0813ff745c265b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C3/summary.json",
+    "sha256": "8ce79a9a6482446c95a5f3d9758f209e664c53b484c03838761db295ea85886a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-event-effects.csv",
+    "sha256": "2a6752e8af3526032e03a564a31dbe356da78efa2b4baf056c61d862bdd58b4c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-event-effects.png",
+    "sha256": "df58222f7c143410689d518e1ee3b9a9ceafe6b8c66ce86e7c48fe90e307a92b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-event-effects.svg",
+    "sha256": "5d147aec883e82748c562063fb2fe07aeb47d6ea027d6d19f28b4ba34308fb1d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-physical_site_id-effects.csv",
+    "sha256": "d33408ccd1a3fa7949d76ec7ba55f519db113b17a315be18de4d60179733c2d4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site-effects.csv",
+    "sha256": "f7151a0df1f00b862ed97fe1bd7cae2a192548b31233e54cdd2ce7f022d34483"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site-effects.png",
+    "sha256": "f565f579e8f975b2699ccdc14f806762cb6bb9b968f7947679226c3f65862b59"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site-effects.svg",
+    "sha256": "2b837fbb0c35de5b037e6d29810547b44977308ace8ac3639aac90301e7338be"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site_1km-effects.csv",
+    "sha256": "c02a2fddf01feb49c67ac6b15a0a78de2367415d03d99530a486c7713eab83cb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site_2km-effects.csv",
+    "sha256": "15af06db17aafab5c1db9bdf9440f1fa1734e7502c5bfd003cbb1537d68c5a88"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/NCEI-native-duration-site_5km-effects.csv",
+    "sha256": "185953cd5700bb89fbfb5180531355f5dcf5dc3ee716541a3a5c3eff1ca55cd8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-event-effects.csv",
+    "sha256": "6384c868a9e5efabdcf69a9d57bb62f68e38db40f8b2ee38b71f0e084527a6e0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-event-effects.png",
+    "sha256": "21ecd40ee664fefa114cd2422d115be024bc4a301c6aadec503374594c7a4af9"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-event-effects.svg",
+    "sha256": "856213baa77d657e071a16cf09b69bbedabb372b6c7da0995984c6e60008e967"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-physical_site_id-effects.csv",
+    "sha256": "0d4104abe15bb0c2ceccd7383aa018b9e82701ecc51ef36685e14ab9a1c4ae50"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site-effects.csv",
+    "sha256": "d08015be9ec22fde5d5db1d9299eda0126353814747df09a9fb85d90ddb54413"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site-effects.png",
+    "sha256": "0456ebcea4ea5d7e5e9ae6de396b160c49161ff56082e6cdd4ae704bd8cc1844"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site-effects.svg",
+    "sha256": "69800fc78cabd4001f9c10b756130d07863d3a41f0cfa1c268a979d0e6cfd83c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site_1km-effects.csv",
+    "sha256": "37a2acc218202da72aa196263cceb9a28853524107120ac1ea77c483e6004349"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site_2km-effects.csv",
+    "sha256": "5730c866ba4e7e1b72af2acf1382a5775f944abc469d37d1939318bb9a1d1e65"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/T-OBS-site_5km-effects.csv",
+    "sha256": "d43278a442e98b5b0222dce8ac72dc28e812ae804e9b750e0d033725a0314232"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/meta.json",
+    "sha256": "dbf190a334c87b4dd6d0543fc7efe2e44fbd05fcadf028ad95df5df4441a5f33"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/metrics.json",
+    "sha256": "9b97199fec9e0880f1fbac996b003defe812b2ab2eb5514ef05e634e30bf4a91"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/outputs.json",
+    "sha256": "d2545037651670695467ba48a40027767c70a8b6167001f8e49411fc30ce1c5d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/report.md",
+    "sha256": "1a8a6e4561294707c2627ccd59201adb18247e1653d5d6074e911f7dc7fa58f4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C4/summary.json",
+    "sha256": "9b97199fec9e0880f1fbac996b003defe812b2ab2eb5514ef05e634e30bf4a91"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-era.csv",
+    "sha256": "7c73a8a53af2a2e504c945f8cc0b091c28e916188db58d435d7607cd03feea26"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-header_family.csv",
+    "sha256": "a8f681f795c30b6ebef421cfa03a27cf4ff741e4ef78c5c05044d5be28a2a049"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-identity_scope.csv",
+    "sha256": "ec7e0b2c69a70730603703ce28a23e0f7a1fe109f0f82caed036842953779ae6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-identity_tier.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-measurement_family.csv",
+    "sha256": "732a1e3b3b4ddb29c4e82894c021d4ee885f0f3aeabde7f12b4f442a9863f7f0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-precision_seconds.csv",
+    "sha256": "2050b4777edceeaced7cf685c616843a4ad02eac4bb5a03798dcaad6f9a1fc77"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-provider.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-qualifier.csv",
+    "sha256": "4ae4af7b2c0d9e8fe3c4af5d96fcf9ea78860077194fdfc21e5683d1b61476c6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-time_evidence_tier.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-header_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-identity_scope.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-identity_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-measurement_family.csv",
+    "sha256": "577297b1b32632c9bfa2a91e622eb5f7ebf3f57e8f3e8c98b7575f47ae6b7211"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-precision_seconds.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-qualifier.csv",
+    "sha256": "a558b271ec86bbb0724bea6e68198cf1162cc3285b1f60632c51c53e182aa694"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/NCEI-native-duration-within-time_evidence_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-era.csv",
+    "sha256": "8db2c774e696fb7cd5a82ce7446afe7e827f59a152dd9f4725c6acc7d802d32f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-header_family.csv",
+    "sha256": "67bb3344ce543af88fbfdcca21dd646a58a77010e92e0fddf6e129488b33a0af"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-identity_scope.csv",
+    "sha256": "9546941233287cca6a0bd38b6005cdb0b1b3e8d42d864c21e5ea12200eeb0504"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-identity_tier.csv",
+    "sha256": "8a18f0149ae3685c7aaef644fd96dac334c9695c83410726173b94f5f69d200a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-measurement_family.csv",
+    "sha256": "cfb9cd82a67affb6dd7ae8e64b66995716f9934b92912cc7a60b7befe526a80c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-precision_seconds.csv",
+    "sha256": "5306d5c1d6021c77bf15ea14c210c8e5242e86e1f8ae08d5bd31585d6710f69c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-provider.csv",
+    "sha256": "08c74bf46e08c4f12209ed681f4b9466a7b9c382719a239c652507596a9cf84c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-qualifier.csv",
+    "sha256": "303e29d07c68d20cc6f496ba8a1a81fedeceb45a81339faf9c8c1ad759ed8de3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-time_evidence_tier.csv",
+    "sha256": "20dcfc5822c1aa7e37db6a9bc5ff999f40c0c642b70d7f74dc2ed57231f30286"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-header_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-identity_scope.csv",
+    "sha256": "ba65f87545317c6aa61647da5a8d15818f14450f8e93c822b0699831d0059121"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-identity_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-measurement_family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-precision_seconds.csv",
+    "sha256": "d33260af299a1dd14fe52e6959804f5a50b7c53b487cc3c3b1057b624daf289d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-qualifier.csv",
+    "sha256": "a92744b66f18c0b856cc2b178ad11549e907be8d909f8fd61a64a83f816605b3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/T-OBS-within-time_evidence_tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/linked-differences.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/linked-differences.png",
+    "sha256": "33f427f4f81c803c1e227784e27ee25d91f26c33ffe570049eb787d7200fb938"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/linked-differences.svg",
+    "sha256": "b5de99391a63534a06d0850a1a9d16ea6074423423a08698bc844b286c315087"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/linked-geographic-comparisons.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/meta.json",
+    "sha256": "04187c21d4f8452715d4d80e1053ba3dd6db9f4c81964cb5a06bfcef4a0cc8fe"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/metrics.json",
+    "sha256": "e4f3ae70bab6fb1f76078f9b2373bfe3346ee98935f8eb1a96348a5b8bb71a88"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/outputs.json",
+    "sha256": "9e262aee6e673ec2897c3e46643a2c25a5ac7c85b77e82db0e9e2a5f6a9444f4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/posthoc-P1-colocation-comparisons.csv",
+    "sha256": "352581f84d71b304d74a5efbbd0382ee59de1662cd21b213b3781f387e1d75f3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/posthoc-P1-differences.csv",
+    "sha256": "bd2f5ecc30011545bd2349f4794c524dd4c00d1d030e47bbc7381dc217ea730f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/posthoc-P1-differences.png",
+    "sha256": "d546feef0d45224eda8a1adcf99da591171aa6ac6c0a65a88bebc0397c8f1032"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/posthoc-P1-differences.svg",
+    "sha256": "8f79087f0d69f65c3ac806136b71d78ad6f5ffb82c10c51c03a43e2ef7c8659e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/report.md",
+    "sha256": "9f9096cdcd91cedf3bd964f75ca7ebaf8e60ff39b24617061c861780a9e261d3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C5/summary.json",
+    "sha256": "e4f3ae70bab6fb1f76078f9b2373bfe3346ee98935f8eb1a96348a5b8bb71a88"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-by-event.csv",
+    "sha256": "26797fc40ea6d275b86195d95fdfe0cdf06d7a60f87e78d0751ad1053fbb3c04"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-distance_band.csv",
+    "sha256": "e6aadf8a47b16ae6aa01d204193994efe52f590d21d0be1a6f6dc167b93a188d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-era.csv",
+    "sha256": "14fb910df7988f139eac2423c6052f7676ac91cb8fa04e8d88e0983caab49bb8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-era.png",
+    "sha256": "c351bdf421777785ea70bbd3efd7b2c4d387b3f8161abb9f088ae350425d2ec6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-era.svg",
+    "sha256": "73e3141f8ece7f2061b3f4a635efb4922457b13246e5d53a8da9cb2e06d8a6ee"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-header_family.csv",
+    "sha256": "931d4477cd097ba98ca0e132d4c93236011e3770481b21612c500b1a4ec0d1fb"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-peak_present.csv",
+    "sha256": "d885d66c148bfc90cb5fb9049933b734f2a335e7ee856b50219bb06ee100d4e2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-provider.csv",
+    "sha256": "645ed30c36af0a49d03482fb6ca8dba280a9510525de1ffdc827ad80cfe9534b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/availability-records.csv",
+    "sha256": "f410dd34006d79d2a1fcf4d7ffe3750e3f70ee92b1c22879ae6e7985224c0822"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/meta.json",
+    "sha256": "ba246e4a984588f2cbe76d113db28ee3465cad469c395e3ccf85ea736b196407"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/metrics.json",
+    "sha256": "13f02363774009ef6887bd3f49a9f8888f096ea3cde586c45e8c29447258c9a6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/outputs.json",
+    "sha256": "54a6d33910c500184f130645cd1a0b477d85cdf4c0c9e3d091fb6105d2629820"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/report.md",
+    "sha256": "cd1940ed6ffa3aa1bc0d315753c64f7016644fdcb38286d8b9b3465475938eb2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/summary.json",
+    "sha256": "13f02363774009ef6887bd3f49a9f8888f096ea3cde586c45e8c29447258c9a6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/within-event-peak-presence.csv",
+    "sha256": "034e2a4175f014e0308a6aee6aa7fb51bc920e65f9525f8b231bba1a4284f2f7"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C6/within-event-peak-size.csv",
+    "sha256": "520be33a2a78149b2f7c44fe5833587aae3441e924579360ea19b8fd93cd325d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/NCEI-native-duration-C7.csv",
+    "sha256": "7afef1ab1d5498294053790a43df7df176c86f2c52b727477d9411ccf448a93a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/NCEI-native-duration-C7.png",
+    "sha256": "8466df4bd05d22ee65d1e50ee7be7922673a7b1b4718e8d154253c8e5abe1aee"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/NCEI-native-duration-C7.svg",
+    "sha256": "ce7aa86f776d0ea2d6c1266e958bd17fb68636757c10d79b76e776766ba6d29e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/NCEI-native-duration-leave-one-event-out.csv",
+    "sha256": "818337875e031a04a68d51c71755608a553c8638fccea75b0bde73701d344ea6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/T-OBS-C7.csv",
+    "sha256": "40f0329cd83bca47f32ce382538ac506c17f091b3114c13e4901deee56a792b8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/T-OBS-C7.png",
+    "sha256": "d64b10843f13a613a391f98c30dcfbfaca8152e19ff15de91b141be8023b4104"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/T-OBS-C7.svg",
+    "sha256": "4c2aa5490e59098be52ba4d5b16bbb5539fd4beed1ed37f2a5d37aa0df15709b"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/T-OBS-leave-one-event-out.csv",
+    "sha256": "55a1cfca488fad2cb1e67dd9acdac38c9e77ecc1d11713adaa8bff971fc4e0da"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/meta.json",
+    "sha256": "0af5e1f61f763a91790ea9b24d14d7e1b5b62b9f2812381c7616be8cf43e49ed"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/metrics.json",
+    "sha256": "96c3593dc31eba77375bc208e0859a0b8c8687da1453931b6014cf85cc909c48"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/outputs.json",
+    "sha256": "c7f91a8d29d7633f13abe183b4e5fc8aeb8798b2cc0e27bdac4f25b7ea8b118d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/report.md",
+    "sha256": "cdb180edf05647dca62f300dcd2bb57ed501c43291ee1a08a70a54dad63052e4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C7/summary.json",
+    "sha256": "96c3593dc31eba77375bc208e0859a0b8c8687da1453931b6014cf85cc909c48"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-by-era.csv",
+    "sha256": "6f62eed61f5fe440c2a700e83daa3f8b0f7a6b2750389c0da218df3806e37947"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-by-event_id.csv",
+    "sha256": "3e453e44f19f3d2c78fc77e4dfce53919b91270b37f38242d93c89d5f8bb7f66"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-by-header_family.csv",
+    "sha256": "367fb0afc1def8025a4acf2a7a2b37944f05bb955e5363fc3f7377c4accbed21"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distance.csv",
+    "sha256": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distance.png",
+    "sha256": "f1160e15a5e678c223ebb8dc79465d8374a69d8f26d7513ef67a391a8299a6b4"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distance.svg",
+    "sha256": "57eec4d9bc96f79af3c184fc88c6b824891429832aea46a58cdae7c77f518126"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distribution.csv",
+    "sha256": "d3864ad98186882e8a8e355f4a24a1af6c5515d5a890073bef9cefe2b528dd5c"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distribution.png",
+    "sha256": "148934910c329bd37b8f6f953ccb988b3641ff1c9c0c5891626a766b2b47a4e6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-distribution.svg",
+    "sha256": "e3131e7b3d9affe50b1cc5468b3421a9091a3cd37993788d6afd780a49086390"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-qq.csv",
+    "sha256": "06be4033389ec2826a578f11e05c9c876d22ef3cc1e8fa0106a9149b75254ce2"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-qq.png",
+    "sha256": "eb9a13ce05f77a1dbe3c4085bf2447c53526d1b03ce4b9304cbe5878cec2d646"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/T-CAL-qq.svg",
+    "sha256": "ffdc65611a60d736a8bea8b4dd22931a9a69d59d66dba84c4f1d1cb2a85d6407"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/meta.json",
+    "sha256": "df3d17402d9cf370e55cffaf50ac58a5a35c7aeb0299a42cf4edb257c06135ab"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/metrics.json",
+    "sha256": "255fb36e505f344d243b9e31183877ac29b7bbe9470f77ec434450b0dfda2af1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/outputs.json",
+    "sha256": "5768eedbb322f92d74d35952741ea5844d9270560cfd3a9d52622265ea279c05"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/report.md",
+    "sha256": "1ace0cbdc2f65b3e2edda5162e315a4f72f184c165110f9a807984f0835b2e84"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C8/summary.json",
+    "sha256": "255fb36e505f344d243b9e31183877ac29b7bbe9470f77ec434450b0dfda2af1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/NCEI-native-duration-C9.csv",
+    "sha256": "060d033e1a4218bcaf064c7503807deb1f84ac12b868bb3860b655ef054a0f98"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/NCEI-native-duration-C9.png",
+    "sha256": "4c65d4db7d39f404e6b050fd2e69dc2f4808697d755afa308e5aa92b5f3328c3"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/NCEI-native-duration-C9.svg",
+    "sha256": "e30740f029251f653a292d64f6256c87c2442066bd01d708fa93b40760e1486d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/NCEI-native-duration-LOEO-support.csv",
+    "sha256": "334c982aa099755478cc5d56a1dfe9337e5917e4fc0ec391c88aa3b061cc97ad"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/NCEI-native-duration-LOSO-support.csv",
+    "sha256": "01c08c94e57bcb0a549f1ad8a191c80647f23a4d39f72c2fdd7629a81be09881"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-CAL-C9.csv",
+    "sha256": "12425e96ea7748767243e426c79c8abe51849034983210d236cf60f81cc446e5"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-CAL-C9.png",
+    "sha256": "2ac6add5296547d950ce7c1471f769bef3bd3753c2278673243983fa2bdb513a"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-CAL-C9.svg",
+    "sha256": "cf373ce2a71ee937b45363a7f9eda5de6a9246147b068507d45bdbb706e52716"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-CAL-LOEO-support.csv",
+    "sha256": "1b41d79303247b91a62ea9f52c4ef685fcde96e1e66a7756247bc7687cc44b3e"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-CAL-LOSO-support.csv",
+    "sha256": "b2ccc81abfc56595dac668ac475f4d1518ac2c61a5b72a886c3836014ef50cff"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-OBS-C9.csv",
+    "sha256": "67152d599052e3368bafd9177c49fa53af23fe5803b72d5ccaa04ffe1010f2c0"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-OBS-C9.png",
+    "sha256": "d7affde2cf5af61c0c03b81280b274aa53f4aee1ce4390513f97e301b318bc46"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-OBS-C9.svg",
+    "sha256": "8a577d6663ac9c133c94613c79ffdee40bdc4ab47b190a642f2f0a9b4ee0a732"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-OBS-LOEO-support.csv",
+    "sha256": "309aadb6b8628803e013691140f6f39e9cb4ed49850e90573bb48f6bec8412b6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/T-OBS-LOSO-support.csv",
+    "sha256": "ac1c910c3e9475d008fb9b32315ee876119b0a8279da1fe9567e0916d29ea648"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/meta.json",
+    "sha256": "00be3423f59475c7473f768042cf235e5b9312cf6a2be1b6164a6942a06a5c99"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/metrics.json",
+    "sha256": "dca750a8f7c2e60c3783d68713f660722d88f1e4107107238577bcb167ea65af"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/outputs.json",
+    "sha256": "43cd633759a39db21442dea228d1b850a88609e4336d444014cdb6cf25b620a8"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/report.md",
+    "sha256": "ceda3e863f2d05c5cb1b911c13aea8712d77a7890d0cd593c768de5f3b3cee7d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-C9/summary.json",
+    "sha256": "dca750a8f7c2e60c3783d68713f660722d88f1e4107107238577bcb167ea65af"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-branch-registry.csv",
+    "sha256": "611ed885796568783a158cef0c5913ee939303f9ee6a003ac8aee583c051fd8f"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/exploration-observable-scales.csv",
+    "sha256": "d0bf7b4f542cef9a8ee68c09d56ec851b6071cb6b1f239cb50135e568060e805"
+  },
+  {
+    "path": "artifacts/eda/paper/final-v1/target-summary.csv",
+    "sha256": "2c9ce48e234f0b1e4fa1dae53a2f929162a4a17ba156a8c599e105e95d4a60f3"
+  },
+  {
+    "path": "artifacts/eda/paper/report.md",
+    "sha256": "9d212cd209fd77785982a89a5909bb8d52e4de99fb20f8c0983b8fb19d4321f6"
+  },
+  {
+    "path": "artifacts/eda/paper/figures.md",
+    "sha256": "4a5b31fff2d9a40470b2106cbc725d318d1bd126360f6cef2cf056812eb9b89c"
+  }
+]

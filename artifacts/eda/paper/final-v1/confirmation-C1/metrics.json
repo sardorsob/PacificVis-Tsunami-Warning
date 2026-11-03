@@ -1,0 +1,93 @@
+{
+  "NCEI-native-duration": {
+    "additive_design_rank": 109,
+    "components": 2,
+    "events": 14,
+    "findings": 0,
+    "inverse_simpson_events": 8.600905318747643,
+    "origin_difference_seconds": {
+      "finite_n": 151,
+      "mad": 0.039999999999999994,
+      "max": 2.82,
+      "median": -0.02,
+      "min": -0.08,
+      "n": 151,
+      "q10": -0.08,
+      "q90": 2.82
+    },
+    "precision": [
+      {
+        "finite_n": 151,
+        "group": "60",
+        "mad": 191.0,
+        "max": 1397.0,
+        "median": 258.0,
+        "min": 4.0,
+        "n": 151,
+        "q10": 36.0,
+        "q90": 842.0
+      }
+    ],
+    "rows": 151,
+    "sites": 97,
+    "sites_at_least_2_events": 34,
+    "sites_at_least_3_events": 13,
+    "sites_at_least_5_events": 1,
+    "top3_row_share": 0.4370860927152318,
+    "unknown_distance": 0
+  },
+  "T-OBS": {
+    "additive_design_rank": 22,
+    "components": 4,
+    "events": 6,
+    "findings": 0,
+    "inverse_simpson_events": 4.745098039215686,
+    "origin_difference_seconds": {
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 22,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "precision": [
+      {
+        "finite_n": 13,
+        "group": "60",
+        "mad": 124.84949999999998,
+        "max": 831.3255,
+        "median": 290.476,
+        "min": 15.3225,
+        "n": 13,
+        "q10": 117.92893333333333,
+        "q90": 740.9255000000003
+      },
+      {
+        "finite_n": 9,
+        "group": "unknown",
+        "mad": 42.000000000000014,
+        "max": 338.476,
+        "median": 160.32233333333335,
+        "min": 107.86999999999999,
+        "n": 9,
+        "q10": 116.23186666666666,
+        "q90": 252.85013333333336
+      }
+    ],
+    "rows": 22,
+    "sites": 20,
+    "sites_at_least_2_events": 2,
+    "sites_at_least_3_events": 0,
+    "sites_at_least_5_events": 0,
+    "top3_row_share": 0.7272727272727273,
+    "unknown_distance": 0
+  },
+  "documentary_origins": {
+    "finite_n": 0,
+    "mad": "unknown",
+    "median": "unknown",
+    "n": 0,
+    "q10": "unknown",
+    "q90": "unknown"
+  }
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "branch": "B1",
+    "confirmation_scalar": 0.6427138965958735,
+    "exploration_scalar": 0.6020010222209724,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "near_far",
+    "status": "confirmed descriptive screen",
+    "target": "NCEI-native-duration",
+    "units": "log ratio"
+  },
+  {
+    "branch": "B1",
+    "confirmation_scalar": 0.3858280896310002,
+    "exploration_scalar": 0.47514719055064125,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "near_far",
+    "status": "tentative: fewer than five confirmation records in a distance group",
+    "target": "T-OBS",
+    "units": "log ratio"
+  },
+  {
+    "branch": "B2",
+    "confirmation_scalar": 0.17218543046357615,
+    "exploration_scalar": 0.11495327102803739,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "confirmed descriptive screen",
+    "target": "NCEI-native-duration",
+    "units": "proportion"
+  },
+  {
+    "branch": "B2",
+    "confirmation_scalar": 0.0,
+    "exploration_scalar": 0.11440677966101695,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "tentative: magnitude did not replicate",
+    "target": "T-OBS",
+    "units": "proportion"
+  },
+  {
+    "branch": "B3",
+    "confirmation_scalar": 15.769823820939683,
+    "exploration_scalar": 3.3230104246696834,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "tentative: bootstrap stability failed",
+    "target": "NCEI-native-duration",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B3",
+    "confirmation_scalar": "unknown",
+    "exploration_scalar": "unknown",
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "unresolved: exploration untriggered or unidentifiable",
+    "target": "T-OBS",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B4",
+    "confirmation_scalar": 13.972996665374755,
+    "exploration_scalar": 4.224770572543195,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "tentative: magnitude did not replicate",
+    "target": "NCEI-native-duration",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B4",
+    "confirmation_scalar": "unknown",
+    "exploration_scalar": "unknown",
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "unresolved: exploration untriggered or unidentifiable",
+    "target": "T-OBS",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B5",
+    "confirmation_scalar": 12.984872904028986,
+    "exploration_scalar": 8.00966044332812,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "distance",
+    "status": "confirmed descriptive screen",
+    "target": "NCEI-native-duration",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B5",
+    "confirmation_scalar": 1.9972093169213447,
+    "exploration_scalar": 22.7849386271654,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "distance",
+    "status": "tentative: magnitude did not replicate",
+    "target": "T-OBS",
+    "units": "MAD ratio"
+  },
+  {
+    "branch": "B6",
+    "confirmation_scalar": 128.25,
+    "exploration_scalar": 202.5,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "measurement_family|deep_ocean_gauge|tide_gauge",
+    "status": "tentative: confirmation contrast interval/threshold inconclusive",
+    "target": "NCEI-native-duration",
+    "units": "minutes"
+  },
+  {
+    "branch": "B6",
+    "confirmation_scalar": "unknown",
+    "exploration_scalar": "unknown",
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "direct_geographic",
+    "status": "unresolved: exploration untriggered or unidentifiable",
+    "target": "T-OBS",
+    "units": "minutes"
+  },
+  {
+    "branch": "B7",
+    "confirmation_scalar": 0.4181818181818182,
+    "exploration_scalar": 0.5343718102338793,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "era",
+    "status": "confirmed descriptive screen",
+    "target": "NTWC-reports",
+    "units": "availability spread proportion"
+  },
+  {
+    "branch": "B8",
+    "confirmation_scalar": 1.3386947868618493,
+    "exploration_scalar": 34.85419912394657,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "tentative: magnitude did not replicate",
+    "target": "NCEI-native-duration",
+    "units": "relative change"
+  },
+  {
+    "branch": "B8",
+    "confirmation_scalar": 13.336355999248575,
+    "exploration_scalar": 11.41836801321871,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "confirmed descriptive screen",
+    "target": "T-OBS",
+    "units": "relative change"
+  },
+  {
+    "branch": "B9",
+    "confirmation_scalar": 0.6427138965958735,
+    "exploration_scalar": 0.6020010222209724,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "near_far",
+    "status": "confirmed descriptive screen",
+    "target": "NCEI-native-duration",
+    "units": "log ratio"
+  },
+  {
+    "branch": "B9",
+    "confirmation_scalar": 0.3858280896310002,
+    "exploration_scalar": 0.47514719055064125,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "near_far",
+    "status": "tentative: fewer than five confirmation records in a distance group",
+    "target": "T-OBS",
+    "units": "log ratio"
+  },
+  {
+    "branch": "B10",
+    "confirmation_scalar": -0.6357142857142857,
+    "exploration_scalar": -0.4529796674114873,
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "fixed_registered_screen",
+    "status": "tentative: only two usable event-level confirmation trends",
+    "target": "T-CAL",
+    "units": "rank correlation"
+  },
+  {
+    "branch": "B11",
+    "confirmation_scalar": "unknown",
+    "exploration_scalar": "unknown",
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "direct_geographic",
+    "status": "unresolved: exploration untriggered or unidentifiable",
+    "target": "NCEI-native-duration",
+    "units": "minutes"
+  },
+  {
+    "branch": "B11",
+    "confirmation_scalar": "unknown",
+    "exploration_scalar": "unknown",
+    "interpretation": "descriptive screen only; limits in report",
+    "route": "direct_geographic",
+    "status": "unresolved: exploration untriggered or unidentifiable",
+    "target": "T-OBS",
+    "units": "minutes"
+  }
+]

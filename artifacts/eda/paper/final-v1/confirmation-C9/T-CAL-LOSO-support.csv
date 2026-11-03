@@ -1,0 +1,13 @@
+physical_site_id,test_rows,train_additive_rank,train_events_for_site_events
+coops:1611400,1,12,1
+coops:1612340,1,12,1
+coops:1615680,1,12,1
+coops:1617433,1,12,1
+ntwc-header-site:5cbcc33eb7c3711795d1d78f47a7d020f9ef364167238d98547c85400c28dde9,1,12,0
+ntwc-header-site:74ab69f97e4052707b64b967f8e087118a0686e3b9834ac51291a54adea8dc94,1,12,1
+ntwc-header-site:82270b7fdebb80097fb956d10b3a5386c334af53182fc513693859ecd3c91df3,1,12,1
+ntwc-header-site:8be016a07b3bf0ee8dde823f9dfea38aa7341e44fe2f74de01e996fcef8372e5,1,12,1
+ntwc-header-site:9c0cc88deef00a6e0e1bb2e0c241852382f6ca6c35ddaadb71bd36f5e0859190,1,12,1
+ntwc-header-site:9fcabb941c66168537f5e6bf58e6eea1edc30b005a878e295c638fa7f38d2f77,1,12,1
+ntwc-header-site:d324effd59b199b7cefb6143252471d6ce0551505563a7ee293ac6d509b802da,2,11,1
+ntwc-header-site:dcef0a689fa4553ba5de2cd7df79343742085ffa4b708930ff2a5d08e34a6448,1,12,1

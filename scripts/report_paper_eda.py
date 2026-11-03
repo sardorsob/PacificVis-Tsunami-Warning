@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from analysis.arrival.eda import number
-from analysis.arrival.evidence import write_json, write_rows
+from analysis.arrival.evidence import read_rows, write_json, write_rows
 
 
 def read(base: Path, split: str, module: str) -> dict[str, Any]:
@@ -20,13 +20,17 @@ def fmt(value: Any) -> str:
     return f"{v:.4g}" if math.isfinite(v) else "unknown"
 
 
-def replication(branch: str, explore: dict[str, Any], confirm: dict[str, Any]) -> str:
+def replication(
+    branch: str, explore: dict[str, Any], confirm: dict[str, Any], support_note: str = ""
+) -> str:
     """Apply the frozen descriptive rule; unidentified support never confirms."""
     if not explore["triggered"]:
         return "unresolved: exploration untriggered or unidentifiable"
     a, b = number(explore["scalar"]), number(confirm.get("scalar"))
     if not math.isfinite(a) or not math.isfinite(b):
         return "tentative: confirmation unidentifiable"
+    if support_note:
+        return "tentative: " + support_note
     if branch == "B3" and not (
         explore["detail"].get("two_key_bootstrap_stability")
         and confirm["detail"].get("two_key_bootstrap_stability")
@@ -69,8 +73,12 @@ def report(root: Path) -> None:
                             "events",
                             "sites",
                             "components",
+                            "additive_design_rank",
                             "inverse_simpson_events",
-                            "top3_event_share",
+                            "top3_row_share",
+                            "sites_at_least_2_events",
+                            "sites_at_least_3_events",
+                            "sites_at_least_5_events",
                         ]
                     },
                     **{k: s[k] for k in ["median", "mad", "q10", "q90"]},
@@ -94,6 +102,17 @@ def report(root: Path) -> None:
         confirmation = read(base, "confirmation", module) if module in lock["questions"] else {}
         for target, x in exploration.items():
             y = confirmation.get(target, {})
+            support_note = ""
+            if module in ["B1", "B9"]:
+                profile = read(base, "confirmation", "C3")[target]
+                if min(profile["near"]["finite_n"], profile["far"]["finite_n"]) < 5:
+                    support_note = "fewer than five confirmation records in a distance group"
+            elif module == "B10":
+                trends = read_rows(base / "confirmation-B10/T-CAL-within-event-distance.csv")
+                if sum(math.isfinite(number(r["rho"])) for r in trends) < 3:
+                    support_note = "only two usable event-level confirmation trends"
+            elif module == "B6" and y and not y["triggered"]:
+                support_note = "confirmation contrast interval/threshold inconclusive"
             comparisons.append(
                 {
                     "branch": module,
@@ -101,7 +120,7 @@ def report(root: Path) -> None:
                     "route": lock["routes"][module][target],
                     "exploration_scalar": x["scalar"],
                     "confirmation_scalar": y.get("scalar", "unknown"),
-                    "status": replication(module, x, y),
+                    "status": replication(module, x, y, support_note),
                     "units": {
                         "B1": "log ratio",
                         "B2": "proportion",
@@ -118,7 +137,9 @@ def report(root: Path) -> None:
                     "interpretation": "descriptive screen only; limits in report",
                 }
             )
-    write_rows(base / "branch-replication.csv", comparisons)
+    write_rows(
+        base / "branch-replication.csv", [{k: str(v) for k, v in r.items()} for r in comparisons]
+    )
     write_json(base / "branch-replication.json", comparisons)
     lines = [
         "# Preliminary arrival-timing EDA",
@@ -128,6 +149,13 @@ def report(root: Path) -> None:
         "travel durations, and signed estimated-minus-observed timing differences. "
         "No records were repaired or removed, and no likelihood, prior or model was "
         "fitted or selected.",
+        "",
+        "The NCEI near-field departure from a fixed depth reference repeats in "
+        "confirmation, as does stronger dispersion across distance groups. Exact-UTC "
+        "availability remains uneven across source eras. Station-effect stability, "
+        "cross-source identity/ancestry and the missingness mechanism remain unresolved. "
+        "The signed forecast comparison has median −15.5 min in exploration and "
+        "−13 min in confirmation; its distance-trend evidence is too sparse to confirm.",
         "",
         "## Read the targets separately",
         "",
@@ -206,6 +234,8 @@ def report(root: Path) -> None:
             "original source values; no proven transcription error was found. One NCEI/JMA "
             "first-wave definition comparison remains unapproved, and 148 other causes "
             "remain unresolved. QQ curvature does not select a heavy-tail likelihood.",
+            "All 26 confirmation NCEI tail flags also match their original native "
+            "duration fields. Their specific causes remain unknown; they were retained.",
             "",
             "## Groups, provenance and availability",
             "",
@@ -220,7 +250,14 @@ def report(root: Path) -> None:
             "![NCEI component-relative event effects with the largest event departures labeled]"
             "(final-v1/exploration-C4/NCEI-native-duration-event-effects.png)",
             "",
-            "Zero direct cross-family shared geographic IDs support an approved comparison. "
+            "In the frozen confirmation T-OBS event-effect figure, an optional "
+            "right-edge ID annotation is clipped. The two plotted component-0 "
+            "events are usp000hr97 (+0.0767355) and usp000jr83 (−0.0767355) on the "
+            "log-ratio scale; their full IDs and values are preserved in the "
+            "[figure CSV](final-v1/confirmation-C4/T-OBS-event-effects.csv). "
+            "The frozen image and numerical output were preserved unchanged.",
+            "",
+            "No direct cross-family shared geographic-ID comparison is available in either half. "
             "The posthoc P1 sensitivity uses existing same-name bounded-2-km keys and "
             "does not approve identities, deployments, common onsets, ancestry or independence. "
             "Its 56 exploration comparisons have median NTWC−NCEI difference −0.147 min "
@@ -228,6 +265,8 @@ def report(root: Path) -> None:
             "difference, three from one to under five, and five at least five. Maximum "
             "coordinate separation is 1.248 km. Close agreement can reflect copying or "
             "definitions; it does not establish independent measurements.",
+            "Confirmation P1 contains zero co-location comparisons, so the 56-row "
+            "exploration sensitivity cannot be confirmed in the second half.",
             "",
             "![Unapproved same-name bounded-2-km duration comparisons]"
             "(final-v1/exploration-C5/posthoc-P1-differences.png)",
@@ -305,6 +344,12 @@ def report(root: Path) -> None:
             "B3 additionally requires the registered bootstrap stability. B11 was "
             "unidentifiable and did not trigger a confirmation branch; C5 was still rerun.",
             "",
+            "The T-OBS confirmation near-field group has one record, so B1/B9 remain "
+            "tentative under the minimum-five-record screen. T-CAL has only two finite "
+            "event-level confirmation trends, so B10 remains tentative. These support "
+            "qualifications do not change any frozen question, scalar or threshold. "
+            "B1/B9 reuse the same near−far contrast and are not independent confirmations.",
+            "",
             "| Branch | Target | Exploration scalar | Confirmation scalar | Disposition |",
             "| --- | --- | ---: | ---: | --- |",
         ]
@@ -322,6 +367,29 @@ def report(root: Path) -> None:
             "Scalars have branch-specific units in the CSV and must not be compared across rows. "
             "B5/B7/B8 are nonnegative dispersion/availability/influence screens; repeating "
             "their magnitude does not establish the same ordered covariate effect or driver.",
+            "",
+            "## Repeated-site and holdout support",
+            "",
+            "| Target / split | Components | Structural rank | Sites in ≥2 / ≥3 / ≥5 events | "
+            "Inverse-Simpson event concentration | Top-three event row share |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for r in counts:
+        repeated = " / ".join(str(r[f"sites_at_least_{n}_events"]) for n in [2, 3, 5])
+        lines.append(
+            f"| {r['target']} / {r['split']} | {r['components']} | "
+            f"{r['additive_design_rank']} | {repeated} | "
+            f"{fmt(r['inverse_simpson_events'])} | {fmt(r['top3_row_share'])} |"
+        )
+    lines.extend(
+        [
+            "",
+            "Structural additive rank is events + sites − connected components, "
+            "not proof of stable variance estimation. Inverse-Simpson concentration "
+            "describes event imbalance; it is not posterior effective sample size "
+            "or a count of independent earthquakes. C9 retains every LOEO and LOSO "
+            "support table, including whether held-out records use sites seen elsewhere.",
             "",
             "## Decision memo for later modeling",
             "",
@@ -420,6 +488,15 @@ def report(root: Path) -> None:
             f"| {png.parent.name} | [{png.stem}]({rel}) | "
             f"[CSV]({rel.with_suffix('.csv')}) | [SVG]({rel.with_suffix('.svg')}) |"
         )
+    gallery.extend(
+        [
+            "",
+            "The frozen confirmation-C4 T-OBS event-effects image clips an optional "
+            "right-edge ID annotation. The component-0 values are usp000hr97 "
+            "(+0.0767355) and usp000jr83 (−0.0767355). Full IDs/values are in its "
+            "CSV; the frozen image and numerical results were preserved.",
+        ]
+    )
     (base.parent / "figures.md").write_text("\n".join(gallery) + "\n")
     print(base.parent / "report.md")
 

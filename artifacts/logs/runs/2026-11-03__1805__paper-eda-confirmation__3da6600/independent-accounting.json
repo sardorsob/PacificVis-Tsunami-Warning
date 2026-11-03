@@ -1,0 +1,122 @@
+{
+  "C4": {
+    "NCEI-native-duration": {
+      "physical_site_id": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 2
+      },
+      "site_1km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 2
+      },
+      "site_2km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 2
+      },
+      "site_5km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 2
+      }
+    },
+    "T-OBS": {
+      "physical_site_id": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 4
+      },
+      "site_1km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 4
+      },
+      "site_2km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 4
+      },
+      "site_5km": {
+        "cell_counts_residual_degrees_effect_and_residual_MAD": true,
+        "components_checked": 4
+      }
+    }
+  },
+  "C6": {
+    "accepted": 161,
+    "all_group_denominators_checked": true,
+    "exact_observed": 83,
+    "retained": 166,
+    "structural": 5
+  },
+  "C7": {
+    "NCEI-native-duration": {
+      "all_event_deletions_checked": 14,
+      "median_mad_row_counts_and_C5_source_contrasts": true
+    },
+    "T-OBS": {
+      "all_event_deletions_checked": 6,
+      "median_mad_row_counts_and_C5_source_contrasts": true
+    }
+  },
+  "C9": {
+    "NCEI-native-duration": {
+      "all_LOEO_seen_site_counts_and_LOSO_counts": true,
+      "components": 2,
+      "concentration_and_repeats": true,
+      "rank": 109
+    },
+    "T-CAL": {
+      "all_LOEO_seen_site_counts_and_LOSO_counts": true,
+      "components": 4,
+      "concentration_and_repeats": true,
+      "rank": 13
+    },
+    "T-OBS": {
+      "all_LOEO_seen_site_counts_and_LOSO_counts": true,
+      "components": 4,
+      "concentration_and_repeats": true,
+      "rank": 22
+    }
+  },
+  "T-CAL_source_clock_traces": [
+    {
+      "E_minus_O_minutes": -25.0,
+      "estimated_utc": "2014-10-09T06:40:00Z",
+      "observed_utc": "2014-10-09T07:05:00Z",
+      "record_id": "usb000sk6k:1:1"
+    },
+    {
+      "E_minus_O_minutes": -13.0,
+      "estimated_utc": "2014-10-09T06:45:00Z",
+      "observed_utc": "2014-10-09T06:58:00Z",
+      "record_id": "usb000sk6k:1:2"
+    },
+    {
+      "E_minus_O_minutes": 4.0,
+      "estimated_utc": "2012-02-02T13:54:00Z",
+      "observed_utc": "2012-02-02T13:50:00Z",
+      "record_id": "usp000jeag:1:1"
+    }
+  ],
+  "frames": {
+    "NCEI-native-duration": {
+      "events": 14,
+      "mad": 191.0,
+      "median": 258.0,
+      "rows": 151,
+      "sites": 97
+    },
+    "T-CAL": {
+      "events": 5,
+      "mad": 12.0,
+      "median": -13.0,
+      "rows": 13,
+      "sites": 12
+    },
+    "T-OBS": {
+      "events": 6,
+      "mad": 98.34750000000001,
+      "median": 219.44366666666667,
+      "rows": 22,
+      "sites": 20
+    }
+  },
+  "scope": "Locked confirmation only; independently recomputed without production scientific helpers",
+  "status": "PASS_independent_numeric_accounting"
+}

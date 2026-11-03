@@ -1,0 +1,44 @@
+{
+ "result": "fail",
+ "dest": "report",
+ "figures": 35,
+ "fails": 1,
+ "warns": 4,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig17/ax0 legend",
+   "detail": "legend with 2 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig19/ax0 legend",
+   "detail": "legend with 2 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "label-ambiguous",
+   "severity": "warn",
+   "where": "fig20/ax0 annotation 'usp0009j4n'",
+   "detail": "about equally near the dots at (3, 0.6995) (3 pt) and (5, 0.7923) (3 pt)",
+   "fix": "Put the label on the side of its dot away from neighbors, tight to the dot, or add a short leader line."
+  },
+  {
+   "check": "text-clipped",
+   "severity": "fail",
+   "where": "fig22/ax0 annotation 'usp000jr83'",
+   "detail": "extends past the canvas right edge",
+   "fix": "Move the text inside the figure or widen that margin with subplots_adjust."
+  },
+  {
+   "check": "default-title",
+   "severity": "warn",
+   "where": "fig26/figure 'Exact observation availability by product era'",
+   "detail": "title describes the chart instead of the takeaway",
+   "fix": "Rewrite the title as the finding, e.g. 'Sales doubled after the 2020 launch'."
+  }
+ ]
+}

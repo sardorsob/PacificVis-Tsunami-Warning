@@ -1,0 +1,4 @@
+event_id,exact_observed_n,native_median_difference,not_exact_observed_n,unit_scope
+usb000sk6k,3,-18.5,2,usb000sk6k/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usp000gv5p,6,-0.6000000000000005,15,usp000gv5p/1/computed_observed_utc; native units unknown; no pooled size
+usp000hr97,4,3.5,1,usp000hr97/1/estimated_observed_utc_jday; native units unknown; no pooled size

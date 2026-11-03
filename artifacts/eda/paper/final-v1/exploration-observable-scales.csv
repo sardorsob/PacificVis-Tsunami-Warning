@@ -1,0 +1,4 @@
+mad,median,q10,q90,target,units,use
+13.5,-15.5,-51.0,3.5,T-CAL,minutes,descriptive observable scales only; not selected priors
+299.0,429.0,66.0,1038.2,NCEI-native-duration,minutes,descriptive observable scales only; not selected priors
+316.05858333333333,440.0109166666666,64.59758333333333,1064.0695,T-OBS,minutes,descriptive observable scales only; not selected priors

@@ -1,0 +1,942 @@
+{
+  "NCEI-native-duration": {
+    "physical_site_id": {
+      "components": 2,
+      "largest_component_rows": 147,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.012144391399972851,
+          "id": "official20010623203314130_33",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.022304650152300265,
+          "id": "official20030925195006360_27",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.16133351092266632,
+          "id": "usp0008rpa",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6994898902364429,
+          "id": "usp0009j4n",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.00442313609625631,
+          "id": "usp000cd1n",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.7922676600072256,
+          "id": "usp000d3ka",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14422929984103877,
+          "id": "usp000fshy",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07992867848032822,
+          "id": "usp000g3eq",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000gv5p",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10482799274121493,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3576595303807153,
+          "id": "usp000jeag",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.053463480382658454,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025899111876937445,
+          "id": "usp000jrsw",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 1,
+          "cells": 147,
+          "component": 0,
+          "event_mad": 0.07992867848032822,
+          "event_residual_ratio": 13.972996665374755,
+          "events": 13,
+          "residual_degrees": 42,
+          "residual_mad": 0.005720224544130351,
+          "rows": 147,
+          "site_mad": 0.09020693327715065,
+          "site_ratio_high": 15.769823820939683,
+          "site_ratio_low": 15.769823820939683,
+          "site_residual_ratio": 15.769823820939683,
+          "sites": 93
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 4,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 4,
+          "site_mad": 0.09993297620479535,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 4
+        }
+      ],
+      "raw_rows": 151
+    },
+    "site_1km": {
+      "components": 2,
+      "largest_component_rows": 147,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.012144391399972851,
+          "id": "official20010623203314130_33",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.022304650152300265,
+          "id": "official20030925195006360_27",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.16133351092266632,
+          "id": "usp0008rpa",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6994898902364429,
+          "id": "usp0009j4n",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.00442313609625631,
+          "id": "usp000cd1n",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.7922676600072256,
+          "id": "usp000d3ka",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14422929984103877,
+          "id": "usp000fshy",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07992867848032822,
+          "id": "usp000g3eq",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000gv5p",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10482799274121493,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3576595303807153,
+          "id": "usp000jeag",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.053463480382658454,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025899111876937445,
+          "id": "usp000jrsw",
+          "kind": "event",
+          "site_key": "site_1km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 147,
+          "component": 0,
+          "event_mad": 0.07992867848032822,
+          "event_residual_ratio": 13.972996665374755,
+          "events": 13,
+          "residual_degrees": 42,
+          "residual_mad": 0.005720224544130351,
+          "rows": 147,
+          "site_mad": 0.09020693327715065,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 15.769823820939683,
+          "sites": 93
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 4,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 4,
+          "site_mad": 0.09993297620479535,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 4
+        }
+      ],
+      "raw_rows": 151
+    },
+    "site_2km": {
+      "components": 2,
+      "largest_component_rows": 147,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.012144391399972851,
+          "id": "official20010623203314130_33",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.022304650152300265,
+          "id": "official20030925195006360_27",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.16133351092266632,
+          "id": "usp0008rpa",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6994898902364429,
+          "id": "usp0009j4n",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.00442313609625631,
+          "id": "usp000cd1n",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.7922676600072256,
+          "id": "usp000d3ka",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14422929984103877,
+          "id": "usp000fshy",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07992867848032822,
+          "id": "usp000g3eq",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000gv5p",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10482799274121493,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3576595303807153,
+          "id": "usp000jeag",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.053463480382658454,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025899111876937445,
+          "id": "usp000jrsw",
+          "kind": "event",
+          "site_key": "site_2km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 1,
+          "cells": 147,
+          "component": 0,
+          "event_mad": 0.07992867848032822,
+          "event_residual_ratio": 13.972996665374755,
+          "events": 13,
+          "residual_degrees": 42,
+          "residual_mad": 0.005720224544130351,
+          "rows": 147,
+          "site_mad": 0.09020693327715065,
+          "site_ratio_high": 15.769823820939683,
+          "site_ratio_low": 15.769823820939683,
+          "site_residual_ratio": 15.769823820939683,
+          "sites": 93
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 4,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 4,
+          "site_mad": 0.09993297620479535,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 4
+        }
+      ],
+      "raw_rows": 151
+    },
+    "site_5km": {
+      "components": 2,
+      "largest_component_rows": 147,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.012144391399972851,
+          "id": "official20010623203314130_33",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.022304650152300265,
+          "id": "official20030925195006360_27",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.16133351092266632,
+          "id": "usp0008rpa",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6994898902364429,
+          "id": "usp0009j4n",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.00442313609625631,
+          "id": "usp000cd1n",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.7922676600072256,
+          "id": "usp000d3ka",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14422929984103877,
+          "id": "usp000fshy",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07992867848032822,
+          "id": "usp000g3eq",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000gv5p",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10482799274121493,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3576595303807153,
+          "id": "usp000jeag",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.053463480382658454,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025899111876937445,
+          "id": "usp000jrsw",
+          "kind": "event",
+          "site_key": "site_5km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 147,
+          "component": 0,
+          "event_mad": 0.07992867848032822,
+          "event_residual_ratio": 13.972996665374755,
+          "events": 13,
+          "residual_degrees": 43,
+          "residual_mad": 0.005720224544130351,
+          "rows": 147,
+          "site_mad": 0.0890996734086883,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 15.576254519608927,
+          "sites": 92
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 4,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 4,
+          "site_mad": 0.09993297620479535,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 4
+        }
+      ],
+      "raw_rows": 151
+    }
+  },
+  "T-OBS": {
+    "physical_site_id": {
+      "components": 4,
+      "largest_component_rows": 10,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07673545527577716,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07673545527577716,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 10,
+          "component": 0,
+          "event_mad": 0.07673545527577716,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 10,
+          "site_mad": 0.03692496702694992,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 9
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 8,
+          "component": 1,
+          "event_mad": 0.04353268963425572,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 8,
+          "site_mad": 0.027843681653499347,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 7
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 3,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 3,
+          "site_mad": 0.01437717110593878,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 3
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 3,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 22
+    },
+    "site_1km": {
+      "components": 4,
+      "largest_component_rows": 10,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07673545527577716,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07673545527577716,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_1km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 10,
+          "component": 0,
+          "event_mad": 0.07673545527577716,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 10,
+          "site_mad": 0.03692496702694992,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 9
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 8,
+          "component": 1,
+          "event_mad": 0.04353268963425572,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 8,
+          "site_mad": 0.027843681653499347,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 7
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 3,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 3,
+          "site_mad": 0.01437717110593878,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 3
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 3,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 22
+    },
+    "site_2km": {
+      "components": 4,
+      "largest_component_rows": 10,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07673545527577716,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07673545527577716,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_2km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 10,
+          "component": 0,
+          "event_mad": 0.07673545527577716,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 10,
+          "site_mad": 0.03692496702694992,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 9
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 8,
+          "component": 1,
+          "event_mad": 0.04353268963425572,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 8,
+          "site_mad": 0.027843681653499347,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 7
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 3,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 3,
+          "site_mad": 0.01437717110593878,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 3
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 3,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 22
+    },
+    "site_5km": {
+      "components": 4,
+      "largest_component_rows": 10,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07673545527577716,
+          "id": "usp000hr97",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07673545527577716,
+          "id": "usp000jr83",
+          "kind": "event",
+          "site_key": "site_5km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 10,
+          "component": 0,
+          "event_mad": 0.07673545527577716,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 10,
+          "site_mad": 0.03692496702694992,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 9
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 8,
+          "component": 1,
+          "event_mad": 0.04353268963425572,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 8,
+          "site_mad": 0.027843681653499347,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 7
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 3,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 3,
+          "site_mad": 0.01437717110593878,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 3
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 3,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 22
+    }
+  }
+}

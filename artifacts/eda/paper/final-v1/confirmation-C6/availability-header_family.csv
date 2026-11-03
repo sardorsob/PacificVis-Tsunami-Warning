@@ -1,0 +1,5 @@
+accepted_rows,availability,events,exact_observed,group,retained_rows,structural_rows
+0,unknown,0,0,unknown,4,4
+100,0.54,3,54,arrival_eta_utc,100,0
+26,0.8846153846153846,8,23,estimated_observed_utc_jday,26,0
+35,0.17142857142857143,3,6,computed_observed_utc,36,1

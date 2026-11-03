@@ -1,0 +1,78 @@
+[
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B1",
+    "run_id": "1f77f204c9ef4bd1be55613f95668f19"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B10",
+    "run_id": "69f4d04a4a804a1a939bd1b419f9e8f0"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B2",
+    "run_id": "ca2e11788427491e912c289699d23eba"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B3",
+    "run_id": "8eca88dd8e86497c9e038723d3a02766"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B4",
+    "run_id": "4557d686d57e4e2f80ecb41a3cc69bd9"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B5",
+    "run_id": "aa04e4ce8b0b48fd9e36e10527c9ae3f"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B6",
+    "run_id": "89b2208de813439c89e673fc459a0dc9"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B7",
+    "run_id": "14674645cefb4d03b2ee4a6a568848f8"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B8",
+    "run_id": "5d7ddb9d5ecd4d77979f921861ec4bee"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-B9",
+    "run_id": "3e58d2718db440cd8c43c61c74ae3ea2"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C1",
+    "run_id": "15b32c60cd634c7487bc54e0737d0733"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C2",
+    "run_id": "cb2337f5453447449975960770fbba24"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C3",
+    "run_id": "504322365438408ebe6b5149a79de9dc"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C4",
+    "run_id": "72cd57b5a0504088a390fa799013738e"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C5",
+    "run_id": "1add6a70f54a4ea89e5dca8ea4b9397f"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C6",
+    "run_id": "bcfe11dbd7994d6199553ebdb3f90c8f"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C7",
+    "run_id": "1f0a984af51041cb8de1d23969aadd14"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C8",
+    "run_id": "f9c060afe8f04b4ba525caffc5243d35"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/confirmation-C9",
+    "run_id": "179203bfce50407f8cd457abcb63f412"
+  }
+]

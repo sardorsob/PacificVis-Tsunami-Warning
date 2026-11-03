@@ -1,0 +1,30 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B8",
+    "checks_maximum": 2,
+    "detail": {
+      "sign_flip_events": [
+        "usp0008rpa"
+      ]
+    },
+    "scalar": 1.3386947868618493,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B8",
+    "checks_maximum": 2,
+    "detail": {
+      "sign_flip_events": [
+        "usb000sk6k",
+        "usp000gv5p",
+        "usp000hr97",
+        "usp000jeag",
+        "usp000jr83"
+      ]
+    },
+    "scalar": 13.336355999248575,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

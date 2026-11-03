@@ -1,0 +1,1 @@
+Descriptive preliminary evidence on a frozen archive-event split. Unknown arrival-pick provenance and source datum remain unknown. No filtering, repair, fitting or selection. Shared metadata sequence crossing halves and sparse confirmation support limit interpretation.

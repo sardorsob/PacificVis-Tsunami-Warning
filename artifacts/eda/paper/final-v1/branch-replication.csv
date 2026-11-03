@@ -1,0 +1,21 @@
+branch,confirmation_scalar,exploration_scalar,interpretation,route,status,target,units
+B1,0.3858280896310002,0.47514719055064125,descriptive screen only; limits in report,near_far,tentative: fewer than five confirmation records in a distance group,T-OBS,log ratio
+B1,0.6427138965958735,0.6020010222209724,descriptive screen only; limits in report,near_far,confirmed descriptive screen,NCEI-native-duration,log ratio
+B10,-0.6357142857142857,-0.4529796674114873,descriptive screen only; limits in report,fixed_registered_screen,tentative: only two usable event-level confirmation trends,T-CAL,rank correlation
+B11,unknown,unknown,descriptive screen only; limits in report,direct_geographic,unresolved: exploration untriggered or unidentifiable,NCEI-native-duration,minutes
+B11,unknown,unknown,descriptive screen only; limits in report,direct_geographic,unresolved: exploration untriggered or unidentifiable,T-OBS,minutes
+B2,0.0,0.11440677966101695,descriptive screen only; limits in report,fixed_registered_screen,tentative: magnitude did not replicate,T-OBS,proportion
+B2,0.17218543046357615,0.11495327102803739,descriptive screen only; limits in report,fixed_registered_screen,confirmed descriptive screen,NCEI-native-duration,proportion
+B3,15.769823820939683,3.3230104246696834,descriptive screen only; limits in report,fixed_registered_screen,tentative: bootstrap stability failed,NCEI-native-duration,MAD ratio
+B3,unknown,unknown,descriptive screen only; limits in report,fixed_registered_screen,unresolved: exploration untriggered or unidentifiable,T-OBS,MAD ratio
+B4,13.972996665374755,4.224770572543195,descriptive screen only; limits in report,fixed_registered_screen,tentative: magnitude did not replicate,NCEI-native-duration,MAD ratio
+B4,unknown,unknown,descriptive screen only; limits in report,fixed_registered_screen,unresolved: exploration untriggered or unidentifiable,T-OBS,MAD ratio
+B5,1.9972093169213447,22.7849386271654,descriptive screen only; limits in report,distance,tentative: magnitude did not replicate,T-OBS,MAD ratio
+B5,12.984872904028986,8.00966044332812,descriptive screen only; limits in report,distance,confirmed descriptive screen,NCEI-native-duration,MAD ratio
+B6,128.25,202.5,descriptive screen only; limits in report,measurement_family|deep_ocean_gauge|tide_gauge,tentative: confirmation contrast interval/threshold inconclusive,NCEI-native-duration,minutes
+B6,unknown,unknown,descriptive screen only; limits in report,direct_geographic,unresolved: exploration untriggered or unidentifiable,T-OBS,minutes
+B7,0.4181818181818182,0.5343718102338793,descriptive screen only; limits in report,era,confirmed descriptive screen,NTWC-reports,availability spread proportion
+B8,1.3386947868618493,34.85419912394657,descriptive screen only; limits in report,fixed_registered_screen,tentative: magnitude did not replicate,NCEI-native-duration,relative change
+B8,13.336355999248575,11.41836801321871,descriptive screen only; limits in report,fixed_registered_screen,confirmed descriptive screen,T-OBS,relative change
+B9,0.3858280896310002,0.47514719055064125,descriptive screen only; limits in report,near_far,tentative: fewer than five confirmation records in a distance group,T-OBS,log ratio
+B9,0.6427138965958735,0.6020010222209724,descriptive screen only; limits in report,near_far,confirmed descriptive screen,NCEI-native-duration,log ratio

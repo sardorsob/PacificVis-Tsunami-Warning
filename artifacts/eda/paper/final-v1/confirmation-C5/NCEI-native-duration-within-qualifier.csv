@@ -1,0 +1,6 @@
+difference,event_id,key,n_other,n_reference,other,reference
+-18.0,usp000hr97,qualifier,3,1,"{""doubtful"": ""n"", ""firstMotion"": ""unknown"", ""publish"": true}","{""doubtful"": ""n"", ""firstMotion"": ""F"", ""publish"": true}"
+-46.5,usp000jr83,qualifier,6,11,"{""doubtful"": ""n"", ""firstMotion"": ""unknown"", ""publish"": true}","{""doubtful"": ""n"", ""firstMotion"": ""R"", ""publish"": true}"
+-83.0,usp000gv5p,qualifier,14,7,"{""doubtful"": ""n"", ""firstMotion"": ""unknown"", ""publish"": true}","{""doubtful"": ""n"", ""firstMotion"": ""R"", ""publish"": true}"
+23.5,usp000d3ka,qualifier,4,8,"{""doubtful"": ""n"", ""firstMotion"": ""R"", ""publish"": true}","{""doubtful"": ""n"", ""firstMotion"": ""F"", ""publish"": true}"
+677.5,official20010623203314130_33,qualifier,9,14,"{""doubtful"": ""n"", ""firstMotion"": ""unknown"", ""publish"": true}","{""doubtful"": ""n"", ""firstMotion"": ""R"", ""publish"": true}"

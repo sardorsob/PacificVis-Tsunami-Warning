@@ -1,0 +1,82 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B9",
+    "checks_maximum": 2,
+    "detail": {
+      "cutoffs": [
+        {
+          "cutoff_reference_minutes": 30,
+          "difference": 0.703225493442146,
+          "far_n": 126,
+          "near_n": 25
+        },
+        {
+          "cutoff_reference_minutes": 60,
+          "difference": 0.5829213092870258,
+          "far_n": 112,
+          "near_n": 39
+        },
+        {
+          "cutoff_reference_minutes": 90,
+          "difference": 0.4619814860699292,
+          "far_n": 108,
+          "near_n": 43
+        }
+      ],
+      "origin_precision_ratios": {
+        "finite_n": 151,
+        "mad": 0.0006666666666666668,
+        "max": 0.047,
+        "median": 0.001,
+        "min": 0.0,
+        "n": 151,
+        "q10": 0.0,
+        "q90": 0.047
+      },
+      "origin_route_status": "native-source comparison only",
+      "selected_route": "near_far"
+    },
+    "scalar": 0.6427138965958735,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B9",
+    "checks_maximum": 2,
+    "detail": {
+      "cutoffs": [
+        {
+          "cutoff_reference_minutes": 30,
+          "difference": 0.3858280896310002,
+          "far_n": 21,
+          "near_n": 1
+        },
+        {
+          "cutoff_reference_minutes": 60,
+          "difference": 0.3858280896310002,
+          "far_n": 21,
+          "near_n": 1
+        },
+        {
+          "cutoff_reference_minutes": 90,
+          "difference": 0.3858280896310002,
+          "far_n": 21,
+          "near_n": 1
+        }
+      ],
+      "origin_precision_ratios": {
+        "finite_n": 0,
+        "mad": "unknown",
+        "median": "unknown",
+        "n": 0,
+        "q10": "unknown",
+        "q90": "unknown"
+      },
+      "origin_route_status": "original-report ancestry unidentifiable",
+      "selected_route": "near_far"
+    },
+    "scalar": 0.3858280896310002,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

@@ -1,0 +1,5 @@
+difference,event_id,key,n_other,n_reference,other,reference
+-51.5,usb000sk6k,qualifier,2,1,[],"[""estimate:source_absent_explicit""]"
+-70.0,usp000jr83,qualifier,3,3,[],"[""estimate:source_absent_explicit""]"
+13.000000000000014,usp000hr97,qualifier,1,3,"[""estimate:source_absent_explicit""]","[""estimate:date_ambiguous""]"
+16.0,usp000jrsw,qualifier,1,1,[],"[""estimate:blank""]"

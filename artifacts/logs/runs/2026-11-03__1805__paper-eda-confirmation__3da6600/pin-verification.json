@@ -1,0 +1,162 @@
+{
+  "PNGs": 35,
+  "code_pins": 8,
+  "frozen_input_pins": 148,
+  "records": [
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B1",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "350828043ce3f82faa4ca65c947a63bb8a159a2b621a394debb82e1bd24dc2dc",
+      "outputs_verified": 15
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B10",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "6fbfbe3c53c7b5bec8d6509a9de9636fb224d996af4390eff8f400b2d8f87916",
+      "outputs_verified": 12
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B2",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "ac0fa3e6005153624fe64dc4ce8f13700cc8a7888bdfca582a2436de14ad96e5",
+      "outputs_verified": 13
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B3",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "ae56aa1af0eaf1d0289e600718908a3d134e1aebe3306db1bffe4d7cfe43881c",
+      "outputs_verified": 13
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B4",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "82f77467637dcf1a5431aae0a4e34820d86c644919183a1990e729ad016e47e4",
+      "outputs_verified": 13
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B5",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "fe8b88416c3828b8c6095d1739e693ca8ac82227cd29f55077f88090cb521f85",
+      "outputs_verified": 15
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B6",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "af17eeb8526c1dcf507cb3bb7731faeb8b330f69381348bed2ff030766a4ed59",
+      "outputs_verified": 15
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B7",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "356442a7fbc60501663934e35e8d6d034c04e70ff9a3d98569d1c580a324cd45",
+      "outputs_verified": 12
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B8",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "3fc8df0eb462fefd89ddafafd86d1ced901ebcdb2764779dec6ea2556433edeb",
+      "outputs_verified": 13
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-B9",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "167f76f09d30f5e7d023b939172f3c4fdb42decdd489c9eab87bd43456cd115f",
+      "outputs_verified": 13
+    },
+    {
+      "PNG_count": 2,
+      "bundle": "confirmation-C1",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "aaaad50a93a928b3d88477c232c6c85788e92098bdd4923b3d55f4faaf3b867d",
+      "outputs_verified": 19
+    },
+    {
+      "PNG_count": 4,
+      "bundle": "confirmation-C2",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "87ff858e7c1165170e94a575555de57d24727b0768b96feef0daf6c115f6201b",
+      "outputs_verified": 20
+    },
+    {
+      "PNG_count": 4,
+      "bundle": "confirmation-C3",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "eced6fda0d6cddb7f1ae22692cfc1f6ad56a8e5bf994df22b1e5a0b696f78de7",
+      "outputs_verified": 20
+    },
+    {
+      "PNG_count": 4,
+      "bundle": "confirmation-C4",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "0f4bf0af8311979dd03742776893673bbb0e964dcf9a06342c90aa8249b8f506",
+      "outputs_verified": 28
+    },
+    {
+      "PNG_count": 2,
+      "bundle": "confirmation-C5",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "899eddf6b3c72b548076d3bba1b1e7670a701a084d258a9aaf076c6555751cdf",
+      "outputs_verified": 52
+    },
+    {
+      "PNG_count": 1,
+      "bundle": "confirmation-C6",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "54a04d0081a1402c6cb90d7323cb968c506d9bd81d9b8e254cb86eecf628ba73",
+      "outputs_verified": 19
+    },
+    {
+      "PNG_count": 2,
+      "bundle": "confirmation-C7",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "cf1325cc7f8988fa02db34498bf9e2ebd86bed1650a7c468a505353d8bc3b349",
+      "outputs_verified": 16
+    },
+    {
+      "PNG_count": 3,
+      "bundle": "confirmation-C8",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "5bf73f1a651c0ef9f32aacf42293e788fb5512b1267cf13b780e5c5eaa2098c7",
+      "outputs_verified": 20
+    },
+    {
+      "PNG_count": 3,
+      "bundle": "confirmation-C9",
+      "code_pins": 8,
+      "git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+      "outputs_sha256": "ff4c8c37c444f65fc7f2c365fe6206546fee33160a2d5f0847a882aa09bf16db",
+      "outputs_verified": 23
+    }
+  ],
+  "selected_bundles": 19,
+  "status": "PASS",
+  "unselected_B11_absent": true
+}

@@ -1,0 +1,79 @@
+# Preliminary EDA figures and tables
+
+All figures are preliminary descriptive results. Each row supplies the underlying plotted data and a vector version. Read the [report](report.md) for target definitions, units, uncertainty and limits.
+
+| Split / question | Figure / alt description | Data | Vector |
+| --- | --- | --- | --- |
+| confirmation-B1 | [B1-screen](final-v1/confirmation-B1/B1-screen.png) | [CSV](final-v1/confirmation-B1/B1-screen.csv) | [SVG](final-v1/confirmation-B1/B1-screen.svg) |
+| confirmation-B10 | [B10-screen](final-v1/confirmation-B10/B10-screen.png) | [CSV](final-v1/confirmation-B10/B10-screen.csv) | [SVG](final-v1/confirmation-B10/B10-screen.svg) |
+| confirmation-B2 | [B2-screen](final-v1/confirmation-B2/B2-screen.png) | [CSV](final-v1/confirmation-B2/B2-screen.csv) | [SVG](final-v1/confirmation-B2/B2-screen.svg) |
+| confirmation-B3 | [B3-screen](final-v1/confirmation-B3/B3-screen.png) | [CSV](final-v1/confirmation-B3/B3-screen.csv) | [SVG](final-v1/confirmation-B3/B3-screen.svg) |
+| confirmation-B4 | [B4-screen](final-v1/confirmation-B4/B4-screen.png) | [CSV](final-v1/confirmation-B4/B4-screen.csv) | [SVG](final-v1/confirmation-B4/B4-screen.svg) |
+| confirmation-B5 | [B5-screen](final-v1/confirmation-B5/B5-screen.png) | [CSV](final-v1/confirmation-B5/B5-screen.csv) | [SVG](final-v1/confirmation-B5/B5-screen.svg) |
+| confirmation-B6 | [B6-screen](final-v1/confirmation-B6/B6-screen.png) | [CSV](final-v1/confirmation-B6/B6-screen.csv) | [SVG](final-v1/confirmation-B6/B6-screen.svg) |
+| confirmation-B7 | [B7-screen](final-v1/confirmation-B7/B7-screen.png) | [CSV](final-v1/confirmation-B7/B7-screen.csv) | [SVG](final-v1/confirmation-B7/B7-screen.svg) |
+| confirmation-B8 | [B8-screen](final-v1/confirmation-B8/B8-screen.png) | [CSV](final-v1/confirmation-B8/B8-screen.csv) | [SVG](final-v1/confirmation-B8/B8-screen.svg) |
+| confirmation-B9 | [B9-screen](final-v1/confirmation-B9/B9-screen.png) | [CSV](final-v1/confirmation-B9/B9-screen.csv) | [SVG](final-v1/confirmation-B9/B9-screen.svg) |
+| confirmation-C1 | [NCEI-native-duration-event-counts](final-v1/confirmation-C1/NCEI-native-duration-event-counts.png) | [CSV](final-v1/confirmation-C1/NCEI-native-duration-event-counts.csv) | [SVG](final-v1/confirmation-C1/NCEI-native-duration-event-counts.svg) |
+| confirmation-C1 | [T-OBS-event-counts](final-v1/confirmation-C1/T-OBS-event-counts.png) | [CSV](final-v1/confirmation-C1/T-OBS-event-counts.csv) | [SVG](final-v1/confirmation-C1/T-OBS-event-counts.svg) |
+| confirmation-C2 | [NCEI-native-duration-distribution](final-v1/confirmation-C2/NCEI-native-duration-distribution.png) | [CSV](final-v1/confirmation-C2/NCEI-native-duration-distribution.csv) | [SVG](final-v1/confirmation-C2/NCEI-native-duration-distribution.svg) |
+| confirmation-C2 | [NCEI-native-duration-qq](final-v1/confirmation-C2/NCEI-native-duration-qq.png) | [CSV](final-v1/confirmation-C2/NCEI-native-duration-qq.csv) | [SVG](final-v1/confirmation-C2/NCEI-native-duration-qq.svg) |
+| confirmation-C2 | [T-OBS-distribution](final-v1/confirmation-C2/T-OBS-distribution.png) | [CSV](final-v1/confirmation-C2/T-OBS-distribution.csv) | [SVG](final-v1/confirmation-C2/T-OBS-distribution.svg) |
+| confirmation-C2 | [T-OBS-qq](final-v1/confirmation-C2/T-OBS-qq.png) | [CSV](final-v1/confirmation-C2/T-OBS-qq.csv) | [SVG](final-v1/confirmation-C2/T-OBS-qq.svg) |
+| confirmation-C3 | [NCEI-native-duration-physics-bins](final-v1/confirmation-C3/NCEI-native-duration-physics-bins.png) | [CSV](final-v1/confirmation-C3/NCEI-native-duration-physics-bins.csv) | [SVG](final-v1/confirmation-C3/NCEI-native-duration-physics-bins.svg) |
+| confirmation-C3 | [NCEI-native-duration-physics](final-v1/confirmation-C3/NCEI-native-duration-physics.png) | [CSV](final-v1/confirmation-C3/NCEI-native-duration-physics.csv) | [SVG](final-v1/confirmation-C3/NCEI-native-duration-physics.svg) |
+| confirmation-C3 | [T-OBS-physics-bins](final-v1/confirmation-C3/T-OBS-physics-bins.png) | [CSV](final-v1/confirmation-C3/T-OBS-physics-bins.csv) | [SVG](final-v1/confirmation-C3/T-OBS-physics-bins.svg) |
+| confirmation-C3 | [T-OBS-physics](final-v1/confirmation-C3/T-OBS-physics.png) | [CSV](final-v1/confirmation-C3/T-OBS-physics.csv) | [SVG](final-v1/confirmation-C3/T-OBS-physics.svg) |
+| confirmation-C4 | [NCEI-native-duration-event-effects](final-v1/confirmation-C4/NCEI-native-duration-event-effects.png) | [CSV](final-v1/confirmation-C4/NCEI-native-duration-event-effects.csv) | [SVG](final-v1/confirmation-C4/NCEI-native-duration-event-effects.svg) |
+| confirmation-C4 | [NCEI-native-duration-site-effects](final-v1/confirmation-C4/NCEI-native-duration-site-effects.png) | [CSV](final-v1/confirmation-C4/NCEI-native-duration-site-effects.csv) | [SVG](final-v1/confirmation-C4/NCEI-native-duration-site-effects.svg) |
+| confirmation-C4 | [T-OBS-event-effects](final-v1/confirmation-C4/T-OBS-event-effects.png) | [CSV](final-v1/confirmation-C4/T-OBS-event-effects.csv) | [SVG](final-v1/confirmation-C4/T-OBS-event-effects.svg) |
+| confirmation-C4 | [T-OBS-site-effects](final-v1/confirmation-C4/T-OBS-site-effects.png) | [CSV](final-v1/confirmation-C4/T-OBS-site-effects.csv) | [SVG](final-v1/confirmation-C4/T-OBS-site-effects.svg) |
+| confirmation-C5 | [linked-differences](final-v1/confirmation-C5/linked-differences.png) | [CSV](final-v1/confirmation-C5/linked-differences.csv) | [SVG](final-v1/confirmation-C5/linked-differences.svg) |
+| confirmation-C5 | [posthoc-P1-differences](final-v1/confirmation-C5/posthoc-P1-differences.png) | [CSV](final-v1/confirmation-C5/posthoc-P1-differences.csv) | [SVG](final-v1/confirmation-C5/posthoc-P1-differences.svg) |
+| confirmation-C6 | [availability-era](final-v1/confirmation-C6/availability-era.png) | [CSV](final-v1/confirmation-C6/availability-era.csv) | [SVG](final-v1/confirmation-C6/availability-era.svg) |
+| confirmation-C7 | [NCEI-native-duration-C7](final-v1/confirmation-C7/NCEI-native-duration-C7.png) | [CSV](final-v1/confirmation-C7/NCEI-native-duration-C7.csv) | [SVG](final-v1/confirmation-C7/NCEI-native-duration-C7.svg) |
+| confirmation-C7 | [T-OBS-C7](final-v1/confirmation-C7/T-OBS-C7.png) | [CSV](final-v1/confirmation-C7/T-OBS-C7.csv) | [SVG](final-v1/confirmation-C7/T-OBS-C7.svg) |
+| confirmation-C8 | [T-CAL-distance](final-v1/confirmation-C8/T-CAL-distance.png) | [CSV](final-v1/confirmation-C8/T-CAL-distance.csv) | [SVG](final-v1/confirmation-C8/T-CAL-distance.svg) |
+| confirmation-C8 | [T-CAL-distribution](final-v1/confirmation-C8/T-CAL-distribution.png) | [CSV](final-v1/confirmation-C8/T-CAL-distribution.csv) | [SVG](final-v1/confirmation-C8/T-CAL-distribution.svg) |
+| confirmation-C8 | [T-CAL-qq](final-v1/confirmation-C8/T-CAL-qq.png) | [CSV](final-v1/confirmation-C8/T-CAL-qq.csv) | [SVG](final-v1/confirmation-C8/T-CAL-qq.svg) |
+| confirmation-C9 | [NCEI-native-duration-C9](final-v1/confirmation-C9/NCEI-native-duration-C9.png) | [CSV](final-v1/confirmation-C9/NCEI-native-duration-C9.csv) | [SVG](final-v1/confirmation-C9/NCEI-native-duration-C9.svg) |
+| confirmation-C9 | [T-CAL-C9](final-v1/confirmation-C9/T-CAL-C9.png) | [CSV](final-v1/confirmation-C9/T-CAL-C9.csv) | [SVG](final-v1/confirmation-C9/T-CAL-C9.svg) |
+| confirmation-C9 | [T-OBS-C9](final-v1/confirmation-C9/T-OBS-C9.png) | [CSV](final-v1/confirmation-C9/T-OBS-C9.csv) | [SVG](final-v1/confirmation-C9/T-OBS-C9.svg) |
+| exploration-B1 | [B1-screen](final-v1/exploration-B1/B1-screen.png) | [CSV](final-v1/exploration-B1/B1-screen.csv) | [SVG](final-v1/exploration-B1/B1-screen.svg) |
+| exploration-B10 | [B10-screen](final-v1/exploration-B10/B10-screen.png) | [CSV](final-v1/exploration-B10/B10-screen.csv) | [SVG](final-v1/exploration-B10/B10-screen.svg) |
+| exploration-B11 | [B11-screen](final-v1/exploration-B11/B11-screen.png) | [CSV](final-v1/exploration-B11/B11-screen.csv) | [SVG](final-v1/exploration-B11/B11-screen.svg) |
+| exploration-B2 | [B2-screen](final-v1/exploration-B2/B2-screen.png) | [CSV](final-v1/exploration-B2/B2-screen.csv) | [SVG](final-v1/exploration-B2/B2-screen.svg) |
+| exploration-B3 | [B3-screen](final-v1/exploration-B3/B3-screen.png) | [CSV](final-v1/exploration-B3/B3-screen.csv) | [SVG](final-v1/exploration-B3/B3-screen.svg) |
+| exploration-B4 | [B4-screen](final-v1/exploration-B4/B4-screen.png) | [CSV](final-v1/exploration-B4/B4-screen.csv) | [SVG](final-v1/exploration-B4/B4-screen.svg) |
+| exploration-B5 | [B5-screen](final-v1/exploration-B5/B5-screen.png) | [CSV](final-v1/exploration-B5/B5-screen.csv) | [SVG](final-v1/exploration-B5/B5-screen.svg) |
+| exploration-B6 | [B6-screen](final-v1/exploration-B6/B6-screen.png) | [CSV](final-v1/exploration-B6/B6-screen.csv) | [SVG](final-v1/exploration-B6/B6-screen.svg) |
+| exploration-B7 | [B7-screen](final-v1/exploration-B7/B7-screen.png) | [CSV](final-v1/exploration-B7/B7-screen.csv) | [SVG](final-v1/exploration-B7/B7-screen.svg) |
+| exploration-B8 | [B8-screen](final-v1/exploration-B8/B8-screen.png) | [CSV](final-v1/exploration-B8/B8-screen.csv) | [SVG](final-v1/exploration-B8/B8-screen.svg) |
+| exploration-B9 | [B9-screen](final-v1/exploration-B9/B9-screen.png) | [CSV](final-v1/exploration-B9/B9-screen.csv) | [SVG](final-v1/exploration-B9/B9-screen.svg) |
+| exploration-C1 | [NCEI-native-duration-event-counts](final-v1/exploration-C1/NCEI-native-duration-event-counts.png) | [CSV](final-v1/exploration-C1/NCEI-native-duration-event-counts.csv) | [SVG](final-v1/exploration-C1/NCEI-native-duration-event-counts.svg) |
+| exploration-C1 | [T-OBS-event-counts](final-v1/exploration-C1/T-OBS-event-counts.png) | [CSV](final-v1/exploration-C1/T-OBS-event-counts.csv) | [SVG](final-v1/exploration-C1/T-OBS-event-counts.svg) |
+| exploration-C2 | [NCEI-native-duration-distribution](final-v1/exploration-C2/NCEI-native-duration-distribution.png) | [CSV](final-v1/exploration-C2/NCEI-native-duration-distribution.csv) | [SVG](final-v1/exploration-C2/NCEI-native-duration-distribution.svg) |
+| exploration-C2 | [NCEI-native-duration-qq](final-v1/exploration-C2/NCEI-native-duration-qq.png) | [CSV](final-v1/exploration-C2/NCEI-native-duration-qq.csv) | [SVG](final-v1/exploration-C2/NCEI-native-duration-qq.svg) |
+| exploration-C2 | [T-OBS-distribution](final-v1/exploration-C2/T-OBS-distribution.png) | [CSV](final-v1/exploration-C2/T-OBS-distribution.csv) | [SVG](final-v1/exploration-C2/T-OBS-distribution.svg) |
+| exploration-C2 | [T-OBS-qq](final-v1/exploration-C2/T-OBS-qq.png) | [CSV](final-v1/exploration-C2/T-OBS-qq.csv) | [SVG](final-v1/exploration-C2/T-OBS-qq.svg) |
+| exploration-C3 | [NCEI-native-duration-physics-bins](final-v1/exploration-C3/NCEI-native-duration-physics-bins.png) | [CSV](final-v1/exploration-C3/NCEI-native-duration-physics-bins.csv) | [SVG](final-v1/exploration-C3/NCEI-native-duration-physics-bins.svg) |
+| exploration-C3 | [NCEI-native-duration-physics](final-v1/exploration-C3/NCEI-native-duration-physics.png) | [CSV](final-v1/exploration-C3/NCEI-native-duration-physics.csv) | [SVG](final-v1/exploration-C3/NCEI-native-duration-physics.svg) |
+| exploration-C3 | [T-OBS-physics-bins](final-v1/exploration-C3/T-OBS-physics-bins.png) | [CSV](final-v1/exploration-C3/T-OBS-physics-bins.csv) | [SVG](final-v1/exploration-C3/T-OBS-physics-bins.svg) |
+| exploration-C3 | [T-OBS-physics](final-v1/exploration-C3/T-OBS-physics.png) | [CSV](final-v1/exploration-C3/T-OBS-physics.csv) | [SVG](final-v1/exploration-C3/T-OBS-physics.svg) |
+| exploration-C4 | [NCEI-native-duration-event-effects](final-v1/exploration-C4/NCEI-native-duration-event-effects.png) | [CSV](final-v1/exploration-C4/NCEI-native-duration-event-effects.csv) | [SVG](final-v1/exploration-C4/NCEI-native-duration-event-effects.svg) |
+| exploration-C4 | [NCEI-native-duration-site-effects](final-v1/exploration-C4/NCEI-native-duration-site-effects.png) | [CSV](final-v1/exploration-C4/NCEI-native-duration-site-effects.csv) | [SVG](final-v1/exploration-C4/NCEI-native-duration-site-effects.svg) |
+| exploration-C4 | [T-OBS-event-effects](final-v1/exploration-C4/T-OBS-event-effects.png) | [CSV](final-v1/exploration-C4/T-OBS-event-effects.csv) | [SVG](final-v1/exploration-C4/T-OBS-event-effects.svg) |
+| exploration-C4 | [T-OBS-site-effects](final-v1/exploration-C4/T-OBS-site-effects.png) | [CSV](final-v1/exploration-C4/T-OBS-site-effects.csv) | [SVG](final-v1/exploration-C4/T-OBS-site-effects.svg) |
+| exploration-C5 | [linked-differences](final-v1/exploration-C5/linked-differences.png) | [CSV](final-v1/exploration-C5/linked-differences.csv) | [SVG](final-v1/exploration-C5/linked-differences.svg) |
+| exploration-C5 | [posthoc-P1-differences](final-v1/exploration-C5/posthoc-P1-differences.png) | [CSV](final-v1/exploration-C5/posthoc-P1-differences.csv) | [SVG](final-v1/exploration-C5/posthoc-P1-differences.svg) |
+| exploration-C6 | [availability-era](final-v1/exploration-C6/availability-era.png) | [CSV](final-v1/exploration-C6/availability-era.csv) | [SVG](final-v1/exploration-C6/availability-era.svg) |
+| exploration-C7 | [NCEI-native-duration-C7](final-v1/exploration-C7/NCEI-native-duration-C7.png) | [CSV](final-v1/exploration-C7/NCEI-native-duration-C7.csv) | [SVG](final-v1/exploration-C7/NCEI-native-duration-C7.svg) |
+| exploration-C7 | [T-OBS-C7](final-v1/exploration-C7/T-OBS-C7.png) | [CSV](final-v1/exploration-C7/T-OBS-C7.csv) | [SVG](final-v1/exploration-C7/T-OBS-C7.svg) |
+| exploration-C8 | [T-CAL-distance](final-v1/exploration-C8/T-CAL-distance.png) | [CSV](final-v1/exploration-C8/T-CAL-distance.csv) | [SVG](final-v1/exploration-C8/T-CAL-distance.svg) |
+| exploration-C8 | [T-CAL-distribution](final-v1/exploration-C8/T-CAL-distribution.png) | [CSV](final-v1/exploration-C8/T-CAL-distribution.csv) | [SVG](final-v1/exploration-C8/T-CAL-distribution.svg) |
+| exploration-C8 | [T-CAL-qq](final-v1/exploration-C8/T-CAL-qq.png) | [CSV](final-v1/exploration-C8/T-CAL-qq.csv) | [SVG](final-v1/exploration-C8/T-CAL-qq.svg) |
+| exploration-C9 | [NCEI-native-duration-C9](final-v1/exploration-C9/NCEI-native-duration-C9.png) | [CSV](final-v1/exploration-C9/NCEI-native-duration-C9.csv) | [SVG](final-v1/exploration-C9/NCEI-native-duration-C9.svg) |
+| exploration-C9 | [T-CAL-C9](final-v1/exploration-C9/T-CAL-C9.png) | [CSV](final-v1/exploration-C9/T-CAL-C9.csv) | [SVG](final-v1/exploration-C9/T-CAL-C9.svg) |
+| exploration-C9 | [T-OBS-C9](final-v1/exploration-C9/T-OBS-C9.png) | [CSV](final-v1/exploration-C9/T-OBS-C9.csv) | [SVG](final-v1/exploration-C9/T-OBS-C9.svg) |
+
+The frozen confirmation-C4 T-OBS event-effects image clips an optional right-edge ID annotation. The component-0 values are usp000hr97 (+0.0767355) and usp000jr83 (−0.0767355). Full IDs/values are in its CSV; the frozen image and numerical results were preserved.

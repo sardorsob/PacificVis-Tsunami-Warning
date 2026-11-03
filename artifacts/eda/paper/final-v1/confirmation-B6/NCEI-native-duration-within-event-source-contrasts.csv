@@ -1,0 +1,5 @@
+comparison_id,difference,event_id,key,n_other,n_reference,other,reference
+measurement_family|deep_ocean_gauge|tide_gauge,-53.5,usp000fshy,measurement_family,4,2,tide_gauge,deep_ocean_gauge
+measurement_family|deep_ocean_gauge|tide_gauge,166.5,usp000cd1n,measurement_family,16,1,tide_gauge,deep_ocean_gauge
+measurement_family|deep_ocean_gauge|tide_gauge,288.5,usp000gv5p,measurement_family,20,1,tide_gauge,deep_ocean_gauge
+measurement_family|deep_ocean_gauge|tide_gauge,90.0,usp000jr83,measurement_family,14,3,tide_gauge,deep_ocean_gauge

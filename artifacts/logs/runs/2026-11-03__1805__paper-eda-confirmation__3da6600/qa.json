@@ -1,0 +1,96 @@
+{
+  "code": {
+    "analysis/arrival/eda.py": "ef276fdf29e565793c1aff7e030ef6a707281a06b5ecc1509409cb5c17b28de1",
+    "analysis/arrival/eda_branches.py": "54213a83fc3bd78235d5b21c887bc6194c212c9239d32da6587645c5ea2b6b86",
+    "analysis/arrival/eda_diagnostics.py": "0b4c321c038d0d3bf0fda0ab8a1613e0eff94f0086048debcf5bacaa20eade20",
+    "analysis/arrival/eda_plots.py": "d1e94672959eb5ddb7cda405578270c8df64e7e15526533c3b34b26b8866bb3f",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "scripts/run_paper_eda.py": "3f8711ca687e7c0c8a0bdbfc287e72f79eaa3a08f6079912b57ad054ba8e19f2"
+  },
+  "counts": {
+    "NCEI-native-duration": {
+      "events": 14,
+      "mad": 191.0,
+      "median": 258.0,
+      "rows": 151,
+      "sites": 97
+    },
+    "T-CAL": {
+      "events": 5,
+      "mad": 12.0,
+      "median": -13.0,
+      "rows": 13,
+      "sites": 12
+    },
+    "T-OBS": {
+      "events": 6,
+      "mad": 98.34750000000001,
+      "median": 219.44366666666667,
+      "rows": 22,
+      "sites": 20
+    }
+  },
+  "evidence": [
+    "confirmation-replay.json",
+    "confirmation-pins.json",
+    "confirmation-numeric.json",
+    "confirmation-source-unit-check.json",
+    "report-review.json",
+    "report-final-additions-review.json"
+  ],
+  "figures": {
+    "PNGs_reopened": 35,
+    "blocking_findings": 0,
+    "disclosed_limit": "Optional right-edge ID clipped in frozen2-event T-OBS C4 figure; full IDs/values supplied inCSV/report/gallery; frozen image preserved",
+    "grayscale_samples": 3
+  },
+  "independent_checks": [
+    "All22NTWC nativeUTC durations",
+    "All151NCEI native hour/minute durations",
+    "All173WGS84 geodesics/fixedreference/r0 values",
+    "All13T-CAL source-clock signs/units",
+    "C4component/cell/effect/residual MAD accounting",
+    "C6allaccepted/structural/exactUTC denominators",
+    "C7all20event deletions andC5contrasts",
+    "C9all3target ranks/repeats/concentration/holdout counts"
+  ],
+  "independent_source_audit": {
+    "NCEI_tail_cases": 26,
+    "NTWC_tail_cases": 0,
+    "P1_comparisons": 0,
+    "auditor_pins_verified": 22,
+    "known_specific_causes": 0,
+    "proven_errors": 0,
+    "receipt_sha256": "add69da036456815ebcedb8b60c929ae5114e0da138146012099ff2b43468b35"
+  },
+  "limitations": [
+    "T-OBSnear-field confirmation n1: B1/B9tentative",
+    "T-CALonly2finite event correlations: B10tentative",
+    "B6CI[-53.5,288.5]min crosses0: tentative",
+    "B3bootstrap stability failed; no stable crossed-site claim",
+    "C4component-relative effects and resampling/design changes limit inference",
+    "Direct cross-family and P1confirmation comparisons absent; no identity/ancestry promotion",
+    "B5/B7/B8nonnegative screens are not ordered causal effects",
+    "One physical sequence crosses archive-event halves; confirmation sparse",
+    "MCAR/MAR/MNAR unidentified;18reserved outcomes not analyzed byChecker"
+  ],
+  "lock_sha256": "afc88d017b0ec986172d1076658c78234f950895a179a555ba91b80e7a2ae18d",
+  "provenance": {
+    "all_outputs_manifests_verified": true,
+    "analysis_code_pins": 8,
+    "canonical_git_sha": "3da66005d2cf7e8b85b9951516c9fa1f41005cb3",
+    "frozen_input_pins": 148
+  },
+  "replay": {
+    "all_byte_identical": true,
+    "files": 370,
+    "questions": 19,
+    "receipt": "confirmation-replay.json",
+    "scratch": "confirmation-replay-v1",
+    "unselected_B11_absent": true
+  },
+  "scope": "Independent QA of19completed frozen questions; no retuning, source repair or fit",
+  "status": "ACCEPTED locked confirmation artifacts with scientific limitations"
+}

@@ -1,0 +1,568 @@
+{
+  "NCEI-native-duration": {
+    "era": [
+      {
+        "finite_n": 56,
+        "group": "2007-2013",
+        "mad": 0.12201658413943334,
+        "max": 0.9386625933818651,
+        "median": 0.004976754351301315,
+        "min": -1.2388652818750974,
+        "n": 56,
+        "q10": -0.21098361377529107,
+        "q90": 0.5642221311812268
+      },
+      {
+        "finite_n": 95,
+        "group": "pre2007",
+        "mad": 0.13121892449869949,
+        "max": 2.5170635841660056,
+        "median": 0.05587173130548736,
+        "min": -0.2621147771114079,
+        "n": 95,
+        "q10": -0.09303654621704638,
+        "q90": 0.9709398936065143
+      }
+    ],
+    "header_family": [
+      {
+        "finite_n": 151,
+        "group": "NCEI_native",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "identity_scope": [
+      {
+        "finite_n": 151,
+        "group": "source_native_position",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "identity_tier": [
+      {
+        "finite_n": 151,
+        "group": "unknown",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "measurement_family": [
+      {
+        "finite_n": 7,
+        "group": "deep_ocean_gauge",
+        "mad": 0.07725796998230999,
+        "max": 0.5063420132001042,
+        "median": -0.22112354093199577,
+        "min": -0.29838151091430576,
+        "n": 7,
+        "q10": -0.2603721130718004,
+        "q90": 0.16251581457294695
+      },
+      {
+        "finite_n": 144,
+        "group": "tide_gauge",
+        "mad": 0.1201712781230585,
+        "max": 2.5170635841660056,
+        "median": 0.0440702146807736,
+        "min": -1.2388652818750974,
+        "n": 144,
+        "q10": -0.0965220273050382,
+        "q90": 0.8911613230947549
+      }
+    ],
+    "precision_seconds": [
+      {
+        "finite_n": 151,
+        "group": "60",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "provider": [
+      {
+        "finite_n": 151,
+        "group": "unknown",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "qualifier": [
+      {
+        "finite_n": 11,
+        "group": "{\"doubtful\": \"n\", \"firstMotion\": \"F\", \"publish\": true}",
+        "mad": 0.27858599702221787,
+        "max": 1.6412946256791594,
+        "median": 0.6928510278308562,
+        "min": -0.11446686958307857,
+        "n": 11,
+        "q10": -0.10665459574745652,
+        "q90": 0.971437024853074
+      },
+      {
+        "finite_n": 37,
+        "group": "{\"doubtful\": \"n\", \"firstMotion\": \"R\", \"publish\": true}",
+        "mad": 0.09939862018928744,
+        "max": 0.9533876498990024,
+        "median": -0.03131105070482569,
+        "min": -0.2621147771114079,
+        "n": 37,
+        "q10": -0.15999048240316616,
+        "q90": 0.46556989643813784
+      },
+      {
+        "finite_n": 103,
+        "group": "{\"doubtful\": \"n\", \"firstMotion\": \"unknown\", \"publish\": true}",
+        "mad": 0.12390373687132547,
+        "max": 2.5170635841660056,
+        "median": 0.04109162618157942,
+        "min": -1.2388652818750974,
+        "n": 103,
+        "q10": -0.09823208579630989,
+        "q90": 0.9025625350520556
+      }
+    ],
+    "time_evidence_tier": [
+      {
+        "finite_n": 151,
+        "group": "unknown",
+        "mad": 0.12159369749176435,
+        "max": 2.5170635841660056,
+        "median": 0.03365053233451535,
+        "min": -1.2388652818750974,
+        "n": 151,
+        "q10": -0.10847842931407718,
+        "q90": 0.7941820789178098
+      }
+    ],
+    "within-era": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-header_family": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-identity_scope": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-identity_tier": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-measurement_family": {
+      "contrasts": 4,
+      "finite_n": 4,
+      "mad": 99.25,
+      "max": 288.5,
+      "median": 128.25,
+      "min": -53.5,
+      "n": 4,
+      "q10": -10.449999999999996,
+      "q90": 251.90000000000003
+    },
+    "within-precision_seconds": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-provider": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-qualifier": {
+      "contrasts": 5,
+      "finite_n": 5,
+      "mad": 41.5,
+      "max": 677.5,
+      "median": -18.0,
+      "min": -83.0,
+      "n": 5,
+      "q10": -68.4,
+      "q90": 415.90000000000003
+    },
+    "within-time_evidence_tier": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    }
+  },
+  "T-OBS": {
+    "era": [
+      {
+        "finite_n": 19,
+        "group": "2007-2013",
+        "mad": 0.07264681442853112,
+        "max": 0.3839390565293874,
+        "median": -0.01803459265118221,
+        "min": -0.1641606599617818,
+        "n": 19,
+        "q10": -0.11042612565034829,
+        "q90": 0.16887985252270907
+      },
+      {
+        "finite_n": 3,
+        "group": "2014plus",
+        "mad": 0.01437717110593878,
+        "max": 0.15913787918763958,
+        "median": 0.1447607080817008,
+        "min": 0.10150080892030724,
+        "n": 3,
+        "q10": 0.11015278875258595,
+        "q90": 0.15626244496645184
+      }
+    ],
+    "header_family": [
+      {
+        "finite_n": 6,
+        "group": "computed_observed_utc",
+        "mad": 0.04502986745328509,
+        "max": 0.04744042323772427,
+        "median": -0.07827285264715272,
+        "min": -0.1641606599617818,
+        "n": 6,
+        "q10": -0.1361274937597671,
+        "q90": 0.01470291529327103
+      },
+      {
+        "finite_n": 16,
+        "group": "estimated_observed_utc_jday",
+        "mad": 0.08985579417556912,
+        "max": 0.3839390565293874,
+        "median": 0.05068113219323128,
+        "min": -0.1197533180207319,
+        "n": 16,
+        "q10": -0.08648435690783535,
+        "q90": 0.22914228158879274
+      }
+    ],
+    "identity_scope": [
+      {
+        "finite_n": 4,
+        "group": "authoritative_provider_site",
+        "mad": 0.023491798420563793,
+        "max": -0.0611107307166248,
+        "median": -0.10176465106771651,
+        "min": -0.1641606599617818,
+        "n": 4,
+        "q10": -0.14734076024057297,
+        "q90": -0.07140800387494155
+      },
+      {
+        "finite_n": 18,
+        "group": "source_qualified_geographic_site",
+        "mad": 0.08993407081743421,
+        "max": 0.3839390565293874,
+        "median": 0.04520972661998404,
+        "min": -0.1197533180207319,
+        "n": 18,
+        "q10": -0.08480553683908415,
+        "q90": 0.2011405206283316
+      }
+    ],
+    "identity_tier": [
+      {
+        "finite_n": 22,
+        "group": "header_exact",
+        "mad": 0.1043921154186751,
+        "max": 0.3839390565293874,
+        "median": 0.01790775851083976,
+        "min": -0.1641606599617818,
+        "n": 22,
+        "q10": -0.10682839225974522,
+        "q90": 0.15770016207704574
+      }
+    ],
+    "measurement_family": [
+      {
+        "finite_n": 22,
+        "group": "reported_water_level_unknown_sensor",
+        "mad": 0.1043921154186751,
+        "max": 0.3839390565293874,
+        "median": 0.01790775851083976,
+        "min": -0.1641606599617818,
+        "n": 22,
+        "q10": -0.10682839225974522,
+        "q90": 0.15770016207704574
+      }
+    ],
+    "precision_seconds": [
+      {
+        "finite_n": 13,
+        "group": "60",
+        "mad": 0.07740038192649844,
+        "max": 0.3839390565293874,
+        "median": -0.01803459265118221,
+        "min": -0.1641606599617818,
+        "n": 13,
+        "q10": -0.10556245696173804,
+        "q90": 0.14270972685053285
+      },
+      {
+        "finite_n": 9,
+        "group": "unknown",
+        "mad": 0.09860859453260773,
+        "max": 0.2991466839899459,
+        "median": 0.03770455012329226,
+        "min": -0.1197533180207319,
+        "n": 9,
+        "q10": -0.08978050899291228,
+        "q90": 0.18713964014810086
+      }
+    ],
+    "provider": [
+      {
+        "finite_n": 22,
+        "group": "unknown",
+        "mad": 0.1043921154186751,
+        "max": 0.3839390565293874,
+        "median": 0.01790775851083976,
+        "min": -0.1641606599617818,
+        "n": 22,
+        "q10": -0.10682839225974522,
+        "q90": 0.15770016207704574
+      }
+    ],
+    "qualifier": [
+      {
+        "finite_n": 1,
+        "group": "[\"estimate:blank\"]",
+        "mad": 0.0,
+        "max": -0.001889033101612747,
+        "median": -0.001889033101612747,
+        "min": -0.001889033101612747,
+        "n": 1,
+        "q10": -0.001889033101612747,
+        "q90": -0.001889033101612747
+      },
+      {
+        "finite_n": 3,
+        "group": "[\"estimate:date_ambiguous\"]",
+        "mad": 0.005274479878951542,
+        "max": 0.1363131446559,
+        "median": 0.042979030002243804,
+        "min": 0.03770455012329226,
+        "n": 3,
+        "q10": 0.03875944609908257,
+        "q90": 0.11764632172516876
+      },
+      {
+        "finite_n": 5,
+        "group": "[\"estimate:source_absent_explicit\"]",
+        "mad": 0.09913660595910227,
+        "max": 0.2991466839899459,
+        "median": -0.020616712061629624,
+        "min": -0.1197533180207319,
+        "n": 5,
+        "q10": -0.10476691350682209,
+        "q90": 0.2431431620690234
+      },
+      {
+        "finite_n": 13,
+        "group": "[]",
+        "mad": 0.07740038192649844,
+        "max": 0.3839390565293874,
+        "median": -0.01803459265118221,
+        "min": -0.1641606599617818,
+        "n": 13,
+        "q10": -0.10556245696173804,
+        "q90": 0.14270972685053285
+      }
+    ],
+    "time_evidence_tier": [
+      {
+        "finite_n": 16,
+        "group": "native_explicit_doy",
+        "mad": 0.08985579417556912,
+        "max": 0.3839390565293874,
+        "median": 0.05068113219323128,
+        "min": -0.1197533180207319,
+        "n": 16,
+        "q10": -0.08648435690783535,
+        "q90": 0.22914228158879274
+      },
+      {
+        "finite_n": 6,
+        "group": "source_reviewed_rule",
+        "mad": 0.04502986745328509,
+        "max": 0.04744042323772427,
+        "median": -0.07827285264715272,
+        "min": -0.1641606599617818,
+        "n": 6,
+        "q10": -0.1361274937597671,
+        "q90": 0.01470291529327103
+      }
+    ],
+    "within-era": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-header_family": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-identity_scope": {
+      "contrasts": 1,
+      "finite_n": 1,
+      "mad": 0.0,
+      "max": 428.50000000000006,
+      "median": 428.50000000000006,
+      "min": 428.50000000000006,
+      "n": 1,
+      "q10": 428.50000000000006,
+      "q90": 428.50000000000006
+    },
+    "within-identity_tier": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-measurement_family": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-precision_seconds": {
+      "contrasts": 3,
+      "finite_n": 3,
+      "mad": 18.5,
+      "max": 70.0,
+      "median": 51.5,
+      "min": -16.0,
+      "n": 3,
+      "q10": -2.5,
+      "q90": 66.3
+    },
+    "within-provider": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "within-qualifier": {
+      "contrasts": 4,
+      "finite_n": 4,
+      "mad": 33.75,
+      "max": 16.0,
+      "median": -19.249999999999993,
+      "min": -70.0,
+      "n": 4,
+      "q10": -64.45,
+      "q90": 15.100000000000005
+    },
+    "within-time_evidence_tier": {
+      "contrasts": 0,
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 0,
+      "q10": "unknown",
+      "q90": "unknown"
+    }
+  },
+  "linked": {
+    "categories": {},
+    "ci_high": "unknown",
+    "ci_low": "unknown",
+    "finite_n": 0,
+    "interpretation": "geographic comparisons only; lineage unresolved",
+    "mad": "unknown",
+    "median": "unknown",
+    "n": 0,
+    "q10": "unknown",
+    "q90": "unknown"
+  },
+  "posthoc_P1": {
+    "ci_high": "unknown",
+    "ci_low": "unknown",
+    "finite_n": 0,
+    "identity_approved": false,
+    "interpretation": "posthoc geography only; no onset equivalence or independence",
+    "mad": "unknown",
+    "median": "unknown",
+    "n": 0,
+    "q10": "unknown",
+    "q90": "unknown"
+  }
+}
