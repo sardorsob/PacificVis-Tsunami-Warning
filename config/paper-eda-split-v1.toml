@@ -1,0 +1,5 @@
+seed = 20261103
+metadata_only = true
+forced_exploration = ["official20110311054624120_30", "official20100227063411530_30"]
+exploration = ["official20100227063411530_30", "official20110311054624120_30", "us10006jbi", "us20002yaw", "us20003k7a", "us20007z80", "us2000cmy3", "usb000pq41", "usc000f1s0", "usc000f40j", "usc000phx5", "usc000piqj", "usp0007jcu", "usp0007swp", "usp0008mdk", "usp000bbpf", "usp000bnvq", "usp000bnyr", "usp000d3mb", "usp000d9h1", "usp000db93", "usp000dt25", "usp000e462", "usp000eg5g", "usp000exfn", "usp000f2ab", "usp000fjta", "usp000gs2d", "usp000gsmz", "usp000gtnc", "usp000h1ys", "usp000h2g9", "usp000hrw0", "usp000j3mq", "usp000j48h", "usp000j9nm", "usp000jqvm", "usp000juhz"]
+confirmation = ["official20010623203314130_33", "official20030925195006360_27", "us1000gjaz", "us20009x42", "usb000pr89", "usb000sk6k", "usp0008btk", "usp0008rpa", "usp0009j4n", "usp000cd1n", "usp000d3ka", "usp000fshy", "usp000g3eq", "usp000gv5p", "usp000h5np", "usp000hr97", "usp000jeag", "usp000jr83", "usp000jrsw"]

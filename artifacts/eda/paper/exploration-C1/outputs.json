@@ -1,0 +1,78 @@
+[
+  {
+    "path": "NCEI-native-duration-data-findings.csv",
+    "sha256": "381e8d2061b17344dc87aad8111409973acec47c61db87fd2371c56a1cbfda4f"
+  },
+  {
+    "path": "NCEI-native-duration-event-counts.csv",
+    "sha256": "76a107c010997bc43d084dcecabba4ed5ad2175a8e5835ee03d0dfd572038bc8"
+  },
+  {
+    "path": "NCEI-native-duration-event-counts.png",
+    "sha256": "8054b8b5fe2ebf5bbe5de1d4a004a918d84db5abf771be62bdc657b4e67cbae4"
+  },
+  {
+    "path": "NCEI-native-duration-event-counts.svg",
+    "sha256": "8b08e79d638697da25af21c93a5dede98ea9c70044c448c69835fe5c037a6d59"
+  },
+  {
+    "path": "NCEI-native-duration.csv",
+    "sha256": "f53fbffcaa338d63ed8dfdc8c3abecfb0ec46021bafa2155a5c64b37be691f22"
+  },
+  {
+    "path": "T-OBS-data-findings.csv",
+    "sha256": "e8cbcce64b0fa7a534638a3e6af126ab7e8e45d7a1a42d6d2808c55a0f599a58"
+  },
+  {
+    "path": "T-OBS-event-counts.csv",
+    "sha256": "bce4dbb71c5bd772aa96c4417214455d0c06a1a5c51d1d858acf5ea43b180b94"
+  },
+  {
+    "path": "T-OBS-event-counts.png",
+    "sha256": "6573d00c4959a6cb18f0049b3c9b9cde6795a444a8757406aebc1b4f043101ae"
+  },
+  {
+    "path": "T-OBS-event-counts.svg",
+    "sha256": "dbc9e86bc8eefe79f89fc3db9f4b8ca9123d25fc7dadc444e1bd00ef843e4828"
+  },
+  {
+    "path": "T-OBS.csv",
+    "sha256": "ce6aac93abebd4bb457688f277705fcba067ee383765290736101ba080674cd4"
+  },
+  {
+    "path": "config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "documentary-origin-comparison.csv",
+    "sha256": "901e888be7a54a0993e8ab33af7dda92d883f7acb602faa2fcf3f624b8104ef0"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "fa5eac3ea54a98c61b32a8dd2e89554895255997e2d2c7c568067ffa86b30986"
+  },
+  {
+    "path": "meta.json",
+    "sha256": "4ad10ae3c3ee4e471cf84ea709d363a99d79fc9fdda5095cc5ca487b78bd0ac1"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "551bce8b8c5e6552069241aae6d3a45c4df9ab9d9d35d640ed5455a473bfd31a"
+  },
+  {
+    "path": "notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "report.md",
+    "sha256": "42e52f107f6400f45fafee8d65cb1e29830263c51a359538d186a8dcf2067a56"
+  },
+  {
+    "path": "seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "551bce8b8c5e6552069241aae6d3a45c4df9ab9d9d35d640ed5455a473bfd31a"
+  }
+]

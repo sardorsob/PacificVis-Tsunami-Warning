@@ -1,0 +1,95 @@
+{
+  "NCEI-native-duration": {
+    "additive_design_rank": 470,
+    "components": 2,
+    "events": 33,
+    "findings": 2,
+    "inverse_simpson_events": 8.562304620309018,
+    "origin_difference_seconds": {
+      "finite_n": 1070,
+      "mad": 0.009999999999999998,
+      "max": 1.79,
+      "median": -0.02,
+      "min": -1.09,
+      "n": 1070,
+      "q10": -0.09,
+      "q90": 0.04
+    },
+    "precision": [
+      {
+        "finite_n": 1070,
+        "group": "60",
+        "mad": 299.0,
+        "max": 1819.0,
+        "median": 429.0,
+        "min": 2.0,
+        "n": 1070,
+        "q10": 66.0,
+        "q90": 1038.2
+      }
+    ],
+    "rows": 1070,
+    "sites": 439,
+    "sites_at_least_2_events": 213,
+    "sites_at_least_3_events": 143,
+    "sites_at_least_5_events": 65,
+    "top3_row_share": 0.4953271028037383,
+    "unknown_distance": 0
+  },
+  "T-OBS": {
+    "additive_design_rank": 171,
+    "components": 3,
+    "events": 14,
+    "findings": 1,
+    "inverse_simpson_events": 4.314843507902077,
+    "origin_difference_seconds": {
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 236,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "precision": [
+      {
+        "finite_n": 156,
+        "group": "60",
+        "mad": 315.79966666666667,
+        "max": 1395.4523333333334,
+        "median": 493.2286666666667,
+        "min": 8.695666666666666,
+        "n": 156,
+        "q10": 88.26625000000001,
+        "q90": 1112.4523333333334
+      },
+      {
+        "finite_n": 80,
+        "group": "unknown",
+        "mad": 293.7408333333333,
+        "max": 1448.4523333333334,
+        "median": 379.1931666666666,
+        "min": 0.045000000000000005,
+        "n": 80,
+        "q10": 45.863366666666664,
+        "q90": 902.4523333333333
+      }
+    ],
+    "rows": 236,
+    "sites": 160,
+    "sites_at_least_2_events": 47,
+    "sites_at_least_3_events": 19,
+    "sites_at_least_5_events": 3,
+    "top3_row_share": 0.7966101694915254,
+    "unknown_distance": 0
+  },
+  "documentary_origins": {
+    "finite_n": 75,
+    "mad": 2.709999999999999,
+    "max": 38.84,
+    "median": -11.53,
+    "min": -24.12,
+    "n": 75,
+    "q10": -24.12,
+    "q90": 27.14
+  }
+}

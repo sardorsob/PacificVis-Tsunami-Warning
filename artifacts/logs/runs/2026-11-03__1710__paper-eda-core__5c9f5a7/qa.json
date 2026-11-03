@@ -1,0 +1,87 @@
+{
+  "code_sha256": {
+    "analysis/arrival/eda.py": "1ae0068c34c2bc860762f980f3e16127b43fa89a5dfab818e80412122b024766",
+    "analysis/arrival/eda_plots.py": "f55d8c82d8651faea5d86ba1470b0f0eb14f9f9c2c21446c2b7a214a7d075041",
+    "scripts/run_paper_eda.py": "84773afc272c226bacd920e91cc356d356035bc879f687e44fa37523b2f48092"
+  },
+  "documentary_product_origins_verified": 75,
+  "figure_review": {
+    "blocking_findings_remaining": 0,
+    "contrast": "Opaque #176B91:5.92:1 against white and4.65:1 against depth-band gray; fillbehindmarks",
+    "cvd": "Single-hue marks, no semantic dependence on distinguishing hues; point/line/gray-band shapes retain meaning",
+    "grayscale": "Representative histogram, physics and binned-interval grayscale renderings inspected",
+    "intervals": "95% event-bootstrap,500resamples explicitly captioned",
+    "layout": "No clipping or overlapping titles/axes; coherent log units and distinct family panels",
+    "rounds": 3,
+    "sample_sizes": "Underlying record counts and bin/group counts explicit"
+  },
+  "input_manifest_sha256": "4798557afa12df1b90b77a882d73be154405fdc498abdc3fe839d0833dee304b",
+  "interpretation_limits": [
+    "No fitted model or physical-onset approval",
+    "No pooling source families as independent samples",
+    "Unknown provider and source datum remain unknown",
+    "Documentary origin comparisons do not establish ancestry",
+    "Sparse confirmation and cross-half declared sequence remain disclosed"
+  ],
+  "module_replays": {
+    "C1": {
+      "all_byte_identical": true,
+      "files": 20,
+      "outputs_manifest_sha256": "5a9ac4a1b3b60b749117610e38b8b426bdc3059d10193e3e883271791d8a47ac"
+    },
+    "C2": {
+      "all_byte_identical": true,
+      "files": 21,
+      "outputs_manifest_sha256": "5b6efe667d3eda87633237612f3e7c62ee717b0473958f141b45213cf8eb73f9"
+    },
+    "C3": {
+      "all_byte_identical": true,
+      "files": 21,
+      "outputs_manifest_sha256": "fb98f7fbbe97a2ebb8d864464412c97590f9141090122ec1ffe597329e28edc7"
+    }
+  },
+  "output_files_byte_identical": 62,
+  "png_svg_csv_figure_sets": 10,
+  "rendered_pngs_reopened": 10,
+  "scope": "Exploration C1-C3 scientific source/count/replay/figure acceptance; root owns full repository gates and local integration",
+  "source_value_traces": [
+    {
+      "geodesic_km": 89.89139721769259,
+      "minutes": 0.045000000000000005,
+      "r0": -5.124550566534354,
+      "record_id": "us10006jbi:1:3",
+      "reference_minutes": 7.564435899604697,
+      "source": {
+        "observed_utc": "2016-09-01T16:38:00Z",
+        "reviewed_origin_utc": "2016-09-01T16:37:57.300Z"
+      },
+      "target": "T-OBS"
+    },
+    {
+      "geodesic_km": 7601.838977394985,
+      "minutes": 561.598,
+      "r0": -0.1302147094816199,
+      "record_id": "official20110311054624120_30:1:122",
+      "reference_minutes": 639.7010775609895,
+      "source": {
+        "observed_utc": "2011-03-11T15:08:00Z",
+        "reviewed_origin_utc": "2011-03-11T05:46:24.120Z"
+      },
+      "target": "T-OBS"
+    },
+    {
+      "geodesic_km": 1868.2330627577803,
+      "minutes": 206.0,
+      "r0": 0.2702722586339049,
+      "record_id": "recovery-ncei-12872e46821240b8:39",
+      "reference_minutes": 157.2133673095458,
+      "source": {
+        "native_travHours": "3",
+        "native_travMins": "26",
+        "raw_path": "data/raw/arrival-recovery/ncei-development-v1/recovery-ncei-12872e46821240b8.json"
+      },
+      "target": "NCEI-native-duration"
+    }
+  ],
+  "status": "PASS"
+}

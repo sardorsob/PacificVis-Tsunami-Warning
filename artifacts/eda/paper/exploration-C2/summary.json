@@ -1,0 +1,30 @@
+{
+  "NCEI-native-duration": {
+    "finite_n": 1070,
+    "integer_minute_share": 1.0,
+    "mad": 299.0,
+    "max": 1819.0,
+    "median": 429.0,
+    "min": 2.0,
+    "n": 1070,
+    "negative_share": 0.0,
+    "nonpositive": 0,
+    "outside_fixed_histogram": 0,
+    "q10": 66.0,
+    "q90": 1038.2
+  },
+  "T-OBS": {
+    "finite_n": 236,
+    "integer_minute_share": 0.0,
+    "mad": 316.05858333333333,
+    "max": 1448.4523333333334,
+    "median": 440.0109166666666,
+    "min": 0.045000000000000005,
+    "n": 236,
+    "negative_share": 0.0,
+    "nonpositive": 0,
+    "outside_fixed_histogram": 0,
+    "q10": 64.59758333333333,
+    "q90": 1064.0695
+  }
+}

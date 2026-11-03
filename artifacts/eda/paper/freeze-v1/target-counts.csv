@@ -1,0 +1,7 @@
+events,rows,sites,split,target
+13,156,95,exploration,T-CAL
+14,151,97,confirmation,NCEI-native-duration
+14,236,160,exploration,T-OBS
+33,1070,439,exploration,NCEI-native-duration
+5,13,12,confirmation,T-CAL
+6,22,20,confirmation,T-OBS
