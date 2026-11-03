@@ -1,0 +1,39 @@
+{
+  "bootstrap_repeats": 500,
+  "branch_availability_difference": 0.15,
+  "branch_influence_fraction": 0.3,
+  "branch_robust_z": 3.5,
+  "branch_spread_ratio": 1.5,
+  "branch_tail_share": 0.02,
+  "branch_time_offset_minutes": 1.0,
+  "branch_trend_log": 0.1,
+  "confirmation_rule": "same direction and magnitude within factor2 or overlapping intervals; insufficient support tentative",
+  "distance_bins_km": [
+    0,
+    500,
+    2000,
+    5000,
+    10000,
+    20050
+  ],
+  "near_field_km": 500,
+  "reference_cutoff_minutes": [
+    30,
+    60,
+    90
+  ],
+  "reference_depth_band_m": [
+    2000,
+    6000
+  ],
+  "reference_depth_m": 4000,
+  "reference_g": 9.80665,
+  "seed": 20261103,
+  "site_radius_km": [
+    1,
+    2,
+    5
+  ],
+  "stack": "descriptive numpy/matplotlib/pyproj; no fits or priors",
+  "version": "paper-eda-v1"
+}

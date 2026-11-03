@@ -1,0 +1,14 @@
+difference,event_id,key,n_other,n_reference,other,reference
+-10.5,official20110311054624120_30,measurement_family,251,22,tide_gauge,deep_ocean_gauge
+-112.0,usp000h1ys,measurement_family,80,1,tide_gauge,deep_ocean_gauge
+126.0,usp000jqvm,measurement_family,9,1,tide_gauge,deep_ocean_gauge
+178.5,usp000exfn,measurement_family,35,14,tide_gauge,deep_ocean_gauge
+202.5,usp000gsmz,measurement_family,4,5,tide_gauge,deep_ocean_gauge
+226.0,usp000juhz,measurement_family,92,1,tide_gauge,deep_ocean_gauge
+292.0,usp000f2ab,measurement_family,21,1,tide_gauge,deep_ocean_gauge
+292.5,usc000f1s0,measurement_family,46,4,tide_gauge,deep_ocean_gauge
+310.5,us20003k7a,measurement_family,117,2,tide_gauge,deep_ocean_gauge
+328.0,official20100227063411530_30,measurement_family,131,7,tide_gauge,deep_ocean_gauge
+58.0,us2000cmy3,measurement_family,19,7,tide_gauge,deep_ocean_gauge
+641.0,usp000fjta,measurement_family,44,1,tide_gauge,deep_ocean_gauge
+78.0,usp0007jcu,measurement_family,9,7,tide_gauge,deep_ocean_gauge

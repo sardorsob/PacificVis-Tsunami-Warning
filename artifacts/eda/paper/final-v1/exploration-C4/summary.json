@@ -1,0 +1,1758 @@
+{
+  "NCEI-native-duration": {
+    "physical_site_id": {
+      "components": 2,
+      "largest_component_rows": 1069,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1167259799123595,
+          "id": "official20100227063411530_30",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11625387140105037,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.3830781683250497,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14834902769472447,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.11983290721019343,
+          "id": "us2000cmy3",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07253821434953092,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.4150014318847581,
+          "id": "usc000f40j",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.10509657221264929,
+          "id": "usc000phx5",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 3.289853651485551,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1601850761411265,
+          "id": "usp0007jcu",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.22985184957962354,
+          "id": "usp0008mdk",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.007150067517797771,
+          "id": "usp000bbpf",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3756887453399198,
+          "id": "usp000bnvq",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.43569006131508026,
+          "id": "usp000bnyr",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5207046028139898,
+          "id": "usp000d3mb",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.4680190732730607,
+          "id": "usp000d9h1",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5382500976907809,
+          "id": "usp000db93",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3607847061430566,
+          "id": "usp000dt25",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2156542773170908,
+          "id": "usp000eg5g",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.18949596503274913,
+          "id": "usp000exfn",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1223045876846274,
+          "id": "usp000f2ab",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09516499071407264,
+          "id": "usp000fjta",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14598025750895977,
+          "id": "usp000gs2d",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.12009505181818497,
+          "id": "usp000gsmz",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11296342993336063,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09813609725831987,
+          "id": "usp000h2g9",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.007150067517797771,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6219657675288262,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2143304243020267,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.46355068539287364,
+          "id": "usp000j9nm",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.041432700854469554,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025005540938751514,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 250,
+          "cells": 1066,
+          "component": 0,
+          "event_mad": 0.1542670519179255,
+          "event_residual_ratio": 4.224770572543195,
+          "events": 32,
+          "residual_degrees": 597,
+          "residual_mad": 0.03651489454137648,
+          "rows": 1069,
+          "site_mad": 0.12133937521670815,
+          "site_ratio_high": 942.5483304302364,
+          "site_ratio_low": 4.108823590654277,
+          "site_residual_ratio": 3.3230104246696834,
+          "sites": 438
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 1070
+    },
+    "site_1km": {
+      "components": 2,
+      "largest_component_rows": 1069,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1167259799123595,
+          "id": "official20100227063411530_30",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11625387140105037,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.3830781683250497,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14834902769472447,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.11983290721019343,
+          "id": "us2000cmy3",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07253821434953092,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.4150014318847581,
+          "id": "usc000f40j",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.10509657221264929,
+          "id": "usc000phx5",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 3.289853651485551,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1601850761411265,
+          "id": "usp0007jcu",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.22985184957962354,
+          "id": "usp0008mdk",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.007150067517797771,
+          "id": "usp000bbpf",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3756887453399198,
+          "id": "usp000bnvq",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.43569006131508026,
+          "id": "usp000bnyr",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5207046028139898,
+          "id": "usp000d3mb",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.4680190732730607,
+          "id": "usp000d9h1",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5382500976907809,
+          "id": "usp000db93",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3607847061430566,
+          "id": "usp000dt25",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2156542773170908,
+          "id": "usp000eg5g",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.18949596503274913,
+          "id": "usp000exfn",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11833779030068708,
+          "id": "usp000f2ab",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09516499071407264,
+          "id": "usp000fjta",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14598025750895977,
+          "id": "usp000gs2d",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.12009505181818497,
+          "id": "usp000gsmz",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11296342993336063,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09813609725831987,
+          "id": "usp000h2g9",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.007150067517797771,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6219657675288262,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2143304243020267,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.46355068539287364,
+          "id": "usp000j9nm",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.041432700854469554,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.025005540938751514,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_1km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 1066,
+          "component": 0,
+          "event_mad": 0.1542670519179255,
+          "event_residual_ratio": 4.118662645008883,
+          "events": 32,
+          "residual_degrees": 603,
+          "residual_mad": 0.03745561732395608,
+          "rows": 1069,
+          "site_mad": 0.12073667251739321,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 3.2234596875852786,
+          "sites": 432
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 1070
+    },
+    "site_2km": {
+      "components": 2,
+      "largest_component_rows": 1069,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11464643145898264,
+          "id": "official20100227063411530_30",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1141743229476735,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.3851577167784261,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14626947924134756,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.1219124556635703,
+          "id": "us2000cmy3",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07045866589615406,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.41708098033813484,
+          "id": "usc000f40j",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.10717612066602615,
+          "id": "usc000phx5",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 3.291933199938928,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1581055276877496,
+          "id": "usp0007jcu",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.23193139803300045,
+          "id": "usp0008mdk",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0050705190644209095,
+          "id": "usp000bbpf",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3777682937932966,
+          "id": "usp000bnvq",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.43776960976845697,
+          "id": "usp000bnyr",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5227841512673672,
+          "id": "usp000d3mb",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.4690588474717698,
+          "id": "usp000d9h1",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5403296461441583,
+          "id": "usp000db93",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.36286425459643334,
+          "id": "usp000dt25",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2135747288637139,
+          "id": "usp000eg5g",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.18741641657937222,
+          "id": "usp000exfn",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11625824184731025,
+          "id": "usp000f2ab",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09308544226069579,
+          "id": "usp000fjta",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14805980607425168,
+          "id": "usp000gs2d",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1613818320145778,
+          "id": "usp000gsmz",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1108838814799838,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09605654880494299,
+          "id": "usp000h2g9",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.0050705190644209095,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6240453159822036,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2122508758486498,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.46563023384625035,
+          "id": "usp000j9nm",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.043512249307846425,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.02292599248537464,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_2km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 261,
+          "cells": 1066,
+          "component": 0,
+          "event_mad": 0.1597436798511637,
+          "event_residual_ratio": 4.208224399803438,
+          "events": 32,
+          "residual_degrees": 604,
+          "residual_mad": 0.03795987682088084,
+          "rows": 1069,
+          "site_mad": 0.12091430737305918,
+          "site_ratio_high": 304.2729623931266,
+          "site_ratio_low": 3.914672003303929,
+          "site_residual_ratio": 3.185318749679057,
+          "sites": 431
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 1070
+    },
+    "site_5km": {
+      "components": 2,
+      "largest_component_rows": 1069,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11464643145898264,
+          "id": "official20100227063411530_30",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1141743229476735,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.3851577167784261,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14626947924134756,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.1219124556635703,
+          "id": "us2000cmy3",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.07045866589615406,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.41708098033813484,
+          "id": "usc000f40j",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.10717612066602615,
+          "id": "usc000phx5",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 3.291933199938928,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1581055276877496,
+          "id": "usp0007jcu",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.23193139803300045,
+          "id": "usp0008mdk",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0050705190644209095,
+          "id": "usp000bbpf",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.3777682937932966,
+          "id": "usp000bnvq",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.43776960976845697,
+          "id": "usp000bnyr",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5105284875739867,
+          "id": "usp000d3mb",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 1.4690588474717698,
+          "id": "usp000d9h1",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5403296461441583,
+          "id": "usp000db93",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.36286425459643334,
+          "id": "usp000dt25",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2135747288637139,
+          "id": "usp000eg5g",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.18741641657937222,
+          "id": "usp000exfn",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.11625824184731025,
+          "id": "usp000f2ab",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09308544226069579,
+          "id": "usp000fjta",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.14805980607425168,
+          "id": "usp000gs2d",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1613818320145778,
+          "id": "usp000gsmz",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1108838814799838,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.09605654880494299,
+          "id": "usp000h2g9",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.0050705190644209095,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.6240453159822036,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.2122508758486498,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.46563023384625035,
+          "id": "usp000j9nm",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.043512249307846425,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.02292599248537464,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_5km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 1066,
+          "component": 0,
+          "event_mad": 0.1597436798511637,
+          "event_residual_ratio": 4.149993170774421,
+          "events": 32,
+          "residual_degrees": 606,
+          "residual_mad": 0.03849251631933512,
+          "rows": 1069,
+          "site_mad": 0.12014188989630542,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 3.12117526689096,
+          "sites": 429
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 1,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 1070
+    }
+  },
+  "T-OBS": {
+    "physical_site_id": {
+      "components": 3,
+      "largest_component_rows": 233,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.17992454558291143,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5620924344079059,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.059970709741798106,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.03292688677829492,
+          "id": "us20007z80",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.05918052545604449,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1570220123592394,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.20889176353897013,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.07308082051668247,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.10268247807298203,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.16155917480481438,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "physical_site_id"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 233,
+          "component": 0,
+          "event_mad": 0.10268247807298203,
+          "event_residual_ratio": "unknown",
+          "events": 11,
+          "residual_degrees": 65,
+          "residual_mad": 0.0,
+          "rows": 233,
+          "site_mad": 0.10469824537441254,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 158
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 2,
+          "component": 1,
+          "event_mad": 0.0061584926880290415,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 2,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 236
+    },
+    "site_1km": {
+      "components": 3,
+      "largest_component_rows": 233,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.12737446965748117,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.589956874457979,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.00742063381636783,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.08547696270372523,
+          "id": "us20007z80",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.006630449530614216,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10447193643380909,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.15634168761353984,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.4216225364038668,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.1855484463720903,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_1km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.21410925073024464,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_1km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 233,
+          "component": 0,
+          "event_mad": 0.12737446965748117,
+          "event_residual_ratio": 114.40059805119914,
+          "events": 11,
+          "residual_degrees": 80,
+          "residual_mad": 0.0011134073757243443,
+          "rows": 233,
+          "site_mad": 0.10739774269886443,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 96.45862335786592,
+          "sites": 143
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 2,
+          "component": 1,
+          "event_mad": 0.0061584926880290415,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 2,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 1,
+          "component": 2,
+          "event_mad": 0.0,
+          "event_residual_ratio": "unknown",
+          "events": 1,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 1,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 236
+    },
+    "site_2km": {
+      "components": 2,
+      "largest_component_rows": 234,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.12405924489217397,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5932720992232858,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.004105409051060719,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0887921874690323,
+          "id": "us20007z80",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.0033152247653071057,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.03216731926017189,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10115671166850206,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1530264628482326,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.42493776116917364,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0033152247653071057,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.18886367113739755,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_2km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.21742447549555188,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_2km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 13,
+          "cells": 234,
+          "component": 0,
+          "event_mad": 0.11260797828033801,
+          "event_residual_ratio": 83.56910712933524,
+          "events": 12,
+          "residual_degrees": 81,
+          "residual_mad": 0.0013474833242631268,
+          "rows": 234,
+          "site_mad": 0.11009565495205456,
+          "site_ratio_high": 619669158.2578927,
+          "site_ratio_low": 19.19384881170189,
+          "site_residual_ratio": 81.70465115942012,
+          "sites": 142
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 2,
+          "component": 1,
+          "event_mad": 0.0061584926880290415,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 2,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 236
+    },
+    "site_5km": {
+      "components": 2,
+      "largest_component_rows": 234,
+      "largest_event_effects": [
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.12405924489217397,
+          "id": "official20110311054624120_30",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.5932720992232858,
+          "id": "us10006jbi",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.004105409051060719,
+          "id": "us20003k7a",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0887921874690323,
+          "id": "us20007z80",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.0033152247653071057,
+          "id": "usc000f1s0",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.03216731926017189,
+          "id": "usc000piqj",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.10115671166850206,
+          "id": "usp000h1ys",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": -0.1530264628482326,
+          "id": "usp000hrw0",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.42493776116917364,
+          "id": "usp000j3mq",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.0033152247653071057,
+          "id": "usp000j48h",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.18886367113739755,
+          "id": "usp000jqvm",
+          "kind": "event",
+          "site_key": "site_5km"
+        },
+        {
+          "component": 0,
+          "component_relative": true,
+          "effect": 0.21742447549555188,
+          "id": "usp000juhz",
+          "kind": "event",
+          "site_key": "site_5km"
+        }
+      ],
+      "profiles": [
+        {
+          "bootstrap_valid": 0,
+          "cells": 234,
+          "component": 0,
+          "event_mad": 0.11260797828033801,
+          "event_residual_ratio": 11.606467985943558,
+          "events": 12,
+          "residual_degrees": 82,
+          "residual_mad": 0.009702174547564002,
+          "rows": 234,
+          "site_mad": 0.10739774269886443,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": 11.069450685756792,
+          "sites": 141
+        },
+        {
+          "bootstrap_valid": 0,
+          "cells": 2,
+          "component": 1,
+          "event_mad": 0.0061584926880290415,
+          "event_residual_ratio": "unknown",
+          "events": 2,
+          "residual_degrees": 0,
+          "residual_mad": 0.0,
+          "rows": 2,
+          "site_mad": 0.0,
+          "site_ratio_high": "unknown",
+          "site_ratio_low": "unknown",
+          "site_residual_ratio": "unknown",
+          "sites": 1
+        }
+      ],
+      "raw_rows": 236
+    }
+  }
+}

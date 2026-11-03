@@ -71,3 +71,20 @@ def test_target_assembly_never_uses_unsupported_clocks_to_change_tcal() -> None:
     assert a[0]["target_minutes"] == b[0]["target_minutes"]
     with pytest.raises(ValueError, match="duplicate"):
         frame_targets(rows, sites + sites, meta, [], "T-CAL")
+
+
+def test_clock_heaping_is_separate_from_fractional_origin_duration() -> None:
+    rows = [
+        {
+            "source_record_id": "r",
+            "event_id": "dev",
+            "physical_site_id": "s",
+            "duration_minutes": "0.045",
+            "observed_utc": "2010-01-01T00:01:00Z",
+        }
+    ]
+    sites = [{"physical_site_id": "s", "latitude": "0", "longitude": "1"}]
+    meta = [{"event_id": "dev", "longitude": "0", "latitude": "0"}]
+    result = frame_targets(rows, sites, meta, [], "T-OBS")[0]
+    assert result["observed_clock_second"] == 0
+    assert result["target_minutes"] == 0.045

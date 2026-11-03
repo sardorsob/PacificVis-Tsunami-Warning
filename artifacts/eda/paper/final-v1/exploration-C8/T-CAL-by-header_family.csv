@@ -1,0 +1,4 @@
+finite_n,group,mad,max,median,min,n,q10,q90
+100,estimated_observed_utc_jday,12.5,20.0,-10.5,-204.0,100,-55.4,5.1000000000000085
+3,computed_observed_utc,14.0,4.0,-27.0,-41.0,3,-38.2,-2.1999999999999984
+53,estimated_observed_gmt_jday,6.0,4.0,-20.0,-59.0,53,-32.6,-5.3999999999999915

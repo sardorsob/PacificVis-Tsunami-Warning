@@ -1,0 +1,12 @@
+event_id,exact_observed_n,native_median_difference,not_exact_observed_n,unit_scope
+official20110311054624120_30,130,35.0,22,official20110311054624120_30/1/estimated_observed_utc_jday; native units unknown; no pooled size
+us20003k7a,109,11.0,26,us20003k7a/1/estimated_observed_gmt_jday; native units unknown; no pooled size
+us20007z80,10,3.5,1,us20007z80/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usc000f1s0,59,1.5,22,usc000f1s0/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usc000piqj,4,3.0,1,usc000piqj/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usp000f2ab,1,-1.5,26,usp000f2ab/1/computed_observed_utc; native units unknown; no pooled size
+usp000h1ys,3,224.8,68,usp000h1ys/1/computed_observed_utc; native units unknown; no pooled size
+usp000hrw0,2,5.5,2,usp000hrw0/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usp000j48h,10,2.0,13,usp000j48h/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usp000jqvm,9,-13.0,1,usp000jqvm/1/estimated_observed_utc_jday; native units unknown; no pooled size
+usp000juhz,73,2.5,19,usp000juhz/1/estimated_observed_utc_jday; native units unknown; no pooled size

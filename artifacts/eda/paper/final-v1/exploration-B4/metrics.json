@@ -1,0 +1,30 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B4",
+    "checks_maximum": 2,
+    "detail": {
+      "categorical_covariates": "mechanism/region are categories, not ordinal ranks",
+      "rank_correlations": {
+        "depth_km": 0.08084544852835764,
+        "magnitude": -0.6540987188833095
+      }
+    },
+    "scalar": 4.224770572543195,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B4",
+    "checks_maximum": 2,
+    "detail": {
+      "categorical_covariates": "mechanism/region are categories, not ordinal ranks",
+      "rank_correlations": {
+        "depth_km": 0.07272727272727274,
+        "magnitude": -0.5655546025421946
+      }
+    },
+    "scalar": "unknown",
+    "status": "not_identifiable",
+    "triggered": false
+  }
+}

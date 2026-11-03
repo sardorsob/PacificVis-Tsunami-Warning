@@ -1,0 +1,28 @@
+{
+  "python_tests": 839,
+  "frontend_tests": 178,
+  "ruff": "PASS",
+  "pyright": "PASS",
+  "app_build": "PASS",
+  "source_manifests_validated": [
+    19,
+    2738
+  ],
+  "no_fit": true,
+  "no_acquisition": true,
+  "reserved_outcomes_unopened": true,
+  "visual_review": {
+    "rounds": 3,
+    "fresh_context": true,
+    "remaining_P0_P1": 0,
+    "remaining_P2": [
+      "P1 sensitivity outlier IDs in CSV",
+      "nonchronological era order",
+      "unidentifiable target marks omitted; CSV preserves status"
+    ]
+  },
+  "chart_warnings": [
+    "fixed reference and depth-band legend retained",
+    "neutral descriptive availability title retained"
+  ]
+}

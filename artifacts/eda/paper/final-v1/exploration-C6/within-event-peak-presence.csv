@@ -1,0 +1,6 @@
+difference,event_id,key,n_other,n_reference,other,reference
+0.0,official20100227063411530_30,peak_present,94,1,True,False
+0.0,usc000phx5,peak_present,2,1,True,False
+0.0,usp000gs2d,peak_present,16,2,True,False
+0.0,usp000gsmz,peak_present,8,1,True,False
+1.0,us20003k7a,peak_present,135,6,True,False

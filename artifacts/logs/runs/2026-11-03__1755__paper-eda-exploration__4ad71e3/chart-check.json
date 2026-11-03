@@ -1,0 +1,30 @@
+{
+ "result": "pass",
+ "dest": "report",
+ "figures": 36,
+ "fails": 0,
+ "warns": 3,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig18/ax0 legend",
+   "detail": "legend with 2 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig20/ax0 legend",
+   "detail": "legend with 2 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "default-title",
+   "severity": "warn",
+   "where": "fig27/figure 'Exact observation availability by product era'",
+   "detail": "title describes the chart instead of the takeaway",
+   "fix": "Rewrite the title as the finding, e.g. 'Sales doubled after the 2020 launch'."
+  }
+ ]
+}

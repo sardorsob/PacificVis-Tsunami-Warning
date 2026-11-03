@@ -1,0 +1,239 @@
+{
+  "T-CAL": {
+    "by-era": [
+      {
+        "finite_n": 95,
+        "group": "2007-2013",
+        "mad": 12.0,
+        "max": 20.0,
+        "median": -8.0,
+        "min": -123.0,
+        "n": 95,
+        "q10": -53.2,
+        "q90": 5.0
+      },
+      {
+        "finite_n": 60,
+        "group": "2014plus",
+        "mad": 7.0,
+        "max": 6.0,
+        "median": -21.0,
+        "min": -204.0,
+        "n": 60,
+        "q10": -34.1,
+        "q90": -4.599999999999994
+      },
+      {
+        "finite_n": 1,
+        "group": "pre2007",
+        "mad": 0.0,
+        "max": -27.0,
+        "median": -27.0,
+        "min": -27.0,
+        "n": 1,
+        "q10": -27.0,
+        "q90": -27.0
+      }
+    ],
+    "by-event_id": [
+      {
+        "finite_n": 8,
+        "group": "official20110311054624120_30",
+        "mad": 7.0,
+        "max": 11.0,
+        "median": 0.0,
+        "min": -11.0,
+        "n": 8,
+        "q10": -8.9,
+        "q90": 8.2
+      },
+      {
+        "finite_n": 1,
+        "group": "us10006jbi",
+        "mad": 0.0,
+        "max": -23.0,
+        "median": -23.0,
+        "min": -23.0,
+        "n": 1,
+        "q10": -23.0,
+        "q90": -23.0
+      },
+      {
+        "finite_n": 53,
+        "group": "us20003k7a",
+        "mad": 6.0,
+        "max": 4.0,
+        "median": -20.0,
+        "min": -59.0,
+        "n": 53,
+        "q10": -32.6,
+        "q90": -5.3999999999999915
+      },
+      {
+        "finite_n": 5,
+        "group": "us20007z80",
+        "mad": 10.0,
+        "max": -23.0,
+        "median": -33.0,
+        "min": -204.0,
+        "n": 5,
+        "q10": -159.2,
+        "q90": -26.2
+      },
+      {
+        "finite_n": 33,
+        "group": "usc000f1s0",
+        "mad": 20.0,
+        "max": -1.0,
+        "median": -40.0,
+        "min": -123.0,
+        "n": 33,
+        "q10": -73.2,
+        "q90": -10.399999999999999
+      },
+      {
+        "finite_n": 1,
+        "group": "usc000piqj",
+        "mad": 0.0,
+        "max": 6.0,
+        "median": 6.0,
+        "min": 6.0,
+        "n": 1,
+        "q10": 6.0,
+        "q90": 6.0
+      },
+      {
+        "finite_n": 1,
+        "group": "usp000exfn",
+        "mad": 0.0,
+        "max": -27.0,
+        "median": -27.0,
+        "min": -27.0,
+        "n": 1,
+        "q10": -27.0,
+        "q90": -27.0
+      },
+      {
+        "finite_n": 1,
+        "group": "usp000f2ab",
+        "mad": 0.0,
+        "max": -41.0,
+        "median": -41.0,
+        "min": -41.0,
+        "n": 1,
+        "q10": -41.0,
+        "q90": -41.0
+      },
+      {
+        "finite_n": 1,
+        "group": "usp000h1ys",
+        "mad": 0.0,
+        "max": 4.0,
+        "median": 4.0,
+        "min": 4.0,
+        "n": 1,
+        "q10": 4.0,
+        "q90": 4.0
+      },
+      {
+        "finite_n": 6,
+        "group": "usp000j3mq",
+        "mad": 1.0,
+        "max": -5.0,
+        "median": -6.5,
+        "min": -11.0,
+        "n": 6,
+        "q10": -11.0,
+        "q90": -5.5
+      },
+      {
+        "finite_n": 5,
+        "group": "usp000j48h",
+        "mad": 11.0,
+        "max": 11.0,
+        "median": 0.0,
+        "min": -50.0,
+        "n": 5,
+        "q10": -40.0,
+        "q90": 6.600000000000001
+      },
+      {
+        "finite_n": 4,
+        "group": "usp000jqvm",
+        "mad": 4.5,
+        "max": 2.0,
+        "median": -42.5,
+        "min": -48.0,
+        "n": 4,
+        "q10": -47.4,
+        "q90": -10.299999999999994
+      },
+      {
+        "finite_n": 37,
+        "group": "usp000juhz",
+        "mad": 4.0,
+        "max": 20.0,
+        "median": -1.0,
+        "min": -100.0,
+        "n": 37,
+        "q10": -24.4,
+        "q90": 13.0
+      }
+    ],
+    "by-header_family": [
+      {
+        "finite_n": 3,
+        "group": "computed_observed_utc",
+        "mad": 14.0,
+        "max": 4.0,
+        "median": -27.0,
+        "min": -41.0,
+        "n": 3,
+        "q10": -38.2,
+        "q90": -2.1999999999999984
+      },
+      {
+        "finite_n": 53,
+        "group": "estimated_observed_gmt_jday",
+        "mad": 6.0,
+        "max": 4.0,
+        "median": -20.0,
+        "min": -59.0,
+        "n": 53,
+        "q10": -32.6,
+        "q90": -5.3999999999999915
+      },
+      {
+        "finite_n": 100,
+        "group": "estimated_observed_utc_jday",
+        "mad": 12.5,
+        "max": 20.0,
+        "median": -10.5,
+        "min": -204.0,
+        "n": 100,
+        "q10": -55.4,
+        "q90": 5.1000000000000085
+      }
+    ],
+    "finite_n": 156,
+    "integer_minute_share": 1.0,
+    "mad": 13.5,
+    "max": 20.0,
+    "median": -15.5,
+    "min": -204.0,
+    "n": 156,
+    "native_clock_second_summary": {
+      "finite_n": 0,
+      "mad": "unknown",
+      "median": "unknown",
+      "n": 156,
+      "q10": "unknown",
+      "q90": "unknown"
+    },
+    "negative_share": 0.8012820512820513,
+    "nonpositive": 133,
+    "outside_fixed_histogram": 0,
+    "q10": -51.0,
+    "q90": 3.5
+  }
+}

@@ -1,0 +1,7 @@
+difference,event_id,key,n_other,n_reference,other,reference
+-114.00000000000003,usp000j3mq,identity_scope,1,5,source_qualified_geographic_site,authoritative_provider_site
+-220.5,usc000f1s0,identity_scope,36,16,source_qualified_geographic_site,authoritative_provider_site
+-265.0,usp000j48h,identity_scope,7,1,source_qualified_geographic_site,authoritative_provider_site
+-368.0,us20003k7a,identity_scope,58,28,source_qualified_geographic_site,authoritative_provider_site
+-609.0,us20007z80,identity_scope,4,5,source_qualified_geographic_site,authoritative_provider_site
+450.99999999999994,usp000juhz,identity_scope,15,35,source_qualified_geographic_site,authoritative_provider_site

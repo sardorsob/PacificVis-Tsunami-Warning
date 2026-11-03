@@ -1,0 +1,61 @@
+{
+  "byte_replay": {
+    "all_identical": true,
+    "files": 386,
+    "modules": 20,
+    "receipt": "final-exploration-render-locked-replay.json",
+    "scratch": "final-exploration-replay-render-locked-v3"
+  },
+  "code": {
+    "analysis/arrival/eda.py": "ef276fdf29e565793c1aff7e030ef6a707281a06b5ecc1509409cb5c17b28de1",
+    "analysis/arrival/eda_branches.py": "54213a83fc3bd78235d5b21c887bc6194c212c9239d32da6587645c5ea2b6b86",
+    "analysis/arrival/eda_diagnostics.py": "0b4c321c038d0d3bf0fda0ab8a1613e0eff94f0086048debcf5bacaa20eade20",
+    "analysis/arrival/eda_plots.py": "d1e94672959eb5ddb7cda405578270c8df64e7e15526533c3b34b26b8866bb3f",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "scripts/run_paper_eda.py": "3f8711ca687e7c0c8a0bdbfc287e72f79eaa3a08f6079912b57ad054ba8e19f2"
+  },
+  "historical_acceptance_preserved": "final-exploration-acceptance.json",
+  "lock_preparer": {
+    "metadata_only_synthetic_checks": "PASS core9plusonlytriggeredbranches, selected routes, input digest, existing-lock rejection, code-drift rejection",
+    "receipt": "lock-preparer-review-render.json",
+    "runner_guard_receipt": "lock-question-guard-review.json",
+    "unselected_B11_rejected_before_outcome_loader": true
+  },
+  "pins": {
+    "all_output_manifests_verified": true,
+    "analysis_dependencies": 8,
+    "frozen_inputs": 148,
+    "receipt": "final-exploration-render-locked-pins.json",
+    "source_auditor_inputs": 65
+  },
+  "render_review": {
+    "P0_P1_findings": 0,
+    "PNGs_reopened": 36,
+    "deterministic_checker": "36figures0fail3warnings; two fixed-physics legend preferences and one neutral title preference acceptable for exploratory science",
+    "evidence": "figure-review-render-v2/",
+    "grayscale_samples": 3,
+    "new_12pt_text_category_labels_top3_event_IDs_log_axis_label": "legible"
+  },
+  "replication_classification_review_still_required": "After authorized confirmation run, examine report claims independently. Nonnegative spread/availability-range/influence scalars do not alone establish same-direction specific covariate effects; inadequate event/site/bootstrap support stays tentative.",
+  "scientific_caveats_retained": [
+    "T-OBS physical-site residualMAD0 makes ratio undefined; it is not zero observational noise or proof of no site effect",
+    "NCEI physical/2km bootstrap valid250/261of500 fails two-key stability requirement; crossed-site recommendation remains tentative",
+    "C4 effects are component-relative; bootstrap disconnection/identifiability and component changes under deletion limit interpretation",
+    "B6 NCEI202.5min is unmatched within-event tide/deep-ocean duration contrast, confounded by distance and definition; not an identified causal source offset",
+    "B7 selected era route is frozen; exactUTC availability is not a station-operating census and MCAR/MAR/MNAR is unidentified",
+    "B8 large maximum relative changes can reflect small source-contrast baselines; pooled-r0 median deletion movement is a separate quantity",
+    "Zero direct shared geographic links leave common latent target unresolved; P1 bounded2km comparisons remain posthoc and unapproved",
+    "T-CAL EminusO is a signed arrival forecast comparison, not public alert lead time",
+    "Confirmation is sparse and one physical sequence crosses archive-event halves; no independent physical-sequence confirmation claim",
+    "No source repair, record dropping, model fit, prior selection, or source-family pooling occurred"
+  ],
+  "scientific_identity": {
+    "all20summary_json_byte_identical_to_attempt2_or3": true,
+    "all36PNG_byte_identical_to_reopened_render": true,
+    "independent_numeric_receipt": "final-exploration-render-numeric.json"
+  },
+  "scope": "Exploration only; production confirmation lock not run by Checker; confirmation and18reserved outcomes unopened",
+  "status": "ACCEPTED exact final rendering and runner guard; ready for frozen confirmation run"
+}

@@ -1,0 +1,38 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B11",
+    "checks_maximum": 2,
+    "detail": {
+      "caution": "Unmatched duration contrasts mix distance and definition; not causal source offsets",
+      "comparison_rows": 0,
+      "lineage": "unresolved; cross-source latent arrival not identified",
+      "selected_contrast": {
+        "ci_high": "unknown",
+        "ci_low": "unknown",
+        "median": "unknown"
+      },
+      "selected_route": "direct_geographic"
+    },
+    "scalar": "unknown",
+    "status": "not_identifiable",
+    "triggered": false
+  },
+  "T-OBS": {
+    "branch": "B11",
+    "checks_maximum": 2,
+    "detail": {
+      "caution": "Unmatched duration contrasts mix distance and definition; not causal source offsets",
+      "comparison_rows": 0,
+      "lineage": "unresolved; cross-source latent arrival not identified",
+      "selected_contrast": {
+        "ci_high": "unknown",
+        "ci_low": "unknown",
+        "median": "unknown"
+      },
+      "selected_route": "direct_geographic"
+    },
+    "scalar": "unknown",
+    "status": "not_identifiable",
+    "triggered": false
+  }
+}

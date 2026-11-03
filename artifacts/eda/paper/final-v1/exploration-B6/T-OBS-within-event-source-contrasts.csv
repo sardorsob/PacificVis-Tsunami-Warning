@@ -1,0 +1,9 @@
+comparison_id,difference,event_id,key,n_other,n_reference,other,reference
+precision_seconds|60|unknown,-24.000000000000007,us10006jbi,precision_seconds,3,1,unknown,60
+precision_seconds|60|unknown,-280.0,usp000j48h,precision_seconds,3,5,unknown,60
+precision_seconds|60|unknown,-329.0,us20003k7a,precision_seconds,33,53,unknown,60
+precision_seconds|60|unknown,-41.0,usc000f1s0,precision_seconds,19,33,unknown,60
+precision_seconds|60|unknown,-58.0,usp000jqvm,precision_seconds,2,4,unknown,60
+precision_seconds|60|unknown,-609.0,us20007z80,precision_seconds,4,5,unknown,60
+precision_seconds|60|unknown,359.0,usp000h1ys,precision_seconds,1,1,unknown,60
+precision_seconds|60|unknown,391.99999999999994,usp000juhz,precision_seconds,13,37,unknown,60

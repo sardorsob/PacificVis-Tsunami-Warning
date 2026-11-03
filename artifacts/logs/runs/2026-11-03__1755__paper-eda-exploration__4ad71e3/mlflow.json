@@ -1,0 +1,82 @@
+[
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B1",
+    "run_id": "68e5046eedf24649879f8bbcdd1b2dcf"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B10",
+    "run_id": "f3605a67c3d74a79b40e7c310be16dba"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B11",
+    "run_id": "7766438e5e554104a9116f5e6cadf576"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B2",
+    "run_id": "17330bd8c9e043cbaef1737fd4e7f7dd"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B3",
+    "run_id": "e5c284e919034553ac37bd6ad205e8c0"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B4",
+    "run_id": "d89e6e7ef5404baeb99fe51348ac4dc5"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B5",
+    "run_id": "fcef0967581f46ae8e000f6f79416a5c"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B6",
+    "run_id": "c47f25b8300c40d68656d7aa6d4d61bb"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B7",
+    "run_id": "31e2d41079b44ea2abd34ce003fa1e6c"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B8",
+    "run_id": "602f917c86c140129527d6d5b47320d8"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-B9",
+    "run_id": "04845ade0bb445718a1b0d7af7ef70d1"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C1",
+    "run_id": "8d518a4581dd44efbd78f6edfe121b8f"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C2",
+    "run_id": "4795b5529b424894a9a26da6540238a0"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C3",
+    "run_id": "549316124cde4bbeaa4e5dffc92d6649"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C4",
+    "run_id": "7b43f658ccef4d3282ca88d6ce237832"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C5",
+    "run_id": "28e574450f1948468085d586fda16231"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C6",
+    "run_id": "d8b2e34b85624b91a8a5c160ca5ed0ae"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C7",
+    "run_id": "24f6d47060b047328188a31ee6e15857"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C8",
+    "run_id": "602e2986a6644df68d4e9092f36d2dc8"
+  },
+  {
+    "bundle": "artifacts/eda/paper/final-v1/exploration-C9",
+    "run_id": "936cd5b2fbd9428c9b6502a78da810db"
+  }
+]

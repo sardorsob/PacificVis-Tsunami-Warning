@@ -1,0 +1,72 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B2",
+    "checks_maximum": 2,
+    "detail": {
+      "classifications": [
+        {
+          "finite_n": 1,
+          "group": "documented_definition_candidate",
+          "mad": 0.0,
+          "max": -0.8903591747302033,
+          "median": -0.8903591747302033,
+          "min": -0.8903591747302033,
+          "n": 1,
+          "q10": -0.8903591747302033,
+          "q90": -0.8903591747302033
+        },
+        {
+          "finite_n": 122,
+          "group": "original_duration_retained; specific_cause_unresolved",
+          "mad": 0.22861480436306925,
+          "max": 3.4653642630189734,
+          "median": 0.9653679726662068,
+          "min": -3.082380822449964,
+          "n": 122,
+          "q10": 0.6658571667306072,
+          "q90": 1.52730014297928
+        }
+      ],
+      "flagged": 123,
+      "retained_all": true
+    },
+    "scalar": 0.11495327102803739,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B2",
+    "checks_maximum": 2,
+    "detail": {
+      "classifications": [
+        {
+          "finite_n": 1,
+          "group": "origin_rounding_sensitive",
+          "mad": 0.0,
+          "max": -5.124550566534354,
+          "median": -5.124550566534354,
+          "min": -5.124550566534354,
+          "n": 1,
+          "q10": -5.124550566534354,
+          "q90": -5.124550566534354
+        },
+        {
+          "finite_n": 26,
+          "group": "original_duration_retained; specific_cause_unresolved",
+          "mad": 0.08714241751900897,
+          "max": 2.1157762039458885,
+          "median": 0.6344847572369119,
+          "min": -0.6031068231396874,
+          "n": 26,
+          "q10": 0.5271326157182193,
+          "q90": 1.297884016818362
+        }
+      ],
+      "flagged": 27,
+      "retained_all": true
+    },
+    "scalar": 0.11440677966101695,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

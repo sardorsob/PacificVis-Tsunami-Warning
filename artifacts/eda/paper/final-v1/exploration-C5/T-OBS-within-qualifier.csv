@@ -1,0 +1,11 @@
+difference,event_id,key,n_other,n_reference,other,reference
+-359.0,usp000h1ys,qualifier,1,1,[],"[""estimate:date_ambiguous""]"
+-391.99999999999994,usp000juhz,qualifier,37,13,[],"[""estimate:source_absent_explicit""]"
+-50.0,usc000f1s0,qualifier,33,1,[],"[""estimate:footnoted_value""]"
+-91.0,usc000f1s0,qualifier,18,1,"[""estimate:source_absent_explicit""]","[""estimate:footnoted_value""]"
+24.000000000000007,us10006jbi,qualifier,1,3,[],"[""estimate:source_absent_explicit""]"
+280.0,usp000j48h,qualifier,5,3,[],"[""estimate:source_absent_explicit""]"
+471.49999999999994,us20003k7a,qualifier,32,1,"[""estimate:source_absent_explicit""]","[""estimate:blank""]"
+58.0,usp000jqvm,qualifier,4,2,[],"[""estimate:source_absent_explicit""]"
+609.0,us20007z80,qualifier,5,4,[],"[""estimate:source_absent_explicit""]"
+793.0,us20003k7a,qualifier,53,1,[],"[""estimate:blank""]"

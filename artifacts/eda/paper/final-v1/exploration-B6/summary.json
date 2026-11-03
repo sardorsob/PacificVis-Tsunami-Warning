@@ -1,0 +1,38 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B6",
+    "checks_maximum": 2,
+    "detail": {
+      "caution": "Unmatched duration contrasts mix distance and definition; not causal source offsets",
+      "comparison_rows": 0,
+      "lineage": "unresolved; cross-source latent arrival not identified",
+      "selected_contrast": {
+        "ci_high": 292.5,
+        "ci_low": 78.0,
+        "median": 202.5
+      },
+      "selected_route": "measurement_family|deep_ocean_gauge|tide_gauge"
+    },
+    "scalar": 202.5,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B6",
+    "checks_maximum": 2,
+    "detail": {
+      "caution": "Unmatched duration contrasts mix distance and definition; not causal source offsets",
+      "comparison_rows": 0,
+      "lineage": "unresolved; cross-source latent arrival not identified",
+      "selected_contrast": {
+        "ci_high": "unknown",
+        "ci_low": "unknown",
+        "median": "unknown"
+      },
+      "selected_route": "direct_geographic"
+    },
+    "scalar": "unknown",
+    "status": "not_identifiable",
+    "triggered": false
+  }
+}

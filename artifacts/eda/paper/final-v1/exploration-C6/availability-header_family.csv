@@ -1,0 +1,5 @@
+accepted_rows,availability,events,exact_observed,group,retained_rows,structural_rows
+141,0.7801418439716312,1,110,estimated_observed_gmt_jday,157,16
+363,0.02203856749311295,9,8,computed_observed_utc,366,3
+43,0.6511627906976745,5,28,arrival_eta_utc,43,0
+434,0.804147465437788,16,349,estimated_observed_utc_jday,445,11

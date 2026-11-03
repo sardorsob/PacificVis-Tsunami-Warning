@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from textwrap import fill
 from typing import Any
 
 import matplotlib
@@ -29,7 +30,7 @@ def draw(
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
-            "font.size": 11,
+            "font.size": 12,
             "svg.hashsalt": "paper-eda-v1",
             "axes.spines.top": False,
             "axes.spines.right": False,
@@ -68,7 +69,7 @@ def draw(
         )
         ax.set_xscale("log")
         ax.set_yscale("log")
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=12)
     if kind == "line" and rows and "ci_low" in rows[0]:
         ax.vlines(
             xx,
@@ -86,10 +87,29 @@ def draw(
             va="center",
         )
     ax.set(xlabel=xlabel, ylabel=ylabel)
+    if rows and "group" in rows[0] and len(rows) <= 5:
+        ax.set_xticks([float(r[x]) for r in rows], [str(r["group"]) for r in rows])
+    if rows and "target" in rows[0] and len(rows) <= 3:
+        ax.set_xticks(
+            [float(r[x]) for r in rows],
+            [
+                str(r.get("comparison_label", r["target"])).replace(
+                    "NCEI-native-duration", "NCEI native"
+                )
+                for r in rows
+            ],
+        )
+        ax.set_xlim(-0.5, len(rows) - 0.5)
+        ax.set_xlabel("")
+    if rows and rows[0].get("kind") == "event":
+        for r in sorted(rows, key=lambda r: abs(float(r[y])), reverse=True)[:3]:
+            ax.annotate(
+                str(r["id"]), (r[x], r[y]), xytext=(3, 6), textcoords="offset points", fontsize=12
+            )
     if kind not in {"bar", "physics"}:
         ax.axhline(0, color="#777777", linewidth=0.7)
     ax.grid(axis="y", color="#dddddd", linewidth=0.5)
-    fig.suptitle(title, x=0.13, ha="left", fontsize=14)
+    fig.suptitle(fill(title, width=62), x=0.13, ha="left", fontsize=14)
     if rows and "ci_low" in rows[0]:
         detail = f"{sum(int(r['rows']) for r in rows)} records; {len(xx)} bins"
     elif rows and "bin_left" in rows[0]:
@@ -97,18 +117,20 @@ def draw(
     elif kind == "bar":
         detail = f"{int(sum(yy))} records; {len(xx)} groups"
     else:
-        detail = f"n={len(xx)} plotted records"
-    ax.set_title(f"Preliminary · {split} · {detail}", loc="left", fontsize=10)
+        detail = f"n={len(xx)} plotted entries"
+    if rows and "caption" in rows[0]:
+        detail = str(rows[0]["caption"])
+    ax.set_title(f"Preliminary · {split} · {detail}", loc="left", fontsize=12)
     fig.text(
         0.13,
         0.02,
-        "Sources: frozen NTWC / NCEI evidence; WGS84 distance diagnostic.\n"
+        "Sources: NTWC / NCEI frozen evidence; diagnostic WGS84 distances.\n"
         + (
-            "95% event-bootstrap intervals, 500 resamples. CSV supplied."
+            "95% event-bootstrap intervals (500 resamples); CSV supplied."
             if rows and "ci_low" in rows[0]
-            else "Families remain separate; no fitted model. CSV supplied with each figure."
+            else "Separate measurement families; descriptive results. CSV supplied."
         ),
-        fontsize=8,
+        fontsize=12,
     )
     fig.subplots_adjust(top=0.82, bottom=0.2, left=0.13, right=0.97)
     path.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,164 @@
+{
+  "code": {
+    "analysis/arrival/calendar_evidence.py": "a2f227165cd73ac107cf3cecbb427d136343fb310932b4b3a93914d7e5abbed1",
+    "analysis/arrival/design.py": "30acc88cd1ec27737b99240a490334a31364f045d36f8f7e05fd8b83d11e30aa",
+    "analysis/arrival/documentary_recovery.py": "112b1633d81204cf8dac6b7020c1f6e45501615323aee469f5bd5705bc93c653",
+    "analysis/arrival/eda.py": "ef276fdf29e565793c1aff7e030ef6a707281a06b5ecc1509409cb5c17b28de1",
+    "analysis/arrival/eda_branches.py": "54213a83fc3bd78235d5b21c887bc6194c212c9239d32da6587645c5ea2b6b86",
+    "analysis/arrival/eda_diagnostics.py": "0b4c321c038d0d3bf0fda0ab8a1613e0eff94f0086048debcf5bacaa20eade20",
+    "analysis/arrival/eda_plots.py": "d1e94672959eb5ddb7cda405578270c8df64e7e15526533c3b34b26b8866bb3f",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/lineage.py": "6aeef840bfc73db5047622275eb0cefde9594b7967facb6fa64c5cc0c313ec78",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "analysis/arrival/source_process.py": "953c064bc2f0fb1fd5e03f0954e7f0b3f6ce13f365f5b663b67776effd558c31",
+    "analysis/arrival/stations.py": "36adb56fb542000f1cc988d9efab2b2addf198a2de02ff10f6d376492e4f4bc5",
+    "analysis/arrival/waveform_quality.py": "b3fe39b0df3cee3846b8618a65ce8d1b7e1bad645a0afd5ff8e8a9be0e51f67c",
+    "scripts/run_paper_eda.py": "3f8711ca687e7c0c8a0bdbfc287e72f79eaa3a08f6079912b57ad054ba8e19f2"
+  },
+  "files": 386,
+  "modules": {
+    "B1": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 16,
+      "outputs_manifest_sha256": "227954a366efffb2f942c641e38cbdd81e9c6663eae6d74239dca37d3a771c58",
+      "seconds": 0.45
+    },
+    "B10": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 13,
+      "outputs_manifest_sha256": "e2ec17c82dce7804167e88baf978601db52d0a045f4dff00e27cc6521c8e3811",
+      "seconds": 0.44
+    },
+    "B11": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 16,
+      "outputs_manifest_sha256": "23a138d320f1b81f136481f58598d39fa2949d91bc325ed8d3e2861ce3057e8b",
+      "seconds": 0.45
+    },
+    "B2": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 14,
+      "outputs_manifest_sha256": "ad083665af10fd070404fe94aad6fd389d3c13402788304c6e87c0c232efe1bd",
+      "seconds": 0.44
+    },
+    "B3": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 14,
+      "outputs_manifest_sha256": "c1d1f191f5d07f94de8f579b2f52667d43562a0e1139124c020ac89463e57cab",
+      "seconds": 0.44
+    },
+    "B4": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 14,
+      "outputs_manifest_sha256": "27f5372984a23ceb790e8d74c85c4e657bca25901cc19f6d61a61efa118b0f7c",
+      "seconds": 0.43
+    },
+    "B5": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 16,
+      "outputs_manifest_sha256": "176fb9b273070867da14721af50c40fee5d8b4d3391986048981809bcea6fcd3",
+      "seconds": 0.43
+    },
+    "B6": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 16,
+      "outputs_manifest_sha256": "028d93acbcedd930eb2a64e68d2abf636f5fc3bc9b37b99e8fe2d34620b75ed7",
+      "seconds": 0.5
+    },
+    "B7": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 13,
+      "outputs_manifest_sha256": "f2c04c62db94f3b8271aed9705397941f6b4969e534753016cca78cb22c53ef0",
+      "seconds": 0.43
+    },
+    "B8": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 14,
+      "outputs_manifest_sha256": "8b841c99d869811882189b95838dc1994027c05336b5344201032ea7f187bbf3",
+      "seconds": 0.44
+    },
+    "B9": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 14,
+      "outputs_manifest_sha256": "d3740220cb19fd6d343ae38d2f0ecd680bd40d90a680a47fe2a73dd1c7cd6a7c",
+      "seconds": 0.44
+    },
+    "C1": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 20,
+      "outputs_manifest_sha256": "10880f4a6c0ff98c37d1f92f0164110ee6c3aa856618566c11e1e7c2deccd2c8",
+      "seconds": 0.68
+    },
+    "C2": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 21,
+      "outputs_manifest_sha256": "54a38d5a43ce684f906a9aa9ebaadabbe3237f8165cefdbd3af707df6eeaa0e5",
+      "seconds": 0.7
+    },
+    "C3": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 21,
+      "outputs_manifest_sha256": "61a1bbb9e32769b42c2739de78442e2c247289ab2dff66abfa1236945cf1972d",
+      "seconds": 1.1
+    },
+    "C4": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 29,
+      "outputs_manifest_sha256": "d2545037651670695467ba48a40027767c70a8b6167001f8e49411fc30ce1c5d",
+      "seconds": 27.57
+    },
+    "C5": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 53,
+      "outputs_manifest_sha256": "9e262aee6e673ec2897c3e46643a2c25a5ac7c85b77e82db0e9e2a5f6a9444f4",
+      "seconds": 0.56
+    },
+    "C6": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 20,
+      "outputs_manifest_sha256": "54a6d33910c500184f130645cd1a0b477d85cdf4c0c9e3d091fb6105d2629820",
+      "seconds": 0.45
+    },
+    "C7": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 17,
+      "outputs_manifest_sha256": "c7f91a8d29d7633f13abe183b4e5fc8aeb8798b2cc0e27bdac4f25b7ea8b118d",
+      "seconds": 3.73
+    },
+    "C8": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 21,
+      "outputs_manifest_sha256": "5768eedbb322f92d74d35952741ea5844d9270560cfd3a9d52622265ea279c05",
+      "seconds": 0.53
+    },
+    "C9": {
+      "all_byte_identical": true,
+      "differences": [],
+      "files": 24,
+      "outputs_manifest_sha256": "43cd633759a39db21442dea228d1b850a88609e4336d444014cdb6cf25b620a8",
+      "seconds": 3.97
+    }
+  },
+  "scope": "Exploration only; no confirmation outcomes evaluated",
+  "status": "PASS"
+}

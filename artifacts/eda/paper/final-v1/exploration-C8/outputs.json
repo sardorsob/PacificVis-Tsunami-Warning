@@ -1,0 +1,82 @@
+[
+  {
+    "path": "T-CAL-by-era.csv",
+    "sha256": "6f62eed61f5fe440c2a700e83daa3f8b0f7a6b2750389c0da218df3806e37947"
+  },
+  {
+    "path": "T-CAL-by-event_id.csv",
+    "sha256": "3e453e44f19f3d2c78fc77e4dfce53919b91270b37f38242d93c89d5f8bb7f66"
+  },
+  {
+    "path": "T-CAL-by-header_family.csv",
+    "sha256": "367fb0afc1def8025a4acf2a7a2b37944f05bb955e5363fc3f7377c4accbed21"
+  },
+  {
+    "path": "T-CAL-distance.csv",
+    "sha256": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2"
+  },
+  {
+    "path": "T-CAL-distance.png",
+    "sha256": "f1160e15a5e678c223ebb8dc79465d8374a69d8f26d7513ef67a391a8299a6b4"
+  },
+  {
+    "path": "T-CAL-distance.svg",
+    "sha256": "57eec4d9bc96f79af3c184fc88c6b824891429832aea46a58cdae7c77f518126"
+  },
+  {
+    "path": "T-CAL-distribution.csv",
+    "sha256": "d3864ad98186882e8a8e355f4a24a1af6c5515d5a890073bef9cefe2b528dd5c"
+  },
+  {
+    "path": "T-CAL-distribution.png",
+    "sha256": "148934910c329bd37b8f6f953ccb988b3641ff1c9c0c5891626a766b2b47a4e6"
+  },
+  {
+    "path": "T-CAL-distribution.svg",
+    "sha256": "e3131e7b3d9affe50b1cc5468b3421a9091a3cd37993788d6afd780a49086390"
+  },
+  {
+    "path": "T-CAL-qq.csv",
+    "sha256": "06be4033389ec2826a578f11e05c9c876d22ef3cc1e8fa0106a9149b75254ce2"
+  },
+  {
+    "path": "T-CAL-qq.png",
+    "sha256": "eb9a13ce05f77a1dbe3c4085bf2447c53526d1b03ce4b9304cbe5878cec2d646"
+  },
+  {
+    "path": "T-CAL-qq.svg",
+    "sha256": "ffdc65611a60d736a8bea8b4dd22931a9a69d59d66dba84c4f1d1cb2a85d6407"
+  },
+  {
+    "path": "config.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "inputs.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "meta.json",
+    "sha256": "df3d17402d9cf370e55cffaf50ac58a5a35c7aeb0299a42cf4edb257c06135ab"
+  },
+  {
+    "path": "metrics.json",
+    "sha256": "255fb36e505f344d243b9e31183877ac29b7bbe9470f77ec434450b0dfda2af1"
+  },
+  {
+    "path": "notes.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "report.md",
+    "sha256": "1ace0cbdc2f65b3e2edda5162e315a4f72f184c165110f9a807984f0835b2e84"
+  },
+  {
+    "path": "seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "summary.json",
+    "sha256": "255fb36e505f344d243b9e31183877ac29b7bbe9470f77ec434450b0dfda2af1"
+  }
+]

@@ -22,6 +22,7 @@ from analysis.arrival.eda import (  # noqa: E402
     bootstrap_median,
     grouped,
     load_frames,
+    number,
     summarize,
     support,
 )
@@ -147,6 +148,9 @@ def core(
             )
             results[target] = summarize(values) | {
                 "nonpositive": sum(v <= 0 for v in values),
+                "native_clock_second_summary": summarize(
+                    [r["observed_clock_second"] for r in rows]
+                ),
                 "integer_minute_share": sum(abs(v - round(v)) < 1e-6 for v in values) / len(values)
                 if values
                 else math.nan,
@@ -154,6 +158,10 @@ def core(
                 "negative_share": sum(v < 0 for v in values) / len(values) if values else math.nan,
             }
             if module == "C8":
+                for key in ["event_id", "era", "header_family"]:
+                    stratified = grouped(rows, key, "target_minutes")
+                    csv(out / f"T-CAL-by-{key}.csv", stratified)
+                    results[target]["by-" + key] = stratified
                 figure(
                     out,
                     f"{target}-distance",
@@ -204,7 +212,7 @@ def core(
                 "distance_km",
                 "target_minutes",
                 f"{target}: duration and a fixed physics reference",
-                "Geodesic distance (km)",
+                "Geodesic distance (km; log scale)",
                 "Duration (minutes; log scale)",
                 split,
             )
@@ -245,24 +253,219 @@ def figure(
     )
 
 
-def run(root: Path, split: str, module: str, output: Path, git_sha: str | None = None) -> None:
+def run(
+    root: Path,
+    split: str,
+    module: str,
+    output: Path,
+    git_sha: str | None = None,
+    replay: bool = False,
+) -> None:
+    if module not in {f"C{i}" for i in range(1, 10)} | {f"B{i}" for i in range(1, 12)}:
+        raise ValueError("unknown EDA question")
     if output.exists():
         raise FileExistsError(output)
     input_path = root / "artifacts/eda/paper/freeze-v1/inputs.json"
     frozen = verify_inputs(input_path, expected_schema="paper_eda_inputs_v1")
     settings = tomllib.loads((root / "config/paper-eda-split-v1.toml").read_text())
-    frames, availability = load_frames(root, frozen, settings[split])
-    code = ["analysis/arrival/eda.py", "analysis/arrival/eda_plots.py", "scripts/run_paper_eda.py"]
+    code = [
+        "analysis/arrival/eda.py",
+        "analysis/arrival/eda_plots.py",
+        "scripts/run_paper_eda.py",
+        "analysis/arrival/eda_diagnostics.py",
+        "analysis/arrival/eda_branches.py",
+        "analysis/arrival/evidence.py",
+        "analysis/arrival/observations.py",
+        "analysis/arrival/site_registry.py",
+    ]
     pins = {p: sha256(root / p) for p in code}
+    reference: Path | None = None
+    lock: Record = {}
+    core_root = output.parent
+    if replay and split != "confirmation":
+        raise ValueError("locked replay applies only to confirmation")
     if split == "confirmation":
         lock = json.loads((root / "artifacts/eda/paper/confirmation-lock.json").read_text())
-        if lock["code"] != pins:
-            raise ValueError("confirmation code drift")
+        if lock["code"] != pins or lock["inputs_sha256"] != sha256(input_path):
+            raise ValueError("confirmation code or config drift")
+        if module not in lock["questions"]:
+            raise ValueError("confirmation question not selected in the frozen lock")
+        canonical = Path(lock["artifact_root"]) / ("confirmation-" + module)
+        if replay:
+            if not canonical.is_dir():
+                raise ValueError("replay requires an existing canonical confirmation bundle")
+            reference = canonical
+            core_root = canonical.parent
+            git_sha = json.loads((canonical / "meta.json").read_text())["git_sha"]
+        elif output.resolve() != canonical.resolve():
+            raise ValueError("confirmation question must use its single canonical output path")
+    frames, availability = load_frames(root, frozen, settings[split])
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=output.parent) as tmp:
         stage = Path(tmp) / "bundle"
         stage.mkdir()
-        result = core(frames, availability, module, stage, split)
+        if module in {"C1", "C2", "C3", "C8"}:
+            result = core(frames, availability, module, stage, split)
+        else:
+            from analysis.arrival.eda_diagnostics import diagnostics
+
+            if module.startswith("B"):
+                from analysis.arrival.eda_branches import branches
+
+                core_results = {
+                    m: json.loads((core_root / f"{split}-{m}" / "summary.json").read_text())
+                    for m in ["C3", "C4", "C5", "C6", "C7", "C8"]
+                }
+                if split == "confirmation":
+                    core_results["_routes"] = lock["routes"]
+                result, tables = branches(frames, core_results, module)
+            else:
+                result, tables = diagnostics(frames, availability, module)
+            for name, table in tables.items():
+                csv(stage / f"{name}.csv", table)
+            if module == "C4":
+                for target in ["T-OBS", "NCEI-native-duration"]:
+                    data = tables[target + "-physical_site_id-effects"]
+                    for kind in ["event", "site"]:
+                        values = [r for r in data if r["kind"] == kind and r["component"] == 0]
+                        chart = [r | {"x": i, "y": r["effect"]} for i, r in enumerate(values)]
+                        figure(
+                            stage,
+                            target + "-" + kind + "-effects",
+                            chart,
+                            "scatter",
+                            "x",
+                            "y",
+                            target + ": component-relative " + kind + " effects",
+                            "Group index (IDs in CSV)",
+                            "Effect on ln(duration / reference)",
+                            split,
+                        )
+            elif module == "C5":
+                data = tables["linked-geographic-comparisons"]
+                chart = [r | {"x": i, "y": r["difference_minutes"]} for i, r in enumerate(data)]
+                figure(
+                    stage,
+                    "linked-differences",
+                    chart,
+                    "scatter",
+                    "x",
+                    "y",
+                    "Shared geographic sites: separate-source comparisons",
+                    "Comparison index",
+                    "NTWC − native NCEI duration (minutes)",
+                    split,
+                )
+                sensitivity = tables["posthoc-P1-colocation-comparisons"]
+                chart2 = [
+                    r | {"x": i, "y": r["difference_minutes"]} for i, r in enumerate(sensitivity)
+                ]
+                figure(
+                    stage,
+                    "posthoc-P1-differences",
+                    chart2,
+                    "scatter",
+                    "x",
+                    "y",
+                    "Unapproved same-name, bounded 2 km comparisons",
+                    "Comparison index",
+                    "NTWC − native NCEI duration (minutes)",
+                    split,
+                )
+            elif module == "C6":
+                data = tables["availability-era"]
+                chart = [r | {"x": i, "y": r["availability"]} for i, r in enumerate(data)]
+                figure(
+                    stage,
+                    "availability-era",
+                    chart,
+                    "scatter",
+                    "x",
+                    "y",
+                    "Exact observation availability by product era",
+                    "Source era",
+                    "Exact observations / accepted rows",
+                    split,
+                )
+            elif module in {"C7", "C9"}:
+                for target in (
+                    ["T-OBS", "NCEI-native-duration", "T-CAL"]
+                    if module == "C9"
+                    else ["T-OBS", "NCEI-native-duration"]
+                ):
+                    if module == "C7":
+                        data = tables[target + "-leave-one-event-out"]
+                        chart = [r | {"x": i, "y": r["median_r0"]} for i, r in enumerate(data)]
+                    else:
+                        chart = [
+                            {
+                                "x": n,
+                                "y": result[target][f"sites_at_least_{n}_events"],
+                                "caption": str(result[target]["sites"])
+                                + " sites; nested repeat thresholds",
+                            }
+                            for n in [2, 3, 5]
+                        ]
+                    figure(
+                        stage,
+                        target + "-" + module,
+                        chart,
+                        "scatter" if module == "C7" else "bar",
+                        "x",
+                        "y",
+                        target
+                        + (
+                            ": leave-one-event-out median"
+                            if module == "C7"
+                            else ": repeated site support"
+                        ),
+                        "Held-out event index"
+                        if module == "C7"
+                        else "Minimum observed events per site",
+                        "Median r₀" if module == "C7" else "Sites",
+                        split,
+                    )
+            elif module.startswith("B"):
+                chart = [
+                    {
+                        "x": i,
+                        "y": number(result[t]["scalar"]),
+                        "target": t,
+                        "comparison_label": t
+                        + (
+                            "\ncoastal − DART"
+                            if module == "B6"
+                            and result[t]["detail"].get("selected_route")
+                            == "measurement_family|deep_ocean_gauge|tide_gauge"
+                            else ""
+                        ),
+                    }
+                    for i, t in enumerate(result)
+                ]
+                figure(
+                    stage,
+                    module + "-screen",
+                    chart,
+                    "scatter",
+                    "x",
+                    "y",
+                    module + ": pre-registered descriptive check",
+                    "Target index (target name in CSV)",
+                    {
+                        "B1": "Distance-profile contrast on r₀ (dimensionless)",
+                        "B2": "Flagged share of records",
+                        "B3": "Site / residual MAD ratio",
+                        "B4": "Event / residual MAD ratio",
+                        "B5": "Selected largest / smallest MAD ratio",
+                        "B6": "Selected within-event contrast (minutes)",
+                        "B7": "Selected availability/peak screen (see CSV)",
+                        "B8": "Maximum relative descriptive-summary change",
+                        "B9": "Distance-profile contrast on r₀ (dimensionless)",
+                        "B10": "Within-event rank correlation",
+                        "B11": "Source/within-event duration contrast (minutes)",
+                    }[module],
+                    split,
+                )
         if module == "C1":
             from analysis.arrival.evidence import read_rows
 
@@ -326,6 +529,8 @@ def run(root: Path, split: str, module: str, output: Path, git_sha: str | None =
             + "\n```\n"
         )
         write_json(stage / "outputs.json", file_manifest(stage))
+        if reference is not None and file_manifest(stage) != file_manifest(reference):
+            raise ValueError("confirmation replay differs from canonical bundle")
         stage.rename(output)
     print(f"{module} {split}: {output}")
 
@@ -336,5 +541,10 @@ if __name__ == "__main__":
     p.add_argument("--module", required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--git-sha", default=None)
+    p.add_argument(
+        "--replay",
+        action="store_true",
+        help="Verify an existing locked confirmation bundle byte for byte",
+    )
     args = p.parse_args()
-    run(Path(".").resolve(), args.split, args.module, args.output, args.git_sha)
+    run(Path(".").resolve(), args.split, args.module, args.output, args.git_sha, args.replay)

@@ -1,0 +1,87 @@
+{
+  "artifact_root": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/eda/paper/final-v1",
+  "code": {
+    "analysis/arrival/eda.py": "ef276fdf29e565793c1aff7e030ef6a707281a06b5ecc1509409cb5c17b28de1",
+    "analysis/arrival/eda_branches.py": "54213a83fc3bd78235d5b21c887bc6194c212c9239d32da6587645c5ea2b6b86",
+    "analysis/arrival/eda_diagnostics.py": "0b4c321c038d0d3bf0fda0ab8a1613e0eff94f0086048debcf5bacaa20eade20",
+    "analysis/arrival/eda_plots.py": "d1e94672959eb5ddb7cda405578270c8df64e7e15526533c3b34b26b8866bb3f",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "scripts/run_paper_eda.py": "3f8711ca687e7c0c8a0bdbfc287e72f79eaa3a08f6079912b57ad054ba8e19f2"
+  },
+  "inputs_sha256": "4798557afa12df1b90b77a882d73be154405fdc498abdc3fe839d0833dee304b",
+  "limits": [
+    "archive-event split; one physical sequence crosses halves",
+    "no blindness claim; small confirmation targets",
+    "zero direct cross-family links; source contrasts confounded",
+    "degenerate median-polish bootstrap ratios do not confirm group structure"
+  ],
+  "questions": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "B10"
+  ],
+  "replication_rule": "same direction and within factor 2, or interval overlap; inadequate support tentative",
+  "routes": {
+    "B1": {
+      "NCEI-native-duration": "near_far",
+      "T-OBS": "near_far"
+    },
+    "B10": {
+      "T-CAL": "fixed_registered_screen"
+    },
+    "B11": {
+      "NCEI-native-duration": "direct_geographic",
+      "T-OBS": "direct_geographic"
+    },
+    "B2": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B3": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B4": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B5": {
+      "NCEI-native-duration": "distance",
+      "T-OBS": "distance"
+    },
+    "B6": {
+      "NCEI-native-duration": "measurement_family|deep_ocean_gauge|tide_gauge",
+      "T-OBS": "direct_geographic"
+    },
+    "B7": {
+      "NTWC-reports": "era"
+    },
+    "B8": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B9": {
+      "NCEI-native-duration": "near_far",
+      "T-OBS": "near_far"
+    }
+  },
+  "schema_version": "paper_eda_confirmation_lock_v1"
+}

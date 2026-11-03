@@ -1,0 +1,82 @@
+{
+  "NCEI-native-duration": {
+    "branch": "B1",
+    "checks_maximum": 2,
+    "detail": {
+      "cutoffs": [
+        {
+          "cutoff_reference_minutes": 30,
+          "difference": 0.7271802005724018,
+          "far_n": 999,
+          "near_n": 71
+        },
+        {
+          "cutoff_reference_minutes": 60,
+          "difference": 0.49358625665491646,
+          "far_n": 910,
+          "near_n": 160
+        },
+        {
+          "cutoff_reference_minutes": 90,
+          "difference": 0.45804223997916593,
+          "far_n": 844,
+          "near_n": 226
+        }
+      ],
+      "land_shadow": "unavailable: no approved coastline/bathymetric path input; no acquisition",
+      "native_numeric_ratio": {
+        "finite_n": 1070,
+        "mad": 2.220446049250313e-16,
+        "max": 1.0065165860799692,
+        "median": 1.0,
+        "min": 0.9940074988153922,
+        "n": 1070,
+        "q10": 0.9999999999999996,
+        "q90": 1.0000036279300377
+      },
+      "selected_route": "near_far"
+    },
+    "scalar": 0.6020010222209724,
+    "status": "exploratory_screen",
+    "triggered": true
+  },
+  "T-OBS": {
+    "branch": "B1",
+    "checks_maximum": 2,
+    "detail": {
+      "cutoffs": [
+        {
+          "cutoff_reference_minutes": 30,
+          "difference": 0.41818847474601556,
+          "far_n": 217,
+          "near_n": 19
+        },
+        {
+          "cutoff_reference_minutes": 60,
+          "difference": 0.36480946172874457,
+          "far_n": 203,
+          "near_n": 33
+        },
+        {
+          "cutoff_reference_minutes": 90,
+          "difference": 0.37372436643250245,
+          "far_n": 186,
+          "near_n": 50
+        }
+      ],
+      "land_shadow": "unavailable: no approved coastline/bathymetric path input; no acquisition",
+      "native_numeric_ratio": {
+        "finite_n": 0,
+        "mad": "unknown",
+        "median": "unknown",
+        "n": 0,
+        "q10": "unknown",
+        "q90": "unknown"
+      },
+      "selected_route": "near_far"
+    },
+    "scalar": 0.47514719055064125,
+    "status": "exploratory_screen",
+    "triggered": true
+  }
+}

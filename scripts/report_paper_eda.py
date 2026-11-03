@@ -1,0 +1,428 @@
+"""Build the reader report and tables from immutable descriptive EDA bundles."""
+
+from __future__ import annotations
+
+import json
+import math
+from pathlib import Path
+from typing import Any
+
+from analysis.arrival.eda import number
+from analysis.arrival.evidence import write_json, write_rows
+
+
+def read(base: Path, split: str, module: str) -> dict[str, Any]:
+    return json.loads((base / f"{split}-{module}/summary.json").read_text())
+
+
+def fmt(value: Any) -> str:
+    v = number(value)
+    return f"{v:.4g}" if math.isfinite(v) else "unknown"
+
+
+def replication(branch: str, explore: dict[str, Any], confirm: dict[str, Any]) -> str:
+    """Apply the frozen descriptive rule; unidentified support never confirms."""
+    if not explore["triggered"]:
+        return "unresolved: exploration untriggered or unidentifiable"
+    a, b = number(explore["scalar"]), number(confirm.get("scalar"))
+    if not math.isfinite(a) or not math.isfinite(b):
+        return "tentative: confirmation unidentifiable"
+    if branch == "B3" and not (
+        explore["detail"].get("two_key_bootstrap_stability")
+        and confirm["detail"].get("two_key_bootstrap_stability")
+    ):
+        return "tentative: bootstrap stability failed"
+    if a * b < 0:
+        return "contradicted: opposite direction"
+    if a * b > 0 and 0.5 <= abs(b / a) <= 2:
+        return "confirmed descriptive screen"
+    if branch == "B6":
+        x = explore["detail"].get("selected_contrast", {})
+        y = confirm["detail"].get("selected_contrast", {})
+        lo = max(number(x.get("ci_low")), number(y.get("ci_low")))
+        hi = min(number(x.get("ci_high")), number(y.get("ci_high")))
+        if math.isfinite(lo) and math.isfinite(hi) and lo <= hi:
+            return "confirmed descriptive screen: interval overlap"
+    return "tentative: magnitude did not replicate"
+
+
+def report(root: Path) -> None:
+    base = root / "artifacts/eda/paper/final-v1"
+    lock = json.loads((base.parent / "confirmation-lock.json").read_text())
+    if any(not (base / f"confirmation-{m}").is_dir() for m in lock["questions"]):
+        raise ValueError("confirmation questions incomplete")
+    counts: list[dict[str, Any]] = []
+    scales: list[dict[str, Any]] = []
+    for split in ["exploration", "confirmation"]:
+        shape = read(base, split, "C2") | read(base, split, "C8")
+        design = read(base, split, "C9")
+        for target in ["T-OBS", "NCEI-native-duration", "T-CAL"]:
+            s, d = shape[target], design[target]
+            counts.append(
+                {
+                    "split": split,
+                    "target": target,
+                    **{
+                        k: d[k]
+                        for k in [
+                            "rows",
+                            "events",
+                            "sites",
+                            "components",
+                            "inverse_simpson_events",
+                            "top3_event_share",
+                        ]
+                    },
+                    **{k: s[k] for k in ["median", "mad", "q10", "q90"]},
+                }
+            )
+            if split == "exploration":
+                scales.append(
+                    {
+                        "target": target,
+                        "units": "minutes",
+                        **{k: s[k] for k in ["q10", "median", "q90", "mad"]},
+                        "use": "descriptive observable scales only; not selected priors",
+                    }
+                )
+    write_rows(base / "target-summary.csv", counts)
+    write_rows(base / "exploration-observable-scales.csv", scales)
+    comparisons: list[dict[str, Any]] = []
+    for i in range(1, 12):
+        module = f"B{i}"
+        exploration = read(base, "exploration", module)
+        confirmation = read(base, "confirmation", module) if module in lock["questions"] else {}
+        for target, x in exploration.items():
+            y = confirmation.get(target, {})
+            comparisons.append(
+                {
+                    "branch": module,
+                    "target": target,
+                    "route": lock["routes"][module][target],
+                    "exploration_scalar": x["scalar"],
+                    "confirmation_scalar": y.get("scalar", "unknown"),
+                    "status": replication(module, x, y),
+                    "units": {
+                        "B1": "log ratio",
+                        "B2": "proportion",
+                        "B3": "MAD ratio",
+                        "B4": "MAD ratio",
+                        "B5": "MAD ratio",
+                        "B6": "minutes",
+                        "B7": "availability spread proportion",
+                        "B8": "relative change",
+                        "B9": "log ratio",
+                        "B10": "rank correlation",
+                        "B11": "minutes",
+                    }[module],
+                    "interpretation": "descriptive screen only; limits in report",
+                }
+            )
+    write_rows(base / "branch-replication.csv", comparisons)
+    write_json(base / "branch-replication.json", comparisons)
+    lines = [
+        "# Preliminary arrival-timing EDA",
+        "",
+        "This analysis describes what the accepted arrival evidence can support before "
+        "Bayesian modeling. It preserves separate NTWC reported durations, NCEI native "
+        "travel durations, and signed estimated-minus-observed timing differences. "
+        "No records were repaired or removed, and no likelihood, prior or model was "
+        "fitted or selected.",
+        "",
+        "## Read the targets separately",
+        "",
+        "**T-OBS** is reported observed UTC minus a reviewed USGS reference origin. "
+        "**NCEI-native-duration** preserves the source's explicit positive travel duration "
+        "without reconstructing missing arrival dates. **T-CAL** is estimated UTC minus "
+        "observed UTC, in minutes: a negative value means the published estimate precedes "
+        "the reported observation. None is public alert lead time or an independently "
+        "validated physical onset.",
+        "",
+        "| Target | Split | Records | Events | Sites | Median (min) | MAD (min) |",
+        "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    lines.extend(
+        f"| {r['target']} | {r['split']} | {r['rows']} | {r['events']} | {r['sites']} | "
+        f"{fmt(r['median'])} | {fmt(r['mad'])} |"
+        for r in counts
+    )
+    lines.extend(
+        [
+            "",
+            "MAD is the unscaled median absolute deviation. See [all target summaries]"
+            "(final-v1/target-summary.csv) and the [exploration-only observable scales]"
+            "(final-v1/exploration-observable-scales.csv) for q10/q50/q90 values.",
+            "",
+            "## Design and uncertainty",
+            "",
+            "The metadata-only, region-by-era split assigns 38 development archive entries to "
+            "exploration and 19 to confirmation, with seed 20261103. Tōhoku 2011 and Chile 2010 "
+            "are forced to exploration. Sparse strata may occur in one half only. The 18 reserved "
+            "event outcomes remain unopened. Prior metadata exposure is disclosed; no "
+            "blindness is claimed.",
+            "",
+            "One physical sequence crosses the archive-entry split: usp000d3ka (confirmation) "
+            "and usp000d3mb (exploration). These halves therefore do not establish independent "
+            "physical-sequence confirmation. Later evaluation needs event/sequence grouping. "
+            "Small confirmation targets limit every replicated screen below.",
+            "",
+            "Methods are descriptive: robust summaries, fixed distance bins, normal-reference "
+            "QQ diagnostics, component-relative median polish, rank correlations and 500 event "
+            "bootstrap resamples. The bootstrap resamples events, not independent rows. Its "
+            "intervals are descriptive, not multiplicity-adjusted hypothesis tests. No p-values "
+            "or posterior probabilities are reported.",
+            "",
+            "## Distance and timing structure",
+            "",
+            "The fixed diagnostic uses c = sqrt(g × 4000 m), t_ref = geodesic distance / c, "
+            "and r₀ = ln(reported duration / t_ref). The band uses fixed depths 2000–6000 m. "
+            "WGS84 geodesics are a stated approximation where original source datums are unknown. "
+            "This straight-path, constant-depth reference is not a validated propagation forecast.",
+            "",
+            "| Family | Exploration near−far median r₀ | Confirmation near−far median r₀ |",
+            "| --- | ---: | ---: |",
+        ]
+    )
+    for target in ["T-OBS", "NCEI-native-duration"]:
+        vals = [read(base, split, "C3")[target] for split in ["exploration", "confirmation"]]
+        differences = [number(v["near"]["median"]) - number(v["far"]["median"]) for v in vals]
+        lines.append(f"| {target} | {fmt(differences[0])} | {fmt(differences[1])} |")
+    lines.extend(
+        [
+            "",
+            "![Reported T-OBS duration versus distance and a fixed depth reference]"
+            "(final-v1/exploration-C3/T-OBS-physics.png)",
+            "",
+            "Near-field departures mix source extent, bathymetry/path, reporting and onset "
+            "definitions. They motivate separate near-field and distance-scale candidates, "
+            "not exclusions. Native NCEI distance numbers are retained for comparison, but "
+            "their units were not verified in the frozen evidence, so no kilometre equivalence "
+            "or physical ratio is asserted. No shoreline proxy was acquired.",
+            "",
+            "The 0.045-minute NTWC duration at Lottin Point is 2.7 seconds: the displayed "
+            "16:38 clock minus reviewed 16:37:57.300 origin. The arithmetic matches the raw "
+            "source. Minute display does not establish minute accuracy or a physical onset. "
+            "It remains flagged and retained. All 150 exploration tail flags were traced to "
+            "original source values; no proven transcription error was found. One NCEI/JMA "
+            "first-wave definition comparison remains unapproved, and 148 other causes "
+            "remain unresolved. QQ curvature does not select a heavy-tail likelihood.",
+            "",
+            "## Groups, provenance and availability",
+            "",
+            "NTWC's primary physical-site median polish has zero residual MAD; the NCEI "
+            "primary component has site/residual MAD ratio 3.323 and event/residual ratio "
+            "4.225 in exploration. Only 250/500 physical-site and 261/500 bounded-2-km "
+            "NCEI bootstrap ratios are finite. These conditional ratios are unstable; "
+            "they do not identify variance components. Bootstrap resampling may disconnect "
+            "the design. Components have separate origins, and changing the largest "
+            "component under deletion limits effect comparisons.",
+            "",
+            "![NCEI component-relative event effects with the largest event departures labeled]"
+            "(final-v1/exploration-C4/NCEI-native-duration-event-effects.png)",
+            "",
+            "Zero direct cross-family shared geographic IDs support an approved comparison. "
+            "The posthoc P1 sensitivity uses existing same-name bounded-2-km keys and "
+            "does not approve identities, deployments, common onsets, ancestry or independence. "
+            "Its 56 exploration comparisons have median NTWC−NCEI difference −0.147 min "
+            "(event-bootstrap interval −0.183 to +0.452): 48 below one minute in absolute "
+            "difference, three from one to under five, and five at least five. Maximum "
+            "coordinate separation is 1.248 km. Close agreement can reflect copying or "
+            "definitions; it does not establish independent measurements.",
+            "",
+            "![Unapproved same-name bounded-2-km duration comparisons]"
+            "(final-v1/exploration-C5/posthoc-P1-differences.png)",
+            "",
+            "The NCEI coastal−DART within-event duration contrast is an unmatched comparison: "
+            "coastal and deep-ocean gauges occupy different distances and settings. Its "
+            "202.5-minute exploration contrast is not an estimated source bias. Site "
+            "inventory providers are geographic metadata; actual arrival-pick provenance "
+            "remains unknown. Original NTWC-report origin ancestry is also unresolved. "
+            "Seventy-five separate documentary-product origin comparisons are not a "
+            "substitute for that ancestry.",
+            "",
+            "| Split | Retained reports | Accepted rows | Structural rows | Exact "
+            "observed UTC | Source-absent observed value | Numeric peak among "
+            "source-absent |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for split in ["exploration", "confirmation"]:
+        s = read(base, split, "C6")
+        lines.append(
+            f"| {split} | "
+            + " | ".join(
+                str(s[k])
+                for k in [
+                    "retained",
+                    "accepted",
+                    "structural",
+                    "exact_observed",
+                    "absent_observed",
+                    "absent_observed_with_peak",
+                ]
+            )
+            + " |"
+        )
+    lines.extend(
+        [
+            "",
+            "![Exact observation availability by source era]"
+            "(final-v1/exploration-C6/availability-era.png)",
+            "",
+            "Exact-UTC availability uses accepted source rows as its denominator; it is "
+            "not an operating-station census or non-detection rate. Source-absent values "
+            "are distinct from unresolved calendar/qualifier cases. Numeric peak presence "
+            "differs from nonempty text or a dash. Peak-size comparisons stay within "
+            "event/table/header scope with unknown native units. Era/format and event "
+            "composition are confounded. MCAR, MAR and MNAR remain unidentified; the EDA "
+            "does not extend the four documented individual missing-observation reasons.",
+            "",
+            "LOEO tables retain every event deletion for pooled r₀ median/MAD, near−far "
+            "contrast, component-effect MADs and selected C5 group contrasts. Very large "
+            "relative changes can come from nearly zero contrast baselines. Consult the "
+            "absolute changes and missing-contrast counts; they are not enormous physical "
+            "shifts. This is not an exhaustive test of every possible C5 statistic.",
+            "",
+            "## Signed forecast comparisons",
+            "",
+            "T-CAL is a separate signed target. Exploration contains 156 comparisons from "
+            "13 events, with median −15.5 minutes, MAD 13.5, q10 −51 and q90 +3.5; "
+            "125/156 are negative. The median within-event distance-rank correlation "
+            "is −0.453. Era is constant within an event, so it cannot identify a separate "
+            "within-event era effect. Confirmation uses the same frozen question.",
+            "",
+            "![Signed estimated-minus-observed differences by distance]"
+            "(final-v1/exploration-C8/T-CAL-distance.png)",
+            "",
+            "## Frozen branch results",
+            "",
+            "Each selected question was rerun once with the frozen code/config and its "
+            "exploratory route. A descriptive screen repeats when direction matches and "
+            "magnitude lies within a factor of two, or its saved intervals overlap. "
+            "Opposite signs are contradicted; insufficient support stays tentative. "
+            "The table's confirmed labels concern the screen only, not causality, "
+            "measurement validity, a likelihood, or independent-sequence generalization. "
+            "B3 additionally requires the registered bootstrap stability. B11 was "
+            "unidentifiable and did not trigger a confirmation branch; C5 was still rerun.",
+            "",
+            "| Branch | Target | Exploration scalar | Confirmation scalar | Disposition |",
+            "| --- | --- | ---: | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        f"| {r['branch']} | {r['target']} | {fmt(r['exploration_scalar'])} | "
+        f"{fmt(r['confirmation_scalar'])} | {r['status']} |"
+        for r in comparisons
+    )
+    lines.extend(
+        [
+            "",
+            "See [routes and replication CSV](final-v1/branch-replication.csv) and "
+            "the original [frozen branch registry](freeze-v1/branch-registry.md). "
+            "Scalars have branch-specific units in the CSV and must not be compared across rows. "
+            "B5/B7/B8 are nonnegative dispersion/availability/influence screens; repeating "
+            "their magnitude does not establish the same ordered covariate effect or driver.",
+            "",
+            "## Decision memo for later modeling",
+            "",
+            "These are candidate directions for T-PB-03; no model or prior is selected. "
+            "Confirmation is small and not independent by physical sequence. A repeated "
+            "screen can motivate a later comparison without validating the proposed model.",
+            "",
+            "| Decision | T-OBS | NCEI native duration | T-CAL |",
+            "| --- | --- | --- | --- |",
+            "| Estimand | **Confirmed:** reported UTC minus reviewed origin; physical "
+            "onset unresolved | **Confirmed:** native positive reported duration; "
+            "date/onset unresolved | **Confirmed:** signed E−O, not alert lead time |",
+            "| Likelihood shape | **Tentative:** compare positive log-scale and robust"
+            " observation-layer candidates; source-sensitive tails retained | "
+            "**Tentative:** compare positive log-scale/robust candidates separately "
+            "from NTWC | **Tentative:** compare signed symmetric/heavy-tail "
+            "candidates; no positive-only likelihood |",
+            "| Group structure | **Unresolved:** zero residual MAD and "
+            "sparse/disconnected cells prevent stable variance claims | **Tentative:**"
+            " event/site candidates, with unstable bootstrap ratios disclosed | "
+            "**Tentative:** event and repeated-site support must constrain complexity "
+            "|",
+            "| Covariate form | **Tentative:** fixed-reference offset plus limited "
+            "distance/near-field alternatives | **Tentative:** distance/near-field and"
+            " coastal/DART sensitivity; no causal family offset | **Tentative:** "
+            "within-event distance trend; era confounded with event |",
+            "| Observation layer | **Confirmed need:** retain clock/origin/definition "
+            "uncertainty; accuracy unknown | **Confirmed need:** retain native "
+            "duration/definition/precision provenance | **Confirmed need:** preserve "
+            "forecast/observation definition and product-version uncertainty |",
+            "| Missingness | **Unresolved:** selection/availability sensitivity, not a"
+            " learned causal mechanism | **Unresolved:** target eligibility is not a "
+            "sensor-operating census | **Unresolved:** complete pairs select reports; "
+            "no fabricated forecasts |",
+            "| Holdouts | **Tentative:** event/sequence grouping; inspect seen/unseen "
+            "site support | **Tentative:** event/sequence and site holdouts from C9; "
+            "no pooled source independence | **Tentative:** only 18 contributing "
+            "events overall; nested event/sequence evaluation |",
+            "| Prior-predictive scales | **Tentative:** exploration q10/median/q90/MAD"
+            " in saved CSV, not priors | **Tentative:** separate exploration "
+            "native-duration scales, not priors | **Tentative:** signed exploration "
+            "scales, not priors |",
+            "| Open questions | **Unresolved:** original report ancestry, source "
+            "datum, physical onset | **Unresolved:** lineage, common target, native "
+            "distance units | **Unresolved:** forecast issuance/version and actionable"
+            " lead time |",
+            "",
+            "## Artifacts and reproduction",
+            "",
+            "The [figure and table index](figures.md) links every retained PNG/SVG/CSV "
+            "set. Each question bundle includes meta/config/seeds/inputs/outputs/metrics/notes, "
+            "a summary, a detailed Markdown report and checksums. The original C1–C3 "
+            "checkpoint outside final-v1 is historical; final-v1 is the consistent analysis.",
+            "",
+            "Inputs: [148 pinned files](freeze-v1/inputs.json), "
+            "[development metadata](freeze-v1/development-metadata.csv), "
+            "[split and counts](freeze-v1/target-counts.csv), "
+            "[confirmation code/route lock](confirmation-lock.json). "
+            "The underlying public-source snapshots are kept outside Git; obtain the "
+            "accepted data release and verify its pins before replay. Source inventories "
+            "and provenance are described in [the data guide](../../../docs/data/multi-event.md) "
+            "and [source-process report](../../../docs/data/source-process.md).",
+            "",
+            "Use the pinned environment and repository root. Question bundles refuse "
+            "overwrites. For an existing confirmation question, use a new scratch output "
+            "with `--replay`; it requires the lock and byte-identical canonical outputs:",
+            "",
+            "```bash",
+            "MPLCONFIGDIR=/private/tmp/tsunami-paper-mpl .venv/bin/python "
+            "scripts/run_paper_eda.py \\",
+            "  --split confirmation --module C3 --replay \\",
+            "  --output artifacts/generated/paper-eda-replay/confirmation-C3",
+            ".venv/bin/python -m scripts.report_paper_eda",
+            "```",
+            "",
+            "Replaying is verification, not another adaptive look or an opportunity "
+            "to change the question. Local MLflow records mirror the portable bundles. "
+            "No primary timestamps, identities, pairs, reserved outcomes or fitted-model "
+            "contracts were changed by this EDA.",
+        ]
+    )
+    (base.parent / "report.md").write_text("\n".join(lines) + "\n")
+    gallery = [
+        "# Preliminary EDA figures and tables",
+        "",
+        "All figures are preliminary descriptive results. Each row supplies the "
+        "underlying plotted data and a vector version. Read the [report](report.md) "
+        "for target definitions, units, uncertainty and limits.",
+        "",
+        "| Split / question | Figure / alt description | Data | Vector |",
+        "| --- | --- | --- | --- |",
+    ]
+    for png in sorted(base.glob("*/*.png")):
+        rel = png.relative_to(base.parent)
+        gallery.append(
+            f"| {png.parent.name} | [{png.stem}]({rel}) | "
+            f"[CSV]({rel.with_suffix('.csv')}) | [SVG]({rel.with_suffix('.svg')}) |"
+        )
+    (base.parent / "figures.md").write_text("\n".join(gallery) + "\n")
+    print(base.parent / "report.md")
+
+
+if __name__ == "__main__":
+    report(Path.cwd())

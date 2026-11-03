@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 from collections import Counter, defaultdict
+from datetime import datetime
 from typing import Any
 
 import numpy as np
@@ -99,6 +100,16 @@ def frame_targets(
             if (target != "T-CAL" and minutes > 0 and ref_minutes > 0)
             else math.nan
         )
+        second = math.nan
+        if target == "T-OBS":
+            try:
+                second = float(
+                    datetime.fromisoformat(
+                        row.get("observed_utc", "unknown").replace("Z", "+00:00")
+                    ).second
+                )
+            except ValueError:
+                pass
         out.append(
             {
                 "record_id": row["source_record_id"],
@@ -106,6 +117,7 @@ def frame_targets(
                 "physical_site_id": row["physical_site_id"],
                 "target": target,
                 "target_minutes": minutes,
+                "observed_clock_second": second,
                 "distance_km": distance,
                 "reference_minutes": ref_minutes,
                 "r0": r0,
@@ -381,6 +393,7 @@ def load_frames(
         peak_text = " ".join(peak.split())
         match = re.match(r"^[~<>?\s]*(-?\d+(?:\.\d+)?)", peak_text)
         a: Record = dict(am[rid])
+        a["peak_scope"] = row["event_id"] + "/" + row["table_index"] + "/" + row["header_family"]
         a.update(
             peak_present=str(bool(match)),
             peak_native=number(match[1]) if match else math.nan,
@@ -405,6 +418,14 @@ def load_frames(
             number(e["latitude"]),
             number(s.get("longitude")),
             number(s.get("latitude")),
+        )
+        row["distance_band"] = next(
+            (
+                f"{lo:g}–{hi:g}km"
+                for lo, hi in zip(DISTANCE_BINS[:-1], DISTANCE_BINS[1:], strict=True)
+                if lo <= row["distance_km"] < hi
+            ),
+            "unknown",
         )
         row["provider"] = "unknown"
         row["site_inventory_providers"] = ";".join(provider.get(site, [])) or "unknown"
