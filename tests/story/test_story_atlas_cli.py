@@ -500,9 +500,10 @@ def test_cli_refuses_existing_output_directories_without_partial_output(
     assert not (tmp_path / "EDA_REPORT.md").exists()
 
 
-def test_cli_rejects_lane_crossing_output_path(tmp_path: Path) -> None:
+@pytest.mark.parametrize("paper_folder", ["paper", "arrival-timing"])
+def test_cli_rejects_lane_crossing_output_path(tmp_path: Path, paper_folder: str) -> None:
     paths = _stage_cli_fixture(tmp_path)
-    forbidden = tmp_path / "artifacts" / "eda" / "paper" / "atlas"
+    forbidden = tmp_path / "artifacts" / "eda" / paper_folder / "atlas"
     arguments = _replace_arg(_cli_args(paths, tmp_path), "--artifact-dir", forbidden)
 
     with pytest.raises(SystemExit):

@@ -1,0 +1,121 @@
+{
+  "baseline_git_sha": "8fd3bb97eff67999356cdada64ffe3da22485ec3",
+  "boundaries": [
+    "HistoricalQAreceiptsretainoldpaths; ledger resolves migrated file identity",
+    "Original generations/registeredIDs/split/decisions remain unchanged",
+    "No source data acquisition/repair/model fit/reserved outcome analysis",
+    "Prior figure/scientific QA applies because payload bytes are unchanged",
+    "Final local Gitblob landing verification remains separate after commit"
+  ],
+  "evidence": [
+    "final-inventory-and-provenance-review.json",
+    "scientific-ast-invariance.json",
+    "focused-test-receipt.json",
+    "links-and-reader-tables.json",
+    "final-all39-replays.json",
+    "baseline-inventory.json",
+    "baseline-test-addendum.json"
+  ],
+  "exceptions_interpretation": "Two original preliminary-checkpoint CSV Git blobs had pre-existing LF normalization; original accepted output manifests bind CRLF bytes preserved at new paths. Ledger records both Git and accepted-before hashes. This migration did not alter accepted scientific bytes.",
+  "focused_tests": {
+    "passed": 31,
+    "scope": "New descriptive-name helper, scientific/branch/report functions, original metadata/code/unselected/canonical guards, both story-output lane guards"
+  },
+  "historical_git_line_ending_exceptions": [
+    {
+      "accepted_generation_sha256": "ce6aac93abebd4bb457688f277705fcba067ee383765290736101ba080674cd4",
+      "git_blob_sha256": "1a5cd8cda983f2b3be0809277f31dd6bc747c2353ceec2c5449f53d9810b2155",
+      "old_path": "artifacts/eda/paper/exploration-C1/T-OBS.csv",
+      "only_historical_Git_EOL_normalization": true
+    },
+    {
+      "accepted_generation_sha256": "ce6aac93abebd4bb457688f277705fcba067ee383765290736101ba080674cd4",
+      "git_blob_sha256": "1a5cd8cda983f2b3be0809277f31dd6bc747c2353ceec2c5449f53d9810b2155",
+      "old_path": "artifacts/eda/paper/exploration-C3/T-OBS-physics.csv",
+      "only_historical_Git_EOL_normalization": true
+    }
+  ],
+  "inventory": {
+    "additional_new_migration_helper_and_test_source_renames": 3,
+    "all847beforeGit_blob_hashes_verified": true,
+    "artifact_files": 831,
+    "authorized_manifest_documentation_runtime_test_changes": 61,
+    "byte_identical": 786,
+    "config_files": 2,
+    "no_collisions_omissions_or_old_source_tree": true,
+    "original_tracked_files_mapped": 847,
+    "runtime_source_and_existing_tests": 14
+  },
+  "navigation": {
+    "all71PNG_CSV_SVG_sets_exist": true,
+    "local_links_and_anchors_verified": 283,
+    "no_active_old_CLI_or_import_references_found": true
+  },
+  "post_review_cli_bootstrap": {
+    "all283links_and_reader_tables_reverified": true,
+    "evidence": "cli-bootstrap-review.json",
+    "four_non_replay_pinned_entrypoints_isolated_imports": "PASS",
+    "nine_replay_code_and_lock_hashes_unchanged_so39replays_reused": true,
+    "prior_receipt_preserved": "renaming-acceptance-before-cli-bootstrap.json",
+    "register_direct_help": "PASS",
+    "scientific_AST_and_all847ledger_hashes_reverified": true,
+    "script_hashes": {
+      "scripts/build_arrival_timing_eda_report.py": "774abba09d596bc7e3783818df958c90ad6598eb6b07c04bcfcb6f7d47c08c6d",
+      "scripts/lock_arrival_timing_eda_confirmation.py": "165a9c778bfe626e22452899c800c44c1754f0e6dec9fba4fa5e6329e8b95a3f",
+      "scripts/register_arrival_timing_eda_runs.py": "cd7a4a163781d320bf7542a4d68a77f10c56d6abf592fdb76dfde146296d049b",
+      "scripts/rename_arrival_timing_eda_artifacts.py": "ffe5e31cd9cd04598fb50413c9dd10e76324a8d524edc76c25fe42bfcc1f8d0c"
+    }
+  },
+  "project_verification": {
+    "frontend_build": "PASS",
+    "frontend_tests": 178,
+    "git_blob_verification": "performed after local commit; receipt kept in ignored working evidence",
+    "pyright": "PASS",
+    "python_tests": 845,
+    "ruff": "PASS",
+    "source_manifest_rows_validated": [
+      19,
+      2738
+    ],
+    "standalone_cli_imports": "PASS"
+  },
+  "provenance": {
+    "active_lock_sha256": "430af3355a2bf658181fbefedaa7eae72ea91d39cd7f7c665457c9485f67c80d",
+    "generation_metadata_bundles_retained": 39,
+    "ledger_sha256": "aceaa7ba98d8fb299f0662a88e02fdcb5480bbf476a9088ea7e31dc421e450c3",
+    "live_layout_replay_code_pins": 9,
+    "metadata_generation_not_misattributed_to_new_layout_code": true,
+    "original_generation_code_pins": 8,
+    "original_input_manifest_and_lock_hashes_retained": true,
+    "remapped_output_manifests_verified": 42
+  },
+  "replay": {
+    "every_file_byte_identical_to_new_canonical": true,
+    "files": 756,
+    "historical_input_metadata_only_reused": true,
+    "live_code": {
+      "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+      "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+      "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+      "analysis/arrival/timing_artifact_names.py": "2fe71db07c5d1ae2819ddcacffb81914d892e79f9655198ee18ebddd0e7d3eae",
+      "analysis/arrival/timing_data_and_descriptive_statistics.py": "30d948ed2406da857509356d5eca77aeb6d936c257f229f5e8bafa338f7c473d",
+      "analysis/arrival/timing_diagnostic_plots.py": "08373051bdccabddc12ca85273d10aa7f7b8ab0b5980f1370ed1f081fce5dadc",
+      "analysis/arrival/timing_followup_diagnostics.py": "875b8d1b563eb657649b910f36488b89121077bba174e25c6f292f6b4e26f020",
+      "analysis/arrival/timing_group_reporting_and_support_diagnostics.py": "ff3c9fb3daf949c8aaf6e3061c4682188f14689974f46c1f7bfd78bd4e4cd96f",
+      "scripts/run_arrival_timing_eda.py": "d0144793743c4413f4a19856a65e04cb9b413331c9a46a088a46d3d5a99eb1a9"
+    },
+    "questions": 39,
+    "receipt": "final-all39-replays.json",
+    "scratch": "replay-all39-final"
+  },
+  "science_invariants": {
+    "all148sourcepins_verify": true,
+    "all4scientific_module_ASTs_unchanged_except_mapped_import_paths_artifact_literals_and_isort_order": true,
+    "all_CSV_PNG_SVG_statistics_metrics_settings_seeds_and_generation_metadata_unchanged": true,
+    "all_reader_scientific_disposition_and_model_memo_table_rows_unchanged": true,
+    "config_and_split_bytes_unchanged": true,
+    "six_calculation_rendering_replication_function_ASTs_unchanged": true
+  },
+  "scope": "Path/import/provenance adaptation only; verification recomputation, no new scientific question or tuning",
+  "status": "ACCEPTED descriptive artifact/source migration at verified worktree version"
+}

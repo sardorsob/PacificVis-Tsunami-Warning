@@ -1,0 +1,50 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "141f0e9af7c0301373580e43f66dbcfc2bceda800f76e3887776c2d337359cbb"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "141f0e9af7c0301373580e43f66dbcfc2bceda800f76e3887776c2d337359cbb"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "0ec0b0640519ce5f8811468dda6a1e913abc0e5e24d0d57e8317ec732f05741f"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ntwc-reports-availability-era.csv",
+    "sha256": "6970d2907704c58de3d56d9011962ce28068fec4cd1d3e7896d6fd41a8fac883"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "06ae79a04194a0acdcc5cccb46f765d24f7c44119d610bd76ba04bee39c3f624"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "reporting-era-format-and-peak-availability-diagnostic-summary.csv",
+    "sha256": "99979d80cdd7c3c9e44e5d978f6ac52be7fd6306ba317a897ab156e57ac14170"
+  },
+  {
+    "path": "reporting-era-format-and-peak-availability-diagnostic-summary.png",
+    "sha256": "f892918a788d2a43989972d3198a4b80251cd2059f4ece104e76f52d1e0dc2cd"
+  },
+  {
+    "path": "reporting-era-format-and-peak-availability-diagnostic-summary.svg",
+    "sha256": "0dd091d9a976a08c3a7782ed58514369cb27ce4486165bc527054ba53f465304"
+  }
+]

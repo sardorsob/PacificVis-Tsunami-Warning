@@ -1,0 +1,78 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "13f02363774009ef6887bd3f49a9f8888f096ea3cde586c45e8c29447258c9a6"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "13f02363774009ef6887bd3f49a9f8888f096ea3cde586c45e8c29447258c9a6"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "cd1940ed6ffa3aa1bc0d315753c64f7016644fdcb38286d8b9b3465475938eb2"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "observed-utc-availability-by-arrival-pick-provider.csv",
+    "sha256": "645ed30c36af0a49d03482fb6ca8dba280a9510525de1ffdc827ad80cfe9534b"
+  },
+  {
+    "path": "observed-utc-availability-by-distance-band.csv",
+    "sha256": "e6aadf8a47b16ae6aa01d204193994efe52f590d21d0be1a6f6dc167b93a188d"
+  },
+  {
+    "path": "observed-utc-availability-by-event.csv",
+    "sha256": "26797fc40ea6d275b86195d95fdfe0cdf06d7a60f87e78d0751ad1053fbb3c04"
+  },
+  {
+    "path": "observed-utc-availability-by-numeric-peak-presence.csv",
+    "sha256": "d885d66c148bfc90cb5fb9049933b734f2a335e7ee856b50219bb06ee100d4e2"
+  },
+  {
+    "path": "observed-utc-availability-by-reporting-era.csv",
+    "sha256": "14fb910df7988f139eac2423c6052f7676ac91cb8fa04e8d88e0983caab49bb8"
+  },
+  {
+    "path": "observed-utc-availability-by-reporting-era.png",
+    "sha256": "c351bdf421777785ea70bbd3efd7b2c4d387b3f8161abb9f088ae350425d2ec6"
+  },
+  {
+    "path": "observed-utc-availability-by-reporting-era.svg",
+    "sha256": "73e3141f8ece7f2061b3f4a635efb4922457b13246e5d53a8da9cb2e06d8a6ee"
+  },
+  {
+    "path": "observed-utc-availability-by-source-table-format.csv",
+    "sha256": "931d4477cd097ba98ca0e132d4c93236011e3770481b21612c500b1a4ec0d1fb"
+  },
+  {
+    "path": "observed-utc-availability-records.csv",
+    "sha256": "f410dd34006d79d2a1fcf4d7ffe3750e3f70ee92b1c22879ae6e7985224c0822"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "ba246e4a984588f2cbe76d113db28ee3465cad469c395e3ccf85ea736b196407"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "within-event-peak-presence-and-timestamp-availability.csv",
+    "sha256": "034e2a4175f014e0308a6aee6aa7fb51bc920e65f9525f8b231bba1a4284f2f7"
+  },
+  {
+    "path": "within-table-native-peak-size-by-timestamp-availability.csv",
+    "sha256": "520be33a2a78149b2f7c44fe5833587aae3441e924579360ea19b8fd93cd325d"
+  }
+]

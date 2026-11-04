@@ -1,0 +1,78 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "69cf2b059f37e89e3d84c7fcfee664e72fd31f3a4aa9296807bc6d23a36fa711"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "69cf2b059f37e89e3d84c7fcfee664e72fd31f3a4aa9296807bc6d23a36fa711"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "678fb40ac582d53450a6c99df7512aec7b86a149b6276c13218af6347ac6bcb2"
+  },
+  {
+    "path": "documentary-versus-reviewed-earthquake-origin-times.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-analysis-records.csv",
+    "sha256": "c5b8c7c118d09b846f6594795f6df802c4d4a0d6cea1efff0a7c488b481030fe"
+  },
+  {
+    "path": "ncei-native-travel-duration-data-findings.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-records-per-event.csv",
+    "sha256": "bf64bb226070afaf9f547db55a9379b9bda5d7327819e4ee3caf337ec45156aa"
+  },
+  {
+    "path": "ncei-native-travel-duration-records-per-event.png",
+    "sha256": "b9f251b3996db049b55f79310a43e8c73b9aab6a2edd9f81de71e3046c2815ca"
+  },
+  {
+    "path": "ncei-native-travel-duration-records-per-event.svg",
+    "sha256": "cccd9cf7a82d4024f8c7331d3ce1ef41eca1407bd00fe64e7722a19e25eabb35"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-analysis-records.csv",
+    "sha256": "e0fa1fe58d9b026f874591a0953ec20600d1ecc71916e0c59cd2bf0b813fa5c0"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-data-findings.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-records-per-event.csv",
+    "sha256": "d5b113bc05cae1e53023866d7ddc28c459ebe3bda6fcab6e29fda597d2eb6f84"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-records-per-event.png",
+    "sha256": "9b41ef21fe7be647d3aaa4724b97f6151e514f886903d2fe0375807f86ccefd2"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-records-per-event.svg",
+    "sha256": "2e7c5a6395e6ecbd98673f26ca5b48ce1f938e0161d4fc69d7c230ea7a29389a"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "7c72a9e98d215986a3a36587e478dd313fc577459f7e4a1aae8903343ed1aafe"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "fb53be3673f4e41d709c60d50e0e9301280f563cea6d7715df1deb2d3a1ee5ee"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "fb53be3673f4e41d709c60d50e0e9301280f563cea6d7715df1deb2d3a1ee5ee"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "4c0771c761b66ee64a5ebb3c717f34ac3ee75deb08a5d534d3d6a8ddc415b3fb"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "fa5eac3ea54a98c61b32a8dd2e89554895255997e2d2c7c568067ffa86b30986"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-histogram.csv",
+    "sha256": "e61511e90559c19ddd4517ffe6a7bd5bd3bb49d63e631c99d41606ede01b0e8c"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-histogram.png",
+    "sha256": "c43f915f4cc4b325a93dc9a4d9cb3ef71d0391a4adf1d8d853d7e93216dcd236"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-histogram.svg",
+    "sha256": "02dc82236628cd1ec97b0a6b3aefe754b1e1f1bc5757868fb672a9d07a847b61"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-normal-quantile-plot.csv",
+    "sha256": "c32b8f14d64a022f577b273a0995d849b396c2a7d8765f3ccd4ddf008d03c8f4"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-normal-quantile-plot.png",
+    "sha256": "201ed95031d2722d9877cca44121807b409c92cb75697d40969fd69f24e7bf0f"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-minutes-normal-quantile-plot.svg",
+    "sha256": "ff2f6bad5cb0fb70ed788d9da7a9f3af7194c5be6cb6e3fcab5a225ea68b3f89"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-histogram.csv",
+    "sha256": "6f138d5e46d684f7baf3ff9e169d950755da45716b6358c09ca25b603114a641"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-histogram.png",
+    "sha256": "9a2f312ef27ee0921a2e22c883e94b22750b2868ee3c4f91ba19656b423b0c41"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-histogram.svg",
+    "sha256": "59be89e77a9ed10b8ba61186f13cd868bcd8b1c79a2f4aaf2f3e857f623ab524"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-normal-quantile-plot.csv",
+    "sha256": "f2e929d7b99a321375f5236f13bdb97e444246a98684ce5b932190dc21e26df6"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-normal-quantile-plot.png",
+    "sha256": "4191c51fdcf9e87ee7575fcbdc2b54bcda4dad13872609380be5689b54b00a1c"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-minutes-normal-quantile-plot.svg",
+    "sha256": "792ad8d7b408a0bc7bcc7b9bf48f12fc87bf6b3636c7547f35e033207fd32628"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "2ec0084387a88d0b451693d0c94b1a8427f1536018b686c00f7058377029b82c"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

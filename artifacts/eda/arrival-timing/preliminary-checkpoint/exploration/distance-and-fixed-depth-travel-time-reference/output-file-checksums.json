@@ -1,0 +1,82 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "8ce79a9a6482446c95a5f3d9758f209e664c53b484c03838761db295ea85886a"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "8ce79a9a6482446c95a5f3d9758f209e664c53b484c03838761db295ea85886a"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "cbc41058a37b1b47f78e8a31edca6e7004a31109699d54c37d0813ff745c265b"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "fa5eac3ea54a98c61b32a8dd2e89554895255997e2d2c7c568067ffa86b30986"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-reference-departure-by-distance-band.csv",
+    "sha256": "71d0e93f95bef0774d3f19fbdb545ec2cd3bacb72f0681c9a0ce90f8dd280a96"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-reference-departure-by-distance-band.png",
+    "sha256": "5ec83c5fb27974230cf907c3295f4f543ad2feb4ba975bbeb730efed9369d768"
+  },
+  {
+    "path": "ncei-native-travel-duration-log-reference-departure-by-distance-band.svg",
+    "sha256": "78297bb5dbcbb9397b34c61a959d4423247b6fe9d699ef9ad4100320febe6d5f"
+  },
+  {
+    "path": "ncei-native-travel-duration-versus-distance-and-fixed-depth-reference.csv",
+    "sha256": "f53fbffcaa338d63ed8dfdc8c3abecfb0ec46021bafa2155a5c64b37be691f22"
+  },
+  {
+    "path": "ncei-native-travel-duration-versus-distance-and-fixed-depth-reference.png",
+    "sha256": "c40145cc1c3b3073943a9f079a19989070aa26bb59d6cfb0d71c2abc172c3a3f"
+  },
+  {
+    "path": "ncei-native-travel-duration-versus-distance-and-fixed-depth-reference.svg",
+    "sha256": "e8bb2cc52be6fecb28931ad93757a26ba2d547dc5a993dd1201c6fe5d48ccdbf"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-reference-departure-by-distance-band.csv",
+    "sha256": "1dc7c35d33aa710a0273697e8fa9a0357ff252d331c221b499471b3c232c3fd2"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-reference-departure-by-distance-band.png",
+    "sha256": "05144214f77863e46b1ffe77110361ba1fc2d7bbfc3e2b1870da77b53da9c56d"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-log-reference-departure-by-distance-band.svg",
+    "sha256": "4a5ad1956646ae698f2b85d3dcc8dde5c488e44b0f3c0329aa2aa99bb40c3523"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-versus-distance-and-fixed-depth-reference.csv",
+    "sha256": "ce6aac93abebd4bb457688f277705fcba067ee383765290736101ba080674cd4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-versus-distance-and-fixed-depth-reference.png",
+    "sha256": "c5dbd7dd3926e01753f62a78ddfa06cb1593a3801aec06ca0ea214ede9ba6151"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-versus-distance-and-fixed-depth-reference.svg",
+    "sha256": "466f9ed2972934d8469a8a48a0368076bd9ca491ab7d2a62c39c4ef93b87f522"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "a2bd5b6245fe33a431ca96e580cd79b0362916a3e14f8d0d641730a38255a97f"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

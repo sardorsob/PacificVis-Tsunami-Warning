@@ -76,7 +76,10 @@ class DecisionRecord:
 def validate_story_output_path(path: Path) -> None:
     """Reject story evidence written into submission or application-owned locations."""
     normalized = f"/{path.as_posix().strip('/')}/"
-    if "/analysis/paper/" in normalized or "/artifacts/eda/paper/" in normalized:
+    if any(
+        p in normalized
+        for p in ("/analysis/paper/", "/artifacts/eda/paper/", "/artifacts/eda/arrival-timing/")
+    ):
         raise AtlasError(f"paper path is forbidden in story evidence: {normalized}")
     if "/app/public/data/" in normalized:
         raise AtlasError(f"exploratory output cannot be an app asset: {normalized}")

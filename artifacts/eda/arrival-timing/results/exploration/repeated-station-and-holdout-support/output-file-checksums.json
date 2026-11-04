@@ -1,0 +1,94 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "dca750a8f7c2e60c3783d68713f660722d88f1e4107107238577bcb167ea65af"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "dca750a8f7c2e60c3783d68713f660722d88f1e4107107238577bcb167ea65af"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "ceda3e863f2d05c5cb1b911c13aea8712d77a7890d0cd593c768de5f3b3cee7d"
+  },
+  {
+    "path": "estimated-minus-observed-time-difference-leave-one-event-out-station-support.csv",
+    "sha256": "1b41d79303247b91a62ea9f52c4ef685fcde96e1e66a7756247bc7687cc44b3e"
+  },
+  {
+    "path": "estimated-minus-observed-time-difference-leave-one-station-out-event-support.csv",
+    "sha256": "b2ccc81abfc56595dac668ac475f4d1518ac2c61a5b72a886c3836014ef50cff"
+  },
+  {
+    "path": "estimated-minus-observed-time-difference-station-counts-by-minimum-event-repeat.csv",
+    "sha256": "12425e96ea7748767243e426c79c8abe51849034983210d236cf60f81cc446e5"
+  },
+  {
+    "path": "estimated-minus-observed-time-difference-station-counts-by-minimum-event-repeat.png",
+    "sha256": "2ac6add5296547d950ce7c1471f769bef3bd3753c2278673243983fa2bdb513a"
+  },
+  {
+    "path": "estimated-minus-observed-time-difference-station-counts-by-minimum-event-repeat.svg",
+    "sha256": "cf373ce2a71ee937b45363a7f9eda5de6a9246147b068507d45bdbb706e52716"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-leave-one-event-out-station-support.csv",
+    "sha256": "334c982aa099755478cc5d56a1dfe9337e5917e4fc0ec391c88aa3b061cc97ad"
+  },
+  {
+    "path": "ncei-native-travel-duration-leave-one-station-out-event-support.csv",
+    "sha256": "01c08c94e57bcb0a549f1ad8a191c80647f23a4d39f72c2fdd7629a81be09881"
+  },
+  {
+    "path": "ncei-native-travel-duration-station-counts-by-minimum-event-repeat.csv",
+    "sha256": "060d033e1a4218bcaf064c7503807deb1f84ac12b868bb3860b655ef054a0f98"
+  },
+  {
+    "path": "ncei-native-travel-duration-station-counts-by-minimum-event-repeat.png",
+    "sha256": "4c65d4db7d39f404e6b050fd2e69dc2f4808697d755afa308e5aa92b5f3328c3"
+  },
+  {
+    "path": "ncei-native-travel-duration-station-counts-by-minimum-event-repeat.svg",
+    "sha256": "e30740f029251f653a292d64f6256c87c2442066bd01d708fa93b40760e1486d"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-leave-one-event-out-station-support.csv",
+    "sha256": "309aadb6b8628803e013691140f6f39e9cb4ed49850e90573bb48f6bec8412b6"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-leave-one-station-out-event-support.csv",
+    "sha256": "ac1c910c3e9475d008fb9b32315ee876119b0a8279da1fe9567e0916d29ea648"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-station-counts-by-minimum-event-repeat.csv",
+    "sha256": "67152d599052e3368bafd9177c49fa53af23fe5803b72d5ccaa04ffe1010f2c0"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-station-counts-by-minimum-event-repeat.png",
+    "sha256": "d7affde2cf5af61c0c03b81280b274aa53f4aee1ce4390513f97e301b318bc46"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-station-counts-by-minimum-event-repeat.svg",
+    "sha256": "8a577d6663ac9c133c94613c79ffdee40bdc4ab47b190a642f2f0a9b4ee0a732"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "00be3423f59475c7473f768042cf235e5b9312cf6a2be1b6164a6942a06a5c99"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

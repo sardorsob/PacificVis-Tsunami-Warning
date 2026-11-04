@@ -1,0 +1,66 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "4c620dd332a530215ab0949df5e0aba97ec20b0216bca021852710b4e4a189ab"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "4c620dd332a530215ab0949df5e0aba97ec20b0216bca021852710b4e4a189ab"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "a22dc6e10c74f29dd8c083c6dc4be47e893a1f815025ee597be4113997bdd49f"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-leave-one-event-out.csv",
+    "sha256": "04ff1f60e0652e4486d5288481ca2ff93acde0e320b3613e6bb45b7d1f9f5ee9"
+  },
+  {
+    "path": "ncei-native-travel-duration-median-log-reference-departure-after-event-deletion.csv",
+    "sha256": "1039e745db5581be139c7f5e4771d69cd18c572b2fd7092feac0dfe3cf8fb2eb"
+  },
+  {
+    "path": "ncei-native-travel-duration-median-log-reference-departure-after-event-deletion.png",
+    "sha256": "194fc26ace5c5bddbe40c2f4207f0b4436d11320f348b5eaa93e0cb160b76cc0"
+  },
+  {
+    "path": "ncei-native-travel-duration-median-log-reference-departure-after-event-deletion.svg",
+    "sha256": "9021faa2dd5af43bef76b76705e5e97e5d9c41db5d114c023f0ef015d8841dc7"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-leave-one-event-out.csv",
+    "sha256": "fec70ad9a8fa102cd0f0b811a342a19e93e60700e66d702d0daf6f474412d050"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-median-log-reference-departure-after-event-deletion.csv",
+    "sha256": "e648f39d78b5a304349ded7ee2d76dc9b941ce6ad742bd9ce955b64304d28256"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-median-log-reference-departure-after-event-deletion.png",
+    "sha256": "3b02b7273fb3df9b4c59e473066c9fcddcda6e3bf6986d0726c41ed68ba1fad6"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-median-log-reference-departure-after-event-deletion.svg",
+    "sha256": "a3da9974ecb37e698d15fba41a51d1c867c451b15465d624f2b9b4777966fd08"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "b1e51d48e1ee8860f16c647aa20bb3e55c8c424c7d475e160b816b2551ebe30b"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

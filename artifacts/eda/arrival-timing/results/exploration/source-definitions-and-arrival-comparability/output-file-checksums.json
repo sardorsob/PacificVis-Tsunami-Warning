@@ -1,0 +1,210 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "e4f3ae70bab6fb1f76078f9b2373bfe3346ee98935f8eb1a96348a5b8bb71a88"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "e4f3ae70bab6fb1f76078f9b2373bfe3346ee98935f8eb1a96348a5b8bb71a88"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "9f9096cdcd91cedf3bd964f75ca7ebaf8e60ff39b24617061c861780a9e261d3"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-arrival-pick-provider.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "ncei-native-travel-duration-era.csv",
+    "sha256": "7c73a8a53af2a2e504c945f8cc0b091c28e916188db58d435d7607cd03feea26"
+  },
+  {
+    "path": "ncei-native-travel-duration-gauge-family.csv",
+    "sha256": "732a1e3b3b4ddb29c4e82894c021d4ee885f0f3aeabde7f12b4f442a9863f7f0"
+  },
+  {
+    "path": "ncei-native-travel-duration-reported-clock-precision-seconds.csv",
+    "sha256": "2050b4777edceeaced7cf685c616843a4ad02eac4bb5a03798dcaad6f9a1fc77"
+  },
+  {
+    "path": "ncei-native-travel-duration-reported-time-qualifier.csv",
+    "sha256": "4ae4af7b2c0d9e8fe3c4af5d96fcf9ea78860077194fdfc21e5683d1b61476c6"
+  },
+  {
+    "path": "ncei-native-travel-duration-source-table-format.csv",
+    "sha256": "a8f681f795c30b6ebef421cfa03a27cf4ff741e4ef78c5c05044d5be28a2a049"
+  },
+  {
+    "path": "ncei-native-travel-duration-station-identity-scope.csv",
+    "sha256": "ec7e0b2c69a70730603703ce28a23e0f7a1fe109f0f82caed036842953779ae6"
+  },
+  {
+    "path": "ncei-native-travel-duration-station-identity-tier.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "ncei-native-travel-duration-time-evidence-tier.csv",
+    "sha256": "459acb8e4fee6468b63b11f293505640ebce44c854c65cae3b365862449ca10b"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-arrival-pick-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-gauge-family.csv",
+    "sha256": "577297b1b32632c9bfa2a91e622eb5f7ebf3f57e8f3e8c98b7575f47ae6b7211"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-reported-clock-precision-seconds.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-reported-time-qualifier.csv",
+    "sha256": "a558b271ec86bbb0724bea6e68198cf1162cc3285b1f60632c51c53e182aa694"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-source-table-format.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-station-identity-scope.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-station-identity-tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ncei-native-travel-duration-within-event-time-evidence-tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-arrival-pick-provider.csv",
+    "sha256": "08c74bf46e08c4f12209ed681f4b9466a7b9c382719a239c652507596a9cf84c"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-era.csv",
+    "sha256": "8db2c774e696fb7cd5a82ce7446afe7e827f59a152dd9f4725c6acc7d802d32f"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-gauge-family.csv",
+    "sha256": "cfb9cd82a67affb6dd7ae8e64b66995716f9934b92912cc7a60b7befe526a80c"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-reported-clock-precision-seconds.csv",
+    "sha256": "5306d5c1d6021c77bf15ea14c210c8e5242e86e1f8ae08d5bd31585d6710f69c"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-reported-time-qualifier.csv",
+    "sha256": "303e29d07c68d20cc6f496ba8a1a81fedeceb45a81339faf9c8c1ad759ed8de3"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-source-table-format.csv",
+    "sha256": "67bb3344ce543af88fbfdcca21dd646a58a77010e92e0fddf6e129488b33a0af"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-station-identity-scope.csv",
+    "sha256": "9546941233287cca6a0bd38b6005cdb0b1b3e8d42d864c21e5ea12200eeb0504"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-station-identity-tier.csv",
+    "sha256": "8a18f0149ae3685c7aaef644fd96dac334c9695c83410726173b94f5f69d200a"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-time-evidence-tier.csv",
+    "sha256": "20dcfc5822c1aa7e37db6a9bc5ff999f40c0c642b70d7f74dc2ed57231f30286"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-arrival-pick-provider.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-era.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-gauge-family.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-reported-clock-precision-seconds.csv",
+    "sha256": "d33260af299a1dd14fe52e6959804f5a50b7c53b487cc3c3b1057b624daf289d"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-reported-time-qualifier.csv",
+    "sha256": "a92744b66f18c0b856cc2b178ad11549e907be8d909f8fd61a64a83f816605b3"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-source-table-format.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-station-identity-scope.csv",
+    "sha256": "ba65f87545317c6aa61647da5a8d15818f14450f8e93c822b0699831d0059121"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-station-identity-tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-within-event-time-evidence-tier.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "04187c21d4f8452715d4d80e1053ba3dd6db9f4c81964cb5a06bfcef4a0cc8fe"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  },
+  {
+    "path": "reviewed-cross-source-geographic-comparison-records.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "reviewed-cross-source-geographic-match-duration-differences.csv",
+    "sha256": "8c7784e06705eeb046533c177c7c6af5a7eb89d6b0b912f82808e3a4ab1995e4"
+  },
+  {
+    "path": "reviewed-cross-source-geographic-match-duration-differences.png",
+    "sha256": "33f427f4f81c803c1e227784e27ee25d91f26c33ffe570049eb787d7200fb938"
+  },
+  {
+    "path": "reviewed-cross-source-geographic-match-duration-differences.svg",
+    "sha256": "b5de99391a63534a06d0850a1a9d16ea6074423423a08698bc844b286c315087"
+  },
+  {
+    "path": "unapproved-same-name-2km-comparison-records.csv",
+    "sha256": "352581f84d71b304d74a5efbbd0382ee59de1662cd21b213b3781f387e1d75f3"
+  },
+  {
+    "path": "unapproved-same-name-2km-duration-differences.csv",
+    "sha256": "bd2f5ecc30011545bd2349f4794c524dd4c00d1d030e47bbc7381dc217ea730f"
+  },
+  {
+    "path": "unapproved-same-name-2km-duration-differences.png",
+    "sha256": "d546feef0d45224eda8a1adcf99da591171aa6ac6c0a65a88bebc0397c8f1032"
+  },
+  {
+    "path": "unapproved-same-name-2km-duration-differences.svg",
+    "sha256": "8f79087f0d69f65c3ac806136b71d78ad6f5ffb82c10c51c03a43e2ef7c8659e"
+  }
+]

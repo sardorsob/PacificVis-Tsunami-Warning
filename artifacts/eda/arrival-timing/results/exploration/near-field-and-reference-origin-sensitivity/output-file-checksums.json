@@ -1,0 +1,54 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "52c67ad56ab2d356e4f793554dda6a36330f41608b6f3800e3956dc1fdba8a79"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "52c67ad56ab2d356e4f793554dda6a36330f41608b6f3800e3956dc1fdba8a79"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "48194ad3541cc102dcacecb0af33f26ef5fc320c60b7cade68861689e0a36c3b"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-near-far-sensitivity-by-reference-duration-cutoff.csv",
+    "sha256": "0878086056d8d30822e146a846bbf272cb6a82a043d9b89c2c4efdfcd649712b"
+  },
+  {
+    "path": "near-field-and-reference-origin-sensitivity-diagnostic-summary.csv",
+    "sha256": "63e70dc80593fa5b4180094c6926c1a9a481d5be56acc906ee89fde13b92c98e"
+  },
+  {
+    "path": "near-field-and-reference-origin-sensitivity-diagnostic-summary.png",
+    "sha256": "97b93c10896fa30a29414e3c21175e8436b69355a188daa53671a70e60272091"
+  },
+  {
+    "path": "near-field-and-reference-origin-sensitivity-diagnostic-summary.svg",
+    "sha256": "1093a2372367c9f64cfddd37402b7dc1e2c2cf5890b3d4d8a85b395bb08bd839"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-near-far-sensitivity-by-reference-duration-cutoff.csv",
+    "sha256": "c499da106955b1a04bba70298169fcc1ba41fa8fc1fc6d4be10897ff9ef8cc34"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "26978c3488aff422d79d7849e2185c65a8ecf47ff79278509c6033dbd23a0652"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]

@@ -17,4 +17,4 @@ config/arrival-recovery-evidence-v1.toml -text whitespace=-blank-at-eof
 config/arrival-recovery-ncei-sample-v1.toml -text whitespace=-blank-at-eof
 
 # Preserve scientific artifact bytes, including source-native embedded line endings.
-/artifacts/eda/paper/** -text
+/artifacts/eda/arrival-timing/** -text

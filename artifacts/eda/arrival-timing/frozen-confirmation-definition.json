@@ -1,0 +1,260 @@
+{
+  "artifact_root": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/eda/arrival-timing/results",
+  "code": {
+    "analysis/arrival/eda.py": "ef276fdf29e565793c1aff7e030ef6a707281a06b5ecc1509409cb5c17b28de1",
+    "analysis/arrival/eda_branches.py": "54213a83fc3bd78235d5b21c887bc6194c212c9239d32da6587645c5ea2b6b86",
+    "analysis/arrival/eda_diagnostics.py": "0b4c321c038d0d3bf0fda0ab8a1613e0eff94f0086048debcf5bacaa20eade20",
+    "analysis/arrival/eda_plots.py": "d1e94672959eb5ddb7cda405578270c8df64e7e15526533c3b34b26b8866bb3f",
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "scripts/run_paper_eda.py": "3f8711ca687e7c0c8a0bdbfc287e72f79eaa3a08f6079912b57ad054ba8e19f2"
+  },
+  "generation_inputs_sha256": "4798557afa12df1b90b77a882d73be154405fdc498abdc3fe839d0833dee304b",
+  "generation_metadata_sha256": {
+    "confirmation:B1": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "1a94bf210d41ae2e0cab3bef850c695db9b53e8684da6f389a6740cccb515905"
+    },
+    "confirmation:B10": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "a92be711485107cd8eae0a78c1143a99afd78913b96dddc255c0b81e54c3dd70"
+    },
+    "confirmation:B2": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "cac4002b48575d37ed4f1be5af4d297c2baa6f317d13b056ead0d53da6e7a438"
+    },
+    "confirmation:B3": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "449dc8ea401d2a27bba7153350c00e51531d939f6c4d4967a5e3e960eef7955e"
+    },
+    "confirmation:B4": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "906fcf170f045bcbda496d36e029a0c35e2fc8d9d0bf0a3c9afb8b68cd63d8df"
+    },
+    "confirmation:B5": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "a0f0e02b73f81b24dcbf38809eec177bf7b0b343ef44b086e1404f8eba29d460"
+    },
+    "confirmation:B6": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "38add6ef093d274cc9ce830e4186067aa045a8710b71227a740e2fdd5c51abd4"
+    },
+    "confirmation:B7": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "06ae79a04194a0acdcc5cccb46f765d24f7c44119d610bd76ba04bee39c3f624"
+    },
+    "confirmation:B8": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "f65f7509296acb46e1d5531790a7284f58ff5e6bc9d3590324e9d7f9c0e7330c"
+    },
+    "confirmation:B9": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "5fd7323ec4e30aeea598f8eb3be7ee78eacb4fe7e3dd20af31b53fa411f6884f"
+    },
+    "confirmation:C1": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "7c72a9e98d215986a3a36587e478dd313fc577459f7e4a1aae8903343ed1aafe"
+    },
+    "confirmation:C2": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "00f3e4650f9109f6158c6cf79926f45aad8a6267127f2b94768e5cb01f052b03"
+    },
+    "confirmation:C3": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "17b0def5a84ad35361866bdbb21ea6b7f0c87c50b2dcba9d5e183e89266592a0"
+    },
+    "confirmation:C4": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "4a1a2aa68a4fde8d78128627b9267f96318d80d283842d29e39cad899c72708d"
+    },
+    "confirmation:C5": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "fd19a5177780ca237d8bd8da4417fa8900ca23ac64001a7ae901fb3f370336a3"
+    },
+    "confirmation:C6": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "9a750b7b8799f8b058b31463f5fc76b19703f38f3c548276ac5869f89fd812bb"
+    },
+    "confirmation:C7": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "b1e51d48e1ee8860f16c647aa20bb3e55c8c424c7d475e160b816b2551ebe30b"
+    },
+    "confirmation:C8": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "ae72c94c24b250a63d6361b327d9c375cd1521d76f0bc488b5a34070e23d5c75"
+    },
+    "confirmation:C9": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "8b1f77f1a7d972f7d0bcdba3f3d304f7eb92dba5c8d6a47c7605c6381a2d0f6f"
+    },
+    "exploration:B1": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "8f8a29b9665f8a2a9ab11b30e4f9965df95261a7279c8a810087a5dd181aff61"
+    },
+    "exploration:B10": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "982e4cd59572126c1135df77a739aae21d2ebf93aa4d287f2c82379e16d3e216"
+    },
+    "exploration:B11": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "91b9eec1befde3e3851f0fdac1cb25c41383134012205cdb97e7e55669a6e6e6"
+    },
+    "exploration:B2": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "27b03ad9f5a0f5733302a910a8e99658136a0d5dccc82e47005b78812805c592"
+    },
+    "exploration:B3": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "ba8761445f11803e7849f7feb6336a995083060b2ea2a87b961ceb660e06316b"
+    },
+    "exploration:B4": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "6a5c23745fd713068b834c135804ecc852b9adada7591a60efed072d856a8581"
+    },
+    "exploration:B5": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "dcccd99b32af8e1eef0f7edd0a167f52683a61f5950ef40934cb62ff5e8729f7"
+    },
+    "exploration:B6": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "38081bad7218626fdeb16cab3612213b9f758da98103acfcb3614bc9aa0d94ad"
+    },
+    "exploration:B7": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "562c86a4aa68682750a9eb24f8ce71c62d61d6649f4e35c1f7442bcebb34c3dd"
+    },
+    "exploration:B8": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "6dad5a8df19a5d46418bc3a074329605b696ec0e16b6d2e8702476bda2e5dda1"
+    },
+    "exploration:B9": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "26978c3488aff422d79d7849e2185c65a8ecf47ff79278509c6033dbd23a0652"
+    },
+    "exploration:C1": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "335b2dcada105b6a4d0e1684dc6bc668aecc9dc0588afccf4fc6d900db0d0611"
+    },
+    "exploration:C2": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "d3caf9fdca4410d29b8393a46777245bf6a1f45b25ac099cefa3bf7d728a04dd"
+    },
+    "exploration:C3": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "8cd5adb1b7c52ec83074bd7a29f98c1e7289a2089b44d4a813b13f443521bfac"
+    },
+    "exploration:C4": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "dbf190a334c87b4dd6d0543fc7efe2e44fbd05fcadf028ad95df5df4441a5f33"
+    },
+    "exploration:C5": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "04187c21d4f8452715d4d80e1053ba3dd6db9f4c81964cb5a06bfcef4a0cc8fe"
+    },
+    "exploration:C6": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "ba246e4a984588f2cbe76d113db28ee3465cad469c395e3ccf85ea736b196407"
+    },
+    "exploration:C7": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "0af5e1f61f763a91790ea9b24d14d7e1b5b62b9f2812381c7616be8cf43e49ed"
+    },
+    "exploration:C8": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "df3d17402d9cf370e55cffaf50ac58a5a35c7aeb0299a42cf4edb257c06135ab"
+    },
+    "exploration:C9": {
+      "generation-input-and-code-checksums.json": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6",
+      "original-run-metadata.json": "00be3423f59475c7473f768042cf235e5b9312cf6a2be1b6164a6942a06a5c99"
+    }
+  },
+  "inputs_sha256": "0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb",
+  "layout_note": "code retains original generation pins; layout_replay_code pins the path adapter. Replay regenerates scientific outputs and retains authentic generation metadata.",
+  "layout_replay_code": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/observations.py": "27163c28146ed661234192c5bc8c91b29d5e28778fd4f991f933d4c10b052c13",
+    "analysis/arrival/site_registry.py": "6b94f7f215399a9a9a695bf2a035645d3cc48e0f3eea5a85c1725379c90490d6",
+    "analysis/arrival/timing_artifact_names.py": "2fe71db07c5d1ae2819ddcacffb81914d892e79f9655198ee18ebddd0e7d3eae",
+    "analysis/arrival/timing_data_and_descriptive_statistics.py": "30d948ed2406da857509356d5eca77aeb6d936c257f229f5e8bafa338f7c473d",
+    "analysis/arrival/timing_diagnostic_plots.py": "08373051bdccabddc12ca85273d10aa7f7b8ab0b5980f1370ed1f081fce5dadc",
+    "analysis/arrival/timing_followup_diagnostics.py": "875b8d1b563eb657649b910f36488b89121077bba174e25c6f292f6b4e26f020",
+    "analysis/arrival/timing_group_reporting_and_support_diagnostics.py": "ff3c9fb3daf949c8aaf6e3061c4682188f14689974f46c1f7bfd78bd4e4cd96f",
+    "scripts/run_arrival_timing_eda.py": "d0144793743c4413f4a19856a65e04cb9b413331c9a46a088a46d3d5a99eb1a9"
+  },
+  "limits": [
+    "archive-event split; one physical sequence crosses halves",
+    "no blindness claim; small confirmation targets",
+    "zero direct cross-family links; source contrasts confounded",
+    "degenerate median-polish bootstrap ratios do not confirm group structure"
+  ],
+  "path_migration_manifest": "artifacts/eda/arrival-timing/file-renames-and-content-checksums.json",
+  "pre_rename_lock_sha256": "afc88d017b0ec986172d1076658c78234f950895a179a555ba91b80e7a2ae18d",
+  "questions": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "B10"
+  ],
+  "replication_rule": "same direction and within factor 2, or interval overlap; inadequate support tentative",
+  "routes": {
+    "B1": {
+      "NCEI-native-duration": "near_far",
+      "T-OBS": "near_far"
+    },
+    "B10": {
+      "T-CAL": "fixed_registered_screen"
+    },
+    "B11": {
+      "NCEI-native-duration": "direct_geographic",
+      "T-OBS": "direct_geographic"
+    },
+    "B2": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B3": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B4": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B5": {
+      "NCEI-native-duration": "distance",
+      "T-OBS": "distance"
+    },
+    "B6": {
+      "NCEI-native-duration": "measurement_family|deep_ocean_gauge|tide_gauge",
+      "T-OBS": "direct_geographic"
+    },
+    "B7": {
+      "NTWC-reports": "era"
+    },
+    "B8": {
+      "NCEI-native-duration": "fixed_registered_screen",
+      "T-OBS": "fixed_registered_screen"
+    },
+    "B9": {
+      "NCEI-native-duration": "near_far",
+      "T-OBS": "near_far"
+    }
+  },
+  "schema_version": "paper_eda_confirmation_lock_v1"
+}

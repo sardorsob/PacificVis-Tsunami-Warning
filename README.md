@@ -57,9 +57,9 @@ Start with `data/processed/multi-event/foundation-v2/` and the
 [multi-event data guide](docs/data/multi-event.md) for exact versions, ordered
 raw, observation and paper tables, viewer limits, and reproduction commands.
 
-Start with the [EDA guide for Bayesian modeling](artifacts/eda/paper/README.md)
+Start with the [EDA guide for Bayesian modeling](artifacts/eda/arrival-timing/README.md)
 for distributions, observation processes, parameter implications, and descriptive
-links to the plots and tables. The [results report](artifacts/eda/paper/report.md)
+links to the plots and tables. The [results report](artifacts/eda/arrival-timing/arrival-timing-findings.md)
 records the frozen exploration/confirmation findings and their limitations.
 No Bayesian model is fitted.
 
@@ -181,7 +181,7 @@ The accepted normalized tables are:
 | `accounting.json` / `schemas.json` | Stage counts, field contracts, and output metadata |
 
 The shared audit retains all 80 event and 80 control settings, including
-failures, in [the canonical evidence bundle](artifacts/eda/shared/2026-10-05-final/).
+failures, in [the canonical evidence bundle](artifacts/eda/shared/2026-10-05-final).
 These are threshold diagnostics, not validated physical-arrival records. See
 [the EDA report](artifacts/eda/shared/2026-10-05-final/report.md)
 and [restricted release](artifacts/releases/tohoku-descriptive-v1.json).

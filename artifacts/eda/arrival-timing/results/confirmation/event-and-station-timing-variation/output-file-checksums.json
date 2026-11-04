@@ -1,0 +1,114 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "f6edfb938b3d103aceaaf1d18723f02aa3d635a3e4c7f1801282f4e66f192f11"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "c2d0a9fed62ecdc0e0bfb2273c14ee740b3e278de266672378c5eef8bce595a1"
+  },
+  {
+    "path": "descriptive-statistics.json",
+    "sha256": "f6edfb938b3d103aceaaf1d18723f02aa3d635a3e4c7f1801282f4e66f192f11"
+  },
+  {
+    "path": "detailed-findings.md",
+    "sha256": "24201bd3c4dc2d78f44e32047df8f23ff885bd9ed42011127df85190cddbc350"
+  },
+  {
+    "path": "generation-input-and-code-checksums.json",
+    "sha256": "5a362d8e714e1be5c15225ace4334dca458f74d673c9e86dfd1cc0059609cdd6"
+  },
+  {
+    "path": "interpretation-and-limitations.md",
+    "sha256": "dec147983e3758838bd620bb26803c7d03d4401b69ac542d1f2bf7699cfb1402"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-event-log-timing-effects.csv",
+    "sha256": "9b23c547e27a04d4574725bc57e7e9d777d2da99e16463375944dbc96068a787"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-event-log-timing-effects.png",
+    "sha256": "ec7a3adc1c572604cbb02583724a0c2ae15a9dae736dc26bffc6b1ed3bb0ea6c"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-event-log-timing-effects.svg",
+    "sha256": "2a1b51a1718b4c371e254f70246491e0773eb4492fbc535bc99df695efeb773f"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-station-log-timing-effects.csv",
+    "sha256": "3a7abde34a8aa3d929e5df77f60dcabb27a2d534f134acdd70fb8424abd71828"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-station-log-timing-effects.png",
+    "sha256": "4972e4db2470061d81b958a97f0bcd784067ec50accda0ddac4f44aaf96125a9"
+  },
+  {
+    "path": "ncei-native-travel-duration-component-relative-station-log-timing-effects.svg",
+    "sha256": "be356250d6e96650551a5b3870b045f4720d43eccddce3793c4ce1d258fb7b10"
+  },
+  {
+    "path": "ncei-native-travel-duration-reviewed-station-key-effects.csv",
+    "sha256": "f5791192e44c51747d5567813926aecd97e18f6755ead8507395efea3e8865e9"
+  },
+  {
+    "path": "ncei-native-travel-duration-same-name-1km-station-key-effects.csv",
+    "sha256": "427c25c608909a55deeda86c365fb42e9c7014d59a8d48e2afb94ba8c473b80d"
+  },
+  {
+    "path": "ncei-native-travel-duration-same-name-2km-station-key-effects.csv",
+    "sha256": "ff9992fbf633a175526a970bdae7d05f3139d3f501551206663d32b86ec9289c"
+  },
+  {
+    "path": "ncei-native-travel-duration-same-name-5km-station-key-effects.csv",
+    "sha256": "6366771c0403f9d6210cf5b11070314c03bde366327ffadbbe754fcc59cf30fe"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-event-log-timing-effects.csv",
+    "sha256": "d2c4bb9651b6ceb28a9322f85311bb809ab5bc7ef6c0968d3d2ce074c0532529"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-event-log-timing-effects.png",
+    "sha256": "498165215c4e76f6eaee20e920cfdde378d11c6b8c1291bbbef869418e22bf9e"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-event-log-timing-effects.svg",
+    "sha256": "d8d2794ffede9e46a23f6ad89266a378bd6654a6550b5656dd9846ba76226ac9"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-station-log-timing-effects.csv",
+    "sha256": "ccaad1451c2fd3d302707dbb7fa43269ea3ed16e921e5a0dc950d3a3a0834a62"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-station-log-timing-effects.png",
+    "sha256": "d6ba884eece65f70fb7c3ecc8bedd7b2f53d5e69e66d4dd74cc0b23246a91706"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-component-relative-station-log-timing-effects.svg",
+    "sha256": "5ca702b6dd6ed901854a600603dfcfe457d05ce14b3b3d43a208fb083ae23edd"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-reviewed-station-key-effects.csv",
+    "sha256": "e820f8bbd5ca0d68205d692d6c1c27e7b34aca2017d9c4b87080beeb948e0e39"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-same-name-1km-station-key-effects.csv",
+    "sha256": "e03294e4fef073c73a4b7a7adb21adaa3234a35382cc1375906d3e994fd0d10c"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-same-name-2km-station-key-effects.csv",
+    "sha256": "14f4f532458fff4baef1989654694716c2dde77b6f76d5916dd9b808b3996192"
+  },
+  {
+    "path": "ntwc-reported-travel-duration-same-name-5km-station-key-effects.csv",
+    "sha256": "a311dfda90497fe342f75caebee1e902dae00ec7c6235db2075993d02fc44526"
+  },
+  {
+    "path": "original-run-metadata.json",
+    "sha256": "4a1a2aa68a4fde8d78128627b9267f96318d80d283842d29e39cad899c72708d"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "ff4be4e387d2347617c76a2708d07a01393d30668efc2784d2be173cf092fc2d"
+  }
+]
