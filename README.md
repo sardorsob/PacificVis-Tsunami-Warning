@@ -57,9 +57,11 @@ Start with `data/processed/multi-event/foundation-v2/` and the
 [multi-event data guide](docs/data/multi-event.md) for exact versions, ordered
 raw, observation and paper tables, viewer limits, and reproduction commands.
 
-The [preliminary arrival-timing EDA](artifacts/eda/paper/report.md) separates
-these targets, records the frozen exploration/confirmation design, and links
-all saved figures, tables and modeling limitations. No Bayesian model is fitted.
+Start with the [EDA guide for Bayesian modeling](artifacts/eda/paper/README.md)
+for distributions, observation processes, parameter implications, and descriptive
+links to the plots and tables. The [results report](artifacts/eda/paper/report.md)
+records the frozen exploration/confirmation findings and their limitations.
+No Bayesian model is fitted.
 
 The original Tōhoku data proof remains separately preserved. Its evidence
 contains:
