@@ -1,0 +1,11 @@
+{
+  "base_git_sha": "e7f4249044cd1d940e6c4cd4ae273bd499809af4",
+  "code_identity": "input-and-code-checksums.json; code may be uncommitted at execution",
+  "disposition": "pre-model design evidence; no candidate selected or fitted",
+  "packages": {
+    "matplotlib": "3.11.2",
+    "mlflow-skinny": "3.16.0",
+    "numpy": "2.5.3"
+  },
+  "python": "3.12.13"
+}

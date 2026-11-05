@@ -1,0 +1,19 @@
+{
+  "clock_half_width_minutes": [
+    0.5,
+    1,
+    5
+  ],
+  "confirmation_read": false,
+  "distance_transform": "ln(distance_km / 1000)",
+  "log_sd_scenarios": [
+    0.1,
+    0.25,
+    0.5,
+    1
+  ],
+  "reserved_outcomes_read": false,
+  "scenarios_are_priors": false,
+  "scope": "posthoc exploration-only structural design; no outcome regression or fits",
+  "site_key": "physical_site_id"
+}

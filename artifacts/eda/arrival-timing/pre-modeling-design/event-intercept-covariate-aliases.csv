@@ -1,0 +1,19 @@
+aliased_with_unrestricted_event_intercepts,events_with_within_event_variation,field,interpretation,target,unknown_rows
+True,0,depth_km,structural design only; missing is not a numeric value,NCEI-native-duration,0
+True,0,depth_km,structural design only; missing is not a numeric value,T-CAL,0
+True,0,depth_km,structural design only; missing is not a numeric value,T-OBS,0
+True,0,era,structural design only; missing is not a numeric value,NCEI-native-duration,0
+True,0,era,structural design only; missing is not a numeric value,T-CAL,0
+True,0,era,structural design only; missing is not a numeric value,T-OBS,0
+True,0,header_family,structural design only; missing is not a numeric value,NCEI-native-duration,0
+True,0,header_family,structural design only; missing is not a numeric value,T-CAL,0
+True,0,header_family,structural design only; missing is not a numeric value,T-OBS,0
+True,0,magnitude,structural design only; missing is not a numeric value,NCEI-native-duration,0
+True,0,magnitude,structural design only; missing is not a numeric value,T-CAL,0
+True,0,magnitude,structural design only; missing is not a numeric value,T-OBS,0
+True,0,mechanism,structural design only; missing is not a numeric value,NCEI-native-duration,27
+True,0,mechanism,structural design only; missing is not a numeric value,T-CAL,0
+True,0,mechanism,structural design only; missing is not a numeric value,T-OBS,0
+True,0,region,structural design only; missing is not a numeric value,NCEI-native-duration,0
+True,0,region,structural design only; missing is not a numeric value,T-CAL,0
+True,0,region,structural design only; missing is not a numeric value,T-OBS,0

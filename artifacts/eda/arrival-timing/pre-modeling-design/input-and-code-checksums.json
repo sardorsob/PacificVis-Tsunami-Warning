@@ -1,0 +1,12 @@
+{
+  "code": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "scripts/build_arrival_model_design.py": "068546f41bea25b175d684674db18fcb13efbb54eaf77231051b91191309ce44"
+  },
+  "inputs": {
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+    "config/arrival-timing-exploration-confirmation-split.toml": "4f3d3ae8ba5f96d5a701508e5c65c5979f8938f1959d17cfb14be4dbab800328"
+  }
+}

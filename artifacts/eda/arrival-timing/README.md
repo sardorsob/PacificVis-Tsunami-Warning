@@ -11,6 +11,15 @@ to possible modeling choices. The [complete figure index](figure-and-table-index
 71 figure sets. The guide below gives those outputs descriptive names and a
 reading order.
 
+## Continue toward model specification
+
+The [Bayesian model-readiness guide](../../../docs/research/bayesian-model-readiness.md)
+connects these findings to a generative process, candidate equations, parameter
+meanings, prior elicitation and future validation checks. The separate
+[pre-model design supplement](pre-modeling-design/design-findings.md) adds
+exploration-only design and scale diagnostics; it does not reopen confirmation
+or fit a model.
+
 ## Find the scientific question
 
 The links in this table use the exploration sample. The report compares these

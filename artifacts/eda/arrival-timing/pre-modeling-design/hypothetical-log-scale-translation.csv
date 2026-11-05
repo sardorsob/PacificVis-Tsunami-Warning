@@ -1,0 +1,5 @@
+assumed_log_sd,central_90_lower_ratio,central_90_upper_ratio,conditional_mean_over_median,median_ratio,status
+0.1,0.8483301741208367,1.178786315170677,1.005012520859401,1.0,illustrative fixed conditional spread; not a prior or estimate
+0.25,0.6628454608183514,1.5086472777008932,1.0317434074991028,1.0,illustrative fixed conditional spread; not a prior or estimate
+0.5,0.43936410492749267,2.276016608514316,1.1331484530668263,1.0,illustrative fixed conditional spread; not a prior or estimate
+1.0,0.1930408166987368,5.18025160223301,1.6487212707001282,1.0,illustrative fixed conditional spread; not a prior or estimate

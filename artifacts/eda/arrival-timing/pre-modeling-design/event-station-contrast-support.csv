@@ -1,0 +1,4 @@
+additive_indicator_rank,components,event_weighted_seen_site_fraction,events,events_with_zero_seen_sites,log_distance_between_event_ss,log_distance_total_ss,log_distance_within_event_ss,repeated_edge_rows,row_surplus_over_rank,row_weighted_seen_site_fraction,rows,sites,target,unique_edge_cycle_surplus,unique_event_site_edges,within_event_log_distance_fraction
+105,3,0.7460156026193763,13,1,64.90808179398391,207.73602648795182,142.8279446939679,0,51,0.6217948717948718,156,95,T-CAL,51,156,0.6875453772206025
+171,3,0.6658979328165374,14,1,78.24520758698105,383.02861496750324,304.7834073805222,0,65,0.5211864406779662,236,160,T-OBS,65,236,0.7957196811689395
+470,2,0.8647425316478075,33,1,547.4343473498036,1736.4001036572922,1188.9657563074886,3,600,0.7878504672897196,1070,439,NCEI-native-duration,597,1067,0.6847302956290027

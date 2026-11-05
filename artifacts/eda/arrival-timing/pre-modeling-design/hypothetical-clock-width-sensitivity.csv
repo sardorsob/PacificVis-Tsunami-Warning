@@ -1,0 +1,7 @@
+assumed_half_width_minutes,rows,rows_at_or_below_half_width,rows_with_half_width_at_least_10pct_of_duration,status,target
+0.5,1070,0,5,hypothetical observation window; no accuracy inferred,NCEI-native-duration
+0.5,236,1,2,hypothetical observation window; no accuracy inferred,T-OBS
+1.0,1070,0,13,hypothetical observation window; no accuracy inferred,NCEI-native-duration
+1.0,236,1,4,hypothetical observation window; no accuracy inferred,T-OBS
+5.0,1070,5,78,hypothetical observation window; no accuracy inferred,NCEI-native-duration
+5.0,236,2,16,hypothetical observation window; no accuracy inferred,T-OBS

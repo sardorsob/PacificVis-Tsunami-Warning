@@ -1,0 +1,54 @@
+[
+  {
+    "path": "analysis-metrics.json",
+    "sha256": "dd59dcf0e878bd128116e63c189ae05c5345bf5b5ff85ad181b4320ab02c9eef"
+  },
+  {
+    "path": "analysis-settings.json",
+    "sha256": "15b56fc1c5eb39244757d5f4425fe2bbdc8e177793d5205a7bb75db1958564a1"
+  },
+  {
+    "path": "design-findings.md",
+    "sha256": "3b06f7797de83c2eba1f0538e5e9f399b0e7e1efa4bceaaf83a5fc2f9a41f4f6"
+  },
+  {
+    "path": "event-holdout-seen-site-support.csv",
+    "sha256": "40d4456a017a6718c049c0cf5045650c98ebff11e65011b11ddef309c108e9bc"
+  },
+  {
+    "path": "event-holdout-seen-site-support.png",
+    "sha256": "5393b74ad95067deac8072cbc1bc52f5c8595d5b417c7406b7b2448b7ec64332"
+  },
+  {
+    "path": "event-holdout-seen-site-support.svg",
+    "sha256": "791cfdbf2a445d863d818b34b1d8c890f261bf7c76865f14c96e1ded4982a40c"
+  },
+  {
+    "path": "event-intercept-covariate-aliases.csv",
+    "sha256": "9c360005541594d68df4628d9e56f1d532325fbf579b19d65f563ade5e903524"
+  },
+  {
+    "path": "event-station-contrast-support.csv",
+    "sha256": "69af6592f251eebb3d52e67969d7dd8e3b4d9e28578288814135f7ccad18d067"
+  },
+  {
+    "path": "hypothetical-clock-width-sensitivity.csv",
+    "sha256": "094a165ced41a95face076952998a05bd2a60903d69b822647f0408ace16b74e"
+  },
+  {
+    "path": "hypothetical-log-scale-translation.csv",
+    "sha256": "256bc344f88fbd2d2f10d1f8eedf69266e78836bfe7548222a64f93a509ea381"
+  },
+  {
+    "path": "input-and-code-checksums.json",
+    "sha256": "063e08994ad3f52a37839058b308096eb6cf904b0b54ee400628070541f6c7ba"
+  },
+  {
+    "path": "random-seeds.json",
+    "sha256": "1d6de2e3d9a272ddc46fbdd9d1e5babb011cc8393435ed12e2d0251ea7275a47"
+  },
+  {
+    "path": "run-metadata.json",
+    "sha256": "29f587c527e9a4bdb00894a5930142c7687c715d079d04dff3d6c5bd0834b40c"
+  }
+]
