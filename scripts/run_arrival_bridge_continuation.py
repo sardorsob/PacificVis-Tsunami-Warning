@@ -1,4 +1,4 @@
-"""Continue the remaining eighty-one folds without resetting stopped-run budgets."""
+"""Continue reviewed remaining folds without resetting stopped-run budgets."""
 
 # pyright: basic
 from __future__ import annotations
@@ -12,14 +12,21 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from analysis.arrival.evidence import checked_path, sha256, write_json  # noqa: E402
 from analysis.arrival.model_bridge_cv import CONSUMED as FOLD_CONSUMED  # noqa: E402
+from analysis.arrival.model_checkpoint_resolution import validate_reviewed_checkpoint  # noqa: E402
 from scripts.run_arrival_bridge_batch import make_bridge_cases  # noqa: E402
-from scripts.run_arrival_model_batch import atomic_state, git_sha, validate_checkpoint  # noqa: E402
+from scripts.run_arrival_model_batch import atomic_state, git_sha  # noqa: E402
 from scripts.run_arrival_model_validation import supervise  # noqa: E402
 
 CONTROLLER = "scripts/run_arrival_bridge_continuation.py"
-GATE = "artifacts/models/arrival-timing/bridge-continuation-method-v1.json"
+GATE = "artifacts/models/arrival-timing/bridge-continuation-method-v2.json"
 PARENT = "artifacts/models/arrival-timing/bridge-sequence-validation-v1"
 PATH = "artifacts/models/arrival-timing/tohoku-joint-score-integration-v1"
+PREVIOUS = "artifacts/models/arrival-timing/bridge-sequence-continuation-v1"
+RESOLVED = (
+    "artifacts/models/arrival-timing/event-score-cubature-v1/NCEI-native-duration-event-fold-06"
+)
+RESOLUTION_HELPER = "analysis/arrival/model_checkpoint_resolution.py"
+RECONCILE = "scripts/reconcile_arrival_bridge_fold.py"
 
 
 def continuation_design(root):
@@ -28,6 +35,12 @@ def continuation_design(root):
     required = set(
         [
             CONTROLLER,
+            RESOLUTION_HELPER,
+            RECONCILE,
+            PREVIOUS + "/plan.json",
+            PREVIOUS + "/run-summary.json",
+            PREVIOUS + "/batch-quality-reviews.json",
+            RESOLVED + "/review-acceptance.json",
             *FOLD_CONSUMED,
             "scripts/run_arrival_model_validation.py",
             PARENT + "/plan.json",
@@ -42,7 +55,7 @@ def continuation_design(root):
         ]
     )
     if (
-        gate.get("schema_version") != "arrival_bridge_continuation_acceptance_v1"
+        gate.get("schema_version") != "arrival_bridge_continuation_acceptance_v2"
         or gate.get("status") != "accepted_for_remaining_folds"
         or not gate.get("runtime_checker")
         or gate.get("reserved_outcomes") != "sealed"
@@ -92,17 +105,44 @@ def continuation_design(root):
     ]
     if len(external) != 1:
         raise ValueError("exactly one external reused endpoint required for shared storage")
+    previous_plan = read(PREVIOUS + "/plan.json")
+    previous_run = read(PREVIOUS + "/run-summary.json")
+    resolved = read(RESOLVED + "/review-acceptance.json")
+    if (
+        previous_plan["cases"] != cases[2:]
+        or previous_run["status"] != "needs_review"
+        or previous_run["completed_folds"] != 8
+        or previous_run["fold_attempts"] != 9
+        or previous_run["sampler_calls_reserved"] != 20
+        or previous_run["global_calls_reserved"] != 39
+        or resolved.get("status") != "accepted_same_model_fold_resolution"
+        or resolved.get("case_id") != cases[10]["id"]
+        or resolved.get("new_sampler_calls") != 0
+        or len(list((root / PREVIOUS / "jobs").glob("*/sampling-starts/*.json"))) != 20
+    ):
+        raise ValueError("reviewed eight-direct-plus-one-resolved fold prefix required")
+    for p, h in resolved["files"].items():
+        if sha256(checked_path(root, p)) != h:
+            raise ValueError("reviewed whole-fold numerical resolution changed")
+    seeds = [c["job"]["seed"] + k for c in cases for k in range(c["ensemble_count"])]
+    seeds += [c["job"]["seed"] for c in path_plan["cases"]]
+    seeds += [e["seed"] for e in path_plan["endpoint_metadata"]]
     return {
-        "cases": cases[2:],
+        "cases": cases[11:],
         "files": {**gate["files"], GATE: sha256(gate_path)},
-        "prior_calls": 19,
+        "prior_calls": 39,
         "global_call_ceiling": 352,
-        "remaining_calls": 333,
-        "prior_raw_stores": [parent_plan["raw_store"], path_plan["raw_store"]],
+        "remaining_calls": 313,
+        "prior_raw_stores": [
+            parent_plan["raw_store"],
+            path_plan["raw_store"],
+            previous_plan["raw_store"],
+        ],
         "external_endpoint": external[0],
         "max_raw_bytes": parent_plan["max_posterior_bytes"],
         "logical_fold_total": 83,
-        "completed_parent_folds": 2,
+        "completed_parent_folds": 11,
+        "original_seed_channels": sorted(set(seeds)),
     }
 
 
@@ -140,6 +180,8 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
         set(
             [
                 CONTROLLER,
+                RESOLUTION_HELPER,
+                RECONCILE,
                 *FOLD_CONSUMED,
                 "scripts/run_arrival_model_batch.py",
                 "scripts/run_arrival_model_validation.py",
@@ -165,11 +207,12 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
             or state["plan_sha256"] != sha256(output / "plan.json")
         ):
             raise ValueError("changed or unfinished bridge plan; reconcile before resume")
-        validate_checkpoint(state, plan)
+        extra_calls, extra_stores = validate_reviewed_checkpoint(root, state, plan)
         reserved = sum(
             next(c["ensemble_count"] for c in cases if c["id"] == a["case_id"])
             for a in state["attempts"]
         )
+        reserved += extra_calls
         if reserved != state["sampler_call_slots_used"] or reserved > plan["max_sampler_calls"]:
             raise ValueError("sampler call allocation conservation failed")
     else:
@@ -194,6 +237,7 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
         }
         write_json(output / "plan.json", plan)
         state = {
+            "reviewed_resolutions": {},
             "next_case": 0,
             "calls_used": 0,
             "sampler_call_slots_used": 0,
@@ -202,6 +246,16 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
             "status": "prepared",
             "plan_sha256": sha256(output / "plan.json"),
         }
+    if not resume:
+        extra_calls, extra_stores = 0, []
+    runtime_design = {**design, "prior_raw_stores": [*design["prior_raw_stores"], *extra_stores]}
+    folders = [store, *[checked_path(root, p) for p in runtime_design["prior_raw_stores"]]]
+    if len(set(folders)) != len(folders) or any(
+        a.is_relative_to(b) or b.is_relative_to(a)
+        for j, a in enumerate(folders)
+        for b in folders[j + 1 :]
+    ):
+        raise ValueError("all numerical raw stores must be disjoint")
     lease = output / ".controller.lock"
     with lease.open("x") as stream:
         stream.write(str(os.getpid()))
@@ -217,8 +271,9 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
                 break
             if any(sha256(root / p) != h for p, h in pins.items()):
                 raise ValueError("bridge batch sources changed")
+            validate_reviewed_checkpoint(root, state, plan)
             case = cases[state["next_case"]]
-            used = used_bytes(root, store, design)
+            used = used_bytes(root, store, runtime_design)
             reserve = (case["ensemble_count"] + 1) * plan["per_file_bytes"]
             if (
                 state["calls_used"] >= plan["max_calls"]
@@ -309,7 +364,7 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
                     outcome = "diagnostic_or_precision_failure"
             if any(sha256(root / p) != h for p, h in pins.items()):
                 outcome = "identity_failure"
-            if used_bytes(root, store, design) > plan["max_posterior_bytes"]:
+            if used_bytes(root, store, runtime_design) > plan["max_posterior_bytes"]:
                 outcome = "storage_budget_failure"
             state["attempts"].append(
                 {**state["current"], "outcome": outcome, "files": _files(attempt, spec, raw)}
@@ -338,6 +393,9 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
             {
                 "status": state["status"],
                 "completed_folds": state["next_case"],
+                "externally_resolved_folds": len(state.get("reviewed_resolutions", {})),
+                "external_sampler_call_slots": extra_calls,
+                "original_failure_outcomes": "retained_without_relabeling",
                 "planned_folds": len(cases),
                 "fold_attempts": state["calls_used"],
                 "sampler_calls_reserved": state["sampler_call_slots_used"],
@@ -348,7 +406,7 @@ def run_continuation(root, output, store, state_path, *, resume=False, max_cases
                 ),
                 "logical_completed_folds": design["completed_parent_folds"] + state["next_case"],
                 "logical_fold_total": design["logical_fold_total"],
-                "raw_bytes_used": used_bytes(root, store, design),
+                "raw_bytes_used": used_bytes(root, store, runtime_design),
                 "max_sampler_calls": plan["max_sampler_calls"],
                 "scientific_acceptance": "pending_independent_review",
                 "plan_sha256": sha256(output / "plan.json"),

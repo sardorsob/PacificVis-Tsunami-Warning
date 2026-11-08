@@ -286,9 +286,17 @@ independent path agrees within 0.73 combined Monte Carlo standard errors.
 Uncertainty includes covariance between adjacent edges sharing a posterior
 ensemble. Known-Gaussian path calibration retained an unexplained negative
 mean error in its 30-trial autocorrelated cohort; the successful actual repeat
-does not remove that qualification. The remaining 81 model/source sequence
+does not remove that qualification. Remaining model/source sequence
 folds and complete paired comparisons are still required. Sensitivity checks
 precede model selection; a single event establishes no broad transfer claim.
+
+A three-event Sumatra sequence also required a numerical alternative. Integrating
+the two variance parameters directly recovered its 49-report event score, while
+the other 22- and 9-report event scores retain their shared-training covariance.
+The [accepted fold resolution](../../artifacts/models/arrival-timing/event-score-cubature-v1/NCEI-native-duration-event-fold-06/review-acceptance.json)
+reports Monte Carlo error separately from deterministic quadrature error estimates.
+All three related events leave training together; each score integrates one held
+event at a time. The original failed estimate remains unusable.
 
 ## What exactly would we predict?
 

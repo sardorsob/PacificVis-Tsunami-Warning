@@ -19,6 +19,10 @@ def fixture(root, monkeypatch, outcomes):
     monkeypatch.setattr(runner, "git_sha", original.git_sha)
     monkeypatch.setattr(runner, "FOLD_CONSUMED", ["stub.py"])
     monkeypatch.setattr(runner, "CONTROLLER", "controller.py")
+    for name in [runner.RESOLUTION_HELPER, runner.RECONCILE]:
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("fixture")
     (root / "prior-store").mkdir()
     (root / "prior-store/retained.nc").write_bytes(b"retained")
     (root / "external-endpoint.nc").write_bytes(b"external")
