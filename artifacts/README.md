@@ -24,3 +24,10 @@ Stage A visual-story runs write generated diagnostics beneath
 the blocked continuous NCTR field, incompatible units, local panel scales, and
 manual-review state explicit. These exploratory files never flow directly into
 `app/public/data/`; a later reviewed promotion requires a separate manifest.
+
+Bayesian arrival-timing results are under `models/arrival-timing/`. Start with the
+[whole-sequence comparison](models/arrival-timing/sequence-predictive-comparison-v1/findings.md)
+for source-specific scores, uncertainty, calibration and influence. The
+[model-readiness guide](../docs/research/bayesian-model-readiness.md) explains the
+targets, methods and remaining sensitivity gates. These exploration results do
+not select a final specification or evaluate the reserved outcomes.

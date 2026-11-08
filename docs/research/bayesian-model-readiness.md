@@ -271,56 +271,55 @@ scores and 2,912 record predictions. These calculations preserve the original
 priors, native-minute density and equal-event weighting. Deterministic numerical
 error is reported separately from uncertainty across events and sequences.
 
-The event and distance-dependent-spread comparisons remain incomplete. Clean
-chains can still give concentrated predictive-density weights. Independent
-training and augmented-data posterior samples allow bridge integration of the
-same joint density. For Tohoku's distance-dependent-spread fold, even those two
-posteriors were too separated for a reliable direct bridge. That failed score
-remains unusable.
+All 83 hierarchical sequence calculations are complete and
+[independently verified](../../artifacts/models/arrival-timing/bridge-sequence-continuation-v2/review-acceptance.json).
+Together with the analytic comparators, the
+[comparison report](../../artifacts/models/arrival-timing/sequence-predictive-comparison-v1/findings.md)
+contains 191 logical sequence fits, 213 joint event scores and 5,432 record predictions.
+Every duration comparator includes the fixed distance reference t0(d); distance
+regression learns an additional adjustment. T-CAL uses its separate signed-minute
+response and a constant-mean pooled comparator.
 
-A fixed eight-edge geometric path resolved that fold without changing the
-statistical model, priors or scoring target. The
-[accepted result](../../artifacts/models/arrival-timing/tohoku-joint-score-integration-v1/review-acceptance.json)
-is −6.084601 nats/record, with Monte Carlo standard error 0.0001334. An
-independent path agrees within 0.73 combined Monte Carlo standard errors.
-Uncertainty includes covariance between adjacent edges sharing a posterior
-ensemble. Known-Gaussian path calibration retained an unexplained negative
-mean error in its 30-trial autocorrelated cohort; the successful actual repeat
-does not remove that qualification. Remaining model/source sequence
-folds and complete paired comparisons are still required. Sensitivity checks
-precede model selection; a single event establishes no broad transfer claim.
+For NCEI durations, varying spread has the highest point score among the four
+compared models. Its gain over the constant-spread hierarchy is 0.394 nats/report,
+with a descriptive 95% sequence-cluster interval [−0.214, 1.002]. One two-event
+sequence contributes 0.301 to that gain; re-averaging the other 31 event scores
+gives 0.098. This removes score contributions only, without refitting the models.
+The influential sequence contains a native record flagged for possible disagreement
+between arrival-clock and travel-duration components. A consistently applied
+source-field audit is pending; actual influential-sequence refits also remain
+necessary before selection.
 
-A three-event Sumatra sequence also required a numerical alternative for the
-constant-spread model. Integrating the two variance parameters directly recovered
-its 49-report event score, while
-the other 22- and 9-report event scores retain their shared-training covariance.
-The [accepted fold resolution](../../artifacts/models/arrival-timing/event-score-cubature-v1/NCEI-native-duration-event-fold-06/review-acceptance.json)
-reports Monte Carlo error separately from deterministic quadrature error estimates.
-All three related events leave training together; each score integrates one held
-event at a time. The original failed estimate remains unusable.
+The varying-spread model substantially narrows the excessively broad far-distance
+predictions. Its equal-event 90% coverage estimate below 500 km is 82.0% across
+27 events, so overall coverage does not resolve the near-distance discrepancies.
+These results motivate the bounded mean-form revisit. For T-OBS, hierarchy minus
+pooled reference is −0.424 [−1.382, 0.534]; for T-CAL, hierarchy minus distance
+regression is 0.020 [−0.099, 0.140]. Neither establishes a clear predictive gain.
+Scores from different sources cannot be ranked against one another. No
+specification is selected by this report.
 
-The distance-dependent-spread model needed a separate 16-edge squared path for
-the same event. Its [accepted three-event calculation](../../artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/review-acceptance.json)
-has Monte Carlo standard error 0.0003602 nats/record. An independent path agrees
-within 1.20 combined Monte Carlo standard errors. The calculation retains all
-80 original predictions and their common-training covariance. Both numerical
-routes evaluate the frozen native-minute scoring target; complete comparisons
-across sequences remain necessary.
+Clean posterior chains did not always provide precise joint predictive densities.
+Seventy-five hierarchical folds use direct bridge calculations; eight use reviewed
+numerical alternatives to evaluate the same frozen model, priors and score.
+The original failed estimates remain unusable and retained. Fixed-path calculations
+integrate each held event's shared new effect before powering its likelihood and
+retain covariance from shared training samples. Known-Gaussian path calibration
+retained an unexplained negative mean error in its 30-trial autocorrelated cohort;
+successful independent actual-data repeats do not remove that qualification.
+Deterministic integration refinement estimates are reported separately from Monte
+Carlo error and are not rigorous error bounds. These numerical resolutions recover
+no missing historical forecast or arrival timestamp.
 
-A separate two-event fold exhausted its allowed longer bridge run despite clean
-posterior diagnostics. For the constant-spread model, the
-[accepted two-dimensional integration](../../artifacts/models/arrival-timing/event-score-cubature-v2/NCEI-native-duration-event-fold-20/review-acceptance.json)
-evaluates the same singleton predictive density and retains the other event's
-score and original predictions. Numerical integration repairs a score calculation;
-it does not recover a missing historical arrival or forecast timestamp.
-
-The comparison report builder requires all 83 logical source/model sequence
-calculations and an independent acceptance receipt covering every consumed
-scientific artifact. It rejects incomplete or changed evidence before parsing
-outcome inputs. The resulting tables keep equal-event scores, paired sequence
-uncertainty, numerical error, interval coverage/width, absolute error and PIT
-calibration distinct. Source-specific comparisons do not establish warning-system
-performance or transfer to new regions.
+The report keeps native-minute joint scores, paired sequence uncertainty,
+interval coverage and width, absolute error, and PIT calibration distinct. The
+small heuristic sequence groups and overlapping training sets limit interval and
+bootstrap interpretation. Comparisons remain conditional on archive reporting,
+evidence eligibility and the retained geographic support. The 19 previously
+inspected confirmation events have not been reopened during implementation;
+18 reserved outcomes remain sealed. Sensitivity analysis precedes specification
+freeze and the one-time development check. These results establish neither
+warning-system performance nor transfer to new regions.
 
 ## What exactly would we predict?
 
