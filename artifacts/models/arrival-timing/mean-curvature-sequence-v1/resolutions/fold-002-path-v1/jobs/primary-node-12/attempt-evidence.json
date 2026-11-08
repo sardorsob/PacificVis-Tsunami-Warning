@@ -1,0 +1,32 @@
+{
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12-spec.json": "8ecf473fe0d98a37675975b3011970abadd0037434f443f2020566229ef70625",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12.supervisor.json": "7cc3cbd36dd14469a9cc474c65fe14d6c3af410899cb8915f16d1649fa0d6a34",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/edge-checks/11-12.json": "af9d4196dbaf4cbc0842a0df62397b48aa551b8a76f19faf7710f51b45b2f25e",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/inputs.json": "f659bcb18e34b1c9b013b7e823d2945b84ce6c63227df3b95ca1361cce785419",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/job.json": "8ecf473fe0d98a37675975b3011970abadd0037434f443f2020566229ef70625",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/membership.json": "5ab87aaf5974c4d7b9fe73038600a9331278322077f117eb531ae119516061e0",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/result.json": "71c9e1cc4c9c5560b20ccf6590d6763d6e8e4a1c264c818b03f743aaa5c77496",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/sampling-diagnostics.csv": "62263ff3d01a2d2fe72702b838dc6b48dd3353fa8e571b670c115951d139e174",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/primary-node-12/sampling-start.json": "8ecf473fe0d98a37675975b3011970abadd0037434f443f2020566229ef70625",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-002-path-v1/primary-node-12.loglikelihood.npz": "f85685bbcfcae05768306beee580db4010d23fbdf2dc270b14f38641d2b65b5e",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-002-path-v1/primary-node-12.nc": "136ee33ecc21dd4672601dc9bf228fe6f7f7be2dcda890a292419146dfe7bfc9"
+  },
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "event_id": "official20110311054624120_30",
+    "id": "primary-node-12",
+    "kind": "mean-curvature",
+    "node": 12,
+    "path_role": "primary",
+    "prior": "base",
+    "seed": 2856112912,
+    "sequence": "seq-official20110311054624120_30",
+    "target": "NCEI-native-duration",
+    "temperature": 0.5625,
+    "tune": 1000
+  },
+  "outcome": "accepted"
+}

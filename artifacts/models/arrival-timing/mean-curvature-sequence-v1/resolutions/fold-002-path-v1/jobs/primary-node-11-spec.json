@@ -1,0 +1,15 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "event_id": "official20110311054624120_30",
+  "id": "primary-node-11",
+  "kind": "mean-curvature",
+  "node": 11,
+  "path_role": "primary",
+  "prior": "base",
+  "seed": 2856112911,
+  "sequence": "seq-official20110311054624120_30",
+  "target": "NCEI-native-duration",
+  "temperature": 0.47265625,
+  "tune": 1000
+}
