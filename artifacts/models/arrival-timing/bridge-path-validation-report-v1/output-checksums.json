@@ -1,0 +1,7 @@
+{
+  "findings.md": "dda8ee1ab2674904c904db595be91f10126bf498f82217772ea3eb77b87d0275",
+  "inputs.json": "4ff6fd11504d46842655fdf29dd17b18713340bae093a2c810721f37f3755764",
+  "known-Gaussian-targets.json": "01ca5b101b84874468ae82d914772797060cc175e23bfbd036474704621b1616",
+  "known-normalizer-path-summary.csv": "b06a3a90c74bfe54bf507c864aea55be531f3059a0001d319484081c6a58c506",
+  "known-normalizer-path-trials.csv": "75f4e1781426afd38b361178b868b185e7bc1224bcabe41ef8ec8d43133e7da5"
+}
