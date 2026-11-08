@@ -1,0 +1,12 @@
+{
+  "mixing": {
+    "constant": false,
+    "ess_bulk": 7182.779292798645,
+    "ess_tail": 6190.06946039756,
+    "passed": true,
+    "rhat": 1.0000938534551214
+  },
+  "original_training_array_order": "unchanged_chain_draw",
+  "precision_flag": "passed",
+  "scope": "actual_equal_event_shared_training_influence_including_primary_path_and_other_two_events"
+}

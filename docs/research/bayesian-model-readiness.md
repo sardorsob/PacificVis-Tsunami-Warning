@@ -290,13 +290,22 @@ does not remove that qualification. Remaining model/source sequence
 folds and complete paired comparisons are still required. Sensitivity checks
 precede model selection; a single event establishes no broad transfer claim.
 
-A three-event Sumatra sequence also required a numerical alternative. Integrating
-the two variance parameters directly recovered its 49-report event score, while
+A three-event Sumatra sequence also required a numerical alternative for the
+constant-spread model. Integrating the two variance parameters directly recovered
+its 49-report event score, while
 the other 22- and 9-report event scores retain their shared-training covariance.
 The [accepted fold resolution](../../artifacts/models/arrival-timing/event-score-cubature-v1/NCEI-native-duration-event-fold-06/review-acceptance.json)
 reports Monte Carlo error separately from deterministic quadrature error estimates.
 All three related events leave training together; each score integrates one held
 event at a time. The original failed estimate remains unusable.
+
+The distance-dependent-spread model needed a separate 16-edge squared path for
+the same event. Its [accepted three-event calculation](../../artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/review-acceptance.json)
+has Monte Carlo standard error 0.0003602 nats/record. An independent path agrees
+within 1.20 combined Monte Carlo standard errors. The calculation retains all
+80 original predictions and their common-training covariance. Both numerical
+routes evaluate the frozen native-minute scoring target; complete comparisons
+across sequences remain necessary.
 
 ## What exactly would we predict?
 

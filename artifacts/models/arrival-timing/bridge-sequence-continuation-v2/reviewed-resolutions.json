@@ -1,0 +1,7 @@
+{
+  "NCEI-native-duration-distance-scale-fold-06": {
+    "new_sampler_calls": 32,
+    "path": "artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/review-acceptance.json",
+    "sha256": "33872c612e374809fba025cb5fbc66dc4b87dc0210f6f34f6ff3b307965fc2f3"
+  }
+}
