@@ -132,7 +132,7 @@ def render(root, report, output):
     fig.text(
         0.08,
         0.89,
-        f"100 synthetic datasets · 21 correlated quantities · family DKW bounds ±{bound:.1%}",
+        f"100 synthetic datasets · 21 quantities · 95% family DKW reference bounds ±{bound:.1%}",
         fontsize=12,
     )
     fig.text(
