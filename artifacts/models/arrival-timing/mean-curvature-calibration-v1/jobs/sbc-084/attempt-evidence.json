@@ -1,0 +1,15 @@
+{
+  "case_id": "sbc-084",
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084-spec.json": "07f3d14e1572effeef71a33f8c146ba2d53546ce7d94d9e2caa3f18a3f9d02ca",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084.supervisor.json": "600e62e85391ab6ea263c0cbdb96249127b512ca40a2ad381840b43104642625",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/calibration-checks.json": "3afe0c96e69e35fc6e9831b2794fb0b89047b6d8e809d85a7cdc4e23ea2ed8bd",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/job.json": "07f3d14e1572effeef71a33f8c146ba2d53546ce7d94d9e2caa3f18a3f9d02ca",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/result.json": "5d30e53e9ece82650dd62b3e2454b30011db8c487bea0ae00d2a863fdb753fa9",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/sampled-hyperparameter-diagnostics.csv": "797a519c37188fa7f32c9134a395ec639d444fad67321bd4ccd51b6af935c2d9",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/jobs/sbc-084/sampling-diagnostics.csv": "59c97951fd46b59c973473e7c779638523cb583e7ef0aa5788f6e5d33396e22c",
+    "data/processed/models/mean-curvature-calibration-v1/sbc-084.nc": "a1684fc742ec3be362344bd2b0301752d64f18bcea378b1cbe11f0d74685b37f"
+  }
+}
