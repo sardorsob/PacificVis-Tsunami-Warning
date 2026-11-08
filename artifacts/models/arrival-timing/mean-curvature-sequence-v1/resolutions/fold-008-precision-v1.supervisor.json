@@ -1,0 +1,9 @@
+{
+  "allocation_sha256": "79e30a3051d729fd00ba6500cd61560097874f14a632b5de31a7bdcc055e0b27",
+  "charged_slots": 2,
+  "elapsed_seconds": 20.05085170827806,
+  "monitor_failures": [],
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 2
+}

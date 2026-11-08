@@ -1,0 +1,40 @@
+{
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1-allocation.json": "79e30a3051d729fd00ba6500cd61560097874f14a632b5de31a7bdcc055e0b27",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1.log": "d57d84c77c5a56823d1f44c42fb927a2b08396856c18035afab13654977bc129",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1.supervisor.json": "21b072dd56bc487cacea9012747dafecda9dc2f3d5f19a5d35af0dc9c89b57bc",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/00-training/inputs.json": "98a084296c68b513be94dcc5a265d7f82aa14b4dac79c2edc51529fed20cb45e",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/00-training/job.json": "49c7862cc21738e96d3e137bec9b369846f644ed9e12ab106ca84f7853a6d711",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/00-training/membership.json": "77651065bb745996ab077abfd826e0f467efe30733a44fdda8997cf59b34ab4f",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/00-training/result.json": "6c5b2b91f980fe470b5d90fce57afb92f802767a7f6d71e92930e2e4fffd740a",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/00-training/sampling-diagnostics.csv": "e3b6274962d3bd641d3255f59a2b8e1b8efb100bfd770536374eb7bb3059e0d4",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/01-augmented/inputs.json": "98a084296c68b513be94dcc5a265d7f82aa14b4dac79c2edc51529fed20cb45e",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/01-augmented/job.json": "8d3034fb92d9266b5c4e6b5f4fffbcabd6743212f2fe2be8ce16c597cf8dc686",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/01-augmented/membership.json": "dadeb2a57cb5c26d8c8e685ca7a76c5f6a273b5e58d0180ba59cb784b2ffaa51",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/01-augmented/result.json": "2e6496bd177d1393fe14b787e0afd54274060b50423cb21871c5c542f0a313d5",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/ensembles/01-augmented/sampling-diagnostics.csv": "d86f21c619e25da03c2f1f90b910b36702fe556ccf5c0a5a64a74432b31ef70e",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/event-joint-scores.csv": "4036256cdc4b2102bc665fad329ceec883fe4a8920d2330398a88ff7ca1b876d",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/event-score.json": "4fd3a451bb1720ace93319d83dd893b67c4b700e9a53844a06ec35785b6746b0",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/inputs.json": "8d056420840cc3f9398f2210cbc55eae610fec14de78f0a082d8537988961cb9",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/job.json": "aff62c7cbd624a0491a1628695a8399e9aad322ac8e3b23289c9deded359cf3a",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/result.json": "1654731b5aed310130bc77e36cd8a59d28a868c8cad646a5d4a0c86d464614a5",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/sampling-starts/00.json": "49c7862cc21738e96d3e137bec9b369846f644ed9e12ab106ca84f7853a6d711",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1/sampling-starts/01.json": "8d3034fb92d9266b5c4e6b5f4fffbcabd6743212f2fe2be8ce16c597cf8dc686",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-008-precision-v1/00-training.nc": "472b68fa127adfa01bac39df4b97b86e960294510df1abc79429e2404bbcc586",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-008-precision-v1/01-augmented.nc": "f1d5d981dd394f20cc1652e74ce255316e10c78e55c5dc19076be7e0fa9fcf93",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-008-precision-v1/bridge-arrays.npz": "ffb210cd98673dbe00a255b466723812bdc2fef7d7cef7356102aaad2d00bd8c"
+  },
+  "job": {
+    "cores": 2,
+    "draws": 8000,
+    "event": "usc000piqj",
+    "id": "fold-008-lata-precision",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2866118800,
+    "sequence": "seq-usc000phx5",
+    "target": "NCEI-native-duration",
+    "tune": 2000
+  },
+  "outcome": "computed_pending_review"
+}

@@ -1,0 +1,25 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "original_pending_registration_receipt_retained_sha256": "1463d9ac6b5182d0ee3d23684c5c9664ede142d803861390215f585ede0b8a4f",
+  "reserved_outcomes": "sealed",
+  "runs": [
+    {
+      "acceptance_sha256": "cc1df4d14885ca8ae3c702475d5041d7ca6e0c0c70adea485390e4584a016bc0",
+      "artifact_readback": "PASS",
+      "decision_readback": "accepted_same_model_curvature_precision_resolution",
+      "run_id": "92a560c48bcb49b19da86d10fd459e20"
+    },
+    {
+      "acceptance_sha256": "cc1df4d14885ca8ae3c702475d5041d7ca6e0c0c70adea485390e4584a016bc0",
+      "artifact_readback": "PASS",
+      "decision_readback": "accepted_same_model_curvature_precision_resolution",
+      "run_id": "59368558ccf04392b49d7883b00ec036"
+    },
+    {
+      "acceptance_sha256": "cc1df4d14885ca8ae3c702475d5041d7ca6e0c0c70adea485390e4584a016bc0",
+      "artifact_readback": "PASS",
+      "decision_readback": "accepted_same_model_curvature_precision_resolution",
+      "run_id": "d8b4a8d2d28c404ca9de6ee4d6818589"
+    }
+  ]
+}

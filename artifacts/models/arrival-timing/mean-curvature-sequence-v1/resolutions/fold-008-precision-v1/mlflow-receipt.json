@@ -1,0 +1,55 @@
+{
+  "bundle_fingerprint": "79e30a3051d729fd00ba6500cd61560097874f14a632b5de31a7bdcc055e0b27:676a011791c51d661b46c739dcf5d8ea253c46d586f71f1e1a346679e5a02ba5",
+  "children": {
+    "00-training": {
+      "artifacts": {
+        "inputs.json": "98a084296c68b513be94dcc5a265d7f82aa14b4dac79c2edc51529fed20cb45e",
+        "job.json": "49c7862cc21738e96d3e137bec9b369846f644ed9e12ab106ca84f7853a6d711",
+        "membership.json": "77651065bb745996ab077abfd826e0f467efe30733a44fdda8997cf59b34ab4f",
+        "result.json": "6c5b2b91f980fe470b5d90fce57afb92f802767a7f6d71e92930e2e4fffd740a",
+        "sampling-diagnostics.csv": "e3b6274962d3bd641d3255f59a2b8e1b8efb100bfd770536374eb7bb3059e0d4"
+      },
+      "metrics_verified": 9,
+      "parameters_verified": 14,
+      "run_id": "59368558ccf04392b49d7883b00ec036"
+    },
+    "01-augmented": {
+      "artifacts": {
+        "inputs.json": "98a084296c68b513be94dcc5a265d7f82aa14b4dac79c2edc51529fed20cb45e",
+        "job.json": "8d3034fb92d9266b5c4e6b5f4fffbcabd6743212f2fe2be8ce16c597cf8dc686",
+        "membership.json": "dadeb2a57cb5c26d8c8e685ca7a76c5f6a273b5e58d0180ba59cb784b2ffaa51",
+        "result.json": "2e6496bd177d1393fe14b787e0afd54274060b50423cb21871c5c542f0a313d5",
+        "sampling-diagnostics.csv": "d86f21c619e25da03c2f1f90b910b36702fe556ccf5c0a5a64a74432b31ef70e"
+      },
+      "metrics_verified": 9,
+      "parameters_verified": 14,
+      "run_id": "d8b4a8d2d28c404ca9de6ee4d6818589"
+    }
+  },
+  "confirmation_outcomes_parsed": false,
+  "decision": "computed_pending_independent_precision_review",
+  "local_tracking_uri": ".mlflow/mlruns",
+  "parent": {
+    "artifacts": {
+      "allocation/fold-008-precision-v1-allocation.json": "79e30a3051d729fd00ba6500cd61560097874f14a632b5de31a7bdcc055e0b27",
+      "attempt-evidence.json": "fafb2ef088ce9c68fa481240f02606748111c5cc7686a71bbcac97cdec0f69da",
+      "design/review-acceptance.json": "beeee56cfdfe6adbe12fe36668d73b3fc6e515f16a7f0d18db8f5fb6cfeaa299",
+      "event-joint-scores.csv": "4036256cdc4b2102bc665fad329ceec883fe4a8920d2330398a88ff7ca1b876d",
+      "event-score.json": "4fd3a451bb1720ace93319d83dd893b67c4b700e9a53844a06ec35785b6746b0",
+      "fold-008-precision-v1.log": "d57d84c77c5a56823d1f44c42fb927a2b08396856c18035afab13654977bc129",
+      "fold-008-precision-v1.supervisor.json": "21b072dd56bc487cacea9012747dafecda9dc2f3d5f19a5d35af0dc9c89b57bc",
+      "inputs.json": "8d056420840cc3f9398f2210cbc55eae610fec14de78f0a082d8537988961cb9",
+      "job.json": "aff62c7cbd624a0491a1628695a8399e9aad322ac8e3b23289c9deded359cf3a",
+      "result.json": "1654731b5aed310130bc77e36cd8a59d28a868c8cad646a5d4a0c86d464614a5",
+      "run-summary.json": "676a011791c51d661b46c739dcf5d8ea253c46d586f71f1e1a346679e5a02ba5",
+      "source/result.json": "c5f7d13e2911389f3c3063b9a4e102d9f2f2b235e1eb026cb6bfe4b40849b190"
+    },
+    "metrics_verified": 13,
+    "parameters_verified": 20,
+    "run_id": "92a560c48bcb49b19da86d10fd459e20"
+  },
+  "raw_numeric_arrays_mirrored": false,
+  "raw_posteriors_mirrored": false,
+  "reserved_outcomes": "sealed",
+  "tracking_copies_outside_working_store_budget": "postcompute local mirrors; portable original bundle retained"
+}

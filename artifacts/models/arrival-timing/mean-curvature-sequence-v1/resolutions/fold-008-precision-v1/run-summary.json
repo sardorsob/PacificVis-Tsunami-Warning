@@ -1,0 +1,8 @@
+{
+  "calls_charged": 53,
+  "calls_started": 53,
+  "confirmation_outcomes_parsed": false,
+  "new_calls_started": 2,
+  "reserved_outcomes": "sealed",
+  "status": "precision_computations_complete"
+}
