@@ -1,0 +1,183 @@
+{
+  "aggregation_note": "final program averages33event scores, not29fold means",
+  "bridge_arrays": "data/processed/models/mean-curvature-sequence-v1/fold-008/bridge-arrays.npz",
+  "bridge_arrays_sha256": "6e078b07aeff1e2a75fc47df8b5478efc59e1c18cbcc8a474e31fff1e5784f96",
+  "confirmation_outcomes_parsed": false,
+  "events": [
+    {
+      "augmented_chain_overlap": [
+        0.9999253464806566,
+        0.9996874074818741,
+        0.9991274833727034,
+        0.9997891406976259
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10064.973854080214,
+        "ess_tail": 5781.229514150049,
+        "passed": true,
+        "rhat": 1.0005995794614513
+      },
+      "augmented_influence_mcse": 0.00024100746437399757,
+      "augmented_q_quantiles": [
+        0.44203962931275187,
+        0.4690123264419082,
+        0.48401563295087463,
+        0.501366453318,
+        0.514516684843268,
+        0.5225093855769881,
+        0.5314779921470636
+      ],
+      "augmented_weight_concentration": 7995.576161736328,
+      "chain_joint_log_predictive": [
+        -15.075693657512856,
+        -15.074482571409492,
+        -15.073575705160504,
+        -15.075020123229775
+      ],
+      "chain_joint_log_predictive_range": 0.002117952352351793,
+      "event_id": "usc000phx5",
+      "fixedpoint_derivative": 0.00016296005737059804,
+      "implicit_root_denominator": 0.9998370399426294,
+      "joint_log_mcse_delta": 0.0003319355180724146,
+      "joint_log_predictive": -15.074693004566763,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -5.024897668188921,
+      "normalized_mcse": 0.00011064517269080487,
+      "overlap": 0.9996323445082148,
+      "overlap_augmented": 0.9996323445082148,
+      "overlap_training": 0.9996323445082166,
+      "precision_passed": true,
+      "records": 3,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "sequence": "seq-usc000phx5",
+      "training_chain_overlap": [
+        0.9989252380613018,
+        0.9998977300617486,
+        1.0002442110708445,
+        0.9994621988389729
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10195.172521287277,
+        "ess_tail": 5677.130445972932,
+        "passed": true,
+        "rhat": 1.000375948488673
+      },
+      "training_influence_mcse": 0.00022824677494768372,
+      "training_q_quantiles": [
+        0.44222546995724016,
+        0.46883340408150054,
+        0.48506185420450176,
+        0.500989293633355,
+        0.5133629774567544,
+        0.5215086968348077,
+        0.5311398392607471
+      ],
+      "training_weight_concentration": 7995.935380827201
+    },
+    {
+      "augmented_chain_overlap": [
+        0.7590959360514615,
+        0.7689846271159801,
+        0.7766891686258498,
+        0.7761033215665505
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10447.91807375439,
+        "ess_tail": 5038.472083565692,
+        "passed": true,
+        "rhat": 1.0009697478476398
+      },
+      "augmented_influence_mcse": 0.00523290513717254,
+      "augmented_q_quantiles": [
+        0.025972185374982804,
+        0.1271404562344716,
+        0.32107566088961087,
+        0.6442131743932602,
+        0.8618279972106008,
+        0.9403959318200605,
+        0.9751275102836974
+      ],
+      "augmented_weight_concentration": 6259.138198136774,
+      "chain_joint_log_predictive": [
+        -18.851234394235917,
+        -18.895950720498156,
+        -18.89967624827139,
+        -18.893830907091107
+      ],
+      "chain_joint_log_predictive_range": 0.04844185403547385,
+      "event_id": "usc000piqj",
+      "fixedpoint_derivative": -0.004848986947156186,
+      "implicit_root_denominator": 1.0048489869471562,
+      "joint_log_mcse_delta": 0.007592891515240053,
+      "joint_log_predictive": -18.88515041188688,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -18.88515041188688,
+      "normalized_mcse": 0.007592891515240053,
+      "overlap": 0.7702182633399602,
+      "overlap_augmented": 0.7702182633399602,
+      "overlap_training": 0.7702182633399617,
+      "precision_passed": false,
+      "records": 1,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "sequence": "seq-usc000phx5",
+      "training_chain_overlap": [
+        0.7853965699553458,
+        0.760683151595664,
+        0.7654364616748525,
+        0.7693568701339859
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10135.488327193923,
+        "ess_tail": 5947.181321241934,
+        "passed": true,
+        "rhat": 1.0006454479141458
+      },
+      "training_influence_mcse": 0.005501700226980531,
+      "training_q_quantiles": [
+        0.004612190792455293,
+        0.033276570127660644,
+        0.11397773922019071,
+        0.36238098797609,
+        0.6908355058691705,
+        0.8554073690808441,
+        0.9486370202478499
+      ],
+      "training_weight_concentration": 6125.8363907167895
+    }
+  ],
+  "fold_score": {
+    "equal_event_score": -11.9550240400379,
+    "event_precision_passed": false,
+    "events": 2,
+    "mcse_equal_event_score": 0.0037718643836211533,
+    "mcse_scope": "shared_training_covariance_and_independent_augmented_ensembles",
+    "min_bridge_overlap": 0.7702182633399602
+  },
+  "heldout_records": 4,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "id": "fold-008",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2856118800,
+    "sequence": "seq-usc000phx5",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "observation_measure": "native_minutes_Jacobian_already_applied_once",
+  "prediction_precision_passed": true,
+  "reserved_outcomes": "sealed",
+  "sampler_calls_started": 3,
+  "score_precision_passed": false,
+  "status": "precision_failure",
+  "training_records": 1060
+}
