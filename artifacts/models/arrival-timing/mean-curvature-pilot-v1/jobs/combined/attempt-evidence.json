@@ -1,0 +1,14 @@
+{
+  "case_id": "combined",
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined-spec.json": "ba2f8a35fda2c7cc7a682cdf82f07ca21bb6dc3b20929c61ac7d935e9aa2db05",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined.supervisor.json": "14422a98876617146908c36e31eca1e4ca62e1667cba74d31a4342b8337acb80",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/job.json": "ba2f8a35fda2c7cc7a682cdf82f07ca21bb6dc3b20929c61ac7d935e9aa2db05",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/result.json": "e004557a0927391742b8d01be2712b644b4150d748bd40f43d53bad50b81b537",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/sampled-hyperparameter-diagnostics.csv": "6097fcb33d961b9f8bfdf48e34066daca769804a46a2ae241ce4cba29f660fdc",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/sampling-diagnostics.csv": "edcbb1fdb6102ef97e88985b752ff8b2b651b576f7a8e8ed22252d230933915b",
+    "data/processed/models/mean-curvature-pilot-v1/combined.nc": "02dab6855337274c574a05c91a8c1e1970b0776170ed2ebfe42097f12a0cde84"
+  }
+}

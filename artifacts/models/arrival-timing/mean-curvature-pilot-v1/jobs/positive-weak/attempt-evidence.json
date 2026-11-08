@@ -1,0 +1,14 @@
+{
+  "case_id": "positive-weak",
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak-spec.json": "8faad44a4b24ecff3f2d4cb3d5a484d91af3a268c876cd02ab38f623018a27f2",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak.supervisor.json": "7c351abe64cda86d70656b6af393e68bfb89b39815da2b1814fb5614023a3b98",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/job.json": "8faad44a4b24ecff3f2d4cb3d5a484d91af3a268c876cd02ab38f623018a27f2",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/result.json": "ed9c22541744a297f9dbc9f80cb35c56d14c59273df9ac855df0800535baf1c5",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/sampled-hyperparameter-diagnostics.csv": "4af52289c219d1e01ecaac8e79ab3f877f4b6a4346cb5fdfaecd4def1e6503a1",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/sampling-diagnostics.csv": "676977f5225225b013ebe93a14759c79447e90f64888070a966f52991a6785cc",
+    "data/processed/models/mean-curvature-pilot-v1/positive-weak.nc": "116353ba1ff374731623bf07a9efb3b57aee28e857c24496c01e963947e3d42d"
+  }
+}

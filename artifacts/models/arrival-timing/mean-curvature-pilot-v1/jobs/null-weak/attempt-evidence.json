@@ -1,0 +1,14 @@
+{
+  "case_id": "null-weak",
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak-spec.json": "701565c8cdd677063ca0cef404e045c6f5dabdf41500e8958f432685da35b393",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak.log": "653e846f54c9bf1936d7ef1d2f127d327fe84072852c66e72dbc64c9b11c7d3d",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak.supervisor.json": "71cb21576625226aa0b57109e60329aae1cc18e15930b8b24c1add5cfaf38245",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/job.json": "701565c8cdd677063ca0cef404e045c6f5dabdf41500e8958f432685da35b393",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/result.json": "de302698b4b7c8073b7148e13a8396e3771c5e4b76b23d32c8a56be5f481ca9d",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/sampled-hyperparameter-diagnostics.csv": "557ee551d216c54e3d5369709917d548cfd4bb8eac39e9cb2f7396cd7bfef461",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/sampling-diagnostics.csv": "e9dec3d775f88f6eeae5e5e394b5098ca6318739f9370104697a4fde00b2aa76",
+    "data/processed/models/mean-curvature-pilot-v1/null-weak.nc": "be3b0976f646c92cb4101ce5962c0f6ecfb6016be6e8d7e134e154f820561478"
+  }
+}
