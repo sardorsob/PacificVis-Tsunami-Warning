@@ -1,6 +1,81 @@
 {
-  "completed_folds": 6,
-  "global_call_slots": 31,
+  "automatic_resume": false,
+  "completed_folds": 8,
+  "current_status": "needs_review",
+  "earlier_inspection": {
+    "completed_folds": 6,
+    "global_call_slots": 31,
+    "inspected_attempts": [
+      {
+        "case": "NCEI-native-duration-event-fold-02",
+        "event_count": 1,
+        "max_normalized_mcse": 0.0001025416836323004,
+        "min_overlap": 0.5591611026829161
+      },
+      {
+        "case": "NCEI-native-duration-distance-scale-fold-02",
+        "event_count": 1,
+        "max_normalized_mcse": 0.00023600372931772802,
+        "min_overlap": 0.25015535723352217
+      },
+      {
+        "case": "NCEI-native-duration-event-fold-03",
+        "event_count": 1,
+        "max_normalized_mcse": 0.0001639489935346903,
+        "min_overlap": 0.444733134491535
+      },
+      {
+        "case": "NCEI-native-duration-distance-scale-fold-03",
+        "event_count": 1,
+        "max_normalized_mcse": 0.00023031535458607248,
+        "min_overlap": 0.3093086005756196
+      },
+      {
+        "case": "NCEI-native-duration-event-fold-04",
+        "event_count": 1,
+        "max_normalized_mcse": 7.860797610886529e-05,
+        "min_overlap": 0.8596103805794726
+      },
+      {
+        "case": "NCEI-native-duration-distance-scale-fold-04",
+        "event_count": 1,
+        "max_normalized_mcse": 0.0001566241802438202,
+        "min_overlap": 0.5813908363605024
+      }
+    ],
+    "new_call_slots": 12,
+    "prior_call_slots": 19,
+    "remaining_global_slots": 321,
+    "reserved_outcomes": "sealed",
+    "scope": "root_retained_hash_diagnostic_prediction_and_score_screen_inspections_not_final_independent_acceptance"
+  },
+  "global_call_slots": 39,
+  "independent_stop_review": {
+    "case": "NCEI-native-duration-event-fold-06",
+    "checker": "/root/ms3_fit_checker",
+    "conditional_density_max_difference": 2.28e-13,
+    "dense_Gaussian_max_difference": 9.67e-13,
+    "failed_event": "usp000exfn",
+    "failed_event_records": 49,
+    "mechanism": "posterior_separation_not_adapter_defect",
+    "normalized_mcse": 0.009408469694946544,
+    "other_event_scores_passed": 2,
+    "overlap": 0.0022060507665917655,
+    "raw_posterior_identities_replayed": 4,
+    "sigma_augmented_interval90": [
+      0.3666,
+      0.395
+    ],
+    "sigma_training_interval90": [
+      0.316,
+      0.341
+    ],
+    "training_only_prediction_checks_passed": 80,
+    "unusable": [
+      "failed_event_joint_score",
+      "fold_aggregate"
+    ]
+  },
   "inspected_attempts": [
     {
       "case": "NCEI-native-duration-event-fold-02",
@@ -39,9 +114,9 @@
       "min_overlap": 0.5813908363605024
     }
   ],
-  "new_call_slots": 12,
+  "new_call_slots": 20,
   "prior_call_slots": 19,
-  "remaining_global_slots": 321,
+  "remaining_global_slots": 313,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_hash_diagnostic_prediction_and_score_screen_inspections_not_final_independent_acceptance"
 }
