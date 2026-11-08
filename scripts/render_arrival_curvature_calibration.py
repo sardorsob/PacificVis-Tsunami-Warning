@@ -117,6 +117,7 @@ def render(root, report, output):
             va="top",
             fontsize=11,
             color="#005581",
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.95, "pad": 3},
         )
         ax.set(
             title="Nine population-median curve values" if curve else "Twelve scalar quantities",
