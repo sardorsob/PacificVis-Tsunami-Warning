@@ -1,0 +1,2369 @@
+{
+  "automatic_retries": 0,
+  "cache_environment": {
+    "MPLCONFIGDIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/mean-curvature-calibration-v1/cache/matplotlib",
+    "NUMBA_CACHE_DIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/mean-curvature-calibration-v1/cache/numba",
+    "PYTENSOR_FLAGS": "floatX=float64,base_compiledir=/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/mean-curvature-calibration-v1/cache/pytensor"
+  },
+  "cache_quota_bytes": 268435456,
+  "cases": [
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-000",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826110800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-001",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826110900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-002",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-003",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-004",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-005",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111300,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-006",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111400,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-007",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111500,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-008",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111600,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-009",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111700,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-010",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-011",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826111900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-012",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-013",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-014",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-015",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112300,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-016",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112400,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-017",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112500,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-018",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112600,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-019",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112700,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-020",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-021",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826112900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-022",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-023",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-024",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-025",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113300,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-026",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113400,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-027",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113500,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-028",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113600,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-029",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113700,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-030",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-031",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826113900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-032",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-033",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-034",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-035",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114300,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-036",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114400,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-037",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114500,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-038",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114600,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-039",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114700,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-040",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-041",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826114900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-042",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-043",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-044",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-045",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115300,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-046",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115400,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-047",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115500,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-048",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115600,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "recovery-049",
+      "model": "mean-curvature",
+      "phase": "recovery",
+      "seed": 2826115700,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-000",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836110800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-001",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836110900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-002",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-003",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-004",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-005",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-006",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-007",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-008",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-009",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-010",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-011",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836111900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-012",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-013",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-014",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-015",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-016",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-017",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-018",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-019",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-020",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-021",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836112900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-022",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-023",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-024",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-025",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-026",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-027",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-028",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-029",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-030",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-031",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836113900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-032",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-033",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-034",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-035",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-036",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-037",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-038",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-039",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-040",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-041",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836114900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-042",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-043",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-044",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-045",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-046",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-047",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-048",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-049",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-050",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-051",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836115900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-052",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-053",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-054",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-055",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-056",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-057",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-058",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-059",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-060",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-061",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836116900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-062",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-063",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-064",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-065",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-066",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-067",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-068",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-069",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-070",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-071",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836117900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-072",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-073",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-074",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-075",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-076",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-077",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-078",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-079",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-080",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-081",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836118900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-082",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-083",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-084",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-085",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-086",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-087",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-088",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-089",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-090",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119800,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-091",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836119900,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-092",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120000,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-093",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120100,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-094",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120200,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-095",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120300,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-096",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120400,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-097",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120500,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-098",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120600,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "sbc-099",
+      "model": "mean-curvature",
+      "phase": "sbc",
+      "seed": 2836120700,
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    }
+  ],
+  "concurrency": 1,
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_curvature.py": "3d8856dc5ce4384abe20fb94e7837b18a6fd64cc47bc184711476f82480367a0",
+    "analysis/arrival/model_curvature_calibration.py": "4bd1f1bb556dbd87ad4ef71847ea5b6b52b6d3a89dd1a9f5d7593472c68e9a17",
+    "analysis/arrival/model_curvature_curve_checks.py": "73ac80c017792dccefd8da1bb6199194fa97517fdde988c24049567cb786d12b",
+    "analysis/arrival/model_curvature_prior.py": "083e98b5d0f19b70d6e53f1bdea27f30a44078244f9a3bbd6b874d1cae96c0f8",
+    "analysis/arrival/model_curvature_validation.py": "2c70934b0c2c14effecbb2de50414f16dc295ee85a8053c69b8aa18212fb696e",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-design-v1/review-acceptance.json": "bf5ca08b9ade915042a24da1672a794456a79f06cec39e91f8fc4f99fb36abbb",
+    "artifacts/models/arrival-timing/mean-curvature-design-v1/review-acceptance.json": "bf633625bf0a9d6c4a4e4cb2bcc34f1c68e753be1c42ecdb18cf2f10e848f83c",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-design-v1/review-acceptance.json": "63e260e9c46b728b54c38a0d7f74ae268515b82ae682da24089365f7c2485abb",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/findings.md": "431b9557737bbdd6baa3976b01faaa3f4a9381fd5ee95444ca921c9b7ed07951",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/inputs.json": "1430825c27804333e4401bfcc6c86c708960f03b9bccd2c5d9b49423c77ffe38",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/known-truth-estimates.csv": "f5e55416ffee0349f26ce882a6198121ff98c9da25131f6b5ba8bbf1857ec161",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/metrics.json": "42ec0c814efd28d2d8bedcd834f4d9e8fdc4c839c8b80b6e8750b358cd5a4b12",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/mlflow-receipt.json": "c21f33359364108a1ddc35ae709486a30d7143440c2d9367f87276e560b3121e",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/output-checksums.json": "eccd9859e2f31fe20d2e397f6c6f5f53ad176404a189285a4032206cd263a7d6",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/review-acceptance.json": "9a2976c6c8f1c652e4ab76c27345d667455220355a01d13a8ced25509a255e17",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/sampling-and-runtime-summary.csv": "e0ba76da7e365e07d8c3a8d1532b7c6ba50dcbf8f51f7eac6a696d461e92d3cd",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined-spec.json": "ba2f8a35fda2c7cc7a682cdf82f07ca21bb6dc3b20929c61ac7d935e9aa2db05",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined.supervisor.json": "14422a98876617146908c36e31eca1e4ca62e1667cba74d31a4342b8337acb80",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/attempt-evidence.json": "547044eaae5a3c37ff1ce2f4b6334bff0336efa572200a6fbcc82598c3c22c7a",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/job.json": "ba2f8a35fda2c7cc7a682cdf82f07ca21bb6dc3b20929c61ac7d935e9aa2db05",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/result.json": "e004557a0927391742b8d01be2712b644b4150d748bd40f43d53bad50b81b537",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/sampled-hyperparameter-diagnostics.csv": "6097fcb33d961b9f8bfdf48e34066daca769804a46a2ae241ce4cba29f660fdc",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/combined/sampling-diagnostics.csv": "edcbb1fdb6102ef97e88985b752ff8b2b651b576f7a8e8ed22252d230933915b",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak-spec.json": "6aa94fa5be38a0024a85572895ee8c58530e318f602f1ffd2f2b5a576686fb75",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak.supervisor.json": "752949b5c5468d07c3127dbe24d5dd80b3da82adae9f3d0d62d6f80dfdb16648",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/attempt-evidence.json": "a11782dc108df5fe700d665e478e6af68e7f5d675a42b07bdb8ad77866579a2a",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/job.json": "6aa94fa5be38a0024a85572895ee8c58530e318f602f1ffd2f2b5a576686fb75",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/result.json": "545c6d4d041d69acd9136179c077b1f80db50afb52d35fab79c1a69116ddc278",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/sampled-hyperparameter-diagnostics.csv": "4159cb6e5938d745aea96618dbc4ed000723b99c12c0d75da1587b03b9179108",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/negative-weak/sampling-diagnostics.csv": "db65e94e7aee2efb6799e1555bb5de97dbeb7693a78f4fe73e98f29a6e7c6131",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate-spec.json": "747e46be2b851a2416a139f77ee5ff37e3be25036b4d55e5675910dcfa00890a",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate.supervisor.json": "91ba346c7acf79c9bc45fb4bd29f4f87e4fc45f29b4d0860b1ff1a826ebc2f2e",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/attempt-evidence.json": "ba26131357cc6be152e145d568be19643c8735487d84ed527ce0a2403893d73e",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/job.json": "747e46be2b851a2416a139f77ee5ff37e3be25036b4d55e5675910dcfa00890a",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/result.json": "6b5f0a68875c43b726b741731fb675e1c29acf2c83d3d26cc534783d1ef16c04",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/sampled-hyperparameter-diagnostics.csv": "14b8d0b93e3809b0318c5323a41364ab9b38eb7a52aef00893c4f3d35006e958",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-moderate/sampling-diagnostics.csv": "f81ebcb76b7e4fc57e82a3c64a5793b7aea7a8aec6d646e10437afd6012ff551",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak-spec.json": "701565c8cdd677063ca0cef404e045c6f5dabdf41500e8958f432685da35b393",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak.log": "653e846f54c9bf1936d7ef1d2f127d327fe84072852c66e72dbc64c9b11c7d3d",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak.supervisor.json": "71cb21576625226aa0b57109e60329aae1cc18e15930b8b24c1add5cfaf38245",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/attempt-evidence.json": "01a62a87e910cb70e8230dc20234e40a7fddd4ed8c0529ca6c325274b9096053",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/job.json": "701565c8cdd677063ca0cef404e045c6f5dabdf41500e8958f432685da35b393",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/result.json": "de302698b4b7c8073b7148e13a8396e3771c5e4b76b23d32c8a56be5f481ca9d",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/sampled-hyperparameter-diagnostics.csv": "557ee551d216c54e3d5369709917d548cfd4bb8eac39e9cb2f7396cd7bfef461",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/null-weak/sampling-diagnostics.csv": "e9dec3d775f88f6eeae5e5e394b5098ca6318739f9370104697a4fde00b2aa76",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak-spec.json": "8faad44a4b24ecff3f2d4cb3d5a484d91af3a268c876cd02ab38f623018a27f2",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak.supervisor.json": "7c351abe64cda86d70656b6af393e68bfb89b39815da2b1814fb5614023a3b98",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/attempt-evidence.json": "f1bda6a07b851b9e50034f4796dc31c1b90ccf03ee146648ab286b1159ef8c13",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/job.json": "8faad44a4b24ecff3f2d4cb3d5a484d91af3a268c876cd02ab38f623018a27f2",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/result.json": "ed9c22541744a297f9dbc9f80cb35c56d14c59273df9ac855df0800535baf1c5",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/sampled-hyperparameter-diagnostics.csv": "4af52289c219d1e01ecaac8e79ab3f877f4b6a4346cb5fdfaecd4def1e6503a1",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/jobs/positive-weak/sampling-diagnostics.csv": "676977f5225225b013ebe93a14759c79447e90f64888070a966f52991a6785cc",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/plan.json": "f7492a7c0e7aedbb8d58e720fe5b32fff10dd15deb3c1b8300c44468325b7b16",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/review-acceptance.json": "601b1e1317bafc36943abb31ba8c07aaf229fed2ee9a8d0a5078d0012a278647",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1/run-summary.json": "689209a427e92f8243e88cc8bbd4bfc43eb0a467bb769e613763ae7801cbf3a1",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/curvature-prior-timing-curves.png": "40c762845e09bc2bb1231bcd6972c1a5510ba2e870464939176b17a4e9eeec19",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/curvature-prior-timing-curves.svg": "8afd9587331f94dbc818b05c361719ba1b4258a2eea85f733a6dd3c392ff4466",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/findings.md": "bb1e6b27de4b7535253e587039f943851faa934191f0fc616c6249004acea345",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/inputs.json": "fa0bc1746fac2bfcca0327a54adaa3c88c812b605b3e4da3fcb5b4824693205f",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/mean-curve-prior-quantiles.csv": "12ce54d7fc2b71594c9c1c73df6358c88d3f981465c361b81fbaf2d0cf2d067f",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/metrics.json": "3ce82e9d070eb19cf50e22a4da797a1e86724a15528c4735b8d91561dd94b487",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/mlflow-receipt.json": "83df35fafb37a739d8cfa1148a0be9c552f2ef09308afff25f87595fcb0c3d52",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/new-event-duration-prior-quantiles.csv": "088779b816b36c43f1550dcf74f1a799c485c3fb492023c4121cafe380c85bd2",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/output-checksums.json": "638c15578416b4299924620be564c1a23b7a733c9394d59119b0557cec28b9f8",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/parameter-prior-dictionary.csv": "f3c11d37d6a5e87b92319d065cf65bc8039e3a4fa4d4e49f3bd08356309dbf9a",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/prior-diagnostics.csv": "5f6aca466f77b1b5fcfa47f061dfddf4b520815337425ac777f17ccbf7486db5",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/review-acceptance.json": "1b6e1c7df36b8b0a27da43a4072d54af2e4410edc2373cc146333cbbb97b3c77",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/saved-draws.json": "b3dfc7a4243e2db0a57a23e8e34fd8b315e2a6a8525a1a4850634e83580d059a",
+    "config/arrival-mean-curvature-v1.toml": "18097d0f718ed43466c216e89bc36be14b4333bb48bfc021483a31185e2a1080",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "data/processed/models/mean-curvature-pilot-v1/combined.nc": "02dab6855337274c574a05c91a8c1e1970b0776170ed2ebfe42097f12a0cde84",
+    "data/processed/models/mean-curvature-pilot-v1/negative-weak.nc": "96eb58c31b5ede59868dc3be78776bea992181332110b6df1cffdee480f06fb6",
+    "data/processed/models/mean-curvature-pilot-v1/null-moderate.nc": "b165956a115d0de26db5dfe2c53d673693dba27b772b1230942ea34fab741a9d",
+    "data/processed/models/mean-curvature-pilot-v1/null-weak.nc": "be3b0976f646c92cb4101ce5962c0f6ecfb6016be6e8d7e134e154f820561478",
+    "data/processed/models/mean-curvature-pilot-v1/positive-weak.nc": "116353ba1ff374731623bf07a9efb3b57aee28e857c24496c01e963947e3d42d",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/curvature-prior-timing-curves.png": "6c21ee15e842859e1756365d0bd80c5aed8e833d2d54bab82878efd5932a4358",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/curvature-prior-timing-curves.svg": "7103344b5fff4d9960c141f1f11f0d42a773a87159e3172e814397160e1caca4",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/findings.md": "ea8060635ce354bdd28f3848f8bcbcdfedfe7697584b25e73f475b7e8dc7eafc",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/inputs.json": "4dbc2333030ee5f5d57699d35e8010f4d5bd58a2c8689b59e2b53bf14cab8bc2",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/mean-curve-prior-quantiles.csv": "12ce54d7fc2b71594c9c1c73df6358c88d3f981465c361b81fbaf2d0cf2d067f",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/metrics.json": "3ce82e9d070eb19cf50e22a4da797a1e86724a15528c4735b8d91561dd94b487",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/new-event-duration-prior-quantiles.csv": "088779b816b36c43f1550dcf74f1a799c485c3fb492023c4121cafe380c85bd2",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/output-checksums.json": "73ace20ae9f8d13a5990af0c604ce6a44e55e032ad7f517ffa29100b7b6bf1fd",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/parameter-prior-dictionary.csv": "f3c11d37d6a5e87b92319d065cf65bc8039e3a4fa4d4e49f3bd08356309dbf9a",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/prior-diagnostics.csv": "5f6aca466f77b1b5fcfa47f061dfddf4b520815337425ac777f17ccbf7486db5",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1/saved-draws.json": "b3dfc7a4243e2db0a57a23e8e34fd8b315e2a6a8525a1a4850634e83580d059a",
+    "data/processed/models/mean-curvature-prior-v1/base.nc": "cfe28e681979a3c27053cfb2623e622e281078c351f513d91b0a844d5ab50b81",
+    "data/processed/models/mean-curvature-prior-v1/gamma_wider_only.nc": "1f00fcea7a8cb8d790c9ba06b918eec2974ad4cae9884316f6d2c6195b94a79b",
+    "data/processed/models/mean-curvature-prior-v1/joint_wider.nc": "a10b6b92e140312c427e6bc223610f105f5ea3830aa29b1390faaa5850109404",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/fit_arrival_curvature_synthetic.py": "93fa4b6166b4b398732c5e163c5fb1630fa6e5c4ddbf5a61fa93c20a0b54fe19",
+    "scripts/run_arrival_curvature_calibration.py": "36a1ce56e254ae4b2b85db9d0bb9d1eda7801da3ac69ce7a1ede27fd009afc2b",
+    "scripts/run_arrival_curvature_pilot.py": "30eccfb37b26052c252fcf72ae26d2770178e5bf92b62ad97d3cf827ed9d7419",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "tests/test_arrival_curvature_calibration_checks.py": "2d9a11a8028c82a80a146a8e079dad065135946bcda8e017b09d2ffd0c137052",
+    "tests/test_arrival_curvature_calibration_controller.py": "39eda5af8fd3b0e8561e838d1ca4f09cf966119eaeb9d49a28a753fc70f63732",
+    "tests/test_arrival_curvature_curve_checks.py": "1018add534c732b9cf3254ba42279b508db8c146b8a23b0c4af60e219e57af46",
+    "tests/test_arrival_curvature_pilot.py": "df7687f25372733ca941234f96279fefe7683ac4b06ef355b4f7064117a68e3f",
+    "tests/test_arrival_curvature_validation.py": "7f71a77151882fbe5cb6f55db0bbbd93a92547978f2b405861cc7b95e87a8948",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "max_bytes": 2147483648,
+  "max_sampler_call_slots": 150,
+  "next_job_reserve_bytes": 486539264,
+  "parent_dataset_sha256": [
+    "44c7054a85a9b5fe3ff1a91761a0150afe3713de97d47e930be4319a672c0750",
+    "bc0a4790d5f7f7006f2a2c87bbdba753a2e920601b9f6536f01b3da6830f09a9",
+    "7cbc0215694e870d0a6e826a346256c6322e25a5bfae9ce36d29a555e55f2afe",
+    "4027ff083800cf6768afbd4be461b180a14ab0f8770711b851218d48217ed291",
+    "aa699b78cc2ea8b4b73da7e6629d5d47a605d89d370478becfd489d61743280b"
+  ],
+  "parent_roots": [
+    "data/processed/models/mean-curvature-prior-v1",
+    "data/processed/models/mean-curvature-prior-unreviewed-v1",
+    "data/processed/models/mean-curvature-pilot-v1",
+    "artifacts/models/arrival-timing/mean-curvature-design-v1",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-design-v1",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-v1",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-design-v1"
+  ],
+  "path_bindings": {
+    "output": "artifacts/models/arrival-timing/mean-curvature-calibration-v1",
+    "private_state_identity_sha256": "364da8251e2617a32a9d74cc79647afe1e0db27c55845815d1c01692dbac90b2",
+    "store": "data/processed/models/mean-curvature-calibration-v1"
+  },
+  "schema_version": "arrival_curvature_calibration_v1",
+  "small_job_output_quota_bytes": 16777216,
+  "source_git_sha": "fbc847713ef0a5ea2d3ebb64c8b9e01f1fcba25f",
+  "storage_scope": "monitored trip thresholds, not hard filesystem quotas; retain/count overshoot and abort",
+  "timeout_seconds": 600,
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "first_event_id": "official20100227063411530_30",
+  "id": "recovery-009",
+  "model": "mean-curvature",
+  "phase": "recovery",
+  "seed": 2826111700,
+  "target": "NCEI-native-duration",
+  "truth": {
+    "alpha": 0.15,
+    "beta": -0.05,
+    "gamma": 0.0,
+    "sigma_anchor": [
+      0.6,
+      0.6,
+      0.1
+    ],
+    "tau_event": 0.05
+  },
+  "tune": 1000
+}
