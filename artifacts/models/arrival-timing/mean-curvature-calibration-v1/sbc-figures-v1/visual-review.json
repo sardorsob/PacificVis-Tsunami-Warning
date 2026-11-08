@@ -1,0 +1,14 @@
+{
+  "status": "accepted",
+  "independent_checker": true,
+  "reviewed_png": "final-discrete-rank-deviations.png",
+  "reviewed_png_sha256": "b350859a5a835d7316ab6ffd93b5f7dc3dbf3ee73b2878ec66a358824409ba67",
+  "request": "Review the rendered SBC rank-deviation figure for scientific legibility, annotations, provenance, uncertainty labels, clipping, and overlap.",
+  "destination": "Expert research report at full resolution or in vector form.",
+  "findings": {
+    "resolved": "The earlier P1 concerning the missing family DKW confidence level was resolved by labeling the reference bounds 95%.",
+    "remaining_p0_p1": false,
+    "qualification": "Footer text is small at 600 px; use the full-resolution image or vector output for the report."
+  },
+  "scope": "PNG visual review only; no SVG visual inspection is attested."
+}

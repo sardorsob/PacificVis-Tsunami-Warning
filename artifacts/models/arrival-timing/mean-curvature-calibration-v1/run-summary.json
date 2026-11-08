@@ -1,0 +1,11 @@
+{
+  "computed_cases": 150,
+  "confirmation_outcomes_parsed": false,
+  "max_bytes": 2147483648,
+  "max_sampler_call_slots": 150,
+  "raw_and_cache_and_evidence_bytes": 787908757,
+  "reserved_outcomes": "sealed",
+  "sampler_call_slots_used": 150,
+  "scientific_acceptance": "pending independent results review",
+  "status": "complete"
+}

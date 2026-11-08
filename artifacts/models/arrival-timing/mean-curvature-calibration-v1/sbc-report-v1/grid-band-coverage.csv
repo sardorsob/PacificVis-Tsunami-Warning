@@ -1,0 +1,2 @@
+scenario,datasets,covered_count,covered_proportion,wilson95_low,wilson95_high,borderline_cases
+prior-generated,100,89,0.89,0.8136870349691969,0.9374580364293543,2

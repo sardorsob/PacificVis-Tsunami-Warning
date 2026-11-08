@@ -1,0 +1,16 @@
+{
+ "result": "pass",
+ "dest": "report",
+ "figures": 1,
+ "fails": 0,
+ "warns": 1,
+ "findings": [
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig0/figure 'Source: NCEI expl...', 'Four \u00d7 2,000 reta...', 'Largest deviation...'",
+   "detail": "29 text(s) below 12 px at 600 px wide (report); smallest 10 pt = 6.0 px",
+   "fix": "Use at least 20.5 pt text at this 14.0 in figure width, or shrink figsize."
+  }
+ ]
+}

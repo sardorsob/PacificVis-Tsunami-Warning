@@ -1,0 +1,18 @@
+{
+  "alt_text": "Two panels show empirical rank CDF differences for twelve scalar quantities and nine on-grid median-curve values, with simultaneous reference bounds and the largest deviation highlighted.",
+  "brief": "Takeaway: show all final rank deviations and the finite family bound; Audience: expert; Destination: report",
+  "files": {
+    "analysis/arrival/model_curvature_curve_checks.py": "73ac80c017792dccefd8da1bb6199194fa97517fdde988c24049567cb786d12b",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/estimates-by-dataset.csv": "6c39708a0514876be25ebed730fec826d0dafb7f3e463c16d1d1b25ef2b370df",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/final-discrete-rank-ecdf-screen.csv": "22937d2394b405aa8f3479b8d4e519f9d1e132dee9a9a61a447d1f0f36c28c46",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/findings.md": "e6ed64255c81271c231b301e1caf790dd6d883032d1eebb677dd1a384ea2a01e",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/grid-band-by-dataset.csv": "a8417f0218c58d4d55a43ebc15e554564ae4ae5dfa7d81e917f9e44304b90bb4",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/grid-band-coverage.csv": "3ce3ea927524c54ae41b16bd4587d48868f4bb108a959e53678096450dfe0a96",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/inputs.json": "4983612eeddb53c45577e3bb2532200793e3fc266e543ac0b0c520db5043f3b5",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/metrics.json": "5b5e8078ace54bae61f5505f90f70f0c3ea924b7be4b167becfbab6c68d67e6d",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/output-checksums.json": "506bed15eeff3e3a407c3eedb24d253238f1ac2b91d0a0800a3800ac3aeac04c",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/pointwise-coverage-and-recovery.csv": "6539a53af9fafa05346fb7c0ea406dd9094cbe6c1be2b661b2ab72b4bce67beb",
+    "artifacts/models/arrival-timing/mean-curvature-calibration-v1/sbc-report-v1/sampling-and-functional-diagnostics.csv": "0dbb950280cf80d98e2a3f11d02993ecb864561617192aca1786ccb535894c40",
+    "scripts/render_arrival_curvature_calibration.py": "fbbaa27be78e1bc2f01f6e14c890ef36f3b16db045411d644f155d4cf6ae0f27"
+  }
+}
