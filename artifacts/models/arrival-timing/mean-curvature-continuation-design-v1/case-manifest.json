@@ -1,0 +1,348 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "first_case": {
+    "cores": 2,
+    "draws": 2000,
+    "id": "fold-003",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2856113800,
+    "sequence": "seq-us10006jbi",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "inherited_slots": 38,
+  "initial_checkpoint": {
+    "calls_charged": 38,
+    "calls_started": 38,
+    "current": null,
+    "next_fold": 2,
+    "status": "path_computations_complete"
+  },
+  "original_plan": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/plan.json",
+  "original_plan_sha256": "a64a2f78b61b458bb6d9cbc72c66a755c1bf7acc5b7ec70b2ef7a09f19f609b4",
+  "path_bindings": {
+    "output": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/continuation-v1",
+    "private_state_identity_sha256": "225e50d9abf5b0dc6339960b60630f6be1e1401b1f2b8f6c63b766bddd7135c2",
+    "store": "data/processed/models/mean-curvature-sequence-v1"
+  },
+  "remaining_cases": [
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-003",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856113800,
+      "sequence": "seq-us10006jbi",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-004",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856114800,
+      "sequence": "seq-us20002yaw",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-005",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856115800,
+      "sequence": "seq-us20003k7a",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-006",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856116800,
+      "sequence": "seq-us2000cmy3",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-007",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856117800,
+      "sequence": "seq-usc000f40j",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-008",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856118800,
+      "sequence": "seq-usc000phx5",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-009",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856119800,
+      "sequence": "seq-usp0007jcu",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-010",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856120800,
+      "sequence": "seq-usp0008mdk",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-011",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856121800,
+      "sequence": "seq-usp000bbpf",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-012",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856122800,
+      "sequence": "seq-usp000bnvq",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-013",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856123800,
+      "sequence": "seq-usp000bnyr",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-014",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856124800,
+      "sequence": "seq-usp000d3ka",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-015",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856125800,
+      "sequence": "seq-usp000d9h1",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-016",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856126800,
+      "sequence": "seq-usp000db93",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-017",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856127800,
+      "sequence": "seq-usp000dt25",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-018",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856128800,
+      "sequence": "seq-usp000eg5g",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-019",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856129800,
+      "sequence": "seq-usp000exfn",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-020",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856130800,
+      "sequence": "seq-usp000fjta",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-021",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856131800,
+      "sequence": "seq-usp000gs2d",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-022",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856132800,
+      "sequence": "seq-usp000gtnc",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-023",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856133800,
+      "sequence": "seq-usp000h1ys",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-024",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856134800,
+      "sequence": "seq-usp000h2g9",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-025",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856135800,
+      "sequence": "seq-usp000hrw0",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-026",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856136800,
+      "sequence": "seq-usp000j3mq",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-027",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856137800,
+      "sequence": "seq-usp000j48h",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 2000,
+      "id": "fold-028",
+      "kind": "mean-curvature",
+      "prior": "base",
+      "seed": 2856138800,
+      "sequence": "seq-usp000jqvm",
+      "target": "NCEI-native-duration",
+      "tune": 1000
+    }
+  ],
+  "remaining_nominal_sampler_calls": 56,
+  "reserved_outcomes": "sealed",
+  "resolutions": {
+    "fold-002": {
+      "prediction": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-002/held-out-record-predictions.csv",
+      "prediction_sha256": "53fdca8e3e55d823e4e39373cf0795b0f1b7c02fbbb59b049e7dfda79aa317f0",
+      "receipt": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/resolved-fold-v1/review-acceptance.json",
+      "receipt_sha256": "5a31ce446c5e21bd46f1e279630c510c53a27a046df6db8112a6e84e84fb4589",
+      "result": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/resolved-fold-v1/result.json",
+      "result_sha256": "5e1715c14a863d453c9973e8c17bab18dd382b4bbc6da801775773580316b794"
+    }
+  },
+  "resources": {
+    "automatic_retries": 0,
+    "cache_max_bytes": 268435456,
+    "concurrency": 1,
+    "cores": 2,
+    "global_max_bytes": 2147483648,
+    "inherited_charged_slots": 38,
+    "job_max_bytes": 33554432,
+    "local_max_bytes": 1073741824,
+    "max_folds_per_invocation": 3,
+    "max_sampler_call_slots": 248,
+    "next_invocation_reserve_bytes": 637534208,
+    "per_file_bytes": 67108864,
+    "whole_fold_seconds": 1200
+  },
+  "schema_version": "curvature_sequence_continuation_v1",
+  "source_policy": "unchanged original worker/cases/seeds/cohort; original failed fold retained; first new fold independently reviewed before batches",
+  "status": "prepared_pending_independent_launch_gate",
+  "total_nominal_sampler_calls": 94
+}
