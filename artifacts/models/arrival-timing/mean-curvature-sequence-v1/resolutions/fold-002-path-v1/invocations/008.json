@@ -1,0 +1,16 @@
+{
+  "aggregate_files": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/primary-path-result.json": "bf24eedaa88e1ff8c59d4ca25db2fe13850b6d9de5675beebd8db62c6f59a694",
+    "data/processed/models/mean-curvature-sequence-v1/resolution-fold-002-path-v1/primary-combined-influences.npz": "9b1140da680c27807e23ef17ed0bb87a8949fbe5c5ef028f5596fae4f8b0e112"
+  },
+  "attempt_receipts": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/repeat-node-09/attempt-evidence.json": "f58d37da61c28332534664f98326aa94d48c59abade6ff2d26ce252f29df66f0",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/repeat-node-10/attempt-evidence.json": "75b9a2a4a9ecdff09e89ed03f604c06a79025eee0ca0cac30aacc87138ac7b31",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/jobs/repeat-node-11/attempt-evidence.json": "f444ccc4e9d26fbbd7c988b36c7d4e6ca6cc78099cce342bafa861d13034a6f7"
+  },
+  "end_node": 27,
+  "plan_sha256": "47713cae6bdae99be65f73ad3df44151f657bb17ba6db4a5d6a6c8a971084db0",
+  "seconds": 21.649277249816805,
+  "start_node": 24,
+  "status": "path_checkpoint"
+}

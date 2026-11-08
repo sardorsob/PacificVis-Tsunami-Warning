@@ -1,0 +1,8 @@
+{
+  "elapsed_seconds": 6.097823124844581,
+  "job_sha256": "e2f3eea806f553b9095b24137756864450af643717a599509ca6f320248dc1c4",
+  "monitor_failures": [],
+  "plan_sha256": "47713cae6bdae99be65f73ad3df44151f657bb17ba6db4a5d6a6c8a971084db0",
+  "reason": "worker_exit",
+  "returncode": 0
+}
