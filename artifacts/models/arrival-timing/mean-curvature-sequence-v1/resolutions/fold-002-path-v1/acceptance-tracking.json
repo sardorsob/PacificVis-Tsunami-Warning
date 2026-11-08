@@ -1,0 +1,11 @@
+{
+  "accepted_gate_artifact_readback": "PASS",
+  "accepted_node_runs": 32,
+  "confirmation_outcomes_parsed": false,
+  "decision_tags_readback": "PASS",
+  "gate_sha256": "5eb7884870849bac0d61acba7d69361f8e80bbf81bb0e196556f2d66fb192ca8",
+  "parent_run_id": "c6ca834a22a74c518c8f65d405905755",
+  "pending_review_registration_receipt_preserved": true,
+  "raw_posteriors_mirrored": false,
+  "reserved_outcomes": "sealed"
+}

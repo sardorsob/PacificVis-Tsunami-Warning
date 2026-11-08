@@ -1,0 +1,58 @@
+{
+  "aggregation_note": "final program averages33event scores, not29fold means",
+  "bridge_arrays": "data/processed/models/mean-curvature-sequence-v1/fold-002/bridge-arrays.npz",
+  "bridge_arrays_sha256": "a604c6998b9c7dc733b4699cac589819e34d697c30501364577f73e7741d48f2",
+  "confirmation_outcomes_parsed": false,
+  "events": [
+    {
+      "event_id": "official20110311054624120_30",
+      "joint_log_mcse_delta": 0.022378489514529667,
+      "joint_log_predictive": -1650.5018055234666,
+      "method": "fixed_geometric_full_coefficient_coordinate_path",
+      "normalized_event_score": -6.090412566507257,
+      "normalized_mcse": 8.25774520831353e-05,
+      "precision_passed": true,
+      "records": 271,
+      "sequence": "seq-official20110311054624120_30"
+    }
+  ],
+  "fold_score": {
+    "equal_event_score": -6.090412566507257,
+    "event_precision_passed": true,
+    "events": 1,
+    "mcse_equal_event_score": 8.25774520831353e-05,
+    "mcse_scope": "path_and_other_event_training_influences_combined_before_independent_stage_variances",
+    "mean_deterministic_error_estimate": 0.0,
+    "monte_carlo_used": true,
+    "primary_path_training_variance": "included_once_in_shared_vector_not_added_again",
+    "source_training_posterior_sha": "ff71156e59d5930cab5874e8b8a79668c17ad02d51568d8e629b4f0e322f0d30"
+  },
+  "heldout_records": 271,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "id": "fold-002",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2856112800,
+    "sequence": "seq-official20110311054624120_30",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "observation_measure": "native_minutes_Jacobian_already_applied_once",
+  "prediction_precision_passed": true,
+  "prediction_source": "unchanged_original_training_only_predictions",
+  "primary_path": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-002-path-v1/primary-path-result.json",
+  "primary_path_sha256": "bf24eedaa88e1ff8c59d4ca25db2fe13850b6d9de5675beebd8db62c6f59a694",
+  "reserved_outcomes": "sealed",
+  "retained_direct_bridge_status": "precision_failure",
+  "sampler_calls_started": 2,
+  "score_precision_passed": true,
+  "score_resolution": "predesignated_same_model_full_coefficient_power_path",
+  "source_result": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-002/result.json",
+  "source_result_sha256": "8aecf6c6ae1053ebebc6bff338dd3ee2fdfcf3bce7282329920d8f41a66230b8",
+  "status": "computed_pending_review",
+  "training_only_predictions": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-002/held-out-record-predictions.csv",
+  "training_only_predictions_sha256": "53fdca8e3e55d823e4e39373cf0795b0f1b7c02fbbb59b049e7dfda79aa317f0",
+  "training_records": 793
+}
