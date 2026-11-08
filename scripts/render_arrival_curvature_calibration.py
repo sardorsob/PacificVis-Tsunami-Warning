@@ -143,9 +143,16 @@ def render(root, report, output):
     )
     fig.text(
         0.08,
-        0.045,
-        "Source: frozen mean-curvature prior and synthetic design; four × 2,000 MCMC draws. "
-        "Spaced ranks approximate independent draws.",
+        0.055,
+        "Source: NCEI exploration design (1,064 records / 33 events), frozen priors "
+        "and 100 simulated datasets.",
+        fontsize=10,
+    )
+    fig.text(
+        0.08,
+        0.025,
+        "Four × 2,000 retained MCMC draws; 100 spaced states per rank approximate "
+        "independent draws.",
         fontsize=10,
     )
     fig.subplots_adjust(left=0.08, right=0.98, top=0.78, bottom=0.23, wspace=0.12)
