@@ -1,0 +1,14 @@
+{
+  "event-joint-scores.csv": "c55505e7046a9f109bcf83a35e3eccf479d9e10a07d81b7c7ddd89b26fb9c350",
+  "event-weighted-pit.csv": "ac2d74c475ed284e63af9d90ec60f3a13c0048eb94a076cd56f159630745fcf1",
+  "findings.md": "3ac2bc6c1fee7c327a7572922187d50c982c7c3666eac34140b4fb8d72d57d70",
+  "held-sequence-predictive-calibration.png": "1959b86f80b206710e1c13ae6d3c3022299a88fcb5b90e102ac1daaaa8678aa6",
+  "held-sequence-predictive-calibration.svg": "1ebc023720de78e5f01ea1db2ca6445b27dba700ee74f1a58aed13e46ec775a0",
+  "inputs.json": "fed33cbabab9e75dfe508bf4a92192324387fad6346379fc6a9e36091d096040",
+  "model-scores.csv": "e2ffc48f41ca5a9b0807915dc6bafb44ca2b3cb587ad1dadb27f78a0938ca514",
+  "paired-score-differences.csv": "d96e05dc3dd41894abaf3faa3662ade4797e263e47bf535bc9ae7847cb3f9a87",
+  "paired-sequence-score-differences.png": "8c31f3a3a922752e3474c2d9fe754860157e0a13248403782bf40f9a795cc3ef",
+  "paired-sequence-score-differences.svg": "fc41343980b685e7e1b22de84423b640d4783ac6933f1492fc3a8d352a554790",
+  "predictive-calibration-by-stratum.csv": "546ba39149d0792dce6eb7e05b46508ac9610d808e3da05b90b055a974008e6f",
+  "sequence-score-influence.csv": "71d4a944f1983e4859ad626a424b929995ae489eb69b52b0b30d02159aeecd74"
+}
