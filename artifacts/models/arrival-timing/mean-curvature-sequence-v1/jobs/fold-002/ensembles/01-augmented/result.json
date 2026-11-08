@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0015187229377082953,
+    "max_rhat": 1.001272588702004,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9743380691145559,
+    "min_ess_bulk": 2472.707516061354,
+    "min_ess_tail": 3008.4119689492886,
+    "screen_passed": true
+  },
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "event": "official20110311054624120_30",
+    "id": "fold-002",
+    "kind": "mean-curvature",
+    "phase": "augmented",
+    "prior": "base",
+    "seed": 2856112801,
+    "sequence": "seq-official20110311054624120_30",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/mean-curvature-sequence-v1/fold-002/01-augmented.nc",
+  "posterior_sha256": "ce8ae93bf4567fe1e0dd0eeb3a800031b5e4df79ed1861fb0f9a3c82eee7795b",
+  "records": 1064,
+  "scope": "augmented_normalization_only_not_prediction"
+}

@@ -1,11 +1,11 @@
 {
-  "calls_charged": 2,
-  "calls_started": 2,
-  "computed_folds": 1,
+  "calls_charged": 6,
+  "calls_started": 6,
+  "computed_folds": 2,
   "confirmation_outcomes_parsed": false,
   "max_sampler_call_slots": 248,
   "nominal_sampler_call_slots": 62,
   "reserved_outcomes": "sealed",
-  "status": "checkpoint",
-  "working_bytes": 817402281
+  "status": "precision_or_diagnostic_failure",
+  "working_bytes": 827785702
 }
