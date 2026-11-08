@@ -117,6 +117,38 @@ def prepare_sources(
             or station.get("event_id", event) != event
         ):
             raise ValueError("source metadata disagrees with exploration event")
+        page = station.get("page", 1)
+        pagination_pins = {}
+        pagination = station.get("pagination_evidence")
+        if pagination:
+            page = pagination["page_requested"]
+            total_pages = pagination["total_pages"]
+            parent = by_id[pagination["page1_source_id"]]
+            parent_station = json.loads(parent["notes"])["station_metadata"]
+            if isinstance(parent_station, str):
+                parent_station = json.loads(parent_station.replace(r"\"", '"'))
+            if (
+                parent_station.get("development_event_id", parent_station.get("event_id")) != event
+                or parent_station.get("ncei_event_id") != number
+            ):
+                raise ValueError("pagination parent belongs to a different source event")
+            proof = checked_path(root, pagination["qa_receipt"])
+            if (
+                isinstance(page, bool)
+                or not isinstance(page, int)
+                or isinstance(total_pages, bool)
+                or not isinstance(total_pages, int)
+                or total_pages <= 0
+                or not 1 < page <= total_pages
+                or parent["sha256"] != pagination["page1_sha256"]
+                or sha256(checked_path(root, parent["local_path"])) != parent["sha256"]
+                or sha256(proof) != pagination["qa_sha256"]
+            ):
+                raise ValueError("invalid explicit pagination evidence")
+            pagination_pins = {
+                parent["local_path"]: parent["sha256"],
+                pagination["qa_receipt"]: pagination["qa_sha256"],
+            }
         url = urlparse(source["url"])
         query = parse_qs(url.query)
         if (
@@ -132,7 +164,7 @@ def prepare_sources(
             or sorted(query.get("typeMeasurementId", [])) != ["2", "3"]
             or set(query) != {"tsunamiEventId", "typeMeasurementId", "itemsPerPage", "page"}
             or query["itemsPerPage"] != ["200"]
-            or query["page"] != [str(station.get("page", 1))]
+            or query["page"] != [str(page)]
         ):
             raise ValueError("official source request/event mismatch")
         path = checked_path(root, source["local_path"])
@@ -157,6 +189,8 @@ def prepare_sources(
             "event_id": event,
             "ncei_event_id": number,
             "native_origin": native_origin.timestamp(),
+            "pagination_proof_pins": pagination_pins,
+            "requested_page": page,
         }
     for source in selected.values():
         if sha256(checked_path(root, source["path"])) != source["sha256"]:
@@ -177,6 +211,9 @@ def audit_records(
         key: json.loads(checked_path(root, value["path"]).read_text())
         for key, value in sources.items()
     }
+    for identity, source in sources.items():
+        if pages[identity].get("page") != source["requested_page"]:
+            raise ValueError("native response page disagrees with checked request")
     results: list[dict[str, Any]] = []
     for row, primary in zip(rows, included, strict=True):
         identity, position = row["record_id"].rsplit(":", 1)
@@ -248,4 +285,7 @@ def audit_records(
                 **assessment,
             }
         )
-    return results, {value["path"]: value["sha256"] for value in sources.values()}
+    pins = {value["path"]: value["sha256"] for value in sources.values()}
+    for value in sources.values():
+        pins.update(value["pagination_proof_pins"])
+    return results, pins

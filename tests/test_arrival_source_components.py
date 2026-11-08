@@ -148,7 +148,7 @@ def audited_fixture(tmp_path):
         "locationName": "Station",
     }
     path = tmp_path / metadata["local_path"]
-    path.write_text(json.dumps({"items": [item]}))
+    path.write_text(json.dumps({"items": [item], "page": 1}))
     metadata["sha256"] = sha256(path)
     row = {
         "record_id": "recovery-ncei-fixture:1",
@@ -182,7 +182,7 @@ def test_source_native_origin_not_usgs_is_controlling(tmp_path):
     metadata, row, item = audited_fixture(tmp_path)
     item["second"] = 19.23  # USGS precision differs; it cannot replace native origin.
     path = tmp_path / metadata["local_path"]
-    path.write_text(json.dumps({"items": [item]}))
+    path.write_text(json.dumps({"items": [item], "page": 1}))
     metadata["sha256"] = sha256(path)
     with pytest.raises(ValueError, match="origin"):
         audit.audit_records(tmp_path, [row], [True], [metadata], {"e1"}, 60)
@@ -208,7 +208,45 @@ def test_missing_arrival_cannot_bypass_complete_native_origin_guard(tmp_path):
     item["second"] = 19.23
     del item["arrMin"]
     path = tmp_path / metadata["local_path"]
-    path.write_text(json.dumps({"items": [item]}))
+    path.write_text(json.dumps({"items": [item], "page": 1}))
     metadata["sha256"] = sha256(path)
     with pytest.raises(ValueError, match="origin"):
         audit.audit_records(tmp_path, [row], [True], [metadata], {"e1"}, 60)
+
+
+@pytest.mark.parametrize("escaped", [False, True])
+def test_explicit_pagination_evidence_controls_inherited_parent_page(tmp_path, escaped):
+    metadata, row, _ = audited_fixture(tmp_path)
+    parent = source(tmp_path, "recovery-ncei-parent", "e1", escaped=escaped)
+    proof = tmp_path / "artifacts/generated/ntwc-batch/recovery-execution-v1/fixture-check.json"
+    proof.parent.mkdir(parents=True, exist_ok=True)
+    proof.write_text("{}")
+    station = json.loads(json.loads(metadata["notes"])["station_metadata"])
+    station["page"] = 1
+    station["pagination_evidence"] = {
+        "page_requested": 2,
+        "total_pages": 3,
+        "page1_source_id": parent["source_id"],
+        "page1_sha256": parent["sha256"],
+        "qa_receipt": str(proof.relative_to(tmp_path)),
+        "qa_sha256": sha256(proof),
+    }
+    metadata["url"] = metadata["url"].replace("page=1", "page=2")
+    metadata["notes"] = json.dumps({"station_metadata": json.dumps(station)})
+    path = tmp_path / metadata["local_path"]
+    response = json.loads(path.read_text())
+    response["page"] = 2
+    path.write_text(json.dumps(response))
+    metadata["sha256"] = sha256(path)
+    results, pins = audit.audit_records(tmp_path, [row], [True], [metadata, parent], {"e1"}, 60)
+    assert results[0]["assessment"] == "assessed"
+    assert pins[str(proof.relative_to(tmp_path))] == sha256(proof)
+    proof.write_text("tampered")
+    with pytest.raises(ValueError, match="pagination"):
+        audit.prepare_sources(tmp_path, [row], [metadata, parent], {"e1"})
+
+    proof.write_text("{}")
+    station["pagination_evidence"]["total_pages"] = True
+    metadata["notes"] = json.dumps({"station_metadata": json.dumps(station)})
+    with pytest.raises(ValueError, match="pagination"):
+        audit.prepare_sources(tmp_path, [row], [metadata, parent], {"e1"})

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "analysis/arrival/model_source_components.py": "170582948596b938a3cd896016bf369fd9e9a3bf4b21901b70b9089ce1bb754c",
+    "config/arrival-source-component-audit-v1.toml": "b6017e18c44045627130cd57c04abff68c9c123cf19da2c11fc49315faa3d721",
+    "scripts/audit_arrival_source_components.py": "3f4a4d7e6b64589b89869e48c85a9b9c6e4e8abfda7d0c2d8d26871600015991",
+    "tests/test_arrival_source_components.py": "af95c3e433d7e9a32f5f0f06ec2c834b5d2124b1e1692ef7dd8058584de82ee8"
+  },
+  "independent_checks": [
+    "22 synthetic tests",
+    "origin guard independent of missing arrival fields",
+    "pinned UTC native origin preflight before raw parse",
+    "all selected hashes checked before first raw parse",
+    "strict posthoc greater-than60min threshold; signed range[-720,720)",
+    "all1070 frozenexploration records and1064primary roles unchanged"
+  ],
+  "independent_synthetic_tests": 24,
+  "native_item_identity": "immutable page hash plus frozen one-based item position; no independent native-ID column in exploration table",
+  "previous_attempt": "metadata_preflight_failed_before_any_raw_JSON_parse;preserved",
+  "previous_design": "artifacts/models/arrival-timing/source-component-audit-design-v1/review-acceptance.json",
+  "previous_source_commit": "21794f3",
+  "protected_outcomes": "19 inspected confirmation and18 reserved not parsed",
+  "revision": "two subsequent Tohoku pages inherit parent page1; explicit pagination evidence binds requestedpage, parent event/hash, QA hash and response page",
+  "schema_version": "arrival_component_census_design_acceptance_v1",
+  "scientific_rule_change": false,
+  "scope": "read-only internal field consistency; no physical accuracy, causal explanation, value correction, exclusion or model selection",
+  "status": "accepted_for_bounded_exploration_component_census"
+}
