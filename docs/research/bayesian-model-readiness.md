@@ -285,10 +285,13 @@ compared models. Its gain over the constant-spread hierarchy is 0.394 nats/repor
 with a descriptive 95% sequence-cluster interval [−0.214, 1.002]. One two-event
 sequence contributes 0.301 to that gain; re-averaging the other 31 event scores
 gives 0.098. This removes score contributions only, without refitting the models.
-The influential sequence contains a native record flagged for possible disagreement
-between arrival-clock and travel-duration components. A consistently applied
-source-field audit is pending; actual influential-sequence refits also remain
-necessary before selection.
+The [source-component census](../../artifacts/models/arrival-timing/native-time-component-census-v1/findings.md)
+assesses 1,050 of the 1,064 primary NCEI records; 14 lack arrival components needed
+for that check. Four records across four events exceed the posthoc 60-minute
+time-of-day discrepancy threshold, including the influential singleton. Two are
+just above the threshold. These flags establish neither erroneous timing nor a
+replacement value. All targets and eligibility remain unchanged; actual
+source-quality and influential-sequence sensitivity refits precede selection.
 
 The varying-spread model substantially narrows the excessively broad far-distance
 predictions. Its equal-event 90% coverage estimate below 500 km is 82.0% across

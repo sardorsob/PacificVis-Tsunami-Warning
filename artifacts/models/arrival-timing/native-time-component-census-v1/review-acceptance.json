@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "all_records": 1070,
+    "assessed_all": 1056,
+    "assessed_primary": 1050,
+    "authorized_exploration_pages": 35,
+    "flagged": 4,
+    "flagged_events": 4,
+    "input_pins": 50,
+    "max_independent_decimal_residual_difference_minutes": 1.14e-13,
+    "native_origin_mismatches": 0,
+    "outputs_replayed_byte_identically": 6,
+    "primary_records": 1064,
+    "unassessed": 14
+  },
+  "files": {
+    "artifacts/models/arrival-timing/native-time-component-census-v1/cohort-summary.csv": "8b8ef3e2d8199ad31a751288605952bc259cf6468ad47390105304e761669af6",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/event-summary.csv": "141b0a16e78f70989bf00438499b60065b3976bcb410601a4d48565b0a522706",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/findings.md": "69b6abb2069b3fec3808b45d307b5c2d99376c5be5e7f7fe24cf46252a6c3f67",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/inputs.json": "a6293c0ed6cd7c079dbc210c4d12bfefd384f98f20de099350567ca2fb145111",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/native-time-component-records.csv": "8d98ab9c858550d3895b25189551c2c1ff7464cfb0a93afab87c68250c142e7a",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/output-checksums.json": "e3267f7b7c20b6f2b7186697cf02661e8dc2274e4be3d15e89b924ea1d41ceef",
+    "artifacts/models/arrival-timing/native-time-component-census-v1/summary.json": "c4b910d4ede647e5d96ed09b3d6b6a5c7636332f3eb3d57de1fa60a7c41c935f"
+  },
+  "qualifications": [
+    "threshold60minutes is posthoc triage, not accuracy tolerance",
+    "Kwajalein and Honolulu just above60minutes; not proof of incorrect timing",
+    "small residual can conceal day offsets, compensating errors or event association errors",
+    "14missingarrivalcomponents remainunassessed; originaldurationtargets retained",
+    "no confirmation/reserved outcomes parsed; no historical pair recovered"
+  ],
+  "schema_version": "arrival_native_components_acceptance_v1",
+  "scope": "source-field consistency only; no correction, exclusion or specification choice",
+  "source_commit": "5adb301d8e52eba33e64fb5fff0fec38c474dc85",
+  "status": "accepted_exploration_source_component_census"
+}

@@ -1,0 +1,31 @@
+{
+  "cohorts": [
+    {
+      "assessed": 1056,
+      "cohort": "all_exploration",
+      "event_id": "all",
+      "flagged": 4,
+      "flagged_events": 4,
+      "flagged_fraction_all": 0.003738317757009346,
+      "flagged_fraction_assessed": 0.003787878787878788,
+      "records": 1070,
+      "unassessed": 14
+    },
+    {
+      "assessed": 1050,
+      "cohort": "primary",
+      "event_id": "all",
+      "flagged": 4,
+      "flagged_events": 4,
+      "flagged_fraction_all": 0.0037593984962406013,
+      "flagged_fraction_assessed": 0.0038095238095238095,
+      "records": 1064,
+      "unassessed": 14
+    }
+  ],
+  "selection": "none; original values, eligibility and definition flags unchanged",
+  "unassessed_reasons": {
+    "missing_or_nonfinite_components:arrDay,arrHour,arrMin": 12,
+    "missing_or_nonfinite_components:arrMin": 2
+  }
+}
