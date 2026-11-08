@@ -1,0 +1,36 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0014385699045527047,
+    "max_rhat": 1.0010869165936493,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9566250659603093,
+    "min_ess_bulk": 2577.2560106145793,
+    "min_ess_tail": 3649.6197220786626,
+    "screen_passed": true
+  },
+  "held_loglikelihood": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-002-path-v1/primary-node-04.loglikelihood.npz",
+  "held_loglikelihood_sha256": "cf2e4dd0f0fac6a016cb679e945d227fb70031c54602c4aa8291c4b8c91dac0b",
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "event_id": "official20110311054624120_30",
+    "id": "primary-node-04",
+    "kind": "mean-curvature",
+    "node": 4,
+    "path_role": "primary",
+    "prior": "base",
+    "seed": 2856112904,
+    "sequence": "seq-official20110311054624120_30",
+    "target": "NCEI-native-duration",
+    "temperature": 0.0625,
+    "tune": 1000
+  },
+  "likelihood_measure": "log_ratio_response_explicit_alpha_beta_gamma_new_u_integrated",
+  "posterior": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-002-path-v1/primary-node-04.nc",
+  "posterior_sha256": "b081f2450edb4706ba9054983ef068c8c909db10418f64065fafff6926b92009",
+  "reserved_outcomes": "sealed",
+  "status": "node_computed_pending_review"
+}
