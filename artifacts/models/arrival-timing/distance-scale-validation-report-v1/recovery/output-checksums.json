@@ -1,0 +1,10 @@
+{
+  "attempt-diagnostics.csv": "d96c6c84f4c60b294bc06368014c2eefe268a6a64ef6f5b95961dac52aeb63ea",
+  "findings.md": "8ff454f6315bf9e88540cac0c731cc0a35a394d1a2f10c919b69aac7bf3fa7c3",
+  "inputs.json": "de5dede06b4fde168057112e3742bc0c60b9e9fb936c1304b1b71660c5d7b58b",
+  "parameter-estimates-by-dataset.csv": "8c6aa5f897e190fc07a6851b8572ce3787b1f179b82a549495a47fea09198e72",
+  "recovery-bias-coverage-and-contraction.csv": "1e6502bd0799b7aa3a4a2060f54bc0614aec8ae5336b611981a8d902dec672e1",
+  "simulation-uncertainty.png": "784ec09b946d0301b62152fdcc40fae778732e980d5d319ec2c830669c0adcf0",
+  "simulation-uncertainty.svg": "63aec19a7bb17fa18644552276870024f3aa79fb74b713b4c6e20dbae09ed236",
+  "status.json": "0c119ccb9818f6fd1741b3f708ab8e00c5b7d3b084d7d4a8a5c654e2888d363c"
+}

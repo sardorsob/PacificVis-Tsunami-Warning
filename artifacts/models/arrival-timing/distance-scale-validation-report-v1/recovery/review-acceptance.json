@@ -1,0 +1,17 @@
+{
+  "aggregate_cells": 24,
+  "calls": 45,
+  "coverage_range": "12/15..15/15",
+  "datasets": 45,
+  "estimates": 360,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "independent_checker": "/root/ms2_scientific_results_checker",
+  "limits": [
+    "15_reps_per_setting_imprecise",
+    "not_adequacy_or_physical_accuracy",
+    "SBC_and_actual_fit_gate_pending"
+  ],
+  "manifest_sha256": "ad2c1bc106d2aa81cf37b26b6c0e4a76387f967329b82a8d67989e2b4a9355b4",
+  "reserved_outcomes": "sealed",
+  "status": "accepted_recovery_only_SBC_pending"
+}

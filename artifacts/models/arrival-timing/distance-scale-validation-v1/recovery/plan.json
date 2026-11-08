@@ -1,0 +1,1164 @@
+{
+  "base_git_sha": "6f485889ac6a9a1b4f40351bd4039f7e51d79287",
+  "cases": [
+    {
+      "id": "constant-spread-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71261907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "constant-spread-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71262507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.3,
+            0.3,
+            0.3
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "constant-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71271907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "decreasing-spread-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71272507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.6,
+            0.3,
+            0.08
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "decreasing-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71281907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "nonmonotone-spread"
+    },
+    {
+      "id": "nonmonotone-spread-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 1000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 71282507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma_anchor": [
+            0.15,
+            0.5,
+            0.2
+          ],
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "nonmonotone-spread"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scale_validation.py": "8d9b6fab7e94402f9dc63268fe431289eb82c452d72bdc3e05e1f1c64a8dd8a2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/distance-scale-prior-v1/review-acceptance.json": "730e60286aad03d5b11ee17484f6717005aa5991821b26327dc280902773189c",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T05:42:03.223216+00:00",
+  "max_calls": 60,
+  "max_posterior_bytes": 2147483648,
+  "parent_budget": null,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "recovery",
+  "protocol": "distance-scale",
+  "schema_version": "arrival_validation_batch_v1",
+  "target": "NCEI-native-duration",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

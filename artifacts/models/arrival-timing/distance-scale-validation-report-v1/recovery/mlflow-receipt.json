@@ -1,0 +1,8 @@
+{
+  "bundle_fingerprint": "ad2c1bc106d2aa81cf37b26b6c0e4a76387f967329b82a8d67989e2b4a9355b4",
+  "scenario_runs": {
+    "constant-spread": "10d2405c2d0a4b31a0fde42604d36087",
+    "decreasing-spread": "b3ae612ad06b46bdb94068bb13abdf3b",
+    "nonmonotone-spread": "1a16aad94a3a45e1b3fa61caaf8d950f"
+  }
+}

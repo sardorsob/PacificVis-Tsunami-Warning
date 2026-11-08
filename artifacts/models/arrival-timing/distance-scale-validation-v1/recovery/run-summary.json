@@ -1,0 +1,13 @@
+{
+  "calls_used": 45,
+  "completed_datasets": 45,
+  "computational_completion_only": true,
+  "max_calls": 60,
+  "phase": "recovery",
+  "plan_sha256": "2b9848a14954711606318a6efc9da2d26c0dbc0aa9edf2f6a71f390611ba0d88",
+  "planned_datasets": 45,
+  "protocol": "distance-scale",
+  "scientific_acceptance": "pending_review",
+  "status": "computations_complete",
+  "target": "NCEI-native-duration"
+}
