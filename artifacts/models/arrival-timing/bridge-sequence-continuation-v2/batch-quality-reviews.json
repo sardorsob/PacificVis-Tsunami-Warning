@@ -1,8 +1,8 @@
 {
-  "direct_accepted_folds": 36,
-  "externally_resolved_folds": 3,
-  "global_call_slots": 193,
-  "global_logical_completed_folds": 50,
+  "direct_accepted_folds": 49,
+  "externally_resolved_folds": 4,
+  "global_call_slots": 221,
+  "global_logical_completed_folds": 64,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -255,11 +255,102 @@
       "events": 1,
       "max_normalized_mcse": 0.00011426332222564719,
       "min_bridge_overlap": 0.9997410464755547
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-26",
+      "events": 1,
+      "max_normalized_mcse": 0.002238670874380517,
+      "min_bridge_overlap": 0.9838805964106148
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-26",
+      "events": 1,
+      "max_normalized_mcse": 0.0005365144509024953,
+      "min_bridge_overlap": 0.9983987465095351
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-27",
+      "events": 1,
+      "max_normalized_mcse": 0.0006270228955385356,
+      "min_bridge_overlap": 0.9987252714875525
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-27",
+      "events": 1,
+      "max_normalized_mcse": 0.00045131025977387864,
+      "min_bridge_overlap": 0.9996848264604041
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-28",
+      "events": 1,
+      "max_normalized_mcse": 0.0022314788671753127,
+      "min_bridge_overlap": 0.9845747002538852
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-28",
+      "events": 1,
+      "max_normalized_mcse": 0.000548388874429725,
+      "min_bridge_overlap": 0.9989419788094184
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-29",
+      "events": 1,
+      "max_normalized_mcse": 0.0007325891626537915,
+      "min_bridge_overlap": 0.9983843899047105
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-29",
+      "events": 1,
+      "max_normalized_mcse": 0.00041989365421632555,
+      "min_bridge_overlap": 1.0000498296404727
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-02",
+      "events": 1,
+      "max_normalized_mcse": 0.0003806444436458802,
+      "min_bridge_overlap": 0.4063628670607889
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-03",
+      "events": 1,
+      "max_normalized_mcse": 0.00035189154063796946,
+      "min_bridge_overlap": 0.5532510463326777
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-04",
+      "events": 1,
+      "max_normalized_mcse": 0.00031659652350263126,
+      "min_bridge_overlap": 0.9721437208483006
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-05",
+      "events": 1,
+      "max_normalized_mcse": 0.00037741142030141804,
+      "min_bridge_overlap": 0.9696750500066964
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-06",
+      "events": 1,
+      "max_normalized_mcse": 0.00033253652106724716,
+      "min_bridge_overlap": 0.9788895076148688
     }
   ],
-  "logical_completed_folds": 39,
+  "logical_completed_folds": 53,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 159,
+  "remaining_global_slots": 131,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }

@@ -13,5 +13,10 @@
     "new_sampler_calls": 0,
     "path": "artifacts/models/arrival-timing/event-score-cubature-v2/NCEI-native-duration-event-fold-20/review-acceptance.json",
     "sha256": "2aa69120cecbb33891ab5c143a16b3ed8382f89f914c78f675050927571a003f"
+  },
+  "T-OBS-event-fold-01": {
+    "new_sampler_calls": 0,
+    "path": "artifacts/models/arrival-timing/event-score-cubature-v3/T-OBS-event-fold-01/review-acceptance.json",
+    "sha256": "b4609f800d1ac44ea85a7c0727a3a7ac6170771a5ab731ec71f11c71abe3c8da"
   }
 }

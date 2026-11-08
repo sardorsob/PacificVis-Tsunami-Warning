@@ -1,0 +1,58 @@
+{
+  "case_id": "T-OBS-event-fold-01",
+  "events": [
+    {
+      "error_scope": "routine_estimates_refinement_and_independent_tensor_checks_not_rigorous_bound",
+      "event_id": "us20003k7a",
+      "independent_conditional_raw_difference": 0.0,
+      "joint_log_predictive": -538.5373606496206,
+      "kind": "event",
+      "max_refinement_agreement_nats_per_record": 7.201928975667025e-12,
+      "monte_carlo_used": false,
+      "native_jacobian_subtracted_once": 514.5968263788349,
+      "new_sampler_calls": 0,
+      "normalized_event_score": -6.262062333135123,
+      "normalized_mcse": "not_applicable",
+      "numerical_error_estimate_per_record": 2.3138768768983465e-09,
+      "precision_passed": true,
+      "records": 86,
+      "reserved_outcomes": "sealed",
+      "sequence": "seq-us20003k7a",
+      "status": "computed_pending_independent_review",
+      "target": "T-OBS"
+    }
+  ],
+  "fold_score": {
+    "deterministic_error_scope": "routine_estimates_and_refinement_not_rigorous_bounds",
+    "deterministic_event_scores": 1,
+    "equal_event_score": -6.262062333135123,
+    "event_precision_passed": true,
+    "events": 1,
+    "mcse_equal_event_score": 0.0,
+    "mcse_scope": "shared_training_covariance_of_MC_subset_no_MC_error_assigned_to_cubature",
+    "mean_deterministic_error_estimate": 2.3138768768983465e-09,
+    "mean_deterministic_refinement_agreement": 7.201928975667025e-12,
+    "min_MC_bridge_overlap": "not_applicable",
+    "monte_carlo_used": false
+  },
+  "job": {
+    "bridge_gate": "artifacts/models/arrival-timing/bridge-validation-report-v1/review-acceptance.json",
+    "cores": 2,
+    "draws": 2000,
+    "gate": "artifacts/models/arrival-timing/source-validation-report-v1/T-OBS/review-acceptance.json",
+    "kind": "event",
+    "prior": "base",
+    "seed": 1426210800,
+    "sequence": "seq-us20003k7a",
+    "target": "T-OBS",
+    "tune": 1000
+  },
+  "new_sampler_calls": 0,
+  "original_failed_integral": "retained_and_unusable_not_averaged",
+  "reserved_outcomes": "sealed",
+  "source_result": "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-OBS-event-fold-01-attempt-1/result.json",
+  "source_result_sha256": "57a1d989c46780113f08d096314a5c6f117a41c1e831a6fad0d15b9c6cc6d189",
+  "status": "computed_pending_independent_actual_review",
+  "training_only_predictions": "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-OBS-event-fold-01-attempt-1/held-out-record-predictions.csv",
+  "training_only_predictions_sha256": "7ae661626782587181d9e8ad60302a0c5ad1d791dddd1bee0be90e262e67b73d"
+}
