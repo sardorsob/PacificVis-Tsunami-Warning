@@ -1,0 +1,19 @@
+{
+  "completed_folds": 28,
+  "external_sampler_call_slots": 32,
+  "externally_resolved_folds": 2,
+  "fold_attempts": 31,
+  "global_calls_reserved": 141,
+  "logical_completed_folds": 39,
+  "logical_fold_total": 83,
+  "max_sampler_calls": 313,
+  "original_failure_outcomes": "retained_without_relabeling",
+  "plan_sha256": "5abc455d00869b5c0cb26730dfc7ebcb1cd82e849a49378bca351d16a9b61d10",
+  "planned_folds": 72,
+  "prior_call_slots": 39,
+  "raw_bytes_used": 258604421,
+  "remaining_global_calls": 211,
+  "sampler_calls_reserved": 102,
+  "scientific_acceptance": "pending_independent_review",
+  "status": "needs_review"
+}
