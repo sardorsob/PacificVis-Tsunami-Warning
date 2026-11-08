@@ -1,8 +1,8 @@
 {
-  "direct_accepted_folds": 65,
+  "direct_accepted_folds": 66,
   "externally_resolved_folds": 6,
-  "global_call_slots": 264,
-  "global_logical_completed_folds": 82,
+  "global_call_slots": 266,
+  "global_logical_completed_folds": 83,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -458,11 +458,18 @@
       "events": 1,
       "max_normalized_mcse": 0.0007272588871757545,
       "min_bridge_overlap": 0.9982004512730714
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-12",
+      "events": 1,
+      "max_normalized_mcse": 0.0010026152874553426,
+      "min_bridge_overlap": 0.9963550836765646
     }
   ],
-  "logical_completed_folds": 71,
+  "logical_completed_folds": 72,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 88,
+  "remaining_global_slots": 86,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }
