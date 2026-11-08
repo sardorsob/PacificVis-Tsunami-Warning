@@ -1,0 +1,11 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "first_event_id": "official20100227063411530_30",
+  "id": "sbc-013",
+  "model": "mean-curvature",
+  "phase": "sbc",
+  "seed": 2836112100,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}
