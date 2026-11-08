@@ -1,0 +1,6 @@
+{
+  "readback": "verified_finished_parameters_metrics_artifacts",
+  "review_fingerprint": "0e11994f9a316f5af5b982736e7f330ec8545c90bcbf054810188da16b1cfa19",
+  "run_id": "e691689fb287481ebb30e63963f28119",
+  "tracking_uri": ".mlflow/mlruns"
+}

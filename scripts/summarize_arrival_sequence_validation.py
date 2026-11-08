@@ -64,7 +64,7 @@ def figures(tables, output):
         )
         ax.invert_yaxis()
         ax.grid(axis="x", alpha=0.2)
-    fig.suptitle("Compare models within each reported-timing source", fontsize=18)
+    fig.suptitle("Model gains depend on source and sequence", fontsize=18)
     fig.supxlabel(
         "Equal-event mean; descriptive 95% sequence-cluster intervals.\n"
         "Positive favors the first model.\n"
@@ -111,7 +111,7 @@ def figures(tables, output):
             ylabel="Equal-event empirical CDF",
             aspect="equal",
         )
-        ax.legend(loc="upper left", fontsize=12, frameon=False)
+        ax.legend(loc="center left", bbox_to_anchor=(1.03, 0.5), fontsize=12, frameon=False)
     fig.suptitle("Held-sequence calibration remains a model check", fontsize=18)
     fig.supxlabel(
         "Marginal PIT; shaded 95% sequence-bootstrap sup-norm bands:\n"
@@ -169,10 +169,18 @@ def report(root, output):
         "of reports; events then receive equal weight. Higher scores indicate better prediction "
         "within the same source and evidence cohort.",
         "",
+        "For both duration targets, every comparator already contains the fixed "
+        "distance-based reference t0(d). Distance regression adds a learned log-distance "
+        "adjustment; the event hierarchy adds partially pooled event offsets. The pooled "
+        "T-CAL comparator has a constant signed-minute mean.",
+        "",
         "| Source | Model | Reports | Events | Equal-event score | Monte Carlo SE |",
         "| --- | --- | ---: | ---: | ---: | ---: |",
     ]
-    for r in tables["model-scores"]:
+    for r in sorted(
+        tables["model-scores"],
+        key=lambda r: (TARGETS.index(r["target"]), list(LABELS).index(r["model"])),
+    ):
         se = (
             "not applicable"
             if r["monte_carlo_standard_error"] is None
@@ -182,6 +190,68 @@ def report(root, output):
             f"| {r['target']} | {LABELS[r['model']]} | {r['records']} | {r['events']} | "
             f"{r['equal_event_score']:.6f} | {se} |"
         )
+
+    def contrast(target, first, second):
+        return next(
+            r
+            for r in tables["paired-score-differences"]
+            if (r["target"], r["first_model"], r["second_model"]) == (target, first, second)
+        )
+
+    primary = contrast("NCEI-native-duration", "distance-scale", "event")
+    influence = [
+        r
+        for r in tables["sequence-score-influence"]
+        if (r["target"], r["first_model"], r["second_model"])
+        == ("NCEI-native-duration", "distance-scale", "event")
+    ]
+    leading = max(
+        influence,
+        key=lambda r: abs(r["mean_difference_without_cluster"] - primary["paired_mean_difference"]),
+    )
+    contribution = leading["difference_sum"] / primary["events"]
+    observed = contrast("T-OBS", "event", "pooled")
+    calibration = contrast("T-CAL", "event", "distance")
+    near = next(
+        r
+        for r in tables["predictive-calibration-by-stratum"]
+        if (r["target"], r["model"], r["stratum"])
+        == ("NCEI-native-duration", "distance-scale", "under-500km")
+    )
+    lines += [
+        "",
+        f"For NCEI durations, varying spread has the highest score among these four models. "
+        f"Its paired gain over constant-spread hierarchy is "
+        f"{primary['paired_mean_difference']:.3f} "
+        f"nats/report, with a descriptive 95% sequence interval "
+        f"[{primary['sequence_cluster_ci95_lower']:.3f}, "
+        f"{primary['sequence_cluster_ci95_upper']:.3f}]. "
+        "This interval does not establish a clear advantage over that hierarchy.",
+        "",
+        f"Sequence `{leading['sequence']}` contains {leading['events']} events and contributes "
+        f"{contribution:.3f} nats/report to that "
+        f"{primary['paired_mean_difference']:.3f} mean gain. "
+        f"Re-averaging the other {primary['events'] - leading['events']} event scores gives "
+        f"{leading['mean_difference_without_cluster']:.3f}. This deletes score contributions only: "
+        "the other models were not refitted without this sequence. Source-field and whole-sequence "
+        "sensitivity checks remain necessary before selection.",
+        "",
+        f"For reports under 500 km, the varying-spread model's equal-event 90% coverage estimate "
+        f"is {near['equal_event_coverage90']:.1%} across {near['events']} events. "
+        f"Together with the "
+        "earlier conditional predictive discrepancies, this motivates the bounded mean-form "
+        "revisit; broad overall coverage alone would hide this stratum.",
+        "",
+        f"For NTWC observed durations, hierarchy minus pooled reference is "
+        f"{observed['paired_mean_difference']:.3f} "
+        f"[{observed['sequence_cluster_ci95_lower']:.3f}, "
+        f"{observed['sequence_cluster_ci95_upper']:.3f}]. "
+        f"For signed timing differences, hierarchy minus distance regression is "
+        f"{calibration['paired_mean_difference']:.3f} "
+        f"[{calibration['sequence_cluster_ci95_lower']:.3f}, "
+        f"{calibration['sequence_cluster_ci95_upper']:.3f}]. "
+        "Neither establishes a clear predictive gain. No specification is selected here.",
+    ]
     lines += [
         "",
         "![Paired score differences and descriptive sequence-cluster "
