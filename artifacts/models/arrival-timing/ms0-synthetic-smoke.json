@@ -1,0 +1,50 @@
+{
+  "backend": "nutpie",
+  "backend_attributes": "{'created_at': '2026-11-08T01:58:50.052068+00:00', 'creation_library': 'ArviZ', 'creation_library_version': '1.3.1', 'creation_library_language': 'Python', 'sample_dims': ['chain', 'draw'], 'inference_library': 'nutpie', 'inference_library_version': '0.16.11', 'sampling_time': 0.03550314903259277, 'tuning_steps': 100}",
+  "chains": 2,
+  "code_and_environment": {
+    "analysis/arrival/model_stack.py": "35411b859119458407e3ae9adda4e7bd7318b4c25c938196eb05c57511fadd9c",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/arrival_model.py": "cc55bc798ed65a39f6ac4443af3fa2c83586b94cda2ba901e7db4211100b702f",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "dirty_paths": [
+    " M docs/research/bayesian-model-readiness.md",
+    " M pyproject.toml",
+    " M uv.lock",
+    "?? analysis/arrival/model_data.py",
+    "?? analysis/arrival/model_evidence.py",
+    "?? analysis/arrival/model_stack.py",
+    "?? artifacts/models/",
+    "?? config/arrival-model-contract-v1.toml",
+    "?? scripts/arrival_model.py",
+    "?? tests/test_arrival_model_data.py",
+    "?? tests/test_arrival_model_evidence.py",
+    "?? tests/test_arrival_model_stack.py"
+  ],
+  "divergences": 0,
+  "draws_per_chain": 100,
+  "finite_log_likelihood": true,
+  "git_sha": "8cd70bafeb59985ce07547c9542b29fb7e3cd658",
+  "netcdf_sha256": "3991d9bad32e84411fe1b1756eadfb374b6b2e6a3644ac561c11c1af630143d5",
+  "posterior_predictive_checked": true,
+  "prior_predictive_checked": true,
+  "save_reload_equal": true,
+  "scientific_model_fitted": false,
+  "seed": 20261107,
+  "synthetic_sampler_used": true,
+  "tune": 100,
+  "versions": {
+    "arviz": "1.3.0",
+    "arviz-base": "1.3.1",
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "h5py": "3.16.0",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "preliz": "0.28.0",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8",
+    "xarray": "2026.9.0"
+  }
+}

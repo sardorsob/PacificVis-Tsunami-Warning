@@ -19,6 +19,46 @@ then test their implications before fitting. EDA cannot establish all the detail
 of a latent process; simulation and model criticism will resolve some questions
 that more descriptive plots cannot.
 
+## Reproduce the model-data contract
+
+The model data builder reads three hash-pinned exploration tables and outcome-free
+metadata. It exports source rows, model inclusion decisions and exact
+leave-one-sequence-out folds. It does not parse confirmation or reserved outcomes.
+
+```bash
+uv sync --locked
+uv run python scripts/arrival_model.py data --output /tmp/arrival-model-data
+uv run python scripts/arrival_model.py lineage --receipt /tmp/arrival-repeat-review.json
+uv run python scripts/arrival_model.py stack \
+  --store /tmp/arrival-synthetic.nc --receipt /tmp/arrival-stack.json
+```
+
+Use new output paths for each run. Add `--register` to the data command to log
+the bundle in the project-local `arrival-model` MLflow experiment. If registration
+fails after the bundle is written, use `arrival_model.py register --bundle PATH`;
+it checks for an existing receipt/run before retrying. The stack command fits
+known synthetic values to test nutpie, predictive APIs and NetCDF serialization.
+It provides no scientific arrival-model result.
+
+The [contract](../../config/arrival-model-contract-v1.toml) preserves 1,070 NCEI,
+236 NTWC-duration and 156 timing-discrepancy exploration rows. The primary NCEI
+view uses **1,064 rows**: all six records on three repeated event/site edges are
+withheld together because their measurement ancestry is unresolved. This rule
+uses identity, rather than agreement or residual size. No source value is changed.
+The [source review](../../artifacts/models/arrival-timing/repeated-edge-source-review.json)
+records the native IDs for Midway (2007 Peru), Makapuu (2012 Haida Gwaii) and
+Naha (2011 Tōhoku); distinct catalog IDs do not prove independent measurements.
+Representative-record or dependence sensitivities remain future checks. Two
+previously flagged definition-conflict candidates stay included as native reports,
+with an explicit exclusion sensitivity required before final model selection.
+
+The [data bundle](../../artifacts/models/arrival-timing/exploration-contract-v1/contract.json)
+contains the scientific contract, source/input/code identities and record-level
+folds. All rows from a related source sequence leave training together; held-out
+site familiarity is computed from training rows only. The fixed predictor
+`ln(distance_km/1000)` uses no empirical centering across folds. Display precision
+is retained as metadata; it does not become an invented arrival-accuracy bound.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

@@ -1,0 +1,11 @@
+{
+  "NCEI-native-duration.csv.gz": "790185250ed3be7658bd182fa61544d2315f9637ed58797569a07d312f2cbf13",
+  "T-CAL.csv.gz": "0c8f936fc3201b3a378f2fce9bce787e1c692a66e9d852fef658c8fa3226136d",
+  "T-OBS.csv.gz": "cd6ff024df1c6529c52d7597010594dfe2a0ca9e97a71734d23502bd6c2c514d",
+  "contract.json": "28f17d216d0451028c8bf6da53da767035142ec025758b872f51cb7995f1792a",
+  "fold-membership.csv.gz": "c7fed9f85356ad30342fba2c5ac8f1d96db39f7d198137b63cda395c48900807",
+  "inputs.json": "0553546e050b20b5fd00c74cc5255fa3c431275b9057069d2ea9d6dfd269245f",
+  "metrics.json": "d7eee9fe774c81cd08ef0ef671d69cd9ced6f0cd03ce2a89169d203f72f30671",
+  "run-metadata.json": "af0cb0a92df43a855a126b54d35ed271c68f05522d0544c3d9a51c9e066c5446",
+  "upstream-input-manifest.json": "d6df390b5e21a8514434e0a56d6965b84a33c45e565195b419cab9caa601febd"
+}

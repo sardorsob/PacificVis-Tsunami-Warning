@@ -1,0 +1,26 @@
+{
+  "code_and_environment": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/arrival_model.py": "cc55bc798ed65a39f6ac4443af3fa2c83586b94cda2ba901e7db4211100b702f",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "dirty_paths": [
+    " M pyproject.toml",
+    " M uv.lock",
+    "?? analysis/arrival/model_data.py",
+    "?? analysis/arrival/model_evidence.py",
+    "?? analysis/arrival/model_stack.py",
+    "?? artifacts/models/",
+    "?? config/arrival-model-contract-v1.toml",
+    "?? scripts/arrival_model.py",
+    "?? tests/test_arrival_model_data.py",
+    "?? tests/test_arrival_model_evidence.py",
+    "?? tests/test_arrival_model_stack.py"
+  ],
+  "git_sha": "8cd70bafeb59985ce07547c9542b29fb7e3cd658",
+  "scientific_model_fitted": false,
+  "seed": 20261107,
+  "stage": "MS-0"
+}
