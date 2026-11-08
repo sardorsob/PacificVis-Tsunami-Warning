@@ -1,0 +1,16 @@
+{
+  "completed_folds": 8,
+  "fold_attempts": 9,
+  "global_calls_reserved": 39,
+  "logical_completed_folds": 10,
+  "logical_fold_total": 83,
+  "max_sampler_calls": 333,
+  "plan_sha256": "49afb1615869f11102d53531bc3dc1f73a5ab77840e41a466706e48b25c1cbf9",
+  "planned_folds": 81,
+  "prior_call_slots": 19,
+  "raw_bytes_used": 71466796,
+  "remaining_global_calls": 313,
+  "sampler_calls_reserved": 20,
+  "scientific_acceptance": "pending_independent_review",
+  "status": "needs_review"
+}

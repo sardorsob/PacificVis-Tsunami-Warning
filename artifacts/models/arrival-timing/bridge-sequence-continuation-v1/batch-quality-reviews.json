@@ -1,0 +1,47 @@
+{
+  "completed_folds": 6,
+  "global_call_slots": 31,
+  "inspected_attempts": [
+    {
+      "case": "NCEI-native-duration-event-fold-02",
+      "event_count": 1,
+      "max_normalized_mcse": 0.0001025416836323004,
+      "min_overlap": 0.5591611026829161
+    },
+    {
+      "case": "NCEI-native-duration-distance-scale-fold-02",
+      "event_count": 1,
+      "max_normalized_mcse": 0.00023600372931772802,
+      "min_overlap": 0.25015535723352217
+    },
+    {
+      "case": "NCEI-native-duration-event-fold-03",
+      "event_count": 1,
+      "max_normalized_mcse": 0.0001639489935346903,
+      "min_overlap": 0.444733134491535
+    },
+    {
+      "case": "NCEI-native-duration-distance-scale-fold-03",
+      "event_count": 1,
+      "max_normalized_mcse": 0.00023031535458607248,
+      "min_overlap": 0.3093086005756196
+    },
+    {
+      "case": "NCEI-native-duration-event-fold-04",
+      "event_count": 1,
+      "max_normalized_mcse": 7.860797610886529e-05,
+      "min_overlap": 0.8596103805794726
+    },
+    {
+      "case": "NCEI-native-duration-distance-scale-fold-04",
+      "event_count": 1,
+      "max_normalized_mcse": 0.0001566241802438202,
+      "min_overlap": 0.5813908363605024
+    }
+  ],
+  "new_call_slots": 12,
+  "prior_call_slots": 19,
+  "remaining_global_slots": 321,
+  "reserved_outcomes": "sealed",
+  "scope": "root_retained_hash_diagnostic_prediction_and_score_screen_inspections_not_final_independent_acceptance"
+}
