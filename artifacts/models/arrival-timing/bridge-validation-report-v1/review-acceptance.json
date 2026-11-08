@@ -1,0 +1,79 @@
+{
+  "adequate_overlap_accepted": 160,
+  "calibration_trials": 170,
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_bridge.py": "fd289ded6d00dd7f01f4e7400e69ecc8aac2148990f0d73d8247e769c8f7d0dc",
+    "analysis/arrival/model_bridge_cv.py": "28aa8d40df509ae6a1ee38470440836f68e99a3e543562d7603a459571f360e9",
+    "analysis/arrival/model_bridge_predictions.py": "d077cd5a6e9abb40aea13e55656747ad4b51b0f09c047a28d2583e1a572216e1",
+    "analysis/arrival/model_bridge_sampling.py": "5557f041ac7f2b31a50ab2567fdfcd1bdbaefcce48ddf1db28611aebf3f9a056",
+    "analysis/arrival/model_bridge_validation.py": "fd7f1f1d899e0a2d3a5f95e5dd97c6ce85d94dea2602843eb90b07b00be597d2",
+    "analysis/arrival/model_collapsed.py": "72dcb707e894d719b6b0330f9aeec84e0aa4e835acfdce7cf93ee565cab4b468",
+    "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/findings.md": "0ab52f990ac24b7114c28835aa536815b6b64b83856da80809a4e0ad2e34cb20",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/fixed-anchor-integration-checks.csv": "e801f5e98d23ccb9f4fb7a77f29e2e4b961e8551e019ace3c72a21c89df0257d",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/inputs.json": "34517d02587ce6c61e61c4a62d075834ce55cceeb75cfca0f22ca81b2366aa6f",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/known-normalizer-summary.csv": "35371c01118d71130404189147d55cf39c4010d5bdf534215ef17f585fa6a1b3",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/known-normalizer-trials.csv": "ed35cc018f92a0344f070f2251c4f19b47547e64e5539d74094bcde1029b4920",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/output-checksums.json": "839eb93c3506dd7ba68c2b5af73baa89d688ffe49fe0ea21313b85fc6c6b146f",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/real-event-integration-checks.csv": "d2c559c0892d0ad14e1939dd13869b776a1912e3d024fffb83270597a3435e1f",
+    "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json": "4bb8402382f54129e0cddd31fa02e97d52b4755a2c60dff01328f7e00eced061",
+    "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json": "1259d66ee15b00b7f0b08b7b2d5a3f1589a8d5632d26987e7e1f4ca300d523c4",
+    "artifacts/models/arrival-timing/source-validation-report-v1/T-CAL/review-acceptance.json": "8bf634a83c39db56630c69bbe7d5bf9d85062593a5252e2edf014bc1d7d1bfc2",
+    "artifacts/models/arrival-timing/source-validation-report-v1/T-OBS/review-acceptance.json": "062ec13ae5a4fdda318a26c283fbbb7cca197bbd1dce56591a705f0cb0e4820c",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/fit_arrival_bridge_fold.py": "c38122557db807407f52caf73bcc1a96b093b94602b5c1aeff61149e7e33d77c",
+    "scripts/run_arrival_bridge_batch.py": "e0b78f84b615da6145bfdc7a1b6624aeed02d5a48100b2fe7982dddf9f1dd44c",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "scripts/sample_arrival_bridge.py": "e27cc52d152983b63a3c2439b5ff2e9802cd018aa574232174c16f08155843db",
+    "scripts/summarize_arrival_bridge.py": "d9c0350a8cb967c9f898aa0def5c19f306dc04d82fb1b1b1bb93956f84311ef0",
+    "scripts/validate_arrival_bridge.py": "0d40dd7ac2efe685842e96f7751c1e9b79f1f6cfd13a4099b495577e6965082d",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "kinds": [
+    "event",
+    "distance-scale"
+  ],
+  "launch_protocol": "first_two_folds_then_independent_raw_results_QA_before_continuation",
+  "new_validation_sampler_call_ceiling": 4,
+  "new_validation_sampler_calls_used": 4,
+  "numerical_checker": [
+    "/root/ms4_scale_design_checker",
+    "/root/ms3_fit_checker"
+  ],
+  "poor_overlap_rejected": 10,
+  "post_review_root_verification": {
+    "corrective_regressions": "RED_then_GREEN",
+    "fixes_independently_rereviewed": false,
+    "full_python_tests": 993,
+    "pyright": "passed",
+    "ruff": "passed",
+    "runtime_findings_fixed": [
+      "immutable_resolved_raw_store",
+      "checkpoint_helper_required_in_method_gate"
+    ]
+  },
+  "prior_variant": "base",
+  "reserved_outcomes": "sealed",
+  "reviewed_source_commit": "56a2eee",
+  "runtime_checker": "/root/ms3_fit_checker",
+  "schema_version": "arrival_bridge_cv_acceptance_v1",
+  "scope": "computational_method_and_code_not_scientific_results",
+  "status": "accepted",
+  "targets": [
+    "NCEI-native-duration",
+    "T-OBS",
+    "T-CAL"
+  ]
+}

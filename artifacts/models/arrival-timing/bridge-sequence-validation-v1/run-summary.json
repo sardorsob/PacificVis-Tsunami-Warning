@@ -1,0 +1,10 @@
+{
+  "completed_folds": 1,
+  "fold_attempts": 2,
+  "max_sampler_calls": 352,
+  "plan_sha256": "e3abd94b9af2b211bf56c78db1434418f400ae7e8584fdc5cfb8b6210d819284",
+  "planned_folds": 83,
+  "sampler_calls_reserved": 4,
+  "scientific_acceptance": "pending_independent_review",
+  "status": "needs_review"
+}

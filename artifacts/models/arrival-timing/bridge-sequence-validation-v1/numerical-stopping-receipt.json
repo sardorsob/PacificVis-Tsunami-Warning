@@ -1,0 +1,16 @@
+{
+  "accepted_folds": 1,
+  "actual_sampling_start_markers": 4,
+  "all_candidate_MCMC_and_marginal_prediction_precision_screens": "passed_joint_score_not_accepted",
+  "attempted_folds": 2,
+  "disposition": "independent_rehearsal_QA_and_explicit_bounded_numerical_contingency_review",
+  "failed_attempt_result": "artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/NCEI-native-duration-distance-scale-fold-01-attempt-1/result.json",
+  "failed_attempt_result_sha256": "1c1034c3f4817561be9ff161106527ecb4c76d11c4e86a5de3afdd159b67775b",
+  "no_automatic_precision_repair_for_inadequate_overlap": true,
+  "original_state": "retained_needs_review_no_auto_resume",
+  "planned_folds": 83,
+  "reserved_outcomes": "sealed",
+  "sampler_call_ceiling": 352,
+  "sampler_calls_reserved": 4,
+  "status": "stopped_for_inadequate_bridge_overlap"
+}

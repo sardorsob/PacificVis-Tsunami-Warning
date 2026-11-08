@@ -1,0 +1,32 @@
+{
+  "accepted_folds": 1,
+  "actual_sampler_calls": 4,
+  "attempted_folds": 2,
+  "automatic_resume": "rejected",
+  "base_normalized_mcse": 0.00010273816158474433,
+  "base_score": -6.251188674314433,
+  "candidate_overlap": 6.329371349500277e-06,
+  "candidate_score_disposition": "unusable_for_model_performance",
+  "conditional_log_density_max_difference": 6.94e-12,
+  "continuation": "blocked_pending_explicit_numerical_contingency_validation",
+  "dense_Gaussian_max_difference": 3.6e-11,
+  "failure_mechanism": "saved_posteriors_separated_far_residual_SD_shift",
+  "far_SD_augmented_interval90": [
+    0.0957910283041563,
+    0.1063011487055373
+  ],
+  "far_SD_training_interval90": [
+    0.07072873401056196,
+    0.0797443970020564
+  ],
+  "independent_checker": "/root/ms3_fit_checker",
+  "original_batch_status": "needs_review",
+  "plan_sha256": "e3abd94b9af2b211bf56c78db1434418f400ae7e8584fdc5cfb8b6210d819284",
+  "prediction_rows_replayed": 542,
+  "raw_membership": "793_train_271_held",
+  "reserved_outcomes": "sealed",
+  "sampler_failure": false,
+  "source_commit": "56a2eee",
+  "status": "accepted_base_result_and_valid_numerical_stop",
+  "stopping_receipt_sha256": "63f52634301ed0a3fec0582a97e8d4d002e4663657159d6762beeb9a9045d664"
+}

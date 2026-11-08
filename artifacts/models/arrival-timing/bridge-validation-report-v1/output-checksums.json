@@ -1,0 +1,8 @@
+{
+  "findings.md": "0ab52f990ac24b7114c28835aa536815b6b64b83856da80809a4e0ad2e34cb20",
+  "fixed-anchor-integration-checks.csv": "e801f5e98d23ccb9f4fb7a77f29e2e4b961e8551e019ace3c72a21c89df0257d",
+  "inputs.json": "34517d02587ce6c61e61c4a62d075834ce55cceeb75cfca0f22ca81b2366aa6f",
+  "known-normalizer-summary.csv": "35371c01118d71130404189147d55cf39c4010d5bdf534215ef17f585fa6a1b3",
+  "known-normalizer-trials.csv": "ed35cc018f92a0344f070f2251c4f19b47547e64e5539d74094bcde1029b4920",
+  "real-event-integration-checks.csv": "d2c559c0892d0ad14e1939dd13869b776a1912e3d024fffb83270597a3435e1f"
+}
