@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import tomllib
 from collections import defaultdict
 from pathlib import Path
 from statistics import NormalDist
@@ -15,6 +16,25 @@ import numpy as np
 import xarray as xr
 
 from analysis.arrival.evidence import checked_path, read_rows, sha256, write_json, write_rows
+from analysis.arrival.model_data import CONTRACT
+
+
+def validation_design(root: Path, target: str) -> dict[str, Any]:
+    if target not in {"NCEI-native-duration", "T-OBS", "T-CAL"}:
+        raise ValueError("unknown validation source target")
+    lane = tomllib.loads((root / CONTRACT).read_text())["lanes"][target]
+    return {
+        "target": target,
+        "design_records": lane["primary_rows"],
+        "design_events": lane["events"],
+        "source_label": {
+            "NCEI-native-duration": "NCEI reported-duration",
+            "T-OBS": "NTWC T-OBS",
+            "T-CAL": "NTWC T-CAL",
+        }[target],
+        "modeled_units": "minutes" if target == "T-CAL" else "log_reference_ratio",
+        "response_definition": lane["response"],
+    }
 
 
 def csv_rows(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
@@ -216,7 +236,12 @@ def collect_batch(
             )
     complete = summary["status"] == "computations_complete" and len(accepted) == len(cases)
     return (
-        {**summary, "complete": complete, "base_git_sha": plan["base_git_sha"]},
+        {
+            **summary,
+            "complete": complete,
+            "base_git_sha": plan["base_git_sha"],
+            "target": plan.get("target", "NCEI-native-duration"),
+        },
         estimates,
         diagnostics,
         pins,
@@ -227,6 +252,8 @@ def write_validation_report(root: Path, batch: Path, output: Path) -> None:
     if output.exists():
         raise ValueError("preserve previous reports; use a new output path")
     status, estimates, diagnostics, pins = collect_batch(root, batch)
+    status.update(validation_design(root, status["target"]))
+    pins[CONTRACT] = sha256(root / CONTRACT)
     output.mkdir(parents=True)
     write_table(output / "parameter-estimates-by-dataset.csv", estimates)
     write_table(output / "attempt-diagnostics.csv", diagnostics)
@@ -234,7 +261,7 @@ def write_validation_report(root: Path, batch: Path, output: Path) -> None:
         # Same base priors as the worker; other quantities have no analytic width here.
         from analysis.arrival.models import PRIORS, read_prior
 
-        prior = read_prior(root, "NCEI-native-duration", "base")
+        prior = read_prior(root, status["target"], "base")
         pins[PRIORS] = sha256(root / PRIORS)
         normal = NormalDist()
         widths = {
@@ -271,8 +298,9 @@ def write_validation_report(root: Path, batch: Path, output: Path) -> None:
         f"{status['completed_datasets']} of {status['planned_datasets']} predefined synthetic "
         "datasets completed "
         f"in {status['calls_used']} attempts. Status: **{status['scientific_acceptance']}**. "
-        "The fixed design is the primary 1,064-record NCEI exploration view, across 33 events. "
-        "Actual reported durations were not fitted.\n\n"
+        f"The {status['source_label']} exploration design has {status['design_records']} "
+        f"approved records across {status['design_events']} events. Actual reported responses "
+        "were not fitted in these simulations.\n\n"
         "All attempts remain in the diagnostics table and original local logs/chains. "
         "Posterior estimates use accepted attempts only; repairs reuse the same dataset. "
         "Unresolved datasets prevent stage acceptance. Computation under the assumed "
@@ -283,9 +311,9 @@ def write_validation_report(root: Path, batch: Path, output: Path) -> None:
         text += (
             "Coverage is the fraction of generating values inside central posterior 90% intervals; "
             "Wilson 95% intervals describe independent simulation-replicate uncertainty. "
-            "With 30 datasets these estimates are noisy. At tau=0 a positive equal-tailed interval "
+            "These finite-replicate estimates are noisy. At tau=0 a positive equal-tailed interval "
             "cannot contain the boundary: use the reported posterior 95% upper bound. "
-            "The five-minute additive stress changes the response-generating mechanism and is "
+            "Any additive-time stress changes the response-generating mechanism and is "
             "reported separately from correct-model coverage. Width contraction is 1 minus "
             "mean posterior central-90% width / analytic prior central-90% width, "
             "not variance contraction.\n"
@@ -300,13 +328,23 @@ def write_validation_report(root: Path, batch: Path, output: Path) -> None:
             "under independent uniform ranks). Its interpretation is approximate for MCMC. "
             "A crossing calls for investigation; no crossing is not proof of correctness.\n"
         )
-    text += (
-        "\nParameter meanings: alpha is the population log median/reference ratio at 1,000 km; "
-        "beta changes that log ratio per unit ln(distance/1000). Tau_event and sigma are "
-        "between-event and record SDs on the log-ratio scale. Event_effect_first is the "
-        "first sorted event's latent log-ratio effect. Mean_response_at_5000km is "
-        "alpha+beta*ln(5), the population mean log ratio, not an arithmetic mean duration.\n"
-    )
+    if status["target"] == "T-CAL":
+        text += (
+            "\nParameter meanings: alpha is population signed estimate-minus-observation minutes "
+            "at 1,000 km; beta changes that mean per unit ln(distance/1000). Tau_event "
+            "and sigma are between-event and record SDs in minutes. Event_effect_first "
+            "is the first sorted event's latent minute effect. Mean_response_at_5000km "
+            "is alpha+beta*ln(5), a signed-minute population mean. This retrospective "
+            "archive discrepancy is not operational warning performance.\n"
+        )
+    else:
+        text += (
+            "\nParameter meanings: alpha is the population log median/reference ratio at 1,000 km; "
+            "beta changes that log ratio per unit ln(distance/1000). Tau_event and sigma are "
+            "between-event and record SDs on the log-ratio scale. Event_effect_first is the "
+            "first sorted event's latent log-ratio effect. Mean_response_at_5000km is "
+            "alpha+beta*ln(5), the population mean log ratio, not an arithmetic mean duration.\n"
+        )
     if status["phase"] == "recovery":
         core = [r for r in table if r["parameter"] in {"alpha", "beta", "tau_event", "sigma"}]
         eligible = [
@@ -376,8 +414,9 @@ def register_validation_report(root: Path, batch: Path, output: Path) -> None:
                     "scenario": scenario,
                     "datasets_completed": len(cases),
                     "synthetic_only": True,
-                    "design_records": 1064,
-                    "design_events": 33,
+                    "target": status.get("target", "NCEI-native-duration"),
+                    "design_records": status.get("design_records", 1064),
+                    "design_events": status.get("design_events", 33),
                 }
             )
             mlflow.set_tags(
@@ -422,8 +461,12 @@ def plot_validation(
     import matplotlib.pyplot as plt
 
     with plt.rc_context({"font.size": 11, "axes.titlesize": 12, "axes.labelsize": 11}):
+        source = status.get("source_label", "NCEI reported-duration")
         if status["phase"] == "recovery":
-            fig, axes = plt.subplots(4, 1, figsize=(7, 13), sharex=True, layout="constrained")
+            settings = {r["scenario"] for r in table if r["correct_model_scenario"]}
+            fig, axes = plt.subplots(
+                4, 1, figsize=(7, 13 if len(settings) > 4 else 9), sharex=True, layout="constrained"
+            )
             for ax, parameter in zip(
                 axes.flat, ["alpha", "beta", "tau_event", "sigma"], strict=True
             ):
@@ -432,7 +475,7 @@ def plot_validation(
                 ]
                 for i, row in enumerate(rows):
                     if row["coverage90"] is None:
-                        ax.text(0.02, i, "Boundary: use upper bound", va="center", fontsize=10)
+                        ax.text(0.02, i, "Boundary: use upper bound", va="center", fontsize=10.5)
                         continue
                     value = row["coverage90"]
                     ax.errorbar(
@@ -457,10 +500,15 @@ def plot_validation(
             counts = sorted({r["datasets"] for r in table if r["correct_model_scenario"]})
             repeats = str(counts[0]) if len(counts) == 1 else f"{counts[0]}–{counts[-1]}"
             fig.suptitle(f"Coverage estimates use {repeats} repeats per setting", fontsize=14)
+            stress_note = (
+                "\nAdditive-time stress shown separately."
+                if any(not r["correct_model_scenario"] for r in table)
+                else ""
+            )
             fig.supxlabel(
                 "Dots: 90% interval coverage; bars: Wilson 95% uncertainty.\n"
                 "Dashed: nominal 90%. Tau=0 uses an upper bound instead.\n"
-                "Source: NCEI-design simulations; additive stress excluded.",
+                f"Source: simulations on the {source} exploration design." + stress_note,
                 fontsize=10.5,
             )
             name = "parameter-recovery-coverage"
@@ -501,8 +549,8 @@ def plot_validation(
             )
             fig.supxlabel(
                 "Gray: simultaneous 95% iid reference for six quantities; MCMC approximation.\n"
-                "Source: base-prior simulations on NCEI exploration design.",
-                fontsize=10,
+                f"Source: base-prior simulations on the {source} design.",
+                fontsize=10.5,
             )
             name = "sbc-rank-ecdfs"
         fig.savefig(output / (name + ".png"), dpi=180)

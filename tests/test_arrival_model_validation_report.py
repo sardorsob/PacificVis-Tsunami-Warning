@@ -14,6 +14,7 @@ from analysis.arrival.model_validation_report import (
     collect_batch,
     csv_rows,
     recovery_summary,
+    validation_design,
     wilson_interval,
 )
 
@@ -49,6 +50,18 @@ def test_coverage_uncertainty_and_zero_boundary_are_explicit() -> None:
     assert summary[1]["mean_error"] == 0.1
     assert summary[1]["mean_error_mcse"] is None
     assert summary[1]["mean_interval_width_contraction"] == pytest.approx(0.8)
+
+
+def test_validation_metadata_keeps_source_units_and_design_counts() -> None:
+    root = Path.cwd()
+    signed = validation_design(root, "T-CAL")
+    duration = validation_design(root, "T-OBS")
+    assert signed["design_records"] == 156 and signed["design_events"] == 13
+    assert signed["modeled_units"] == "minutes" and signed["source_label"] == "NTWC T-CAL"
+    assert duration["design_records"] == 236 and duration["design_events"] == 14
+    assert duration["modeled_units"] == "log_reference_ratio"
+    with pytest.raises(ValueError, match="target"):
+        validation_design(root, "all-sources")
 
 
 def test_sbc_bands_account_for_quantities_and_detect_extreme_ranks() -> None:
