@@ -16,6 +16,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from analysis.arrival.evidence import sha256, write_json  # noqa: E402
 
 
+def limit_worker_file_size(byte_limit: int | None) -> None:
+    """Kernel-enforced per-file write cap; the serial batch allocates remaining NC bytes."""
+    if byte_limit is None:
+        return
+    if byte_limit < 1:
+        raise ValueError("positive remaining storage allocation required")
+    import resource
+
+    resource.setrlimit(resource.RLIMIT_FSIZE, (byte_limit, byte_limit))
+
+
 def _terminate_group(worker: subprocess.Popen[bytes]) -> None:
     """Reap the leader and kill remaining group members even if that leader exits first."""
     try:
@@ -73,10 +84,12 @@ def main() -> None:
     parser.add_argument("--store", required=True, type=Path)
     parser.add_argument("--timeout", default=600, type=int)
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--max-output-bytes", type=int)
     args = parser.parse_args()
     job_path, output, store = args.job.resolve(), args.output.resolve(), args.store.resolve()
     job_hash = sha256(job_path)
     if args.worker:
+        limit_worker_file_size(args.max_output_bytes)
         from analysis.arrival.model_validation import fit_synthetic_job
 
         job = json.loads(job_path.read_text(encoding="utf-8"))
@@ -96,6 +109,8 @@ def main() -> None:
         "--store",
         str(store),
     ]
+    if args.max_output_bytes is not None:
+        command.extend(["--max-output-bytes", str(args.max_output_bytes)])
     started = time.monotonic()
     try:
         receipt = supervise(

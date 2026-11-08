@@ -1,0 +1,30 @@
+{
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_validation.py": "56ba7ac6b0fb175df67e212e1f68d834836204f55a09d90ed1a6674e08fadcd4",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "frozen_data": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv": "cfd73bf800ee1afe52253d847f7446ed778eb9ee40b8205429b6429c052d9781",
+    "artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json": "0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-timing-exploration-confirmation-split.toml": "4f3d3ae8ba5f96d5a701508e5c65c5979f8938f1959d17cfb14be4dbab800328",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/arrival_model.py": "cc55bc798ed65a39f6ac4443af3fa2c83586b94cda2ba901e7db4211100b702f",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "git_dirty_paths": [
+    "?? artifacts/models/arrival-timing/inference-validation-preflight-v1/"
+  ]
+}

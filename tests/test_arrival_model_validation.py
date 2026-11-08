@@ -6,6 +6,7 @@ import json
 import os
 import runpy
 import signal
+import subprocess
 import sys
 import time
 from dataclasses import replace
@@ -24,6 +25,18 @@ from analysis.arrival.model_validation import (
     simulate_response,
 )
 from tests.test_arrival_models import tiny_lane
+
+
+def test_worker_storage_allocation_is_kernel_enforced(tmp_path: Path) -> None:
+    output = tmp_path / "capped.bin"
+    code = (
+        "from scripts.run_arrival_model_validation import limit_worker_file_size;"
+        "limit_worker_file_size(1024);"
+        f"f=open({str(output)!r},'wb');f.write(b'x'*2048);f.flush();f.close()"
+    )
+    result = subprocess.run([sys.executable, "-c", code], capture_output=True)
+    assert result.returncode != 0
+    assert output.stat().st_size <= 1024
 
 
 def test_simulator_uses_design_and_truth_not_actual_outcomes() -> None:

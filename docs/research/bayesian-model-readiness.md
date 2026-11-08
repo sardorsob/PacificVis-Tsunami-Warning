@@ -133,6 +133,27 @@ chains before attempting a repair. A successful pilot is computational evidence
 for this simulated case. Repeated design recovery and simulation-based calibration
 are still needed before real-data inference; neither establishes physical truth.
 
+The finite primary-source validation runner predefines 270 design-recovery
+datasets (nine scenarios, 30 each) and 200 prior-generated calibration datasets.
+It runs one fit at a time with two sampler cores, a ten-minute fit timeout and
+separate call/storage ceilings. A mild precision failure permits one larger fit
+of the same dataset; unsafe diagnostics stop for review. Failed attempts remain
+in the record and never become replacement datasets.
+
+```bash
+uv run python scripts/run_arrival_model_batch.py --phase recovery \
+  --output artifacts/models/arrival-timing/my-design-recovery \
+  --store data/processed/models/my-design-recovery \
+  --state context/runs/arrival-model-validation-v1/my-recovery-state.json
+```
+
+Use `--phase sbc` with separate new paths for calibration. `--max-cases 1`
+limits a rehearsal to one completed dataset; `--resume` continues the identical
+plan after an ordinary invocation limit. Source changes, unfinished attempts,
+corrupt counts or unsafe failures require reconciliation. A `jobs/STOP` file
+inside the output requests a stop. Computational completion remains separate
+from scientific acceptance of recovery and calibration results.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

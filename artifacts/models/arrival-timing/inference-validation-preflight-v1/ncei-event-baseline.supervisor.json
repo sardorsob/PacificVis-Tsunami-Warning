@@ -1,0 +1,8 @@
+{
+  "diagnostic_screen_passed": true,
+  "elapsed_seconds": 3.586224375292659,
+  "job_sha256": "abd570bb64907d25c268783eca60c42e6a75bcd94309bd98e6ba0ca95cb4677c",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "runner_sha256": "56ba7ac6b0fb175df67e212e1f68d834836204f55a09d90ed1a6674e08fadcd4"
+}

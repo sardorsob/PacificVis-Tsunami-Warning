@@ -1,0 +1,9 @@
+{
+  "mlflow-receipt.json": "d559f803052b33a7dd1dec57d91fea1f343eed245e9d8e9e0febed4d3feaca55",
+  "ncei-event-baseline.log": "b48d2ad1ae895cf62591a4484945dcde0b46b296e0322b103dbc555dcdeaf6f4",
+  "ncei-event-baseline.supervisor.json": "4763fd3548dd0d7efd98ecb622099e2c8b2e8dd4e12ce5d99580989555164717",
+  "ncei-event-baseline/inputs.json": "f1349c522049d27e42d6c702a0b3963ff18695da4a4346001b87d9f1558c9049",
+  "ncei-event-baseline/job.json": "01721693bb61e8e97fef6e552b22aee95c3cba24e84c6093500cd2fee48d513f",
+  "ncei-event-baseline/result.json": "856c9a56208a780c6fc24f93ba487a558f3f9b8b6aa5a68775d476e9357a950e",
+  "ncei-event-baseline/sampling-diagnostics.csv": "95ce18619c66b9983d14c218a863eee5f480cee7eeb63b7d0e5cf1f3ddd162d9"
+}
