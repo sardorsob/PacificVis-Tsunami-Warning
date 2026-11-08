@@ -17,6 +17,27 @@ from analysis.arrival.model_validation_report import write_table
 KINDS = ["pooled", "distance", "event"]
 
 
+def event_effect_summary(values: np.ndarray, target: str) -> dict[str, Any]:
+    signed = target == "T-CAL"
+    prefix = "minute_effect" if signed else "log_effect"
+    low, median, high = np.quantile(values, [0.05, 0.5, 0.95])
+    result = {
+        prefix + "_q05": float(low),
+        prefix + "_q50": float(median),
+        prefix + "_q95": float(high),
+        "units": "minutes" if signed else "log_reference_ratio",
+    }
+    if not signed:
+        result.update(
+            {
+                "median_duration_factor_q05": float(np.exp(low)),
+                "median_duration_factor_q50": float(np.exp(median)),
+                "median_duration_factor_q95": float(np.exp(high)),
+            }
+        )
+    return result
+
+
 def matched_predictive_checks(tables: dict[str, list[dict[str, str]]]) -> list[dict[str, Any]]:
     reference: dict[tuple[str, str, str], tuple[float, int]] = {}
     expected: set[tuple[str, str, str]] | None = None
@@ -50,11 +71,21 @@ def matched_predictive_checks(tables: dict[str, list[dict[str, str]]]) -> list[d
     return output
 
 
-def write_fit_report(root: Path, fits: Path, output: Path) -> None:
+def write_fit_report(
+    root: Path, fits: Path, output: Path, *, target: str = "NCEI-native-duration"
+) -> None:
     if output.exists():
         raise ValueError("preserve earlier report; require a new output path")
     lanes, contract = load_lanes(root)
-    lane = lanes["NCEI-native-duration"]
+    if target not in lanes:
+        raise ValueError("unknown source-specific fit target")
+    lane = lanes[target]
+    signed = target == "T-CAL"
+    source = {
+        "NCEI-native-duration": "NCEI reported durations",
+        "T-OBS": "NTWC reported durations",
+        "T-CAL": "NTWC estimate-minus-observation minutes",
+    }[target]
     pins = {p: sha256(root / p) for p in contract["inputs"]}
     tables, parameters, results = {}, [], {}
     for kind in KINDS:
@@ -99,7 +130,6 @@ def write_fit_report(root: Path, fits: Path, output: Path) -> None:
     with xr.open_dataset(event_posterior, group="posterior", engine="h5netcdf") as posterior:
         for event in posterior.event.values:
             values = posterior["event_effect"].sel(event=event).values
-            low, median, high = np.quantile(values, [0.05, 0.5, 0.95])
             m = metadata[str(event)]
             events.append(
                 {
@@ -107,33 +137,43 @@ def write_fit_report(root: Path, fits: Path, output: Path) -> None:
                     "date": m["origin_utc"][:10],
                     "region": m["region"],
                     "records": int(counts[str(event)]),
-                    "log_effect_q05": float(low),
-                    "log_effect_q50": float(median),
-                    "log_effect_q95": float(high),
-                    "median_duration_factor_q05": float(np.exp(low)),
-                    "median_duration_factor_q50": float(np.exp(median)),
-                    "median_duration_factor_q95": float(np.exp(high)),
+                    **event_effect_summary(values, target),
                 }
             )
     output.mkdir(parents=True)
-    write_table(output / "population-parameters-and-derived-duration-ratios.csv", parameters)
+    parameter_file = (
+        "population-signed-minute-parameters.csv"
+        if signed
+        else "population-parameters-and-derived-duration-ratios.csv"
+    )
+    write_table(output / parameter_file, parameters)
     write_table(output / "conditional-report-quantile-checks-by-distance.csv", checks)
     write_table(output / "event-timing-offsets-and-uncertainty.csv", events)
-    plot_fit_checks(output, checks, events)
+    plot_fit_checks(output, checks, events, target=target)
+    reference_description = (
+        "The signed response is estimated UTC minus reported observed UTC in minutes. "
+        "The predictor is ln(source–station distance/1000km); this response uses no "
+        "distance/reference-duration transformation. Population means describe archived "
+        "products, not prospective warning performance or a causal forecaster error.\n\n"
+        if signed
+        else "The reference uses epicenter distance and a fixed four-kilometer-depth speed. "
+        "Reported-duration definitions and clock/source effects are composite. Neither the "
+        "distance exponent nor an event offset identifies a physical wave speed or delay. "
+        "The event population center differs from a pooled record center; a change in alpha "
+        "does not identify historical forecast bias.\n\n"
+    )
+    units = "minutes" if signed else "log ratio"
     text = (
-        "# Initial models of NCEI reported durations\n\n"
-        "Three exploration models use the same 1,064 approved records from 33 events: "
-        "a pooled log reference ratio, a distance adjustment, and a distance adjustment "
+        f"# Initial models of {source}\n\n"
+        f"Three exploration models use the same {int(lane.included.sum()):,} approved records "
+        f"from {len(events)} events: "
+        "a pooled population center, a distance adjustment, and a distance adjustment "
         "with partially pooled event effects. All numerical screens passed. These are exploratory "
         "development fits; the review receipt records what was independently verified. "
         "No held-out score or model selection "
         "has been computed. The 18 reserved outcomes remain sealed.\n\n"
-        "The reference uses epicenter distance and a fixed four-kilometer-depth speed. "
-        "Reported-duration definitions and clock/source effects are composite. Neither the "
-        "distance exponent nor an event offset identifies a physical wave speed or delay. "
-        "The event population center has a different interpretation/weighting from a pooled "
-        "record center; a change in alpha between these fits is not an observed forecast bias.\n\n"
-        "| Model | Alpha, log ratio (central 90%) | Beta (central 90%) | "
+        + reference_description
+        + f"| Model | Alpha, {units} (central 90%) | Beta (central 90%) | "
         "Event SD (central 90%) | Record SD (central 90%) |\n"
         "| --- | --- | --- | --- | --- |\n"
     )
@@ -154,7 +194,13 @@ def write_fit_report(root: Path, fits: Path, output: Path) -> None:
         "not credible intervals for a mean and not new-event validation. Observed quantiles "
         "have no extra uncertainty band. The flags are correlated exploratory discrepancies, "
         "not calibrated tests or a ranking criterion.\n\n"
-        "| Model | Modeled-response quantile checks outside central 90% | "
+        + (
+            "For T-CAL the modeled and native scales are both minutes, so the two columns "
+            "repeat the same checks and are not independent evidence.\n\n"
+            if signed
+            else ""
+        )
+        + "| Model | Modeled-response quantile checks outside central 90% | "
         "Native-minute checks outside central 90% |\n"
         "| --- | ---: | ---: |\n"
     )
@@ -169,9 +215,9 @@ def write_fit_report(root: Path, fits: Path, output: Path) -> None:
     text += (
         "\nThese discrepancies motivate a bounded mean/scale/tail investigation. A smaller fitted "
         "record SD alone does not establish improved prediction. Sequence-held-out refits, "
-        "numerical integration checks and sensitivity precede selection. The difficult-scenario "
-        "recovery follow-up is complete, with adaptive-selection and conditional-coverage limits. "
-        "Separate NTWC computational checks remain required.\n"
+        "numerical integration checks and sensitivity precede selection. "
+        "Each source's computational readiness is reviewed separately; its finite-check "
+        "and interpretation limits remain. Source likelihoods are never independently pooled.\n"
     )
     (output / "baseline-findings.md").write_text(text)
     for name in ["analysis/arrival/model_fit_report.py", "scripts/summarize_arrival_model_fits.py"]:
@@ -184,7 +230,11 @@ def write_fit_report(root: Path, fits: Path, output: Path) -> None:
 
 
 def plot_fit_checks(
-    output: Path, checks: list[dict[str, Any]], events: list[dict[str, Any]]
+    output: Path,
+    checks: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+    *,
+    target: str = "NCEI-native-duration",
 ) -> None:
     """Takeaway: simple Gaussian assumptions leave conditional discrepancies | expert | report."""
     import matplotlib
@@ -194,6 +244,13 @@ def plot_fit_checks(
 
     colors = {"pooled": "#666666", "distance": "#146782", "event": "#b05a24"}
     strata = ["under-500km", "500-to-2000km", "2000-to-5000km", "5000km-and-above"]
+    strata = [s for s in strata if any(r["stratum"] == s for r in checks)]
+    signed = target == "T-CAL"
+    source = "NCEI" if target == "NCEI-native-duration" else "NTWC " + target
+    prefix = "minute_effect" if signed else "log_effect"
+    response_label = (
+        "signed estimate−observation minutes" if signed else "log(reported/reference duration)"
+    )
     with plt.rc_context({"font.size": 11, "axes.titlesize": 12}):
         fig, all_axes = plt.subplots(
             4,
@@ -221,7 +278,7 @@ def plot_fit_checks(
                 low = np.array([float(r["replicated_q05"]) for r in rows])
                 high = np.array([float(r["replicated_q95"]) for r in rows])
                 ax.errorbar(
-                    np.arange(4) + offset,
+                    np.arange(len(strata)) + offset,
                     med,
                     yerr=[med - low, high - med],
                     fmt="o",
@@ -230,7 +287,7 @@ def plot_fit_checks(
                     label=kind,
                 )
             ax.scatter(
-                np.arange(4),
+                np.arange(len(strata)),
                 [float(r["observed"]) for r in rows],
                 marker="D",
                 color="#111111",
@@ -238,14 +295,21 @@ def plot_fit_checks(
                 label="observed",
                 zorder=5,
             )
-            ax.set_title(f"{quantile:.0%} quantile of log(reported/reference duration)", loc="left")
-            labels = ["<500 km", "500–2,000 km", "2,000–5,000 km", "≥5,000 km"]
+            ax.set_title(f"{quantile:.0%} quantile of {response_label}", loc="left")
+            label_map = dict(
+                zip(
+                    ["under-500km", "500-to-2000km", "2000-to-5000km", "5000km-and-above"],
+                    ["<500 km", "500–2,000 km", "2,000–5,000 km", "≥5,000 km"],
+                    strict=True,
+                )
+            )
+            labels = [label_map[s] for s in strata]
             ax.set_xticks(
-                range(4),
+                range(len(strata)),
                 [label + f"\nn={rows[i]['records']}" for i, label in enumerate(labels)],
                 fontsize=10.5,
             )
-            ax.set_ylabel("Log duration ratio")
+            ax.set_ylabel("Signed difference (minutes)" if signed else "Log duration ratio")
             ax.spines[["right", "top"]].set_visible(False)
         handles, labels = axes[0].get_legend_handles_labels()
         legend_axis.legend(handles, labels, ncol=4, loc="center", frameon=False, fontsize=10.5)
@@ -253,21 +317,21 @@ def plot_fit_checks(
         fig.supxlabel(
             "Dots and bars: median and central 90% replicated quantiles.\n"
             "Diamonds: observations. Fitted-event checks, not held-out prediction.\n"
-            "Source: NCEI exploration reports and Bayesian baseline fits.",
+            f"Source: {source} exploration reports and Bayesian baseline fits.",
             fontsize=10.5,
         )
         fig.savefig(output / "distance-conditioned-predictive-quantiles.png", dpi=180)
         fig.savefig(output / "distance-conditioned-predictive-quantiles.svg")
         plt.close(fig)
-        rows = sorted(events, key=lambda r: r["log_effect_q50"])
-        fig, ax = plt.subplots(figsize=(7, 12), layout="constrained")
-        median = np.array([r["log_effect_q50"] for r in rows])
+        rows = sorted(events, key=lambda r: r[prefix + "_q50"])
+        fig, ax = plt.subplots(figsize=(7, max(6, len(rows) * 0.24 + 4)), layout="constrained")
+        median = np.array([r[prefix + "_q50"] for r in rows])
         ax.errorbar(
             median,
             np.arange(len(rows)),
             xerr=[
-                median - np.array([r["log_effect_q05"] for r in rows]),
-                np.array([r["log_effect_q95"] for r in rows]) - median,
+                median - np.array([r[prefix + "_q05"] for r in rows]),
+                np.array([r[prefix + "_q95"] for r in rows]) - median,
             ],
             fmt="o",
             capsize=2,
@@ -286,15 +350,28 @@ def plot_fit_checks(
         }
         ax.set_yticks(
             range(len(rows)),
-            [r["date"] + " " + region_labels[r["region"]] + f" (n={r['records']})" for r in rows],
+            [
+                r["date"]
+                + " "
+                + region_labels.get(r["region"], r["region"].replace("_", " "))
+                + f" (n={r['records']})"
+                for r in rows
+            ],
             fontsize=10.5,
         )
-        ax.set_xlabel("Event effect on log duration ratio\nCentral 90% posterior interval")
+        ax.set_xlabel(
+            (
+                "Event effect on signed difference (minutes)"
+                if signed
+                else "Event effect on log duration ratio"
+            )
+            + "\nCentral 90% posterior interval"
+        )
         fig.suptitle("Event offsets combine timing differences\nand remain uncertain", fontsize=14)
         ax.spines[["right", "top"]].set_visible(False)
         fig.supxlabel(
             "Geographic/event effects can include source, clock, path and reporting differences.\n"
-            "Source: NCEI exploration reports; Gaussian event hierarchy.",
+            f"Source: {source} exploration reports; Gaussian event hierarchy.",
             fontsize=10.5,
         )
         fig.savefig(output / "event-offset-posterior-intervals.png", dpi=180)

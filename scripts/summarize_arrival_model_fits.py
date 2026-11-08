@@ -1,4 +1,4 @@
-"""Build a source-specific report for the initial NCEI exploration comparators."""
+"""Build a source-specific report for the initial exploration comparators."""
 
 from __future__ import annotations
 
@@ -14,9 +14,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fits", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument(
+        "--target",
+        choices=["NCEI-native-duration", "T-OBS", "T-CAL"],
+        default="NCEI-native-duration",
+    )
     args = parser.parse_args()
     write_fit_report(
-        Path(__file__).resolve().parents[1], args.fits.resolve(), args.output.resolve()
+        Path(__file__).resolve().parents[1],
+        args.fits.resolve(),
+        args.output.resolve(),
+        target=args.target,
     )
 
 
