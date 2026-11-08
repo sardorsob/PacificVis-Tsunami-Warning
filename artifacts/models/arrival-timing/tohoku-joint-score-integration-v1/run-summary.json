@@ -1,0 +1,11 @@
+{
+  "accepted_new_nodes": 15,
+  "global_call_ceiling": 352,
+  "new_call_ceiling": 15,
+  "new_call_slots_used": 15,
+  "parent_call_slots": 4,
+  "primary_score_acceptance": "pending_independent_actual_replay",
+  "remaining_global_calls": 333,
+  "reserved_outcomes": "sealed",
+  "status": "computations_complete"
+}

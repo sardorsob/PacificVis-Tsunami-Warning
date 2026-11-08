@@ -1,0 +1,366 @@
+{
+  "base_git_sha": "cdbf10da9d00cbe0bb4d1b0acdaa4640ff68ce57",
+  "cases": [
+    {
+      "id": "primary-node-01",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 1,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110801,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.125,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-02",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 2,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110802,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.25,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-03",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 3,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110803,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.375,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-04",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 4,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110804,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.5,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-05",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 5,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110805,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.625,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-06",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 6,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110806,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.75,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "primary-node-07",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 7,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "primary",
+        "prior": "base",
+        "seed": 2026110807,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.875,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-00",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 0,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110800,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.0,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-01",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 1,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110801,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.125,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-02",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 2,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110802,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.25,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-03",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 3,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110803,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.375,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-04",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 4,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110804,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.5,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-05",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 5,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110805,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.625,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-06",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 6,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110806,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.75,
+        "tune": 1000
+      }
+    },
+    {
+      "id": "repeat-node-07",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "kind": "distance-scale",
+        "model_gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+        "node": 7,
+        "path_gate": "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json",
+        "path_role": "repeat",
+        "prior": "base",
+        "seed": 2126110807,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "temperature": 0.875,
+        "tune": 1000
+      }
+    }
+  ],
+  "concurrency": 1,
+  "cores": 2,
+  "endpoint_metadata": [
+    {
+      "node": 0,
+      "path_role": "primary",
+      "posterior": "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/00-training.nc",
+      "posterior_sha256": "b8f5096bcb0f09c165de35f025671fa55f7d66c1cda92cc08157b245e8353b17",
+      "records": 793,
+      "seed": 1426110900
+    },
+    {
+      "node": 8,
+      "path_role": "primary",
+      "posterior": "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/01-augmented.nc",
+      "posterior_sha256": "bf53f8fe5d4a30ca2224aac8127f0b7f37ab17e52be47ffdc48fdd043a7984e7",
+      "records": 1064,
+      "seed": 1426110901
+    },
+    {
+      "node": 8,
+      "path_role": "repeat",
+      "posterior": "data/processed/models/exploration-distance-scale-v1.nc",
+      "posterior_sha256": "aa74dde5df1979dda3e560e7ce463810b3b6a2730cbfc3bdccfceeb1b5a14173",
+      "records": 1064,
+      "seed": 89261107
+    }
+  ],
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_bridge.py": "fd289ded6d00dd7f01f4e7400e69ecc8aac2148990f0d73d8247e769c8f7d0dc",
+    "analysis/arrival/model_bridge_path.py": "140a3c8376ad56d85a14d92ca66c2d917483df1b3cf3e142f019cbde664290b9",
+    "analysis/arrival/model_bridge_path_fit.py": "350f5fc6f31795b3b10c2211a05a03f3614478095fd858f2388fa4078b7979b4",
+    "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_evaluation.py": "00018ac5aa490030ca7e97f3730b24647529c16b9c8b2696186369735433aac3",
+    "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+    "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/bridge-path-validation-report-v1/review-acceptance.json": "22be8f3e8a77d109b521a78f793be6319fb747a9f123c4049ddbdd2e88590681",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/NCEI-native-duration-distance-scale-fold-01-attempt-1/ensembles/00-training/inputs.json": "02c820941c583c08602d056484bd77e31ac1df6a9f61435054c60cac8cff6d55",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/NCEI-native-duration-distance-scale-fold-01-attempt-1/ensembles/00-training/result.json": "ec2d7a4669ff3f590080214285f24eb52d41d572ed598ad22eefff10b0363288",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/NCEI-native-duration-distance-scale-fold-01-attempt-1/ensembles/01-augmented/inputs.json": "02c820941c583c08602d056484bd77e31ac1df6a9f61435054c60cac8cff6d55",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/NCEI-native-duration-distance-scale-fold-01-attempt-1/ensembles/01-augmented/result.json": "cd2a49e24af8d0b2e5be0f098845e96e2d027687a635d9a185e2ea301f9bf8c9",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/numerical-stopping-receipt.json": "63f52634301ed0a3fec0582a97e8d4d002e4663657159d6762beeb9a9045d664",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/plan.json": "e3abd94b9af2b211bf56c78db1434418f400ae7e8584fdc5cfb8b6210d819284",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/rehearsal-review-acceptance.json": "4e991ea8479d12000828a3915e72e6bed8688ad5cbbbb445b5e116483f59aa1c",
+    "artifacts/models/arrival-timing/bridge-sequence-validation-v1/run-summary.json": "154aae8a5e156fc809cc80d3a847ce964897f676f7e79cb54d8e120c4409ce00",
+    "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json": "4bb8402382f54129e0cddd31fa02e97d52b4755a2c60dff01328f7e00eced061",
+    "artifacts/models/arrival-timing/exploration-distance-scale-v1/inputs.json": "474d9ea3fbed2589b0efb1d16136fe9cf9873a1416a723ede0a21098de7827de",
+    "artifacts/models/arrival-timing/exploration-distance-scale-v1/result.json": "417fb863d10ee7afc3f909415ce5850460cfa9baa7e2094ae994d653d84f5db7",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+    "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/00-training.nc": "b8f5096bcb0f09c165de35f025671fa55f7d66c1cda92cc08157b245e8353b17",
+    "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/01-augmented.nc": "bf53f8fe5d4a30ca2224aac8127f0b7f37ab17e52be47ffdc48fdd043a7984e7",
+    "data/processed/models/exploration-distance-scale-v1.nc": "aa74dde5df1979dda3e560e7ce463810b3b6a2730cbfc3bdccfceeb1b5a14173",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_bridge_path.py": "baaab37c52d5c897d130ad37548d8b0c73faf7d33263d4127e34f556919f30a9",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "scripts/sample_arrival_bridge_path.py": "73714ac6c006592a334c184fd6379ff96ecde0cabd8822b4a2649217dbd0edcc",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "global_call_ceiling": 352,
+  "jacobian": 1527.2387881395014,
+  "max_calls": 15,
+  "max_raw_bytes": 2147483648,
+  "parent_calls": 4,
+  "parent_raw_store": "data/processed/models/bridge-sequence-validation-v1",
+  "per_file_bytes": 67108864,
+  "per_node_seconds": 600,
+  "primary": "primary_repeat_is_validation_only",
+  "raw_store": "data/processed/models/tohoku-joint-score-integration-v1",
+  "record_count": 271,
+  "repairs": "none_absolute_fifteen_call_ceiling",
+  "temperatures": [
+    0.0,
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875,
+    1.0
+  ]
+}

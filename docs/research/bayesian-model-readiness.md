@@ -272,11 +272,23 @@ priors, native-minute density and equal-event weighting. Deterministic numerical
 error is reported separately from uncertainty across events and sequences.
 
 The event and distance-dependent-spread comparisons remain incomplete. Clean
-chains can still give concentrated predictive-density weights: one allowed
-longer sampling attempt did not resolve the affected folds. Those attempts are
-retained while alternative integration methods are checked. No winner or broad
-transfer claim follows from the available partial scores. Complete paired
-sequence comparisons and sensitivity checks precede model selection.
+chains can still give concentrated predictive-density weights. Independent
+training and augmented-data posterior samples allow bridge integration of the
+same joint density. For Tohoku's distance-dependent-spread fold, even those two
+posteriors were too separated for a reliable direct bridge. That failed score
+remains unusable.
+
+A fixed eight-edge geometric path resolved that fold without changing the
+statistical model, priors or scoring target. The
+[accepted result](../../artifacts/models/arrival-timing/tohoku-joint-score-integration-v1/review-acceptance.json)
+is −6.084601 nats/record, with Monte Carlo standard error 0.0001334. An
+independent path agrees within 0.73 combined Monte Carlo standard errors.
+Uncertainty includes covariance between adjacent edges sharing a posterior
+ensemble. Known-Gaussian path calibration retained an unexplained negative
+mean error in its 30-trial autocorrelated cohort; the successful actual repeat
+does not remove that qualification. The remaining 81 model/source sequence
+folds and complete paired comparisons are still required. Sensitivity checks
+precede model selection; a single event establishes no broad transfer claim.
 
 ## What exactly would we predict?
 
