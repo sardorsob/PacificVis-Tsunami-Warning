@@ -87,8 +87,17 @@ def main() -> None:
     registration.add_argument("--bundle", type=Path, required=True)
     lineage = sub.add_parser("lineage", help="audit native IDs on unresolved repeated edges")
     lineage.add_argument("--receipt", type=Path, required=True)
+    prior = sub.add_parser("priors", help="run source-specific prior predictions before inference")
+    prior.add_argument("--output", type=Path, required=True)
+    prior.add_argument("--store", type=Path, required=True)
+    prior.add_argument("--draws", type=int, default=2000)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.command == "priors":
+        from analysis.arrival.model_priors import run_prior_checks
+
+        run_prior_checks(root, args.output.resolve(), args.store.resolve(), draws=args.draws)
+        return
     if args.command == "lineage":
         from analysis.arrival.model_evidence import audit_repeated_edges
 

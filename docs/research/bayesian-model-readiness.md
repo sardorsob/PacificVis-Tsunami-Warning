@@ -9,8 +9,9 @@ event–station–source hierarchy with confidence.
 This is the pre-modeling bridge from the [completed EDA](../../artifacts/eda/arrival-timing/README.md).
 The new [design findings](../../artifacts/eda/arrival-timing/pre-modeling-design/design-findings.md)
 use only its frozen exploration tables. They are posthoc exploratory diagnostics;
-the earlier confirmation findings retain their original status. No likelihood has
-been fitted, no numeric prior selected, and no reserved event outcome opened.
+the earlier confirmation findings retain their original status. Initial prior
+hypotheses and their simulations are now available below. No scientific posterior
+has been fitted and no reserved event outcome opened.
 
 The approach follows Chris Fonnesbeck's [PyMC modeling workflow](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/pymc-modeling/references/workflow.md)
 and [prior-elicitation skill](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/prior-elicitation/SKILL.md):
@@ -58,6 +59,43 @@ folds. All rows from a related source sequence leave training together; held-out
 site familiarity is computed from training rows only. The fixed predictor
 `ln(distance_km/1000)` uses no empirical centering across folds. Display precision
 is retained as metadata; it does not become an invented arrival-accuracy bound.
+
+## Initial models and prior predictions
+
+The implemented scaffolds compare a pooled intercept, a distance regression and
+a distance regression with partially pooled event effects. For durations the
+response is `ln(y/t0(d))`; for T-CAL it is the signed difference in minutes.
+Every source gets its own model. Training graphs contain only their selected
+rows and event coordinates.
+
+The [prior dictionary](../../artifacts/models/arrival-timing/prior-checks-v1/parameter-prior-dictionary.csv)
+and [assumptions](../../artifacts/models/arrival-timing/prior-checks-v1/prior-assumptions.md)
+describe analyst scale hypotheses chosen after EDA. They are not expert beliefs
+or measured wave-speed constraints. The duration base uses Normal priors with
+SDs 0.5 and 0.25 for intercept and slope, and HalfNormal(0.4) priors for event
+and record SDs. The intercept implies a central 95% interval of 0.375–2.664 for
+the conditional median/reference ratio at 1,000 km and zero event effect.
+The signed-minute model has separately specified scales.
+
+Six ancestral checks use 2,000 draws each across the three targets and two prior
+settings. The [figure](../../artifacts/models/arrival-timing/prior-checks-v1/new-event-prior-predictions.png)
+shows new-event medians as lines and central 90% intervals as shaded bands,
+conditional on distance. All predictions were finite and durations positive;
+their breadth is an assumption to examine, not evidence of predictive accuracy.
+The wider duration sensitivity has infinite predictive variance under its joint
+prior, so it is summarized by quantiles. The base has finite first and second
+moments. A finite Monte Carlo sample alone cannot establish those moment claims.
+
+```bash
+uv run python scripts/arrival_model.py priors \
+  --output /tmp/arrival-prior-checks \
+  --store data/processed/models/my-prior-checks
+```
+
+This command saves ancestral draws in the ignored store and writes portable
+tables, figures, input hashes, seeds and a local MLflow receipt. It does not fit
+a scientific posterior. Design recovery, inference calibration, real-data
+diagnostics and grouped predictive validation remain required.
 
 ## What exactly would we predict?
 

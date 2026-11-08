@@ -1,0 +1,26 @@
+{
+  "NCEI-native-duration-base": {
+    "path": "data/processed/models/prior-checks-v3/NCEI-native-duration-base.nc",
+    "sha256": "20ce5a42a172c75dee35ab3640c58e6b19c4f3c43491ba0d2ed09cd054d09fb5"
+  },
+  "NCEI-native-duration-wider": {
+    "path": "data/processed/models/prior-checks-v3/NCEI-native-duration-wider.nc",
+    "sha256": "d365eeca1d5f2d8282a9e7ca563f84981618f077f0cb8f2efc570a4b2301e834"
+  },
+  "T-CAL-base": {
+    "path": "data/processed/models/prior-checks-v3/T-CAL-base.nc",
+    "sha256": "3edd3edc59b8aa17b27172070d88a019f873306b83184c2397c4a12e10cf152c"
+  },
+  "T-CAL-wider": {
+    "path": "data/processed/models/prior-checks-v3/T-CAL-wider.nc",
+    "sha256": "7f35143095c7d8e26d4ea6af871bd533ce4b53c7a7ad84abea27a28ce48a19d6"
+  },
+  "T-OBS-base": {
+    "path": "data/processed/models/prior-checks-v3/T-OBS-base.nc",
+    "sha256": "4ca857c2733ef4ae4cf1ffcae3223decdeea632f17648c8cae61f8a9879fe350"
+  },
+  "T-OBS-wider": {
+    "path": "data/processed/models/prior-checks-v3/T-OBS-wider.nc",
+    "sha256": "29fe0be44d7af7c9fff5120dc191047c9865ecdec4b25d02119bacc07a84ccdc"
+  }
+}

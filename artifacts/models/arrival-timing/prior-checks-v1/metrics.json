@@ -1,0 +1,74 @@
+{
+  "NCEI-native-duration-base": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": true,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": 5.144873278888475,
+    "native_q50": 309.5996572305248,
+    "native_q99": 6363.202679535979,
+    "records": 1064,
+    "seed": 20261107,
+    "soft_extreme_definition": "ratio<0.05 or >20 diagnostic only",
+    "soft_extreme_fraction": 0.0027532894736842107
+  },
+  "NCEI-native-duration-wider": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": false,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": 2.9004820576001493,
+    "native_q50": 271.01892872331916,
+    "native_q99": 17087.80415898899,
+    "records": 1064,
+    "seed": 20261108,
+    "soft_extreme_definition": "ratio<0.05 or >20 diagnostic only",
+    "soft_extreme_fraction": 0.03125610902255639
+  },
+  "T-CAL-base": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": null,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": -148.96311638581543,
+    "native_q50": 1.085476447925698,
+    "native_q99": 146.52551579523828,
+    "records": 156,
+    "seed": 20261111,
+    "soft_extreme_definition": "abs(discrepancy)>180min diagnostic only",
+    "soft_extreme_fraction": 0.007375
+  },
+  "T-CAL-wider": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": null,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": -288.0498286617065,
+    "native_q50": -0.22219092332788126,
+    "native_q99": 291.9574055058656,
+    "records": 156,
+    "seed": 20261112,
+    "soft_extreme_definition": "abs(discrepancy)>180min diagnostic only",
+    "soft_extreme_fraction": 0.1158076923076923
+  },
+  "T-OBS-base": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": true,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": 5.358124115718949,
+    "native_q50": 325.40730881946774,
+    "native_q99": 6393.923932860698,
+    "records": 236,
+    "seed": 20261109,
+    "soft_extreme_definition": "ratio<0.05 or >20 diagnostic only",
+    "soft_extreme_fraction": 0.002978813559322034
+  },
+  "T-OBS-wider": {
+    "draws": 2000,
+    "duration_prior_second_moment_finite": false,
+    "finite_positive_duration_or_signed_minutes": true,
+    "native_q01": 2.7700409814205718,
+    "native_q50": 287.94450931592786,
+    "native_q99": 18163.814728267153,
+    "records": 236,
+    "seed": 20261110,
+    "soft_extreme_definition": "ratio<0.05 or >20 diagnostic only",
+    "soft_extreme_fraction": 0.03377118644067797
+  }
+}

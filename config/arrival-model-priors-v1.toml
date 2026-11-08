@@ -1,0 +1,33 @@
+# Analyst weakly informative hypotheses after descriptive EDA, not expert elicitation.
+# All sources are fitted separately. Duration response is ln(y/t0); calibration is minutes.
+schema_version = "arrival_model_priors_v1"
+alpha_mean = 0.0
+beta_mean = 0.0
+observation = "working_continuous_density_for_native_reported_values"
+origin_error = "not_separately_identified_from_event_variation"
+display_precision = "metadata_only_not_accuracy"
+selection = "conditional_on_archive_reporting_not_corrected_MNAR"
+
+[duration.base]
+alpha_sd = 0.5
+beta_sd = 0.25
+tau_sd = 0.4
+sigma_sd = 0.4
+
+[duration.wider]
+alpha_sd = 0.8
+beta_sd = 0.4
+tau_sd = 0.6
+sigma_sd = 0.6
+
+[calibration.base]
+alpha_sd = 30.0
+beta_sd = 15.0
+tau_sd = 30.0
+sigma_sd = 30.0
+
+[calibration.wider]
+alpha_sd = 60.0
+beta_sd = 30.0
+tau_sd = 60.0
+sigma_sd = 60.0

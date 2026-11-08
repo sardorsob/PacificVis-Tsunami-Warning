@@ -1,0 +1,14 @@
+{
+  "dirty_paths": [
+    " M scripts/arrival_model.py",
+    "?? analysis/arrival/model_priors.py",
+    "?? analysis/arrival/models.py",
+    "?? artifacts/models/arrival-timing/prior-checks-v1/",
+    "?? config/arrival-model-priors-v1.toml",
+    "?? tests/test_arrival_models.py"
+  ],
+  "elapsed_seconds": 1.4886774173937738,
+  "git_sha": "0fe1c190ff134ec329b162bfbf02b951c4338da9",
+  "method": "pm.sample_prior_predictive; new-group predictions from hyperdraws",
+  "scientific_posterior_fitted": false
+}

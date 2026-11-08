@@ -1,0 +1,25 @@
+distribution,parameter,q025,q975,rationale,scale,support,target,units,variant
+HalfNormal,sigma,0.012535192808570586,0.8965610910419786,analyst scale hypothesis after EDA; not expert elicitation,0.4,positive,NCEI-native-duration,log_reference_ratio,base
+HalfNormal,sigma,0.012535192808570586,0.8965610910419786,analyst scale hypothesis after EDA; not expert elicitation,0.4,positive,T-OBS,log_reference_ratio,base
+HalfNormal,sigma,0.01880278921285588,1.3448416365629678,analyst scale hypothesis after EDA; not expert elicitation,0.6,positive,NCEI-native-duration,log_reference_ratio,wider
+HalfNormal,sigma,0.01880278921285588,1.3448416365629678,analyst scale hypothesis after EDA; not expert elicitation,0.6,positive,T-OBS,log_reference_ratio,wider
+HalfNormal,sigma,0.940139460642794,67.24208182814839,analyst scale hypothesis after EDA; not expert elicitation,30.0,positive,T-CAL,minutes,base
+HalfNormal,sigma,1.880278921285588,134.48416365629677,analyst scale hypothesis after EDA; not expert elicitation,60.0,positive,T-CAL,minutes,wider
+HalfNormal,tau_event,0.012535192808570586,0.8965610910419786,analyst scale hypothesis after EDA; not expert elicitation,0.4,positive,NCEI-native-duration,log_reference_ratio,base
+HalfNormal,tau_event,0.012535192808570586,0.8965610910419786,analyst scale hypothesis after EDA; not expert elicitation,0.4,positive,T-OBS,log_reference_ratio,base
+HalfNormal,tau_event,0.01880278921285588,1.3448416365629678,analyst scale hypothesis after EDA; not expert elicitation,0.6,positive,NCEI-native-duration,log_reference_ratio,wider
+HalfNormal,tau_event,0.01880278921285588,1.3448416365629678,analyst scale hypothesis after EDA; not expert elicitation,0.6,positive,T-OBS,log_reference_ratio,wider
+HalfNormal,tau_event,0.940139460642794,67.24208182814839,analyst scale hypothesis after EDA; not expert elicitation,30.0,positive,T-CAL,minutes,base
+HalfNormal,tau_event,1.880278921285588,134.48416365629677,analyst scale hypothesis after EDA; not expert elicitation,60.0,positive,T-CAL,minutes,wider
+Normal,alpha,-0.9799819922700269,0.9799819922700267,analyst scale hypothesis after EDA; not expert elicitation,0.5,real,NCEI-native-duration,log_reference_ratio,base
+Normal,alpha,-0.9799819922700269,0.9799819922700267,analyst scale hypothesis after EDA; not expert elicitation,0.5,real,T-OBS,log_reference_ratio,base
+Normal,alpha,-1.5679711876320432,1.5679711876320428,analyst scale hypothesis after EDA; not expert elicitation,0.8,real,NCEI-native-duration,log_reference_ratio,wider
+Normal,alpha,-1.5679711876320432,1.5679711876320428,analyst scale hypothesis after EDA; not expert elicitation,0.8,real,T-OBS,log_reference_ratio,wider
+Normal,alpha,-117.59783907240323,117.5978390724032,analyst scale hypothesis after EDA; not expert elicitation,60.0,real,T-CAL,minutes,wider
+Normal,alpha,-58.798919536201616,58.7989195362016,analyst scale hypothesis after EDA; not expert elicitation,30.0,real,T-CAL,minutes,base
+Normal,beta,-0.48999099613501346,0.48999099613501335,analyst scale hypothesis after EDA; not expert elicitation,0.25,real,NCEI-native-duration,log_reference_ratio_per_unit_ln_distance,base
+Normal,beta,-0.48999099613501346,0.48999099613501335,analyst scale hypothesis after EDA; not expert elicitation,0.25,real,T-OBS,log_reference_ratio_per_unit_ln_distance,base
+Normal,beta,-0.7839855938160216,0.7839855938160214,analyst scale hypothesis after EDA; not expert elicitation,0.4,real,NCEI-native-duration,log_reference_ratio_per_unit_ln_distance,wider
+Normal,beta,-0.7839855938160216,0.7839855938160214,analyst scale hypothesis after EDA; not expert elicitation,0.4,real,T-OBS,log_reference_ratio_per_unit_ln_distance,wider
+Normal,beta,-29.399459768100808,29.3994597681008,analyst scale hypothesis after EDA; not expert elicitation,15.0,real,T-CAL,minutes_per_unit_ln_distance,base
+Normal,beta,-58.798919536201616,58.7989195362016,analyst scale hypothesis after EDA; not expert elicitation,30.0,real,T-CAL,minutes_per_unit_ln_distance,wider
