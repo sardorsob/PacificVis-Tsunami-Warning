@@ -1,0 +1,50 @@
+{
+  "cohort": "unchanged1064primaryexplorationNCEIrecords",
+  "files": {
+    "analysis/arrival/model_curvature.py": "3d8856dc5ce4384abe20fb94e7837b18a6fd64cc47bc184711476f82480367a0",
+    "analysis/arrival/model_curvature_prior.py": "083e98b5d0f19b70d6e53f1bdea27f30a44078244f9a3bbd6b874d1cae96c0f8",
+    "config/arrival-mean-curvature-v1.toml": "18097d0f718ed43466c216e89bc36be14b4333bb48bfc021483a31185e2a1080",
+    "scripts/check_arrival_curvature_prior.py": "793279edeaf4e1048e917bf65e5b895cd1b43a808e0c8bf5869c94c74b5e6880",
+    "tests/test_arrival_curvature_prior.py": "793d31a677bdba5778748523fc8b4cb40a21b7290c7800a4a8286a2f49548e75",
+    "tests/test_arrival_model_curvature.py": "4ca664b70d9b23b21f2ff6fd37535c93906a8b815b6fb130a055ea4cfea20f82"
+  },
+  "independent_checks": {
+    "actual_prior_generated": false,
+    "conditional_event_effects": true,
+    "dense_kernel_design_rows": 12,
+    "dense_kernel_events": 3,
+    "focused_tests": 9,
+    "max_independent_seven_parameter_gradient_difference": 1.14e-13,
+    "native_shared_new_event_predictions": true,
+    "prior_variants_and_inherited_hash_redirect_guards": true,
+    "protected_training_mutation_isolation": true,
+    "same_likelihood_fixed_gamma_zero": true,
+    "tau_cases": [
+      0,
+      1e-10,
+      0.05,
+      0.2,
+      0.25
+    ]
+  },
+  "prior_allocation": {
+    "ancestral_draws_each": 2000,
+    "per_file_bytes": 67108864,
+    "seed": 26261108,
+    "total_raw_bytes": 201326592,
+    "variants": 3
+  },
+  "qualifications": [
+    "alpha remains reference logmedianratio1000km",
+    "medianelasticity1+beta-gamma*500/(d+500);native mean adds sigma*d(sigma)/d(logd)",
+    "strong beta-gamma tradeoff; report derivedcurves and correlations",
+    "curvature not physical delay; near limiting negative derivativeprior exposed",
+    "joint_wider finite native first moment,infinite second moment",
+    "actual prior array/table/image QA,recovery,SBC and new finite fit/CV allocation required",
+    "old original83fold scorebudgets and receipts unchanged",
+    "19previouslyinspectedconfirmationoutcomes not reopened;18reservedsealed"
+  ],
+  "schema_version": "arrival_mean_curvature_design_acceptance_v1",
+  "scope": "ONE phenomenological source-defined timing-curve candidate; no posterior/CV/path-route approval",
+  "status": "accepted_kernel_and_bounded_prior_generation_only"
+}

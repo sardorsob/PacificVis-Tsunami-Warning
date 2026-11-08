@@ -1,0 +1,20 @@
+# Analyst hypotheses after EDA; no physical-delay or monotonicity assertion.
+schema_version = "arrival_mean_curvature_v1"
+target = "NCEI-native-duration"
+base_priors = "config/arrival-model-priors-v1.toml"
+base_priors_sha256 = "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622"
+transition_km = 500.0
+reference_km = 1000.0
+gamma_base_sd = 0.5
+gamma_wider_sd = 0.8
+variants = ["base", "gamma_wider_only", "joint_wider"]
+base = "existing duration.base plus independent gamma Normal(0,0.5)"
+gamma_wider_only = "existing duration.base plus independent gamma Normal(0,0.8)"
+joint_wider = "existing duration.wider plus independent gamma Normal(0,0.8)"
+basis = "log1p(500/d)-log1p(0.5); fixed; no query centering"
+median_elasticity = "1+beta-gamma*500/(d+500)"
+native_mean_elasticity = "median elasticity plus sigma*d(sigma)/d(log d) away from SD anchors"
+cohort = "unchanged frozen primary exploration NCEI; 1064 rows"
+measurement = "native reported point density; no invented accuracy or interval bounds"
+quality_flags = "retain primary; consistent-rule and influential-sequence sensitivity before freeze"
+meaning = "phenomenological reported-timing curvature, not physical additive delay"
