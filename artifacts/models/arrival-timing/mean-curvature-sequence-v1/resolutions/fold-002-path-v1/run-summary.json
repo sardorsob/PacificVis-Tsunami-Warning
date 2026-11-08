@@ -1,0 +1,13 @@
+{
+  "accepted_nodes": 3,
+  "active_seconds": 24.56106283282861,
+  "confirmation_outcomes_parsed": false,
+  "max_curvature_slots": 248,
+  "new_slots_charged": 32,
+  "primary_score_acceptance": "pending_independent_replay",
+  "reserved_outcomes": "sealed",
+  "status": "path_checkpoint",
+  "total_curvature_calls_charged": 38,
+  "total_curvature_calls_started": 9,
+  "working_bytes": 838876947
+}
