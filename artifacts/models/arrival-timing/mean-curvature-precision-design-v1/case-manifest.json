@@ -1,0 +1,55 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "initial_checkpoint": {
+    "calls_charged": 51,
+    "calls_started": 51,
+    "current": null,
+    "next_fold": 8,
+    "status": "cv_needs_review"
+  },
+  "job": {
+    "cores": 2,
+    "draws": 8000,
+    "event": "usc000piqj",
+    "id": "fold-008-lata-precision",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2866118800,
+    "sequence": "seq-usc000phx5",
+    "target": "NCEI-native-duration",
+    "tune": 2000
+  },
+  "output": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1",
+  "path_bindings": {
+    "output": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-008-precision-v1",
+    "private_state_identity_sha256": "225e50d9abf5b0dc6339960b60630f6be1e1401b1f2b8f6c63b766bddd7135c2",
+    "store": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-008-precision-v1"
+  },
+  "planned_calls_charged_after_reservation": 53,
+  "reserved_outcomes": "sealed",
+  "resources": {
+    "automatic_retries": 0,
+    "cache_max_bytes": 268435456,
+    "chains": 4,
+    "concurrency": 1,
+    "cores": 2,
+    "draws": 8000,
+    "global_max_bytes": 2147483648,
+    "inherited_charged_slots": 51,
+    "job_max_bytes": 33554432,
+    "local_max_bytes": 1073741824,
+    "max_sampler_call_slots": 248,
+    "new_sampler_call_slots": 2,
+    "next_invocation_reserve_bytes": 637534208,
+    "per_file_bytes": 67108864,
+    "tune": 2000,
+    "whole_job_seconds": 1200
+  },
+  "schema_version": "curvature_lata_precision_v1",
+  "source_failure": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-008/result.json",
+  "source_failure_sha256": "c5f7d13e2911389f3c3063b9a4e102d9f2f2b235e1eb026cb6bfe4b40849b190",
+  "source_review": "artifacts/models/arrival-timing/mean-curvature-sequence-v1/continuation-v1/numerical-stop-review.json",
+  "source_review_sha256": "a0a9092d2391060b07fb3f0451bf0830cbb7704e0b18d4398e39f2d3173945eb",
+  "status": "prepared_pending_independent_launch_gate",
+  "store": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-008-precision-v1"
+}
