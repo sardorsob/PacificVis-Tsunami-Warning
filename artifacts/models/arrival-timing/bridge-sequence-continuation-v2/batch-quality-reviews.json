@@ -1,0 +1,196 @@
+{
+  "direct_accepted_folds": 26,
+  "externally_resolved_folds": 1,
+  "global_call_slots": 135,
+  "inspected_direct_folds": [
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-07",
+      "events": 1,
+      "max_normalized_mcse": 8.490354050941148e-05,
+      "min_bridge_overlap": 0.926287517103999
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-07",
+      "events": 1,
+      "max_normalized_mcse": 0.00013893374695019085,
+      "min_bridge_overlap": 0.8426208341405855
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-08",
+      "events": 1,
+      "max_normalized_mcse": 0.00011954570334993005,
+      "min_bridge_overlap": 0.8938519404234205
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-08",
+      "events": 1,
+      "max_normalized_mcse": 0.00011423172696840657,
+      "min_bridge_overlap": 0.9068130328155282
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-09",
+      "events": 1,
+      "max_normalized_mcse": 0.0001309243497823504,
+      "min_bridge_overlap": 0.9352498673887681
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-09",
+      "events": 1,
+      "max_normalized_mcse": 0.00013993152079014407,
+      "min_bridge_overlap": 0.9370140466023725
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-10",
+      "events": 1,
+      "max_normalized_mcse": 9.932539222321977e-05,
+      "min_bridge_overlap": 0.9712808132672888
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-10",
+      "events": 1,
+      "max_normalized_mcse": 0.00028840023452969435,
+      "min_bridge_overlap": 0.8154021334234186
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-11",
+      "events": 1,
+      "max_normalized_mcse": 0.00010895911493234408,
+      "min_bridge_overlap": 0.9743051790116564
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-11",
+      "events": 1,
+      "max_normalized_mcse": 0.00026683837615437624,
+      "min_bridge_overlap": 0.9047627985313048
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-12",
+      "events": 1,
+      "max_normalized_mcse": 0.00013995150708218625,
+      "min_bridge_overlap": 0.9642592758117463
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-12",
+      "events": 1,
+      "max_normalized_mcse": 0.00015117979614137964,
+      "min_bridge_overlap": 0.9642191945622842
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-13",
+      "events": 1,
+      "max_normalized_mcse": 0.00014581428918426193,
+      "min_bridge_overlap": 0.9811802491499757
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-13",
+      "events": 1,
+      "max_normalized_mcse": 0.0001982181407677027,
+      "min_bridge_overlap": 0.9674713883706682
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-14",
+      "events": 2,
+      "max_normalized_mcse": 0.0006510980099332144,
+      "min_bridge_overlap": 0.9955015579840575
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-14",
+      "events": 2,
+      "max_normalized_mcse": 0.0004349013099601652,
+      "min_bridge_overlap": 0.9732995848130634
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-15",
+      "events": 1,
+      "max_normalized_mcse": 0.0001652371348461406,
+      "min_bridge_overlap": 0.9884927865762839
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-15",
+      "events": 1,
+      "max_normalized_mcse": 0.00023782643363396298,
+      "min_bridge_overlap": 0.974281831702361
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-16",
+      "events": 1,
+      "max_normalized_mcse": 0.0002256290211681965,
+      "min_bridge_overlap": 0.9837057872002969
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-16",
+      "events": 1,
+      "max_normalized_mcse": 0.0001333570985609307,
+      "min_bridge_overlap": 0.9937921443296853
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-17",
+      "events": 1,
+      "max_normalized_mcse": 0.0002368592219745972,
+      "min_bridge_overlap": 0.9872042843078294
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-17",
+      "events": 1,
+      "max_normalized_mcse": 0.00022673727963464592,
+      "min_bridge_overlap": 0.9914742783368193
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-18",
+      "events": 1,
+      "max_normalized_mcse": 0.00031699626680538865,
+      "min_bridge_overlap": 0.984408579254944
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-18",
+      "events": 1,
+      "max_normalized_mcse": 0.00013272108813438258,
+      "min_bridge_overlap": 0.9971789970529327
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-19",
+      "events": 1,
+      "max_normalized_mcse": 0.0002201257369429145,
+      "min_bridge_overlap": 0.9926420970068749
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-19",
+      "events": 1,
+      "max_normalized_mcse": 0.0005050519664248856,
+      "min_bridge_overlap": 0.9809442708895514
+    }
+  ],
+  "logical_completed_folds": 27,
+  "original_failed_attempts": "retained",
+  "remaining_global_slots": 217,
+  "reserved_outcomes": "sealed",
+  "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance",
+  "stop_attempts": 2,
+  "stop_case": "NCEI-native-duration-event-fold-20"
+}
