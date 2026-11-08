@@ -59,3 +59,7 @@ artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/jobs/
 *.zarr/
 *.gpkg
 *.parquet
+
+# Retained sampling jobs and transient leases stay local.
+artifacts/models/arrival-timing/ncei-fold20-joint-score-integration-v1/jobs/
+artifacts/models/arrival-timing/**/.controller.lock
