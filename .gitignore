@@ -49,6 +49,7 @@ artifacts/models/arrival-timing/source-validation-v1/*/*/jobs/
 artifacts/models/arrival-timing/distance-scale-validation-v1/*/jobs/
 artifacts/models/arrival-timing/sequence-validation-v1/*/jobs/
 artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/
+artifacts/models/arrival-timing/tohoku-joint-score-integration-v1/jobs/
 *.tif
 *.tiff
 *.nc
