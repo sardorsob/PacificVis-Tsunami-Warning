@@ -35,10 +35,14 @@ def git_sha(root: Path) -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 
 
-def make_cases(phase: str) -> list[dict[str, Any]]:
+def make_cases(phase: str, protocol: str = "core") -> list[dict[str, Any]]:
     """Predefine all datasets; spaced seeds isolate truth/data/sampler/rank RNG channels."""
     if phase not in {"recovery", "sbc"}:
         raise ValueError("unknown validation phase")
+    if protocol not in {"core", "combined-followup"} or (
+        protocol == "combined-followup" and phase != "recovery"
+    ):
+        raise ValueError("invalid follow-up protocol")
     base = {"alpha": 0.15, "beta": -0.05, "tau_event": 0.2, "sigma": 0.3}
     scenarios: list[tuple[str, dict[str, float], int]] = [
         ("reference", {}, 0),
@@ -55,9 +59,13 @@ def make_cases(phase: str) -> list[dict[str, Any]]:
     settings: list[tuple[str, dict[str, float], int]] = (
         scenarios if phase == "recovery" else [("prior-generated", {}, 0)]
     )
+    if protocol == "combined-followup":
+        settings = [scenarios[7]]
     for scenario, (label, changes, delay) in enumerate(settings):
         for replicate in range(30 if phase == "recovery" else 200):
             seed = 20261107 + (1000000 if phase == "recovery" else 2000000)
+            if protocol == "combined-followup":
+                seed = 20261107 + 3000000
             seed += scenario * 10000 + replicate * 100
             job: dict[str, Any] = {
                 "phase": phase,
@@ -149,6 +157,7 @@ def _report(output: Path, state: dict[str, Any], plan: dict[str, Any]) -> None:
         output / "run-summary.json",
         {
             "phase": plan["phase"],
+            "protocol": plan.get("protocol", "core"),
             "planned_datasets": len(plan["cases"]),
             "completed_datasets": state["next_case"],
             "calls_used": state["calls_used"],
@@ -170,6 +179,7 @@ def run_batch(
     *,
     max_cases: int | None = None,
     resume: bool = False,
+    protocol: str = "core",
 ) -> None:
     """Run fixed datasets; retry only mild precision failures once, retaining every attempt."""
     if max_cases is not None and max_cases < 0:
@@ -196,7 +206,11 @@ def run_batch(
         if resume:
             plan = json.loads((output / "plan.json").read_text(encoding="utf-8"))
             state = json.loads(state_path.read_text(encoding="utf-8"))
-            if plan["phase"] != phase or plan["code_and_config"] != pins:
+            if (
+                plan["phase"] != phase
+                or plan["code_and_config"] != pins
+                or plan.get("protocol", "core") != protocol
+            ):
                 raise ValueError("source/phase changed; do not resume a different experiment")
             if state["current"] is not None:
                 raise ValueError(
@@ -204,14 +218,35 @@ def run_batch(
                 )
             validate_checkpoint(state, plan)
         else:
+            parent_budget = None
+            max_calls, max_bytes = (330 if phase == "recovery" else 260), 2 * 1024**3
+            if protocol == "combined-followup":
+                path = root / "artifacts/models/arrival-timing/design-recovery-v1/run-summary.json"
+                parent = json.loads(path.read_text())
+                if parent["status"] != "computations_complete" or parent["phase"] != "recovery":
+                    raise ValueError("completed original recovery budget required")
+                parent_store = root / "data/processed/models/design-recovery-v1"
+                parent_bytes = sum(p.stat().st_size for p in parent_store.rglob("*") if p.is_file())
+                if not parent_store.is_dir() or parent_bytes <= 0:
+                    raise ValueError("original posterior storage accounting required")
+                max_calls = parent["max_calls"] - parent["calls_used"]
+                max_bytes -= parent_bytes
+                parent_budget = {
+                    "summary": str(path.relative_to(root)),
+                    "sha256": sha256(path),
+                    "calls_used": parent["calls_used"],
+                    "posterior_bytes": parent_bytes,
+                }
             plan = {
                 "schema_version": "arrival_validation_batch_v1",
                 "phase": phase,
+                "protocol": protocol,
                 "base_git_sha": git_sha(root),
                 "code_and_config": pins,
-                "cases": make_cases(phase),
-                "max_calls": 330 if phase == "recovery" else 260,
-                "max_posterior_bytes": 2 * 1024**3,
+                "cases": make_cases(phase, protocol),
+                "max_calls": max_calls,
+                "max_posterior_bytes": max_bytes,
+                "parent_budget": parent_budget,
                 "per_attempt_timeout_seconds": 600,
                 "concurrency": 1,
                 "cores_per_attempt": 2,
@@ -232,6 +267,9 @@ def run_batch(
             }
         if state["plan_sha256"] != sha256(output / "plan.json"):
             raise ValueError("checkpoint plan identity changed")
+        parent = plan.get("parent_budget")
+        if parent and sha256(root / parent["summary"]) != parent["sha256"]:
+            raise ValueError("original parent budget changed; reconcile before follow-up")
         atomic_state(state_path, state)
         completed_here = 0
         stop = output / "jobs/STOP"
@@ -244,6 +282,8 @@ def run_batch(
                 break
             if any(sha256(root / name) != digest for name, digest in pins.items()):
                 raise ValueError("source changed during batch")
+            if parent and sha256(root / parent["summary"]) != parent["sha256"]:
+                raise ValueError("original parent budget changed during follow-up")
             if state["calls_used"] >= plan["max_calls"]:
                 state["status"] = "call_ceiling"
                 break
@@ -357,6 +397,7 @@ def run_batch(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--phase", choices=["recovery", "sbc"], required=True)
+    parser.add_argument("--protocol", choices=["core", "combined-followup"], default="core")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--store", type=Path, required=True)
     parser.add_argument("--state", type=Path, required=True)
@@ -371,6 +412,7 @@ def main() -> None:
         args.state.resolve(),
         max_cases=args.max_cases,
         resume=args.resume,
+        protocol=args.protocol,
     )
 
 

@@ -32,6 +32,13 @@ def test_trial_plan_is_finite_and_random_channels_never_overlap() -> None:
         case["job"]["cores"] == 2 and case["job"]["parameterization"] == "marginal"
         for case in recovery + sbc
     )
+    followup = code.make_cases("recovery", "combined-followup")
+    assert len(followup) == 30
+    assert all(c["job"]["truth"] == recovery[210]["job"]["truth"] for c in followup)
+    assert not set(seeds) & {c["job"]["seed"] + k for c in followup for k in range(20)}
+    assert len({c["job"]["seed"] + k for c in followup for k in range(20)}) == 600
+    with pytest.raises(ValueError, match="protocol"):
+        code.make_cases("sbc", "combined-followup")
 
 
 def setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
@@ -233,3 +240,47 @@ def test_resume_revalidates_saved_posterior(
     with pytest.raises(ValueError, match="retained attempt"):
         code.run_batch(root, "recovery", output, store, state, max_cases=1, resume=True)
     assert len(calls) == 1
+
+
+def test_followup_uses_remaining_original_call_and_storage_budget(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    code, root, _ = setup(tmp_path, monkeypatch)
+    original = root / "artifacts/models/arrival-timing/design-recovery-v1/run-summary.json"
+    original.parent.mkdir(parents=True)
+    original.write_text(
+        json.dumps(
+            {
+                "phase": "recovery",
+                "status": "computations_complete",
+                "calls_used": 270,
+                "max_calls": 330,
+            }
+        )
+    )
+    parent_store = root / "data/processed/models/design-recovery-v1"
+    parent_store.mkdir(parents=True)
+    (parent_store / "retained.nc").write_bytes(b"retained")
+    output, store, state = (
+        root / "artifacts/followup",
+        root / "data/processed/models/followup",
+        tmp_path / "state.json",
+    )
+    code.run_batch(
+        root, "recovery", output, store, state, max_cases=0, protocol="combined-followup"
+    )
+    plan = json.loads((output / "plan.json").read_text())
+    assert plan["max_calls"] == 60 and len(plan["cases"]) == 30
+    assert plan["max_posterior_bytes"] == 2 * 1024**3 - 8
+    original.write_text("{}")
+    with pytest.raises(ValueError, match="parent budget"):
+        code.run_batch(
+            root,
+            "recovery",
+            output,
+            store,
+            state,
+            max_cases=0,
+            resume=True,
+            protocol="combined-followup",
+        )
