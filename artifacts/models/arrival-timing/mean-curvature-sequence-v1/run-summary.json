@@ -1,0 +1,11 @@
+{
+  "calls_charged": 2,
+  "calls_started": 2,
+  "computed_folds": 1,
+  "confirmation_outcomes_parsed": false,
+  "max_sampler_call_slots": 248,
+  "nominal_sampler_call_slots": 62,
+  "reserved_outcomes": "sealed",
+  "status": "checkpoint",
+  "working_bytes": 817402281
+}
