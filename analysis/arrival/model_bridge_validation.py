@@ -19,6 +19,7 @@ from analysis.arrival.model_bridge import bridge_score
 from analysis.arrival.model_collapsed import CollapsedGaussian
 from analysis.arrival.model_cv import verify_prediction_gate
 from analysis.arrival.model_data import load_lanes, sequence_folds
+from analysis.arrival.model_scale import ANCHORS_KM, scale_weights
 from analysis.arrival.model_validation_report import write_table
 from analysis.arrival.models import read_prior
 
@@ -29,6 +30,7 @@ CONSUMED = [
     "analysis/arrival/model_scoring.py",
     "analysis/arrival/model_collapsed.py",
     "analysis/arrival/model_data.py",
+    "analysis/arrival/model_scale.py",
     "analysis/arrival/models.py",
     "config/arrival-model-priors-v1.toml",
     "config/arrival-model-scoring-v1.toml",
@@ -146,22 +148,23 @@ def calibration(root: Path, output: Path):
     _check(root, pins)
 
 
-def actual_pilot(root: Path, training: Path, augmented: Path, output: Path):
-    """Initial 2D gate uses existing clean, independent fits; no new sampling."""
+def actual_pilot(root: Path, training: Path, augmented: Path, output: Path, *, kind="event"):
+    """Bounded exploration gate uses existing clean independent fits; no sampling."""
     first = json.loads((training / "result.json").read_text())
     second = json.loads((augmented / "result.json").read_text())
     if (
         any(
-            r["job"]["kind"] != "event"
+            r["job"]["kind"] != kind
             or r["job"]["target"] != "NCEI-native-duration"
             or not r["diagnostics"]["screen_passed"]
             or r["job"].get("prior", "base") != "base"
             for r in [first, second]
         )
         or first["job"]["seed"] == second["job"]["seed"]
+        or kind not in {"event", "distance-scale"}
     ):
         raise ValueError("independent clean base-prior primary event fits required")
-    verify_prediction_gate(root, root / first["job"]["gate"], "NCEI-native-duration", "event")
+    verify_prediction_gate(root, root / first["job"]["gate"], "NCEI-native-duration", kind)
     lanes, frozen = load_lanes(root)
     lane = lanes["NCEI-native-duration"]
     fold = next(f for f in sequence_folds(lane) if f.sequence_id == first["job"]["sequence"])
@@ -198,6 +201,7 @@ def actual_pilot(root: Path, training: Path, augmented: Path, output: Path):
             "config/arrival-model-priors-v1.toml",
             "pyproject.toml",
             "uv.lock",
+            *(["analysis/arrival/model_scale.py"] if kind == "distance-scale" else []),
         ]:
             if identities.get(p) != sha256(root / p):
                 raise ValueError("source model/prior/environment identity mismatch")
@@ -205,7 +209,12 @@ def actual_pilot(root: Path, training: Path, augmented: Path, output: Path):
         if sha256(posterior) != result["posterior_sha256"]:
             raise ValueError("source posterior changed")
         with xr.open_dataset(posterior, group="posterior", engine="h5netcdf") as ds:
-            arrays.append(np.stack([ds.sigma.values, ds.tau_event.values], axis=-1))
+            if kind == "distance-scale":
+                np.testing.assert_array_equal(ds.scale_anchor_km.values, ANCHORS_KM)
+            scales = (
+                ds.sigma_anchor.values if kind == "distance-scale" else ds.sigma.values[..., None]
+            )
+            arrays.append(np.concatenate([scales, ds.tau_event.values[..., None]], axis=-1))
     with xr.open_dataset(
         root / second["posterior"], group="observed_data", engine="h5netcdf"
     ) as ds:
@@ -215,16 +224,20 @@ def actual_pilot(root: Path, training: Path, augmented: Path, output: Path):
     pins = _inputs(root, output)
     prior = read_prior(root, lane.target, "base")
     x = np.c_[np.ones(len(lane.rows)), lane.x]
+    weights = scale_weights(lane.distance_km) if kind == "distance-scale" else np.ones((len(x), 1))
     model = CollapsedGaussian(
         lane.response[fold.train],
         x[fold.train],
         np.array(lane.event_ids)[fold.train],
-        np.ones((len(fold.train), 1)),
+        weights[fold.train],
         [prior["alpha_sd"], prior["beta_sd"]],
     )
     logs = [
         model.new_event_logpdf(
-            a.reshape(-1, 2), lane.response[fold.test], x[fold.test], np.ones((len(fold.test), 1))
+            a.reshape(-1, weights.shape[1] + 1),
+            lane.response[fold.test],
+            x[fold.test],
+            weights[fold.test],
         ).reshape(a.shape[:2])
         for a in arrays
     ]
@@ -250,6 +263,7 @@ def actual_pilot(root: Path, training: Path, augmented: Path, output: Path):
             "augmented_result": str((augmented / "result.json").relative_to(root)),
             "augmented_result_sha256": sha256(augmented / "result.json"),
             "source_files": frozen,
+            "source_kind": kind,
             "sequence": fold.sequence_id,
             "duration_jacobian": jacobian,
             "augmented_posterior_scope": "integration_only_never_heldout_prediction",

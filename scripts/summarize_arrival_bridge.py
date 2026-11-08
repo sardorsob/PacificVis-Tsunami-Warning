@@ -91,10 +91,37 @@ def summarize(root: Path, source: Path, references: Path, output: Path):
                 "reference_proposal_refinement_raw_nats": exact["proposal_refinement_difference"],
             }
         )
+    scale_checks = []
+    for name in ["scale-blocked-existing", "scale-blocked-independent-repeat"]:
+        score = read(source / name / "result.json")
+        read(source / name / "source-fits.json")
+        read(source / name / "inputs.json")
+        scale_checks.append(
+            {
+                "prototype": name,
+                **{
+                    k: score[k]
+                    for k in [
+                        "joint_log_predictive",
+                        "joint_log_mcse_delta",
+                        "normalized_event_score",
+                        "normalized_mcse",
+                        "overlap",
+                        "fixedpoint_derivative",
+                        "precision_passed",
+                    ]
+                },
+            }
+        )
+    scale_difference = abs(
+        scale_checks[0]["joint_log_predictive"] - scale_checks[1]["joint_log_predictive"]
+    )
+    scale_difference /= math.hypot(*(r["joint_log_mcse_delta"] for r in scale_checks))
     output.mkdir(parents=True)
     write_table(output / "known-normalizer-trials.csv", rows)
     write_table(output / "known-normalizer-summary.csv", summary)
     write_table(output / "real-event-integration-checks.csv", comparisons)
+    write_table(output / "fixed-anchor-integration-checks.csv", scale_checks)
     write_json(
         output / "inputs.json",
         {
@@ -116,6 +143,7 @@ def summarize(root: Path, source: Path, references: Path, output: Path):
     repeat_difference = abs(initial["joint_log_predictive"] - repeat["joint_log_predictive"])
     repeat_difference /= math.hypot(initial["joint_log_mcse_delta"], repeat["joint_log_mcse_delta"])
     max_refinement = max(r["reference_proposal_refinement_raw_nats"] for r in comparisons)
+    meng_url = "https://www3.stat.sinica.edu.tw/statistica/j6n4/j6n43/j6n43.htm"
     (output / "findings.md").write_text(f"""# Checking the joint predictive-density estimator
 
 A two-posterior bridge estimates the same new-event joint predictive density as
@@ -129,7 +157,7 @@ With f₀ the training hyperparameter density and f₁ its product with the join
 conditional held-event density, the bridge estimates Z₁/Z₀. For durations, subtract
 Σ log(y_minutes) to return to native-minute density. This ratio scores a held event
 within one model; no Bayes-factor interpretation is used for predictive differences
-between models. See [Meng and Wong](https://www3.stat.sinica.edu.tw/statistica/)
+between models. See [Meng and Wong]({meng_url})
 and [Gronau et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC5699790/).
 
 The finite experiment retains all {len(rows)} known-normalizer trials.
@@ -149,6 +177,17 @@ combined standard errors. Reference quadrature refinement differences are at mos
 {max_refinement:.3g} raw nats; finite refinement and routine error estimates do not
 prove exhaustive mode coverage.
 
+The four-variance fixed-anchor model was also checked on the blocked Chile event.
+Two independent training/augmented pairs give normalized scores
+{scale_checks[0]["normalized_event_score"]:.7f} and {scale_checks[1]["normalized_event_score"]:.7f},
+with MCSEs {scale_checks[0]["normalized_mcse"]:.7f} and {scale_checks[1]["normalized_mcse"]:.7f}.
+Their difference is {scale_difference:.3f} combined standard errors. Overlap is
+{scale_checks[0]["overlap"]:.3f} and {scale_checks[1]["overlap"]:.3f}.
+Independent all-draw and dense Gaussian replay verified the conditional coefficient
+and event-effect integration, memberships, base priors and native-duration measure.
+This is numerical validation of one difficult fold, with no deterministic exact
+four-dimensional reference or universal posterior-exploration certificate.
+
 Numerical screens keep event-score MCSE ≤0.005 and aggregate MCSE ≤0.002 nat per
 record. Additional analyst screens require overlap ≥0.1, |empirical fixed-point
 derivative| ≤0.25, both bridge weight concentrations ≥100, functional R-hat ≤1.01
@@ -159,7 +198,7 @@ ensembles contribute separate variances. Overlap and clean diagnostics do not pr
 global exploration. MCSE is asymptotic and gives no deterministic tail certificate.
 
 Original failed importance estimates remain unresolved and retained. This validation
-supports review of the integration method only. Four-variance production scoring,
+supports review of the integration method only. Production scoring,
 completed sequence comparisons, model selection and sensitivity remain separate gates.
 Previously inspected confirmation outcomes and 18 reserved outcomes were not read
 in these checks.

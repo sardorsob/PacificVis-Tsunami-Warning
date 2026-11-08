@@ -16,6 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--training", type=Path)
     parser.add_argument("--augmented", type=Path)
+    parser.add_argument("--kind", choices=["event", "distance-scale"], default="event")
     parser.add_argument("--worker", action="store_true")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
@@ -25,7 +26,9 @@ if __name__ == "__main__":
     if args.worker:
         limit_worker_file_size(64 * 1024**2)
         if args.training:
-            actual_pilot(root, args.training.resolve(), args.augmented.resolve(), output)
+            actual_pilot(
+                root, args.training.resolve(), args.augmented.resolve(), output, kind=args.kind
+            )
         else:
             calibration(root, output)
     else:
@@ -46,6 +49,7 @@ if __name__ == "__main__":
                 "--augmented",
                 str(args.augmented.resolve()),
             ]
+            command += ["--kind", args.kind]
         receipt = supervise(command, output.with_suffix(".log"), output.parent / "STOP", 600)
         write_json(output.with_suffix(".supervisor.json"), receipt)
         if receipt["returncode"] != 0 or receipt["reason"] != "worker_exit":
