@@ -154,6 +154,21 @@ corrupt counts or unsafe failures require reconciliation. A `jobs/STOP` file
 inside the output requests a stop. Computational completion remains separate
 from scientific acceptance of recovery and calibration results.
 
+Build portable recovery tables and figures from the retained trials:
+
+```bash
+uv run python scripts/summarize_arrival_model_validation.py \
+  --batch artifacts/models/arrival-timing/my-design-recovery \
+  --output artifacts/models/arrival-timing/my-recovery-summary --register
+```
+
+The command verifies each posterior hash and checks saved means against the
+original draws. It preserves trial counts, failed attempts, interval coverage
+uncertainty and a separate additive-time stress scenario. For SBC it reports
+six quantities with simultaneous reference bands and MCMC caveats. Detailed
+worker logs and posterior arrays remain local; portable tables, figures,
+plans and checksums are committed. Registration uses project-local MLflow.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

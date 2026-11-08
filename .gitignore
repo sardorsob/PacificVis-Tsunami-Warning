@@ -41,6 +41,9 @@ public/data/*
 !public/data/README.md
 
 artifacts/generated/
+# Keep detailed synthetic sampling logs/results locally; portable summaries and plans are tracked.
+artifacts/models/arrival-timing/design-recovery-v1/jobs/
+artifacts/models/arrival-timing/inference-calibration-v1/jobs/
 *.tif
 *.tiff
 *.nc
