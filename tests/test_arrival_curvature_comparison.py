@@ -111,55 +111,198 @@ def test_incomplete_review_rejected_before_science_or_outcome_read(tmp_path):
         verify_complete_curvature(tmp_path)
 
 
-def test_unreviewed_attempt_is_rejected_before_any_science_parser(tmp_path, monkeypatch):
+def complete_bundle(root, monkeypatch):
     from analysis.arrival.evidence import sha256
     from analysis.arrival.model_curvature_comparison import OUTPUT
+    from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW, GATE, REHEARSAL
 
-    folder = tmp_path / OUTPUT
-    source = tmp_path / "stub.py"
+    source = root / "stub.py"
     source.write_text("source")
-    write_json(
-        folder / "plan.json",
-        {
-            "cases": [{"id": f"fold-{j:03d}"} for j in range(29)],
-            "memberships": {f"fold-{j:03d}": {} for j in range(29)},
-            "files": {"stub.py": sha256(source)},
-        },
-    )
-    write_json(
-        folder / "run-summary.json",
-        {
-            "status": "complete",
-            "computed_folds": 29,
-            "calls_charged": 62,
-            "calls_started": 62,
-            "confirmation_outcomes_parsed": False,
-            "reserved_outcomes": "sealed",
-        },
-    )
-    write_json(
-        folder / "review-acceptance.json",
-        {
-            "status": "accepted_all_curvature_sequence_computations",
-            "independent_checker": True,
-            "confirmation_outcomes_parsed": False,
-            "reserved_outcomes": "sealed",
-            "files": {
-                "stub.py": sha256(source),
-                **{
-                    str((folder / p).relative_to(tmp_path)): sha256(folder / p)
-                    for p in ["plan.json", "run-summary.json"]
-                },
+    worker = {"stub.py": sha256(source)}
+    cases = [{"id": f"fold-{j:03d}", "sequence": f"seq-{j}"} for j in range(29)]
+    plan = {"cases": cases, "memberships": {c["id"]: {} for c in cases}, "files": worker}
+    write_json(root / OUTPUT / "plan.json", plan)
+    write_json(root / OUTPUT / "run-summary.json", {"status": "cv_needs_review"})
+    for case in cases:
+        folder = root / OUTPUT / "jobs" / case["id"]
+        raw = root / "data/processed/models/mean-curvature-sequence-v1" / case["id"]
+        raw.mkdir(parents=True)
+        (raw / "raw.nc").write_bytes(b"raw")
+        write_json(
+            folder / "result.json",
+            {
+                "job": case,
+                "status": "precision_failure"
+                if case["id"] == "fold-002"
+                else "computed_pending_review",
             },
+        )
+        (folder / "held-out-record-predictions.csv").write_text("prediction")
+        for path in [
+            folder.with_name(case["id"] + "-spec.json"),
+            folder.with_suffix(".supervisor.json"),
+        ]:
+            write_json(path, {})
+        folder.with_suffix(".log").write_text("log")
+        files = {
+            str(p.relative_to(root)): sha256(p)
+            for base in [folder, raw]
+            for p in base.rglob("*")
+            if p.is_file()
+        }
+        files.update(
+            {
+                str(p.relative_to(root)): sha256(p)
+                for p in [
+                    folder.with_name(case["id"] + "-spec.json"),
+                    folder.with_suffix(".supervisor.json"),
+                    folder.with_suffix(".log"),
+                ]
+            }
+        )
+        write_json(folder / "attempt-evidence.json", {"case_id": case["id"], "files": files})
+    failed = OUTPUT + "/jobs/fold-002/result.json"
+    prediction = OUTPUT + "/jobs/fold-002/held-out-record-predictions.csv"
+    result = DERIVED + "/result.json"
+    write_json(
+        root / result,
+        {
+            "job": cases[2],
+            "source_result": failed,
+            "source_result_sha256": sha256(root / failed),
+            "training_only_predictions": prediction,
+            "training_only_predictions_sha256": sha256(root / prediction),
         },
     )
-    write_json(folder / "jobs/fold-000/result.json", {"unreviewed": True})
+    proof = {"independent_checker": True, "files": worker}
+    write_json(
+        root / DERIVED_REVIEW,
+        {
+            **proof,
+            "status": "accepted_same_model_curvature_fold_resolution",
+            "derived_result": result,
+            "derived_result_sha256": sha256(root / result),
+        },
+    )
+    write_json(root / GATE, {**proof, "status": "accepted_curvature_continuation_rehearsal"})
+    write_json(root / REHEARSAL, {**proof, "status": "accepted_first_curvature_continuation_fold"})
+    resolution = {
+        "fold-002": {
+            "receipt": DERIVED_REVIEW,
+            "receipt_sha256": sha256(root / DERIVED_REVIEW),
+            "result": result,
+            "result_sha256": sha256(root / result),
+            "prediction": prediction,
+            "prediction_sha256": sha256(root / prediction),
+        }
+    }
+    write_json(
+        root / OUTPUT / "continuation-v1/plan.json",
+        {
+            "cases": cases,
+            "original_plan_sha256": sha256(root / OUTPUT / "plan.json"),
+            "original_worker_files": worker,
+            "resolutions": resolution,
+            "files": worker,
+        },
+    )
+    write_json(
+        root / OUTPUT / "continuation-v1/run-summary.json",
+        {
+            "status": "cv_computations_complete",
+            "logical_completed_folds": 29,
+            "planned_folds": 29,
+            "direct_accepted_folds": 28,
+            "reviewed_resolutions": 1,
+            "calls_charged": 94,
+            "calls_started": 94,
+            "inherited_slots": 38,
+            "remaining_nominal_calls_at_start": 56,
+            "confirmation_outcomes_parsed": False,
+            "reserved_outcomes": "sealed",
+        },
+    )
+    gate = {
+        "status": "accepted_all_curvature_sequence_computations",
+        "independent_checker": True,
+        "confirmation_outcomes_parsed": False,
+        "reserved_outcomes": "sealed",
+        "resolutions": resolution,
+        "files": {str(p.relative_to(root)): sha256(p) for p in root.rglob("*") if p.is_file()},
+    }
+    write_json(root / OUTPUT / "review-acceptance.json", gate)
 
-    def forbidden(*args, **kwargs):
-        raise AssertionError("must not reach unreviewed science parser")
+    def checked_attempt(root, case, member, worker):
+        path = root / OUTPUT / "jobs" / case["id"] / "attempt-evidence.json"
+        import json
 
-    monkeypatch.setattr("scripts.run_arrival_curvature_sequences.case_artifacts", forbidden)
-    with pytest.raises(ValueError, match="before parsing"):
+        return json.loads(path.read_text())["files"], path
+
+    monkeypatch.setattr("scripts.run_arrival_curvature_sequences.case_artifacts", checked_attempt)
+    return gate
+
+
+def test_complete_continuation_maps_only_resolved_score_and_keeps_original_failure(
+    tmp_path, monkeypatch
+):
+    import json
+
+    from analysis.arrival.model_curvature_comparison import OUTPUT
+    from scripts.run_arrival_curvature_continuation import DERIVED
+
+    complete_bundle(tmp_path, monkeypatch)
+    plan, pins = verify_complete_curvature(tmp_path)
+    assert len(plan["cases"]) == 29
+    assert plan["resolutions"]["fold-002"]["result"] == DERIVED + "/result.json"
+    assert OUTPUT + "/run-summary.json" in pins
+    assert (
+        json.loads((tmp_path / OUTPUT / "jobs/fold-002/result.json").read_text())["status"]
+        == "precision_failure"
+    )
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "unreviewed_attempt",
+        "refunded_slots",
+        "missing_resolution",
+        "wrong_prediction",
+        "unreviewed_source",
+        "old_summary_only",
+    ],
+)
+def test_incomplete_continuation_cannot_enter_science(tmp_path, monkeypatch, change):
+    import json
+
+    from analysis.arrival.evidence import sha256
+    from analysis.arrival.model_curvature_comparison import OUTPUT
+    from scripts.run_arrival_curvature_continuation import DERIVED
+
+    gate = complete_bundle(tmp_path, monkeypatch)
+    if change == "unreviewed_attempt":
+        path = tmp_path / OUTPUT / "jobs/fold-000/extra.json"
+        write_json(path, {})
+    elif change == "refunded_slots":
+        path = tmp_path / OUTPUT / "continuation-v1/run-summary.json"
+        value = json.loads(path.read_text())
+        value["calls_charged"] = value["calls_started"] = 62
+        write_json(path, value)
+        gate["files"][str(path.relative_to(tmp_path))] = sha256(path)
+    elif change == "missing_resolution":
+        gate["resolutions"] = {}
+    elif change == "wrong_prediction":
+        path = tmp_path / DERIVED / "result.json"
+        value = json.loads(path.read_text())
+        value["training_only_predictions"] = "alternate.csv"
+        write_json(path, value)
+        gate["files"][str(path.relative_to(tmp_path))] = sha256(path)
+    elif change == "unreviewed_source":
+        del gate["files"]["stub.py"]
+    else:
+        del gate["files"][OUTPUT + "/continuation-v1/run-summary.json"]
+    write_json(tmp_path / OUTPUT / "review-acceptance.json", gate)
+    with pytest.raises(ValueError):
         verify_complete_curvature(tmp_path)
 
 
@@ -179,3 +322,81 @@ def test_contract_input_gap_blocks_outcome_loader(tmp_path, monkeypatch):
     monkeypatch.setattr("analysis.arrival.model_data.load_lanes", forbidden)
     with pytest.raises(ValueError, match="before parsing"):
         module.collect_curvature(tmp_path)
+
+
+def test_collector_uses_resolved_result_with_original_prediction_file(tmp_path, monkeypatch):
+    import json
+
+    from analysis.arrival import model_curvature_comparison as module
+    from analysis.arrival.evidence import sha256
+    from analysis.arrival.model_data import CONTRACT
+
+    lane, results, predictions = toy()
+    contract_file = tmp_path / CONTRACT
+    contract_file.parent.mkdir(parents=True)
+    contract_file.write_text('[inputs]\n"native.csv" = "reviewed"\n')
+    cases, resolutions, tables = [], {}, {}
+    for j, result in enumerate(results):
+        case = {**result["job"], "id": f"fold-{j:03d}"}
+        result["job"] = case
+        cases.append(case)
+        folder = tmp_path / module.OUTPUT / "jobs" / case["id"]
+        target = folder / "result.json" if j == 0 else tmp_path / "resolved/result.json"
+        write_json(target, result)
+        prediction_path = folder / "held-out-record-predictions.csv"
+        prediction_path.parent.mkdir(parents=True, exist_ok=True)
+        prediction_path.write_text("original prediction")
+        tables[str(prediction_path)] = [p for p in predictions if p["sequence"] == case["sequence"]]
+        if j:
+            write_json(
+                folder / "result.json", {"status": "precision_failure", "unusable_score": 999}
+            )
+            resolutions[case["id"]] = {
+                "result": str(target.relative_to(tmp_path)),
+                "prediction": str(prediction_path.relative_to(tmp_path)),
+            }
+    pins = {str(p.relative_to(tmp_path)): sha256(p) for p in tmp_path.rglob("*") if p.is_file()}
+    # Input closure is exercised independently; this isolates score/prediction routing.
+    pins["native.csv"] = "reviewed"
+    monkeypatch.setattr(
+        module,
+        "verify_complete_curvature",
+        lambda _: ({"cases": cases, "resolutions": resolutions}, pins),
+    )
+    monkeypatch.setattr(
+        "analysis.arrival.model_data.load_lanes",
+        lambda _: ({lane.target: lane}, {"contract": "toy"}),
+    )
+    monkeypatch.setattr(module, "read_rows", lambda p: tables[str(p)])
+    monkeypatch.setattr(module, "normalize_predictions", lambda p, _: p)
+    real_hash = module.sha256
+    monkeypatch.setattr(
+        module, "sha256", lambda p: "reviewed" if p.name == "native.csv" else real_hash(p)
+    )
+    (tmp_path / "native.csv").write_text("native")
+    candidate, _ = module.collect_curvature(tmp_path)
+    assert candidate["summary"]["equal_event_score"] == pytest.approx(-4)
+    assert candidate["predictions"] == predictions
+    failed = tmp_path / module.OUTPUT / "jobs/fold-001/result.json"
+    assert json.loads(failed.read_text())["status"] == "precision_failure"
+
+
+def test_report_requires_curvature_acceptance_before_baseline_outcomes(tmp_path, monkeypatch):
+    from scripts import summarize_arrival_curvature_comparison as report_module
+
+    for path in report_module.CODE:
+        source = tmp_path / path
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text("source")
+
+    def missing_gate(root):
+        raise ValueError("complete independently reviewed curvature CV required")
+
+    def forbidden(root):
+        raise AssertionError("baseline outcomes must remain unopened")
+
+    monkeypatch.setattr(report_module, "collect_curvature", missing_gate)
+    monkeypatch.setattr(report_module, "collect_models", forbidden)
+    with pytest.raises(ValueError, match="independently reviewed"):
+        report_module.report(tmp_path, tmp_path / "report")
+    assert not (tmp_path / "report").exists()
