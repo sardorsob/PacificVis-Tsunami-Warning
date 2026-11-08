@@ -1,0 +1,1539 @@
+{
+  "base_git_sha": "6f485889ac6a9a1b4f40351bd4039f7e51d79287",
+  "cases": [
+    {
+      "id": "prior-generated-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72261907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-016",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-017",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-018",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-019",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72262907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-020",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-021",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-022",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-023",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-024",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-025",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-026",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-027",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-028",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-029",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72263907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-030",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-031",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 31,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-032",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 32,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-033",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 33,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-034",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 34,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-035",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 35,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-036",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 36,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-037",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 37,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-038",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 38,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-039",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72264907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 39,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-040",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 40,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-041",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 41,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-042",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 42,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-043",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 43,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-044",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 44,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-045",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 45,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-046",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 46,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-047",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 47,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-048",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 48,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-049",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72265907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 49,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-050",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 50,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-051",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 51,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-052",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 52,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-053",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 53,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-054",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 54,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-055",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 55,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-056",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 56,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-057",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 57,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-058",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 58,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-059",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72266907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 59,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-060",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 60,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-061",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 61,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-062",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 62,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-063",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 63,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-064",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 64,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-065",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 65,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-066",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 66,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-067",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 67,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-068",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 68,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-069",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72267907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 69,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-070",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 70,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-071",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 71,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-072",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 72,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-073",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 73,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-074",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 74,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-075",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 75,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-076",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 76,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-077",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 77,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-078",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 78,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-079",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72268907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 79,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-080",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 80,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-081",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 81,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-082",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 82,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-083",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 83,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-084",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 84,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-085",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 85,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-086",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 86,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-087",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 87,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-088",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 88,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-089",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72269907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 89,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-090",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 90,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-091",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 91,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-092",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 92,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-093",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 93,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-094",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 94,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-095",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 95,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-096",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 96,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-097",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 97,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-098",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 98,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-099",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72270907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 99,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-100",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "model": "distance-scale",
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 72271007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 100,
+      "scenario": "prior-generated"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scale_validation.py": "8d9b6fab7e94402f9dc63268fe431289eb82c452d72bdc3e05e1f1c64a8dd8a2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/distance-scale-prior-v1/review-acceptance.json": "730e60286aad03d5b11ee17484f6717005aa5991821b26327dc280902773189c",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T05:49:53.906296+00:00",
+  "max_calls": 130,
+  "max_posterior_bytes": 2147483648,
+  "parent_budget": null,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "sbc",
+  "protocol": "distance-scale",
+  "schema_version": "arrival_validation_batch_v1",
+  "target": "NCEI-native-duration",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

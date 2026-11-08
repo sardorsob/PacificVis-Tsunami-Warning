@@ -1,0 +1,21 @@
+{
+  "KS_range": [
+    0.05408080840423146,
+    0.15038708506962387
+  ],
+  "approx_simultaneous_epsilon": 0.1698281630913108,
+  "calls": 100,
+  "datasets": 100,
+  "estimates": 800,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "independent_checker": "/root/ms2_scientific_results_checker",
+  "limits": [
+    "finite_power_N100",
+    "correlated_quantities_not_independent_confirmations",
+    "approximate_MCMC_rank_reference",
+    "not_adequacy_or_selection"
+  ],
+  "manifest_sha256": "159b6bc5b07efc27f271ee10f4d9ed22d8b743af5412b49b63c1796514158c14",
+  "reserved_outcomes": "sealed",
+  "status": "accepted_computational_calibration"
+}

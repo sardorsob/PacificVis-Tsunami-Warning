@@ -223,6 +223,38 @@ archive effects. These results support further model criticism, with source
 likelihoods kept separate; they establish neither a selected model nor held-out
 or operational forecast performance.
 
+## Investigate distance-dependent report variation
+
+One NCEI candidate keeps the distance/event mean and lets residual SD vary
+between fixed anchors at 500, 2,000 and 5,000 km. It interpolates SD linearly in
+log distance and holds the endpoints constant outside the anchors. No monotonic
+trend is imposed. These distances reuse exploration thresholds; this is an
+adaptive development choice, with no new confirmation look.
+
+The [candidate prior checks](../../artifacts/models/arrival-timing/distance-scale-prior-v1/prior-assumptions.md)
+explain its independent HalfNormal(0.4) anchor priors and their observable
+implications. Equal anchors reproduce the baseline likelihood, while the joint
+prior differs. Interpolation reduces expected residual variance between anchors;
+it does not supply a physical noise model or measurement-accuracy estimate.
+
+Computational checks use 45 recovery datasets (15 each for constant, decreasing
+and nonmonotone spread) and 100 prior-generated calibration datasets. All 145
+passed on their first attempt and were independently replayed. Recovery coverage
+is imprecise at 15 replicates per setting. The eight calibration quantities are
+correlated; their approximate simultaneous reference band has limited sensitivity.
+The [recovery report](../../artifacts/models/arrival-timing/distance-scale-validation-report-v1/recovery/findings.md)
+and [calibration report](../../artifacts/models/arrival-timing/distance-scale-validation-report-v1/sbc/findings.md)
+describe the checks and uncertainty. These results permit a candidate fit;
+they establish neither adequacy nor predictive superiority.
+
+Sequence-held-out comparisons retain native-minute joint event densities and
+equal-event weighting. An extreme single-report event exposed excessive score
+Monte Carlo error for the pooled comparator despite clean sampling. Both allowed
+sampling attempts are retained. The planned Gaussian coefficient integration and
+one-dimensional SD quadrature provide an alternative numerical route to the same
+score. Comparisons remain incomplete until every event and the aggregate meet
+their declared numerical precision requirements.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

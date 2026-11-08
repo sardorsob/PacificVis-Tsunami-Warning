@@ -1,0 +1,185 @@
+{
+  "accepted_sequence_cases": 8,
+  "attempts": [
+    {
+      "code_and_config": {
+        "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+        "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+        "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+        "analysis/arrival/model_evaluation.py": "00018ac5aa490030ca7e97f3730b24647529c16b9c8b2696186369735433aac3",
+        "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+        "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+        "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+        "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+        "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+        "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+        "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+        "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json": "1259d66ee15b00b7f0b08b7b2d5a3f1589a8d5632d26987e7e1f4ca300d523c4",
+        "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+        "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+        "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+        "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+        "scripts/fit_arrival_sequence.py": "957d86ec29046865af1f3e8867f27da58ae5b630bc9478e770a013f2bd8ea873",
+        "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+        "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+      },
+      "diagnostics": {
+        "divergences": 0,
+        "finite_diagnostics": true,
+        "max_mcse_mean": 0.00020145615439458192,
+        "max_rhat": 1.0014033306148462,
+        "maxdepth_reached": 0,
+        "min_bfmi": 0.9645730334200979,
+        "min_ess_bulk": 4594.93991963835,
+        "min_ess_tail": 4436.620968122696,
+        "screen_passed": true
+      },
+      "elapsed_seconds": 1.7644854160025716,
+      "event_scores": [
+        {
+          "chain_joint_log_predictive_range": "0.006832615602249348",
+          "density_weight_concentration_ess": "7855.943538524637",
+          "event_id": "usc000phx5",
+          "joint_log_mcse_delta": "0.0019122376082411079",
+          "joint_log_predictive": "-16.779593228657667",
+          "normalized_event_score": "-5.593197742885889",
+          "normalized_mcse": "0.0006374125360803693",
+          "records": "3.0",
+          "sequence": "seq-usc000phx5"
+        },
+        {
+          "chain_joint_log_predictive_range": "0.2247723521328453",
+          "density_weight_concentration_ess": "2082.454637290374",
+          "event_id": "usc000piqj",
+          "joint_log_mcse_delta": "0.0255886323398398",
+          "joint_log_predictive": "-34.279134859399925",
+          "normalized_event_score": "-34.279134859399925",
+          "normalized_mcse": "0.0255886323398398",
+          "records": "1.0",
+          "sequence": "seq-usc000phx5"
+        }
+      ],
+      "fold_score": {
+        "equal_event_score": -19.936166301142908,
+        "events": 2.0,
+        "mcse_equal_event_score": 0.012986491093610782,
+        "min_density_weight_concentration_ess": 2082.454637290374
+      },
+      "heldout_events": 2,
+      "heldout_records": 4,
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261907,
+        "sequence": "seq-usc000phx5",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "outcome": "precision_failure",
+      "posterior": "data/processed/models/sequence-validation-v1/NCEI-native-duration-baselines/pooled-fold-09-attempt-1.nc",
+      "posterior_sha256": "d18ac0a36d859284444728fd92b7cf9acc68e783fac9b7b8eae04baa2ca61d06",
+      "reserved_outcomes": "sealed",
+      "result": "artifacts/models/arrival-timing/sequence-validation-v1/NCEI-native-duration-baselines/jobs/pooled-fold-09-attempt-1/result.json",
+      "result_sha256": "f95bada0139c3ff792aa1832c21778567f86de12df1e351438258a6656e0d362",
+      "score_precision_passed": false,
+      "status": "score_precision_failure",
+      "training_records": 1060
+    },
+    {
+      "code_and_config": {
+        "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+        "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+        "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+        "analysis/arrival/model_evaluation.py": "00018ac5aa490030ca7e97f3730b24647529c16b9c8b2696186369735433aac3",
+        "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+        "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+        "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+        "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+        "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+        "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+        "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+        "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json": "1259d66ee15b00b7f0b08b7b2d5a3f1589a8d5632d26987e7e1f4ca300d523c4",
+        "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+        "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+        "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+        "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+        "scripts/fit_arrival_sequence.py": "957d86ec29046865af1f3e8867f27da58ae5b630bc9478e770a013f2bd8ea873",
+        "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+        "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+      },
+      "diagnostics": {
+        "divergences": 0,
+        "finite_diagnostics": true,
+        "max_mcse_mean": 0.00013029261150442506,
+        "max_rhat": 1.0009218319700877,
+        "maxdepth_reached": 0,
+        "min_bfmi": 1.058873483394494,
+        "min_ess_bulk": 10982.770615598154,
+        "min_ess_tail": 9950.270292567482,
+        "screen_passed": true
+      },
+      "elapsed_seconds": 1.7833537077531219,
+      "event_scores": [
+        {
+          "chain_joint_log_predictive_range": "0.007909669795481022",
+          "density_weight_concentration_ess": "15708.077658285272",
+          "event_id": "usc000phx5",
+          "joint_log_mcse_delta": "0.001277158649896259",
+          "joint_log_predictive": "-16.779112208858272",
+          "normalized_event_score": "-5.593037402952757",
+          "normalized_mcse": "0.0004257195499654197",
+          "records": "3.0",
+          "sequence": "seq-usc000phx5"
+        },
+        {
+          "chain_joint_log_predictive_range": "0.11175893083181876",
+          "density_weight_concentration_ess": "4605.959169980531",
+          "event_id": "usc000piqj",
+          "joint_log_mcse_delta": "0.015604351816936687",
+          "joint_log_predictive": "-34.27277014622673",
+          "normalized_event_score": "-34.27277014622673",
+          "normalized_mcse": "0.015604351816936687",
+          "records": "1.0",
+          "sequence": "seq-usc000phx5"
+        }
+      ],
+      "fold_score": {
+        "equal_event_score": -19.932903774589747,
+        "events": 2.0,
+        "mcse_equal_event_score": 0.007928901918073803,
+        "min_density_weight_concentration_ess": 4605.959169980531
+      },
+      "heldout_events": 2,
+      "heldout_records": 4,
+      "job": {
+        "cores": 2,
+        "draws": 4000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261907,
+        "sequence": "seq-usc000phx5",
+        "target": "NCEI-native-duration",
+        "tune": 2000
+      },
+      "outcome": "diagnostic_or_precision_failure",
+      "posterior": "data/processed/models/sequence-validation-v1/NCEI-native-duration-baselines/pooled-fold-09-attempt-2.nc",
+      "posterior_sha256": "87868ce50f223415454ad9060e810bbc6b75cd3620798aa8544d638f8ea222a0",
+      "reserved_outcomes": "sealed",
+      "result": "artifacts/models/arrival-timing/sequence-validation-v1/NCEI-native-duration-baselines/jobs/pooled-fold-09-attempt-2/result.json",
+      "result_sha256": "56094370ddd44cf925f3679d95dd0b8bad46b358bac805634d21400d727ad605",
+      "score_precision_passed": false,
+      "status": "score_precision_failure",
+      "training_records": 1060
+    }
+  ],
+  "calls": 10,
+  "disposition": "retain_both_attempts_validate_same_model_analytic_integration_contingency",
+  "planned_cases": 87,
+  "reserved_outcomes": "sealed",
+  "status": "stopped_for_score_precision_review",
+  "stopped_sequence": "seq-usc000phx5"
+}

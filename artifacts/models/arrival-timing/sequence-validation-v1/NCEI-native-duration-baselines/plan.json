@@ -1,0 +1,1253 @@
+{
+  "base_git_sha": "4c31d08ef09a21365177b4d49c0855f2deaae2ec",
+  "cases": [
+    {
+      "id": "pooled-fold-01",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261107,
+        "sequence": "seq-ak0138esnzr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-02",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261207,
+        "sequence": "seq-official20100227063411530_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-03",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261307,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-04",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261407,
+        "sequence": "seq-us10006jbi",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-05",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261507,
+        "sequence": "seq-us20002yaw",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-06",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261607,
+        "sequence": "seq-us20003k7a",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-07",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261707,
+        "sequence": "seq-us2000cmy3",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-08",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261807,
+        "sequence": "seq-usc000f40j",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-09",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90261907,
+        "sequence": "seq-usc000phx5",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-10",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262007,
+        "sequence": "seq-usp0007jcu",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-11",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262107,
+        "sequence": "seq-usp0008mdk",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-12",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262207,
+        "sequence": "seq-usp000bbpf",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-13",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262307,
+        "sequence": "seq-usp000bnvq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-14",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262407,
+        "sequence": "seq-usp000bnyr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-15",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262507,
+        "sequence": "seq-usp000d3ka",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-16",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262607,
+        "sequence": "seq-usp000d9h1",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-17",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262707,
+        "sequence": "seq-usp000db93",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-18",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262807,
+        "sequence": "seq-usp000dt25",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-19",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90262907,
+        "sequence": "seq-usp000eg5g",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-20",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263007,
+        "sequence": "seq-usp000exfn",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-21",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263107,
+        "sequence": "seq-usp000fjta",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-22",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263207,
+        "sequence": "seq-usp000gs2d",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-23",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263307,
+        "sequence": "seq-usp000gtnc",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-24",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263407,
+        "sequence": "seq-usp000h1ys",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-25",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263507,
+        "sequence": "seq-usp000h2g9",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-26",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263607,
+        "sequence": "seq-usp000hrw0",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-27",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263707,
+        "sequence": "seq-usp000j3mq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-28",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263807,
+        "sequence": "seq-usp000j48h",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "pooled-fold-29",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "pooled",
+        "prior": "base",
+        "seed": 90263907,
+        "sequence": "seq-usp000jqvm",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-01",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271107,
+        "sequence": "seq-ak0138esnzr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-02",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271207,
+        "sequence": "seq-official20100227063411530_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-03",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271307,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-04",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271407,
+        "sequence": "seq-us10006jbi",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-05",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271507,
+        "sequence": "seq-us20002yaw",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-06",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271607,
+        "sequence": "seq-us20003k7a",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-07",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271707,
+        "sequence": "seq-us2000cmy3",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-08",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271807,
+        "sequence": "seq-usc000f40j",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-09",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90271907,
+        "sequence": "seq-usc000phx5",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-10",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272007,
+        "sequence": "seq-usp0007jcu",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-11",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272107,
+        "sequence": "seq-usp0008mdk",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-12",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272207,
+        "sequence": "seq-usp000bbpf",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-13",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272307,
+        "sequence": "seq-usp000bnvq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-14",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272407,
+        "sequence": "seq-usp000bnyr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-15",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272507,
+        "sequence": "seq-usp000d3ka",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-16",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272607,
+        "sequence": "seq-usp000d9h1",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-17",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272707,
+        "sequence": "seq-usp000db93",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-18",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272807,
+        "sequence": "seq-usp000dt25",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-19",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90272907,
+        "sequence": "seq-usp000eg5g",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-20",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273007,
+        "sequence": "seq-usp000exfn",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-21",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273107,
+        "sequence": "seq-usp000fjta",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-22",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273207,
+        "sequence": "seq-usp000gs2d",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-23",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273307,
+        "sequence": "seq-usp000gtnc",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-24",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273407,
+        "sequence": "seq-usp000h1ys",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-25",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273507,
+        "sequence": "seq-usp000h2g9",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-26",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273607,
+        "sequence": "seq-usp000hrw0",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-27",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273707,
+        "sequence": "seq-usp000j3mq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-28",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273807,
+        "sequence": "seq-usp000j48h",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "distance-fold-29",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "distance",
+        "prior": "base",
+        "seed": 90273907,
+        "sequence": "seq-usp000jqvm",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-01",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281107,
+        "sequence": "seq-ak0138esnzr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-02",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281207,
+        "sequence": "seq-official20100227063411530_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-03",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281307,
+        "sequence": "seq-official20110311054624120_30",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-04",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281407,
+        "sequence": "seq-us10006jbi",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-05",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281507,
+        "sequence": "seq-us20002yaw",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-06",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281607,
+        "sequence": "seq-us20003k7a",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-07",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281707,
+        "sequence": "seq-us2000cmy3",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-08",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281807,
+        "sequence": "seq-usc000f40j",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-09",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90281907,
+        "sequence": "seq-usc000phx5",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-10",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282007,
+        "sequence": "seq-usp0007jcu",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-11",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282107,
+        "sequence": "seq-usp0008mdk",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-12",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282207,
+        "sequence": "seq-usp000bbpf",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-13",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282307,
+        "sequence": "seq-usp000bnvq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-14",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282407,
+        "sequence": "seq-usp000bnyr",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-15",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282507,
+        "sequence": "seq-usp000d3ka",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-16",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282607,
+        "sequence": "seq-usp000d9h1",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-17",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282707,
+        "sequence": "seq-usp000db93",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-18",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282807,
+        "sequence": "seq-usp000dt25",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-19",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90282907,
+        "sequence": "seq-usp000eg5g",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-20",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283007,
+        "sequence": "seq-usp000exfn",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-21",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283107,
+        "sequence": "seq-usp000fjta",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-22",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283207,
+        "sequence": "seq-usp000gs2d",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-23",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283307,
+        "sequence": "seq-usp000gtnc",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-24",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283407,
+        "sequence": "seq-usp000h1ys",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-25",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283507,
+        "sequence": "seq-usp000h2g9",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-26",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283607,
+        "sequence": "seq-usp000hrw0",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-27",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283707,
+        "sequence": "seq-usp000j3mq",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-28",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283807,
+        "sequence": "seq-usp000j48h",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    },
+    {
+      "id": "event-fold-29",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "gate": "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json",
+        "kind": "event",
+        "prior": "base",
+        "seed": 90283907,
+        "sequence": "seq-usp000jqvm",
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      }
+    }
+  ],
+  "concurrency": 1,
+  "cores": 2,
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_evaluation.py": "00018ac5aa490030ca7e97f3730b24647529c16b9c8b2696186369735433aac3",
+    "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+    "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json": "1259d66ee15b00b7f0b08b7b2d5a3f1589a8d5632d26987e7e1f4ca300d523c4",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/fit_arrival_sequence.py": "957d86ec29046865af1f3e8867f27da58ae5b630bc9478e770a013f2bd8ea873",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "scripts/run_arrival_sequence_batch.py": "d3a59195f6c5c9387c6cd674fb2b81104d475154fdd8542692508e2cb0d9ab78",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "max_calls": 174,
+  "max_posterior_bytes": 2147483648,
+  "per_attempt_seconds": 600,
+  "scientific_acceptance": "pending_independent_review",
+  "target": "NCEI-native-duration"
+}
