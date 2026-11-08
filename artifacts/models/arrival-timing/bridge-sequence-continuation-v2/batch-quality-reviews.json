@@ -1,7 +1,8 @@
 {
-  "direct_accepted_folds": 26,
-  "externally_resolved_folds": 1,
-  "global_call_slots": 135,
+  "direct_accepted_folds": 36,
+  "externally_resolved_folds": 3,
+  "global_call_slots": 193,
+  "global_logical_completed_folds": 50,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -184,13 +185,81 @@
       "events": 1,
       "max_normalized_mcse": 0.0005050519664248856,
       "min_bridge_overlap": 0.9809442708895514
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-21",
+      "events": 1,
+      "max_normalized_mcse": 0.000428532564058977,
+      "min_bridge_overlap": 0.9912144950904656
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-21",
+      "events": 1,
+      "max_normalized_mcse": 0.000211582128553705,
+      "min_bridge_overlap": 0.9970691984717328
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-22",
+      "events": 1,
+      "max_normalized_mcse": 0.00030777174805164236,
+      "min_bridge_overlap": 0.9974240215107317
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-22",
+      "events": 1,
+      "max_normalized_mcse": 0.0002305480284837563,
+      "min_bridge_overlap": 0.9987614463481356
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-23",
+      "events": 1,
+      "max_normalized_mcse": 0.0004567725852972568,
+      "min_bridge_overlap": 0.9925164912372602
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-23",
+      "events": 1,
+      "max_normalized_mcse": 0.0002362678628043921,
+      "min_bridge_overlap": 0.9975698052431929
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-24",
+      "events": 1,
+      "max_normalized_mcse": 0.001988642271884526,
+      "min_bridge_overlap": 0.955015755674331
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-24",
+      "events": 1,
+      "max_normalized_mcse": 0.0004433036905361901,
+      "min_bridge_overlap": 0.99768793104447
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-event-fold-25",
+      "events": 1,
+      "max_normalized_mcse": 0.00034621305944968124,
+      "min_bridge_overlap": 0.9989621498272349
+    },
+    {
+      "attempt": 1,
+      "case_id": "NCEI-native-duration-distance-scale-fold-25",
+      "events": 1,
+      "max_normalized_mcse": 0.00011426332222564719,
+      "min_bridge_overlap": 0.9997410464755547
     }
   ],
-  "logical_completed_folds": 27,
+  "logical_completed_folds": 39,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 217,
+  "remaining_global_slots": 159,
   "reserved_outcomes": "sealed",
-  "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance",
-  "stop_attempts": 2,
-  "stop_case": "NCEI-native-duration-event-fold-20"
+  "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }
