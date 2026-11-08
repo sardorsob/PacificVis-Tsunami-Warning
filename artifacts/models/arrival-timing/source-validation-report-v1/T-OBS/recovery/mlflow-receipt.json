@@ -1,0 +1,8 @@
+{
+  "bundle_fingerprint": "a4f6568d90eaaa509fa6340fbb45157ef687512e96ca8a68464aa2242e49ca6a",
+  "scenario_runs": {
+    "combined-weak-event-large-spread": "f272f219a9614bf48266219bfc1878ba",
+    "no-event-variation": "dc71f1e74b014f04aff7903850ead4b8",
+    "reference": "8beb1afe7a694ff2950be2cf04fa673e"
+  }
+}

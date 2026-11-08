@@ -1,0 +1,13 @@
+{
+  "calls_used": 30,
+  "completed_datasets": 30,
+  "computational_completion_only": true,
+  "max_calls": 45,
+  "phase": "sbc",
+  "plan_sha256": "ec109d657575721f6a8ca777bddd6f69cc8fb0b9ece458881dd1f4bf52a0c87f",
+  "planned_datasets": 30,
+  "protocol": "core",
+  "scientific_acceptance": "pending_review",
+  "status": "computations_complete",
+  "target": "T-OBS"
+}

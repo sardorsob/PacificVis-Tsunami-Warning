@@ -1,0 +1,20 @@
+{
+  "base_git_sha": "259695547a74827b2d7ccece187b3b21cf3bc5b8",
+  "calls_used": 30,
+  "complete": true,
+  "completed_datasets": 30,
+  "computational_completion_only": true,
+  "design_events": 14,
+  "design_records": 236,
+  "max_calls": 45,
+  "modeled_units": "log_reference_ratio",
+  "phase": "sbc",
+  "plan_sha256": "ec109d657575721f6a8ca777bddd6f69cc8fb0b9ece458881dd1f4bf52a0c87f",
+  "planned_datasets": 30,
+  "protocol": "core",
+  "response_definition": "reported_observed_UTC_minus_reviewed_USGS_origin_positive_minutes",
+  "scientific_acceptance": "pending_independent_review",
+  "source_label": "NTWC T-OBS",
+  "status": "computations_complete",
+  "target": "T-OBS"
+}

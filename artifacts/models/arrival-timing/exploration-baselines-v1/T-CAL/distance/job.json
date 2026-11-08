@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "distance",
+  "seed": 25262207,
+  "target": "T-CAL",
+  "tune": 1000
+}

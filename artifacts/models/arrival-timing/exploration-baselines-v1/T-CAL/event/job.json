@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "event",
+  "seed": 25262307,
+  "target": "T-CAL",
+  "tune": 1000
+}

@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.055643468851084954,
+    "max_rhat": 1.0007803648564402,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9531780716366604,
+    "min_ess_bulk": 3188.3168107006213,
+    "min_ess_tail": 3739.948947774883,
+    "screen_passed": true
+  },
+  "events": 13,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "distance",
+    "seed": 25262207,
+    "target": "T-CAL",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/T-CAL/distance.nc",
+  "posterior_sha256": "59d9de6ecc59db06e9ff6a8038a5158f829b8a646afbf5272d4e2047c44480e3",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 156,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}

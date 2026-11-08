@@ -1,0 +1,10 @@
+model,mcse_note,parameter,q05,q50,q95
+distance,see chain diagnostics for base quantities,alpha,-12.471473811764039,-7.295026212415959,-2.1370787995332026
+distance,see chain diagnostics for base quantities,beta,-12.652702180540059,-9.746981865644802,-6.872489279390015
+distance,see chain diagnostics for base quantities,sigma,23.518847478401025,25.749906181070862,28.35879386328229
+event,see chain diagnostics for base quantities,alpha,-22.760198350327073,-11.92692448812888,-0.9828687985456949
+event,see chain diagnostics for base quantities,beta,-11.403289236986016,-8.604931058133346,-5.716375763715445
+event,see chain diagnostics for base quantities,sigma,19.889172256489175,21.841719963149288,24.119065712207615
+event,see chain diagnostics for base quantities,tau_event,11.92948480550364,18.71831353297155,29.730978749830633
+pooled,see chain diagnostics for base quantities,alpha,-24.26309391645615,-20.573823180577783,-16.80089376208695
+pooled,see chain diagnostics for base quantities,sigma,25.582489942044067,28.029771142225087,30.909737316964897

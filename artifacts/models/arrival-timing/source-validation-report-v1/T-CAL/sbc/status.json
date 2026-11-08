@@ -1,0 +1,20 @@
+{
+  "base_git_sha": "a54000de68d3caae86e1c70f35d44b249a46b926",
+  "calls_used": 30,
+  "complete": true,
+  "completed_datasets": 30,
+  "computational_completion_only": true,
+  "design_events": 13,
+  "design_records": 156,
+  "max_calls": 45,
+  "modeled_units": "minutes",
+  "phase": "sbc",
+  "plan_sha256": "771b8f8b5a43c9540481ecd4646e100a3b19b9dcc8c31d0735571ea6acc6c0c8",
+  "planned_datasets": 30,
+  "protocol": "core",
+  "response_definition": "reported_estimated_UTC_minus_observed_UTC_signed_minutes",
+  "scientific_acceptance": "pending_independent_review",
+  "source_label": "NTWC T-CAL",
+  "status": "computations_complete",
+  "target": "T-CAL"
+}

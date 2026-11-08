@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.02976306937366511,
+    "max_rhat": 1.0008198221662763,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0038639374278873,
+    "min_ess_bulk": 5508.120590995472,
+    "min_ess_tail": 4895.546031531887,
+    "screen_passed": true
+  },
+  "events": 13,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "pooled",
+    "seed": 25262107,
+    "target": "T-CAL",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/T-CAL/pooled.nc",
+  "posterior_sha256": "1a86badb267d1d98d151c74d2c2f7375d4db552ba0d71397bbcfa5dd1e956248",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 156,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}

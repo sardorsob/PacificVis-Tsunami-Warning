@@ -1,0 +1,19 @@
+{
+  "checker": "/root/ms3_fit_checker",
+  "events": 14,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "limitations": [
+    "conditional_fitted_event_PPC",
+    "separate_source_likelihood",
+    "small_event_counts_and_weak_variance_learning",
+    "baseline_predictive_discrepancies_not_resolved",
+    "no_model_selection"
+  ],
+  "records": 236,
+  "report_manifest_sha256": "5f6d119a6d369026d727e17000b5a5ba252dc4127429dc20b378dc115bfdbe6f",
+  "reserved_outcomes": "sealed",
+  "scope": "source_specific_numerical_and_conditional_predictive_replay_not_heldout_or_operational_validity",
+  "signed_TCAL_negatives_preserved": null,
+  "status": "accepted_provisional_exploration_fits",
+  "target": "T-OBS"
+}

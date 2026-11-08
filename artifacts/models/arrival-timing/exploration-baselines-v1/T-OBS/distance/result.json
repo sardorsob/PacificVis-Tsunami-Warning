@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0006289914291529478,
+    "max_rhat": 1.0014693883004941,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0176345757273337,
+    "min_ess_bulk": 4107.618920874775,
+    "min_ess_tail": 3907.964417575915,
+    "screen_passed": true
+  },
+  "events": 14,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "distance",
+    "seed": 25261207,
+    "target": "T-OBS",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/T-OBS/distance.nc",
+  "posterior_sha256": "f20dd2564b1231600e1bb4711fd31f8e04af1353c8856b436620205517b104a9",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 236,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}

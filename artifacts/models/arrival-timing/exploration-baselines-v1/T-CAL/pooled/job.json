@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "pooled",
+  "seed": 25262107,
+  "target": "T-CAL",
+  "tune": 1000
+}

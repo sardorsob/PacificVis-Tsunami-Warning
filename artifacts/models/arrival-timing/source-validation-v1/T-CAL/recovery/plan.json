@@ -1,0 +1,666 @@
+{
+  "base_git_sha": "259695547a74827b2d7ccece187b3b21cf3bc5b8",
+  "cases": [
+    {
+      "id": "reference-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261107,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261207,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261307,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261407,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261507,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261607,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261707,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261807,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41261907,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41262007,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 10.0
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "reference"
+    },
+    {
+      "id": "no-event-variation-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271107,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271207,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271307,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271407,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271507,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271607,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271707,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271807,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41271907,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41272007,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 5.0,
+          "sigma": 20.0,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281107,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281207,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281307,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281407,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281507,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281607,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281707,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281807,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41281907,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 41282007,
+        "target": "T-CAL",
+        "truth": {
+          "alpha": -15.0,
+          "beta": 10.0,
+          "sigma": 40.0,
+          "tau_event": 2.5
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "combined-weak-event-large-spread"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "e9ed444e7d7e2e9e60fbabc33fd464258eedb868f0e86efb91ccda5076e9e56e",
+    "scripts/run_arrival_model_validation.py": "5cc88b9a90181b697bdc9d6b19a9c00ea083bc09c149c402c7a13179eaa66c19",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T04:41:31.582023+00:00",
+  "max_calls": 45,
+  "max_posterior_bytes": 2147483648,
+  "parent_budget": null,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "recovery",
+  "protocol": "core",
+  "schema_version": "arrival_validation_batch_v1",
+  "target": "T-CAL",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

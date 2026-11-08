@@ -1,0 +1,7 @@
+mcse_note,parameter,q05,q50,q95
+see chain diagnostics for base quantities,alpha,0.008768974254412438,0.1505412667136392,0.2770515406149331
+see chain diagnostics for base quantities,beta,-0.10472748382555155,-0.06528572049744294,-0.025578918373631
+see chain diagnostics for base quantities,distance_exponent,0.8952725161744485,0.934714279502557,0.974421081626369
+see chain diagnostics for base quantities,median_reference_ratio_1000km,1.0088075345277518,1.1624632756376498,1.3192343635082715
+see chain diagnostics for base quantities,sigma,0.4066948616779921,0.439352759145508,0.47609640945677706
+see chain diagnostics for base quantities,tau_event,0.05868026850321901,0.19931492972821635,0.3726617602269285

@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "pooled",
+  "seed": 25261107,
+  "target": "T-OBS",
+  "tune": 1000
+}

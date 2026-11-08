@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.00039271008232738693,
+    "max_rhat": 1.0010437826522782,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0509507081044052,
+    "min_ess_bulk": 5757.451078008661,
+    "min_ess_tail": 4670.016341859896,
+    "screen_passed": true
+  },
+  "events": 14,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "pooled",
+    "seed": 25261107,
+    "target": "T-OBS",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/T-OBS/pooled.nc",
+  "posterior_sha256": "eb22c1b80ec6c57f21de2898355d484a9e2ef3bd5a782eed89f41197bafccb55",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 236,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}

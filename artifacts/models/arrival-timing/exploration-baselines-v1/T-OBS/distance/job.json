@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "distance",
+  "seed": 25261207,
+  "target": "T-OBS",
+  "tune": 1000
+}

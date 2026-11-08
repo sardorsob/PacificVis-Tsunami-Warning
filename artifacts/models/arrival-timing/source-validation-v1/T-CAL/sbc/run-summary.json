@@ -1,0 +1,13 @@
+{
+  "calls_used": 30,
+  "completed_datasets": 30,
+  "computational_completion_only": true,
+  "max_calls": 45,
+  "phase": "sbc",
+  "plan_sha256": "771b8f8b5a43c9540481ecd4646e100a3b19b9dcc8c31d0735571ea6acc6c0c8",
+  "planned_datasets": 30,
+  "protocol": "core",
+  "scientific_acceptance": "pending_review",
+  "status": "computations_complete",
+  "target": "T-CAL"
+}

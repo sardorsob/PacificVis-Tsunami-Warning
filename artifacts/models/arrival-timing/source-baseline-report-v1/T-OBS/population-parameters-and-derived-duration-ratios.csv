@@ -1,0 +1,15 @@
+model,mcse_note,parameter,q05,q50,q95
+distance,see chain diagnostics for base quantities,alpha,0.11449142955389348,0.18128789552902796,0.24635495139408137
+distance,see chain diagnostics for base quantities,beta,-0.09992988357069632,-0.061474030898522006,-0.02381511170532539
+distance,see chain diagnostics for base quantities,distance_exponent,0.9000701164293037,0.938525969101478,0.9761848882946746
+distance,see chain diagnostics for base quantities,median_reference_ratio_1000km,1.1213030311062369,1.1987602474124484,1.2793536013062752
+distance,see chain diagnostics for base quantities,sigma,0.42114372801388844,0.452948885718124,0.48916690159370313
+event,see chain diagnostics for base quantities,alpha,0.008768974254412438,0.1505412667136392,0.2770515406149331
+event,see chain diagnostics for base quantities,beta,-0.10472748382555155,-0.06528572049744294,-0.025578918373631
+event,see chain diagnostics for base quantities,distance_exponent,0.8952725161744485,0.934714279502557,0.974421081626369
+event,see chain diagnostics for base quantities,median_reference_ratio_1000km,1.0088075345277518,1.1624632756376498,1.3192343635082715
+event,see chain diagnostics for base quantities,sigma,0.4066948616779921,0.439352759145508,0.47609640945677706
+event,see chain diagnostics for base quantities,tau_event,0.05868026850321901,0.19931492972821635,0.3726617602269285
+pooled,see chain diagnostics for base quantities,alpha,0.05961043344117508,0.10822757288083659,0.1572315570126453
+pooled,see chain diagnostics for base quantities,median_reference_ratio_1000km,1.0614229711151695,1.1143013012914043,1.1702665659865157
+pooled,see chain diagnostics for base quantities,sigma,0.42760576316356336,0.4588497660747426,0.49710859844453886

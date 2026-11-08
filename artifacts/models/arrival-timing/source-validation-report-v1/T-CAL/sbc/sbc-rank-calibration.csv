@@ -1,0 +1,7 @@
+parameter,datasets,ks_distance,simultaneous_epsilon,outside_reference_band,familywise_alpha_reference,planned_quantities,reference_scope
+alpha,30,0.16820538947434757,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation
+beta,30,0.1093180170167024,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation
+event_effect_first,30,0.16769228597488062,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation
+mean_response_at_5000km,30,0.13656564712782893,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation
+sigma,30,0.08162879289441971,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation
+tau_event,30,0.20041826603104929,0.3022316695114856,False,0.05,6,approximate_MCMC_rank_iid_reference_not_physical_validation

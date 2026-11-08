@@ -10,8 +10,9 @@ This is the pre-modeling bridge from the [completed EDA](../../artifacts/eda/arr
 The new [design findings](../../artifacts/eda/arrival-timing/pre-modeling-design/design-findings.md)
 use only its frozen exploration tables. They are posthoc exploratory diagnostics;
 the earlier confirmation findings retain their original status. Initial prior
-hypotheses and their simulations are now available below. Initial NCEI exploration
-posteriors are being computed and reviewed; no reserved event outcome is opened.
+hypotheses and their simulations are now available below. Initial exploration
+fits for all three source targets have passed numerical and conditional-predictive
+replay. No reserved event outcome is opened.
 
 The approach follows Chris Fonnesbeck's [PyMC modeling workflow](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/pymc-modeling/references/workflow.md)
 and [prior-elicitation skill](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/prior-elicitation/SKILL.md):
@@ -205,6 +206,22 @@ The [recovery follow-up](../../artifacts/models/arrival-timing/design-recovery-f
 is complete. It retains the initial and new cohorts and explains why their
 pooled interval is descriptive after adaptive scenario selection. Priors were
 not changed to force nominal conditional coverage.
+
+Separate [NTWC duration fits](../../artifacts/models/arrival-timing/source-baseline-report-v1/T-OBS/baseline-findings.md)
+use 236 records from 14 events. The [signed discrepancy fits](../../artifacts/models/arrival-timing/source-baseline-report-v1/T-CAL/baseline-findings.md)
+use 156 records from 13 events and preserve all 125 negative values. Each has
+its own pooled, distance and event model. Their source-specific computational
+checks use 30 recovery datasets and 30 prior-generated calibration datasets per
+target; these small checks have substantially lower sensitivity than the primary
+NCEI calibration exercise. They do not certify conditional coverage or physical
+arrival accuracy.
+
+The NTWC models also leave predictive discrepancies. In particular, the signed
+model does not reproduce the far-distance negative tail and positive upper
+quantiles together. Its variation can combine forecast, observation, clock and
+archive effects. These results support further model criticism, with source
+likelihoods kept separate; they establish neither a selected model nor held-out
+or operational forecast performance.
 
 ## What exactly would we predict?
 

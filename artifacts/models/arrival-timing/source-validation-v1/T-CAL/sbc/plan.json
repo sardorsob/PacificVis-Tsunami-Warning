@@ -1,0 +1,456 @@
+{
+  "base_git_sha": "a54000de68d3caae86e1c70f35d44b249a46b926",
+  "cases": [
+    {
+      "id": "prior-generated-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261107,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261207,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261307,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261407,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261507,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261607,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261707,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261807,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42261907,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262007,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262107,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262207,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262307,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262407,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262507,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-016",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262607,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-017",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262707,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-018",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262807,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-019",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42262907,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-020",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263007,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-021",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263107,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-022",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263207,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-023",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263307,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-024",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263407,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-025",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263507,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-026",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263607,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-027",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263707,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-028",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263807,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-029",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42263907,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-030",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 42264007,
+        "target": "T-CAL",
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "prior-generated"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "e9ed444e7d7e2e9e60fbabc33fd464258eedb868f0e86efb91ccda5076e9e56e",
+    "scripts/run_arrival_model_validation.py": "5cc88b9a90181b697bdc9d6b19a9c00ea083bc09c149c402c7a13179eaa66c19",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T04:44:01.785113+00:00",
+  "max_calls": 45,
+  "max_posterior_bytes": 2147483648,
+  "parent_budget": null,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "sbc",
+  "protocol": "core",
+  "schema_version": "arrival_validation_batch_v1",
+  "target": "T-CAL",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

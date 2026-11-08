@@ -1,0 +1,9 @@
+{
+  "elapsed_seconds": 2.824229792226106,
+  "gate_sha256": "8bf634a83c39db56630c69bbe7d5bf9d85062593a5252e2edf014bc1d7d1bfc2",
+  "input_identity_unchanged": true,
+  "job_sha256": "bf2df1c7e1b3a1d73db3691fc583eea4337fec1948f38324df911384a1f0499b",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "runner_sha256": "b882cdaca902c36cd831e13aab4c4da9e7a9158eaa7e5be44149266b95a31502"
+}

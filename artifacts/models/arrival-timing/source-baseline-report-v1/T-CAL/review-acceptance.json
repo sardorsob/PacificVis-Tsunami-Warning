@@ -1,0 +1,19 @@
+{
+  "checker": "/root/ms3_fit_checker",
+  "events": 13,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "limitations": [
+    "conditional_fitted_event_PPC",
+    "separate_source_likelihood",
+    "small_event_counts_and_weak_variance_learning",
+    "baseline_predictive_discrepancies_not_resolved",
+    "no_model_selection"
+  ],
+  "records": 156,
+  "report_manifest_sha256": "b5a79274d6e19e1c50d5193553d3381721206b0ddc71f8ff2d22ceeb49a731dc",
+  "reserved_outcomes": "sealed",
+  "scope": "source_specific_numerical_and_conditional_predictive_replay_not_heldout_or_operational_validity",
+  "signed_TCAL_negatives_preserved": 125,
+  "status": "accepted_provisional_exploration_fits",
+  "target": "T-CAL"
+}
