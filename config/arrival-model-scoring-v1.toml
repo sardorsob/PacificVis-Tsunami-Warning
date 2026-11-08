@@ -1,0 +1,13 @@
+# Numerical reporting screens frozen before real fits or predictive comparisons.
+schema_version = "arrival_model_scoring_v1"
+primary = "equal_event_mean_normalized_joint_native_minute_log_predictive_density"
+validation_unit = "leave_whole_sequence_out_refits"
+max_event_score_mcse_nats_per_record = 0.005
+max_primary_score_mcse_nats_per_record = 0.002
+practical_difference_yardstick_nats_per_record = 0.01
+yardstick_scope = "analyst_reporting_reference_not_owner_utility_or_automatic_promotion"
+integration = "exact_normal_event_effect_then_posterior_log_mean_exp"
+mcse = "chain_aware_delta_method_with_within_fold_event_covariance"
+weight_concentration_scope = "diagnostic_not_independent_MCMC_ESS"
+minimum_density_weight_concentration_ess = 100
+unresolved_precision = "retain_scores_as_unresolved_and_investigate_no_silent_metric_change"

@@ -1,0 +1,24 @@
+{
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scale_validation.py": "8d9b6fab7e94402f9dc63268fe431289eb82c452d72bdc3e05e1f1c64a8dd8a2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/distance-scale-prior-v1/review-acceptance.json": "730e60286aad03d5b11ee17484f6717005aa5991821b26327dc280902773189c",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "frozen_data": {
+    "artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv": "cfd73bf800ee1afe52253d847f7446ed778eb9ee40b8205429b6429c052d9781",
+    "artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json": "0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+    "config/arrival-timing-exploration-confirmation-split.toml": "4f3d3ae8ba5f96d5a701508e5c65c5979f8938f1959d17cfb14be4dbab800328"
+  }
+}
