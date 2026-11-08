@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "event",
+  "seed": 24261307,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}

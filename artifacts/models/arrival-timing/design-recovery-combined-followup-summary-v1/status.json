@@ -1,0 +1,14 @@
+{
+  "base_git_sha": "2b8dc5dff5f16c3c67ec72d5a2584347a389d4a8",
+  "calls_used": 30,
+  "complete": true,
+  "completed_datasets": 30,
+  "computational_completion_only": true,
+  "max_calls": 60,
+  "phase": "recovery",
+  "plan_sha256": "e25d31d28c5a1b1aadf8da4cc815c982019037bdbe27e3a735d9d83f6cec226a",
+  "planned_datasets": 30,
+  "protocol": "combined-followup",
+  "scientific_acceptance": "pending_independent_review",
+  "status": "computations_complete"
+}

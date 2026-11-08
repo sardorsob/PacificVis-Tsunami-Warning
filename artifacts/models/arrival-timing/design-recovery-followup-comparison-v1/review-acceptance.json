@@ -1,0 +1,25 @@
+{
+  "checker": "/root/ms2_scientific_results_checker",
+  "further_iterations": "none",
+  "new_attempts": 30,
+  "new_datasets": 30,
+  "original_call_ceiling": 330,
+  "pooled_interval_scope": "descriptive_after_adaptive_scenario_selection_not_fresh_confirmation",
+  "report_manifest_sha256": "4c08629846d9e1f7fe5a464400a0bfea95561747199b8ebec43f071cb6466a36",
+  "sigma_counts": {
+    "followup": [
+      26,
+      30
+    ],
+    "initial": [
+      23,
+      30
+    ],
+    "pooled_descriptive": [
+      49,
+      60
+    ]
+  },
+  "status": "accepted_finite_followup_with_conditional_and_adaptive_limits",
+  "total_recovery_calls": 300
+}

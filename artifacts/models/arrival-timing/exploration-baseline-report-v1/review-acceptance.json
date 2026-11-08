@@ -1,0 +1,23 @@
+{
+  "checker": "/root/ms3_fit_checker",
+  "events": 33,
+  "excluded_unknown_ancestry_records": 6,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "limits": [
+    "constant-scale Gaussian inadequacy",
+    "no heldout performance claim",
+    "no physicalspeed or forecastbias attribution",
+    "separate source computations pending"
+  ],
+  "posterior_pins": {
+    "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/distance/result.json": "6b79382ebbefc5b8b5cf176b7b534d047d74a38ae5a1c9dc6b5442c8075f55ab",
+    "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/event/result.json": "e67ec350e8facaaa99813b5525392ae3afe2a2213abaeb5825946776a49ae5c0",
+    "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/pooled/result.json": "5ac78e33d0488483c0db8a3ce45ab4217af7d4c2439d8714269d9ff9df9ba70a"
+  },
+  "records": 1064,
+  "report_manifest_sha256": "04d301f490907f02a9f1e4ac2580dee7a4b898fcd9ecc47bb855454ae1d55016",
+  "reserved_outcomes": "sealed",
+  "science": "all3rawposterior/parameters/derived/PPCcells/recordintervals/conditionalu/eventintervals independently reproduce",
+  "scope": "numeric_source_and_conditional_PPC_replay_not_predictive_adequacy_or_selection",
+  "status": "accepted_provisional_exploration_fits"
+}

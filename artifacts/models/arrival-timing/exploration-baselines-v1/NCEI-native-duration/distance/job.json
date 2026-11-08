@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "distance",
+  "seed": 24261207,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}

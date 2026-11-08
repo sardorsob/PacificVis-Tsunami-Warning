@@ -184,6 +184,28 @@ severely biased the simpler model's location and distance terms; a clean sampler
 can fit a misspecified model. These checks permit the first NCEI exploration
 fits. Other source lanes require their own computational checks.
 
+## First exploration fits and what they miss
+
+The [baseline report](../../artifacts/models/arrival-timing/exploration-baseline-report-v1/baseline-findings.md)
+contains three NCEI fits, parameter tables, distance-conditioned predictive
+checks and event intervals. Independent replay accepted their computations and
+conditional checks as exploratory results. All three passed numerical screens.
+No model has been selected or evaluated on held-out events yet.
+
+The event model estimates a between-event log-ratio SD of 0.352, with central
+90% posterior interval [0.220, 0.510]. That variation can combine source, clock,
+path and reporting differences. It does not identify physical propagation delay.
+The constant record SD leaves substantial discrepancies: at distances of at
+least 5,000 km, observed log-ratio 5–95% quantiles are [−0.111, 0.169], compared
+with median replicated quantiles [−0.645, 0.637]. The middle-distance median
+also needs attention. This motivates a bounded distance-dependent spread and
+mean investigation, followed by sequence-held-out prediction and sensitivity.
+
+The [recovery follow-up](../../artifacts/models/arrival-timing/design-recovery-followup-comparison-v1/followup-findings.md)
+is complete. It retains the initial and new cohorts and explains why their
+pooled interval is descriptive after adaptive scenario selection. Priors were
+not changed to force nominal conditional coverage.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

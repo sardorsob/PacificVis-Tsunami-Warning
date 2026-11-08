@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.005263092129265833,
+    "max_rhat": 1.0013804931246337,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9939009246669573,
+    "min_ess_bulk": 5829.491686671469,
+    "min_ess_tail": 4482.629599732932,
+    "screen_passed": true
+  },
+  "events": 33,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "event",
+    "seed": 24261307,
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/NCEI-native-duration/event.nc",
+  "posterior_sha256": "4408908622f9f05a88fb8a60dd80e77d60d37e191dbec5bfe5c60d1b2d748988",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 1064,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}

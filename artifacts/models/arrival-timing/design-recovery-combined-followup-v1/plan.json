@@ -1,0 +1,670 @@
+{
+  "base_git_sha": "2b8dc5dff5f16c3c67ec72d5a2584347a389d4a8",
+  "cases": [
+    {
+      "id": "combined-weak-event-large-spread-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23261907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23262907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23263907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 23264007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "combined-weak-event-large-spread"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "ea517c4ca2ff39a43574dc9b5cf736ac2f594508abbcec14253bcc8bda9a969a",
+    "scripts/run_arrival_model_validation.py": "5cc88b9a90181b697bdc9d6b19a9c00ea083bc09c149c402c7a13179eaa66c19",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T04:16:44.329146+00:00",
+  "max_calls": 60,
+  "max_posterior_bytes": 1638798788,
+  "parent_budget": {
+    "calls_used": 270,
+    "posterior_bytes": 508684860,
+    "sha256": "551ff278ee5ff4050e4256d373614c963625eb473a9ad303a30a256edbd8f134",
+    "summary": "artifacts/models/arrival-timing/design-recovery-v1/run-summary.json"
+  },
+  "per_attempt_timeout_seconds": 600,
+  "phase": "recovery",
+  "protocol": "combined-followup",
+  "schema_version": "arrival_validation_batch_v1",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

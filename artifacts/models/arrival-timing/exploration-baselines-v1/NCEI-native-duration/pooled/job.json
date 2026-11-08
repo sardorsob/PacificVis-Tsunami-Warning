@@ -1,0 +1,8 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "pooled",
+  "seed": 24261107,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}

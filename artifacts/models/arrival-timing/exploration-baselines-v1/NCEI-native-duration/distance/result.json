@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0002586944932803028,
+    "max_rhat": 1.0006834954468338,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0059315466787102,
+    "min_ess_bulk": 3931.0533076128586,
+    "min_ess_tail": 4219.068018377254,
+    "screen_passed": true
+  },
+  "events": 33,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "kind": "distance",
+    "seed": 24261207,
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-baselines-v1/NCEI-native-duration/distance.nc",
+  "posterior_sha256": "6741f70ab70a3b8555c48f120bee217b0a54f3c7e0558ef5014fcb713d65357b",
+  "ppc": "conditional_fitted_events_not_held_out",
+  "predictive_replicates": 800,
+  "records": 1064,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review",
+  "target_population": "eligible_reported_archive_records"
+}
