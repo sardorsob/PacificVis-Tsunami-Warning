@@ -18,5 +18,10 @@
     "new_sampler_calls": 0,
     "path": "artifacts/models/arrival-timing/event-score-cubature-v3/T-OBS-event-fold-01/review-acceptance.json",
     "sha256": "b4609f800d1ac44ea85a7c0727a3a7ac6170771a5ab731ec71f11c71abe3c8da"
+  },
+  "T-OBS-event-fold-09": {
+    "new_sampler_calls": 0,
+    "path": "artifacts/models/arrival-timing/event-score-cubature-v5/T-OBS-event-fold-09/review-acceptance.json",
+    "sha256": "5ce024f3a35adf1d7fe729a2de5f806ca2e4f6c6077fda1062937f07f8aef30d"
   }
 }

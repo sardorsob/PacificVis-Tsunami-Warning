@@ -1,0 +1,20 @@
+{
+  "error_scope": "routine_estimates_refinement_and_independent_tensor_checks_not_rigorous_bound",
+  "event_id": "us10006jbi",
+  "independent_conditional_raw_difference": 0.0,
+  "joint_log_predictive": -142.19048335187608,
+  "kind": "event",
+  "max_refinement_agreement_nats_per_record": 2.1396807881046698e-08,
+  "monte_carlo_used": false,
+  "native_jacobian_subtracted_once": 8.929773011577021,
+  "new_sampler_calls": 0,
+  "normalized_event_score": -35.54762083796902,
+  "normalized_mcse": "not_applicable",
+  "numerical_error_estimate_per_record": 4.900315635491185e-07,
+  "precision_passed": true,
+  "records": 4,
+  "reserved_outcomes": "sealed",
+  "sequence": "seq-us10006jbi",
+  "status": "computed_pending_independent_review",
+  "target": "T-OBS"
+}
