@@ -1,0 +1,14 @@
+{
+  "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+  "analysis/arrival/model_scale_fit_report.py": "15b9869cd7d13f9143dff676f05da682bda05b87c12daea392c0e2c52393f38b",
+  "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+  "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/event/conditional-predictive-quantiles-by-distance.csv": "69613acb1002329ecdb7875df8d414521efd462db0d852bf65d718d093dc497c",
+  "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/event/output-checksums.json": "0d055e19e32f9b107c456f3984b409a39c2a27b28b5560fc9514dfc528d4135f",
+  "artifacts/models/arrival-timing/exploration-baselines-v1/NCEI-native-duration/event/result.json": "e67ec350e8facaaa99813b5525392ae3afe2a2213abaeb5825946776a49ae5c0",
+  "artifacts/models/arrival-timing/exploration-distance-scale-v1/conditional-predictive-quantiles-by-distance.csv": "41fd8209defb53ddf370107672b6090837734e0a9ea791c763a2fa1f79e7b56a",
+  "artifacts/models/arrival-timing/exploration-distance-scale-v1/output-checksums.json": "4e06c308e58d6de99171cf34edeb48d007c32ff885c70bc88ef6f3a1dd9a6ea8",
+  "artifacts/models/arrival-timing/exploration-distance-scale-v1/result.json": "417fb863d10ee7afc3f909415ce5850460cfa9baa7e2094ae994d653d84f5db7",
+  "data/processed/models/exploration-baselines-v1/NCEI-native-duration/event.nc": "4408908622f9f05a88fb8a60dd80e77d60d37e191dbec5bfe5c60d1b2d748988",
+  "data/processed/models/exploration-distance-scale-v1.nc": "aa74dde5df1979dda3e560e7ce463810b3b6a2730cbfc3bdccfceeb1b5a14173",
+  "scripts/summarize_arrival_scale_fit.py": "e2ce5d196430be4442c706e8e6e21c93a1afe418ad176366bc622240d9e26c85"
+}

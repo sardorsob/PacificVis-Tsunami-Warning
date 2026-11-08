@@ -191,7 +191,8 @@ The [baseline report](../../artifacts/models/arrival-timing/exploration-baseline
 contains three NCEI fits, parameter tables, distance-conditioned predictive
 checks and event intervals. Independent replay accepted their computations and
 conditional checks as exploratory results. All three passed numerical screens.
-No model has been selected or evaluated on held-out events yet.
+No model has been selected. The numerical comparator results below are separate
+from these conditional fitted-event checks.
 
 The event model estimates a between-event log-ratio SD of 0.352, with central
 90% posterior interval [0.220, 0.510]. That variation can combine source, clock,
@@ -247,13 +248,35 @@ and [calibration report](../../artifacts/models/arrival-timing/distance-scale-va
 describe the checks and uncertainty. These results permit a candidate fit;
 they establish neither adequacy nor predictive superiority.
 
+The [candidate fit and figures](../../artifacts/models/arrival-timing/distance-scale-fit-report-v1/findings.md)
+show much less far-distance residual variation: posterior median SD is 0.101
+at 5,000 km, compared with 0.675 and 0.703 at the two nearer anchors. The
+between-event SD falls to 0.046 [0.029, 0.084], compared with 0.352 under constant
+spread. This change shows how strongly the attribution of variation depends on
+the residual model. It does not establish that events have little physical
+variation. Near- and middle-distance predictive discrepancies remain, and the
+small event SD needs sensitivity checks.
+
 Sequence-held-out comparisons retain native-minute joint event densities and
 equal-event weighting. An extreme single-report event exposed excessive score
 Monte Carlo error for the pooled comparator despite clean sampling. Both allowed
 sampling attempts are retained. The planned Gaussian coefficient integration and
 one-dimensional SD quadrature provide an alternative numerical route to the same
-score. Comparisons remain incomplete until every event and the aggregate meet
-their declared numerical precision requirements.
+score.
+
+All six pooled and distance-only comparator calculations are now complete in
+the [analytic comparator bundles](../../artifacts/models/arrival-timing/analytic-gaussian-baselines-v1/).
+Independent replay checked 108 whole-sequence training fits, 120 joint event
+scores and 2,912 record predictions. These calculations preserve the original
+priors, native-minute density and equal-event weighting. Deterministic numerical
+error is reported separately from uncertainty across events and sequences.
+
+The event and distance-dependent-spread comparisons remain incomplete. Clean
+chains can still give concentrated predictive-density weights: one allowed
+longer sampling attempt did not resolve the affected folds. Those attempts are
+retained while alternative integration methods are checked. No winner or broad
+transfer claim follows from the available partial scores. Complete paired
+sequence comparisons and sensitivity checks precede model selection.
 
 ## What exactly would we predict?
 

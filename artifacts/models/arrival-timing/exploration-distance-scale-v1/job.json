@@ -1,0 +1,10 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+  "kind": "distance-scale",
+  "prior": "base",
+  "seed": 89261107,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}

@@ -1,0 +1,12 @@
+{
+  "between-event-spread-by-model.csv": "68345a8d8966e7d80dd5f55ee1c08a5e7419cfe0ccc8ffadec8b980cbee676d8",
+  "conditional-quantile-discrepancies.png": "354edfa46c53c372b9376de4a48b58238fc503b02e3ea17b5605f2514fbd9eea",
+  "conditional-quantile-discrepancies.svg": "170a2eafb521d7471088c63f5113b62331100d4cb6d724ea25c08c868b9fcfba",
+  "conditional-reported-quantile-checks.csv": "7a834fa80c16e03b51bf666d82a25756be325cab6cee62c4dd6774ca98161ac2",
+  "distance-spread-and-event-attribution.png": "0056a582a679ba97e18c88ecd006fae8fd030733c2dae725fef2392509ac30b3",
+  "distance-spread-and-event-attribution.svg": "045893852534539b76e17fc297b35122b949e1d2f7b7c7307ca6a44c77ea4fc1",
+  "findings.md": "1c3d42990c25969af4906b9a00db6df16fcb30418cf28f81f62845f49ff2edb9",
+  "inputs.json": "29ce33c7c4b14f19969433c2df356cf7ee60124a14e7e3869c971f92af0d1e2b",
+  "population-mean-and-residual-spread-curves.csv": "7cb3ca0ee5154bc5479ae037e4006ba3b20748fd1f75a5e7c480c4455598b955",
+  "posterior-parameter-coupling.csv": "9831c9716ddb218bed436e610e1b694ae548e66b8737ff186e191cf90fbcb1e3"
+}

@@ -1,0 +1,15 @@
+{
+  "events": 33,
+  "independent_checker": "/root/ms3_fit_checker",
+  "limits": [
+    "conditional_fitted_event_PPC_not_validation",
+    "model_dependent_variance_attribution",
+    "weak_tau_regime_not_fixedtruth_recovery_validated",
+    "prior_SBC_not_conditional_coverage",
+    "no_model_selection"
+  ],
+  "manifest_sha256": "4e06c308e58d6de99171cf34edeb48d007c32ff885c70bc88ef6f3a1dd9a6ea8",
+  "records": 1064,
+  "reserved_outcomes": "sealed",
+  "status": "accepted_provisional_exploration_fit"
+}

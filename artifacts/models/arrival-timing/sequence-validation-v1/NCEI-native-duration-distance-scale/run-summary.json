@@ -1,0 +1,9 @@
+{
+  "calls": 3,
+  "completed": 1,
+  "max_calls": 58,
+  "plan_sha256": "ba04776f0c50e840e11926c052fa9b6e22e3e414423f7c92bb067b7593cab872",
+  "planned": 29,
+  "scientific_acceptance": "pending_independent_review",
+  "status": "needs_review"
+}

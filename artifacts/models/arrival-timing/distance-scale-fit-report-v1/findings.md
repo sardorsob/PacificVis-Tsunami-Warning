@@ -1,0 +1,11 @@
+# Distance-dependent report variation
+
+The new candidate reproduces much more of the tight far-distance scatter, while conditional discrepancies remain. Both models use the same 1,064 NCEI reports from 33 exploration events; six ambiguous repeated-edge records remain excluded together. This is a model of native reported positive duration, with composite source, clock, path and reporting variation.
+
+The candidate changes residual SD between 500, 2,000 and 5,000 km, holding endpoint SDs constant outside those anchors. Its median SDs are approximately 0.675, 0.703 and 0.101 on the log-ratio scale. The HalfNormal(0.4) prior scale is not an upper bound on a sampled or fitted SD. The population log-ratio center at 1,000 km is 0.237 [0.195, 0.281]; the conditional-median distance exponent is 0.901 [0.884, 0.918], with central 90% intervals. These are phenomenological reported-timing parameters, rather than measured wave speed.
+
+Between-event SD changes from 0.352 [0.220, 0.510] under constant residual spread to 0.046 [0.029, 0.084]. This large change shows model-dependent variance attribution. The candidate recovery settings used true event SD 0.2; prior-averaged calibration with 100 datasets does not establish conditional calibration in this lower-SD regime. Prior, observation and influential-event sensitivities remain necessary.
+
+At distances of at least 5,000 km, observed log-ratio 5–95% quantiles are [-0.111, 0.169]. Median replicated quantiles change from [-0.645, 0.637] to [-0.156, 0.199]. In the 2,000–5,000 km band the observed median is 0.0197, compared with 0.0850 for the candidate median replicated statistic; both tails also remain too broad there. These fitted-event checks motivate a bounded mean, scale and tail revisit. Counts of flagged checks are correlated exploratory descriptions, not a model ranking rule.
+
+The curve bands describe posterior uncertainty in population parameters. The predictive-check bars describe central 90% variation in replicated sample quantiles, conditional on fitted events. They are different uncertainty statements. Posterior correlations describe linear coupling under this model and do not prove causation or identifiability. Numerical diagnostics and independent raw-array replay passed; new-sequence prediction, sensitivity and selection remain incomplete. The 18 reserved outcomes remain sealed.

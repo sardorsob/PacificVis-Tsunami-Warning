@@ -1,0 +1,18 @@
+{
+  "chart_check": {
+    "failures": 0,
+    "figures": 2,
+    "minor_legend_warnings": 1
+  },
+  "curve_oracle_max_absolute_error": 1.1102230246251565e-16,
+  "figure_checker": "/root/ms2_validation_figure_checker",
+  "limits": [
+    "conditional_fitted_event_checks",
+    "weak_tau_sensitivity_required",
+    "no_model_selection_or_physical_interpretation"
+  ],
+  "manifest_sha256": "cb747721c209f54a0a0a668811fde6774293753b92478c699f8ac67b505bc12a",
+  "posterior_checker": "/root/ms3_fit_checker",
+  "reserved_outcomes": "sealed",
+  "status": "accepted_provisional_model_criticism"
+}

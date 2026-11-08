@@ -1,0 +1,53 @@
+{
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_cv.py": "f2aa4bd4f288f2c68c57bc1e6f4ae5a1917aa7d4f852dfb8b1e723ec9d35eac0",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_evaluation.py": "00018ac5aa490030ca7e97f3730b24647529c16b9c8b2696186369735433aac3",
+    "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+    "analysis/arrival/model_prediction.py": "c96eb99ed5ce8c9252037925cf7558b3dcc296532ec146a251cb754387b2f536",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_scale_fit.py": "5f9245ef78a1f00a6bc54b06e1dc7cb0665c459df7883a981bd0ba79ea7bfdad",
+    "analysis/arrival/model_scoring.py": "9e8781c8ec5e2a8ff3da0a1b63ff1e52f55cdc458ee847247b6b5b0abd3e3910",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json": "4bb8402382f54129e0cddd31fa02e97d52b4755a2c60dff01328f7e00eced061",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/fit_arrival_scale.py": "832bcf09799bdb8a1709bf1564b2ea633a1903b4fde357d997b047e6bf513cb8",
+    "scripts/fit_arrival_sequence.py": "957d86ec29046865af1f3e8867f27da58ae5b630bc9478e770a013f2bd8ea873",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "conditional_ppc_draws": 800,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0008432926206841089,
+    "max_rhat": 1.0010598287909656,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9384908374937531,
+    "min_ess_bulk": 3029.603248765892,
+    "min_ess_tail": 3900.065958989954,
+    "screen_passed": true
+  },
+  "events": 33,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "gate": "artifacts/models/arrival-timing/distance-scale-validation-report-v1/review-acceptance.json",
+    "kind": "distance-scale",
+    "prior": "base",
+    "seed": 89261107,
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/exploration-distance-scale-v1.nc",
+  "posterior_sha256": "aa74dde5df1979dda3e560e7ce463810b3b6a2730cbfc3bdccfceeb1b5a14173",
+  "records": 1064,
+  "reserved_outcomes": "sealed",
+  "status": "computed_pending_scientific_review"
+}
