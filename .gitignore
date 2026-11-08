@@ -63,3 +63,6 @@ artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/jobs/
 # Retained sampling jobs and transient leases stay local.
 artifacts/models/arrival-timing/ncei-fold20-joint-score-integration-v1/jobs/
 artifacts/models/arrival-timing/**/.controller.lock
+
+# Retain the unreviewed report render locally within the monitored working store.
+artifacts/models/arrival-timing/mean-curvature-calibration-v1/unreviewed-recovery-report-v1/

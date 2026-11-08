@@ -1,0 +1,13 @@
+{
+  "datasets": 50,
+  "depth_hits": 0,
+  "divergences": 0,
+  "estimates": 1050,
+  "final_rank_ecdf_screens_exceeded": null,
+  "grid_band_borderline_cases": 2,
+  "max_rhat": 1.0040154654011895,
+  "min_ess_bulk": 1753.9970168001594,
+  "min_ess_tail": 2755.9297049295797,
+  "quantities": 21,
+  "sampler_calls_in_phase": 50
+}

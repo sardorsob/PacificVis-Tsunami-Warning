@@ -1,0 +1,10 @@
+{
+  "estimates-by-dataset.csv": "ae3091c082f25c25ae131d50dfb5ce9c214deec5ed2ab46b392ac130e7849ae9",
+  "findings.md": "7b9f54334a40e8a7f3397df1aff950e1824ea185cc9892bb345ccac895a002f3",
+  "grid-band-by-dataset.csv": "c531e6cc5107367bfe40f021cff401d5b2eb501c7d74604f1e4b836c00d2a121",
+  "grid-band-coverage.csv": "e6be31e085847cd7c4ab7efc0bc925cbe7996de49667a1795071ee4c4e883d0e",
+  "inputs.json": "acb9b6e62cd29719f3013a616f1c36dbea237d3dce6ac34455f46c0789e68d20",
+  "metrics.json": "db26d32c268c78e9cf437863bd3ff3f92a5ddf853837a84a4b0c78d961f6f100",
+  "pointwise-coverage-and-recovery.csv": "7d9072c8150a798ae89ac504203eff32869091d4cbabdbe618c2576935c3be10",
+  "sampling-and-functional-diagnostics.csv": "b95fce5570311b9ba49926d32efc77f8b169fc149ee8c23ea8c809013e31c2e6"
+}

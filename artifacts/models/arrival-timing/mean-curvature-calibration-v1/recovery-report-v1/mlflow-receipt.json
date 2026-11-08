@@ -1,0 +1,878 @@
+{
+  "bundle_fingerprint": "b9f5d9340f89865a767e725e8d5260aa1da3a15c76938bd8bd3002fccdcbec09",
+  "children": {
+    "recovery-000": {
+      "artifacts": {
+        "attempt-evidence.json": "3e78d8f7d0b7caadef5473ca67735650b7e97ee49bb3dde0853a1888390ffc05",
+        "calibration-checks.json": "fedd73fdad8c86e81547b869db4469cf8fa1bfeb53996384ff051751d2c194e6",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "8c0972364489cb857627cc82136ba8eade3696a69fcb2be97d408c7dbb4e68ac",
+        "recovery-000-spec.json": "8c0972364489cb857627cc82136ba8eade3696a69fcb2be97d408c7dbb4e68ac",
+        "recovery-000.log": "653e846f54c9bf1936d7ef1d2f127d327fe84072852c66e72dbc64c9b11c7d3d",
+        "recovery-000.supervisor.json": "3df09568cf794ef8d5d10f34a3568f333f59b67de2bc20322537afda3c3c20fe",
+        "result.json": "f088c051d98ea6fdcab9da501b3513945e6aa231237a917909faa6978a401ab1",
+        "sampled-hyperparameter-diagnostics.csv": "73b11dd2b22404479010a9692b872df389f79cfbcc4f8f6ad44f1f62e6969ec5",
+        "sampling-diagnostics.csv": "f3f992c771f3b0faf0d7f700ac3aab7054acde24199f3ac285da372d397eab7b"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "962f1892a49a45d1a0182cf9aad61c67"
+    },
+    "recovery-001": {
+      "artifacts": {
+        "attempt-evidence.json": "b041b397d27c156c55388d353745366692539bd9fabfa40dcb358418dbb8edec",
+        "calibration-checks.json": "2f5bf1ed2194d4a87ee877e3ae38a6e4d4a0e2f11785fa8f1220d2eed40afe44",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "2e7a34ed6c5bd749f02a5fcfce321283835821cffb3c9c0c9eb805fe5165a8ea",
+        "recovery-001-spec.json": "2e7a34ed6c5bd749f02a5fcfce321283835821cffb3c9c0c9eb805fe5165a8ea",
+        "recovery-001.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-001.supervisor.json": "165b7f1418287de0d9085d268e61d6018243dec3f372352c6109b33a5080023e",
+        "result.json": "0396cbb44ea9686f8a0484f3026738f9668a3317332e89fda4e4ef114a79a831",
+        "sampled-hyperparameter-diagnostics.csv": "cc5e434394b3cd18573755288cc188b956c37a4bcdc2b0ab74e172b65e3cd12e",
+        "sampling-diagnostics.csv": "21cc38ff1c0aaf2b8862faabdf9847bbbd0f6cf3d42050d7d32fee673fd6a0e9"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "f18f62f6b7794fac9d956783cd681b79"
+    },
+    "recovery-002": {
+      "artifacts": {
+        "attempt-evidence.json": "680213014610bb94d78ea8636a3d47853bdb1ca8b6527bdf68c2e538c7f3b1a3",
+        "calibration-checks.json": "4fb4cff4cb804c77502aa6e800eb2eb677db50e7f4314ce762bc7b9855b7935e",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "ca4274789f2521ce8b3958cd6056cdfac279125c1a9ac371cf12c53a9e9a8373",
+        "recovery-002-spec.json": "ca4274789f2521ce8b3958cd6056cdfac279125c1a9ac371cf12c53a9e9a8373",
+        "recovery-002.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-002.supervisor.json": "a0267ccaf0e2d1bcb66a9bd5f8faa9ff8c3990c78a6f12e91cbf7a883e95446f",
+        "result.json": "bdb3114024b40f1be8e7dd22a281ddc82c9b143b01e45c7ab3b887fa47871bf6",
+        "sampled-hyperparameter-diagnostics.csv": "3b7950949d953660b4b50edce623d2443d7416beb3a48522d887958005cdafab",
+        "sampling-diagnostics.csv": "6679c81c2f6d43603b173d8da9debddc98c02c59f94cd11ed7de60bf883f68f5"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "9d8c1a98e8244d5195a091eb5a104db0"
+    },
+    "recovery-003": {
+      "artifacts": {
+        "attempt-evidence.json": "560fec8a40831f6ced8df17b0047ef127db23b5b03eb7a7cb8f03e45579712fb",
+        "calibration-checks.json": "ca46394a536241fb49c1af72ef5330b677044efb46e9e3377698a3d5900a6b44",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "fe8d6bbac09686baddabd2ed3741ec79227038ef98c0df46f63b683b5c88f2bf",
+        "recovery-003-spec.json": "fe8d6bbac09686baddabd2ed3741ec79227038ef98c0df46f63b683b5c88f2bf",
+        "recovery-003.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-003.supervisor.json": "7fb14f2d7e58a45c8c5d16acec9e15abf8feb64fed2e347aa6660debb4940cd0",
+        "result.json": "8139e666f67c740b6460f1bb50c48ded6ab22f29ed3262e0b3923fd2caf46665",
+        "sampled-hyperparameter-diagnostics.csv": "48df77ecb27a16ae59c3f580f7c1bc454798f920dec3c606f00aa12adc4075fa",
+        "sampling-diagnostics.csv": "c4cbaf63831e97b076987c3f413611c03e8fcb24d6178aa115fc4283f8d168d8"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "d94fa59be14548969cc8c0805a5fd0be"
+    },
+    "recovery-004": {
+      "artifacts": {
+        "attempt-evidence.json": "d8e4dcadd6481de85b3ceaf82c85725bd36ea249985b7b69748534415ae5e779",
+        "calibration-checks.json": "50fd0736180728b36a400e9de4a34ce0feb421e6b54b9ec7361e49e0a06e4c76",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "cf99825236fdb94b7d5e11fd457645ddb5ffb45bfb216c83e2e223749c508354",
+        "recovery-004-spec.json": "cf99825236fdb94b7d5e11fd457645ddb5ffb45bfb216c83e2e223749c508354",
+        "recovery-004.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-004.supervisor.json": "7d6da8d569f5bb2a48f1be2234626aee3421e4613ef52b3cdcfc30ee40315d1a",
+        "result.json": "8d7cbaf26a790cb102af04451f0409468aa834a75d6e085d4ef3ecb9f9d217bc",
+        "sampled-hyperparameter-diagnostics.csv": "d80ef281a121dff3b4a5b96a2b693b7d19c3f574726d6b33707d6fb04944c14f",
+        "sampling-diagnostics.csv": "42d1900e5c8650cfc2c8455a0eb29120747c6a909e222ee67dab723d6156092b"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "bf400941b3fd4d2ab877af740fe16688"
+    },
+    "recovery-005": {
+      "artifacts": {
+        "attempt-evidence.json": "75d360bba3d7e98106b1b856dc3de6b792da87501ef7c2bdc9e1b9433464eaee",
+        "calibration-checks.json": "cda0d8fc484f0acfa8ec89ee65909339043e7678433055cade0091b17c08c6b6",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "de13921c33a539fc01538113b02272c86cf230190b5db16405d85919b1d8a7b1",
+        "recovery-005-spec.json": "de13921c33a539fc01538113b02272c86cf230190b5db16405d85919b1d8a7b1",
+        "recovery-005.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-005.supervisor.json": "765c9bed621ffd1fa35e03b157b10494e57111ee893910505f0fa07c831e8327",
+        "result.json": "ce07c2e30f7670e4ccd558d93fe7638428a7e3a265c7dbe9a0b47f3f56ab22cc",
+        "sampled-hyperparameter-diagnostics.csv": "6545383395e8f290eb456ab1fd8eb1349356562d1dacb0e5a7ca4eb4b6bc4999",
+        "sampling-diagnostics.csv": "9232248c76e45c4c0975e27679886dabc0af034ceef9400fd997d70965aaf483"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "dd8ce50f947341c8ad907d2935587e52"
+    },
+    "recovery-006": {
+      "artifacts": {
+        "attempt-evidence.json": "728925b954222d4f2f323c4bbe021471a2aba251b1909c07385d264f95f6d244",
+        "calibration-checks.json": "df37a7ac2df6750c372d7cae341d27ef5a5fd3dfc43b542aa2a7b362a6466435",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "81ebb6aaafea2c737d402433c3dfd33318b10b18da495627ad6c39fbe35868f1",
+        "recovery-006-spec.json": "81ebb6aaafea2c737d402433c3dfd33318b10b18da495627ad6c39fbe35868f1",
+        "recovery-006.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-006.supervisor.json": "1fa72220d9495a506f4c24ed35dbbf86b63888bae6275ca7365b5dd93462bed4",
+        "result.json": "25da01da9879a122838f0a88422aa193612a7f7f39a80a2a94bdf3c754d6b34f",
+        "sampled-hyperparameter-diagnostics.csv": "a62ed5fc9d2602eb3ebcbc2670da49857c5ca8ee566dec814c18165437dfdf5a",
+        "sampling-diagnostics.csv": "9c77e5cd60e9687553bff9a5a42bc845dd5075567c3c695caeec697d0e287ffd"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "eb4e688152f14b9ebf65b33966102804"
+    },
+    "recovery-007": {
+      "artifacts": {
+        "attempt-evidence.json": "7b524f518194ee8977b14b38ab366ba00ce797a36ece8d9584eb55d98e456b40",
+        "calibration-checks.json": "c300e43f60110a1ac3bab9239bb2fb6b8548cf99cd8df06aceb8b4866cad5112",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "6028e35a8a86d0163c7cbbe97090e7dec09770f23b79eb4f7963a4df6eee04d8",
+        "recovery-007-spec.json": "6028e35a8a86d0163c7cbbe97090e7dec09770f23b79eb4f7963a4df6eee04d8",
+        "recovery-007.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-007.supervisor.json": "47bd89244c3274ce29f32d0b88505f4610b91af6d2dd83efabc7e23901f9a424",
+        "result.json": "b8d3e74bad014e4c6f00513759e89f97eef05e82d64ae640bf080c89ef53b679",
+        "sampled-hyperparameter-diagnostics.csv": "2775e71a3991a6eb7b0015375d4c4a83aa8b8e3f4588175228f76fb255c5979e",
+        "sampling-diagnostics.csv": "e3d045a07ad1c9135b76c6df0120496fd75ebaa93ca4faf1907b8b357f905b4d"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "921d529c82bd475cb469c149407ff5ef"
+    },
+    "recovery-008": {
+      "artifacts": {
+        "attempt-evidence.json": "dc1904637d837041a5820c10e5d542d586d3ee4544c88537732cb3e1686f7981",
+        "calibration-checks.json": "125473e59eb5a74094af3090874802509a57d934b593be9fe823879403df156e",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "14f4d758a4118d7010921c0ff88dbe509cdeb249031a9102161cef2b88ca986a",
+        "recovery-008-spec.json": "14f4d758a4118d7010921c0ff88dbe509cdeb249031a9102161cef2b88ca986a",
+        "recovery-008.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-008.supervisor.json": "417f9062a705be05c5db45d523ad77ae814364677bb143760937f5cfb5622bd1",
+        "result.json": "acb2c0c804a350245277761838496af03b28b1e3e883288335115a4d3920bc79",
+        "sampled-hyperparameter-diagnostics.csv": "816f8110dcd959f1645a4148857e5825f5c8591971951542210b20fc71c50fe3",
+        "sampling-diagnostics.csv": "be4be242406ed4b28e9c0a45a8122d1fd959228639d8a9d7e6bdc6b885f43a95"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "430d043b49414acf910f7dd0b80271d3"
+    },
+    "recovery-009": {
+      "artifacts": {
+        "attempt-evidence.json": "ae762e2cef5b8f1e043b93abbf54616b43b1e9a18ce126d84d926f3318c193e2",
+        "calibration-checks.json": "0fa04d668243c416b2d1bd68ac5a2902687868d0d6305a7ab33702bec25f600d",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "9853fa09bedc9ecdd2658c151f966c808a6dfeb625b2eabc35d9f774b8381dcf",
+        "recovery-009-spec.json": "9853fa09bedc9ecdd2658c151f966c808a6dfeb625b2eabc35d9f774b8381dcf",
+        "recovery-009.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-009.supervisor.json": "9ff85a6bad86d04c194cb895c80d282a3ded6e85ee2738e8f40c008a2abfdc12",
+        "result.json": "75e839dc2a645f427440448ba3d78e34802abc901bfaa50f6688a3a4d9035d38",
+        "sampled-hyperparameter-diagnostics.csv": "c1a31c849f63fb862361dfebcc0cec2a4fe351609a2c1e94b7422a8e770c9605",
+        "sampling-diagnostics.csv": "ec2bfef7149bad97d05189c44a577526db598186d4df9a55dd53a3e4ca9a1661"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "f6bb0c8bc760427fa6e75415faead905"
+    },
+    "recovery-010": {
+      "artifacts": {
+        "attempt-evidence.json": "040788ac6313a2c0262de2e5137089e448605f038ee646fa1ddf6b25cf6e724a",
+        "calibration-checks.json": "9c4a63cf82b99e2537330eff87f193972f0863a82868b5be67d000acc467c317",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "ed40c563552f5101d39a5ff1cf951cb3ef2770fe1e1d2b28e394e28e2137a5fb",
+        "recovery-010-spec.json": "ed40c563552f5101d39a5ff1cf951cb3ef2770fe1e1d2b28e394e28e2137a5fb",
+        "recovery-010.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-010.supervisor.json": "c32bb5f397fef5418ef4711a90093e5a56de1627bb61752a8d2aa06c58601141",
+        "result.json": "d88d2250f89dc81c776389dbc8991e267d7cfd386669e90e000dc94f40c230cd",
+        "sampled-hyperparameter-diagnostics.csv": "73d90013d0455df6954f9bf8f029594285dc789c42aaef82f9281a2d49cfaac0",
+        "sampling-diagnostics.csv": "65b21e701f4b2a3d40f9b2498abd1c04b05ec9c46a7bfc2b8ca8be5c51a7c645"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "ac74ac1534134ff09696411cb7379218"
+    },
+    "recovery-011": {
+      "artifacts": {
+        "attempt-evidence.json": "7cc1b6f4b62842aaa5bd7aa71f3bb41cb8d0e010f46f971850100e81e865a1cf",
+        "calibration-checks.json": "51b8db48ba144c910ffa1630eb5a7c81e83f1bbade1e09f302bb5c69a7833367",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "bbf2398434073f4f5f6721b34f856e20f63dce4a59dfcc53979e5f43bd620fb3",
+        "recovery-011-spec.json": "bbf2398434073f4f5f6721b34f856e20f63dce4a59dfcc53979e5f43bd620fb3",
+        "recovery-011.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-011.supervisor.json": "e721ab235875547b0229f80a7b5da9235685177bd9672268037d670a1289b937",
+        "result.json": "a640c645c615f1e00cd33da521147b2a61e58985fa185226e0e82dee8bf2588e",
+        "sampled-hyperparameter-diagnostics.csv": "7769104c25996e9453bb02987b8c3cc0d8b77f0e83056a5c99b397abde6ddd0c",
+        "sampling-diagnostics.csv": "583ebdcb8d8f66d72e346e2066805ec232a6ce3470578f1f49022d6978410670"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "706835a51dd448b8a83ea927dc953540"
+    },
+    "recovery-012": {
+      "artifacts": {
+        "attempt-evidence.json": "994369313f3f728e4ad50416310ab59ad720b71341138853cc685603f5733f73",
+        "calibration-checks.json": "00220766d19b1b1a422bbca430f221b0851511662bd2dbe17444341e90ec3fa3",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "df3cc3d25d889b54f21cfdd0eebc5701ed3066aaee5959815454f65c18275a06",
+        "recovery-012-spec.json": "df3cc3d25d889b54f21cfdd0eebc5701ed3066aaee5959815454f65c18275a06",
+        "recovery-012.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-012.supervisor.json": "511f172f5c5d5138b28d45a16e0aa3caad360eed1a3ccf29ae2ae932edb6c870",
+        "result.json": "e7f899c3eda1df9fc753cda5f45ad989bf130303e5284439174a3e0d175f8075",
+        "sampled-hyperparameter-diagnostics.csv": "9ebd2fb4a32edc16d0fb636e7e6e336a13ec5d40cc94df5cb3dffbc3c4008f3b",
+        "sampling-diagnostics.csv": "28bd07e0333b86b1bd82d2bbc09573eda4c41f198d76eaf768f87813e3411505"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "a3d589bc51544214889ebf71c0c9074b"
+    },
+    "recovery-013": {
+      "artifacts": {
+        "attempt-evidence.json": "b290f292aeea875ac2c59bafd7741acc1d3b12fbec5cea015e911a189bb8070f",
+        "calibration-checks.json": "7277e00d25a699fa77a7d6f5175f18bc0c8bcdcadf5b238cfe984b14b48d8c00",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "21a820c89a2cac136530541760e24213a1dd934e7500319e6243d8c52a47d6e8",
+        "recovery-013-spec.json": "21a820c89a2cac136530541760e24213a1dd934e7500319e6243d8c52a47d6e8",
+        "recovery-013.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-013.supervisor.json": "ef4e323146d906fb60f8bd0e391d8bfd32a4dac49bbd282db47829cb4b569dba",
+        "result.json": "2fb68f859e9f806ebe070de9eed6e5ebea81903b15dc7f18093754b674fc4190",
+        "sampled-hyperparameter-diagnostics.csv": "b3f69c9eca47f724968cee1a0ccdd52833cc80f02faf96cc37aeefb4174ea770",
+        "sampling-diagnostics.csv": "e42579e17eaf0ba4b915a2b971ced80d7ee4b9f82109b70279fb30d11699c71a"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "b460ac720b94486a8a3ff11d5eb31861"
+    },
+    "recovery-014": {
+      "artifacts": {
+        "attempt-evidence.json": "7897bc97fb42783b530201293fee094acf017ae966472c6640590aa2168f9683",
+        "calibration-checks.json": "c47dc95b4b08e2f69d28fbb911fe7657557808f93e658a661f2e6c5bc984db35",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "f37a6ce69d484a6a1128a1e90810e15056f886a00d59658bf786d0500b0e89d7",
+        "recovery-014-spec.json": "f37a6ce69d484a6a1128a1e90810e15056f886a00d59658bf786d0500b0e89d7",
+        "recovery-014.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-014.supervisor.json": "305c526138876b1dfd1d2ff2ede85ba2bbe8009ae7adc0c327c24c855bb5ff07",
+        "result.json": "58b679c0493ae62f2168d0a05db3601fdffbf163732aaa78e75deb889d2ea3df",
+        "sampled-hyperparameter-diagnostics.csv": "43bb39440061a10d6ba254a02bcccb2d35c676520ee07f715de191ea7ddb6e60",
+        "sampling-diagnostics.csv": "cd97d6cef7567a5eb8ec027a8394774636142005d821cff0142e6cc0a91969dd"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "ac2478ed308445e7a5865c276c1cf350"
+    },
+    "recovery-015": {
+      "artifacts": {
+        "attempt-evidence.json": "2d745f03410f10e519ca476697d06bfb5ae14cd81c9e7074f74c88df683a315b",
+        "calibration-checks.json": "d8c330efa02d36fdc4f9206858780502101546d62d1af2bab88123aedd6eade4",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "8a6d4333d2d09f190854de82a5ea67ae5afd9cb0c6f519912f512d417b07bc1d",
+        "recovery-015-spec.json": "8a6d4333d2d09f190854de82a5ea67ae5afd9cb0c6f519912f512d417b07bc1d",
+        "recovery-015.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-015.supervisor.json": "5cde91f6710fa6ef1157835aabc35ad6d6dce652a20eed9bac636ce7b73d9852",
+        "result.json": "522f0fa27c7bd489e395c2de4072ea1429afac94efff0ecc70392a697c3510bd",
+        "sampled-hyperparameter-diagnostics.csv": "0789ac31f8b80318930b3988accd18c75d51f1975ceb1d8353b7c77f31e1eef8",
+        "sampling-diagnostics.csv": "8ef50788100639d19b1498cab602b269dbe9b246a192be6ba896636275e49b72"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "0907f54618a84017a2285e3db60080d5"
+    },
+    "recovery-016": {
+      "artifacts": {
+        "attempt-evidence.json": "e78fda5bcbc6ad8d27738678cadb1e8463317882eee35aabcbea14b5bb9ba8ff",
+        "calibration-checks.json": "e2e8f477b12355c7f3d2a6a87f7156bce2c3f74f80fb28a7e18446a4eb6bbbd4",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "e12c076183a4bec65138e1bdab5b915f064deea0f5c6ceb38f90208cdbb061c1",
+        "recovery-016-spec.json": "e12c076183a4bec65138e1bdab5b915f064deea0f5c6ceb38f90208cdbb061c1",
+        "recovery-016.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-016.supervisor.json": "a6f4f544d9c7e6911e2ad182844172936c41f1a2888397c7f245fb6fdc58e9a7",
+        "result.json": "264f138cbf76354c540d5a908c73ef5da7e6d20e10177d24cb759b316b9dc148",
+        "sampled-hyperparameter-diagnostics.csv": "b6bedbc02bc666ae6c9a4999b9f00822669ad01dbe75a4e65160c92630de02a6",
+        "sampling-diagnostics.csv": "c23532bb590b4ec21def7910132b3d151936518874735a12e293038c94acda3d"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "49e8288d5f00432db3041a422f91cc76"
+    },
+    "recovery-017": {
+      "artifacts": {
+        "attempt-evidence.json": "66ae4632f59790b96cf3e2ab68481b809823e347a49dcfc6aa7121abccd1bfb1",
+        "calibration-checks.json": "0d06b4d3ed8212936cb00c365b6a3a0b57dd65f26e40edb2994e834ebf3202d6",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "94e77be42e7aa9c76fccc240b3db4a6184d5c105ba1984168fea4f0afb26f756",
+        "recovery-017-spec.json": "94e77be42e7aa9c76fccc240b3db4a6184d5c105ba1984168fea4f0afb26f756",
+        "recovery-017.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-017.supervisor.json": "7d013a008a2a6803fb63d80bfb0865a170d81864ebde9120b87a649aeb29689b",
+        "result.json": "338f9d34392724bd64825f0aa92c75d74e3b9392853c5696355f04789c16a0d5",
+        "sampled-hyperparameter-diagnostics.csv": "a707d80cff9b83da39a45d0a491adbd178d0b298956b27e71a1f35cc35172f51",
+        "sampling-diagnostics.csv": "c89bcbef0b8bb81da9a729f11a6422a019eb6fb56a0c52ef1d36d9ff25a68a00"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "fecae53816124e699986a0e3913e84ca"
+    },
+    "recovery-018": {
+      "artifacts": {
+        "attempt-evidence.json": "384a7ca149a50818a2ce7c04573af54a889afda8774ead9e3e837447f051cc90",
+        "calibration-checks.json": "8ac12b257931563a8e9ffc40bf5610e649a33b3b942f3b73b4fa4a42af26eaa0",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "a102c8137a0ffba02e72fb414cf8eddcfa9a81e41551bb3c87c34b5cad05f378",
+        "recovery-018-spec.json": "a102c8137a0ffba02e72fb414cf8eddcfa9a81e41551bb3c87c34b5cad05f378",
+        "recovery-018.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-018.supervisor.json": "ceff68298186ec3d53cda9246e83f7f002aae1da6cdea0cc0118791553a6b824",
+        "result.json": "cf2eab9d2c2686ec3d52103a502d8dcf95c7e5812425aff8f60a5c99a60477c5",
+        "sampled-hyperparameter-diagnostics.csv": "be16fa99e2312fd765b3928dbd851176c01cad1fdce499663c9263a6f248e58b",
+        "sampling-diagnostics.csv": "91b0adc5eae21230791b8c5e749aa865447a2ec977afb48b4c05dc482bebd512"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "7c0c8ba40df743b88085f8fe6d355ac4"
+    },
+    "recovery-019": {
+      "artifacts": {
+        "attempt-evidence.json": "10a45fc394c6af81702b3f01dd2ad5128306ddcc5e1fa05b97656a35b2b5f8b7",
+        "calibration-checks.json": "ff67d25306c4dfac6e380be3102660b32af2223d2f9c3e8c358840669678de94",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "99a278b9bbb44795416c9d386077b0bca997563011314c1784bd224100ef99b2",
+        "recovery-019-spec.json": "99a278b9bbb44795416c9d386077b0bca997563011314c1784bd224100ef99b2",
+        "recovery-019.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-019.supervisor.json": "7eea19a6c352e97c15e5290792fa16969cee3af8d0d6d4da8a880d80ba72294c",
+        "result.json": "9287524f3ac22fd6ef3cd11aac736367c47bf2bacbebebe3e4c3c51efa830eb6",
+        "sampled-hyperparameter-diagnostics.csv": "14b4a44dc75234125b30d1873fe8afb1769eefc943b721641c3ff66baf0df1ba",
+        "sampling-diagnostics.csv": "da567d104078a6aad86332ad80ab60cb2b6568d0e211afd859b4889fa66f8fdb"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "1a8061d9e485433d90cab7ef5ac0afc9"
+    },
+    "recovery-020": {
+      "artifacts": {
+        "attempt-evidence.json": "c82cfc0c2321e3f718d4d1fd81ab46022ac4149bab1353064e7d05e2b24c55fe",
+        "calibration-checks.json": "ff531138f1088348585db4182c095701985baa654a17a65b890fed5c183abdfe",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "86f67b039431285c799284adad6a9da8fe700409f6baf3a15900b19cd935bebb",
+        "recovery-020-spec.json": "86f67b039431285c799284adad6a9da8fe700409f6baf3a15900b19cd935bebb",
+        "recovery-020.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-020.supervisor.json": "a2ef2c98bd344ba45becfe3ef520c3b5700d2b4a7a2161e9b8eb53e59fbf2b3e",
+        "result.json": "8b525e3893f19e7556f3ccd6ae93574319fa9deb902a5c611a75b0c3d6d40741",
+        "sampled-hyperparameter-diagnostics.csv": "29d0458d5b27cd0b2bf0557ccc579233521af23071532b3204adf61f9cade540",
+        "sampling-diagnostics.csv": "d00a12d739d4488455fa63afda17d6e0e6e516bdd7f02f26be288a1ca9a15c1d"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "669a9997473b41158a7b4b16a28822d8"
+    },
+    "recovery-021": {
+      "artifacts": {
+        "attempt-evidence.json": "0fa4f562218c5a1b6d94f8955916d873adee0435dba85f0c39845cff717a9aba",
+        "calibration-checks.json": "ded72798b24704381eff4890d8260ab778128b52cc68cbedbbd894c5bbf58c14",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "cc382e0cc96bb8fa5e2c194ddb88ac7915e0e7bdff2c589d83621d132f01fa32",
+        "recovery-021-spec.json": "cc382e0cc96bb8fa5e2c194ddb88ac7915e0e7bdff2c589d83621d132f01fa32",
+        "recovery-021.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-021.supervisor.json": "f8d118b6614e124448aff83309dbaa14e6f0c01749aac03039f3161bfc063977",
+        "result.json": "a2251efa4944633bfa1f0c3212db845360fd7cda1b8553b625fdff13d1c9b4e1",
+        "sampled-hyperparameter-diagnostics.csv": "5f667d58e2e897d789c402c40399dd617e14ac18040c2aeb84f3df0638265541",
+        "sampling-diagnostics.csv": "09db584212e21f58fd68ab1122dd7e6c11000edec610d715b0feca448e49cee9"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "4f64b66d7f18459e82181c875259d501"
+    },
+    "recovery-022": {
+      "artifacts": {
+        "attempt-evidence.json": "4f023460a242a5fd39349b2dfcbac326c81203eb555f9e6a215d3784b4104973",
+        "calibration-checks.json": "e24ff3b4c3bdca10657a9f06518616f3bbb937225e78989210a1a7e5b895445b",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "ca72681439227a385154cde2e4f53f15d8754c90cc837eeaa0c4bf27ba4976cb",
+        "recovery-022-spec.json": "ca72681439227a385154cde2e4f53f15d8754c90cc837eeaa0c4bf27ba4976cb",
+        "recovery-022.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-022.supervisor.json": "506b0b0342eb777bc9754c5fdf8f7fb77056318db66a0dab8128553223586b05",
+        "result.json": "289a6c837f36a391eeab155e2d822d961e9c50c58dfbbb5e2e12b752bc4b7ea0",
+        "sampled-hyperparameter-diagnostics.csv": "7a05258f46ef5779226f288f04ee80ef329af27472a723121699e45bfb5442bb",
+        "sampling-diagnostics.csv": "b89a2ac425373c328926d5440f488898c9e29435ec21b6af7095699d1f227d83"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "5b68328571e54aafbd2898cbe5090dfb"
+    },
+    "recovery-023": {
+      "artifacts": {
+        "attempt-evidence.json": "5b6647207a32c05add3ebe4ed770fa3850c4188f7202befd5034a63886d77b3a",
+        "calibration-checks.json": "6ddedbd4006f600ab48cc0469b8b433d1351d1a95e3b9b02e31e7e0467d8add0",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "020514b735b49093cc10e1f798fe1fc0335bd3f0c59a97528e21306def8525cb",
+        "recovery-023-spec.json": "020514b735b49093cc10e1f798fe1fc0335bd3f0c59a97528e21306def8525cb",
+        "recovery-023.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-023.supervisor.json": "91b1261aca9f5aa85ec06b02006a39a4df183743780436efec1385ec27ab1480",
+        "result.json": "203d9195d1c2417424ec2f14973aa85aefee78e8aba828d3785cfec3fd920f0a",
+        "sampled-hyperparameter-diagnostics.csv": "8c4c60f46d8476753e7b28e4adbef8a01aac1f2e23f774d7bd6c22ed47b6a10c",
+        "sampling-diagnostics.csv": "8df7d4e8f1141a253feb38fde8b180de25a71856d6b857787545066fb9b177d3"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "fc972466badf4fdd834246e20f804e90"
+    },
+    "recovery-024": {
+      "artifacts": {
+        "attempt-evidence.json": "b4106f0a44a08eb93cb92120f9c442331d0f442f6e403bd5b5aa35b0706610c7",
+        "calibration-checks.json": "a3c2e3099c1c32712a05eb626556db19ef6e13bb375721b6fd9787ef994e641a",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "9755bcaf9a8911e49358d5e528f922d2ec3c8f47ade356e998ecdca6a0d30c3b",
+        "recovery-024-spec.json": "9755bcaf9a8911e49358d5e528f922d2ec3c8f47ade356e998ecdca6a0d30c3b",
+        "recovery-024.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-024.supervisor.json": "fa5adc6f360aac33cf00e51d5fed558cdfed65a0ebd5f170c9e99081f718f27b",
+        "result.json": "fb6efeece8d930a38d828fceb0f248880e61dea498843234a2034eb6a6f74149",
+        "sampled-hyperparameter-diagnostics.csv": "3ae9497900e0651d2f3f19ebd717278fc621b1ba9b3bf083d7a63754e5d71f13",
+        "sampling-diagnostics.csv": "ebc5c79ed3c2ce99ce58682e440a4bb69ce9874331780bb24da23299d2b21792"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "1b79599e1ad84e0582bca7088260117c"
+    },
+    "recovery-025": {
+      "artifacts": {
+        "attempt-evidence.json": "820887b0073c33fa1d6dfd25fc4afeaa0ed0ad76313f9228f1460bf75115e2ba",
+        "calibration-checks.json": "ffa41eb4f5b769b7c43905c8ee74da19a9eaf4a2c4bd7a8ddb23b97ff01bbf25",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "acd4a650a5f555909fdd3737672ca262b6d11026f6f5a754de455bd29eb0b027",
+        "recovery-025-spec.json": "acd4a650a5f555909fdd3737672ca262b6d11026f6f5a754de455bd29eb0b027",
+        "recovery-025.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-025.supervisor.json": "90826c55db0dffea8c11addf2ba34fe56a4829995b9fc0a4c87f3e5ea146cae9",
+        "result.json": "b41c698959634c16e6aafbc58cf09e72350ba811d5c71579da7c91923e89e996",
+        "sampled-hyperparameter-diagnostics.csv": "25f41d677afd6ab455b3a2c799d22dd0d8724f88821a1f56d41af449d9f9550f",
+        "sampling-diagnostics.csv": "ea03aaabe78b001a099edf4605cb80d1c9c72040af711f2d2e24a0001d5c3b4b"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "c0113996d19f4608a32d98092ebca18c"
+    },
+    "recovery-026": {
+      "artifacts": {
+        "attempt-evidence.json": "8133a1608792c25547f47e58ee69f2d23669a241c2dfcb93eb52c7bb2dbbd3d4",
+        "calibration-checks.json": "f97d9e78f1138ca09d44e8e9e721b540904895a4c737566e3f8cae023de1d8bf",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "5eeb722eebfedae43da3b55f983f4b59eecf228def60b5925186ab9a0a0f9b78",
+        "recovery-026-spec.json": "5eeb722eebfedae43da3b55f983f4b59eecf228def60b5925186ab9a0a0f9b78",
+        "recovery-026.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-026.supervisor.json": "ac902a05299dc2fd796ac30f569d68e1511c2ae92b67649db0ef184d7a786378",
+        "result.json": "20661f93180a5678f6b581324d62205acc8238d42c61e0a698a6ba556618695a",
+        "sampled-hyperparameter-diagnostics.csv": "4ab96d22e197413e30508d36eb1262e5464a5a28a81b038e6527c6c7d23810c9",
+        "sampling-diagnostics.csv": "199b32ba89607d6ef816cd8827479785bc34cdb3ad06c5c618f8750e71c2dc84"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "4ef4d137523b433b84715104dd8391d7"
+    },
+    "recovery-027": {
+      "artifacts": {
+        "attempt-evidence.json": "af7db2164fda1038f10dbbf7c391e707770a4de279f267177b54fb0fb730c0c4",
+        "calibration-checks.json": "7418b05ddd8bbdd0b07dd93ade0a7820a0889f2ad230690f6966ec2ebff12e94",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "ea6f1f316d884076aac808cfc220f5837bde48e8fc03b9f37e0972590a9e7cca",
+        "recovery-027-spec.json": "ea6f1f316d884076aac808cfc220f5837bde48e8fc03b9f37e0972590a9e7cca",
+        "recovery-027.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-027.supervisor.json": "76d14158b742a197cc6056d2dca1d277e0f527228343c58961e355ffe00f9820",
+        "result.json": "867076d8e952f8e1dbea969823628e1e6b49977aaea01e694c3327d5c5647e85",
+        "sampled-hyperparameter-diagnostics.csv": "588792d688a01e64f8970cbd664edd336c43c2352d6216331646a1d5fa0e2b74",
+        "sampling-diagnostics.csv": "bb701e1ea5e9c507edb17fb3ecfd5aec6f5256988754c2aa58585e91bf4eadf0"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "e5570a5589a54f1680b42f56f3525b7b"
+    },
+    "recovery-028": {
+      "artifacts": {
+        "attempt-evidence.json": "cf99aebcb3a1a11dfd3a018f043226a050620d7544ee018dc47ca6617e65fe0d",
+        "calibration-checks.json": "80734995f12aff38c47ae930ac5374515a3e086b003386166613b3c88274a099",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "b05a05d8c11f61565203cda0698e3da26551d13bf3b0a83d3e1ddd16f3d3014b",
+        "recovery-028-spec.json": "b05a05d8c11f61565203cda0698e3da26551d13bf3b0a83d3e1ddd16f3d3014b",
+        "recovery-028.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-028.supervisor.json": "c14c8e7bd480c82b4c3bfb238d802eb2dc7bbace21fd809d52d40212dba6d04a",
+        "result.json": "33abddbeaa4ddb2f3e017fa960f9d7444dbddc72e4f908d2da34a8e1736cf25a",
+        "sampled-hyperparameter-diagnostics.csv": "5e8c3ad102dcbd8021af0a30464972c7d50bbad0018cf0e23fa4a3a64df327ef",
+        "sampling-diagnostics.csv": "8dfb6e04ce8e5b21f3c85dc8a712f97397faa8cc8ce026b7d442ce99c839ddb3"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "dd64cd5f76884d829b18e56eb267442b"
+    },
+    "recovery-029": {
+      "artifacts": {
+        "attempt-evidence.json": "e5b86fc03e04146d9d81d2c3d7aabde76e342c5bf4bc3a2a06bfd4c6ed1f3c44",
+        "calibration-checks.json": "a412c34d73d577a9b20237608dfdca21a38558ff22aef16ba18c41173442dd1f",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "80ad531dd4e10086b1fdfe80fa1aabd329990a4ab02486175732a8a45b98d712",
+        "recovery-029-spec.json": "80ad531dd4e10086b1fdfe80fa1aabd329990a4ab02486175732a8a45b98d712",
+        "recovery-029.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-029.supervisor.json": "0f59afb1091d84060c57176d02e3bfb21bce3c628511539a91d4c9c899057c54",
+        "result.json": "87c6c11fda4527c71d95017f7e2ccdb09bfa423223c450a6bae377aa1f72fd6c",
+        "sampled-hyperparameter-diagnostics.csv": "096e4c31d48580ef8082063bbd11ccdc0ce1ce5621337d9e317a0a5ce4d110ad",
+        "sampling-diagnostics.csv": "179dc20f309dd1426e9caeece0557b255d9abaf7c8fa1908ef45e48f456b74ce"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "c0cf8d020ac54f6c90df0d9e883e1cc4"
+    },
+    "recovery-030": {
+      "artifacts": {
+        "attempt-evidence.json": "679982bcbb2bc474d47073927634431a35f5be8b07a84cf40fac4e9f7dec94cc",
+        "calibration-checks.json": "bac7a30d87647f29dbfe350e1a1079371dfee80317cfb4213a615f674df75703",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "75f1526787b243fdbc2f13834bd7bab6606e562587db1698b79e61714c7533b5",
+        "recovery-030-spec.json": "75f1526787b243fdbc2f13834bd7bab6606e562587db1698b79e61714c7533b5",
+        "recovery-030.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-030.supervisor.json": "dc43df2d1ce80ea97680c78548283dd3773fb54551b642f3de28496ab8505ab1",
+        "result.json": "4f4ecc8ca22ec2ec33a79327579bf6bae4262358703c0e107e2f7c3ec830f65d",
+        "sampled-hyperparameter-diagnostics.csv": "68034c049a863897502e28919528b0520ae6b5068a4e565876f0ed8f6c1150ab",
+        "sampling-diagnostics.csv": "9f1099984ed7f8868aa53d242d6d67564caceed475e5f663bcc3a8c86edb6ddf"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "fa12eddc4ac34e1fae36bc21c60ef79d"
+    },
+    "recovery-031": {
+      "artifacts": {
+        "attempt-evidence.json": "a71a0703ccef2e898e741c54eb319713f6d3c936711ebff6af868676557018c4",
+        "calibration-checks.json": "b3b5035bdb5fc1611a9f95a5aa62d64802ac3f98cf875fafaa653a611b33ee89",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "66b4e3f10d78df3afd2c09ee3dbdb1b06f02cc8b89ea706d6d2b90d7ee56b969",
+        "recovery-031-spec.json": "66b4e3f10d78df3afd2c09ee3dbdb1b06f02cc8b89ea706d6d2b90d7ee56b969",
+        "recovery-031.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-031.supervisor.json": "bbd5eb63580419bc5a9f932b31d8e2bdede7c0926beb31b59337c2481f88e5a7",
+        "result.json": "4c44ec3442b58116d50797affbb702a8a7b62c87415cf6e0a83d94e75f55df00",
+        "sampled-hyperparameter-diagnostics.csv": "abd7781078f1a44fcc2655be808c37d723a26edc34c41a728825b50a5a1ed36d",
+        "sampling-diagnostics.csv": "eecadd9ae03221f91278799edb05fa5468ec149961201fd1e64cb82b2cd10750"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "c6e50a6e708f4d42ab3f98b1a0ea9e16"
+    },
+    "recovery-032": {
+      "artifacts": {
+        "attempt-evidence.json": "c2f6408e8fc6a00dfc221be2b6ed7111cf4a5262c8465373aeb0e826387eb506",
+        "calibration-checks.json": "0c43ded92136139b0121b301e0021c1382973b5ae7d9bed7ba9c6b183e96abaf",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "1a68e26f178b5450dc259f4a1906bbfe9e5c291b1431142a1b5511d4fc81479a",
+        "recovery-032-spec.json": "1a68e26f178b5450dc259f4a1906bbfe9e5c291b1431142a1b5511d4fc81479a",
+        "recovery-032.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-032.supervisor.json": "5c11c8c66c336d8b2f9d0f1cad7d339ebd688d351be6ffab49e29eb5482a1a8b",
+        "result.json": "5b2f717fbe9dd4ecce813562ac07a3dceb4c1325d71fc58c7ab1f00fe7e58a4e",
+        "sampled-hyperparameter-diagnostics.csv": "78c0e6406348d273c4f463c69d74fd77c1afeac452e0904bb704cfb1fb475721",
+        "sampling-diagnostics.csv": "a879cb2efb8c7265ceb44f39ff97a568b124c3b99c5b2fcd53867b507298cd5a"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "2ba716ce32314b47b1e9916651a71528"
+    },
+    "recovery-033": {
+      "artifacts": {
+        "attempt-evidence.json": "5c16e36253a1be0842e7cf62f341d5b0171463c86939875ca615e3c40999af58",
+        "calibration-checks.json": "94d9a8d5e68f4f8605fd8cd76986ecf4d3d9fbae4f48131687b402f22a6f672e",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "1881847c64b6b2dd8dcfcace0b6158bca44ac4a2650ebd49584a8947a992555c",
+        "recovery-033-spec.json": "1881847c64b6b2dd8dcfcace0b6158bca44ac4a2650ebd49584a8947a992555c",
+        "recovery-033.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-033.supervisor.json": "172bc43744d6895f9cbc93d3039bab9f8130035d30bbcf291737f4844be42e54",
+        "result.json": "271348cb32fa6c30f050f382f0706e828999e56a2593297f85cfad25ccf66757",
+        "sampled-hyperparameter-diagnostics.csv": "194eeef22dcac9fc43257e2632167bee5404982cdecb4132b9bca31afad20d4b",
+        "sampling-diagnostics.csv": "ed82d9c15ae4518909aa6e04b2117dbf4d5afa4147866ea66a2e87471148d319"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "e59c2f4f87a34e44903933fb26dda980"
+    },
+    "recovery-034": {
+      "artifacts": {
+        "attempt-evidence.json": "1037c46bbfaa48b6b00853d68d29d898887fd039515529e89a5edbc1ab0d628f",
+        "calibration-checks.json": "5ca7a90e760e70afd20d032971a606973def86c24112dccea34bdcffe83a8c88",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "b45e324e46eba8faabcacb74e5d4ad9891eaed4a8c860f385b49401bdd60a044",
+        "recovery-034-spec.json": "b45e324e46eba8faabcacb74e5d4ad9891eaed4a8c860f385b49401bdd60a044",
+        "recovery-034.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-034.supervisor.json": "06a41c728498c4029015391e18bc1787ac09808ab95b07ce8da8f646ed71763d",
+        "result.json": "269338e43bfe059826d1128ad2d37255ac55eb7360260831a46292324c6b1d03",
+        "sampled-hyperparameter-diagnostics.csv": "3ee7e5caa645b37c10abeb8d9810657fddfe3ed289686510ac7be2b97703b533",
+        "sampling-diagnostics.csv": "344ecf773513f4ff1b3fd72413b2d66b8156154c3767aa449b8196ade0bcedc3"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "3c192879fa6b4c2a922cd84a4128e3b4"
+    },
+    "recovery-035": {
+      "artifacts": {
+        "attempt-evidence.json": "cb9c44d8b84d39e28078f258e64954fc34792d2fc635cc6ee6f7c69e6ad8791e",
+        "calibration-checks.json": "45706d72b7b9e08600b74727a050c06574b45648c97efc489d701fa7307cca21",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "db8e2309df784fdd1d674c546bb4f48f83a572d76abe6a33079685ae34757d38",
+        "recovery-035-spec.json": "db8e2309df784fdd1d674c546bb4f48f83a572d76abe6a33079685ae34757d38",
+        "recovery-035.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-035.supervisor.json": "e843db91631909b3e851b94070d281cd4ad95dd98c37e13cb7dfcea8111a3223",
+        "result.json": "7fd2c8d23d14d075c7457dd8dfbc453ac2d7a9150cb1380f42f9a393eac3bd18",
+        "sampled-hyperparameter-diagnostics.csv": "e5ddbccbc9d4e09a0f21f76e857eed51302823bc8d604e8bb91af490943ca4cd",
+        "sampling-diagnostics.csv": "1a4448fed790d1fbb473d0eae070029d9615ccd349b671fc7955fa73c2cd756b"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "be825c57309949ce919dcbd8b3a36c89"
+    },
+    "recovery-036": {
+      "artifacts": {
+        "attempt-evidence.json": "706bfc9176c4dc7a885b0046474d99d94fdd6f8c175c787617e8b0404fe04ad8",
+        "calibration-checks.json": "5aeb8530ff765c37905e31e2dab620d8965de957c644f92170340b7953b009ee",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "f98bf695f25690f92f7448df385ea2a8594f492552e70ea083ad3ade42c8b829",
+        "recovery-036-spec.json": "f98bf695f25690f92f7448df385ea2a8594f492552e70ea083ad3ade42c8b829",
+        "recovery-036.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-036.supervisor.json": "1f972615653ec43c046554729bd205bb6653d97a685406e0ebc22c7be43a3cea",
+        "result.json": "4966ee33b759746704c6f1a65586b51709a6cfea8be0f60885b279565effd47c",
+        "sampled-hyperparameter-diagnostics.csv": "80a1edfe7a4fd6d80deb17e49e6cd8abaa950cf678e0e0417d2ffb05708f576b",
+        "sampling-diagnostics.csv": "f2fb969d9937e4558381e404213d931a1f14aebc9dca593e5d85470e2b7ee2c0"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "edde8b5a1a6f408ba8cb6e820e281daf"
+    },
+    "recovery-037": {
+      "artifacts": {
+        "attempt-evidence.json": "c55efb00f7915119817cef3209ebacd66b146e929a4eb78cc0f9966f838eaace",
+        "calibration-checks.json": "fd0e902bea1695aa3c19dd874589f6f54aefe079e2abdeda0340d15b16eff5fa",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "19649158a0df2c90620f38730ef6553457e074e77ca4f9f6977ea80ee51918e0",
+        "recovery-037-spec.json": "19649158a0df2c90620f38730ef6553457e074e77ca4f9f6977ea80ee51918e0",
+        "recovery-037.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-037.supervisor.json": "a73e04091d9612f49f359448d1e8dc1bafa0cd4945c24f55c9b549475f8676a3",
+        "result.json": "efcfaf67996d04289d989edb1a5e76a95b00f701a1d66b9b05a16c82809aad8b",
+        "sampled-hyperparameter-diagnostics.csv": "519b6a52b65b2406fc999ac30522a3b4808584d9996a6215a12877ae1259f625",
+        "sampling-diagnostics.csv": "42eb41d40c04df82b04f5b0d436f199ca68e86cd445fe7372bd87daedcaaee79"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "60162eb52bd64804b733d5cbe545606d"
+    },
+    "recovery-038": {
+      "artifacts": {
+        "attempt-evidence.json": "db35d91adc8455fc9b7c5f067be0dcfcc61668b87ddbcaaaa8644af252a6d604",
+        "calibration-checks.json": "d42acdf6c432f8f656c9fd90a4c738b3ca02b894d04faa7d30795e81b32416a3",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "4162b4f17ed9c2843cb93a2854300640571d6cc45f180b697ba6c72a06207285",
+        "recovery-038-spec.json": "4162b4f17ed9c2843cb93a2854300640571d6cc45f180b697ba6c72a06207285",
+        "recovery-038.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-038.supervisor.json": "4e1c9abbb76b2147ebf75936180ba59502d8c864cce119aa68f27c0b463c88ff",
+        "result.json": "55a1e22819cb9baf1bd5babd8a01a7706f5cfe4d2431f4ea496332ccbc0a88ff",
+        "sampled-hyperparameter-diagnostics.csv": "9e45afd299cd52e4a29e996a45ad3fa6e3a126eecdb9f115bbc83e7799df727f",
+        "sampling-diagnostics.csv": "506d4b383864694d1a5b522c288051bcc9354f88a8aab93d0f538bda4e59cd56"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "ed85c63ab8704df4b9bdea127b3df057"
+    },
+    "recovery-039": {
+      "artifacts": {
+        "attempt-evidence.json": "079c8641d745e2ad3225139fef03c44a3c66bf75405fc904aca09c0caef341f3",
+        "calibration-checks.json": "b6ffc8d9e69a054975002c690176642fc123f052abce96322e58f27daf42c0df",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "e818db6e8d712322ecc206cdf079ee8c342a4b924e43659ab409bd12a852a8d0",
+        "recovery-039-spec.json": "e818db6e8d712322ecc206cdf079ee8c342a4b924e43659ab409bd12a852a8d0",
+        "recovery-039.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-039.supervisor.json": "02558c7c5005ab5c1c99db2858731dd33d7854c19df51be3342ad9d7295e7b29",
+        "result.json": "74b088f36ea64b5a4721f5ff3816decc137b8a4f660deec34f7d9ae817281c69",
+        "sampled-hyperparameter-diagnostics.csv": "b36bfcee2940627abaf8c745e19a24aca3410e14653c2e88f82ad819b701304c",
+        "sampling-diagnostics.csv": "d37880ad81d5df0a73150334ee10a5f8adb773210b026af2d6b8180edef420fd"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "69f7483c664a4633bfcb261ae59e40f7"
+    },
+    "recovery-040": {
+      "artifacts": {
+        "attempt-evidence.json": "12f05dcd303658b914f7dd17bd4d9d00db13294f38d26da645b3529b1935a585",
+        "calibration-checks.json": "d92cfff8de5f357f72ec3885501bc029acd661424d0096abca9545e5eb0da478",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "afe91f9e8b7f81176090404140616241b0f93011689339666e85d2a4858c73ed",
+        "recovery-040-spec.json": "afe91f9e8b7f81176090404140616241b0f93011689339666e85d2a4858c73ed",
+        "recovery-040.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-040.supervisor.json": "a39e2f9d8e903e2b66540152cac412f20677c1480ebad17c6f5fafd0741d2933",
+        "result.json": "263761e857106e0fa8cad4693a85562eb6f55f0bbb5f51e19301881b8f9751cd",
+        "sampled-hyperparameter-diagnostics.csv": "6183391fd9053e245c671000ef296e77876b0cb5ce6ed7b924fa711a99b88a80",
+        "sampling-diagnostics.csv": "5191c8445b43c1934fa1fbfc330b7066a562f44bbe7ef0e47355bbb07c69d6a7"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "ffc943b5dc974ce4a34f64d857fc478a"
+    },
+    "recovery-041": {
+      "artifacts": {
+        "attempt-evidence.json": "46f9b1a564bf2f501d110b46bfdf9125bbf4cc2eeb63e802230cd7b86870c69a",
+        "calibration-checks.json": "1f814c6d1f2d9a8352a94bac148c6571402e1e5b1898b026f61043f7fb9c3088",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "be957d972404c2254f4c60100b4ab251328fa00775b4a2a684819f45be0c6a79",
+        "recovery-041-spec.json": "be957d972404c2254f4c60100b4ab251328fa00775b4a2a684819f45be0c6a79",
+        "recovery-041.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-041.supervisor.json": "3d0e4dca796847575947e63c97cf5819fa239116b14598702a8bef696a32230c",
+        "result.json": "e3275ff7b82ee7e380f1b93550ab641b4b4fab755200f3a048fd84157542b3a6",
+        "sampled-hyperparameter-diagnostics.csv": "005d2bd8a9fb2a75ce2f0a448b0269e19ae9e73ddd29bd75572424e79bf9fca0",
+        "sampling-diagnostics.csv": "b377a989a0590d903f8af5fe9256ca01d156ca603194244f257f27f796864f34"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "7a779acad749493fbbf4c952a3f348ed"
+    },
+    "recovery-042": {
+      "artifacts": {
+        "attempt-evidence.json": "e1bcda27b7dbff2e4f03d33180608ea1727869416b2404361669e40e9410afb8",
+        "calibration-checks.json": "df0ea1157f68e284111a3eb5db594dc255421efd35fa5e300d41ac6d59af78f6",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "2589cabd7a99525b84b0875688cd9a77105c01466e479a333c4e8e6792db00cd",
+        "recovery-042-spec.json": "2589cabd7a99525b84b0875688cd9a77105c01466e479a333c4e8e6792db00cd",
+        "recovery-042.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-042.supervisor.json": "2d2591aadae33a57dd7d5a1c3cf618f8d7d74b66bc8f9b2f66d3dcfa0af38775",
+        "result.json": "61a5337065ebd6dbab752ccab46be6d31a48996e5986abe2da3ad0b31770bafa",
+        "sampled-hyperparameter-diagnostics.csv": "9c1431b3695026d5876356bded8cdc3d3ea018c2ee3447a96c58bfef8dffa367",
+        "sampling-diagnostics.csv": "6b624355fd3fd93cf13a77e702099f76c82d30884ba9749e72a588b514aa810a"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "d0595a3030b24b20983f11fc8ca2e51b"
+    },
+    "recovery-043": {
+      "artifacts": {
+        "attempt-evidence.json": "6034b7c87fe6959fdf05e0b56d7e4728bd243bd5dd56725ca7a750a37f3ff0f4",
+        "calibration-checks.json": "e18e05ccce05de8b21ce1ed3781a649c316e44bf4805afea1bce08e7812ad6e9",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "26323f5491afa7b6ac3a1da01a3f5903ca5674a7d280f9ce9bf2a1fb73c072ad",
+        "recovery-043-spec.json": "26323f5491afa7b6ac3a1da01a3f5903ca5674a7d280f9ce9bf2a1fb73c072ad",
+        "recovery-043.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-043.supervisor.json": "d1240dcf740fa5b02f3e922ff1ca3602d8a6a9b3fa2cc01d2464e92097a2f577",
+        "result.json": "f917b0ab9eb2e29dba323be0dc7a4ed1e6a17ae125427ca7817f34e7546c4d8e",
+        "sampled-hyperparameter-diagnostics.csv": "1d39ea54d013ede535548e3440cf198599e43d74aa5b1c5cabd2c5d97d65fd94",
+        "sampling-diagnostics.csv": "8409b925be0670e0288ecf3d63d9f7804d8a225b36d5386bb65918aa53ca067a"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "f308adde3f4d4f49901b6df5b30ec1a0"
+    },
+    "recovery-044": {
+      "artifacts": {
+        "attempt-evidence.json": "dfec65103d9b5a86d462395eb94e3bb457b5ab8e2dd319af846c59f225ca8ca5",
+        "calibration-checks.json": "a5cf87960b8913e33d4c6596d632294cc7812dbea823e41403dc68bcb8482a65",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "a995410d419b1834b4dd17c0c8ab9e3d63d451ef4b3ae085969ed95c5aade585",
+        "recovery-044-spec.json": "a995410d419b1834b4dd17c0c8ab9e3d63d451ef4b3ae085969ed95c5aade585",
+        "recovery-044.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-044.supervisor.json": "09b23beeca471c8dde672fa6f5611a742adc592a00247b56bf23fd0440ef60ee",
+        "result.json": "6cab321bd783bae3ea6baed113b960b825b393b9f5365d2b810e2feb038a2adf",
+        "sampled-hyperparameter-diagnostics.csv": "73cde3acd559a40be044fd67feaa2215a80da22b5233f9d5d9deccda97fd91be",
+        "sampling-diagnostics.csv": "556f00e0e47c2031bd1e82460746d3b1146f0c9d9a19679c9451fd51746638da"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "84044cef8d90411daa3d6198430e7be3"
+    },
+    "recovery-045": {
+      "artifacts": {
+        "attempt-evidence.json": "7d21b5fbf196fdd0418e0d457b32916869e871b95f00bc83c75ac7d1098d4ddf",
+        "calibration-checks.json": "f51ffc010c1f745df931035e55766d97a13cd37dd31691ae32aea28701073f2a",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "b668046f81962c6c8bc39522c072339c7c8e8490ca3ebb6ff68ab1dd6de19da1",
+        "recovery-045-spec.json": "b668046f81962c6c8bc39522c072339c7c8e8490ca3ebb6ff68ab1dd6de19da1",
+        "recovery-045.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-045.supervisor.json": "2b4d23d19b1321d2161a8992ad700c5e07dcfd7af32d59c9311120682ec8df0f",
+        "result.json": "eca2eb26740e71e440ffc5a9b6c0464d3ac74c5fb55938fc1606385692ec38f7",
+        "sampled-hyperparameter-diagnostics.csv": "cee90d73aee37b2b03973700b390c57949aac68d47434f0e0810f2e6a63e71c0",
+        "sampling-diagnostics.csv": "166d46998f5ea8519abf28e2222a7975422188c5f923d823e69b58ad532eb549"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "fddee311e9d14f21a9267077bb0ca421"
+    },
+    "recovery-046": {
+      "artifacts": {
+        "attempt-evidence.json": "21247c7286c5f3df058cd139be91fc8b80291bd9519d17df94fa1510dbc71d7a",
+        "calibration-checks.json": "3e33fb6c4d3903171935b88f897fb4e216f2633b2aef22c7ecbed8a98fdcdfeb",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "79e13890e7a0315ba6a5712e68799e5bede23cafa1172974874da5ed1436fbc3",
+        "recovery-046-spec.json": "79e13890e7a0315ba6a5712e68799e5bede23cafa1172974874da5ed1436fbc3",
+        "recovery-046.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-046.supervisor.json": "d8cbb72e5ed1882cacb0372bd02276dae1b9094fc238d71a1f1bf8a1022b5502",
+        "result.json": "e5929bb691a7edb752f242bcf44c8c5e570b63f4e0b1af6c465a54f430d3e402",
+        "sampled-hyperparameter-diagnostics.csv": "66924323651888df63e3ef458ba2ca681923410a6bdb930e3edc317197bbaaa4",
+        "sampling-diagnostics.csv": "7a359895a9674b91fc6a6b0139b883eda16306c86958e7b703774c9245a789c3"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "bc16f6a6e73542df998fc81ea45e7aa7"
+    },
+    "recovery-047": {
+      "artifacts": {
+        "attempt-evidence.json": "91b8c81d20cf32d30ce36718e6e214455c7e78cb8b12f5f0cfb73031a429d218",
+        "calibration-checks.json": "a89d6b573fbc9b0e4bf2eaccfe6b445f74448ffb97c3ae99bc977f0b387658a5",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "b0948f1c6f42e8abcdefc00ee624c8ba0fa48982c8701de3b652c44d3b9bae00",
+        "recovery-047-spec.json": "b0948f1c6f42e8abcdefc00ee624c8ba0fa48982c8701de3b652c44d3b9bae00",
+        "recovery-047.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-047.supervisor.json": "6742d7e72aefc5145a3b72908abfff3ebf907b9d7c20ea463b4030b1e65b9bf2",
+        "result.json": "585da701edfac70d0bf2d9beed3b26ac18855375ebff54dd261f9e6c76853b5d",
+        "sampled-hyperparameter-diagnostics.csv": "05976bd4b591ae9425a918ee2c15aa045d56a8e3a67b6b24a8bd8bf4159f5940",
+        "sampling-diagnostics.csv": "6e8ea98d2c439773183d727674b9a48dbeca61966283ee6ab84b82f7a54cbe06"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "abb1df3d86a540f5b98ef406c47a9b74"
+    },
+    "recovery-048": {
+      "artifacts": {
+        "attempt-evidence.json": "c468f93282f8134278ab825451a7d8e37417e4279a1ea4e1a9f4973ee94c800e",
+        "calibration-checks.json": "67d7bdde9d234e8b78f793662f4bb737f6e29178f144f936407e208237199647",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "040f06a6aaf50ac5a178f57134acf539ec92d14b6d5df7a4c576d27f12374efd",
+        "recovery-048-spec.json": "040f06a6aaf50ac5a178f57134acf539ec92d14b6d5df7a4c576d27f12374efd",
+        "recovery-048.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-048.supervisor.json": "66b927bc3c665c944a0935e9e91160abf6397523830a7e005722b13db2b13509",
+        "result.json": "20e5d67bbeada62604814755af94c2f19dfb1d0f5fe0dc391e4e4f8e4d68a51b",
+        "sampled-hyperparameter-diagnostics.csv": "05549929aafe1b575f847098b886fe6afe5bfcbe7d279fa3e90dbbe18ce2d353",
+        "sampling-diagnostics.csv": "d69a55bc5eccec72bc54176b989f61716651173b3aa1dbc5ad2d764116092a96"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "f6604ce06b4d444c840785a1a6213940"
+    },
+    "recovery-049": {
+      "artifacts": {
+        "attempt-evidence.json": "9e4aa7b4101258a30710afb378ba3c8bb41a5ca24dd18a2598caae67819c42d1",
+        "calibration-checks.json": "5dfe51f672116d0a43b139826b3fae918559c545eb41850f52de182a9d97c1ac",
+        "inputs.json": "195adfecf5ee8e7964b435ab47a50b181b2524a0267ad0cf48d7dec7ef2c6eff",
+        "job.json": "71dfcdf8e304ef4d36df37bd2f74416f2b4c5e6b8e03ae5a7224f7161d27505a",
+        "recovery-049-spec.json": "71dfcdf8e304ef4d36df37bd2f74416f2b4c5e6b8e03ae5a7224f7161d27505a",
+        "recovery-049.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+        "recovery-049.supervisor.json": "cd124a5cdea4a3fb959fa0ddcc160304842a9ab5b45442f887829f63cbadf1c4",
+        "result.json": "26f6355af3eec0ec2b46cfe019e32b7d0d16d137d5ddf6c77c73e5bf12437fa2",
+        "sampled-hyperparameter-diagnostics.csv": "ef64d5943e1abf4734a352df0cf6906463f034b88a3b70133e8a02a5c154d125",
+        "sampling-diagnostics.csv": "5f7a7efb5a61a852004d84ec55313e060f1ffb97ba444e57c4da5d2ae59eb3f7"
+      },
+      "metrics_verified": 27,
+      "parameters_verified": 16,
+      "run_id": "c2c52a429db54dceafc636373d725a01"
+    }
+  },
+  "confirmation_outcomes_parsed": false,
+  "local_tracking_uri": ".mlflow/mlruns",
+  "parent": {
+    "artifacts": {
+      "design/plan.json": "dd6a6a3c37d81f16d581961a7a96f59a5eba90ba4a256a9ba55efc09771ef045",
+      "estimates-by-dataset.csv": "ae3091c082f25c25ae131d50dfb5ce9c214deec5ed2ab46b392ac130e7849ae9",
+      "findings.md": "7b9f54334a40e8a7f3397df1aff950e1824ea185cc9892bb345ccac895a002f3",
+      "grid-band-by-dataset.csv": "c531e6cc5107367bfe40f021cff401d5b2eb501c7d74604f1e4b836c00d2a121",
+      "grid-band-coverage.csv": "e6be31e085847cd7c4ab7efc0bc925cbe7996de49667a1795071ee4c4e883d0e",
+      "inputs.json": "acb9b6e62cd29719f3013a616f1c36dbea237d3dce6ac34455f46c0789e68d20",
+      "metrics.json": "db26d32c268c78e9cf437863bd3ff3f92a5ddf853837a84a4b0c78d961f6f100",
+      "output-checksums.json": "b9f5d9340f89865a767e725e8d5260aa1da3a15c76938bd8bd3002fccdcbec09",
+      "pointwise-coverage-and-recovery.csv": "7d9072c8150a798ae89ac504203eff32869091d4cbabdbe618c2576935c3be10",
+      "sampling-and-functional-diagnostics.csv": "b95fce5570311b9ba49926d32efc77f8b169fc149ee8c23ea8c809013e31c2e6"
+    },
+    "metrics_verified": 10,
+    "parameters_verified": 13,
+    "run_id": "d0e961b7f35c4a689a57188f23b132c5"
+  },
+  "phase": "recovery",
+  "raw_posteriors_mirrored": false,
+  "reserved_outcomes": "sealed",
+  "tracking_copies_outside_working_store_budget": "postcompute local mirrors; original bundle remains portable fallback"
+}
