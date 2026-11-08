@@ -1,0 +1,2 @@
+record_id,event_id,station,reported_minutes,conditional_q05_minutes,conditional_median_minutes,conditional_q95_minutes,component_triage_flag,retained_in_primary,scope
+recovery-ncei-6fa5e2d2459724b6:3,usc000piqj,"LATA WHARF, NENDO IS, SANTA CRUZ IS",1125.0,20.101214498318324,55.31493964160961,165.04898894589286,True,True,posthoc_audited_hard_case_not_proven_source_error_or_forecast

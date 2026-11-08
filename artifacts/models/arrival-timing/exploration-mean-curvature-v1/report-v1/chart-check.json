@@ -1,0 +1,37 @@
+{
+ "result": "pass",
+ "dest": "report",
+ "figures": 2,
+ "fails": 0,
+ "warns": 4,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig0/ax0 legend",
+   "detail": "legend with 2 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig0/figure 'Bands/bars: point...', 'Distance (km, log...', '$\\mathdefault{10^...'",
+   "detail": "36 text(s) below 12 px at 600 px wide (report); smallest 10 pt = 10.4 px",
+   "fix": "Use at least 12 pt text at this 8.0 in figure width, or shrink figsize."
+  },
+  {
+   "check": "default-title",
+   "severity": "warn",
+   "where": "fig1/figure 'Conditional model criticism by distance'",
+   "detail": "title describes the chart instead of the takeaway",
+   "fix": "Rewrite the title as the finding, e.g. 'Sales doubled after the 2020 launch'."
+  },
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig1/figure 'Linear log-median...', 'Observed statistic', 'Curved log-median...'",
+   "detail": "34 text(s) below 12 px at 600 px wide (report); smallest 10 pt = 10.4 px",
+   "fix": "Use at least 12 pt text at this 8.0 in figure width, or shrink figsize."
+  }
+ ]
+}

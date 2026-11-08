@@ -1,0 +1,15 @@
+{
+  "status": "accepted",
+  "independent_checker": true,
+  "destination": "Expert report at full resolution or in vector form",
+  "reviewed_pngs": {
+    "mean-curvature-and-event-attribution.png": "5db9aaa89260f92c9c5af45f56d47a831ae4942fb522231fe96fb04acc7dccff",
+    "conditional-quantile-checks-by-distance.png": "ebbb09681c2e58300978c7a3ac582212661f2f32d950fa35d499dbc74b991e11"
+  },
+  "uncertainty": {
+    "mean_curvature_and_event_attribution": "Pointwise central 90% posterior parameter intervals for population and residual curves, and 90% posterior intervals for between-event SD.",
+    "conditional_quantile_checks": "Central 90% ranges of conditional replicated sample quantiles; observed statistics are shown separately."
+  },
+  "remaining_p0_p1": false,
+  "scope": "PNG visual review only; no direct SVG review is attested."
+}
