@@ -52,6 +52,7 @@ artifacts/models/arrival-timing/bridge-sequence-validation-v1/jobs/
 artifacts/models/arrival-timing/tohoku-joint-score-integration-v1/jobs/
 artifacts/models/arrival-timing/bridge-sequence-continuation-v1/jobs/
 artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/
+artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/jobs/
 *.tif
 *.tiff
 *.nc
