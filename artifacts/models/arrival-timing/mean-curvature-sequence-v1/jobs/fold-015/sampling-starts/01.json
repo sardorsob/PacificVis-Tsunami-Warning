@@ -1,0 +1,13 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "event": "usp000d9h1",
+  "id": "fold-015",
+  "kind": "mean-curvature",
+  "phase": "augmented",
+  "prior": "base",
+  "seed": 2856125801,
+  "sequence": "seq-usp000d9h1",
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}

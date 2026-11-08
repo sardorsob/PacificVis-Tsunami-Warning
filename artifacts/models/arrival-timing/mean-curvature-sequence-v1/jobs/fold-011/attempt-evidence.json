@@ -1,0 +1,29 @@
+{
+  "case_id": "fold-011",
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011-spec.json": "0d0992532c30b464e363b2a1670c7c8536b071f109b3186f753ff1036b4d9365",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011.log": "d57d84c77c5a56823d1f44c42fb927a2b08396856c18035afab13654977bc129",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011.supervisor.json": "9eff6a682f313c88e713d55ab6ad8927331a4931fbc6f8790bded1c2b3c52423",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/00-training/inputs.json": "53d1256d4871290b2f7630ed6da026428369be00ee90efe5fe24796eabe7a3a7",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/00-training/job.json": "fd4bfac057beababdd70ddd04cc78c2d0daa6e935e6158162fef9d1e579eb415",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/00-training/membership.json": "114dd823001a64588f57898623e9df583a6d537124fdc43fba65b9193ec91436",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/00-training/result.json": "0cd54ad32ad5062e6a24bfa315bf68c633b15479a38367724fae8a2e717b7146",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/00-training/sampling-diagnostics.csv": "6bed7adb999fafc7abe537682bf0e4827885f2d163877e745b2bd5d08ade1287",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/01-augmented/inputs.json": "53d1256d4871290b2f7630ed6da026428369be00ee90efe5fe24796eabe7a3a7",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/01-augmented/job.json": "9def1ee10bb23c5b34696fb581b218cbf7de7e2f3217a3237e021289d455b866",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/01-augmented/membership.json": "d3a97b81f2799c44bd78bbc992588eed343cc26cf4493613c5a3957b7c50f1e4",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/01-augmented/result.json": "80f35b1ab59bff18cac131c7bb939d0dab96325667468a370e7b30fb46317dd3",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/ensembles/01-augmented/sampling-diagnostics.csv": "758868c651d5c94be180d25e0bb506b8d30f02d84f6d1baa91fc7462f954ae06",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/event-joint-scores.csv": "d8f3e588aa528ac70ae52d200f7bc9e2a34726427624d6690797d6a61e6790f5",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/held-out-record-predictions.csv": "ef4869a4f25ea8e12d51881b81f8ba50fcbe73242e79ab17592efe3cd2b3096b",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/inputs.json": "79b7642cd3010f7059710edecde0316be8da4be5d769b936401e2820595e2e9c",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/job.json": "0d0992532c30b464e363b2a1670c7c8536b071f109b3186f753ff1036b4d9365",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/membership.json": "1982ed5b2b5bb721d8a6cde3d909b7b65f030da03c9613f3c50de5bff461e834",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/result.json": "dc85aaaaa7bdd983544aba9b82f50d5ca24422adbe9b2fa51c0e9a1bea687501",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/sampling-starts/00.json": "fd4bfac057beababdd70ddd04cc78c2d0daa6e935e6158162fef9d1e579eb415",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/jobs/fold-011/sampling-starts/01.json": "9def1ee10bb23c5b34696fb581b218cbf7de7e2f3217a3237e021289d455b866",
+    "data/processed/models/mean-curvature-sequence-v1/fold-011/00-training.nc": "f1e02afc06a215d8e23f34bf8b9355a929b752b605b4f4888ae9345c24c1da01",
+    "data/processed/models/mean-curvature-sequence-v1/fold-011/01-augmented.nc": "2e150119d33b180b3c95c9acf3e989bdefcf090fdef769a123e0dd3b9f2ffc16",
+    "data/processed/models/mean-curvature-sequence-v1/fold-011/bridge-arrays.npz": "cc43bb2d55bdb02dbc8c440e3d1e93232d164cda3f769d3b1b8e09881b052d2b"
+  }
+}
