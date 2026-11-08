@@ -90,10 +90,15 @@ def main() -> None:
     job_hash = sha256(job_path)
     if args.worker:
         limit_worker_file_size(args.max_output_bytes)
-        from analysis.arrival.model_validation import fit_synthetic_job
-
         job = json.loads(job_path.read_text(encoding="utf-8"))
-        fit_synthetic_job(Path(__file__).resolve().parents[1], job, output, store)
+        if job.get("model") == "distance-scale":
+            from analysis.arrival.model_scale_validation import fit_scale_synthetic_job
+
+            fit_scale_synthetic_job(Path(__file__).resolve().parents[1], job, output, store)
+        else:
+            from analysis.arrival.model_validation import fit_synthetic_job
+
+            fit_synthetic_job(Path(__file__).resolve().parents[1], job, output, store)
         return
     if output.exists() or store.exists():
         raise ValueError("use a new attempt output/store; preserve previous attempts")

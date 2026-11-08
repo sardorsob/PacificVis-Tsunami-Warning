@@ -68,6 +68,23 @@ def test_secondary_source_scenarios_have_correct_units_and_disjoint_rng() -> Non
         code.make_cases("recovery", "combined-followup", "T-CAL")
 
 
+def test_scale_protocol_is_finite_separate_and_fixes_all_three_anchor_truths() -> None:
+    code = module()
+    recovery = code.make_cases("recovery", "distance-scale")
+    sbc = code.make_cases("sbc", "distance-scale")
+    assert len(recovery) == 45 and len(sbc) == 100
+    assert len({tuple(c["job"]["truth"]["sigma_anchor"]) for c in recovery}) == 3
+    assert all(c["job"]["model"] == "distance-scale" for c in recovery + sbc)
+    old = code.make_cases("recovery") + code.make_cases("sbc")
+    old += code.make_cases("recovery", "combined-followup")
+    for target in ["T-OBS", "T-CAL"]:
+        old += code.make_cases("recovery", target=target) + code.make_cases("sbc", target=target)
+    channels = [c["job"]["seed"] + k for c in old + recovery + sbc for k in range(20)]
+    assert len(channels) == len(set(channels)) == 15300
+    with pytest.raises(ValueError, match="protocol"):
+        code.make_cases("recovery", "distance-scale", "T-OBS")
+
+
 def setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     code = module()
     real = Path.cwd()

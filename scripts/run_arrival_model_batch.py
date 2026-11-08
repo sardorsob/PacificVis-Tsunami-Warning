@@ -31,6 +31,16 @@ CONSUMED = [
 ]
 
 
+def consumed_for(protocol: str) -> list[str]:
+    if protocol == "distance-scale":
+        return CONSUMED + [
+            "analysis/arrival/model_scale.py",
+            "analysis/arrival/model_scale_validation.py",
+            "artifacts/models/arrival-timing/distance-scale-prior-v1/review-acceptance.json",
+        ]
+    return CONSUMED
+
+
 def git_sha(root: Path) -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 
@@ -43,6 +53,50 @@ def make_cases(
         raise ValueError("unknown validation phase")
     if target not in {"NCEI-native-duration", "T-OBS", "T-CAL"}:
         raise ValueError("unknown source target")
+    if protocol == "distance-scale":
+        if target != "NCEI-native-duration":
+            raise ValueError("distance-scale protocol is primary-source only")
+        profile_settings = (
+            [
+                ("constant-spread", [0.3, 0.3, 0.3]),
+                ("decreasing-spread", [0.6, 0.3, 0.08]),
+                ("nonmonotone-spread", [0.15, 0.5, 0.2]),
+            ]
+            if phase == "recovery"
+            else [("prior-generated", None)]
+        )
+        cases = []
+        for scenario, (label, anchors) in enumerate(profile_settings):
+            for replicate in range(15 if phase == "recovery" else 100):
+                job = {
+                    "phase": phase,
+                    "target": target,
+                    "model": "distance-scale",
+                    "parameterization": "marginal",
+                    "seed": 70261107
+                    + (1000000 if phase == "recovery" else 2000000)
+                    + scenario * 10000
+                    + replicate * 100,
+                    "draws": 1000 if phase == "recovery" else 2000,
+                    "tune": 1000,
+                    "cores": 2,
+                }
+                if anchors is not None:
+                    job["truth"] = {
+                        "alpha": 0.15,
+                        "beta": -0.05,
+                        "tau_event": 0.2,
+                        "sigma_anchor": anchors,
+                    }
+                cases.append(
+                    {
+                        "id": f"{label}-rep-{replicate + 1:03d}",
+                        "scenario": label,
+                        "replicate": replicate + 1,
+                        "job": job,
+                    }
+                )
+        return cases
     if protocol not in {"core", "combined-followup"} or (
         protocol == "combined-followup"
         and (phase != "recovery" or target != "NCEI-native-duration")
@@ -235,7 +289,7 @@ def run_batch(
     try:
         plan: dict[str, Any]
         state: dict[str, Any]
-        pins = {name: sha256(root / name) for name in CONSUMED}
+        pins = {name: sha256(root / name) for name in consumed_for(protocol)}
         if resume:
             plan = json.loads((output / "plan.json").read_text(encoding="utf-8"))
             state = json.loads(state_path.read_text(encoding="utf-8"))
@@ -256,6 +310,8 @@ def run_batch(
             max_calls, max_bytes = (330 if phase == "recovery" else 260), 2 * 1024**3
             if target != "NCEI-native-duration":
                 max_calls = 45
+            if protocol == "distance-scale":
+                max_calls = 60 if phase == "recovery" else 130
             if protocol == "combined-followup":
                 path = root / "artifacts/models/arrival-timing/design-recovery-v1/run-summary.json"
                 parent = json.loads(path.read_text())
@@ -439,7 +495,9 @@ def main() -> None:
         choices=["NCEI-native-duration", "T-OBS", "T-CAL"],
         default="NCEI-native-duration",
     )
-    parser.add_argument("--protocol", choices=["core", "combined-followup"], default="core")
+    parser.add_argument(
+        "--protocol", choices=["core", "combined-followup", "distance-scale"], default="core"
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--store", type=Path, required=True)
     parser.add_argument("--state", type=Path, required=True)

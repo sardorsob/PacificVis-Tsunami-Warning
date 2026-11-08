@@ -1,0 +1,12 @@
+{
+  "anchor-support-and-sequence-fold-gaps.csv": "37a6ce375d5db8aa335a7252bc66afbd0b4e03f4fc39388b4781d049bc34a710",
+  "distance-scale-prior-predictions.png": "f470eb6fd8bcd66e6f67f7024e5a5940aea8ea38a04755350c33212eb8252c86",
+  "distance-scale-prior-predictions.svg": "37113c6d92943072d7e2be9d351b3adec921d5bd59f777824713b7a9bb5a4749",
+  "inputs.json": "79c05deac37c3d0e3505f6adbe5aed8fd52336f66af0d89eb4f717d1007acefc",
+  "metrics.json": "63a6a82b6b2b275577f544459458b9af9239f38171486a3f017d477d035d832b",
+  "new-event-duration-prior-quantiles.csv": "9b1c0f1d42fe64405f1965e25043a4ceb743e143f26531580e6d56fb2bb2199a",
+  "parameter-prior-dictionary.csv": "fdc3520cae12a29dbe883948db3e199471e6957bc25051f774f8c27452b59ab8",
+  "prior-assumptions.md": "a01d00cfdc38d13c7062115342f6ad7a67fcd0eede02cbfe0f6ec1a71efd9b7b",
+  "residual-scale-prior-and-interpolation-moments.csv": "b1137435d95eec56028ffebe364f2509cdae5b4ffd9a1cfe0f75e43e9fb7d99a",
+  "saved-draws.json": "cc685a743938847ce9c2e25c5e322066ce475c4e2d228c7d195f5a8c5043bfc1"
+}

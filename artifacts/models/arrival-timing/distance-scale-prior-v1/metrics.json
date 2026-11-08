@@ -1,0 +1,17 @@
+{
+  "anchors_km": [
+    500.0,
+    2000.0,
+    5000.0
+  ],
+  "draws": 4000,
+  "events": 33,
+  "finite_positive_prior_predictions": true,
+  "moment_reason": "convex_scale_Jensen_bound_and_HalfNormal_sd_point4_not_support_bound",
+  "posterior_fitted": false,
+  "primary_records": 1064,
+  "prior_first_second_native_moments_finite_at_fixed_distance": true,
+  "seed": 79261107,
+  "soft_ratio_extreme_fraction": 0.0022760808270676693,
+  "soft_scope": "diagnostic_yardstick_not_impossible_values_or_acceptance_cutoff"
+}

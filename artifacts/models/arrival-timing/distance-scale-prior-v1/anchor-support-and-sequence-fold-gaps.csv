@@ -1,0 +1,4 @@
+anchor_km,rows_positive_weight,events_positive_weight,weight_mass,min_fold_training_rows,min_fold_training_events,scope
+2000.0,432,26,214.44903693716196,312,23,overlapping_support_counts_not_independent_information_or_effective_sample_size
+500.0,359,33,223.5025387757889,239,30,overlapping_support_counts_not_independent_information_or_effective_sample_size
+5000.0,705,21,626.0484242870491,554,18,overlapping_support_counts_not_independent_information_or_effective_sample_size

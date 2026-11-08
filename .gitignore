@@ -46,6 +46,7 @@ artifacts/models/arrival-timing/design-recovery-v1/jobs/
 artifacts/models/arrival-timing/inference-calibration-v1/jobs/
 artifacts/models/arrival-timing/design-recovery-combined-followup-v1/jobs/
 artifacts/models/arrival-timing/source-validation-v1/*/*/jobs/
+artifacts/models/arrival-timing/distance-scale-validation-v1/*/jobs/
 *.tif
 *.tiff
 *.nc
