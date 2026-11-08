@@ -1,0 +1,12 @@
+{
+  "cases": 5,
+  "depth_hits": 0,
+  "divergences": 0,
+  "max_rhat": 1.0045126482766875,
+  "min_bfmi": 0.9212418977631821,
+  "min_ess_bulk": 1427.7285162428204,
+  "min_ess_tail": 1763.6869424116564,
+  "retries": 0,
+  "sampler_call_slots": 5,
+  "total_process_seconds": 34.848017000127584
+}

@@ -269,8 +269,12 @@ Its [prior checks](../../artifacts/models/arrival-timing/mean-curvature-prior-re
 compare gamma SD 0.5 with widening gamma alone to 0.8 and with widening the
 inherited priors too. These analyst hypotheses were specified after EDA.
 Known-case likelihood and gradient checks, ancestral arrays and the corrected
-numeric-distance figure have passed independent review. Recovery and SBC remain
-required before an actual candidate fit. No cohort flag or model-selection rule
+numeric-distance figure have passed independent review. The plotted prior ranges
+are pointwise, rather than simultaneous bounds for a whole curve. A
+[five-case synthetic pilot](../../artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/findings.md)
+also passed independent replay and sampling diagnostics. It establishes
+computational feasibility; the larger recovery and SBC checks remain required
+before fitting the historical candidate. No cohort flag or model-selection rule
 changed; the original primary records remain eligible.
 
 Sequence-held-out comparisons retain native-minute joint event densities and

@@ -1,0 +1,13 @@
+{
+  "run_id": "d1760f33ca7e4f2e94b3a8cb7c1209f5",
+  "child_run_ids": [
+    "a0cbe39d9a9047a8bfe911fd46143661",
+    "b2b0a22f8c61414ca5550e69150bc5ec",
+    "ed77df01ce0a40359b15cce5b08ba763",
+    "1f5b4592d9a74a4fa6bee7ee715ab6c9",
+    "130a15cf787f40bdb5c452e88ca91e05"
+  ],
+  "tracking_uri": ".mlflow/mlruns",
+  "review_fingerprint": "9a2976c6c8f1c652e4ab76c27345d667455220355a01d13a8ced25509a255e17",
+  "readback": "parent_and5children_finished_parameters_metrics_and_all_artifact_hashes_verified"
+}

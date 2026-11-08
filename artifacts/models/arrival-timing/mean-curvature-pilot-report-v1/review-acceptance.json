@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "input_pins": 107,
+    "known_truth_rows": 60,
+    "output_hashes": 5,
+    "report_replay": "byte_identical",
+    "scenario_rows": 5,
+    "total_supervised_seconds": 34.848017
+  },
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/findings.md": "431b9557737bbdd6baa3976b01faaa3f4a9381fd5ee95444ca921c9b7ed07951",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/inputs.json": "1430825c27804333e4401bfcc6c86c708960f03b9bccd2c5d9b49423c77ffe38",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/known-truth-estimates.csv": "f5e55416ffee0349f26ce882a6198121ff98c9da25131f6b5ba8bbf1857ec161",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/metrics.json": "42ec0c814efd28d2d8bedcd834f4d9e8fdc4c839c8b80b6e8750b358cd5a4b12",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/output-checksums.json": "eccd9859e2f31fe20d2e397f6c6f5f53ad176404a189285a4032206cd263a7d6",
+    "artifacts/models/arrival-timing/mean-curvature-pilot-report-v1/sampling-and-runtime-summary.csv": "e0ba76da7e365e07d8c3a8d1532b7c6ba50dcbf8f51f7eac6a696d461e92d3cd"
+  },
+  "independent_checker": true,
+  "reserved_outcomes": "sealed",
+  "schema_version": "arrival_curvature_pilot_report_acceptance_v1",
+  "scope": "computational feasibility only; no conditional coverage/SBC/physical/predictive superiority claim",
+  "status": "accepted_five_case_computational_pilot_report"
+}
