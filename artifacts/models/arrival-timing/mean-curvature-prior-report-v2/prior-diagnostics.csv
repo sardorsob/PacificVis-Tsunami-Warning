@@ -1,0 +1,4 @@
+variant,primary_records,events,soft_ratio_extreme_fraction,limiting_near_negative_median_elasticity_fraction,native_second_moment_finite,max_saved_file_bytes
+base,1064,33,0.003195958646616541,0.0275,True,20935040
+gamma_wider_only,1064,33,0.004413533834586466,0.11,True,20935040
+joint_wider,1064,33,0.036599624060150375,0.1225,False,20935040

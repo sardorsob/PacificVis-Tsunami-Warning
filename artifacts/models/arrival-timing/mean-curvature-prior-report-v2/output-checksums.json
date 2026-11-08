@@ -1,0 +1,12 @@
+{
+  "curvature-prior-timing-curves.png": "40c762845e09bc2bb1231bcd6972c1a5510ba2e870464939176b17a4e9eeec19",
+  "curvature-prior-timing-curves.svg": "8afd9587331f94dbc818b05c361719ba1b4258a2eea85f733a6dd3c392ff4466",
+  "findings.md": "bb1e6b27de4b7535253e587039f943851faa934191f0fc616c6249004acea345",
+  "inputs.json": "fa0bc1746fac2bfcca0327a54adaa3c88c812b605b3e4da3fcb5b4824693205f",
+  "mean-curve-prior-quantiles.csv": "12ce54d7fc2b71594c9c1c73df6358c88d3f981465c361b81fbaf2d0cf2d067f",
+  "metrics.json": "3ce82e9d070eb19cf50e22a4da797a1e86724a15528c4735b8d91561dd94b487",
+  "new-event-duration-prior-quantiles.csv": "088779b816b36c43f1550dcf74f1a799c485c3fb492023c4121cafe380c85bd2",
+  "parameter-prior-dictionary.csv": "f3c11d37d6a5e87b92319d065cf65bc8039e3a4fa4d4e49f3bd08356309dbf9a",
+  "prior-diagnostics.csv": "5f6aca466f77b1b5fcfa47f061dfddf4b520815337425ac777f17ccbf7486db5",
+  "saved-draws.json": "b3dfc7a4243e2db0a57a23e8e34fd8b315e2a6a8525a1a4850634e83580d059a"
+}

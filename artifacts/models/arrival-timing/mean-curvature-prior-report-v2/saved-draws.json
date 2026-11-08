@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "path": "data/processed/models/mean-curvature-prior-v1/base.nc",
+      "sha256": "cfe28e681979a3c27053cfb2623e622e281078c351f513d91b0a844d5ab50b81",
+      "variant": "base"
+    },
+    {
+      "path": "data/processed/models/mean-curvature-prior-v1/gamma_wider_only.nc",
+      "sha256": "1f00fcea7a8cb8d790c9ba06b918eec2974ad4cae9884316f6d2c6195b94a79b",
+      "variant": "gamma_wider_only"
+    },
+    {
+      "path": "data/processed/models/mean-curvature-prior-v1/joint_wider.nc",
+      "sha256": "a10b6b92e140312c427e6bc223610f105f5ea3830aa29b1390faaa5850109404",
+      "variant": "joint_wider"
+    }
+  ]
+}

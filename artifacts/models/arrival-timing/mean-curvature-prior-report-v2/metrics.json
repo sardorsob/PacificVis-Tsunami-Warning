@@ -1,0 +1,35 @@
+{
+  "hard_support_nonfinite_failures": 0,
+  "posterior_fitted": false,
+  "soft_scope": "diagnostic yardstick, no acceptance cutoff",
+  "status": "computed_pending_prior_predictive_review",
+  "variants": [
+    {
+      "events": 33,
+      "limiting_near_negative_median_elasticity_fraction": 0.0275,
+      "max_saved_file_bytes": 20935040,
+      "native_second_moment_finite": true,
+      "primary_records": 1064,
+      "soft_ratio_extreme_fraction": 0.003195958646616541,
+      "variant": "base"
+    },
+    {
+      "events": 33,
+      "limiting_near_negative_median_elasticity_fraction": 0.11,
+      "max_saved_file_bytes": 20935040,
+      "native_second_moment_finite": true,
+      "primary_records": 1064,
+      "soft_ratio_extreme_fraction": 0.004413533834586466,
+      "variant": "gamma_wider_only"
+    },
+    {
+      "events": 33,
+      "limiting_near_negative_median_elasticity_fraction": 0.1225,
+      "max_saved_file_bytes": 20935040,
+      "native_second_moment_finite": false,
+      "primary_records": 1064,
+      "soft_ratio_extreme_fraction": 0.036599624060150375,
+      "variant": "joint_wider"
+    }
+  ]
+}
