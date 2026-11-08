@@ -174,7 +174,8 @@ def report(root, phase, output):
     )
     write_table(output / "estimates-by-dataset.csv", estimates)
     write_table(output / "sampling-and-functional-diagnostics.csv", diagnostics)
-    write_table(output / "pointwise-coverage-and-recovery.csv", summarize_groups(estimates))
+    parameter_summary = summarize_groups(estimates)
+    write_table(output / "pointwise-coverage-and-recovery.csv", parameter_summary)
     write_table(output / "grid-band-by-dataset.csv", bands)
     band_summary = []
     for scenario in sorted({r["scenario"] for r in bands}):
@@ -259,6 +260,25 @@ def report(root, phase, output):
             "does not establish physical correctness or predictive superiority.",
             "",
         ]
+    lines += [
+        "| Scenario | Parameter | 90% interval containment | 95% Wilson interval | "
+        "Mean median error |",
+        "| --- | --- | ---: | ---: | ---: |",
+        *[
+            f"| {r['scenario']} | {r['parameter']} | {r['covered90_count']}/{r['datasets']} | "
+            f"{r['wilson95_low']:.1%}–{r['wilson95_high']:.1%} | {r['mean_median_error']:.4f} |"
+            for r in parameter_summary
+            if r["parameter"] in {"gamma", "tau_event"}
+        ],
+        "",
+        "Gamma is the additional curvature coefficient for the log median; tau_event is the "
+        "between-event log-scale SD. Fixed-truth posterior interval containment need not equal "
+        "nominal "
+        "frequentist coverage at each chosen truth. These finite recovery results and the "
+        "curve-band results should be read together; marginal coefficient recovery and "
+        "curve recovery answer different questions.",
+        "",
+    ]
     lines += [
         "| Generating scenario | Median-curve band coverage | 95% Wilson interval | Borderline |",
         "| --- | ---: | ---: | ---: |",
