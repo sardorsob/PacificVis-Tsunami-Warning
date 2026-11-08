@@ -35,6 +35,7 @@ CONSUMED = [
     *SYNTHETIC_CONSUMED,
     "analysis/arrival/model_curvature_fit.py",
     "scripts/fit_arrival_curvature.py",
+    "scripts/run_arrival_curvature_fit.py",
     "analysis/arrival/model_validation_report.py",
     "scripts/run_arrival_curvature_calibration.py",
     CALIBRATION_GATE,
