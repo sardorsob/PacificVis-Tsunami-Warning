@@ -1,8 +1,8 @@
 {
-  "direct_accepted_folds": 49,
+  "direct_accepted_folds": 51,
   "externally_resolved_folds": 4,
-  "global_call_slots": 221,
-  "global_logical_completed_folds": 64,
+  "global_call_slots": 227,
+  "global_logical_completed_folds": 66,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -346,11 +346,25 @@
       "events": 1,
       "max_normalized_mcse": 0.00033253652106724716,
       "min_bridge_overlap": 0.9788895076148688
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-07",
+      "events": 1,
+      "max_normalized_mcse": 0.00016104610195131008,
+      "min_bridge_overlap": 0.9970707937547603
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-08",
+      "events": 1,
+      "max_normalized_mcse": 0.0007128300205089881,
+      "min_bridge_overlap": 0.9371184830858752
     }
   ],
-  "logical_completed_folds": 53,
+  "logical_completed_folds": 55,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 131,
+  "remaining_global_slots": 125,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }

@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/scripts/resolve_arrival_event_score.py", line 26, in <module>
+    resolve_event(root, a.source.resolve(), a.event, out)
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_event_cubature.py", line 142, in resolve_event
+    values[name] = integrate_positive(
+                   ^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_normalizer.py", line 88, in integrate_positive
+    result = cast(Any, cubature)(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/.venv/lib/python3.12/site-packages/scipy/integrate/_cubature.py", line 447, in cubature
+    for subdivision_result in mapwrapper(_process_subregion, executor_args):
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/.venv/lib/python3.12/site-packages/scipy/integrate/_cubature.py", line 483, in _process_subregion
+    est_sub = rule.estimate(f, a_k_sub, b_k_sub, args)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/.venv/lib/python3.12/site-packages/scipy/integrate/_rules/_base.py", line 242, in estimate
+    return _apply_fixed_rule(f, a, b, nodes, weights, args, self.xp)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/.venv/lib/python3.12/site-packages/scipy/integrate/_rules/_base.py", line 510, in _apply_fixed_rule
+    f_nodes = f(nodes, *args)
+              ^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_normalizer.py", line 77, in integrand
+    raise ValueError("cubature point ceiling reached")
+ValueError: cubature point ceiling reached
