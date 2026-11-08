@@ -169,6 +169,21 @@ six quantities with simultaneous reference bands and MCMC caveats. Detailed
 worker logs and posterior arrays remain local; portable tables, figures,
 plans and checksums are committed. Registration uses project-local MLflow.
 
+The [primary computational review](../../artifacts/models/arrival-timing/inference-validation-acceptance-v1.json)
+accepted 270 recovery datasets and 200 calibration datasets in 471 attempts.
+One calibration trial needed the predefined longer same-dataset run; every
+attempt remains retained. The [recovery findings](../../artifacts/models/arrival-timing/design-recovery-summary-v1/findings.md)
+and [calibration findings](../../artifacts/models/arrival-timing/inference-calibration-summary-v1/findings.md)
+include the tables and figures. No calibration curve crossed the approximate
+simultaneous reference band; this does not prove physical validity or accuracy.
+
+The difficult weak-event/wide-record scenario had only 23/30 coverage for sigma,
+with substantial simulation uncertainty. A separate 30-dataset follow-up is
+required before model selection. Adding five minutes to simulated durations
+severely biased the simpler model's location and distance terms; a clean sampler
+can fit a misspecified model. These checks permit the first NCEI exploration
+fits. Other source lanes require their own computational checks.
+
 ## What exactly would we predict?
 
 | Candidate target | Unit and population | Interpretation and boundary |

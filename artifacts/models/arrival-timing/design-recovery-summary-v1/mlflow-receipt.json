@@ -1,0 +1,14 @@
+{
+  "bundle_fingerprint": "7b93ae3bb1addcb06a6603f4b7f59f5c9c1d32cc67cf6a890603fda1d12f579b",
+  "scenario_runs": {
+    "combined-weak-event-large-spread": "f3980de8b6a1430e9787735956ca5800",
+    "larger-record-spread": "aea0e87bd9bd415ea66268291070a10f",
+    "material-distance-adjustment": "e8786278fe894cc48dc6891152ffe483",
+    "no-distance-adjustment": "daff6fc683f94845a62ae95eb276a74d",
+    "no-event-variation": "105031460d654214b4db600e0d16279b",
+    "reference": "07ab425c0e0a497d9a245fe4d712f1a0",
+    "reported-time-addition-stress": "f929f7d486954ce3accd9ca22a05a494",
+    "strong-event-variation": "d592dc664ff0480b9a3908cf884920e9",
+    "weak-event-variation": "4061dbec2d4a4acb800f5ee9c51904c0"
+  }
+}

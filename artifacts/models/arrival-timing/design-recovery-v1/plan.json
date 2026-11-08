@@ -1,0 +1,5703 @@
+{
+  "base_git_sha": "618dd7357ced6d2cd43420f182992e9dc05e6ab8",
+  "cases": [
+    {
+      "id": "reference-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21261907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21262907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21263907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "reference"
+    },
+    {
+      "id": "reference-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21264007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "reference"
+    },
+    {
+      "id": "no-event-variation-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21271907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21272907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21273907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "no-event-variation-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21274007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "no-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21281907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21282907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21283907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "weak-event-variation-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21284007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "weak-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21291907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21292907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21293907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "strong-event-variation-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21294007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.5
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "strong-event-variation"
+    },
+    {
+      "id": "no-distance-adjustment-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21301907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21302907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21303907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "no-distance-adjustment-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21304007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": 0,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "no-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21311907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21312907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21313907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "material-distance-adjustment-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21314007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "material-distance-adjustment"
+    },
+    {
+      "id": "larger-record-spread-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21321907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21322907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21323907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "larger-record-spread-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21324007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.6,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "larger-record-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-001",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-002",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-003",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-004",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-005",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-006",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-007",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-008",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-009",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21331907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-010",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-011",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-012",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-013",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-014",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-015",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-016",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-017",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-018",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-019",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21332907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-020",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-021",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-022",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-023",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-024",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-025",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-026",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-027",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-028",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-029",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21333907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "combined-weak-event-large-spread-rep-030",
+      "job": {
+        "additive_minutes": 0,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21334007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.2,
+          "sigma": 0.6,
+          "tau_event": 0.05
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "combined-weak-event-large-spread"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-001",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-002",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-003",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-004",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-005",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-006",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-007",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-008",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-009",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21341907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-010",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-011",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-012",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-013",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-014",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-015",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-016",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-017",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-018",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-019",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21342907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-020",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-021",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343107,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-022",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343207,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-023",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343307,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-024",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343407,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-025",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343507,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-026",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343607,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-027",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343707,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-028",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343807,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-029",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21343907,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "reported-time-addition-stress"
+    },
+    {
+      "id": "reported-time-addition-stress-rep-030",
+      "job": {
+        "additive_minutes": 5,
+        "cores": 2,
+        "draws": 1000,
+        "parameterization": "marginal",
+        "phase": "recovery",
+        "seed": 21344007,
+        "target": "NCEI-native-duration",
+        "truth": {
+          "alpha": 0.15,
+          "beta": -0.05,
+          "sigma": 0.3,
+          "tau_event": 0.2
+        },
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "reported-time-addition-stress"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "c0f107755c75aa02ab9b97e0d96d36ebcacafb55fec2fbf32b2669ccf10b9ee0",
+    "scripts/run_arrival_model_validation.py": "5cc88b9a90181b697bdc9d6b19a9c00ea083bc09c149c402c7a13179eaa66c19",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T03:39:01.413703+00:00",
+  "max_calls": 330,
+  "max_posterior_bytes": 2147483648,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "recovery",
+  "schema_version": "arrival_validation_batch_v1",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}

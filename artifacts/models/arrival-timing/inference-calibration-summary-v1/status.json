@@ -1,0 +1,13 @@
+{
+  "base_git_sha": "618dd7357ced6d2cd43420f182992e9dc05e6ab8",
+  "calls_used": 201,
+  "complete": true,
+  "completed_datasets": 200,
+  "computational_completion_only": true,
+  "max_calls": 260,
+  "phase": "sbc",
+  "plan_sha256": "75eefb29aec98eec8f266ffc092df6c3026a8da35ba63c767b095e7d7c2e071b",
+  "planned_datasets": 200,
+  "scientific_acceptance": "pending_independent_review",
+  "status": "computations_complete"
+}

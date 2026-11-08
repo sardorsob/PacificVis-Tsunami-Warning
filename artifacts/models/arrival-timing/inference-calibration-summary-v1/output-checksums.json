@@ -1,0 +1,10 @@
+{
+  "attempt-diagnostics.csv": "d0b8c3a14b01d867453cf1c2a3ebd5495b040fbe11fab8c8dfba38ef9ece7aca",
+  "findings.md": "dda0b7923cc3622dcb71d8e6797d1c708663a90d704bfde7aaac1ed753c5335d",
+  "inputs.json": "30c8e916d3c4a6acb5d71c1926184e2ca0a868a7cc15ac88b04a23497faf0c97",
+  "parameter-estimates-by-dataset.csv": "7f542cdc620aeda36b09af06697d8c2ddcecd69fd0bd4feb5ad4d9cb7df1a936",
+  "sbc-rank-calibration.csv": "93df727211d666f53958aa584ef2bc57543aa54906948c9ce668a3707f3eb96b",
+  "sbc-rank-ecdfs.png": "b6fab4a84a4ff28cf5d39a31984c0aedfb232902694360763c9be581e6262fd1",
+  "sbc-rank-ecdfs.svg": "bb4ecb69d5a5f816473aee48baf5ceb608d417501cc75ea1ae9e41845bbf877f",
+  "status.json": "163625d494ea64c2f02f13131f25f7b3671b769a1bccd4e5681092dea829844d"
+}

@@ -1,0 +1,2833 @@
+{
+  "base_git_sha": "618dd7357ced6d2cd43420f182992e9dc05e6ab8",
+  "cases": [
+    {
+      "id": "prior-generated-rep-001",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 1,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-002",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 2,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-003",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 3,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-004",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 4,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-005",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 5,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-006",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 6,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-007",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 7,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-008",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 8,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-009",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22261907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 9,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-010",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 10,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-011",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 11,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-012",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 12,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-013",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 13,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-014",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 14,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-015",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 15,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-016",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 16,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-017",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 17,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-018",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 18,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-019",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22262907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 19,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-020",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 20,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-021",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 21,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-022",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 22,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-023",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 23,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-024",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 24,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-025",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 25,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-026",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 26,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-027",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 27,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-028",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 28,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-029",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22263907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 29,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-030",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 30,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-031",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 31,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-032",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 32,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-033",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 33,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-034",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 34,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-035",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 35,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-036",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 36,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-037",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 37,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-038",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 38,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-039",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22264907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 39,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-040",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 40,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-041",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 41,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-042",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 42,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-043",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 43,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-044",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 44,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-045",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 45,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-046",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 46,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-047",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 47,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-048",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 48,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-049",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22265907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 49,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-050",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 50,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-051",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 51,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-052",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 52,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-053",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 53,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-054",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 54,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-055",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 55,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-056",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 56,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-057",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 57,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-058",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 58,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-059",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22266907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 59,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-060",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 60,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-061",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 61,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-062",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 62,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-063",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 63,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-064",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 64,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-065",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 65,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-066",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 66,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-067",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 67,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-068",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 68,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-069",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22267907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 69,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-070",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 70,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-071",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 71,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-072",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 72,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-073",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 73,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-074",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 74,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-075",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 75,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-076",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 76,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-077",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 77,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-078",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 78,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-079",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22268907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 79,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-080",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 80,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-081",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 81,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-082",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 82,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-083",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 83,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-084",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 84,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-085",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 85,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-086",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 86,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-087",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 87,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-088",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 88,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-089",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22269907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 89,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-090",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 90,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-091",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 91,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-092",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 92,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-093",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 93,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-094",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 94,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-095",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 95,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-096",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 96,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-097",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 97,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-098",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 98,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-099",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22270907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 99,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-100",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 100,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-101",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 101,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-102",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 102,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-103",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 103,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-104",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 104,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-105",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 105,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-106",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 106,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-107",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 107,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-108",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 108,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-109",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22271907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 109,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-110",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 110,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-111",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 111,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-112",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 112,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-113",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 113,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-114",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 114,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-115",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 115,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-116",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 116,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-117",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 117,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-118",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 118,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-119",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22272907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 119,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-120",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 120,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-121",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 121,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-122",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 122,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-123",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 123,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-124",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 124,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-125",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 125,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-126",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 126,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-127",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 127,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-128",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 128,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-129",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22273907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 129,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-130",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 130,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-131",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 131,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-132",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 132,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-133",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 133,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-134",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 134,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-135",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 135,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-136",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 136,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-137",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 137,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-138",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 138,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-139",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22274907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 139,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-140",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 140,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-141",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 141,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-142",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 142,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-143",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 143,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-144",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 144,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-145",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 145,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-146",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 146,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-147",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 147,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-148",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 148,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-149",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22275907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 149,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-150",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 150,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-151",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 151,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-152",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 152,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-153",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 153,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-154",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 154,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-155",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 155,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-156",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 156,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-157",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 157,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-158",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 158,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-159",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22276907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 159,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-160",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 160,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-161",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 161,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-162",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 162,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-163",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 163,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-164",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 164,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-165",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 165,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-166",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 166,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-167",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 167,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-168",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 168,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-169",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22277907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 169,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-170",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 170,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-171",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 171,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-172",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 172,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-173",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 173,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-174",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 174,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-175",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 175,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-176",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 176,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-177",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 177,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-178",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 178,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-179",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22278907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 179,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-180",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 180,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-181",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 181,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-182",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 182,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-183",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 183,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-184",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 184,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-185",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 185,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-186",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 186,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-187",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 187,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-188",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 188,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-189",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22279907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 189,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-190",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 190,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-191",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280107,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 191,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-192",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280207,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 192,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-193",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280307,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 193,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-194",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280407,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 194,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-195",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280507,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 195,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-196",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280607,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 196,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-197",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280707,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 197,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-198",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280807,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 198,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-199",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22280907,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 199,
+      "scenario": "prior-generated"
+    },
+    {
+      "id": "prior-generated-rep-200",
+      "job": {
+        "cores": 2,
+        "draws": 2000,
+        "parameterization": "marginal",
+        "phase": "sbc",
+        "seed": 22281007,
+        "target": "NCEI-native-duration",
+        "tune": 1000
+      },
+      "replicate": 200,
+      "scenario": "prior-generated"
+    }
+  ],
+  "code_and_config": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/run_arrival_model_batch.py": "c0f107755c75aa02ab9b97e0d96d36ebcacafb55fec2fbf32b2669ccf10b9ee0",
+    "scripts/run_arrival_model_validation.py": "5cc88b9a90181b697bdc9d6b19a9c00ea083bc09c149c402c7a13179eaa66c19",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "concurrency": 1,
+  "cores_per_attempt": 2,
+  "created_utc": "2026-11-08T03:52:34.862774+00:00",
+  "max_calls": 260,
+  "max_posterior_bytes": 2147483648,
+  "per_attempt_timeout_seconds": 600,
+  "phase": "sbc",
+  "schema_version": "arrival_validation_batch_v1",
+  "versions": {
+    "arviz-stats": "1.3.3",
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "nutpie": "0.16.11",
+    "pymc": "6.4.0",
+    "pytensor": "3.3.8"
+  }
+}
