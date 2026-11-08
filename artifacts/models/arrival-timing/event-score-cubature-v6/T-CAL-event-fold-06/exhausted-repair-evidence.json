@@ -1,0 +1,9 @@
+{
+  "first_result": "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-1/result.json",
+  "first_result_sha256": "515549b1d1e54fadcb73ca9a9ffc686810cb46a615b4536d2de9778590fb05b2",
+  "next_case": 65,
+  "sampler_call_slots_used": 214,
+  "scope": "immutable snapshot of exhausted repair; live checkpoint is not pinned",
+  "second_result_sha256": "610726a666c56bf026d6046193f373f20c21e79d9a57e714bbd86287bb7c5326",
+  "state_sha256_at_resolution": "a6d4db3b2074cc3bbdecd37e47539311655485815e456287a82190ea5d24baff"
+}

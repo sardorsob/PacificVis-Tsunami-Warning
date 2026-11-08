@@ -1,0 +1,139 @@
+{
+  "adaptive_integrals": 5,
+  "event_id": "us20007z80",
+  "exhausted_repair": {
+    "first_result": "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-1/result.json",
+    "first_result_sha256": "515549b1d1e54fadcb73ca9a9ffc686810cb46a615b4536d2de9778590fb05b2",
+    "next_case": 65,
+    "sampler_call_slots_used": 214,
+    "scope": "immutable snapshot of exhausted repair; live checkpoint is not pinned",
+    "second_result_sha256": "610726a666c56bf026d6046193f373f20c21e79d9a57e714bbd86287bb7c5326",
+    "state_sha256_at_resolution": "a6d4db3b2074cc3bbdecd37e47539311655485815e456287a82190ea5d24baff"
+  },
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_bridge_cv.py": "28aa8d40df509ae6a1ee38470440836f68e99a3e543562d7603a459571f360e9",
+    "analysis/arrival/model_collapsed.py": "72dcb707e894d719b6b0330f9aeec84e0aa4e835acfdce7cf93ee565cab4b468",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_event_cubature.py": "8ca42eb1875716cb84e001bfd89060a56c64f0ffcc317e5b8d5dec6ab93da10f",
+    "analysis/arrival/model_exhausted_cubature.py": "cf5965aa3618281cfa8b2c854fb0d3a0f09b4310800effac8911d0b798230e79",
+    "analysis/arrival/model_normalizer.py": "1cd4c1544949570de7e15ae3370f20b801d764c4b300efb059bdeb5cf1c27e1c",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-2/ensembles/00-training/inputs.json": "f31106dda651d7b983070e237322f7660045b071bc81d303311428689c98cf63",
+    "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-2/ensembles/00-training/result.json": "832322083175e5abb312582b9802b3d3b335012ac3c3766a3b62058e2014d02a",
+    "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-2/ensembles/01-augmented/inputs.json": "f31106dda651d7b983070e237322f7660045b071bc81d303311428689c98cf63",
+    "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-2/ensembles/01-augmented/result.json": "657d9b79f84054e454bef0558821845515bca5054864340524962a5cd590fe57",
+    "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/T-CAL-event-fold-06-attempt-2/result.json": "610726a666c56bf026d6046193f373f20c21e79d9a57e714bbd86287bb7c5326",
+    "artifacts/models/arrival-timing/bridge-validation-report-v1/review-acceptance.json": "d033e501b8f6da6faf6b69f33c6be53877b4ba651d4bb1eb24f90fac200aa799",
+    "artifacts/models/arrival-timing/source-validation-report-v1/T-CAL/review-acceptance.json": "8bf634a83c39db56630c69bbe7d5bf9d85062593a5252e2edf014bc1d7d1bfc2",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "data/processed/models/bridge-sequence-continuation-v2/T-CAL-event-fold-06-attempt-2/00-training.nc": "e2e23c34308ae958f57b1c09725eafd243930edbb6a37bc6217cb16e291dfd09",
+    "data/processed/models/bridge-sequence-continuation-v2/T-CAL-event-fold-06-attempt-2/01-augmented.nc": "67aadd9cce0124a8ff499906b071fcf5d7d0c97f5a21ef3603b2ccfce1ca16c2",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/resolve_arrival_event_score.py": "d643c291e36cb7740e36270b80a6039a8d27d3e1a53cf74d675e5963e19faa26",
+    "scripts/resolve_arrival_exhausted_score.py": "87fa5e738e23794e6d09ccea05226d14a9db3cbb6fda2c52abb0cd6f49b9661f",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "held_event_records": 5,
+  "held_sequence_records": 5,
+  "job": {
+    "bridge_gate": "artifacts/models/arrival-timing/bridge-validation-report-v1/review-acceptance.json",
+    "cores": 2,
+    "draws": 4000,
+    "gate": "artifacts/models/arrival-timing/source-validation-report-v1/T-CAL/review-acceptance.json",
+    "kind": "event",
+    "prior": "base",
+    "seed": 1426315800,
+    "sequence": "seq-us20007z80",
+    "target": "T-CAL",
+    "tune": 2000
+  },
+  "max_points_per_integral": 1000000,
+  "new_sampler_calls": 0,
+  "relative_tolerances": [
+    1e-07,
+    1e-08
+  ],
+  "score_designation": "primary_cubature_ratio_before_refinements",
+  "source_files": {
+    "confirmation_policy": "previously_inspected_development_check_after_MS5_freeze",
+    "cross_source_policy": "separate_likelihoods_never_independent_pool",
+    "definition_conflict_policy": "retain_native_reports_primary_exclude_in_MS5_sensitivity",
+    "distance_units": "km",
+    "evidence_policy": "exclude_all_unresolved_repeated_event_site_rows",
+    "inputs": {
+      "artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv": "cfd73bf800ee1afe52253d847f7446ed778eb9ee40b8205429b6429c052d9781",
+      "artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json": "0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb",
+      "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+      "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+      "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+      "config/arrival-timing-exploration-confirmation-split.toml": "4f3d3ae8ba5f96d5a701508e5c65c5979f8938f1959d17cfb14be4dbab800328"
+    },
+    "l3_estimated_travel_predictor": "deferred_until_origin_product_cutoff_verified",
+    "lanes": {
+      "NCEI-native-duration": {
+        "events": 33,
+        "excluded_ids": [
+          "recovery-ncei-564962a202e9e2be:23",
+          "recovery-ncei-66bfa3cd99cb7161:198",
+          "recovery-ncei-9ffb03a9721a6bc9:23",
+          "recovery-ncei-9ffb03a9721a6bc9:41",
+          "recovery-ncei-c7a352e5a9628185:30",
+          "recovery-ncei-c7a352e5a9628185:56"
+        ],
+        "prediction": "new_sequence_reported_duration_at_specified_distance_and_site",
+        "primary_rows": 1064,
+        "response": "native_reported_positive_travel_minutes_not_universal_physical_onset",
+        "rows": 1070,
+        "sequences": 29,
+        "sites": 439,
+        "transform": "ln(y/t0(distance))"
+      },
+      "T-CAL": {
+        "events": 13,
+        "excluded_ids": [],
+        "prediction": "new_sequence_archived_product_discrepancy_retrospective_not_operational",
+        "primary_rows": 156,
+        "response": "reported_estimated_UTC_minus_observed_UTC_signed_minutes",
+        "rows": 156,
+        "sequences": 12,
+        "sites": 95,
+        "transform": "identity_minutes"
+      },
+      "T-OBS": {
+        "events": 14,
+        "excluded_ids": [],
+        "prediction": "new_sequence_reported_duration_at_specified_distance_and_site",
+        "primary_rows": 236,
+        "response": "reported_observed_UTC_minus_reviewed_USGS_origin_positive_minutes",
+        "rows": 236,
+        "sequences": 13,
+        "sites": 160,
+        "transform": "ln(y/t0(distance))"
+      }
+    },
+    "measurement_gate": "MS1_observation_rule_before_scientific_fit",
+    "near_field_km": 500,
+    "observation_rule": "native_reported_point_no_invented_accuracy_bounds",
+    "predictor": "ln(distance_km/1000)",
+    "primary_score": "equal_event_mean_joint_log_predictive_density_per_record",
+    "reference_depth_m": 4000,
+    "reference_g_m_s2": 9.80665,
+    "reserved_policy": "sealed_separate_MS7_go_and_metadata_overlap_audit",
+    "response_units": "minutes",
+    "schema_version": "arrival_model_contract_v1",
+    "score_formula": "mean_e(log_p(y_e_given_training_minus_sequence_X_e)/n_e)",
+    "score_measure": "native_minutes_density_with_duration_log_Jacobian",
+    "score_units": "nats_per_record",
+    "shared_clock_policy": "T-OBS_and_T-CAL_share_O_not_independent",
+    "site_key": "physical_site_id",
+    "target_conditioning": "archive_reporting_and_target_eligibility",
+    "validation_scope": "new_source_sequences_at_supported_station_geography"
+  },
+  "tensor_nodes": [
+    512,
+    768
+  ],
+  "tolerance_nats_per_record": 1e-06,
+  "training_records": 151
+}

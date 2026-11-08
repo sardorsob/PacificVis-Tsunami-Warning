@@ -1,0 +1,31 @@
+{
+  "files": {
+    "data/processed/models/bridge-sequence-continuation-v2/T-CAL-event-fold-06-attempt-2/00-training.nc": "e2e23c34308ae958f57b1c09725eafd243930edbb6a37bc6217cb16e291dfd09",
+    "data/processed/models/bridge-sequence-continuation-v2/T-CAL-event-fold-06-attempt-2/01-augmented.nc": "67aadd9cce0124a8ff499906b071fcf5d7d0c97f5a21ef3603b2ccfce1ca16c2"
+  },
+  "new_sampler_calls": 0,
+  "nodes": [
+    512,
+    768
+  ],
+  "normalizers": {
+    "512": [
+      -666.0061995877218,
+      -718.732726863392
+    ],
+    "768": [
+      -666.0061995877217,
+      -718.7327268633919
+    ]
+  },
+  "proposal_location": [
+    0.6651290181954641,
+    0.5255609758453055
+  ],
+  "proposal_scale": [
+    0.0862056949684758,
+    0.36648240524931963
+  ],
+  "reserved_outcomes": "sealed",
+  "scope": "fixed_tensor_diagnostic_not_accepted_score"
+}

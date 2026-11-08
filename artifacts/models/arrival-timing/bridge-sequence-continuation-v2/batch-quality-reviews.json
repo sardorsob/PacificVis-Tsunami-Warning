@@ -1,8 +1,8 @@
 {
-  "direct_accepted_folds": 51,
-  "externally_resolved_folds": 4,
-  "global_call_slots": 227,
-  "global_logical_completed_folds": 66,
+  "direct_accepted_folds": 60,
+  "externally_resolved_folds": 5,
+  "global_call_slots": 253,
+  "global_logical_completed_folds": 76,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -360,11 +360,74 @@
       "events": 1,
       "max_normalized_mcse": 0.0007128300205089881,
       "min_bridge_overlap": 0.9371184830858752
+    },
+    {
+      "attempt": 2,
+      "case_id": "T-OBS-event-fold-10",
+      "events": 2,
+      "max_normalized_mcse": 0.0006042914783530562,
+      "min_bridge_overlap": 0.9978636265555784
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-11",
+      "events": 1,
+      "max_normalized_mcse": 0.00030648158659794843,
+      "min_bridge_overlap": 0.9986087347765934
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-12",
+      "events": 1,
+      "max_normalized_mcse": 0.0006789467742336143,
+      "min_bridge_overlap": 0.9955602551562982
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-OBS-event-fold-13",
+      "events": 1,
+      "max_normalized_mcse": 0.0007630836536794901,
+      "min_bridge_overlap": 0.9987112221039204
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-01",
+      "events": 1,
+      "max_normalized_mcse": 0.0005958800576784182,
+      "min_bridge_overlap": 0.23862160777408284
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-02",
+      "events": 1,
+      "max_normalized_mcse": 0.00013925708268349286,
+      "min_bridge_overlap": 0.8847282931441969
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-03",
+      "events": 1,
+      "max_normalized_mcse": 0.0003490588807408584,
+      "min_bridge_overlap": 0.6458170815036413
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-04",
+      "events": 1,
+      "max_normalized_mcse": 0.0004976103609664421,
+      "min_bridge_overlap": 0.9430044120498873
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-05",
+      "events": 1,
+      "max_normalized_mcse": 0.00036336003547408517,
+      "min_bridge_overlap": 0.9823482672765258
     }
   ],
-  "logical_completed_folds": 55,
+  "logical_completed_folds": 65,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 125,
+  "remaining_global_slots": 99,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }
