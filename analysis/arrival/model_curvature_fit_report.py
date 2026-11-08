@@ -184,11 +184,57 @@ def report(root: Path, output: Path) -> None:
         for j, b in enumerate(names)
         if j > i
     ]
+    audit_folder = "artifacts/models/arrival-timing/native-time-component-census-v1"
+    audit_gate_path = root / audit_folder / "review-acceptance.json"
+    audit_gate = json.loads(audit_gate_path.read_text())
+    if audit_gate.get("status") != "accepted_exploration_source_component_census":
+        raise ValueError("accepted source-component review required for hard-case context")
+    audit_inputs = json.loads((root / audit_folder / "inputs.json").read_text())["files"]
+    for p, h in {**audit_inputs, **audit_gate["files"]}.items():
+        if sha256(checked_path(root, p)) != h:
+            raise ValueError("source-component review evidence changed")
+        if p in pins and pins[p] != h:
+            raise ValueError("source-component proof conflicts with fitted input")
+        pins[p] = h
+    pins[str(audit_gate_path.relative_to(root))] = sha256(audit_gate_path)
+    case_id = "recovery-ncei-6fa5e2d2459724b6:3"
+    audit_cases = [
+        r
+        for r in read_rows(root / audit_folder / "native-time-component-records.csv")
+        if r["record_id"] == case_id
+    ]
+    predicted_cases = [
+        r
+        for r in read_rows(root / FOLDERS["curvature"] / "in-sample-record-predictions.csv")
+        if r["record_id"] == case_id
+    ]
+    if len(audit_cases) != 1 or len(predicted_cases) != 1:
+        raise ValueError("unique retained audited hard case required")
+    audit, predicted = audit_cases[0], predicted_cases[0]
+    if (
+        audit["included_primary"] != "True"
+        or audit["large_component_disagreement"] != "True"
+        or float(audit["reported_minutes"]) != float(predicted["observed_minutes"])
+    ):
+        raise ValueError("hard-case source/target identity changed")
+    hard_case = {
+        "record_id": case_id,
+        "event_id": predicted["event_id"],
+        "station": audit["source_label"],
+        "reported_minutes": float(predicted["observed_minutes"]),
+        "conditional_q05_minutes": float(predicted["q05_minutes"]),
+        "conditional_median_minutes": float(predicted["q50_minutes"]),
+        "conditional_q95_minutes": float(predicted["q95_minutes"]),
+        "component_triage_flag": True,
+        "retained_in_primary": True,
+        "scope": "posthoc_audited_hard_case_not_proven_source_error_or_forecast",
+    }
     output.mkdir(parents=True)
     write_table(output / "log-median-and-residual-spread-curves.csv", curves)
     write_table(output / "between-event-spread-by-model.csv", event_sd)
     write_table(output / "posterior-parameter-coupling.csv", coupling)
     write_table(output / "conditional-reported-quantile-checks.csv", checks)
+    write_table(output / "retained-source-quality-hard-case.csv", [hard_case])
     plot(output, curves, event_sd, checks)
     gamma = np.quantile(post["gamma"], [0.05, 0.5, 0.95])
     elasticity = np.quantile(1 + post["beta"] - post["gamma"] / 3, [0.05, 0.5, 0.95])
@@ -207,9 +253,10 @@ def report(root: Path, output: Path) -> None:
         "with central 90% "
         "posterior intervals. The curvature basis is log((d+500)/(1.5d)); alpha remains the "
         "population log-median ratio at 1,000 km. Beta alone is not a global distance exponent "
-        "for this candidate. Coefficient correlations describe posterior coupling, not causation.",
+        "for this candidate. Coefficient correlations describe posterior coupling, not causation. "
+        f"The beta–gamma posterior correlation is {correlations[1, 2]:.3f}.",
         "",
-        "| Model | Between-event log-scale SD | Central90% interval |",
+        "| Model | Between-event log-scale SD | Central 90% interval |",
         "| --- | ---: | ---: |",
         *[
             f"| {LABELS[r['model']]} | {r['q50']:.4f} | [{r['q05']:.4f}, {r['q95']:.4f}] |"
@@ -225,6 +272,17 @@ def report(root: Path, output: Path) -> None:
         "they are neither independent tests nor a selection score. Inspect the table and figure "
         "for which strata and tails remain mismatched. New-sequence prediction and sensitivity "
         "analysis remain necessary before selection.",
+        "",
+        "Bulk quantile checks can hide individual discrepancies. The retained "
+        f"{hard_case['station']} "
+        f"report for {hard_case['event_id']} is {hard_case['reported_minutes']:,.0f} minutes, "
+        "while "
+        "its central 90% fitted-event replicated interval is "
+        f"[{hard_case['conditional_q05_minutes']:.2f}, {hard_case['conditional_q95_minutes']:.2f}] "
+        "minutes. The earlier source-component audit flags a disagreement among the recorded "
+        "time components for this row. That triage flag does not prove a timing error, its "
+        "cause or a justified replacement. The original value remains in the primary fit. "
+        "Tail and observation-process sensitivities remain necessary.",
         "",
         "Curve bands are pointwise central 90% posterior parameter intervals at zero event "
         "effect, not simultaneous or noisy-observation bands. Predictive-check bars are "

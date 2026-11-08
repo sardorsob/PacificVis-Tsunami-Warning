@@ -68,3 +68,4 @@ artifacts/models/arrival-timing/**/.controller.lock
 artifacts/models/arrival-timing/mean-curvature-calibration-v1/unreviewed-recovery-report-v1/
 artifacts/models/arrival-timing/mean-curvature-calibration-v1/checker-sbc-report-replay-v1/
 artifacts/models/arrival-timing/mean-curvature-calibration-v1/checker-sbc-figure-replay-v1/
+artifacts/models/arrival-timing/exploration-mean-curvature-v1/checker-report-replay-v1/
