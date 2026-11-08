@@ -3,5 +3,10 @@
     "new_sampler_calls": 32,
     "path": "artifacts/models/arrival-timing/sumatra-joint-score-integration-v1/review-acceptance.json",
     "sha256": "33872c612e374809fba025cb5fbc66dc4b87dc0210f6f34f6ff3b307965fc2f3"
+  },
+  "NCEI-native-duration-event-fold-20": {
+    "new_sampler_calls": 0,
+    "path": "artifacts/models/arrival-timing/event-score-cubature-v2/NCEI-native-duration-event-fold-20/review-acceptance.json",
+    "sha256": "2aa69120cecbb33891ab5c143a16b3ed8382f89f914c78f675050927571a003f"
   }
 }

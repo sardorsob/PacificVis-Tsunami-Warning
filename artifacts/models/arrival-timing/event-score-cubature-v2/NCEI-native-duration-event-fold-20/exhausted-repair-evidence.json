@@ -1,0 +1,9 @@
+{
+  "first_result": "artifacts/models/arrival-timing/bridge-sequence-continuation-v2/jobs/NCEI-native-duration-event-fold-20-attempt-1/result.json",
+  "first_result_sha256": "9739d090b3c3f881404970a548037bd6cc90ca842612064435d7390c66d46d02",
+  "next_case": 27,
+  "sampler_call_slots_used": 96,
+  "scope": "immutable snapshot of exhausted repair; live checkpoint is not pinned",
+  "second_result_sha256": "6f56032fde8680e84ba5334cc852152e67007348081fdcb0242fb395668d67f3",
+  "state_sha256_at_resolution": "cae4e27f4127c8565ab2820ed7715c0fbf6f84456f3dbfe47a19d8c514af5e58"
+}
