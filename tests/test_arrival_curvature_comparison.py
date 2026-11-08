@@ -114,7 +114,13 @@ def test_incomplete_review_rejected_before_science_or_outcome_read(tmp_path):
 def complete_bundle(root, monkeypatch):
     from analysis.arrival.evidence import sha256
     from analysis.arrival.model_curvature_comparison import OUTPUT
-    from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW, GATE, REHEARSAL
+    from scripts.run_arrival_curvature_completion import (
+        GATE,
+        PRECISION_OUTPUT,
+        PRECISION_REVIEW,
+        REHEARSAL,
+    )
+    from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW
 
     source = root / "stub.py"
     source.write_text("source")
@@ -133,7 +139,7 @@ def complete_bundle(root, monkeypatch):
             {
                 "job": case,
                 "status": "precision_failure"
-                if case["id"] == "fold-002"
+                if case["id"] in {"fold-002", "fold-008"}
                 else "computed_pending_review",
             },
         )
@@ -184,8 +190,8 @@ def complete_bundle(root, monkeypatch):
             "derived_result_sha256": sha256(root / result),
         },
     )
-    write_json(root / GATE, {**proof, "status": "accepted_curvature_continuation_rehearsal"})
-    write_json(root / REHEARSAL, {**proof, "status": "accepted_first_curvature_continuation_fold"})
+    write_json(root / GATE, {**proof, "status": "accepted_curvature_completion_rehearsal"})
+    write_json(root / REHEARSAL, {**proof, "status": "accepted_first_curvature_completion_fold"})
     resolution = {
         "fold-002": {
             "receipt": DERIVED_REVIEW,
@@ -196,8 +202,38 @@ def complete_bundle(root, monkeypatch):
             "prediction_sha256": sha256(root / prediction),
         }
     }
+    failed8 = OUTPUT + "/jobs/fold-008/result.json"
+    prediction8 = OUTPUT + "/jobs/fold-008/held-out-record-predictions.csv"
+    result8 = PRECISION_OUTPUT + "/result.json"
     write_json(
-        root / OUTPUT / "continuation-v1/plan.json",
+        root / result8,
+        {
+            "job": cases[8],
+            "source_result": failed8,
+            "source_result_sha256": sha256(root / failed8),
+            "training_only_predictions": prediction8,
+            "training_only_predictions_sha256": sha256(root / prediction8),
+        },
+    )
+    write_json(
+        root / PRECISION_REVIEW,
+        {
+            **proof,
+            "status": "accepted_same_model_curvature_precision_resolution",
+            "derived_result": result8,
+            "derived_result_sha256": sha256(root / result8),
+        },
+    )
+    resolution["fold-008"] = {
+        "receipt": PRECISION_REVIEW,
+        "receipt_sha256": sha256(root / PRECISION_REVIEW),
+        "result": result8,
+        "result_sha256": sha256(root / result8),
+        "prediction": prediction8,
+        "prediction_sha256": sha256(root / prediction8),
+    }
+    write_json(
+        root / OUTPUT / "continuation-v2/plan.json",
         {
             "cases": cases,
             "original_plan_sha256": sha256(root / OUTPUT / "plan.json"),
@@ -207,17 +243,17 @@ def complete_bundle(root, monkeypatch):
         },
     )
     write_json(
-        root / OUTPUT / "continuation-v1/run-summary.json",
+        root / OUTPUT / "continuation-v2/run-summary.json",
         {
             "status": "cv_computations_complete",
             "logical_completed_folds": 29,
             "planned_folds": 29,
-            "direct_accepted_folds": 28,
-            "reviewed_resolutions": 1,
-            "calls_charged": 94,
-            "calls_started": 94,
-            "inherited_slots": 38,
-            "remaining_nominal_calls_at_start": 56,
+            "direct_accepted_folds": 27,
+            "reviewed_resolutions": 2,
+            "calls_charged": 96,
+            "calls_started": 96,
+            "inherited_slots": 53,
+            "remaining_nominal_calls_at_start": 43,
             "confirmation_outcomes_parsed": False,
             "reserved_outcomes": "sealed",
         },
@@ -267,6 +303,7 @@ def test_complete_continuation_maps_only_resolved_score_and_keeps_original_failu
         "unreviewed_attempt",
         "refunded_slots",
         "missing_resolution",
+        "drop_lata_resolution",
         "wrong_prediction",
         "unreviewed_source",
         "old_summary_only",
@@ -284,13 +321,15 @@ def test_incomplete_continuation_cannot_enter_science(tmp_path, monkeypatch, cha
         path = tmp_path / OUTPUT / "jobs/fold-000/extra.json"
         write_json(path, {})
     elif change == "refunded_slots":
-        path = tmp_path / OUTPUT / "continuation-v1/run-summary.json"
+        path = tmp_path / OUTPUT / "continuation-v2/run-summary.json"
         value = json.loads(path.read_text())
-        value["calls_charged"] = value["calls_started"] = 62
+        value["calls_charged"] = value["calls_started"] = 94
         write_json(path, value)
         gate["files"][str(path.relative_to(tmp_path))] = sha256(path)
     elif change == "missing_resolution":
         gate["resolutions"] = {}
+    elif change == "drop_lata_resolution":
+        del gate["resolutions"]["fold-008"]
     elif change == "wrong_prediction":
         path = tmp_path / DERIVED / "result.json"
         value = json.loads(path.read_text())
@@ -300,7 +339,7 @@ def test_incomplete_continuation_cannot_enter_science(tmp_path, monkeypatch, cha
     elif change == "unreviewed_source":
         del gate["files"]["stub.py"]
     else:
-        del gate["files"][OUTPUT + "/continuation-v1/run-summary.json"]
+        del gate["files"][OUTPUT + "/continuation-v2/run-summary.json"]
     write_json(tmp_path / OUTPUT / "review-acceptance.json", gate)
     with pytest.raises(ValueError):
         verify_complete_curvature(tmp_path)

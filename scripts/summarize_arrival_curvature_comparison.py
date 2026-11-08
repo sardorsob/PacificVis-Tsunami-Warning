@@ -192,6 +192,14 @@ def report(root, output):
         "Clean diagnostics and repeat agreement do not certify global posterior "
         "exploration.",
         "",
+        "LATA's one-report event in another sequence exceeded the original Monte Carlo "
+        "precision screen despite adequate bridge overlap. Two fresh, longer ensembles "
+        "for the same training data and LATA-only augmentation passed that screen. "
+        "Its fold retains the other event's original score and every original prediction. "
+        "Numerical variances for the old and fresh training streams add independently; "
+        "the two events remain one sequence for sampling uncertainty. The reported "
+        "1,125-minute duration is unchanged.",
+        "",
         "The paired intervals use sequence-cluster sandwich uncertainty with "
         "small-group t critical values. The metadata-defined groups and overlapping "
         "training sets limit interpretation. The PIT bands resample sequences and "

@@ -41,7 +41,7 @@ def verify_complete_curvature(root):
             raise ValueError("complete reviewed science closure required")
         return json.loads(path.read_text())
 
-    continuation = OUTPUT + "/continuation-v1"
+    continuation = OUTPUT + "/continuation-v2"
     summary = read(continuation + "/run-summary.json")
     plan = read(OUTPUT + "/plan.json")
     resumed = read(continuation + "/plan.json")
@@ -49,28 +49,34 @@ def verify_complete_curvature(root):
         summary.get("status") != "cv_computations_complete"
         or summary.get("logical_completed_folds") != 29
         or summary.get("planned_folds") != 29
-        or summary.get("direct_accepted_folds") != 28
-        or summary.get("reviewed_resolutions") != 1
+        or summary.get("direct_accepted_folds") != 27
+        or summary.get("reviewed_resolutions") != 2
         or summary.get("confirmation_outcomes_parsed") is not False
         or summary.get("reserved_outcomes") != "sealed"
         or len(plan.get("cases", [])) != 29
         or len(plan.get("memberships", {})) != 29
-        or summary.get("calls_charged") != 94
-        or summary.get("calls_started") != 94
-        or summary.get("inherited_slots") != 38
-        or summary.get("remaining_nominal_calls_at_start") != 56
+        or summary.get("calls_charged") != 96
+        or summary.get("calls_started") != 96
+        or summary.get("inherited_slots") != 53
+        or summary.get("remaining_nominal_calls_at_start") != 43
         or resumed.get("cases") != plan["cases"]
         or resumed.get("original_plan_sha256") != pins[OUTPUT + "/plan.json"]
         or resumed.get("original_worker_files") != plan.get("files")
     ):
-        raise ValueError("all29logicalfolds and inclusive94sampler accounting required")
+        raise ValueError("all29logicalfolds and inclusive96sampler accounting required")
     for sources in [plan.get("files"), resumed.get("files")]:
         if not sources or any(pins.get(p) != h for p, h in sources.items()):
             raise ValueError("complete reviewed source closure required")
-    from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW, GATE, REHEARSAL
+    from scripts.run_arrival_curvature_completion import (
+        GATE,
+        PRECISION_OUTPUT,
+        PRECISION_REVIEW,
+        REHEARSAL,
+    )
+    from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW
     from scripts.run_arrival_curvature_sequences import case_artifacts
 
-    for receipt in [GATE, REHEARSAL, DERIVED_REVIEW]:
+    for receipt in [GATE, REHEARSAL, DERIVED_REVIEW, PRECISION_REVIEW]:
         review = read(receipt)
         if (
             review.get("independent_checker") is not True
@@ -78,26 +84,37 @@ def verify_complete_curvature(root):
             or any(pins.get(p) != h for p, h in review["files"].items())
         ):
             raise ValueError("complete reviewed continuation and resolution closure required")
-    derived_review = read(DERIVED_REVIEW)
-    prediction = OUTPUT + "/jobs/fold-002/held-out-record-predictions.csv"
-    resolutions = {
-        "fold-002": {
-            "receipt": DERIVED_REVIEW,
-            "receipt_sha256": pins[DERIVED_REVIEW],
-            "result": DERIVED + "/result.json",
-            "result_sha256": pins.get(DERIVED + "/result.json"),
+    resolutions = {}
+    for case_id, derived, receipt, status in [
+        ("fold-002", DERIVED, DERIVED_REVIEW, "accepted_same_model_curvature_fold_resolution"),
+        (
+            "fold-008",
+            PRECISION_OUTPUT,
+            PRECISION_REVIEW,
+            "accepted_same_model_curvature_precision_resolution",
+        ),
+    ]:
+        prediction = OUTPUT + "/jobs/" + case_id + "/held-out-record-predictions.csv"
+        resolutions[case_id] = {
+            "receipt": receipt,
+            "receipt_sha256": pins[receipt],
+            "result": derived + "/result.json",
+            "result_sha256": pins.get(derived + "/result.json"),
             "prediction": prediction,
             "prediction_sha256": pins.get(prediction),
         }
-    }
+        proof = read(receipt)
+        if (
+            proof.get("status") != status
+            or proof.get("derived_result") != derived + "/result.json"
+            or proof.get("derived_result_sha256") != resolutions[case_id]["result_sha256"]
+        ):
+            raise ValueError("literal accepted same-model numerical resolution required")
     if (
         resumed.get("resolutions") != resolutions
         or gate.get("resolutions") != resolutions
-        or derived_review.get("status") != "accepted_same_model_curvature_fold_resolution"
-        or derived_review.get("derived_result") != DERIVED + "/result.json"
-        or derived_review.get("derived_result_sha256") != resolutions["fold-002"]["result_sha256"]
-        or read(GATE).get("status") != "accepted_curvature_continuation_rehearsal"
-        or read(REHEARSAL).get("status") != "accepted_first_curvature_continuation_fold"
+        or read(GATE).get("status") != "accepted_curvature_completion_rehearsal"
+        or read(REHEARSAL).get("status") != "accepted_first_curvature_completion_fold"
     ):
         raise ValueError("literal accepted same-model resolution registry required")
     for case in plan["cases"]:
@@ -113,17 +130,19 @@ def verify_complete_curvature(root):
         )
         if any(str(p.relative_to(root)) not in pins for p in inventory):
             raise ValueError("complete reviewed science closure required before parsing")
-        if case["id"] == "fold-002":
-            failed = read(OUTPUT + "/jobs/fold-002/result.json")
-            result = read(DERIVED + "/result.json")
+        if case["id"] in resolutions:
+            resolution = resolutions[case["id"]]
+            failed_path = OUTPUT + "/jobs/" + case["id"] + "/result.json"
+            failed = read(failed_path)
+            result = read(resolution["result"])
             if (
                 failed.get("status") != "precision_failure"
                 or failed.get("job") != case
                 or result.get("job") != case
-                or result.get("source_result") != OUTPUT + "/jobs/fold-002/result.json"
-                or result.get("source_result_sha256") != pins[OUTPUT + "/jobs/fold-002/result.json"]
-                or result.get("training_only_predictions") != prediction
-                or result.get("training_only_predictions_sha256") != pins[prediction]
+                or result.get("source_result") != failed_path
+                or result.get("source_result_sha256") != pins[failed_path]
+                or result.get("training_only_predictions") != resolution["prediction"]
+                or result.get("training_only_predictions_sha256") != resolution["prediction_sha256"]
             ):
                 raise ValueError(
                     "unchanged original failed result and training predictions required"
