@@ -1,0 +1,14 @@
+{
+  "events": 14,
+  "independent_checker": "/root/ms3_fit_checker",
+  "limits": [
+    "no_across_source_ranking",
+    "paired_sequence_uncertainty_pending",
+    "numeric_error_not_floatingpoint_certificate",
+    "no_model_selection"
+  ],
+  "manifest_sha256": "169c280e968df7a29d5656109cfee36578e05a3f8f75ff1b278d0cbb9a652c85",
+  "reserved_outcomes": "sealed",
+  "sequence_fits": 13,
+  "status": "accepted_numerical_source_specific_comparator"
+}

@@ -1,0 +1,23 @@
+{
+  "integration": "analytic_Normal_coefficients_log_SD_quadrature",
+  "kind": "pooled",
+  "maximum_folds": 12,
+  "monte_carlo_used": false,
+  "per_integral_evaluation_cap": 80000,
+  "reserved_outcomes": "sealed",
+  "sequences": [
+    "seq-ak0138esnzr",
+    "seq-official20110311054624120_30",
+    "seq-us10006jbi",
+    "seq-us20002yaw",
+    "seq-us20003k7a",
+    "seq-us20007z80",
+    "seq-usc000phx5",
+    "seq-usp000exfn",
+    "seq-usp000h1ys",
+    "seq-usp000j3mq",
+    "seq-usp000j48h",
+    "seq-usp000jqvm"
+  ],
+  "target": "T-CAL"
+}

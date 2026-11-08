@@ -1,0 +1,10 @@
+{
+  "event-joint-scores.csv": "acb164497e9248fb8111e7722b869d13469509fde24291d2254847719d6e9fdf",
+  "held-out-record-predictions.csv": "31b5cd85d936e85bc22ab9d1803d5497d6b51808247e8ad56e7c9a41dec0be3c",
+  "inputs.json": "a1cf3bd5f8cef8ed17f25c0bcff4eb7e51e91c1f0ac8f3b59007ce37ae3dec08",
+  "numerical-integration-diagnostics.csv": "66ed563f9634ddb8d9181b562af430e9f7ea563272fbc8d3908640e3b0f45ee6",
+  "plan.json": "444a45f85db12a60aa2cdf3b3a116a6c6d8e76c97596529a4ea704052cbd3236",
+  "raw-posterior-nodes.json": "d5e160895f8ba093890d33f4784da2c9a44833fd50f1031bea2112a786736942",
+  "sequence-membership.json": "6f9deb41a32342b464b461f5144416881e43e32ba96c97d835e072af3610306a",
+  "summary.json": "1ad9589ae7f195b681ab068b129a0184cdcc31eeee8e741f5e245e93d2597a55"
+}

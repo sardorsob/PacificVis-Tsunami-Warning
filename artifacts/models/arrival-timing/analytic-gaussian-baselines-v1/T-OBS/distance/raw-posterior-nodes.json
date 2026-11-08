@@ -1,0 +1,15 @@
+{
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-01.npz": "c19e2f6f8d4fb4d91e31165b7a937ed5160187a7d324dc27e1f399b978dfb19f",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-02.npz": "983f63080a0087a06cc863ab4b2b4af4d3967120beef4acab33c62056233bba6",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-03.npz": "f52aed80e8639063ac7fea61e479ec1d2790bc55c463c712b87a0141caaf4c0b",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-04.npz": "29fc7e2eb0d039b2bfee7134036e42edc6bc43e68e7c2e55fbc1e212cabd7710",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-05.npz": "2055229258c5cf72cd29725cda585eb403b7fdd287fd458d24175e6ff9ea6536",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-06.npz": "0e68afc18971b2fca96f8c254aaaebd6a613cf44c247fbf9b8bb30d1b0f7884e",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-07.npz": "972593fe41f8e93dfc9719dc877aad8fcc62940bf2cdeaf714b704e7f925afab",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-08.npz": "38086c0476c531b288e7f96e10f5564e91b3adf99e2d805239294c1c51f2b6ae",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-09.npz": "cf696c080dc8a2516ff56d9f13b258f93a6dc9b902141ab6364124f59d7d0b24",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-10.npz": "922375d3f29aacf6b7d1d93bdd88cf876acba5edf0c004f50397b421ca2da59c",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-11.npz": "355d99c66ff1c67a3450f1a3b964942b9c545ac27ac1b6a5798ae4aec94cb145",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-12.npz": "07e898acdb35706918342800d75775b294677f0c6d7199594472076503581c91",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/distance/fold-13.npz": "5828de4c23a9411d98de5847da0b04df7dbd5a59502e40bfb262d1298a8fdd82"
+}

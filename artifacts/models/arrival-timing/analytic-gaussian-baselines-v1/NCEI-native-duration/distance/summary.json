@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "eligible_for_comparison": true,
+  "equal_event_score": -6.485384797060138,
+  "events": 33,
+  "kind": "distance",
+  "mean_numerical_error_estimate": 1.8053951312654276e-10,
+  "monte_carlo_standard_error": "not_applicable",
+  "monte_carlo_used": false,
+  "numerical_error_scope": "quadrature_estimates_and_refinement_not_rigorous_floating_point_certificate",
+  "precision_passed": true,
+  "reserved_outcomes": "sealed",
+  "scientific_acceptance": "pending_independent_review",
+  "sequence_fits": 29,
+  "target": "NCEI-native-duration"
+}

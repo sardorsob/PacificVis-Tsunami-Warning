@@ -1,0 +1,14 @@
+{
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-01.npz": "d338559bef0af48b644ae4c017e25e389093bbd4fe0a605803b8c2056be9c8a0",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-02.npz": "b9b3b059767d678675360f2a47695fb5c71d5c04a5e9f723f81c0a54702a7204",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-03.npz": "79986e70a0fb4327f338d7f98a5a420215d96b49f94773f778f5323d075a8ba3",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-04.npz": "c8c3c0125a71cc5db15e375e190cf3dcbd0027943606a523da23da6abb5372b8",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-05.npz": "616aa2774621ef0b4eb34adbe6a004e094e06619f47e64451e0430968791d5ea",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-06.npz": "c137ad324926df2aeab66c83d0eafab81aabac0c725937824cd558804440c688",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-07.npz": "ceb5ca9c3eb4a6c04ffbe5b86df203aa643a093d41bbb5f91724908cc65e066a",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-08.npz": "33337b7dd906ed29679154b92a56d0b48e44834b716b2f68c98743a05387fe06",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-09.npz": "eb590429c14a53f5f64f1b887c62e8ed32e285af09a3b78a26dc99ae45315104",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-10.npz": "2ddbacb2d82a657f14f25ba636613adf148ecf282c8535bc7a4e07e6ba494d19",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-11.npz": "1cd821d68cf42c7e4c79726d71779f59f5efa3d3465cb3e529017de7950aa616",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/distance/fold-12.npz": "da72888f9024fe2da6fd792a3c890d01d5765a13983dd1ef773a4cab283942e8"
+}

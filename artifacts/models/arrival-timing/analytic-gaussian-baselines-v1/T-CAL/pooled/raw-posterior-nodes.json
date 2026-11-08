@@ -1,0 +1,14 @@
+{
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-01.npz": "5e624afef81ab429978d7015d9d0e41defde47c317e74bce991976f3be86c3d9",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-02.npz": "ba97f13cf0bd1e023929a00db461917b05b7280c7a80248e35fedcf8f5051817",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-03.npz": "d17e336b3cfe85ff8921386d82453e378f05c1551195a6068572ce1fd83cd568",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-04.npz": "254a4900320f73a97dceb7a6dff41d67cb72b26698d66400d11c6eb94857f2d8",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-05.npz": "d80ab589b46cb712f3402cf2a1bf23782050e7e5a6f4ad53a5474ca09f5649cc",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-06.npz": "67f66f0be01b835691f9479e5cc2e95c91b4fbd944fd8967506978e6ae962096",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-07.npz": "412803117da0632d2aa6201ccf91d0828b70165323c462732f9a89a111859bc0",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-08.npz": "47c03c6de477740c837cb26d15b44fb25950c42cc005cd3209791f6f6d37860a",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-09.npz": "4346a9a5d221ab198e580dc1c8afabf3fb9488a5397652aa2e51e77df6f6f99c",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-10.npz": "1d0f76c5f9a7fce3d5ff5cc9b0a6d25868c12021f6d16f7583207ad84c8c31b8",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-11.npz": "e9f5b3534c28eeec82bce4f03671447fbb4697dc860036b40630b602a4409e43",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-CAL/pooled/fold-12.npz": "9e299dfa114f95ee4623a39270c598071184d59e18b20ea9679db9c0a26a216c"
+}

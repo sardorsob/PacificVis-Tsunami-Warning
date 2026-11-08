@@ -1,0 +1,15 @@
+{
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-01.npz": "53d4de7db9efa572e2dda0cf1424b416ef7b9b4e816dd4337651806f0fa1ce92",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-02.npz": "551308ae915accebcb5a80c4608abd0ce0842ad2ecd783fe7c7562d38f99e618",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-03.npz": "0a425e1680ab216b9afbf0276d1220a25a163ab9cbf33a43b5b41486f1a08d6e",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-04.npz": "7198729ba6850d716ec956857cfccb43a57ba48199d4204740087b86cdd2342b",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-05.npz": "1c566df66fb020b56e312409fdd8b3cac03e2c1e91292a5128525ae790972980",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-06.npz": "3babdec1b3696e2654b6b8a8caeb23c4eae5427557a5ff5dcbc240bd2b574c79",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-07.npz": "cec7a1cc7502aff6969e4f540e2ec8ca68b95040d478937b45c999009f346365",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-08.npz": "8276d2367640cb466cdd36b4d03886f3caa54fc570517c0f24d41b610ca0f762",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-09.npz": "7b25598c632bbe5abaabedbee45fb11c0960739090493095eabf299b1b4f5745",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-10.npz": "6e44d869b1fed8787b35d1e1b8f6c3b9b6e85b63442c4e2b84c3e7f9b06705b1",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-11.npz": "395108dc15ab8b6815221e1977d73584f1cc1232fc085e2acb3aac851d9c6a09",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-12.npz": "3b1bbd42feeaaa2fca6adf079d4991c8535e988fef94e2f9301e7a29b9f0abcb",
+  "data/processed/models/analytic-gaussian-baselines-v1/T-OBS/pooled/fold-13.npz": "82d9fbaf220435fe72f69a7cb3c3fb39b8e6255987eef48bd4188a585eb836a4"
+}

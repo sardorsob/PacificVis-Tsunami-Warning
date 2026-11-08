@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "eligible_for_comparison": true,
+  "equal_event_score": -7.6581672538697285,
+  "events": 14,
+  "kind": "pooled",
+  "mean_numerical_error_estimate": 4.1822667978768406e-11,
+  "monte_carlo_standard_error": "not_applicable",
+  "monte_carlo_used": false,
+  "numerical_error_scope": "quadrature_estimates_and_refinement_not_rigorous_floating_point_certificate",
+  "precision_passed": true,
+  "reserved_outcomes": "sealed",
+  "scientific_acceptance": "pending_independent_review",
+  "sequence_fits": 13,
+  "target": "T-OBS"
+}

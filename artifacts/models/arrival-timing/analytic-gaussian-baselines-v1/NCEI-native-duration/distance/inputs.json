@@ -1,0 +1,26 @@
+{
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_analytic_baselines.py": "c9d7f53dbaa00d74354e59c4ceb9c75f68a5c44be4b46230109644bfa30554ab",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_fit.py": "d3c93ad910f5894694df3ead25c735ce33e70e15d205dac50c64fc6fb16f3cd9",
+    "analysis/arrival/model_quadrature.py": "3ee187a0b206a8d6651ec46e28530306a0fcb2938dc4f25b7c08b4ee1b1e03c1",
+    "analysis/arrival/model_validation_report.py": "87f4582debfb6ee4760315471a511fd8bee20638129ad92552fda31dda88bea4",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv": "cfd73bf800ee1afe52253d847f7446ed778eb9ee40b8205429b6429c052d9781",
+    "artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json": "0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+    "artifacts/models/arrival-timing/inference-validation-acceptance-v1.json": "1259d66ee15b00b7f0b08b7b2d5a3f1589a8d5632d26987e7e1f4ca300d523c4",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "config/arrival-model-scoring-v1.toml": "aa237989bb776ba0befa7a2ca691059106c052ca949a374b0a6e1c9b0891e47c",
+    "config/arrival-timing-exploration-confirmation-split.toml": "4f3d3ae8ba5f96d5a701508e5c65c5979f8938f1959d17cfb14be4dbab800328",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/score_arrival_regression.py": "a389c77620e800020e50f8e7c9ce7ac46dddb5561064f74a566cf0c509a60a18",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "git_sha": "9d02ba07ddeaea514b6fa41d1de93d439d326a58",
+  "prior_variant": "base"
+}
