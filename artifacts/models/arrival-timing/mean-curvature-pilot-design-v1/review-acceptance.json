@@ -1,0 +1,164 @@
+{
+  "cases": [
+    {
+      "cores": 2,
+      "draws": 1000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "null-weak",
+      "model": "mean-curvature",
+      "phase": "pilot",
+      "seed": 2816110800,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 1000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "positive-weak",
+      "model": "mean-curvature",
+      "phase": "pilot",
+      "seed": 2816110900,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 1000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "negative-weak",
+      "model": "mean-curvature",
+      "phase": "pilot",
+      "seed": 2816111000,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": -0.5,
+        "sigma_anchor": [
+          0.6,
+          0.6,
+          0.1
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 1000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "null-moderate",
+      "model": "mean-curvature",
+      "phase": "pilot",
+      "seed": 2816111100,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.15,
+        "beta": -0.05,
+        "gamma": 0.0,
+        "sigma_anchor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "tau_event": 0.25
+      },
+      "tune": 1000
+    },
+    {
+      "cores": 2,
+      "draws": 1000,
+      "first_event_id": "official20100227063411530_30",
+      "id": "combined",
+      "model": "mean-curvature",
+      "phase": "pilot",
+      "seed": 2816111200,
+      "target": "NCEI-native-duration",
+      "truth": {
+        "alpha": 0.4,
+        "beta": -0.25,
+        "gamma": 0.75,
+        "sigma_anchor": [
+          0.8,
+          0.6,
+          0.08
+        ],
+        "tau_event": 0.05
+      },
+      "tune": 1000
+    }
+  ],
+  "confirmation_outcomes_parsed": false,
+  "controls": [
+    "explicitmetadata-first event",
+    "disjoint base seed stride100 and role offsets",
+    "seven sampled hypercoordinates screened before conditional event effects",
+    "closed mandatory attempt proofs and immutable receipts",
+    "output/store/private-state path identity binding before resume lease",
+    "checkpoint and supervisor helper code pinned",
+    "no overwrite retained augmented partial",
+    "no automatic retry; stop first diagnostic/runtime/identity/storage failure"
+  ],
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_curvature.py": "3d8856dc5ce4384abe20fb94e7837b18a6fd64cc47bc184711476f82480367a0",
+    "analysis/arrival/model_curvature_prior.py": "083e98b5d0f19b70d6e53f1bdea27f30a44078244f9a3bbd6b874d1cae96c0f8",
+    "analysis/arrival/model_curvature_validation.py": "2c70934b0c2c14effecbb2de50414f16dc295ee85a8053c69b8aa18212fb696e",
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_scale.py": "c4b08332bf7e0fe5b4a090f00dd38a7d7a671b13d66313262fc7d36287e67164",
+    "analysis/arrival/model_validation.py": "c7f7ba9cb02e886f2d32c7643c9766cdd335c395055a76d97dceed0aefd53ded",
+    "analysis/arrival/models.py": "49ed05e374695c750b2170f8201bcc97249f4919c28d204efda2a66d646bf8ae",
+    "artifacts/models/arrival-timing/mean-curvature-prior-report-v2/review-acceptance.json": "1b6e1c7df36b8b0a27da43a4072d54af2e4410edc2373cc146333cbbb97b3c77",
+    "config/arrival-mean-curvature-v1.toml": "18097d0f718ed43466c216e89bc36be14b4333bb48bfc021483a31185e2a1080",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264",
+    "config/arrival-model-priors-v1.toml": "5f7f48b167c8bb9ee21516d7c68eb76d5416404b6f501efa8de3f37139db7622",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/fit_arrival_curvature_synthetic.py": "93fa4b6166b4b398732c5e163c5fb1630fa6e5c4ddbf5a61fa93c20a0b54fe19",
+    "scripts/run_arrival_curvature_pilot.py": "30eccfb37b26052c252fcf72ae26d2770178e5bf92b62ad97d3cf827ed9d7419",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "tests/test_arrival_curvature_pilot.py": "df7687f25372733ca941234f96279fefe7683ac4b06ef355b4f7064117a68e3f",
+    "tests/test_arrival_curvature_validation.py": "7f71a77151882fbe5cb6f55db0bbbd93a92547978f2b405861cc7b95e87a8948",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "further_gates": "actual five pilot results independent review before any50recovery/100SBC allocation; actual candidate fit/CV separately gated",
+  "independent_checker": true,
+  "independent_tests": {
+    "controller_tests": 11,
+    "no_actual_sampler_or_protected_outcomes_in_QA": true,
+    "real_dummy_process_group_termination_seconds": 0.314,
+    "worker_tests": 6
+  },
+  "max_bytes": 536870912,
+  "max_sampler_call_slots": 5,
+  "next_job_reserve_bytes": 285212672,
+  "old_CV_budget": "original266of352 slots unchanged",
+  "reserved_outcomes": "sealed",
+  "resource_scope": "512MiB aggregate/cache64/job16 are monitored trip thresholds; overshoot retained/counts as failure; per-file64MiB is kernel hard cap",
+  "schema_version": "arrival_curvature_pilot_design_acceptance_v1",
+  "statistical_scope": "geometry/runtime pilot, not conditional coverage certification; no acceptance quota on truth-containing intervals",
+  "status": "accepted_five_case_synthetic_pilot"
+}

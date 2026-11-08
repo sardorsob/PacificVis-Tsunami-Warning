@@ -257,6 +257,22 @@ the residual model. It does not establish that events have little physical
 variation. Near- and middle-distance predictive discrepancies remain, and the
 small event SD needs sensitivity checks.
 
+The bounded mean-form revisit now has one smooth curvature candidate:
+`m(d) = alpha + beta*ln(d/1000) + gamma*[log1p(500/d) − log1p(0.5)]`.
+It retains the varying-spread model and centers the added basis at 1,000 km.
+The local median elasticity is `1 + beta − gamma*500/(d+500)`; beta and gamma
+can trade off, so derived curves matter more than either coefficient alone.
+This is a phenomenological reported-timing adjustment, without a physical-delay
+interpretation or a monotonicity constraint.
+
+Its [prior checks](../../artifacts/models/arrival-timing/mean-curvature-prior-report-v2/findings.md)
+compare gamma SD 0.5 with widening gamma alone to 0.8 and with widening the
+inherited priors too. These analyst hypotheses were specified after EDA.
+Known-case likelihood and gradient checks, ancestral arrays and the corrected
+numeric-distance figure have passed independent review. Recovery and SBC remain
+required before an actual candidate fit. No cohort flag or model-selection rule
+changed; the original primary records remain eligible.
+
 Sequence-held-out comparisons retain native-minute joint event densities and
 equal-event weighting. An extreme single-report event exposed excessive score
 Monte Carlo error for the pooled comparator despite clean sampling. Both allowed
