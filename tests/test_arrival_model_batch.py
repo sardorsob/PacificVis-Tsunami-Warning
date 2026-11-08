@@ -41,6 +41,33 @@ def test_trial_plan_is_finite_and_random_channels_never_overlap() -> None:
         code.make_cases("sbc", "combined-followup")
 
 
+def test_secondary_source_scenarios_have_correct_units_and_disjoint_rng() -> None:
+    code = module()
+    cases = (
+        code.make_cases("recovery")
+        + code.make_cases("sbc")
+        + code.make_cases("recovery", "combined-followup")
+    )
+    for target in ["T-OBS", "T-CAL"]:
+        recovery = code.make_cases("recovery", target=target)
+        sbc = code.make_cases("sbc", target=target)
+        assert len(recovery) == len(sbc) == 30
+        assert all(c["job"]["target"] == target for c in recovery + sbc)
+        cases.extend(recovery + sbc)
+    signed = code.make_cases("recovery", target="T-CAL")
+    assert signed[0]["job"]["truth"] == {
+        "alpha": -15.0,
+        "beta": 5.0,
+        "tau_event": 10.0,
+        "sigma": 20.0,
+    }
+    assert signed[-1]["job"]["truth"]["sigma"] == 40
+    channels = [c["job"]["seed"] + k for c in cases for k in range(20)]
+    assert len(channels) == 12400 and len(set(channels)) == 12400
+    with pytest.raises(ValueError, match="protocol"):
+        code.make_cases("recovery", "combined-followup", "T-CAL")
+
+
 def setup(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     code = module()
     real = Path.cwd()

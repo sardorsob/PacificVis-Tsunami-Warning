@@ -1,4 +1,4 @@
-"""Finite, serial primary-source recovery/SBC trials with conservative checkpoint resume."""
+"""Finite, serial source-specific recovery/SBC trials with conservative checkpoint resume."""
 
 from __future__ import annotations
 
@@ -35,12 +35,17 @@ def git_sha(root: Path) -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
 
 
-def make_cases(phase: str, protocol: str = "core") -> list[dict[str, Any]]:
+def make_cases(
+    phase: str, protocol: str = "core", target: str = "NCEI-native-duration"
+) -> list[dict[str, Any]]:
     """Predefine all datasets; spaced seeds isolate truth/data/sampler/rank RNG channels."""
     if phase not in {"recovery", "sbc"}:
         raise ValueError("unknown validation phase")
+    if target not in {"NCEI-native-duration", "T-OBS", "T-CAL"}:
+        raise ValueError("unknown source target")
     if protocol not in {"core", "combined-followup"} or (
-        protocol == "combined-followup" and phase != "recovery"
+        protocol == "combined-followup"
+        and (phase != "recovery" or target != "NCEI-native-duration")
     ):
         raise ValueError("invalid follow-up protocol")
     base = {"alpha": 0.15, "beta": -0.05, "tau_event": 0.2, "sigma": 0.3}
@@ -61,15 +66,40 @@ def make_cases(phase: str, protocol: str = "core") -> list[dict[str, Any]]:
     )
     if protocol == "combined-followup":
         settings = [scenarios[7]]
+    secondary = target != "NCEI-native-duration"
+    if secondary:
+        base = (
+            {"alpha": -15.0, "beta": 5.0, "tau_event": 10.0, "sigma": 20.0}
+            if target == "T-CAL"
+            else base
+        )
+        difficult = (
+            {"tau_event": 2.5, "sigma": 40.0, "beta": 10.0}
+            if target == "T-CAL"
+            else {"tau_event": 0.05, "sigma": 0.6, "beta": -0.2}
+        )
+        settings = (
+            [
+                ("reference", {}, 0),
+                ("no-event-variation", {"tau_event": 0}, 0),
+                ("combined-weak-event-large-spread", difficult, 0),
+            ]
+            if phase == "recovery"
+            else [("prior-generated", {}, 0)]
+        )
+    repeats = (
+        (10 if phase == "recovery" else 30) if secondary else (30 if phase == "recovery" else 200)
+    )
     for scenario, (label, changes, delay) in enumerate(settings):
-        for replicate in range(30 if phase == "recovery" else 200):
+        for replicate in range(repeats):
             seed = 20261107 + (1000000 if phase == "recovery" else 2000000)
             if protocol == "combined-followup":
                 seed = 20261107 + 3000000
+            seed += {"NCEI-native-duration": 0, "T-OBS": 10000000, "T-CAL": 20000000}[target]
             seed += scenario * 10000 + replicate * 100
             job: dict[str, Any] = {
                 "phase": phase,
-                "target": "NCEI-native-duration",
+                "target": target,
                 "parameterization": "marginal",
                 "seed": seed,
                 "draws": 1000 if phase == "recovery" else 2000,
@@ -158,6 +188,7 @@ def _report(output: Path, state: dict[str, Any], plan: dict[str, Any]) -> None:
         {
             "phase": plan["phase"],
             "protocol": plan.get("protocol", "core"),
+            "target": plan.get("target", "NCEI-native-duration"),
             "planned_datasets": len(plan["cases"]),
             "completed_datasets": state["next_case"],
             "calls_used": state["calls_used"],
@@ -180,10 +211,12 @@ def run_batch(
     max_cases: int | None = None,
     resume: bool = False,
     protocol: str = "core",
+    target: str = "NCEI-native-duration",
 ) -> None:
     """Run fixed datasets; retry only mild precision failures once, retaining every attempt."""
     if max_cases is not None and max_cases < 0:
         raise ValueError("negative invocation case ceiling")
+    cases = make_cases(phase, protocol, target)
     if not store.resolve().is_relative_to(root.resolve()):
         raise ValueError("posterior store must remain inside the project")
     if resume:
@@ -210,6 +243,7 @@ def run_batch(
                 plan["phase"] != phase
                 or plan["code_and_config"] != pins
                 or plan.get("protocol", "core") != protocol
+                or plan.get("target", "NCEI-native-duration") != target
             ):
                 raise ValueError("source/phase changed; do not resume a different experiment")
             if state["current"] is not None:
@@ -220,6 +254,8 @@ def run_batch(
         else:
             parent_budget = None
             max_calls, max_bytes = (330 if phase == "recovery" else 260), 2 * 1024**3
+            if target != "NCEI-native-duration":
+                max_calls = 45
             if protocol == "combined-followup":
                 path = root / "artifacts/models/arrival-timing/design-recovery-v1/run-summary.json"
                 parent = json.loads(path.read_text())
@@ -241,9 +277,10 @@ def run_batch(
                 "schema_version": "arrival_validation_batch_v1",
                 "phase": phase,
                 "protocol": protocol,
+                "target": target,
                 "base_git_sha": git_sha(root),
                 "code_and_config": pins,
-                "cases": make_cases(phase, protocol),
+                "cases": cases,
                 "max_calls": max_calls,
                 "max_posterior_bytes": max_bytes,
                 "parent_budget": parent_budget,
@@ -397,6 +434,11 @@ def run_batch(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--phase", choices=["recovery", "sbc"], required=True)
+    parser.add_argument(
+        "--target",
+        choices=["NCEI-native-duration", "T-OBS", "T-CAL"],
+        default="NCEI-native-duration",
+    )
     parser.add_argument("--protocol", choices=["core", "combined-followup"], default="core")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--store", type=Path, required=True)
@@ -413,6 +455,7 @@ def main() -> None:
         max_cases=args.max_cases,
         resume=args.resume,
         protocol=args.protocol,
+        target=args.target,
     )
 
 

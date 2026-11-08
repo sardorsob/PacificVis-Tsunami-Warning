@@ -10,8 +10,8 @@ This is the pre-modeling bridge from the [completed EDA](../../artifacts/eda/arr
 The new [design findings](../../artifacts/eda/arrival-timing/pre-modeling-design/design-findings.md)
 use only its frozen exploration tables. They are posthoc exploratory diagnostics;
 the earlier confirmation findings retain their original status. Initial prior
-hypotheses and their simulations are now available below. No posterior has been
-fitted to the actual reported times and no reserved event outcome opened.
+hypotheses and their simulations are now available below. Initial NCEI exploration
+posteriors are being computed and reviewed; no reserved event outcome is opened.
 
 The approach follows Chris Fonnesbeck's [PyMC modeling workflow](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/pymc-modeling/references/workflow.md)
 and [prior-elicitation skill](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/prior-elicitation/SKILL.md):
