@@ -1,0 +1,18 @@
+{
+  "dimension": 2,
+  "full_positive_domain": true,
+  "log_evidence": -352.5439930822605,
+  "points": 188123,
+  "proposal_location": [
+    0.820132826783232,
+    1.0860288467889039
+  ],
+  "proposal_scale": [
+    0.02886794513461991,
+    0.326961028677222
+  ],
+  "relative_error_estimate": 9.764081444556357e-09,
+  "scale_height": -350.61368512658737,
+  "status": "converged",
+  "subdivisions": 94
+}
