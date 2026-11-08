@@ -10,6 +10,7 @@ from typing import Any, cast
 
 import numpy as np
 import pymc as pm
+import pytensor.tensor as pt
 from numpy.typing import NDArray
 
 from analysis.arrival.model_data import Lane
@@ -49,10 +50,13 @@ def build_model(
     *,
     kind: str = "event",
     indices: NDArray[np.int64] | None = None,
+    parameterization: str = "noncentered",
 ) -> pm.Model:
     """Build a literal training subset; no held-out outcome contributes to its graph."""
     if kind not in {"pooled", "distance", "event"}:
         raise ValueError("unknown scaffold")
+    if parameterization not in {"centered", "noncentered", "marginal"}:
+        raise ValueError("unknown event parameterization")
     selected = np.flatnonzero(lane.included) if indices is None else indices
     if (
         selected.ndim != 1
@@ -70,16 +74,41 @@ def build_model(
     event_index = np.array([lookup[lane.event_ids[int(i)]] for i in selected])
     coords = {"record": [lane.record_ids[int(i)] for i in selected], "event": events}
     with pm.Model(coords=coords) as model:
-        x = cast(Any, pm.Data("x", lane.x[selected], dims="record"))
         alpha = pm.Normal("alpha", 0, prior["alpha_sd"])
+        if kind == "event" and parameterization == "marginal":
+            beta = pm.Normal("beta", 0, prior["beta_sd"])
+            tau = pm.HalfNormal("tau_event", prior["tau_sd"])
+            sigma = pm.HalfNormal("sigma", prior["sigma_sd"])
+            count = np.bincount(event_index).astype(float)
+            xbar = np.bincount(event_index, weights=lane.x[selected]) / count
+            ybar = np.bincount(event_index, weights=lane.response[selected]) / count
+            within_x = lane.x[selected] - xbar[event_index]
+            within_y = lane.response[selected] - ybar[event_index]
+            within = pt.sum((within_y - beta * within_x) ** 2) / sigma**2
+            between = pt.sum(
+                count * (ybar - alpha - beta * xbar) ** 2 / (sigma**2 + count * tau**2)
+            )
+            logdet = len(selected) * cast(Any, pt.log(sigma**2)) + pt.sum(
+                pt.log1p(count * tau**2 / sigma**2)
+            )
+            # Exact Gaussian event integral. Predictives require explicit forward simulation.
+            pm.Potential(
+                "event_marginal_likelihood",
+                -0.5 * (len(selected) * math.log(2 * math.pi) + logdet + within + between),
+            )
+            return model
+        x = cast(Any, pm.Data("x", lane.x[selected], dims="record"))
         mu = alpha + 0 * x
         if kind != "pooled":
             beta = pm.Normal("beta", 0, prior["beta_sd"])
             mu = mu + beta * x
         if kind == "event":
             tau = pm.HalfNormal("tau_event", prior["tau_sd"])
-            z = pm.Normal("z_event", 0, 1, dims="event")
-            effect = cast(Any, pm.Deterministic("event_effect", tau * z, dims="event"))
+            if parameterization == "centered":
+                effect = cast(Any, pm.Normal("event_effect", 0, tau, dims="event"))
+            else:
+                z = pm.Normal("z_event", 0, 1, dims="event")
+                effect = cast(Any, pm.Deterministic("event_effect", tau * z, dims="event"))
             mu = mu + effect[event_index]
         sigma = pm.HalfNormal("sigma", prior["sigma_sd"])
         pm.Normal("response", mu, sigma, observed=lane.response[selected], dims="record")

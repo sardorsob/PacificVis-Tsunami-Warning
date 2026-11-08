@@ -25,15 +25,21 @@ def tiny_lane(outside_value: str = "100"):
     return lane_arrays("T-OBS", rows, {"e1": "q1", "e2": "q2", "e3": "q1"}, {"e1", "e2", "e3"})
 
 
-def test_heldout_mutation_cannot_change_training_likelihood() -> None:
+@pytest.mark.parametrize("parameterization", ["noncentered", "centered", "marginal"])
+def test_heldout_mutation_cannot_change_training_likelihood(parameterization: str) -> None:
     prior = read_prior(Path.cwd(), "T-OBS", "base")
-    model = build_model(tiny_lane(), prior, indices=np.array([1]))
-    changed = build_model(tiny_lane("90000"), prior, indices=np.array([1]))
+    model = build_model(
+        tiny_lane(), prior, indices=np.array([1]), parameterization=parameterization
+    )
+    changed = build_model(
+        tiny_lane("90000"), prior, indices=np.array([1]), parameterization=parameterization
+    )
     assert model.coords["event"] == ("e2",)
     assert model.coords["record"] == ("r1",)
-    np.testing.assert_array_equal(
-        model.rvs_to_values[model["response"]].eval(), tiny_lane().response[[1]]
-    )
+    if parameterization != "marginal":
+        np.testing.assert_array_equal(
+            model.rvs_to_values[model["response"]].eval(), tiny_lane().response[[1]]
+        )
     assert model.compile_logp()(model.initial_point()) == changed.compile_logp()(
         changed.initial_point()
     )
@@ -93,3 +99,57 @@ def test_measurement_and_selection_prior_metadata_cannot_silently_change(tmp_pat
     path.write_text(text.replace("metadata_only_not_accuracy", "plus_minus_one_minute"))
     with pytest.raises(ValueError, match="metadata"):
         read_prior(tmp_path, "T-OBS", "base")
+
+
+def test_centered_and_noncentered_event_priors_are_equivalent_with_jacobian() -> None:
+    prior = read_prior(Path.cwd(), "T-OBS", "base")
+    noncentered = build_model(tiny_lane(), prior)
+    centered = build_model(tiny_lane(), prior, parameterization="centered")
+    z = np.array([-0.5, 0.2, 1.0])
+    common = {
+        "alpha": 0.1,
+        "beta": -0.02,
+        "sigma_log__": np.log(0.4),
+        "tau_event_log__": np.log(0.3),
+    }
+    lp_nc = noncentered.compile_logp()({**common, "z_event": z})
+    lp_c = centered.compile_logp()({**common, "event_effect": 0.3 * z})
+    np.testing.assert_allclose(lp_c, lp_nc - 3 * np.log(0.3), atol=1e-10)
+
+
+def test_marginal_event_likelihood_and_gradient_match_independent_oracle() -> None:
+    from analysis.arrival.model_evaluation import gaussian_event_logpdf
+
+    data = tiny_lane()
+    extra = {
+        **data.rows[0],
+        "record_id": "r4",
+        "physical_site_id": "s2",
+        "target_minutes": "22",
+        "distance_km": "150",
+    }
+    data = lane_arrays(
+        "T-OBS", [*data.rows, extra], {"e1": "q1", "e2": "q2", "e3": "q1"}, {"e1", "e2", "e3"}
+    )
+    model = build_model(data, read_prior(Path.cwd(), "T-OBS", "base"), parameterization="marginal")
+    point = {
+        "alpha": 0.1,
+        "beta": -0.02,
+        "sigma_log__": np.log(0.4),
+        "tau_event_log__": np.log(0.3),
+    }
+    potential = model.compile_logp(vars=[model["event_marginal_likelihood"]])
+    expected = 0.0
+    for event in sorted(set(data.event_ids)):
+        idx = [i for i, e in enumerate(data.event_ids) if e == event]
+        expected += gaussian_event_logpdf(data.response[idx], 0.1 - 0.02 * data.x[idx], 0.4, 0.3)
+    np.testing.assert_allclose(potential(point), expected, atol=1e-10)
+    evaluate = model.compile_logp()
+    derivative = model.compile_dlogp()(point)
+    expected_gradient = []
+    for variable in model.value_vars:
+        plus, minus = dict(point), dict(point)
+        plus[variable.name] += 1e-5
+        minus[variable.name] -= 1e-5
+        expected_gradient.append((evaluate(plus) - evaluate(minus)) / (2e-5))
+    np.testing.assert_allclose(derivative, expected_gradient, atol=1e-6, rtol=1e-5)

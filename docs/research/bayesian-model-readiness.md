@@ -10,8 +10,8 @@ This is the pre-modeling bridge from the [completed EDA](../../artifacts/eda/arr
 The new [design findings](../../artifacts/eda/arrival-timing/pre-modeling-design/design-findings.md)
 use only its frozen exploration tables. They are posthoc exploratory diagnostics;
 the earlier confirmation findings retain their original status. Initial prior
-hypotheses and their simulations are now available below. No scientific posterior
-has been fitted and no reserved event outcome opened.
+hypotheses and their simulations are now available below. No posterior has been
+fitted to the actual reported times and no reserved event outcome opened.
 
 The approach follows Chris Fonnesbeck's [PyMC modeling workflow](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/pymc-modeling/references/workflow.md)
 and [prior-elicitation skill](https://github.com/fonnesbeck/pymc-agent-skills/blob/main/skills/prior-elicitation/SKILL.md):
@@ -96,6 +96,42 @@ This command saves ancestral draws in the ignored store and writes portable
 tables, figures, input hashes, seeds and a local MLflow receipt. It does not fit
 a scientific posterior. Design recovery, inference calibration, real-data
 diagnostics and grouped predictive validation remain required.
+
+## Test inference on known simulated effects
+
+The Gaussian event model supports three equivalent calculations: explicit
+non-centered effects, explicit centered effects, and an exact integral over
+the Normal event effects. The last samples four population parameters and then
+draws each event effect from its exact conditional Normal distribution. It keeps
+the hierarchy and its uncertainty. Tests compare the joint density, gradients
+and conditional draws against independent Gaussian calculations.
+
+The marginal form uses a [PyMC Potential](https://www.pymc.io/projects/docs/en/stable/api/model/generated/pymc.model.core.Potential.html).
+Its predictions require explicit forward simulation; calling an automatic
+predictive sampler on the Potential alone would omit the response mechanism.
+The prior checks above use the equivalent explicit generative model. Every
+representation rebuilds its training subset, with held-out mutation tests.
+
+For a reproducible synthetic pilot, save this JSON as `/tmp/arrival-pilot.json`:
+
+```json
+{"phase":"pilot","target":"NCEI-native-duration","parameterization":"marginal",
+ "seed":20261108,"draws":1000,"tune":1000,"cores":2,
+ "truth":{"alpha":0.15,"beta":-0.05,"tau_event":0.2,"sigma":0.3}}
+```
+
+```bash
+uv run python scripts/run_arrival_model_validation.py \
+  --job /tmp/arrival-pilot.json --output /tmp/arrival-validation/pilot \
+  --store data/processed/models/my-synthetic-pilot.nc --timeout 600
+```
+
+Use new attempt paths. The supervisor preserves failed fits, stops the process
+group on timeout or interruption, and checks a `STOP` file in the output parent.
+Exit status 2 means diagnostic screens failed; inspect the result and retained
+chains before attempting a repair. A successful pilot is computational evidence
+for this simulated case. Repeated design recovery and simulation-based calibration
+are still needed before real-data inference; neither establishes physical truth.
 
 ## What exactly would we predict?
 
