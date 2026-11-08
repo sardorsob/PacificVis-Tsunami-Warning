@@ -14,6 +14,11 @@
     "path": "artifacts/models/arrival-timing/event-score-cubature-v2/NCEI-native-duration-event-fold-20/review-acceptance.json",
     "sha256": "2aa69120cecbb33891ab5c143a16b3ed8382f89f914c78f675050927571a003f"
   },
+  "T-CAL-event-fold-06": {
+    "new_sampler_calls": 0,
+    "path": "artifacts/models/arrival-timing/event-score-cubature-v7/T-CAL-event-fold-06/review-acceptance.json",
+    "sha256": "84e7bfb88215c766ed6fb14b7afb359a72c9688311b253a91b6d1d4fe999d326"
+  },
   "T-OBS-event-fold-01": {
     "new_sampler_calls": 0,
     "path": "artifacts/models/arrival-timing/event-score-cubature-v3/T-OBS-event-fold-01/review-acceptance.json",

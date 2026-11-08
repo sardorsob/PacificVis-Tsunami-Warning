@@ -1,8 +1,8 @@
 {
-  "direct_accepted_folds": 60,
-  "externally_resolved_folds": 5,
-  "global_call_slots": 253,
-  "global_logical_completed_folds": 76,
+  "direct_accepted_folds": 65,
+  "externally_resolved_folds": 6,
+  "global_call_slots": 264,
+  "global_logical_completed_folds": 82,
   "inspected_direct_folds": [
     {
       "attempt": 1,
@@ -423,11 +423,46 @@
       "events": 1,
       "max_normalized_mcse": 0.00036336003547408517,
       "min_bridge_overlap": 0.9823482672765258
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-07",
+      "events": 1,
+      "max_normalized_mcse": 0.0002981559003847374,
+      "min_bridge_overlap": 0.9923715026618859
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-08",
+      "events": 1,
+      "max_normalized_mcse": 0.00034862321348062185,
+      "min_bridge_overlap": 0.9922868540266939
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-09",
+      "events": 2,
+      "max_normalized_mcse": 0.001081126376620304,
+      "min_bridge_overlap": 0.995004418212333
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-10",
+      "events": 1,
+      "max_normalized_mcse": 0.00035215710471790185,
+      "min_bridge_overlap": 0.9996021317616827
+    },
+    {
+      "attempt": 1,
+      "case_id": "T-CAL-event-fold-11",
+      "events": 1,
+      "max_normalized_mcse": 0.0007272588871757545,
+      "min_bridge_overlap": 0.9982004512730714
     }
   ],
-  "logical_completed_folds": 65,
+  "logical_completed_folds": 71,
   "original_failed_attempts": "retained",
-  "remaining_global_slots": 99,
+  "remaining_global_slots": 88,
   "reserved_outcomes": "sealed",
   "scope": "root_retained_identity_diagnostic_score_and_prediction_checks_not_final_scientific_acceptance"
 }

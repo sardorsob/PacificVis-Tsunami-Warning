@@ -1,19 +1,19 @@
 {
-  "completed_folds": 65,
+  "completed_folds": 71,
   "external_sampler_call_slots": 64,
-  "externally_resolved_folds": 5,
-  "fold_attempts": 70,
-  "global_calls_reserved": 253,
-  "logical_completed_folds": 76,
+  "externally_resolved_folds": 6,
+  "fold_attempts": 75,
+  "global_calls_reserved": 264,
+  "logical_completed_folds": 82,
   "logical_fold_total": 83,
   "max_sampler_calls": 313,
   "original_failure_outcomes": "retained_without_relabeling",
   "plan_sha256": "5abc455d00869b5c0cb26730dfc7ebcb1cd82e849a49378bca351d16a9b61d10",
   "planned_folds": 72,
   "prior_call_slots": 39,
-  "raw_bytes_used": 453637513,
-  "remaining_global_calls": 99,
-  "sampler_calls_reserved": 214,
+  "raw_bytes_used": 470879319,
+  "remaining_global_calls": 88,
+  "sampler_calls_reserved": 225,
   "scientific_acceptance": "pending_independent_review",
-  "status": "needs_review"
+  "status": "invocation_limit"
 }
