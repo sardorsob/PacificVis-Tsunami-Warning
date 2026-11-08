@@ -1,0 +1,1343 @@
+{
+  "edges": [
+    {
+      "augmented_chain_overlap": [
+        0.9994165554611811,
+        0.9998077619757502,
+        0.9995194112073827,
+        0.9991293035669869
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10050.330362397632,
+        "ess_tail": 5699.818061133808,
+        "passed": true,
+        "rhat": 1.0008736169823063
+      },
+      "augmented_influence_mcse": 0.00028539280864790144,
+      "augmented_q_quantiles": [
+        0.44490246883935636,
+        0.46609280553546223,
+        0.4813527921298629,
+        0.5006970713987686,
+        0.5183306790619263,
+        0.530307419006738,
+        0.5428968033111363
+      ],
+      "augmented_weight_concentration": 7993.474557938057,
+      "chain_joint_log_predictive": [
+        -0.6947328473530294,
+        -0.6945419181190592,
+        -0.693260723943162,
+        -0.693647140505614
+      ],
+      "chain_joint_log_predictive_range": 0.0014721234098674651,
+      "fixedpoint_derivative": 0.0002856395780637122,
+      "from_temperature": 0.0,
+      "implicit_root_denominator": 0.9997143604219363,
+      "joint_log_mcse_delta": 0.00040165311572815755,
+      "joint_log_predictive": -0.6940456560261729,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.0025610540812773907,
+      "normalized_mcse": 1.4821148181850832e-06,
+      "overlap": 0.9994682580528235,
+      "overlap_augmented": 0.9994682580528252,
+      "overlap_training": 0.9994682580528235,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.00390625,
+      "training_chain_overlap": [
+        0.9987299400546135,
+        0.9993118980710306,
+        1.00030369444442,
+        0.9995274996412333
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10289.344300951581,
+        "ess_tail": 5789.46825133512,
+        "passed": true,
+        "rhat": 1.0013480609230472
+      },
+      "training_influence_mcse": 0.0002826237253773983,
+      "training_q_quantiles": [
+        0.440727493598246,
+        0.4641637024667045,
+        0.4809894697166349,
+        0.5002894904868953,
+        0.5177392667954193,
+        0.530747548324999,
+        0.547496692841819
+      ],
+      "training_weight_concentration": 7993.451072250102
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9915314523011203,
+        0.9915684180818862,
+        0.992472413837324,
+        0.9905923010979182
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10679.582362920912,
+        "ess_tail": 5834.3446273725,
+        "passed": true,
+        "rhat": 1.0010449587013104
+      },
+      "augmented_influence_mcse": 0.0008117611443391665,
+      "augmented_q_quantiles": [
+        0.3371174939250017,
+        0.39950277934703027,
+        0.4500778031931134,
+        0.5064366991896259,
+        0.5557528413344075,
+        0.5934706248485045,
+        0.6310194914182292
+      ],
+      "augmented_weight_concentration": 7944.52007301515,
+      "chain_joint_log_predictive": [
+        -2.0616535676797003,
+        -2.062886474259413,
+        -2.062907966327055,
+        -2.059878298917293
+      ],
+      "chain_joint_log_predictive_range": 0.0030296674097618492,
+      "fixedpoint_derivative": -0.0013424537738420117,
+      "from_temperature": 0.00390625,
+      "implicit_root_denominator": 1.001342453773842,
+      "joint_log_mcse_delta": 0.0011793048298664097,
+      "joint_log_predictive": -2.061831343571282,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.0076082337401154315,
+      "normalized_mcse": 4.351678338990442e-06,
+      "overlap": 0.9915411463295617,
+      "overlap_augmented": 0.9915411463295617,
+      "overlap_training": 0.9915411463295635,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.015625,
+      "training_chain_overlap": [
+        0.9917079552389706,
+        0.9905206963836877,
+        0.9914038860562755,
+        0.9925320476393196
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10050.330362397632,
+        "ess_tail": 5699.818061133808,
+        "passed": true,
+        "rhat": 1.0008753097040022
+      },
+      "training_influence_mcse": 0.000855455274276457,
+      "training_q_quantiles": [
+        0.3353308249828311,
+        0.39464763381854656,
+        0.43925751183873485,
+        0.4970148448933793,
+        0.5497748781075975,
+        0.5851205261646536,
+        0.6214540709527849
+      ],
+      "training_weight_concentration": 7941.465055663568
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9797460046584805,
+        0.9787776118962292,
+        0.9845810882330979,
+        0.9827159209041587
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10259.390871054697,
+        "ess_tail": 5763.09724186894,
+        "passed": true,
+        "rhat": 0.9999667599676653
+      },
+      "augmented_influence_mcse": 0.001345893369794337,
+      "augmented_q_quantiles": [
+        0.27461656728583783,
+        0.34408133817468806,
+        0.4217911828680006,
+        0.5118038841777566,
+        0.593981451644732,
+        0.6529539822812533,
+        0.7214488073536961
+      ],
+      "augmented_weight_concentration": 7853.625143976422,
+      "chain_joint_log_predictive": [
+        -3.368166192264569,
+        -3.3672613719337163,
+        -3.374664455533154,
+        -3.3696694239755565
+      ],
+      "chain_joint_log_predictive_range": 0.007403083599437643,
+      "fixedpoint_derivative": 6.786507023548438e-05,
+      "from_temperature": 0.015625,
+      "implicit_root_denominator": 0.9999321349297645,
+      "joint_log_mcse_delta": 0.0019046301018513282,
+      "joint_log_predictive": -3.369938569843133,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.012435197674697907,
+      "normalized_mcse": 7.028155357384975e-06,
+      "overlap": 0.9814551564229906,
+      "overlap_augmented": 0.9814551564229923,
+      "overlap_training": 0.9814551564229906,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.03515625,
+      "training_chain_overlap": [
+        0.9814863704990978,
+        0.9814060456857691,
+        0.9799481226654602,
+        0.9829800868416394
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10679.582362920912,
+        "ess_tail": 5834.3446273725,
+        "passed": true,
+        "rhat": 1.0010480540591287
+      },
+      "training_influence_mcse": 0.0013476597723542263,
+      "training_q_quantiles": [
+        0.23265305309402523,
+        0.3217642477816365,
+        0.40122242763846505,
+        0.4941169454773835,
+        0.5761017035366659,
+        0.637401950338051,
+        0.6959053270416441
+      ],
+      "training_weight_concentration": 7848.593339191755
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9628903818818386,
+        0.9723199308517622,
+        0.9686165732523514,
+        0.9638448555340507
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10097.041250287191,
+        "ess_tail": 5825.937731136735,
+        "passed": true,
+        "rhat": 1.0016304557446254
+      },
+      "augmented_influence_mcse": 0.0018072704708243289,
+      "augmented_q_quantiles": [
+        0.1874185650129222,
+        0.3009711595801999,
+        0.3991454301439232,
+        0.5205427096056204,
+        0.6274531300623732,
+        0.709582426940731,
+        0.7731346822589293
+      ],
+      "augmented_weight_concentration": 7740.631571664636,
+      "chain_joint_log_predictive": [
+        -4.589600092887919,
+        -4.597891138999022,
+        -4.602238084031865,
+        -4.5947714611325114
+      ],
+      "chain_joint_log_predictive_range": 0.012637991143946259,
+      "fixedpoint_derivative": 0.0006502582073466545,
+      "from_temperature": 0.03515625,
+      "implicit_root_denominator": 0.9993497417926533,
+      "joint_log_mcse_delta": 0.002603105848923211,
+      "joint_log_predictive": -4.596121688997865,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.016959858630988433,
+      "normalized_mcse": 9.60555663809303e-06,
+      "overlap": 0.9669179353800009,
+      "overlap_augmented": 0.9669179353800009,
+      "overlap_training": 0.9669179353800113,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.0658141036401503e-14,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.0625,
+      "training_chain_overlap": [
+        0.9692024986532326,
+        0.9706123586940367,
+        0.9627074988733714,
+        0.9651493852994005
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10259.390871054697,
+        "ess_tail": 5763.09724186894,
+        "passed": true,
+        "rhat": 0.9999616305260979
+      },
+      "training_influence_mcse": 0.0018734816534956083,
+      "training_q_quantiles": [
+        0.18517882410120004,
+        0.2640517873454541,
+        0.3627641571213211,
+        0.48608402655983024,
+        0.6012884722446684,
+        0.6820213374641504,
+        0.7703929043215467
+      ],
+      "training_weight_concentration": 7720.029443947961
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9499404436550315,
+        0.9539639155185923,
+        0.9508079291039674,
+        0.9541849879313461
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11549.706487044046,
+        "ess_tail": 5726.079396721839,
+        "passed": true,
+        "rhat": 0.9998071223499022
+      },
+      "augmented_influence_mcse": 0.0021265831987841263,
+      "augmented_q_quantiles": [
+        0.1389279948480866,
+        0.26316689784436775,
+        0.3783635821861036,
+        0.5285020948787746,
+        0.6612337793343135,
+        0.7503044573875616,
+        0.8501074299929599
+      ],
+      "augmented_weight_concentration": 7603.707018789901,
+      "chain_joint_log_predictive": [
+        -5.712971959575711,
+        -5.728707930567213,
+        -5.721269720463533,
+        -5.718246668209226
+      ],
+      "chain_joint_log_predictive_range": 0.015735970991501702,
+      "fixedpoint_derivative": 0.003009036310367419,
+      "from_temperature": 0.0625,
+      "implicit_root_denominator": 0.9969909636896326,
+      "joint_log_mcse_delta": 0.003139781698991618,
+      "joint_log_predictive": -5.72028833745781,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.02110807504596978,
+      "normalized_mcse": 1.1585910328382354e-05,
+      "overlap": 0.9522243190491289,
+      "overlap_augmented": 0.9522243190522344,
+      "overlap_training": 0.9522243190491289,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 3.26139115713886e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.09765625,
+      "training_chain_overlap": [
+        0.9568974983983515,
+        0.945997987250192,
+        0.9498758432287996,
+        0.9561259473191721
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10097.041250287191,
+        "ess_tail": 5825.937731136735,
+        "passed": true,
+        "rhat": 1.0016040697431061
+      },
+      "training_influence_mcse": 0.0023099508687354723,
+      "training_q_quantiles": [
+        0.11155164182897295,
+        0.21883753438928194,
+        0.32851637493045255,
+        0.4791862222467044,
+        0.6180405805694767,
+        0.7230398517833871,
+        0.8001767022287366
+      ],
+      "training_weight_concentration": 7586.195367213752
+    },
+    {
+      "augmented_chain_overlap": [
+        0.932802674893592,
+        0.9334177921243109,
+        0.935134521300913,
+        0.9312455182431053
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 9666.702081405721,
+        "ess_tail": 5902.06817441971,
+        "passed": true,
+        "rhat": 1.0006018014065965
+      },
+      "augmented_influence_mcse": 0.0026391594416635233,
+      "augmented_q_quantiles": [
+        0.1244469451848711,
+        0.23794073959371526,
+        0.36932575800930273,
+        0.5409802920470775,
+        0.6885767571928997,
+        0.781698769532824,
+        0.858594579246549
+      ],
+      "augmented_weight_concentration": 7490.2400149150535,
+      "chain_joint_log_predictive": [
+        -6.720948212582479,
+        -6.726704480299454,
+        -6.724679731644808,
+        -6.725442475456391
+      ],
+      "chain_joint_log_predictive_range": 0.005756267716975572,
+      "fixedpoint_derivative": 0.0006755525179730215,
+      "from_temperature": 0.09765625,
+      "implicit_root_denominator": 0.999324447482027,
+      "joint_log_mcse_delta": 0.00367403825413471,
+      "joint_log_predictive": -6.7244454674174445,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.024813451909289463,
+      "normalized_mcse": 1.3557336731124391e-05,
+      "overlap": 0.9331501266404797,
+      "overlap_augmented": 0.9331501266404797,
+      "overlap_training": 0.9331501266414876,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.0800249583553523e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.140625,
+      "training_chain_overlap": [
+        0.9360572002024778,
+        0.9313133569967145,
+        0.9349157703124898,
+        0.9303141790542704
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11549.706487044046,
+        "ess_tail": 5726.079396721839,
+        "passed": true,
+        "rhat": 0.9998357855978769
+      },
+      "training_influence_mcse": 0.0025560505735066174,
+      "training_q_quantiles": [
+        0.0760952486594876,
+        0.178669945879536,
+        0.2944535928753146,
+        0.46816232044636763,
+        0.6342285609539583,
+        0.7460614600681218,
+        0.8646054344480044
+      ],
+      "training_weight_concentration": 7430.323159385328
+    },
+    {
+      "augmented_chain_overlap": [
+        0.909974049073704,
+        0.9300100621763163,
+        0.9173472999301284,
+        0.9095187419572132
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10644.901879848421,
+        "ess_tail": 4914.902819158749,
+        "passed": true,
+        "rhat": 1.0011020240057769
+      },
+      "augmented_influence_mcse": 0.00286756067536726,
+      "augmented_q_quantiles": [
+        0.08352618235597986,
+        0.21348920617037176,
+        0.35882920257712986,
+        0.5488686383924419,
+        0.7121808794925515,
+        0.815125383812462,
+        0.8835249728203501
+      ],
+      "augmented_weight_concentration": 7361.131180698074,
+      "chain_joint_log_predictive": [
+        -7.588609377543558,
+        -7.611334140408289,
+        -7.600482538812487,
+        -7.586612363360039
+      ],
+      "chain_joint_log_predictive_range": 0.024721777048250182,
+      "fixedpoint_derivative": -0.0009546781241600577,
+      "from_temperature": 0.140625,
+      "implicit_root_denominator": 1.00095467812416,
+      "joint_log_mcse_delta": 0.004195278115547642,
+      "joint_log_predictive": -7.596754576803844,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.028032304711453297,
+      "normalized_mcse": 1.5480731053681337e-05,
+      "overlap": 0.9167125382843413,
+      "overlap_augmented": 0.9167125382843413,
+      "overlap_training": 0.9167125382876143,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 3.5704772471945034e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.19140625,
+      "training_chain_overlap": [
+        0.9174393856265561,
+        0.9166599267892941,
+        0.9139181176005672,
+        0.9188327231340355
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 9666.702081405721,
+        "ess_tail": 5902.06817441971,
+        "passed": true,
+        "rhat": 1.0006024712828818
+      },
+      "training_influence_mcse": 0.003062262927947279,
+      "training_q_quantiles": [
+        0.06561914871631805,
+        0.15110547339579858,
+        0.2723523023719706,
+        0.4610399426474172,
+        0.6427739983102135,
+        0.760823990776257,
+        0.8558557907834755
+      ],
+      "training_weight_concentration": 7320.398468777275
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9008616221347181,
+        0.9021768572728297,
+        0.9108558812900374,
+        0.9151062847634307
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 9807.846223227027,
+        "ess_tail": 5398.900837964709,
+        "passed": true,
+        "rhat": 1.0010690312864423
+      },
+      "augmented_influence_mcse": 0.0031519834497562974,
+      "augmented_q_quantiles": [
+        0.07107793098369952,
+        0.20917393308177606,
+        0.3553519953385543,
+        0.5543188261842544,
+        0.7274503917832889,
+        0.8199771237597174,
+        0.9201309306732205
+      ],
+      "augmented_weight_concentration": 7294.136919410422,
+      "chain_joint_log_predictive": [
+        -8.336556501120757,
+        -8.361525038444979,
+        -8.356607213544653,
+        -8.351859647982169
+      ],
+      "chain_joint_log_predictive_range": 0.024968537324221884,
+      "fixedpoint_derivative": 0.0014461080086503042,
+      "from_temperature": 0.19140625,
+      "implicit_root_denominator": 0.9985538919913497,
+      "joint_log_mcse_delta": 0.004501548668238385,
+      "joint_log_predictive": -8.351632532338678,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.03081783222265195,
+      "normalized_mcse": 1.6610880694606586e-05,
+      "overlap": 0.9072501613430275,
+      "overlap_augmented": 0.9072501613652546,
+      "overlap_training": 0.9072501613430275,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 2.4499513529008254e-11,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.25,
+      "training_chain_overlap": [
+        0.9145161731440846,
+        0.8932244163834988,
+        0.9063603106788147,
+        0.9148997451657105
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10644.901879848421,
+        "ess_tail": 4914.902819158749,
+        "passed": true,
+        "rhat": 1.001095282081274
+      },
+      "training_influence_mcse": 0.0032138669457494914,
+      "training_q_quantiles": [
+        0.04001182809017503,
+        0.1280298117199427,
+        0.25282483176446346,
+        0.45324112459465765,
+        0.6528364738522379,
+        0.7855094149903851,
+        0.8725970286006881
+      ],
+      "training_weight_concentration": 7201.496326749655
+    },
+    {
+      "augmented_chain_overlap": [
+        0.890045438638401,
+        0.8969491105193319,
+        0.8933951871125165,
+        0.8956511709527092
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10785.184881286521,
+        "ess_tail": 5466.539638899791,
+        "passed": true,
+        "rhat": 1.0007694162255873
+      },
+      "augmented_influence_mcse": 0.0031487841743225277,
+      "augmented_q_quantiles": [
+        0.09728200005985943,
+        0.20742782808624852,
+        0.351348338396674,
+        0.5630320850437045,
+        0.7393807012215969,
+        0.8347034478863474,
+        0.8960497899555667
+      ],
+      "augmented_weight_concentration": 7225.518892401214,
+      "chain_joint_log_predictive": [
+        -8.986215393384722,
+        -8.997866630067342,
+        -9.001106186245158,
+        -9.011309819125827
+      ],
+      "chain_joint_log_predictive_range": 0.025094425741105653,
+      "fixedpoint_derivative": -0.0042326971109032385,
+      "from_temperature": 0.25,
+      "implicit_root_denominator": 1.0042326971109032,
+      "joint_log_mcse_delta": 0.004667442590039938,
+      "joint_log_predictive": -8.999142261125145,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.03320716701522194,
+      "normalized_mcse": 1.7223035387601247e-05,
+      "overlap": 0.8940102267983903,
+      "overlap_augmented": 0.8940102268057399,
+      "overlap_training": 0.8940102267983903,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 8.220979452744359e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.31640625,
+      "training_chain_overlap": [
+        0.9016158654291749,
+        0.8980975746585043,
+        0.89163753717895,
+        0.884689929926928
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 9807.846223227027,
+        "ess_tail": 5398.900837964709,
+        "passed": true,
+        "rhat": 1.0011809318806453
+      },
+      "training_influence_mcse": 0.0034453125482102084,
+      "training_q_quantiles": [
+        0.03295860390453914,
+        0.12203757609989621,
+        0.24212770327632907,
+        0.44551217580769104,
+        0.6562394895001641,
+        0.7776995176460187,
+        0.9092052731275684
+      ],
+      "training_weight_concentration": 7139.9569017423355
+    },
+    {
+      "augmented_chain_overlap": [
+        0.8980703448609006,
+        0.898907039352067,
+        0.88574812285117,
+        0.8918492933316335
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10420.547839620893,
+        "ess_tail": 5772.1744375231165,
+        "passed": true,
+        "rhat": 1.000065746335288
+      },
+      "augmented_influence_mcse": 0.003325128217535609,
+      "augmented_q_quantiles": [
+        0.06853227210746682,
+        0.19654374787874535,
+        0.3418166431591923,
+        0.5640722889177355,
+        0.7468551192201325,
+        0.8375869596097273,
+        0.8986082726938305
+      ],
+      "augmented_weight_concentration": 7174.782511052999,
+      "chain_joint_log_predictive": [
+        -9.557867021493795,
+        -9.566826196556612,
+        -9.549564450733762,
+        -9.559960177133785
+      ],
+      "chain_joint_log_predictive_range": 0.017261745822850116,
+      "fixedpoint_derivative": 0.0016473651049219162,
+      "from_temperature": 0.31640625,
+      "implicit_root_denominator": 0.9983526348950781,
+      "joint_log_mcse_delta": 0.004779632016023696,
+      "joint_log_predictive": -9.558540708586921,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.03527136792836502,
+      "normalized_mcse": 1.7637018509312532e-05,
+      "overlap": 0.8936437000988338,
+      "overlap_augmented": 0.8936437000989432,
+      "overlap_training": 0.8936437000988338,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.2256862191861728e-13,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.390625,
+      "training_chain_overlap": [
+        0.898670523797228,
+        0.8915334206833168,
+        0.8937880019002181,
+        0.8905828540145719
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10785.184881286521,
+        "ess_tail": 5466.539638899791,
+        "passed": true,
+        "rhat": 1.0007563507193795
+      },
+      "training_influence_mcse": 0.003433424608979671,
+      "training_q_quantiles": [
+        0.047915530471891656,
+        0.11946248231184872,
+        0.2342308940528979,
+        0.4462024239190755,
+        0.6606304086475158,
+        0.7876003648194683,
+        0.8708147013899317
+      ],
+      "training_weight_concentration": 7100.388608263767
+    },
+    {
+      "augmented_chain_overlap": [
+        0.8833586802119876,
+        0.8741228793387387,
+        0.8994890704695906,
+        0.8899851332397566
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10233.299722823762,
+        "ess_tail": 5889.546809638542,
+        "passed": true,
+        "rhat": 1.0011052247488303
+      },
+      "augmented_influence_mcse": 0.0034662385317856207,
+      "augmented_q_quantiles": [
+        0.09806233597497582,
+        0.18248321447847793,
+        0.3436272630017509,
+        0.5667863236868905,
+        0.7534084165663437,
+        0.8492840498238551,
+        0.9246883563890483
+      ],
+      "augmented_weight_concentration": 7126.37655177428,
+      "chain_joint_log_predictive": [
+        -10.049754177055757,
+        -10.040599382892559,
+        -10.054994935516739,
+        -10.04880217723749
+      ],
+      "chain_joint_log_predictive_range": 0.014395552624179686,
+      "fixedpoint_derivative": 0.0007859211270302424,
+      "from_temperature": 0.390625,
+      "implicit_root_denominator": 0.9992140788729698,
+      "joint_log_mcse_delta": 0.004976440871174863,
+      "joint_log_predictive": -10.048541093409167,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.03707948742955412,
+      "normalized_mcse": 1.8363250447139715e-05,
+      "overlap": 0.886738940813049,
+      "overlap_augmented": 0.886738940815018,
+      "overlap_training": 0.886738940813049,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 2.220446049250313e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.47265625,
+      "training_chain_overlap": [
+        0.8822860512865174,
+        0.8811671060003878,
+        0.8937481249165935,
+        0.8897544810487018
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10420.547839620893,
+        "ess_tail": 5772.1744375231165,
+        "passed": true,
+        "rhat": 1.0000301038689514
+      },
+      "training_influence_mcse": 0.0035707358044336306,
+      "training_q_quantiles": [
+        0.03228614524161647,
+        0.11180709007477595,
+        0.2243767640080669,
+        0.4424243178439357,
+        0.6636567001624784,
+        0.785311516491481,
+        0.8693657995761161
+      ],
+      "training_weight_concentration": 7050.708613496876
+    },
+    {
+      "augmented_chain_overlap": [
+        0.8713189425520064,
+        0.8854831755773037,
+        0.8813189467676448,
+        0.8860614295669338
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 12288.947078344903,
+        "ess_tail": 5524.872859917302,
+        "passed": true,
+        "rhat": 1.0004465054089748
+      },
+      "augmented_influence_mcse": 0.0032145976625145237,
+      "augmented_q_quantiles": [
+        0.06732422800769666,
+        0.1851954820143321,
+        0.34046522960753983,
+        0.5708452068957439,
+        0.7583463056265018,
+        0.8553868564071455,
+        0.925520226550581
+      ],
+      "augmented_weight_concentration": 7096.055579354917,
+      "chain_joint_log_predictive": [
+        -10.444068607572454,
+        -10.451295393268268,
+        -10.474267835600731,
+        -10.468187547779253
+      ],
+      "chain_joint_log_predictive_range": 0.030199228028276792,
+      "fixedpoint_derivative": -0.0007733934658724628,
+      "from_temperature": 0.47265625,
+      "implicit_root_denominator": 1.0007733934658725,
+      "joint_log_mcse_delta": 0.00489023750894763,
+      "joint_log_predictive": -10.459415577325416,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.03859562943662515,
+      "normalized_mcse": 1.804515685958535e-05,
+      "overlap": 0.8810456236159712,
+      "overlap_augmented": 0.8810456236159712,
+      "overlap_training": 0.8810456236161996,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 2.5934809855243657e-13,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.5625,
+      "training_chain_overlap": [
+        0.8848653329430833,
+        0.8926930191709809,
+        0.8682528528521624,
+        0.8783712894985696
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10233.299722823762,
+        "ess_tail": 5889.546809638542,
+        "passed": true,
+        "rhat": 1.0008580558488398
+      },
+      "training_influence_mcse": 0.0036852116305681124,
+      "training_q_quantiles": [
+        0.04850353473660608,
+        0.10078224904248173,
+        0.22184684962649692,
+        0.4373847465275431,
+        0.6630941650083727,
+        0.7937261247488537,
+        0.9002973443667951
+      ],
+      "training_weight_concentration": 7012.0849428478405
+    },
+    {
+      "augmented_chain_overlap": [
+        0.877720609289684,
+        0.8839761171895865,
+        0.8844879424242227,
+        0.8887863961396563
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10623.623368976514,
+        "ess_tail": 5689.477943509566,
+        "passed": true,
+        "rhat": 0.9997396807554587
+      },
+      "augmented_influence_mcse": 0.0034608836728905632,
+      "augmented_q_quantiles": [
+        0.055111138432459406,
+        0.18338107645758614,
+        0.33838392758917973,
+        0.5687128356677118,
+        0.7578502183938081,
+        0.858806003980322,
+        0.9237613831810306
+      ],
+      "augmented_weight_concentration": 7094.710098390096,
+      "chain_joint_log_predictive": [
+        -10.798273062797621,
+        -10.821879587592178,
+        -10.817864314450182,
+        -10.825448222605969
+      ],
+      "chain_joint_log_predictive_range": 0.027175159808347615,
+      "fixedpoint_derivative": 0.0029262898745694432,
+      "from_temperature": 0.5625,
+      "implicit_root_denominator": 0.9970737101254306,
+      "joint_log_mcse_delta": 0.004848763803829999,
+      "joint_log_predictive": -10.81583948605561,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.039910846812013324,
+      "normalized_mcse": 1.789211735730627e-05,
+      "overlap": 0.8837427662607867,
+      "overlap_augmented": 0.8837427662607867,
+      "overlap_training": 0.8837427662608025,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.7763568394002505e-14,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.66015625,
+      "training_chain_overlap": [
+        0.8932481279813719,
+        0.8786515052470848,
+        0.8826988985369062,
+        0.8803725332778457
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 12288.947078344903,
+        "ess_tail": 5524.872859917302,
+        "passed": true,
+        "rhat": 1.000439663372866
+      },
+      "training_influence_mcse": 0.0033959968533630127,
+      "training_q_quantiles": [
+        0.03197831657879522,
+        0.10308048555803966,
+        0.21894761618876377,
+        0.43955177491229136,
+        0.665964803257529,
+        0.7988248246542146,
+        0.8989719306591208
+      ],
+      "training_weight_concentration": 7004.494743759623
+    },
+    {
+      "augmented_chain_overlap": [
+        0.887681956971079,
+        0.8812458262072271,
+        0.8810696237971014,
+        0.8761824550361358
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11828.083509263264,
+        "ess_tail": 5778.259298962093,
+        "passed": true,
+        "rhat": 1.0012718355686436
+      },
+      "augmented_influence_mcse": 0.003235444288569404,
+      "augmented_q_quantiles": [
+        0.057562160411528285,
+        0.19237933688677789,
+        0.3424917371333815,
+        0.5693548793890073,
+        0.7589115344517751,
+        0.8497734882782629,
+        0.9087781779220654
+      ],
+      "augmented_weight_concentration": 7111.2677431843285,
+      "chain_joint_log_predictive": [
+        -11.131518022864542,
+        -11.131418764508823,
+        -11.13240898705895,
+        -11.130117910737816
+      ],
+      "chain_joint_log_predictive_range": 0.0022910763211339003,
+      "fixedpoint_derivative": -0.0005678826966497574,
+      "from_temperature": 0.66015625,
+      "implicit_root_denominator": 1.0005678826966498,
+      "joint_log_mcse_delta": 0.004876883010424916,
+      "joint_log_predictive": -11.13136787666871,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.0410751582164897,
+      "normalized_mcse": 1.7995878267250612e-05,
+      "overlap": 0.8815449654956482,
+      "overlap_augmented": 0.881544965502886,
+      "overlap_training": 0.8815449654956482,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 8.210321311707958e-12,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.765625,
+      "training_chain_overlap": [
+        0.8875489386268101,
+        0.8812011047457214,
+        0.8801487458478348,
+        0.8772810727622282
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10623.623368976514,
+        "ess_tail": 5689.477943509566,
+        "passed": true,
+        "rhat": 0.9997551422437656
+      },
+      "training_influence_mcse": 0.0036490941551205304,
+      "training_q_quantiles": [
+        0.02611479375372059,
+        0.1031380701865192,
+        0.21859320235020482,
+        0.43757512423725864,
+        0.6642886095945432,
+        0.8022000976603905,
+        0.8951456092750455
+      ],
+      "training_weight_concentration": 7002.307285128683
+    },
+    {
+      "augmented_chain_overlap": [
+        0.890555179107907,
+        0.9003678249031744,
+        0.8876163972289955,
+        0.8922347452307327
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11883.606849763017,
+        "ess_tail": 5461.145813794664,
+        "passed": true,
+        "rhat": 1.0002425321143256
+      },
+      "augmented_influence_mcse": 0.0033149418498994126,
+      "augmented_q_quantiles": [
+        0.057618947755210814,
+        0.18156677643869307,
+        0.33778843392335656,
+        0.5648134996115008,
+        0.7516393159469568,
+        0.8426062052280621,
+        0.9200881344191053
+      ],
+      "augmented_weight_concentration": 7131.39081501402,
+      "chain_joint_log_predictive": [
+        -11.435618859060408,
+        -11.436003930127814,
+        -11.424237612032275,
+        -11.422905975332405
+      ],
+      "chain_joint_log_predictive_range": 0.013097954795409095,
+      "fixedpoint_derivative": 0.0072315704816070525,
+      "from_temperature": 0.765625,
+      "implicit_root_denominator": 0.992768429518393,
+      "joint_log_mcse_delta": 0.004746532689559278,
+      "joint_log_predictive": -11.429690132685632,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.042175978349393475,
+      "normalized_mcse": 1.751488077328147e-05,
+      "overlap": 0.8926935366177037,
+      "overlap_augmented": 0.8926935366177037,
+      "overlap_training": 0.892693536630296,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 1.4106049661677389e-11,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 0.87890625,
+      "training_chain_overlap": [
+        0.8852971537570418,
+        0.8947788580320659,
+        0.8924504326353786,
+        0.8982477020966957
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11828.083509263264,
+        "ess_tail": 5778.259298962093,
+        "passed": true,
+        "rhat": 1.0012521905792702
+      },
+      "training_influence_mcse": 0.003397165451496335,
+      "training_q_quantiles": [
+        0.028500755898385688,
+        0.11233437278975467,
+        0.2267516107691896,
+        0.443660024036933,
+        0.6693928017712097,
+        0.7916598167865905,
+        0.8746665967960396
+      ],
+      "training_weight_concentration": 7049.629530012197
+    },
+    {
+      "augmented_chain_overlap": [
+        0.8881296616012588,
+        0.8916562874388132,
+        0.8848013681052694,
+        0.8987813939817082
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10144.753101479486,
+        "ess_tail": 5320.322943601198,
+        "passed": true,
+        "rhat": 1.001094399504111
+      },
+      "augmented_influence_mcse": 0.0033734619499360364,
+      "augmented_q_quantiles": [
+        0.06197269946515005,
+        0.19358176367082228,
+        0.3490998065182636,
+        0.5653338162024998,
+        0.7442998492799983,
+        0.843195402129971,
+        0.9168781664279125
+      ],
+      "augmented_weight_concentration": 7180.540467502708,
+      "chain_joint_log_predictive": [
+        -11.710333912662787,
+        -11.727181575139367,
+        -11.703080148476348,
+        -11.724096554653523
+      ],
+      "chain_joint_log_predictive_range": 0.02410142666301951,
+      "fixedpoint_derivative": 0.0008995594110507987,
+      "from_temperature": 0.87890625,
+      "implicit_root_denominator": 0.9991004405889492,
+      "joint_log_mcse_delta": 0.004757513781917034,
+      "joint_log_predictive": -11.716182162698122,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -0.043233144511801186,
+      "normalized_mcse": 1.755540140928795e-05,
+      "overlap": 0.8908421777817626,
+      "overlap_augmented": 0.8908421777817626,
+      "overlap_training": 0.890842177782443,
+      "precision_passed": true,
+      "records": 271,
+      "root_log_equation_residual": 7.638334409421077e-13,
+      "s0": 0.5,
+      "s1": 0.5,
+      "to_temperature": 1.0,
+      "training_chain_overlap": [
+        0.8933359928271587,
+        0.8818110672206744,
+        0.8964506598767891,
+        0.8917709912051498
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11883.606849763017,
+        "ess_tail": 5461.145813794664,
+        "passed": true,
+        "rhat": 1.000216548074076
+      },
+      "training_influence_mcse": 0.0033546522707225976,
+      "training_q_quantiles": [
+        0.029625435232325345,
+        0.10799596097482961,
+        0.22769844231047554,
+        0.4444648781305603,
+        0.6641810738628504,
+        0.7844336353266785,
+        0.891900550866427
+      ],
+      "training_weight_concentration": 7061.125338688197
+    }
+  ],
+  "event_id": "official20110311054624120_30",
+  "finite_ladder_discretization_error": "not_applicable_normalizer_ratios_telescope_exactly",
+  "joint_log_mcse_delta": 0.022392882080349397,
+  "joint_log_predictive": -1650.5125656105124,
+  "kind": "mean-curvature",
+  "mcse_scope": "shared_middle_stage_influences_summed_before_independent_stage_variances",
+  "method": "fixed_geometric_full_coefficient_coordinate_path",
+  "native_jacobian_subtracted_once": 1527.2387881395014,
+  "normalized_event_score": -6.090452271625507,
+  "normalized_mcse": 8.26305611821011e-05,
+  "precision_passed": true,
+  "records": 271,
+  "sequence": "seq-official20110311054624120_30",
+  "source_training_posterior_sha": "fd4ade8afbf89be2eb7234082a6ea9662436816c9008eb30e8bcee6f6d3fb15c",
+  "stage_functional_mixing": [
+    {
+      "constant": false,
+      "ess_bulk": 10289.344300951581,
+      "ess_tail": 5789.46825133512,
+      "passed": true,
+      "rhat": 1.0013480609230472
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10050.330362397632,
+      "ess_tail": 5699.818061133808,
+      "passed": true,
+      "rhat": 1.0008771388891364
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10679.582362920912,
+      "ess_tail": 5834.3446273725,
+      "passed": true,
+      "rhat": 1.0010477221400762
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10259.390871054697,
+      "ess_tail": 5763.09724186894,
+      "passed": true,
+      "rhat": 0.9999644322386857
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10097.041250287191,
+      "ess_tail": 5825.937731136735,
+      "passed": true,
+      "rhat": 1.001617638808237
+    },
+    {
+      "constant": false,
+      "ess_bulk": 11549.706487044046,
+      "ess_tail": 5726.079396721839,
+      "passed": true,
+      "rhat": 0.999821618586313
+    },
+    {
+      "constant": false,
+      "ess_bulk": 9666.702081405721,
+      "ess_tail": 5902.06817441971,
+      "passed": true,
+      "rhat": 1.0006040250570474
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10644.901879848421,
+      "ess_tail": 4914.902819158749,
+      "passed": true,
+      "rhat": 1.0010994052689461
+    },
+    {
+      "constant": false,
+      "ess_bulk": 9807.846223227027,
+      "ess_tail": 5398.900837964709,
+      "passed": true,
+      "rhat": 1.0011335513683055
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10785.184881286521,
+      "ess_tail": 5466.539638899791,
+      "passed": true,
+      "rhat": 1.000769001664682
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10420.547839620893,
+      "ess_tail": 5772.1744375231165,
+      "passed": true,
+      "rhat": 1.000039338731042
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10233.299722823762,
+      "ess_tail": 5889.546809638542,
+      "passed": true,
+      "rhat": 1.001008960449591
+    },
+    {
+      "constant": false,
+      "ess_bulk": 12288.947078344903,
+      "ess_tail": 5524.872859917302,
+      "passed": true,
+      "rhat": 1.0004616021259634
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10623.623368976514,
+      "ess_tail": 5689.477943509566,
+      "passed": true,
+      "rhat": 0.99975151903843
+    },
+    {
+      "constant": false,
+      "ess_bulk": 11828.083509263264,
+      "ess_tail": 5778.259298962093,
+      "passed": true,
+      "rhat": 1.0012701035144869
+    },
+    {
+      "constant": false,
+      "ess_bulk": 11883.606849763017,
+      "ess_tail": 5461.145813794664,
+      "passed": true,
+      "rhat": 1.0002459197945617
+    },
+    {
+      "constant": false,
+      "ess_bulk": 10144.753101479486,
+      "ess_tail": 5320.322943601198,
+      "passed": true,
+      "rhat": 1.001094399504111
+    }
+  ],
+  "stage_raw_mcse": [
+    0.0002826237253773983,
+    0.0011408436866985755,
+    0.0021593523315972564,
+    0.0032190422604975208,
+    0.004116227280505052,
+    0.004679136282966435,
+    0.005694622547999177,
+    0.0060676349418866205,
+    0.006581235358190604,
+    0.006560796989577691,
+    0.006873649280094007,
+    0.007123931580902883,
+    0.006577770103169261,
+    0.007080090873559385,
+    0.006609920629452235,
+    0.0066431885824225585,
+    0.0033734619499360364
+  ],
+  "target": "NCEI-native-duration"
+}
