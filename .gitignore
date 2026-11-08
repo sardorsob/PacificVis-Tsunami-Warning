@@ -67,3 +67,4 @@ artifacts/models/arrival-timing/**/.controller.lock
 # Retain the unreviewed report render locally within the monitored working store.
 artifacts/models/arrival-timing/mean-curvature-calibration-v1/unreviewed-recovery-report-v1/
 artifacts/models/arrival-timing/mean-curvature-calibration-v1/checker-sbc-report-replay-v1/
+artifacts/models/arrival-timing/mean-curvature-calibration-v1/checker-sbc-figure-replay-v1/

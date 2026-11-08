@@ -1,0 +1,8 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "max_sampler_call_slots": 1,
+  "parent_and_actual_working_bytes": 800457874,
+  "reserved_outcomes": "sealed",
+  "sampler_call_slots_used": 1,
+  "status": "computed_pending_independent_review"
+}

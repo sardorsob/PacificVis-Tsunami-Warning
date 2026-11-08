@@ -1,0 +1,9 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "kind": "mean-curvature",
+  "prior": "base",
+  "seed": 2846110800,
+  "target": "NCEI-native-duration",
+  "tune": 1000
+}
