@@ -1,0 +1,200 @@
+{
+  "RNG_semantics": {
+    "posterior_predictive_pooled_summary_does_not_consume_unused_event_u": true,
+    "simulation_draws_sorted_event_normals_even_for_tau0": true
+  },
+  "audit_code_files": {
+    "/private/tmp/audit-ms6-G2-closed-diagnostic.py": "bb09151069c5d8eb05d2a1f15df6dffbfe9fe92cfef76772c6e7faa5abf7d916",
+    "/private/tmp/chartcheck-ms6-G2-trusted-plots.py": "6f531b44a58e4e4c8f60d095e0f52c19b38cc3683e4f9729e83dd083b1ac4fff",
+    "/private/tmp/check-ms6-recovery-science.py": "7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713"
+  },
+  "cause": {
+    "all_keys_labels_dtypes_constants_and_other_values_identical": true,
+    "boundary": "G.case_artifacts exact dictionary equality for derived numerical error diagnostics",
+    "differences": [
+      {
+        "absolute_delta": 1.2434497875801753e-14,
+        "fresh": 2.842170943040401e-14,
+        "path": ".points[2].gradient_max_absolute_error",
+        "saved": 1.5987211554602254e-14
+      }
+    ],
+    "exact_dictionary_equal": false,
+    "fresh_frozen_predicates": {
+      "all_original_predicates_pass": true,
+      "componentwise_gradient_allclose_original_atol": 2e-05,
+      "componentwise_gradient_allclose_original_rtol": 1e-07,
+      "corrected_joint_bound": 2e-07,
+      "max_gradient_error": 1.0658141036401503e-13,
+      "observed_gradient_max_also_below_original_absolute_part": true,
+      "original_fresh_function_recomputes_full_componentwise_check": true,
+      "prior_offset_bound": 1e-06,
+      "prior_offset_constancy_bound": 2e-07,
+      "uncorrected_joint_bound": 1e-06
+    },
+    "no_numerical_threshold_failure": true,
+    "saved_frozen_predicates": {
+      "all_original_predicates_pass": true,
+      "componentwise_gradient_allclose_original_atol": 2e-05,
+      "componentwise_gradient_allclose_original_rtol": 1e-07,
+      "corrected_joint_bound": 2e-07,
+      "max_gradient_error": 1.0658141036401503e-13,
+      "observed_gradient_max_also_below_original_absolute_part": true,
+      "original_fresh_function_recomputes_full_componentwise_check": true,
+      "prior_offset_bound": 1e-06,
+      "prior_offset_constancy_bound": 2e-07,
+      "uncorrected_joint_bound": 1e-06
+    },
+    "underlying_machine_arithmetic_cause_not_claimed": true
+  },
+  "chart_diagnostics": {
+    "advisories": "Existing four-chain dashed styles/legend retained; 600px text advisories do not affect required readable native-size expert diagnostic views.",
+    "fails": 0,
+    "path": "/private/tmp/ms6-G2-chart-diagnostics.json",
+    "sha256": "a292df9eaac55ed9a50e1efee5423d73a7803494326bf2f2a875c88380bdf3b1",
+    "warning_counts": {
+      "cvd": 4,
+      "legend-direct-label": 1,
+      "small-text": 2
+    },
+    "warns": 7
+  },
+  "closed_worker_diagnostic_proof_sha256": "180df32f94dd48dd201f5846b9e702c26147143b05c518cb3697e9d3df2f0e83",
+  "density": {
+    "measure": "modeled_response_plus_selected_global_priors_and_positive_parameter_log_Jacobian",
+    "native_observation_Jacobian_separate_and_theta_constant": true,
+    "native_observation_log_jacobian": -1485.891512102634,
+    "normal_logscale_offset_prediction": 1.904654323148236e-09,
+    "passed": true,
+    "points": [
+      {
+        "finite_difference_gradient_max_error": 1.9666831718723188e-08,
+        "point": "truth",
+        "prior_offset_corrected_error": 1.9984014443252818e-15,
+        "uncorrected_joint_error": 1.904652435769094e-09
+      },
+      {
+        "finite_difference_gradient_max_error": 2.1647174719419127e-08,
+        "point": "chain-0-draw-0",
+        "prior_offset_corrected_error": 1.2212453270876722e-14,
+        "uncorrected_joint_error": 1.9046666466238094e-09
+      },
+      {
+        "finite_difference_gradient_max_error": 1.872096611066354e-08,
+        "point": "chain-1-draw-1000",
+        "prior_offset_corrected_error": 1.9984014443252818e-15,
+        "uncorrected_joint_error": 1.904652435769094e-09
+      },
+      {
+        "finite_difference_gradient_max_error": 1.5918194762321036e-08,
+        "point": "chain-3-draw-1999",
+        "prior_offset_corrected_error": 1.9984014443252818e-15,
+        "uncorrected_joint_error": 1.904652435769094e-09
+      }
+    ],
+    "prior_only_checks": [
+      {
+        "offset": 1.9046544341705385e-09,
+        "point": "truth"
+      },
+      {
+        "offset": 1.9046544341705385e-09,
+        "point": "fixed_prior_shift"
+      }
+    ],
+    "selected_scale_dtypes": {
+      "alpha": "float32",
+      "sigma": "float64"
+    }
+  },
+  "fresh_summary_and_all5_tables_and_truth_csv_passed": true,
+  "generation": {
+    "design_sha256": "ff07176a71131725dfcf297817ffa9ff8c004c7d063b79a87ae5bf77066f5972",
+    "events": 20,
+    "historical_Y_and_rows_poison_invariance": true,
+    "independent_simulation_passed": true,
+    "passed": true,
+    "primary_rows": 258,
+    "rows": 258
+  },
+  "independent_checker": true,
+  "job": {
+    "case": "A",
+    "conditional_seed": 2966120803,
+    "design_protocol_sha256": "2741a6727e6d150cb82b47caf834b9db5c36e166f003a4aeda2d25f1943df025",
+    "id": "full-smoke-1-a",
+    "model_key": "T-OBS:pooled:selected",
+    "model_spec_sha256": "2bddcaa1084c04ebf5e8d1e20b545b0c3483870c34923344b6cf32afc3f1f62b",
+    "order": 2,
+    "protocol_sha256": "918c1ca8b803c15dd552e33fde2383b63170ff3d3eeec2958024ca605e2b3062",
+    "role": "full_design_recovery",
+    "sampler_seed": 2966120802,
+    "simulator_seed": 2966120801,
+    "truth": {
+      "alpha": 0.15,
+      "sigma": 0.3
+    },
+    "truth_sha256": "ac1ee620871d0e3589e9803d3fb097b58c7213c3b39716ecc34e83cfb83f1998"
+  },
+  "native_diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.00026537559637002843,
+    "max_rhat": 1.0006222879060314,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0189172486508797,
+    "min_ess_bulk": 5445.673929487999,
+    "min_ess_tail": 4980.96162739126,
+    "screen_passed": true
+  },
+  "new_stable_verifier_or_continuation_authorized": false,
+  "no_new_sampler_or_integration_calls": 0,
+  "no_production_source_or_Gate_or_status_or_project_writes": true,
+  "numeric_receipt": "/private/tmp/ms6-G2-closed-scientific-diagnostic/scientific-diagnostic.json",
+  "numeric_receipt_sha256": "2832f0c32908f306974422e58875979ae079fad198c181127bb40ffe51334e6c",
+  "old_G_case_artifacts_not_rerun_for_trace": true,
+  "original_strict_verifier_status": "failed_original_strict_artifact_verifier",
+  "producer_git_sha": "a7d102e4c7162007a3eee35bd9c7d6ee2e39741c",
+  "proof_json_still_absent": true,
+  "raw_posterior_sha256": "0d9fcebefeb65471f9ce44e3f1d7b80479fde59711e85ed566af40a189ed9146",
+  "runtime_review_sha256": "0da732d18208ce5cb6385dbbd92f7d65b7f6cfa38d5fc33f908c2757afe24c78",
+  "scientific_acceptance": false,
+  "seeded_tables": {
+    "all_population_draws": 8000,
+    "conditional_ppc_rows": 30,
+    "curve_rows": 18,
+    "derived_rows": 18,
+    "new_event_u_shared_across_grid": true,
+    "no_unused_u_rng_consumed": true,
+    "parameter_rows": 2,
+    "passed": true,
+    "record_intervals": 258,
+    "selected_predictive_draws": 800,
+    "signed_target_preserved": false,
+    "truth_inclusions_not_pass_rule": true
+  },
+  "stable_verifier_design_recommendation": [
+    "Separate exact structural/dtype/label/source identity from derived error magnitudes.",
+    "Recompute the frozen source oracle unchanged and require every original numerical predicate and componentwise gradient test, with original bounds/offset isolation.",
+    "Retain saved diagnostics and explicit scalar deltas; no cross-run tolerance or fitted offset.",
+    "Replay complete native/prior/membership/source prefix plus fresh seeded JSON, five CSVs and truth suffix unchanged.",
+    "Require separate independent source review and prospective versioned runtime authority before accepting this retained artifact; preserve original failed strict-process log and absent proof."
+  ],
+  "status": "independently_confirmed_G2_numeric_predicates_and_suffix_original_verifier_failure_retained",
+  "truth90": {
+    "coordinates": 2,
+    "descriptive_not_acceptance_rule": true,
+    "misses": [],
+    "within": 2
+  },
+  "visual_review": {
+    "energy": "Four energy and energy-transition distributions overlap with readable nat axes/source qualification; numerical BFMI screen independently passes.",
+    "figures": {
+      "/private/tmp/ms6-G2-closed-scientific-diagnostic/energy.png": "05fc5bdba7ac5eb2884f747037c585e39fad751b2f4f5fe09e81069d5ca797c1",
+      "/private/tmp/ms6-G2-closed-scientific-diagnostic/trace-rank.png": "1b72283667d27ec8da50d3f9ae9c7716fe0fb1f9f7c5d9182f421c1a09a09138"
+    },
+    "method": "self-review of both reopened PNGs",
+    "status": "PASS_at_native_resolution_no_P0_P1",
+    "trace_rank": "Two coordinates, four stationary overlapping chains and similar pooled ranks; source caption and all labels/legend readable without clipping."
+  }
+}

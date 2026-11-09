@@ -1,4 +1,4 @@
-"""Finite append-only G/full completion after strict revalidation of legacy G0.
+"""Finite append-only G/full completion with explicitly versioned scientific proofs.
 
 The public metadata reader imports no scientific modules and never parses arrays
 or private STATE. Worker and proof children share the original startup settings.
@@ -19,7 +19,28 @@ from typing import Any
 
 ART = "artifacts/models/arrival-timing/"
 CONTROL = ART + "development-check-v1/controller/technical-completion-v1"
-DESIGN = ART + "development-design-v1/technical-completion-v1"
+LEGACY_DESIGN = ART + "development-design-v1/technical-completion-v1"
+DESIGN = ART + "development-design-v1/technical-completion-v2"
+HISTORY_MANIFEST = DESIGN + "/source-history/v1/historical-source-bindings.json"
+HISTORY_MANIFEST_SHA256 = "585e40cffbcbcea780d111f85158776d28ed597fa8f5f93f55588229869e76ed"
+LEGACY_AUTHORITY = LEGACY_DESIGN + "/full_design_recovery/review-acceptance.json"
+LEGACY_AUTHORITY_SHA256 = "da7c13dcaaa43e7b7a8be73837794c6c6051e8ebd16c068063165b90b9a5b5a2"
+G2_REVIEW = CONTROL + "/G2-stable-review.json"
+PROOF_CONTRACT = "original_scientific_checks_diagnostic_recomputation_v2"
+FULL_PROOF_CONTRACT = "original_full_development_case_artifacts"
+REPLAY_SOURCE = "analysis/arrival/model_development_replay.py"
+REPLAY_TEST = "tests/test_arrival_model_development_replay.py"
+V1_SOURCE_HASHES = {
+    "analysis/arrival/model_development_technical_completion.py": (
+        "66cec4fdddde344ec60bce51f4681cd0faa5f5ca0db89b60f5cd8156e7621247"
+    ),
+    "scripts/run_arrival_development_technical_completion.py": (
+        "d8184af399ac762709e8493cbde497c3d6ddcbb382ba58b7a250a1b7025c0e76"
+    ),
+    "tests/test_arrival_development_technical_completion.py": (
+        "2296279e35001607c01af9acfdc3878b01c41735d7f1176cefb33464cf1dc25c"
+    ),
+}
 BASELINE = CONTROL + "/baseline-review.json"
 PILOT = CONTROL + "/sampler-pilot-review-acceptance.json"
 FREEZE = ART + "specification-freeze-v1/review-acceptance.json"
@@ -99,6 +120,66 @@ def fresh(root, pins):
         require(sha(file(root, p)) == h, "changed accepted bytes: " + p)
 
 
+def historical_source_verify(root, pins, source_epoch="technical-completion-v1"):
+    """Explicit V1-only source migration; ordinary fresh() never falls back."""
+    require(source_epoch == "technical-completion-v1", "recognized historical source epoch only")
+    manifest = load(root, HISTORY_MANIFEST)
+    require(
+        sha(file(root, HISTORY_MANIFEST)) == HISTORY_MANIFEST_SHA256
+        and manifest.get("status") == "preserved_original_technical_continuation_source_epoch"
+        and manifest.get("source_epoch") == source_epoch
+        and manifest.get("data_config_kernel_context_rebinding_allowed") is False
+        and manifest.get("historical_authority") == LEGACY_AUTHORITY
+        and manifest.get("historical_authority_sha256") == LEGACY_AUTHORITY_SHA256
+        and set(manifest["allowed_bindings"]) == set(V1_SOURCE_HASHES),
+        "exact independently preserved V1 source manifest",
+    )
+    archived = {}
+    for name, expected in V1_SOURCE_HASHES.items():
+        binding = manifest["allowed_bindings"][name]
+        archive = binding["archived_path"]
+        require(
+            binding["expected_sha256"] == expected
+            and binding["recognized_source_epoch"] == source_epoch
+            and binding["producer_git_commit"] == "c446079dcff1b1e04a734a74f77d551afd1aafb6"
+            and archive.startswith(DESIGN + "/source-history/v1/")
+            and manifest["files"].get(archive) == expected,
+            "only exact three archived V1 code bindings",
+        )
+        # Git blob identity is content-derived, requiring no mutable Git checkout.
+        content = file(root, archive).read_bytes()
+        require(
+            hashlib.sha1(b"blob " + str(len(content)).encode() + b"\0" + content).hexdigest()
+            == binding["git_blob_oid"],
+            "preserved original Git blob",
+        )
+        archived[archive] = expected
+    require(manifest["files"] == archived, "exact archived-source inventory")
+    result = {}
+    for name, digest in pins.items():
+        if name in V1_SOURCE_HASHES:
+            require(digest == V1_SOURCE_HASHES[name], "no alternate historical code hash")
+            name = manifest["allowed_bindings"][name]["archived_path"]
+        result = merge(result, {name: digest})
+    result = merge(result, archived, {HISTORY_MANIFEST: HISTORY_MANIFEST_SHA256})
+    fresh(root, result)
+    return result
+
+
+def _covered(pins, required):
+    require(
+        all(pins.get(p) == h for p, h in required.items()), "complete materialized proof closure"
+    )
+
+
+def _legacy_authority(root, pins):
+    require(pins.get(LEGACY_AUTHORITY) == LEGACY_AUTHORITY_SHA256, "exact original V1 authority")
+    old = load(root, LEGACY_AUTHORITY)
+    materialized = historical_source_verify(root, old["files"])
+    _covered(pins, materialized)
+    return old
+
+
 def gate_path(phase):
     require(phase in PHASES, "fixed phase")
     return DESIGN + "/" + phase + "/review-acceptance.json"
@@ -109,6 +190,10 @@ def authority_path(phase):
 
 
 def plan_path(root, phase):
+    return root / CONTROL / "epochs" / "epoch-2" / (phase + "-plan.json")
+
+
+def legacy_plan_path(root, phase):
     return root / CONTROL / "plans" / (phase + ".json")
 
 
@@ -121,10 +206,15 @@ def attempt_path(root, phase, job):
 
 
 def summary_path(root, phase):
-    return root / CONTROL / (phase + "-summary.json")
+    return root / CONTROL / "epochs" / "epoch-2" / (phase + "-summary.json")
 
 
 def proof_path(root, phase, job):
+    leaf = "diagnostic-replay-v2" if phase == PHASES[0] else "strict-proofs"
+    return root / OUTPUTS[phase] / leaf / job["id"] / "proof.json"
+
+
+def legacy_proof_path(root, phase, job):
     return root / OUTPUTS[phase] / "strict-proofs" / job["id"] / "proof.json"
 
 
@@ -266,7 +356,7 @@ def _baseline(root, pins):
 
 
 def _plan(a):
-    return {
+    value = {
         k: a[k]
         for k in [
             "phase",
@@ -280,6 +370,10 @@ def _plan(a):
         ]
     }
 
+    if a.get("source_epoch") == "technical-completion-v2":
+        value.update(source_epoch=a["source_epoch"], proof_contract=a["proof_contract"])
+    return value
+
 
 def _admission(root, phase) -> dict[str, Any]:
     """Fresh complete public bytes/receipts only; no runtime imports or cold proof."""
@@ -291,11 +385,30 @@ def _admission(root, phase) -> dict[str, Any]:
         g.get("status") == "accepted_frozen_arrival_development_technical_continuation"
         and g.get("independent_checker") is True
         and g.get("phase") == phase
+        and g.get("source_epoch") == "technical-completion-v2"
+        and g.get("proof_contract")
+        == (PROOF_CONTRACT if phase == PHASES[0] else FULL_PROOF_CONTRACT)
         and g.get("path_bindings") == bindings(root)
         and g.get("max_sampler_call_slots") == 9
         and g.get("confirmation_outcomes_parsed") is True
         and g.get("reserved_outcomes") == "sealed"
-        and {SELF, CLI, TEST, FREEZE, CHECK, CHECK_SUMMARY, BASELINE, KERNELS[phase]} <= set(pins),
+        and {
+            SELF,
+            CLI,
+            TEST,
+            REPLAY_SOURCE,
+            REPLAY_TEST,
+            HISTORY_MANIFEST,
+            LEGACY_AUTHORITY,
+            G2_REVIEW,
+            PILOT,
+            FREEZE,
+            CHECK,
+            CHECK_SUMMARY,
+            BASELINE,
+            KERNELS[phase],
+        }
+        <= set(pins),
         "exact complete technical authority required",
     )
     inherited = g["inherited_context_files"]
@@ -306,6 +419,7 @@ def _admission(root, phase) -> dict[str, Any]:
     )
     fresh(root, pins)
     b = _baseline(root, pins)
+    _legacy_authority(root, pins)
     worker = load(root, KERNELS[phase])
     require(
         g["baseline_review"] == BASELINE
@@ -326,7 +440,7 @@ def _admission(root, phase) -> dict[str, Any]:
     )
     require(
         g.get("inherited_calls")
-        == {"charged": 1 if phase == PHASES[0] else 6, "started": 1 if phase == PHASES[0] else 6}
+        == {"charged": 3 if phase == PHASES[0] else 6, "started": 3 if phase == PHASES[0] else 6}
         and g.get("no_retuning") is True
         and g["resources"] == load(root, b["original_worker_gate"])["resources"],
         "fixed inherited budget/resources",
@@ -357,6 +471,190 @@ def _admission(root, phase) -> dict[str, Any]:
     return dict(a, baseline=b)
 
 
+def _stable_comparison(value):
+    """Validate the declared proof semantics without recomputing scientific arrays."""
+    comparison = value.get("diagnostic_comparison")
+    exact = value.get("original_exact_oracle_equal")
+    return (
+        value.get("proof_contract") == PROOF_CONTRACT
+        and type(exact) is bool
+        and isinstance(comparison, dict)
+        and comparison.get("proof_contract") == PROOF_CONTRACT
+        and comparison.get("original_scientific_predicates_passed") is True
+        and comparison.get("fresh_original_componentwise_gradient_predicate") is True
+        and comparison.get("cross_run_numeric_tolerance_used") is False
+        and type(comparison.get("original_exact_oracle_equal")) is bool
+        and comparison["original_exact_oracle_equal"] is exact
+    )
+
+
+def _g2_revalidation(root, a):
+    """A separately reviewed logical completion, never an invented attempt."""
+    pins = a["files"]
+    b = load(root, G2_REVIEW)
+    job = a["jobs"][2]
+    require(
+        b.get("status") == "accepted_frozen_development_G2_stable_revalidation"
+        and b.get("independent_checker") is True
+        and b.get("job") == job
+        and type(b.get("cost")) is int
+        and type(b.get("start_markers")) is int
+        and b["cost"] == b["start_markers"] == 1
+        and b.get("calls_charged") == b.get("calls_started") == 3
+        and b.get("new_sampler_calls") == 0
+        and b.get("original_controller_outcome") == "failed_before_attempt"
+        and b.get("original_exact_oracle_guard_passed") is False
+        and b.get("original_proof_output_absent") is True
+        and b.get("original_accepted_attempt_absent") is True
+        and b.get("confirmation_outcomes_parsed") is True
+        and b.get("reserved_outcomes") == "sealed",
+        "typed same-call G2 stable review",
+    )
+    _covered(pins, b["files"])
+    for key in [
+        "original_allocation",
+        "original_failure",
+        "original_supervisor",
+        "original_failed_proof_process",
+        "original_failed_proof_log",
+        "original_plan",
+        "original_authority_gate",
+        "original_worker_gate",
+        "posterior",
+        "stable_proof",
+    ]:
+        require(pins.get(b[key]) == b[key + "_sha256"], "literal G2 review pointer: " + key)
+    folder, raw, spec, log, process = paths(root, PHASES[0], job)
+    allocation = allocation_path(root, PHASES[0], job)
+    failure = root / CONTROL / "failures" / (job["id"] + ".json")
+    legacy_proof = legacy_proof_path(root, PHASES[0], job)
+    old = load(root, str(allocation.relative_to(root)))
+    failed = load(root, str(failure.relative_to(root)))
+    worker = load(root, str(process.relative_to(root)))
+    q = load(root, str(legacy_proof.with_name("proof-process.json").relative_to(root)))
+    proof = load(root, b["stable_proof"])
+    require(
+        b["original_allocation"] == str(allocation.relative_to(root))
+        and b["original_failure"] == str(failure.relative_to(root))
+        and b["original_supervisor"] == str(process.relative_to(root))
+        and b["original_failed_proof_process"]
+        == str(legacy_proof.with_name("proof-process.json").relative_to(root))
+        and b["original_failed_proof_log"]
+        == str(legacy_proof.with_name("proof.log").relative_to(root))
+        and b["original_plan"] == str(legacy_plan_path(root, PHASES[0]).relative_to(root))
+        and b["original_authority_gate"] == LEGACY_AUTHORITY
+        and b["original_authority_gate_sha256"] == LEGACY_AUTHORITY_SHA256
+        and b["original_worker_gate"] == KERNELS[PHASES[0]]
+        and b["posterior"] == str(raw.relative_to(root))
+        and b["stable_proof"] == str(proof_path(root, PHASES[0], job).relative_to(root))
+        and not legacy_proof.exists()
+        and not legacy_proof.is_symlink()
+        and not attempt_path(root, PHASES[0], job).exists()
+        and not attempt_path(root, PHASES[0], job).is_symlink(),
+        "no G2 original history healing",
+    )
+    require(
+        old["job"] == job
+        and load(root, str(spec.relative_to(root))) == job
+        and old["invocation_git_sha"] == b["original_invocation_git_sha"]
+        and re.fullmatch("[0-9a-f]{40}", b["original_invocation_git_sha"]) is not None
+        and load(root, str((folder / "sampling-start.json").relative_to(root))) == job
+        and old["cost"] == worker["cost"] == worker["start_markers"] == failed["charged"] == 1
+        and worker["returncode"] == 0
+        and worker["reason"] == "worker_exit"
+        and worker["monitor_failures"] == []
+        and worker["authority_gate_sha256"] == LEGACY_AUTHORITY_SHA256
+        and worker["allocation_sha256"] == sha(allocation)
+        and worker["invocation_git_sha"] == b["original_invocation_git_sha"]
+        and worker["worker_gate_sha256"] == pins[KERNELS[PHASES[0]]]
+        and worker["job_sha256"] == sha(spec)
+        and worker["plan_sha256"] == sha(legacy_plan_path(root, PHASES[0]))
+        and worker["startup_environment"] == environment(root, PHASES[0])
+        and failed["allocation"] == str(allocation.relative_to(root))
+        and q["returncode"] != 0
+        and q["reason"] == "worker_exit"
+        and q["monitor_failures"] == []
+        and q["sampler_calls"] == 0
+        and q["authority_gate_sha256"] == LEGACY_AUTHORITY_SHA256
+        and q["worker_gate_sha256"] == pins[KERNELS[PHASES[0]]]
+        and q["job_sha256"] == sha(spec)
+        and q["startup_environment"] == environment(root, PHASES[0]),
+        "retained exact paid G2 worker/proof failure",
+    )
+    expected_worker = {str((folder / n).relative_to(root)) for n in producer_names(PHASES[0])} | {
+        str(raw.relative_to(root))
+    }
+    require(
+        set(b["worker_files"]) == expected_worker
+        and {p.name for p in folder.iterdir()} == producer_names(PHASES[0])
+        and proof.get("status") == "scientific_artifact_replay_passed"
+        and proof.get("proof_contract") == PROOF_CONTRACT
+        and proof.get("job") == job
+        and proof.get("sampler_calls") == 0
+        and proof.get("worker_files") == b["worker_files"]
+        and _stable_comparison(proof),
+        "complete stable scientific proof",
+    )
+    _covered(pins, b["worker_files"])
+    require(
+        {p.name for p in legacy_proof.parent.iterdir()} == {"proof.log", "proof-process.json"},
+        "retained G2 failed proof inventory remains exact",
+    )
+    for proof_folder in [legacy_proof.parent, (root / b["stable_proof"]).parent]:
+        for entry in proof_folder.rglob("*"):
+            relative = str(entry.relative_to(root))
+            require(
+                entry.resolve() == entry and (entry.is_file() or entry.is_dir()),
+                "literal closed G2 proof evidence",
+            )
+            require(
+                (entry.is_file() and relative in b["files"])
+                or (entry.is_dir() and any(entry in (root / n).parents for n in b["files"])),
+                "unknown G2 proof evidence",
+            )
+    return dict(
+        producer="G2_stable_scientific_revalidation",
+        producer_epoch="technical-completion-v2",
+        proof_contract=PROOF_CONTRACT,
+        job=job,
+        logical_outcome="accepted_under_stable_revalidation",
+        original_controller_outcome="failed_before_attempt",
+        original_allocation=b["original_allocation"],
+        original_allocation_sha256=b["original_allocation_sha256"],
+        original_failure=b["original_failure"],
+        original_failure_sha256=b["original_failure_sha256"],
+        technical_review=G2_REVIEW,
+        technical_review_sha256=pins[G2_REVIEW],
+        strict_proof=b["stable_proof"],
+        strict_proof_sha256=b["stable_proof_sha256"],
+        worker_files=b["worker_files"],
+        files=b["files"],
+        cost=1,
+        start_markers=1,
+    )
+
+
+def _historical_pilot(root, a, first):
+    pilot = load(root, PILOT)
+    materialized = historical_source_verify(root, pilot["files"])
+    _covered(a["files"], materialized)
+    require(
+        pilot.get("status") == "accepted_development_two_sampler_runtime_pilots"
+        and pilot.get("independent_checker") is True
+        and pilot.get("sampler_pilot_job_ids")
+        == [r["job"]["id"] if "job" in r else r["job_id"] for r in first]
+        and pilot.get("authority_gate") == LEGACY_AUTHORITY
+        and pilot.get("authority_gate_sha256") == LEGACY_AUTHORITY_SHA256
+        and pilot.get("baseline_review_sha256") == a["files"][BASELINE]
+        and pilot.get("calls_charged") == pilot.get("calls_started") == 2
+        and all(
+            pilot["files"].get(r["receipt"]) == r["receipt_sha256"] for r in first if "receipt" in r
+        ),
+        "historical first two actual starts independently reviewed",
+    )
+    return merge(materialized, {PILOT: sha(file(root, PILOT))})
+
+
 def read_program_metadata(root, phase) -> dict[str, Any]:
     root = Path(root).resolve()
     a = _admission(root, phase)
@@ -365,10 +663,13 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
     name = a["authority_gate"]
     expected = a["dispatch_jobs"]
     records = []
+    logical = []
     extra = {}
     charged = started = 1
     base = dict(
         producer="legacy_G0_strict_revalidation",
+        producer_epoch="legacy_before_technical_v1",
+        proof_contract="strict_original_worker_artifacts_passed",
         job=b["job"],
         logical_outcome="accepted_under_strict_revalidation",
         original_controller_outcome="needs_review",
@@ -403,6 +704,24 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
     if plan.exists():
         require(load(root, str(plan.relative_to(root))) == _plan(a), "immutable plan mismatch")
         extra[str(plan.relative_to(root))] = sha(plan)
+    old_authority = _legacy_authority(root, pins)
+    old_name = LEGACY_AUTHORITY
+    old_pins = merge(old_authority["files"], {old_name: LEGACY_AUTHORITY_SHA256})
+    old_plan = legacy_plan_path(root, PHASES[0])
+    require(
+        load(root, str(old_plan.relative_to(root)))
+        == _plan(
+            dict(
+                old_authority,
+                authority_gate=old_name,
+                authority_gate_sha256=LEGACY_AUTHORITY_SHA256,
+                files=old_pins,
+            )
+        ),
+        "immutable original V1 plan",
+    )
+    _covered(pins, historical_source_verify(root, old_pins))
+    extra[str(old_plan.relative_to(root))] = sha(old_plan)
     for i, job in enumerate(expected):
         alloc = allocation_path(root, phase, job)
         receipt = attempt_path(root, phase, job)
@@ -414,6 +733,17 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
             )
             break
         allocation = load(root, str(alloc.relative_to(root)))
+        legacy = allocation.get("authority_gate") == LEGACY_AUTHORITY
+        record_name = LEGACY_AUTHORITY if legacy else name
+        record_plan = old_plan if legacy else plan
+        record_gate_sha = LEGACY_AUTHORITY_SHA256 if legacy else pins[name]
+        record_proof = (
+            legacy_proof_path(root, phase, job) if legacy else proof_path(root, phase, job)
+        )
+        require(
+            legacy == (phase == PHASES[0] and job in a["jobs"][1:3]),
+            "exact two V1 paid jobs cannot be relabeled as new executions",
+        )
         charged += 1
         folder, raw, spec, log, process = paths(root, phase, job)
         marker = folder / "sampling-start.json"
@@ -421,25 +751,31 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
             require(load(root, str(marker.relative_to(root))) == job, "literal marker required")
             started += 1
         require(
-            plan.exists()
+            record_plan.exists()
             and allocation["job"] == job
             and type(allocation["cost"]) is int
             and allocation["cost"] == 1
             and allocation.get("job_id") == job["id"]
             and allocation.get("phase") == phase
             and allocation.get("role") == job["role"]
-            and allocation.get("plan") == str(plan.relative_to(root))
-            and allocation.get("authority_gate") == name
+            and allocation.get("plan") == str(record_plan.relative_to(root))
+            and allocation.get("authority_gate") == record_name
             and allocation.get("worker_gate") == KERNELS[phase]
             and allocation.get("spec") == str(spec.relative_to(root))
             and load(root, str(spec.relative_to(root))) == job
-            and allocation["plan_sha256"] == sha(plan)
-            and allocation["authority_gate_sha256"] == pins[name]
+            and allocation["plan_sha256"] == sha(record_plan)
+            and allocation["authority_gate_sha256"] == record_gate_sha
             and allocation["worker_gate_sha256"] == pins[KERNELS[phase]]
             and allocation["spec_sha256"] == sha(file(root, str(spec.relative_to(root))))
             and re.fullmatch("[0-9a-f]{40}", allocation["invocation_git_sha"]) is not None,
             "allocation source/job/cost identity",
         )
+        if legacy and job == a["jobs"][2]:
+            require(marker.exists(), "paid G2 actual start retained")
+            special = _g2_revalidation(root, a)
+            logical.append(special)
+            extra = merge(extra, special["files"], {G2_REVIEW: pins[G2_REVIEW]})
+            continue
         require(receipt.exists(), "incomplete allocation retained; never retry/refund")
         r = load(root, str(receipt.relative_to(root)))
         r = {**r, "receipt_sha256": sha(receipt)}
@@ -467,29 +803,39 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
             and p["monitor_failures"] == []
             and p["cost"] == p["start_markers"] == 1
             and p["allocation"] == str(alloc.relative_to(root))
-            and p["authority_gate"] == name
+            and p["authority_gate"] == record_name
             and p["worker_gate"] == KERNELS[phase]
             and p["startup_environment"] == environment(root, phase)
-            and p["authority_gate_sha256"] == pins[name]
+            and p["authority_gate_sha256"] == record_gate_sha
             and p["worker_gate_sha256"] == pins[KERNELS[phase]]
-            and p["plan_sha256"] == sha(plan)
+            and p["plan_sha256"] == sha(record_plan)
             and p["allocation_sha256"] == sha(alloc)
             and p["invocation_git_sha"] == allocation["invocation_git_sha"]
             and p["job_sha256"] == sha(spec)
-            and proof["status"] == "strict_original_worker_artifacts_passed"
+            and proof["status"]
+            == (
+                "strict_original_worker_artifacts_passed"
+                if legacy or phase == PHASES[1]
+                else "scientific_artifact_replay_passed"
+            )
+            and (
+                legacy
+                or (phase == PHASES[1] and proof.get("proof_contract") == FULL_PROOF_CONTRACT)
+                or (phase == PHASES[0] and (_stable_comparison(proof)))
+            )
             and proof["job"] == job
             and proof["worker_files"] == r["worker_files"]
             and proof["sampler_calls"] == 0
-            and r["strict_proof"] == str(proof_path(root, phase, job).relative_to(root))
+            and r["strict_proof"] == str(record_proof.relative_to(root))
             and r["strict_proof_sha256"] == r["files"][r["strict_proof"]]
             and r["strict_proof_process"]
-            == str(proof_path(root, phase, job).with_name("proof-process.json").relative_to(root))
+            == str(record_proof.with_name("proof-process.json").relative_to(root))
             and r["strict_proof_process_sha256"] == r["files"][r["strict_proof_process"]]
             and q["returncode"] == 0
             and q["reason"] == "worker_exit"
             and q["monitor_failures"] == []
             and q["sampler_calls"] == 0
-            and q["authority_gate_sha256"] == pins[name]
+            and q["authority_gate_sha256"] == record_gate_sha
             and q["worker_gate_sha256"] == pins[KERNELS[phase]]
             and q["job_sha256"] == sha(spec)
             and q["startup_environment"] == environment(root, phase),
@@ -512,9 +858,9 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
             log,
             process,
             alloc,
-            proof_path(root, phase, job),
-            proof_path(root, phase, job).with_name("proof.log"),
-            proof_path(root, phase, job).with_name("proof-process.json"),
+            record_proof,
+            record_proof.with_name("proof.log"),
+            record_proof.with_name("proof-process.json"),
         ]
         physical.extend(folder.rglob("*"))
         actual = set()
@@ -531,14 +877,32 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
                 )
         require(actual == set(r["files"]), "exact closed per-case inventory")
         extra = merge(extra, r["files"], {r["receipt"]: r["receipt_sha256"]})
+        r["producer_epoch"] = "technical-completion-v1" if legacy else "technical-completion-v2"
+        r["proof_contract"] = (
+            "strict_original_worker_artifacts_passed"
+            if legacy
+            else (PROOF_CONTRACT if phase == PHASES[0] else FULL_PROOF_CONTRACT)
+        )
         records.append(r)
+        logical.append(r)
     require(charged <= 9 and started <= charged, "inclusive nine calls; no refunds")
     require(
-        not (root / CONTROL / "failures").exists(),
-        "retained controller failure; no automatic continuation",
+        phase != PHASES[0] or (len(logical) >= 2 and charged >= 3 and started >= 3),
+        "Epoch2 requires the exact retained three-call logical baseline",
     )
-    accepted = ([base] if phase == PHASES[0] else []) + records
-    complete = len(records) == len(expected)
+    g2 = load(root, G2_REVIEW)
+    failure_root = root / CONTROL / "failures"
+    if failure_root.exists():
+        require(
+            {str(p.relative_to(root)) for p in failure_root.rglob("*")} == {g2["original_failure"]},
+            "only independently bound G2 failure marker may remain",
+        )
+        require(
+            sha(file(root, g2["original_failure"])) == g2["original_failure_sha256"],
+            "unchanged G2 stop marker",
+        )
+    accepted = ([base] if phase == PHASES[0] else []) + logical
+    complete = len(logical) == len(expected)
     result = dict(
         a,
         baseline=b,
@@ -547,6 +911,8 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
         calls_charged=charged,
         calls_started=started,
         complete=complete,
+        remaining_jobs=expected[len(logical) :],
+        producer_epoch="technical-completion-v2",
         files=merge(pins, extra),
         logical_check_dispositions=load(root, CHECK_SUMMARY)["logical_check_dispositions"],
     )
@@ -561,6 +927,8 @@ def read_program_metadata(root, phase) -> dict[str, Any]:
         program_counters(root, through_phase=phase) == dict(charged=charged, started=started),
         "every paid allocation/marker must belong to the exact phase prefix",
     )
+    if phase == PHASES[0]:
+        result["files"] = merge(result["files"], _historical_pilot(root, a, accepted[:2]))
     fresh(root, result["files"])
     return result
 
@@ -585,6 +953,8 @@ def summary_value(a):
             ]
         },
         "status": "computed_pending_independent_review",
+        "source_epoch": a["source_epoch"],
+        "proof_contract": a["proof_contract"],
         "baseline_review": BASELINE,
         "baseline_review_sha256": a["files"][BASELINE],
     }
@@ -630,12 +1000,26 @@ def proof_only(root, phase, job_path, output):
         if phase == PHASES[0]
         else worker.verify_gate(root, "full_development")
     )
-    value = worker.case_artifacts(root, job, admission["files"])
+    if phase == PHASES[0]:
+        from analysis.arrival import model_development_replay
+
+        value = model_development_replay.case_artifacts(root, job, a["files"])
+        require(
+            _stable_comparison(value),
+            "honest stable G verifier contract",
+        )
+    else:
+        value = worker.case_artifacts(root, job, admission["files"])
     fresh(root, a["files"])
     write(
         Path(output),
         dict(
-            status="strict_original_worker_artifacts_passed",
+            status="scientific_artifact_replay_passed"
+            if phase == PHASES[0]
+            else "strict_original_worker_artifacts_passed",
+            proof_contract=PROOF_CONTRACT if phase == PHASES[0] else FULL_PROOF_CONTRACT,
+            original_exact_oracle_equal=value.get("original_exact_oracle_equal", True),
+            diagnostic_comparison=value.get("diagnostic_comparison", {}),
             job=job,
             worker_files=value["files"],
             sampler_calls=0,
@@ -650,7 +1034,7 @@ def _run_one(root, phase):
     if a["complete"]:
         return a
     j = _runtime()
-    job = a["dispatch_jobs"][len(a["attempt_records"])]
+    job = a["remaining_jobs"][0]
     ps = paths(root, phase, job)
     folder, raw, spec, log, process = ps
     proof = proof_path(root, phase, job)
@@ -662,22 +1046,8 @@ def _run_one(root, phase):
         "new next job only",
     )
     if a["calls_started"] >= 2:
-        pilot = load(root, PILOT)
         first = read_program_metadata(root, PHASES[0])["accepted_records"][:2]
-        require(
-            pilot.get("status") == "accepted_development_two_sampler_runtime_pilots"
-            and pilot.get("independent_checker") is True
-            and pilot.get("sampler_pilot_job_ids")
-            == [r["job"]["id"] if "job" in r else r["job_id"] for r in first]
-            and all(
-                pilot["files"].get(p) == h
-                for p, h in merge(
-                    a["files"], {r["receipt"]: r["receipt_sha256"] for r in first if "receipt" in r}
-                ).items()
-            ),
-            "first two actual starts need independent pilot",
-        )
-        a["files"] = merge(a["files"], pilot["files"], {PILOT: sha(root / PILOT)})
+        a["files"] = merge(a["files"], _historical_pilot(root, a, first))
     known = dict(a["files"])
     lock = root / CONTROL / ".lock"
     ended = threading.Event()
@@ -936,7 +1306,9 @@ def _run_one(root, phase):
             write(
                 attempt,
                 dict(
-                    producer="strict_startup_execution",
+                    producer="stable_scientific_startup_execution"
+                    if phase == PHASES[0]
+                    else "strict_startup_execution",
                     job_id=job["id"],
                     phase=phase,
                     role=job["role"],

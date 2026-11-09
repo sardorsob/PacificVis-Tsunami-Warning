@@ -1,0 +1,126 @@
+"""Independent fake-client boundary probes; no actual tracking or project data."""
+import importlib.util
+from pathlib import Path
+from types import SimpleNamespace
+
+import pytest
+
+spec = importlib.util.spec_from_file_location('maker_dev_tracking', '/private/tmp/test_track_development_program.py')
+assert spec and spec.loader
+t = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(t)
+m = t.m
+
+
+@pytest.mark.parametrize('fault', ['parent_nc', 'parent_tag', 'parent_metric', 'parent_deleted'])
+def test_parent_final_termination_drift_rejected(tmp_path, fault):
+    report, reader = t.fixture(tmp_path)
+    client = t.Client()
+    terminate = client.set_terminated
+    def corrupt(rid, status):
+        terminate(rid, status)
+        if rid == '1' and status == 'FINISHED':
+            if fault == 'parent_nc':
+                client.artifacts[rid]['unexpected-posterior.nc'] = b'retained unexpected bytes'
+            elif fault == 'parent_tag':
+                client.runs[rid].data.tags['decision'] = 'foreign'
+            elif fault == 'parent_metric':
+                client.runs[rid].data.metrics['unreviewed'] = 99.0
+            else:
+                client.runs[rid].info.lifecycle_stage = 'deleted'
+    client.set_terminated = corrupt
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / 'mlflow-receipt.json').exists()
+    if fault == 'parent_nc':
+        assert client.artifacts['1']['unexpected-posterior.nc'] == b'retained unexpected bytes'
+
+
+@pytest.mark.parametrize('which', ['parent', 'child'])
+def test_completed_receipt_missing_run_never_creates_replacement(tmp_path, which):
+    report, reader = t.fixture(tmp_path)
+    client = t.Client()
+    receipt = m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    original = (tmp_path / m.OUTPUT / 'mlflow-receipt.json').read_bytes()
+    rid = receipt['parent']['run_id'] if which == 'parent' else receipt['children'][-1]['run_id']
+    client.runs.pop(rid)
+    client.artifacts.pop(rid)
+    creates = []
+    def creating(experiment_id, tags):
+        creates.append((experiment_id, tags))
+        replacement = 'new-unique-18'
+        run = SimpleNamespace(
+            info=SimpleNamespace(run_id=replacement, experiment_id=experiment_id,
+                lifecycle_stage='active', status='RUNNING',
+                artifact_uri=(client.store / experiment_id / replacement / 'artifacts').as_uri()),
+            data=SimpleNamespace(params={}, metrics={}, tags=tags.copy()),
+        )
+        client.runs[replacement] = run
+        client.artifacts[replacement] = {}
+        return run
+    client.create_run = creating
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not creates, 'A completed immutable receipt must reject a missing recorded run before creation'
+    assert (tmp_path / m.OUTPUT / 'mlflow-receipt.json').read_bytes() == original
+
+
+@pytest.mark.parametrize('name', ['program.manifest.json', 'registrar.py.txt'])
+def test_final_receipt_write_tracking_byte_drift_rejected(tmp_path, monkeypatch, name):
+    report, reader = t.fixture(tmp_path)
+    client = t.Client()
+    write = m.write_once
+    def corrupt(p, value):
+        write(p, value)
+        if p.name == 'mlflow-receipt.json':
+            (p.parent / name).write_bytes(b'foreign retained bytes')
+    monkeypatch.setattr(m, 'write_once', corrupt)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / 'mlflow-receipt.json').exists()
+    assert (tmp_path / m.OUTPUT / name).read_bytes() == b'foreign retained bytes'
+
+
+@pytest.mark.parametrize('name', ['unexpected.nc', 'unexpected.json'])
+def test_late_child_artifact_during_parent_termination_rejected(tmp_path, name):
+    report, reader = t.fixture(tmp_path)
+    client = t.Client()
+    terminate = client.set_terminated
+    def corrupt(rid, status):
+        terminate(rid, status)
+        if rid == '1' and status == 'FINISHED':
+            client.artifacts['2'][name] = b'foreign'
+    client.set_terminated = corrupt
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / 'mlflow-receipt.json').exists()
+    assert client.artifacts['2'][name] == b'foreign'
+
+
+def test_ambiguous_parent_terminal_resumes_same_ids(tmp_path):
+    report, reader = t.fixture(tmp_path)
+    client = t.Client()
+    terminate = client.set_terminated
+    raised = []
+    def ambiguous(rid, status):
+        terminate(rid, status)
+        if rid == '1' and status == 'FINISHED' and not raised:
+            raised.append(True)
+            raise RuntimeError('termination succeeded but response lost')
+    client.set_terminated = ambiguous
+    with pytest.raises(RuntimeError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    ids = set(client.runs)
+    receipt = m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert set(client.runs) == ids and len(ids) == 17 and len(receipt['children']) == 16
+
+
+def test_completed_idempotent_rerun_has_zero_mutations(tmp_path):
+    report, reader = t.fixture(tmp_path, gap=True)
+    client = t.Client()
+    receipt = m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    def forbid(*a, **kw):
+        pytest.fail('completed rerun must have zero client mutations')
+    for name in ['create_run', 'log_param', 'log_metric', 'log_artifact', 'set_terminated']:
+        setattr(client, name, forbid)
+    assert m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory) == receipt

@@ -1,0 +1,62 @@
+{
+  "Source_implementation_Gates_runtime_allocations_STATE_Git_context_written": false,
+  "files": {
+    "analysis/arrival/model_development_technical_completion.py": "416bf8b4ae093ca0de3523ddf70dcc40859a06d0654d4f0f042040b71ff01877",
+    "scripts/run_arrival_development_technical_completion.py": "f2e7720d34381c58be90f6c0cb49637adda76931769861586f54db5b8e7257a1",
+    "tests/test_arrival_development_technical_completion.py": "9bc71daa30c7a0ccb12d368808a369be1114971935e326e6c3405e61c77f96c6"
+  },
+  "findings": "No remaining material blocker in the bounded frozen Epoch2 source review.",
+  "historical_source_manifest": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/historical-source-bindings.json",
+  "historical_source_manifest_sha256": "585e40cffbcbcea780d111f85158776d28ed597fa8f5f93f55588229869e76ed",
+  "historical_three_archives_unchanged": true,
+  "independent_checker": true,
+  "invariants": [
+    "Historical materialization permits only exact three V1 source path/hash pairs with archived byte+Git-blob identity and recognized epoch; current generic fresh() remains literal",
+    "Old V1 Gate, source review, plan and pilot closures are materialized explicitly, without stale canonical source hashes in live pins",
+    "Scientific data, config, F/G/J kernels and context never receive historical fallback",
+    "Epoch2 keeps same CONTROL and CLI, creates distinct epoch plan/summary paths and preserves old plan bytes",
+    "G2 logical revalidation adds no sampler call, allocation or accepted attempt and never fills the missing old strict proof",
+    "Metadata starts at3realcalls with G0+G1+G2logicalcoverage but onlyG1ordinaryreceipt; nextunattemptedID is originalG3, then G4/G5 andfull3 reach6/9",
+    "Unknown/extra failure markers, original history healing, contradictory stable metadata, current source drift and malformed inherited context maps fail closed",
+    "Original46 guards retain preimport bootstrap, source/private3/lease/STOP/quota/cap/partial/no-retry/proof-only0sampler and mixed6G/3F coverage"
+  ],
+  "production_execution_authorized": false,
+  "project_changes_by_checker": [
+    "tests/test_arrival_development_technical_completion.py"
+  ],
+  "repair_evidence": {
+    "after": "Both RED cases and all76 pass; one shared metadata semantic predicate is used by typedG2, closed-newG and proof-only return checks",
+    "before": "74PASS/2RED: coherent stable-proof metadata falsely declaring original predicates failed or cross-run tolerance used was admitted",
+    "mathematical_or_replay_source_changes": false
+  },
+  "replay_dependency_source_qa": {
+    "provided_synthetic_tests_observed_pass": 42,
+    "seconds": 5.56,
+    "separate_Root_accepted_QA": "49-check acceptance/commit9c22 reported separately; not regranted here",
+    "source_sha256": "aa1a412424698f048a08488f948fd7172fd0bc1b9a6b261eeec126563737062d",
+    "test_sha256": "e5904a93f78e857aec52e07381eaa7cd6ddd60d51a2b459f553da1c13c18a3a3"
+  },
+  "scientific_acceptance_granted": false,
+  "scope_limitations": [
+    "No actual worker/native proof or scientific arrays were read or executed in this Epoch2 source QA",
+    "Actual G2 stable proof/typed SCI and prospective authority payload require separate Root admission; this is no runtime authorization",
+    "Existing frozen supervisor process-group mechanics are reused; tests use a fake backend for lifecycle and failure delegation"
+  ],
+  "source_qa_only": true,
+  "source_test_authorship_separation": "Checker owns only tests; Maker owns canonical module and CLI. Replay scientific verifier has a separate owner and independent source acceptance.",
+  "static": {
+    "CLI_help": "passed",
+    "pyright_errors": 0,
+    "pyright_warnings": 0,
+    "ruff": "passed"
+  },
+  "status": "accepted_frozen_development_technical_completion_epoch2_sources",
+  "tests": {
+    "added_epoch2_counterfactuals": 30,
+    "passed": 76,
+    "retained_prior_guard_purposes": 46,
+    "seconds": 9.87,
+    "suite": "tests/test_arrival_development_technical_completion.py",
+    "synthetic_opaque_native_and_ledger_fixtures_only": true
+  }
+}

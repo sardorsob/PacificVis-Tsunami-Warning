@@ -56,6 +56,7 @@ def ledger_admission_fixture(root, monkeypatch):
         r.AUTHORITY["check"],
         r.SUMMARIES["check"],
         r.technical.BASELINE,
+        r.technical.G2_REVIEW,
         *(r.technical.authority_path(phase) for phase in r.technical.PHASES),
         *(
             str(r.technical.summary_path(root, phase).relative_to(root))
@@ -968,6 +969,10 @@ def technical_fixture(root, monkeypatch):
         authority.update(
             status="accepted_frozen_arrival_development_technical_continuation",
             authority_gate=authority_name,
+            source_epoch="technical-completion-v2",
+            proof_contract=r.technical.PROOF_CONTRACT
+            if phase == "full_design_recovery"
+            else r.technical.FULL_PROOF_CONTRACT,
             dispatch_jobs=old_summary["jobs"][1:]
             if phase == "full_design_recovery"
             else old_summary["jobs"],
@@ -978,6 +983,8 @@ def technical_fixture(root, monkeypatch):
             plan,
             dict(
                 phase=phase,
+                source_epoch=authority["source_epoch"],
+                proof_contract=authority["proof_contract"],
                 jobs=authority["jobs"],
                 dispatch_jobs=authority["dispatch_jobs"],
                 authority_gate=authority_name,
@@ -987,6 +994,23 @@ def technical_fixture(root, monkeypatch):
                 files={**authority["files"], authority_name: sha256(root / authority_name)},
             ),
         )
+        if phase == "full_design_recovery":
+            legacy_authority = dict(authority, authority_gate=r.technical.LEGACY_AUTHORITY)
+            legacy_authority.pop("source_epoch")
+            legacy_authority.pop("proof_contract")
+            write_json(root / r.technical.LEGACY_AUTHORITY, legacy_authority)
+            oldplan = json.loads(plan.read_text())
+            oldplan.pop("source_epoch")
+            oldplan.pop("proof_contract")
+            oldplan.update(
+                authority_gate=r.technical.LEGACY_AUTHORITY,
+                authority_gate_sha256=sha256(root / r.technical.LEGACY_AUTHORITY),
+                files={
+                    **legacy_authority["files"],
+                    r.technical.LEGACY_AUTHORITY: sha256(root / r.technical.LEGACY_AUTHORITY),
+                },
+            )
+            write_json(r.technical.legacy_plan_path(root, phase), oldplan)
         records = []
         for job in authority["dispatch_jobs"]:
             oldrecord = next(v for v in old_summary["attempt_records"] if v["job_id"] == job["id"])
@@ -996,27 +1020,46 @@ def technical_fixture(root, monkeypatch):
             process = folder.with_name(folder.name + ".supervisor.json")
             allocation_path = r.technical.allocation_path(root, phase, job)
             allocation = json.loads((root / record["allocation"]).read_text())
+            paid_v1 = phase == "full_design_recovery" and job in authority["jobs"][1:3]
+            execution_plan = r.technical.legacy_plan_path(root, phase) if paid_v1 else plan
+            execution_gate = r.technical.LEGACY_AUTHORITY if paid_v1 else authority_name
             allocation.update(
-                plan=str(plan.relative_to(root)),
-                plan_sha256=sha256(plan),
-                authority_gate=authority_name,
-                authority_gate_sha256=sha256(root / authority_name),
+                plan=str(execution_plan.relative_to(root)),
+                plan_sha256=sha256(execution_plan),
+                authority_gate=execution_gate,
+                authority_gate_sha256=sha256(root / execution_gate),
             )
             write_json(allocation_path, allocation)
             supervisor = json.loads(process.read_text())
             supervisor.update(
-                plan_sha256=sha256(plan),
-                authority_gate_sha256=sha256(root / authority_name),
+                plan_sha256=sha256(execution_plan),
+                authority_gate_sha256=sha256(root / execution_gate),
                 allocation=str(allocation_path.relative_to(root)),
                 allocation_sha256=sha256(allocation_path),
                 startup_environment=r.technical.environment(root, phase),
             )
             write_json(process, supervisor)
-            proof = r.technical.proof_path(root, phase, job)
+            first_paid = paid_v1 and job == authority["jobs"][1]
+            proof = (
+                r.technical.legacy_proof_path(root, phase, job)
+                if first_paid
+                else r.technical.proof_path(root, phase, job)
+            )
             write_json(
                 proof,
                 dict(
-                    status="strict_original_worker_artifacts_passed",
+                    status=(
+                        "strict_original_worker_artifacts_passed"
+                        if first_paid or phase == "full_development"
+                        else "scientific_artifact_replay_passed"
+                    ),
+                    proof_contract=(
+                        "strict_original_worker_artifacts_passed"
+                        if first_paid
+                        else authority["proof_contract"]
+                    ),
+                    original_exact_oracle_equal=False,
+                    diagnostic_comparison={"max_delta": 1e-14},
                     job=job,
                     worker_files=record["worker_files"],
                     sampler_calls=0,
@@ -1028,7 +1071,11 @@ def technical_fixture(root, monkeypatch):
             )
             record["files"].pop(record["allocation"])
             record.update(
-                producer="strict_startup_execution",
+                producer=(
+                    "strict_startup_execution"
+                    if first_paid or phase == "full_development"
+                    else "stable_scientific_startup_execution"
+                ),
                 allocation=str(allocation_path.relative_to(root)),
                 allocation_sha256=sha256(allocation_path),
                 strict_proof=str(proof.relative_to(root)),
@@ -1046,11 +1093,33 @@ def technical_fixture(root, monkeypatch):
                     ]
                 }
             )
+            if paid_v1 and not first_paid:
+                failure = r.technical.CONTROL + "/failures/G2-failure.json"
+                write_json(root / failure, dict(status="failed_before_attempt", job=job))
+                record["files"][failure] = sha256(root / failure)
+                review = dict(
+                    status="accepted_frozen_development_G2_stable_revalidation",
+                    independent_checker=True,
+                    job=job,
+                    original_controller_outcome="failed_before_attempt",
+                    original_allocation=record["allocation"],
+                    original_allocation_sha256=record["allocation_sha256"],
+                    original_failure=failure,
+                    original_failure_sha256=sha256(root / failure),
+                    strict_proof=record["strict_proof"],
+                    strict_proof_sha256=sha256(proof),
+                    worker_files=record["worker_files"],
+                    files=record["files"],
+                )
+                write_json(root / r.technical.G2_REVIEW, review)
+                continue
             write_json(root / record["receipt"], record)
             records.append({**record, "receipt_sha256": sha256(root / record["receipt"])})
         summary = dict(
             old_summary,
             phase=phase,
+            source_epoch=authority["source_epoch"],
+            proof_contract=authority["proof_contract"],
             jobs=authority["jobs"],
             dispatch_jobs=authority["dispatch_jobs"],
             authority_gate=authority_name,
@@ -1088,6 +1157,8 @@ def technical_fixture(root, monkeypatch):
         write_json(root / r.technical.BASELINE, baseline)
         base = dict(
             producer="legacy_G0_strict_revalidation",
+            producer_epoch="legacy_before_technical_v1",
+            proof_contract="strict_original_worker_artifacts_passed",
             job=baseline["job"],
             logical_outcome="accepted_under_strict_revalidation",
             original_controller_outcome=baseline["original_controller_outcome"],
@@ -1118,11 +1189,40 @@ def technical_fixture(root, monkeypatch):
                 record["worker_files"] = {n: sha256(root / n) for n in record["worker_files"]}
                 record["files"] = {n: sha256(root / n) for n in record["files"]}
                 write_json(root / record["receipt"], record)
-                updated.append({**record, "receipt_sha256": sha256(root / record["receipt"])})
+                public = {**record, "receipt_sha256": sha256(root / record["receipt"])}
+                if phase != "check":
+                    is_old = phase == "full_design_recovery" and job == summary["jobs"][1]
+                    public.update(
+                        producer_epoch="technical-completion-v1"
+                        if is_old
+                        else "technical-completion-v2",
+                        proof_contract="strict_original_worker_artifacts_passed"
+                        if is_old
+                        else summary["proof_contract"],
+                    )
+                updated.append(public)
             summary["attempt_records"] = updated
             summary["accepted_records"] = ([base] if phase == "full_design_recovery" else []) + [
                 v for v in updated if v["outcome"] == "accepted"
             ]
+            if phase == "full_design_recovery":
+                review = json.loads((root / r.technical.G2_REVIEW).read_text())
+                special = dict(
+                    producer="G2_stable_scientific_revalidation",
+                    producer_epoch="technical-completion-v2",
+                    proof_contract=r.technical.PROOF_CONTRACT,
+                    logical_outcome="accepted_under_stable_revalidation",
+                    technical_review=r.technical.G2_REVIEW,
+                    technical_review_sha256=sha256(root / r.technical.G2_REVIEW),
+                    cost=1,
+                    start_markers=1,
+                    **{
+                        k: v
+                        for k, v in review.items()
+                        if k not in {"status", "independent_checker"}
+                    },
+                )
+                summary["accepted_records"].insert(2, special)
             if phase != "check":
                 summary["baseline_review_sha256"] = sha256(root / r.technical.BASELINE)
             write_json(summary_path, summary)
@@ -1133,7 +1233,11 @@ def technical_fixture(root, monkeypatch):
             summary_path = r.technical.summary_path(root, phase)
             summary = json.loads(summary_path.read_text())
             program = dict(
-                summary, complete=True, baseline=baseline, files=pins([r.GATE, r.old.SMOKE_REVIEW])
+                summary,
+                complete=True,
+                remaining_jobs=[],
+                baseline=baseline,
+                files=pins([r.GATE, r.old.SMOKE_REVIEW]),
             )
             programs[phase] = program
             if phase == "full_design_recovery":
@@ -1166,6 +1270,7 @@ def technical_fixture(root, monkeypatch):
 
     seal()
     monkeypatch.setattr(r.technical, "read_program_metadata", public_metadata)
+    monkeypatch.setattr(r.technical, "historical_source_verify", lambda root, pins: pins)
     return seal
 
 
@@ -1909,3 +2014,102 @@ def test_public_technical_completion_requires_six_logical_and_five_new_g_calls(
     )
     with pytest.raises(ValueError):
         r.verify_report_sources(tmp_path)
+
+
+def test_epoch2_g2_is_reviewed_computation_without_an_attempt_receipt(tmp_path, monkeypatch):
+    complete_fixture(tmp_path, monkeypatch)
+    bundle = r.verify_report_sources(tmp_path)
+    g2 = bundle["smokes"][2]
+    assert g2["public_record"] is None
+    assert g2["receipt"] is None
+    assert g2["technical_revalidation"]["original_controller_outcome"] == "failed_before_attempt"
+    assert g2["program_record"]["logical_outcome"] == "accepted_under_stable_revalidation"
+    assert not r.technical.attempt_path(tmp_path, "full_design_recovery", g2["job"]).exists()
+
+
+@pytest.mark.parametrize(
+    "fault",
+    ["fake_attempt", "wrong_job", "wrong_contract", "extra_call", "proof_hash", "worker_subset"],
+)
+def test_epoch2_g2_revalidation_requires_exact_same_call_metadata(tmp_path, monkeypatch, fault):
+    complete_fixture(tmp_path, monkeypatch)
+    bundle = r.verify_report_sources(tmp_path)
+    program = r.technical.read_program_metadata(tmp_path, "full_design_recovery")
+    record = copy.deepcopy(program["accepted_records"][2])
+    if fault == "fake_attempt":
+        record["receipt"] = "invented-attempt.json"
+    elif fault == "wrong_job":
+        record["job"] = program["jobs"][3]
+    elif fault == "wrong_contract":
+        record["proof_contract"] = "strict_original_worker_artifacts_passed"
+    elif fault == "extra_call":
+        record["cost"] = record["start_markers"] = 2
+    elif fault == "proof_hash":
+        record["strict_proof_sha256"] = "0" * 64
+    else:
+        record["worker_files"].pop(next(iter(record["worker_files"])))
+    monkeypatch.setattr(r, "read_rows", lambda *args: pytest.fail("tables before G2 admission"))
+    with pytest.raises(ValueError):
+        r._stable_g2_case(
+            tmp_path,
+            bundle["files"],
+            r.recovery.verify_gate(tmp_path),
+            program["jobs"][2],
+            program,
+            record,
+        )
+
+
+def test_epoch2_g1_historical_plan_uses_explicit_source_epoch_admission(tmp_path, monkeypatch):
+    complete_fixture(tmp_path, monkeypatch)
+    calls = []
+
+    def archived(root, pins):
+        calls.append(pins)
+        return pins
+
+    monkeypatch.setattr(r.technical, "historical_source_verify", archived)
+    bundle = r.verify_report_sources(tmp_path)
+    assert len(calls) == 1
+    assert r.technical.LEGACY_AUTHORITY in calls[0]
+    assert bundle["smokes"][1]["program_record"]["producer_epoch"] == "technical-completion-v1"
+    assert bundle["smokes"][3]["program_record"]["producer_epoch"] == "technical-completion-v2"
+
+
+@pytest.mark.parametrize(
+    "phase,index",
+    [("full_design_recovery", 1), ("full_design_recovery", 3), ("full_development", 0)],
+)
+@pytest.mark.parametrize("fault", ["producer", "epoch", "contract"])
+def test_epoch2_ordinary_producer_matches_literal_phase_epoch_and_contract(
+    tmp_path, monkeypatch, phase, index, fault
+):
+    seal = complete_fixture(tmp_path, monkeypatch)
+    program = r.technical.read_program_metadata(tmp_path, phase)
+    job = program["jobs"][index]
+    descriptor = next(v for v in program["accepted_records"] if v.get("job_id") == job["id"])
+    if fault == "producer":
+        path = tmp_path / descriptor["receipt"]
+        value = json.loads(path.read_text())
+        value["producer"] = (
+            "strict_startup_execution"
+            if phase == "full_design_recovery" and index == 3
+            else "stable_scientific_startup_execution"
+        )
+        write_json(path, value)
+        seal()
+    program = copy.deepcopy(r.technical.read_program_metadata(tmp_path, phase))
+    descriptor = next(v for v in program["accepted_records"] if v.get("job_id") == job["id"])
+    if fault == "epoch":
+        descriptor["producer_epoch"] = "unrecognized-epoch"
+    if fault == "contract":
+        descriptor["proof_contract"] = "wrong-proof-contract"
+    gate = json.loads((tmp_path / r.GATE).read_text())
+    pins = {**gate["files"], r.GATE: sha256(tmp_path / r.GATE)}
+    admission = (
+        r.recovery.verify_gate(tmp_path)
+        if phase == "full_design_recovery"
+        else r.fit.verify_gate(tmp_path, "full_development")
+    )
+    with pytest.raises(ValueError, match="exact public technical execution receipt"):
+        r._ordinary_case(tmp_path, pins, admission, job, phase, pins, program=program)

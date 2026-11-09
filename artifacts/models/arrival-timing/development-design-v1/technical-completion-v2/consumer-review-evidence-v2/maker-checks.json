@@ -1,0 +1,44 @@
+{
+  "backups": "/private/tmp/tsunami-consumers-before-epoch2",
+  "contract": {
+    "G0": "original needs_review receipt unchanged and distinct strict review",
+    "G1": "original ordinary receipt; only producer_epoch/proof_contract enriched; old plan source refs admitted through historical_source_verify",
+    "G2": "same saved computation, allocation/failure/stable review; no original accepted attempt fabricated",
+    "G3_G5": "epoch2 scientific diagnostic replay proof",
+    "full": "epoch2 same full-development worker strict proof",
+    "tracking": "16 computation children and parent17;9 sampler calls; G0/G2 same-call FINISHED reviewed computations; original CHECK failures FAILED"
+  },
+  "files": {
+    "/private/tmp/prepare-tsunami-full-development-worker-gate.py": "5863105418e829a127182a08dd59d4851b4a71f802481a48c879c22286c73c8b",
+    "/private/tmp/test_prepare_full_development_worker_gate.py": "b054a3cf4f9256a4ce6f62fb4d7f6584c9c8d16b034adaff2bc3031631034c78",
+    "/private/tmp/test_track_development_program.py": "97ef9e879361ff2fa181bdcc4d91b3e0fc53cfe4634bc2edad3fcdc2bf511447",
+    "/private/tmp/track-tsunami-development-program.py": "9cee98833d69a2393f0393c26bdd443996a55b631609ba1e3178bfcde2722b7e",
+    "analysis/arrival/model_development_completion_report.py": "f2d25b5a82333d0268b1c0fe96c76b888fa66f348a12e10e7a8cd46ffcb51206",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "8886a06c419db00edbd7c06d90fb226f30a3a030408150e254b9db8d61306a36"
+  },
+  "scientific_change": "none; existing saved-worker metadata checks extracted for reuse by receipt-free G2; old pure tables/figures/statistical math unchanged",
+  "scoped_exclusions": [
+    "no actual report/preflight/native arrays/targets/private STATE/store/client calls",
+    "no runtime Gates or old results modified",
+    "technical public API/native worker admissions mocked in consumer synthetic fixtures; independent technical-controller QA verifies that boundary"
+  ],
+  "source_only": true,
+  "status": "maker_epoch2_consumers_frozen_for_independent_review",
+  "tests": {
+    "cli_help": [
+      "reader",
+      "full-worker-builder",
+      "tracking"
+    ],
+    "combined_seconds": 66.82,
+    "combined_unique_passed": 213,
+    "diff_check": "PASS",
+    "final_direct_G2_guards_and_reader_note": {
+      "passed": 7,
+      "seconds": 9.77
+    },
+    "pyright": "0 errors, 0 warnings",
+    "ruff": "PASS"
+  }
+}

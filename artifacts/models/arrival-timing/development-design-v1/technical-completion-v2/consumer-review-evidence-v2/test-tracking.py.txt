@@ -1,0 +1,893 @@
+"""Pure fake-client registration tests; no real MLflow client, data, NC or STATE."""
+
+# pyright: basic
+import copy
+import importlib.util
+import json
+from pathlib import Path
+from types import SimpleNamespace
+from urllib.parse import unquote, urlsplit
+
+import pytest
+
+spec = importlib.util.spec_from_file_location(
+    "track_dev", "/private/tmp/track-tsunami-development-program.py"
+)
+assert spec and spec.loader
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+
+
+def fixture(root, gap=False):
+    pins = {}
+
+    def put(name, value):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(value if isinstance(value, bytes) else m.payload(value))
+        pins[name] = m.sha(p)
+
+    freeze = "artifacts/models/arrival-timing/specification-freeze-v1/review-acceptance.json"
+    inherited = {}
+    for i in range(12):
+        name = f"context/immutable-ledgers/ledger-{i:02}.json"
+        put(name, b"opaque immutable ledger; deliberately not JSON")
+        inherited[name] = pins[name]
+    put(freeze, {"models": "frozen", "files": inherited})
+    ordinary = []
+    checks = []
+    full = []
+    smokes = []
+
+    def case(key, phase, failed=False):
+        job = dict(
+            id=key, phase=phase, seed=123, role="check_evaluate" if phase == "check" else phase
+        )
+        folder = root / "producer" / key
+        name = str((folder / "result.json").relative_to(root))
+        result = dict(
+            job=job,
+            status="needs_numerical_review" if failed else "computed_pending_scientific_review",
+            diagnostics={"rhat": 1.0},
+            aggregate={"normalized_score": -2.0},
+            prediction_rows=2,
+        )
+        put(name, result)
+        put(
+            str(folder.with_name(folder.name + ".supervisor.json").relative_to(root)),
+            dict(invocation_git_sha="a" * 40),
+        )
+        receipt = "controller/attempts/check/" + key + ".json"
+        record = dict(files={name: pins[name]}, receipt=receipt)
+        put(receipt, record)
+        record["receipt_sha256"] = pins[receipt]
+        value = dict(
+            job=job,
+            folder=folder,
+            result=result,
+            spec={"prior": "BASE"},
+            settings={"sigma": 1},
+            public_record=record,
+        )
+        ordinary.append(value)
+        return value
+
+    for i in range(6):
+        checks.append(case("check" + str(i), "check", i < 2 or (gap and i == 2)))
+    checks[0]["disposition"] = "accepted_resolution"
+    checks[1]["disposition"] = "accepted_unresolved_gap"
+    if gap:
+        checks[2]["disposition"] = "accepted_unresolved_gap"
+        checks[2]["gap_review"] = "typed-gap-review.json"
+        put("typed-gap-review.json", {"status": "accepted_individual_gap"})
+    for i in range(6):
+        smokes.append(case("smoke" + str(i), "full_design_recovery"))
+    for i in range(3):
+        full.append(case("full" + str(i), "full_development"))
+    g0 = smokes[0]
+    original = g0["public_record"]
+    receipt_body = {k: v for k, v in original.items() if k != "receipt_sha256"}
+    receipt_body["outcome"] = "needs_review"
+    put(original["receipt"], receipt_body)
+    g0["public_record"] = {**receipt_body, "receipt_sha256": pins[original["receipt"]]}
+    put("technical/baseline-review.json", {"original_controller_outcome": "needs_review"})
+    put("technical/strict-proof.json", {"sampler_calls": 0})
+    g0["technical_revalidation"] = dict(
+        original_controller_outcome="needs_review",
+        original_receipt=original["receipt"],
+        original_receipt_sha256=pins[original["receipt"]],
+        technical_review="technical/baseline-review.json",
+        technical_review_sha256=pins["technical/baseline-review.json"],
+        strict_proof="technical/strict-proof.json",
+        strict_proof_sha256=pins["technical/strict-proof.json"],
+    )
+    g2 = smokes[2]
+    absent = g2["public_record"]["receipt"]
+    (root / absent).unlink()
+    pins.pop(absent)
+    g2["program_record"] = {"worker_files": dict(g2["public_record"]["files"])}
+    g2["public_record"] = None
+    for key in ["original_allocation", "original_failure", "technical_review", "strict_proof"]:
+        put("technical/G2-" + key + ".json", {"job": g2["job"], "kind": key})
+    g2["technical_revalidation"] = dict(
+        producer="G2_stable_scientific_revalidation",
+        producer_epoch="technical-completion-v2",
+        proof_contract="original_scientific_checks_diagnostic_recomputation_v2",
+        logical_outcome="accepted_under_stable_revalidation",
+        original_controller_outcome="failed_before_attempt",
+    )
+    for key in ["original_allocation", "original_failure", "technical_review", "strict_proof"]:
+        name = "technical/G2-" + key + ".json"
+        g2["technical_revalidation"].update({key: name, key + "_sha256": pins[name]})
+    put(
+        "numeric/case-000/result.json",
+        dict(
+            job={"id": "numeric"},
+            status="computed_pending_scientific_review",
+            sampler_calls=0,
+            method="fixed_qmc",
+            resolved_event_score={"score": -2.0},
+        ),
+    )
+    put("numeric-design/control/production-v1/supervisor.json", dict(invocation_git_sha="b" * 40))
+    put("smoke-review.json", dict(files=dict(pins)))
+    put("computation-gate.json", dict(files=dict(pins)))
+    bundle = dict(files=dict(pins), checks=checks, full=full, smokes=smokes)
+    report = root / "final-report"
+    put("final-report/summary.json", {"accepted": True})
+    put("final-report/findings.md", b"Accepted analysis; numerical failures retained.")
+    put("final-report/inputs.json", dict(files=bundle["files"], review="computation-gate.json"))
+    put(
+        "final-report/output-checksums.json",
+        {n: pins["final-report/" + n] for n in ["summary.json", "findings.md", "inputs.json"]},
+    )
+    put(
+        "final-report/review-acceptance.json",
+        dict(
+            status=m.STATUS,
+            independent_checker=True,
+            reserved_outcomes="sealed",
+            reserved_outcomes_parsed=False,
+            files=dict(pins),
+        ),
+    )
+    reader = SimpleNamespace(
+        data=SimpleNamespace(FREEZE=freeze),
+        GATE="computation-gate.json",
+        verify_report_sources=lambda root: bundle,
+        recovery=SimpleNamespace(
+            verify_gate=lambda root: dict(gate=dict(jobs=[c["job"] for c in smokes]))
+        ),
+        old=SimpleNamespace(SMOKE_REVIEW="smoke-review.json", CONTROL="controller"),
+        numerical=SimpleNamespace(CASE_OUTPUT="numeric/case-000"),
+        NUMERICAL_GATE="numeric-design/gate.json",
+        fit=SimpleNamespace(SUCCESS="computed_pending_scientific_review"),
+        _ordinary_case=lambda root, pins, admission, job, phase, reviewed: next(
+            c for c in smokes if c["job"] == job
+        ),
+    )
+    (root / ".mlflow/mlruns").mkdir(parents=True)
+    return report, reader
+
+
+class Client:
+    def __init__(self):
+        self.runs = {}
+        self.artifacts = {}
+        self.factories = 0
+        self.failure = None
+
+    def factory(self, tracking_uri):
+        self.factories += 1
+        self.store = Path(unquote(urlsplit(tracking_uri).path))
+        assert tracking_uri.endswith("/.mlflow/mlruns")
+        return self
+
+    def get_experiment_by_name(self, name):
+        assert name == "arrival-model"
+        return SimpleNamespace(
+            experiment_id="1",
+            lifecycle_stage="active",
+            artifact_location=(self.store / "1").as_uri(),
+        )
+
+    def search_runs(self, ids, filter_string, run_view_type):
+        assert ids == ["1"] and run_view_type == 3
+        field, value = filter_string.split(" = ")
+        key = field.removeprefix("tags.").strip("`")
+        value = value.strip("'")
+        return [r for r in self.runs.values() if r.data.tags.get(key) == value]
+
+    def create_run(self, experiment_id, tags):
+        rid = str(len(self.runs) + 1)
+        self.runs[rid] = SimpleNamespace(
+            info=SimpleNamespace(
+                run_id=rid,
+                experiment_id=experiment_id,
+                lifecycle_stage="active",
+                status="RUNNING",
+                artifact_uri=(self.store / experiment_id / rid / "artifacts").as_uri(),
+            ),
+            data=SimpleNamespace(params={}, metrics={}, tags=tags.copy()),
+        )
+        self.artifacts[rid] = {}
+        if self.failure == "create":
+            self.failure = None
+            raise RuntimeError("ambiguous create after success")
+        return self.runs[rid]
+
+    def get_run(self, rid):
+        return self.runs[rid]
+
+    def list_artifacts(self, rid):
+        return [SimpleNamespace(path=n, is_dir=False) for n in self.artifacts[rid]]
+
+    def log_param(self, rid, key, value, **kw):
+        self.runs[rid].data.params[key] = str(value)
+
+    def log_metric(self, rid, key, value, **kw):
+        self.runs[rid].data.metrics[key] = value
+
+    def log_artifact(self, rid, name):
+        self.artifacts[rid][Path(name).name] = Path(name).read_bytes()
+        if self.failure == "artifact":
+            self.failure = None
+            raise RuntimeError("ambiguous artifact after success")
+
+    def download_artifacts(self, rid, name, dest):
+        p = Path(dest) / name
+        p.write_bytes(self.artifacts[rid][name])
+        return str(p)
+
+    def set_terminated(self, rid, status):
+        self.runs[rid].info.status = status
+
+
+def test_dry_admission_has_no_client_or_tracking_writes(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    result = m.register(tmp_path, report, reader=reader, client_factory=client.factory)
+    assert result["children"] == 16 and not client.factories and not (tmp_path / m.OUTPUT).exists()
+
+
+@pytest.mark.parametrize(
+    "fault", ["missing", "pending", "not_independent", "missing_source", "report_hash"]
+)
+def test_final_review_required_before_client_or_producer(tmp_path, fault):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    p = report / "review-acceptance.json"
+    value = json.loads(p.read_text())
+    if fault == "missing":
+        p.unlink()
+    else:
+        if fault == "pending":
+            value["status"] = "pending"
+        if fault == "not_independent":
+            value["independent_checker"] = False
+        if fault == "missing_source":
+            value["files"].pop("producer/check0/result.json")
+        if fault == "report_hash":
+            value["files"]["final-report/summary.json"] = "0" * 64
+        p.write_bytes(m.payload(value))
+    with pytest.raises((ValueError, OSError)):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not client.factories and not (tmp_path / m.OUTPUT).exists()
+
+
+def test_register16children_parent_failed_runs_and_idempotence(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    result = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    assert len(client.runs) == 17 and len(result["children"]) == 16
+    assert [c["status"] for c in result["children"][:2]] == ["FAILED", "FAILED"]
+    assert all(c["status"] == "FINISHED" for c in result["children"][2:])
+    before = (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes()
+    again = m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert (
+        again == result
+        and len(client.runs) == 17
+        and (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes() == before
+    )
+    assert not any(n.endswith((".nc", ".npz")) for a in client.artifacts.values() for n in a)
+
+
+@pytest.mark.parametrize("failure", ["create", "artifact"])
+def test_ambiguous_partial_registration_reconciles_same_run(tmp_path, failure):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    client.failure = failure
+    with pytest.raises(RuntimeError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists() and len(client.runs) == 1
+    result = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    assert len(client.runs) == 17 and len(result["children"]) == 16
+
+
+@pytest.mark.parametrize(
+    "fault", ["duplicate", "tag", "metric", "artifact", "deleted", "wrong_failed_status"]
+)
+def test_existing_conflicts_never_duplicate_or_recolor(tmp_path, fault):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    result = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    rid = result["children"][0]["run_id"]
+    run = client.runs[rid]
+    if fault == "duplicate":
+        client.runs["foreign"] = copy.deepcopy(run)
+    if fault == "tag":
+        run.data.tags["project_root"] = "another project"
+    if fault == "metric":
+        run.data.metrics["diagnostics.rhat"] = 9
+    if fault == "artifact":
+        client.artifacts[rid]["unknown.json"] = b"unknown"
+    if fault == "deleted":
+        run.info.lifecycle_stage = "deleted"
+    if fault == "wrong_failed_status":
+        run.info.status = "FINISHED"
+    count = len(client.runs)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert len(client.runs) == count and run.info.status == (
+        "FINISHED" if fault == "wrong_failed_status" else "FAILED"
+    )
+
+
+def test_source_drift_during_registration_never_writes_receipt(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    real = client.log_artifact
+
+    def drift(rid, name):
+        real(rid, name)
+        (tmp_path / "producer/full0/result.json").write_bytes(b"changed")
+
+    client.log_artifact = drift
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+
+
+def test_unknown_tracking_evidence_stops_without_client_mutations(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    output = tmp_path / m.OUTPUT
+    output.mkdir(parents=True)
+    (output / "unknown").mkdir()
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not client.runs
+
+
+@pytest.mark.parametrize("where", ["experiment", "run"])
+def test_remote_or_foreign_artifact_location_refused(tmp_path, where):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    if where == "experiment":
+        real = client.get_experiment_by_name
+
+        def external_experiment(name):
+            value = real(name)
+            value.artifact_location = "s3://foreign-store/arrival-model"
+            return value
+
+        client.get_experiment_by_name = external_experiment
+    else:
+        real = client.create_run
+
+        def external_run(experiment_id, tags):
+            value = real(experiment_id, tags)
+            value.info.artifact_uri = "file:///private/tmp/other-project/artifacts"
+            return value
+
+        client.create_run = external_run
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists() and not any(
+        client.artifacts.values()
+    )
+
+
+def test_bad_download_readback_does_not_terminate_or_publish(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    real = client.download_artifacts
+
+    def corrupted(rid, name, dest):
+        p = Path(real(rid, name, dest))
+        p.write_bytes(b"corrupt readback")
+        return str(p)
+
+    client.download_artifacts = corrupted
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert (
+        not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+        and client.runs["1"].info.status == "RUNNING"
+    )
+    client.download_artifacts = real
+    assert (
+        len(
+            m.register(
+                tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+            )["children"]
+        )
+        == 16
+    )
+
+
+def test_typed_later_check_gap_is_failed_with_explicit_gap_tag(tmp_path):
+    report, reader = fixture(tmp_path, gap=True)
+    client = Client()
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    assert (
+        receipt["children"][0]["status"] == "FAILED"
+        and receipt["children"][0]["tags"]["scientific_gap"] == "false"
+    )
+    for c in receipt["children"][1:3]:
+        assert c["status"] == "FAILED" and c["tags"]["scientific_gap"] == "true"
+    assert len(receipt["children"]) == 16
+
+
+def test_upload_race_cannot_validate_against_changed_source_manifest(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    real = client.log_artifact
+
+    def changed(rid, name):
+        Path(name).write_bytes(b"foreign manifest")
+        real(rid, name)
+
+    client.log_artifact = changed
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert (
+        not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+        and client.runs["1"].info.status == "RUNNING"
+    )
+
+
+def test_final_receipt_late_source_drift_archives_candidate(tmp_path, monkeypatch):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    real = m.write_once
+
+    def write(p, value):
+        real(p, value)
+        if p.name == "mlflow-receipt.json":
+            (tmp_path / "producer/full0/result.json").write_bytes(b"late drift")
+
+    monkeypatch.setattr(m, "write_once", write)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+    assert (tmp_path / m.OUTPUT / "unreviewed-receipt.json").exists()
+
+
+# Durable independent persistence/readback regressions.
+
+
+@pytest.mark.parametrize("fault", ["parent_nc", "parent_tag", "parent_metric", "parent_deleted"])
+def test_combined_review_parent_final_termination_drift_rejected(tmp_path, fault):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    terminate = client.set_terminated
+
+    def corrupt(rid, status):
+        terminate(rid, status)
+        if rid == "1" and status == "FINISHED":
+            if fault == "parent_nc":
+                client.artifacts[rid]["unexpected-posterior.nc"] = b"retained unexpected bytes"
+            elif fault == "parent_tag":
+                client.runs[rid].data.tags["decision"] = "foreign"
+            elif fault == "parent_metric":
+                client.runs[rid].data.metrics["unreviewed"] = 99.0
+            else:
+                client.runs[rid].info.lifecycle_stage = "deleted"
+
+    client.set_terminated = corrupt
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+    if fault == "parent_nc":
+        assert client.artifacts["1"]["unexpected-posterior.nc"] == b"retained unexpected bytes"
+
+
+@pytest.mark.parametrize("which", ["parent", "child"])
+def test_combined_review_completed_receipt_missing_run_never_creates_replacement(tmp_path, which):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    original = (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes()
+    rid = receipt["parent"]["run_id"] if which == "parent" else receipt["children"][-1]["run_id"]
+    client.runs.pop(rid)
+    client.artifacts.pop(rid)
+    creates = []
+
+    def creating(experiment_id, tags):
+        creates.append((experiment_id, tags))
+        replacement = "new-unique-18"
+        run = SimpleNamespace(
+            info=SimpleNamespace(
+                run_id=replacement,
+                experiment_id=experiment_id,
+                lifecycle_stage="active",
+                status="RUNNING",
+                artifact_uri=(client.store / experiment_id / replacement / "artifacts").as_uri(),
+            ),
+            data=SimpleNamespace(params={}, metrics={}, tags=tags.copy()),
+        )
+        client.runs[replacement] = run
+        client.artifacts[replacement] = {}
+        return run
+
+    client.create_run = creating
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not creates, (
+        "A completed immutable receipt must reject a missing recorded run before creation"
+    )
+    assert (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes() == original
+
+
+@pytest.mark.parametrize("name", ["program.manifest.json", "registrar.py.txt"])
+def test_combined_review_final_receipt_write_tracking_byte_drift_rejected(
+    tmp_path, monkeypatch, name
+):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    write = m.write_once
+
+    def corrupt(p, value):
+        write(p, value)
+        if p.name == "mlflow-receipt.json":
+            (p.parent / name).write_bytes(b"foreign retained bytes")
+
+    monkeypatch.setattr(m, "write_once", corrupt)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+    assert (tmp_path / m.OUTPUT / name).read_bytes() == b"foreign retained bytes"
+
+
+@pytest.mark.parametrize("name", ["unexpected.nc", "unexpected.json"])
+def test_combined_review_late_child_artifact_during_parent_termination_rejected(tmp_path, name):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    terminate = client.set_terminated
+
+    def corrupt(rid, status):
+        terminate(rid, status)
+        if rid == "1" and status == "FINISHED":
+            client.artifacts["2"][name] = b"foreign"
+
+    client.set_terminated = corrupt
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+    assert client.artifacts["2"][name] == b"foreign"
+
+
+def test_combined_review_ambiguous_parent_terminal_resumes_same_ids(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    terminate = client.set_terminated
+    raised = []
+
+    def ambiguous(rid, status):
+        terminate(rid, status)
+        if rid == "1" and status == "FINISHED" and not raised:
+            raised.append(True)
+            raise RuntimeError("termination succeeded but response lost")
+
+    client.set_terminated = ambiguous
+    with pytest.raises(RuntimeError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    ids = set(client.runs)
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    assert set(client.runs) == ids and len(ids) == 17 and len(receipt["children"]) == 16
+
+
+def test_combined_review_completed_idempotent_rerun_has_zero_mutations(tmp_path):
+    report, reader = fixture(tmp_path, gap=True)
+    client = Client()
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+
+    def forbid(*a, **kw):
+        pytest.fail("completed rerun must have zero client mutations")
+
+    for name in ["create_run", "log_param", "log_metric", "log_artifact", "set_terminated"]:
+        setattr(client, name, forbid)
+    assert (
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+        == receipt
+    )
+
+
+def test_completed_rerun_has_no_local_writes_either(tmp_path, monkeypatch):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+
+    def forbid(*a, **kw):
+        pytest.fail("no writes for a complete immutable receipt")
+
+    monkeypatch.setattr(m, "write_once", forbid)
+    for method in ["create_run", "log_param", "log_metric", "log_artifact", "set_terminated"]:
+        setattr(client, method, forbid)
+    assert (
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+        == receipt
+    )
+
+
+def test_completed_receipt_local_drift_is_preserved_without_recreation(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    original = (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes()
+    download = client.download_artifacts
+
+    def drift(rid, name, dest):
+        result = download(rid, name, dest)
+        (tmp_path / m.OUTPUT / "registrar.py.txt").write_bytes(b"foreign source copy")
+        return result
+
+    client.download_artifacts = drift
+    count = len(client.runs)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert (
+        len(client.runs) == count
+        and (tmp_path / m.OUTPUT / "mlflow-receipt.json").read_bytes() == original
+    )
+    assert (tmp_path / m.OUTPUT / "registrar.py.txt").read_bytes() == b"foreign source copy"
+
+
+def test_parent_exact_manifest_bytes_checked_after_terminal_mutation(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    terminate = client.set_terminated
+
+    def change(rid, status):
+        terminate(rid, status)
+        if rid == "1":
+            client.artifacts[rid]["program.manifest.json"] = b"changed bytes at same path"
+
+    client.set_terminated = change
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+
+
+def test_final_child_local_manifest_drift_cannot_publish_receipt(tmp_path, monkeypatch):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    write = m.write_once
+    target = "numerical-resolution-case-000.manifest.json"
+
+    def drift(p, value):
+        write(p, value)
+        if p.name == "mlflow-receipt.json":
+            (p.parent / target).write_bytes(b"foreign retained bytes")
+
+    monkeypatch.setattr(m, "write_once", drift)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+    assert (tmp_path / m.OUTPUT / target).read_bytes() == b"foreign retained bytes"
+
+
+def test_new_candidate_archived_when_previous_candidate_exists(tmp_path, monkeypatch):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    write = m.write_once
+
+    def drift(p, value):
+        write(p, value)
+        if p.name == "mlflow-receipt.json":
+            (p.parent / "program.manifest.json").write_bytes(b"late bytes")
+
+    monkeypatch.setattr(m, "write_once", drift)
+    for _ in range(2):
+        with pytest.raises(ValueError):
+            m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+        assert not (tmp_path / m.OUTPUT / "mlflow-receipt.json").exists()
+        # Test-only manifest restoration permits reconciliation; archives remain untouched.
+        prepared = m.prepare(tmp_path, report, reader=reader)
+        (tmp_path / m.OUTPUT / "program.manifest.json").write_bytes(
+            m.payload(prepared["parent"]["manifest"])
+        )
+    archives = list((tmp_path / m.OUTPUT).glob("unreviewed-receipt*.json"))
+    assert len(archives) == 2 and archives[0].read_bytes() == archives[1].read_bytes()
+
+
+def test_inherited_ledgers_are_hash_only_and_never_mirrored(tmp_path, monkeypatch):
+    report, reader = fixture(tmp_path)
+    read_text = Path.read_text
+
+    def no_context_json(p, *args, **kwargs):
+        assert not str(p.relative_to(tmp_path)).startswith("context/")
+        return read_text(p, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", no_context_json)
+    client = Client()
+    receipt = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    assert len(receipt["children"]) == 16
+    assert all(
+        b"opaque immutable ledger" not in content
+        for artifacts in client.artifacts.values()
+        for content in artifacts.values()
+    )
+    pins = reader.verify_report_sources(tmp_path)["files"]
+    name = next(p for p in pins if p.startswith("context/"))
+    with pytest.raises(ValueError, match="literal public"):
+        m.read(tmp_path, pins, name)
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "omitted",
+        "omitted_all",
+        "extra",
+        "original_live_state",
+        "continuation_live_state",
+        "mismatched_hash",
+        "non_json",
+        "embedded_context",
+        "freeze_hash",
+        "inherited_live_state",
+    ],
+)
+def test_invalid_legacy_reference_map_stops_before_context_hash_or_client(
+    tmp_path, monkeypatch, fault
+):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    review_path = report / "review-acceptance.json"
+    review = json.loads(review_path.read_text())
+    pins = review["files"]
+    freeze_path = tmp_path / m.FREEZE
+    freeze = json.loads(freeze_path.read_text())
+    key = next(iter(freeze["files"]))
+    live = "context/runs/arrival-model-fitting-v1/development-state.json"
+    if fault == "omitted":
+        pins.pop(key)
+    elif fault == "omitted_all":
+        for name in list(pins):
+            if name.startswith("context/"):
+                pins.pop(name)
+    elif fault == "extra":
+        pins["context/unreviewed.json"] = "f" * 64
+    elif fault == "original_live_state":
+        pins[live] = "f" * 64
+    elif fault == "continuation_live_state":
+        pins["context/runs/arrival-model-fitting-v1/development-completion-state.json"] = "f" * 64
+    elif fault == "mismatched_hash":
+        pins[key] = "f" * 64
+    elif fault == "embedded_context":
+        pins["artifacts/context/unreviewed.json"] = "f" * 64
+    elif fault == "freeze_hash":
+        pins[m.FREEZE] = "f" * 64
+    else:
+        destination = key.removesuffix(".json") + ".txt" if fault == "non_json" else live
+        freeze["files"][destination] = freeze["files"].pop(key)
+        pins[destination] = pins.pop(key)
+        freeze_path.write_bytes(m.payload(freeze))
+        pins[m.FREEZE] = m.sha(freeze_path)
+    review_path.write_bytes(m.payload(review))
+    original_sha = m.sha
+
+    def no_context_hash(p):
+        assert "context/" not in str(p.relative_to(tmp_path)), "context hash before admission"
+        return original_sha(p)
+
+    monkeypatch.setattr(m, "sha", no_context_hash)
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert client.factories == 0 and not (tmp_path / m.OUTPUT).exists()
+
+
+def test_tracking_reuses_publicly_admitted_smokes_without_old_namespace_reconstruction(tmp_path):
+    report, reader = fixture(tmp_path)
+    reader._ordinary_case = lambda *a, **k: pytest.fail("old G namespace reconstructed")
+    reader.recovery.verify_gate = lambda *a, **k: pytest.fail("duplicate G admission")
+    result = m.prepare(tmp_path, report, reader=reader)
+    assert len(result["children"]) == 16
+
+
+def test_revalidated_G0_retains_original_failure_and_one_computation(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    result = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    g0 = result["children"][6]
+    assert g0["status"] == "FINISHED"
+    assert g0["tags"]["decision"] == "accepted_under_strict_revalidation"
+    assert g0["tags"]["original_controller_outcome"] == "needs_review"
+    assert g0["tags"]["retained_controller_failure"] == "true"
+    assert g0["params"]["sampler_call_cost"] == "1"
+    assert len(result["children"]) == 16 and len(client.runs) == 17
+    assert (
+        json.loads((tmp_path / "controller/attempts/check/smoke0.json").read_text())["outcome"]
+        == "needs_review"
+    )
+
+
+@pytest.mark.parametrize(
+    "key",
+    [
+        "original_controller_outcome",
+        "technical_review_sha256",
+        "strict_proof_sha256",
+        "original_receipt_sha256",
+    ],
+)
+def test_revalidated_G0_requires_literal_accepted_proof_links_before_client(tmp_path, key):
+    report, reader = fixture(tmp_path)
+    reader.verify_report_sources(tmp_path)["smokes"][0]["technical_revalidation"][key] = "wrong"
+    client = Client()
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert client.factories == 0
+
+
+def test_epoch2_G2_tracking_has_no_fabricated_attempt_or_new_sampler(tmp_path):
+    report, reader = fixture(tmp_path)
+    client = Client()
+    result = m.register(
+        tmp_path, report, reader=reader, execute=True, client_factory=client.factory
+    )
+    g2 = result["children"][8]
+    assert g2["status"] == "FINISHED"
+    assert g2["tags"]["decision"] == "accepted_under_stable_revalidation"
+    assert g2["tags"]["original_controller_outcome"] == "failed_before_attempt"
+    assert g2["tags"]["retained_controller_failure"] == "true"
+    assert g2["params"]["sampler_call_cost"] == "1"
+    assert len(result["children"]) == 16 and len(client.runs) == 17
+    assert not (tmp_path / "controller/attempts/check/smoke2.json").exists()
+
+
+@pytest.mark.parametrize(
+    "fault", ["proof_hash", "failure_hash", "allocation_hash", "invented_receipt", "worker_subset"]
+)
+def test_epoch2_G2_invalid_links_reject_before_client(tmp_path, fault):
+    report, reader = fixture(tmp_path)
+    bundle = reader.verify_report_sources(tmp_path)
+    case = bundle["smokes"][2]
+    technical = case["technical_revalidation"]
+    if fault == "invented_receipt":
+        technical["original_receipt"] = "invented.json"
+    elif fault == "worker_subset":
+        case["program_record"]["worker_files"] = {"absent.nc": "0" * 64}
+    else:
+        key = {
+            "proof_hash": "strict_proof_sha256",
+            "failure_hash": "original_failure_sha256",
+            "allocation_hash": "original_allocation_sha256",
+        }[fault]
+        technical[key] = "0" * 64
+    client = Client()
+    with pytest.raises(ValueError):
+        m.register(tmp_path, report, reader=reader, execute=True, client_factory=client.factory)
+    assert not client.runs

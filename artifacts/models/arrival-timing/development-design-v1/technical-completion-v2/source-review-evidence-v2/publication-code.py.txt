@@ -1,0 +1,38 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+D=T.DESIGN
+sha=T.sha
+reader=['analysis/arrival/model_development_completion_report.py','scripts/summarize_arrival_completed_development.py','tests/test_arrival_model_development_completion_report.py']
+maker=json.loads(Path('/private/tmp/epoch2-consumer-maker-receipt.json').read_text())
+for p,h in maker['files'].items():assert sha(Path(p) if p.startswith('/') else R/p)==h,p
+qa=json.loads(Path('/private/tmp/tsunami-technical-epoch2-source-qa.json').read_text())
+assert qa['status']=='accepted_frozen_development_technical_completion_epoch2_sources' and qa['independent_checker'] is True
+T.fresh(R,qa['files'])
+receipt=dict(status='accepted_frozen_epoch2_development_consumers_independent_review',independent_checker=True,source_only=True,execution_authority=False,files={p:sha(R/p) for p in reader},maker_receipt_sha256=sha(Path('/private/tmp/epoch2-consumer-maker-receipt.json')),observed_tests={'reader':115,'reader_seconds':80.52,'helpers':90,'helper_seconds':8.81},checks=['Complete Reader source diff reviewed; saved-worker validation extracted unchanged','Only receipt-free fixed G2 accepts its separately admitted typed descriptor; exact worker manifest/native hash and absent original attempt retained','G1 uses immutable original authority/plan and explicit historical3code resolution; no data or kernel fallback','Ordinary receipt equality strips only derived producer_epoch/proof_contract plus existing receipt SHA','Full builder retains complete6mixedG byte maps and exact4physical ordinary receipts','Tracking retains16computation children+parent17,9sampler calls;G0/G2 accepted same computations preserve original failures;CHECK gaps remainFAILED'],actual_science_or_sampling_run=False,private_STATE_bodies_read=False)
+# Publication is append-only and refuses any replacement.
+def copy(src,leaf):
+ p=R/D/leaf;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(Path(src).read_bytes())
+ return {str(p.relative_to(R)):sha(p)}
+def save(leaf,v):
+ p=R/D/leaf;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(T.payload(v))
+ return {str(p.relative_to(R)):sha(p)}
+cp={}
+for src,leaf in [('/private/tmp/tsunami-technical-epoch2-source-qa.json','source-review-evidence-v2/source-qa.json'),('/private/tmp/epoch2-consumer-maker-receipt.json','consumer-review-evidence-v2/maker-checks.json'),('/private/tmp/tsunami-epoch2-reader-review.log','consumer-review-evidence-v2/reader-tests.txt'),('/private/tmp/tsunami-epoch2-helper-review.log','consumer-review-evidence-v2/helper-tests.txt'),('/private/tmp/prepare-tsunami-full-development-worker-gate.py','consumer-review-evidence-v2/full-worker-gate-builder.py.txt'),('/private/tmp/test_prepare_full_development_worker_gate.py','consumer-review-evidence-v2/test-full-worker-gate-builder.py.txt'),('/private/tmp/track-tsunami-development-program.py','consumer-review-evidence-v2/tracking.py.txt'),('/private/tmp/test_track_development_program.py','consumer-review-evidence-v2/test-tracking.py.txt'),('/private/tmp/test_track_development_independent.py','consumer-review-evidence-v2/independent-tracking-tests.py.txt')]:cp=T.merge(cp,copy(src,leaf))
+cp=T.merge(cp,save('consumer-review-evidence-v2/independent-review.json',receipt),copy(__file__,'source-review-evidence-v2/publication-code.py.txt'))
+oldname=T.LEGACY_DESIGN+'/source-review.json';old=T.load(R,oldname)
+replayname=D+'/replay-source-review.json';replay=T.load(R,replayname)
+code=T.merge(T.historical_source_verify(R,old['files']),replay['files'],qa['files'],{oldname:sha(R/oldname),replayname:sha(R/replayname)},cp)
+common=dict(independent_checker=True,execution_authority=False,new_sampler_calls=0,reserved_outcomes='sealed',scientific_models_priors_seeds_thresholds_changed=False)
+src=dict(common,status='accepted_frozen_arrival_development_technical_source',source_epoch='technical-completion-v2',proof_contract=T.PROOF_CONTRACT,source_files=qa['files'],independent_tests_passed=76,static_checks_passed=True,historical_code_resolution='exact_three_original_v1_code_bindings_only',replay_source_review=replayname,files=code)
+save('source-review.json',src)
+oldrname=T.LEGACY_DESIGN+'/consumer-source-review.json';oldr=T.load(R,oldrname)
+rbase={p:h for p,h in oldr['files'].items() if p not in reader}
+consumer=T.merge(T.historical_source_verify(R,rbase),{p:sha(R/p) for p in reader},qa['files'],cp,{oldrname:sha(R/oldrname),D+'/source-review.json':sha(R/D/'source-review.json')})
+cr=dict(common,status='accepted_frozen_arrival_development_technical_consumer_source',source_epoch='technical-completion-v2',current_reader_files={p:sha(R/p) for p in reader},independent_tests_passed=205,computation_children=16,parent_runs=1,maximum_sampler_calls=9,original_G0_G2_controller_failures_preserved=True,no_original_G2_accepted_attempt=True,files=consumer)
+save('consumer-source-review.json',cr)
+for n in ['source-review.json','consumer-source-review.json']:
+ p=R/D/n;v=json.loads(p.read_text());T.fresh(R,v['files']);print(n,sha(p),len(v['files']))

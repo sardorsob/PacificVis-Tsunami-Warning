@@ -1,0 +1,28 @@
+{
+  "actual_science_or_sampling_run": false,
+  "checks": [
+    "Complete Reader source diff reviewed; saved-worker validation extracted unchanged",
+    "Only receipt-free fixed G2 accepts its separately admitted typed descriptor; exact worker manifest/native hash and absent original attempt retained",
+    "G1 uses immutable original authority/plan and explicit historical3code resolution; no data or kernel fallback",
+    "Ordinary receipt equality strips only derived producer_epoch/proof_contract plus existing receipt SHA",
+    "Full builder retains complete6mixedG byte maps and exact4physical ordinary receipts",
+    "Tracking retains16computation children+parent17,9sampler calls;G0/G2 accepted same computations preserve original failures;CHECK gaps remainFAILED"
+  ],
+  "execution_authority": false,
+  "files": {
+    "analysis/arrival/model_development_completion_report.py": "f2d25b5a82333d0268b1c0fe96c76b888fa66f348a12e10e7a8cd46ffcb51206",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "8886a06c419db00edbd7c06d90fb226f30a3a030408150e254b9db8d61306a36"
+  },
+  "independent_checker": true,
+  "maker_receipt_sha256": "24ac2acab015200f4632be3a49516dbb2ce63808d38440f3dfbded9db135029e",
+  "observed_tests": {
+    "helper_seconds": 8.81,
+    "helpers": 90,
+    "reader": 115,
+    "reader_seconds": 80.52
+  },
+  "private_STATE_bodies_read": false,
+  "source_only": true,
+  "status": "accepted_frozen_epoch2_development_consumers_independent_review"
+}

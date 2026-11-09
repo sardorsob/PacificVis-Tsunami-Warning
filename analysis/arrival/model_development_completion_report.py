@@ -63,6 +63,137 @@ CONSUMED = tuple(
 require = old.require
 
 
+def _saved_worker_metadata(root, pins, admission, job, phase, *, failed=False):
+    worker = recovery if phase == "full_design_recovery" else fit
+    folder, raw = worker.case_paths(root, job)
+    name = lambda leaf: str((folder / leaf).relative_to(root))  # noqa: E731
+    result, inputs, membership = [
+        data._json(root, pins, name(n)) for n in ["result.json", "inputs.json", "membership.json"]
+    ]
+    target, model = admission["specs"][job["model_key"]]
+    require(
+        result.get("job") == data._json(root, pins, name("job.json")) == job
+        and result.get("status") == ("needs_numerical_review" if failed else fit.SUCCESS)
+        and result.get("confirmation_outcomes_parsed") is True
+        and result.get("reserved_outcomes") == "sealed"
+        and inputs.get("files") == admission["files"]
+        and inputs.get("model_spec") == model
+        and (
+            inputs.get("protocol") == recovery.protocol()
+            if phase == "full_design_recovery"
+            else inputs.get("specification_freeze_sha256") == pins[data.FREEZE]
+        ),
+        "unchanged successful frozen worker result required",
+    )
+    settings = None
+    if raw is not None:
+        require(
+            result.get("posterior") == str(raw.relative_to(root))
+            and result.get("posterior_sha256") == pins[str(raw.relative_to(root))]
+            and result.get("diagnostics", {}).get("screen_passed") is True
+            and data._json(root, pins, name("sampling-start.json")) == job,
+            "literal sampled posterior and diagnostic proof required",
+        )
+        settings = data._json(root, pins, name("prior-settings.json"))
+        base, wider, effective = fit._priors(root, target, model)
+        require(
+            settings == dict(base_prior=base, wider_prior=wider, **effective),
+            "same priors required",
+        )
+    if phase == "full_design_recovery":
+        require(
+            result.get("sampler_call_started") is True
+            and result.get("numerical_oracles_passed") is True
+            and data._json(root, pins, name("numerical-oracles.json")).get("passed") is True
+            and data._json(root, pins, name("diagnostics.json")) == result["diagnostics"]
+            and membership.get("truth") == job["truth"]
+            and result.get("scope") == recovery.protocol()["scope"]
+            and result.get("calibration_or_coverage_claim") is False,
+            "reviewed fixed-truth G smoke metadata required",
+        )
+    return dict(
+        job=job,
+        target=target,
+        spec=model,
+        folder=folder,
+        result=result,
+        membership=membership,
+        settings=settings,
+        events_path=name("event-results.json"),
+        prediction_path=name("held-out-record-predictions.csv"),
+    )
+
+
+def _stable_g2_case(root, pins, admission, job, program, record):
+    """Read the already admitted G2 computation without inventing an attempt."""
+    require(
+        record.get("producer") == "G2_stable_scientific_revalidation"
+        and record.get("producer_epoch") == "technical-completion-v2"
+        and record.get("proof_contract") == technical.PROOF_CONTRACT
+        and record.get("job") == program["jobs"][2] == job
+        and record.get("logical_outcome") == "accepted_under_stable_revalidation"
+        and record.get("original_controller_outcome") == "failed_before_attempt"
+        and "receipt" not in record
+        and "receipt_sha256" not in record
+        and record.get("cost") == record.get("start_markers") == 1
+        and record.get("technical_review") == technical.G2_REVIEW,
+        "literal separately reviewed G2 computation without fabricated attempt required",
+    )
+    for key in ["original_allocation", "original_failure", "technical_review", "strict_proof"]:
+        require(pins.get(record[key]) == record[key + "_sha256"], "exact G2 evidence binding")
+    data._require(pins, record["files"])
+    folder, raw = recovery.case_paths(root, job)
+    manifest_name = str((folder / "output-checksums.json").relative_to(root))
+    manifest = data._json(root, pins, manifest_name)
+    require(
+        set(manifest) | {"output-checksums.json"}
+        == technical.producer_names("full_design_recovery"),
+        "same complete G2 worker leaf set required",
+    )
+    worker_files = {str((folder / n).relative_to(root)): h for n, h in manifest.items()}
+    worker_files.update(
+        {
+            manifest_name: pins[manifest_name],
+            str(raw.relative_to(root)): pins[str(raw.relative_to(root))],
+        }
+    )
+    require(record["worker_files"] == worker_files, "exact G2 native worker map required")
+    data._require(record["files"], worker_files)
+    require(
+        {p.name for p in folder.iterdir()} == set(manifest) | {"output-checksums.json"}
+        and all(p.is_file() and p.resolve() == p for p in folder.iterdir())
+        and not technical.attempt_path(root, "full_design_recovery", job).exists(),
+        "unchanged G2 physical inventory and absent attempt required",
+    )
+    metadata = _saved_worker_metadata(root, pins, admission, job, "full_design_recovery")
+    return dict(
+        **metadata,
+        files=record["files"],
+        receipt=None,
+        receipt_sha256=None,
+        public_record=None,
+        program_record=record,
+        technical_revalidation={
+            k: record[k]
+            for k in [
+                "producer",
+                "producer_epoch",
+                "proof_contract",
+                "logical_outcome",
+                "original_controller_outcome",
+                "original_allocation",
+                "original_allocation_sha256",
+                "original_failure",
+                "original_failure_sha256",
+                "technical_review",
+                "technical_review_sha256",
+                "strict_proof",
+                "strict_proof_sha256",
+            ]
+        },
+    )
+
+
 def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False, program=None):
     require(not failed or phase == "check", "only CHECK precision gaps may be disposed")
     worker = recovery if phase == "full_design_recovery" else fit
@@ -73,13 +204,6 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
         and phase == "full_design_recovery"
         and job == program["baseline"]["job"]
     )
-    continued = program is not None and not legacy
-    control = technical.CONTROL if continued else CONTROL
-    authority_name = technical.authority_path(phase) if continued else AUTHORITY[phase]
-    receipt = control + f"/attempts/{phase}/{job['id']}.json"
-    plan_name = control + "/plans/" + phase + ".json"
-    record, plan = [data._json(root, pins, n) for n in [receipt, plan_name]]
-    authority = data._json(root, pins, authority_name)
     logical_record = None
     if program is not None:
         require(not failed and phase in technical.PHASES, "technical continuation is G/full only")
@@ -88,10 +212,39 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
         matches = [
             entry
             for entry in program["accepted_records"]
-            if (entry.get("job") == job if legacy else entry.get("job_id") == job["id"])
+            if entry.get("job") == job or entry.get("job_id") == job["id"]
         ]
         require(len(matches) == 1, "one public logical computation descriptor required")
         logical_record = matches[0]
+        if logical_record.get("producer") == "G2_stable_scientific_revalidation":
+            return _stable_g2_case(root, pins, admission, job, program, logical_record)
+    continued = program is not None and not legacy
+    prior_epoch = (
+        continued
+        and logical_record is not None
+        and logical_record.get("producer_epoch") == "technical-completion-v1"
+    )
+    control = technical.CONTROL if continued else CONTROL
+    authority_name = (
+        (technical.LEGACY_AUTHORITY if prior_epoch else technical.authority_path(phase))
+        if continued
+        else AUTHORITY[phase]
+    )
+    receipt = control + f"/attempts/{phase}/{job['id']}.json"
+    plan_name = (
+        str(
+            (
+                technical.legacy_plan_path(root, phase)
+                if prior_epoch
+                else technical.plan_path(root, phase)
+            ).relative_to(root)
+        )
+        if continued
+        else control + "/plans/" + phase + ".json"
+    )
+    record, plan = [data._json(root, pins, n) for n in [receipt, plan_name]]
+    authority = data._json(root, pins, authority_name)
+    if program is not None and logical_record is not None:
         if legacy:
             baseline = program["baseline"]
             require(
@@ -106,8 +259,32 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
             )
         else:
             require(
-                logical_record == {**record, "receipt_sha256": pins[receipt]}
-                and record.get("producer") == "strict_startup_execution",
+                {
+                    k: v
+                    for k, v in logical_record.items()
+                    if k not in {"producer_epoch", "proof_contract"}
+                }
+                == {**record, "receipt_sha256": pins[receipt]}
+                and logical_record.get("producer_epoch")
+                == (
+                    "technical-completion-v1"
+                    if phase == "full_design_recovery" and job == program["jobs"][1]
+                    else "technical-completion-v2"
+                )
+                and logical_record.get("proof_contract")
+                == (
+                    "strict_original_worker_artifacts_passed"
+                    if prior_epoch
+                    else technical.PROOF_CONTRACT
+                    if phase == "full_design_recovery"
+                    else technical.FULL_PROOF_CONTRACT
+                )
+                and record.get("producer")
+                == (
+                    "stable_scientific_startup_execution"
+                    if phase == "full_design_recovery" and not prior_epoch
+                    else "strict_startup_execution"
+                ),
                 "exact public technical execution receipt required",
             )
     kernel_name = {
@@ -133,7 +310,12 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
     data._require(reviewed, {n: pins[n] for n in [receipt, plan_name, authority_name]})
     data._require(reviewed, record.get("files"))
     data._require(pins, record["files"])
-    data._require(pins, plan.get("files"))
+    data._require(
+        pins,
+        technical.historical_source_verify(root, plan["files"])
+        if prior_epoch
+        else plan.get("files"),
+    )
     require(
         plan["files"] == {**authority["files"], authority_name: pins[authority_name]},
         "complete recorded execution admission required",
@@ -204,7 +386,11 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
     )
     required_process = {str(p.relative_to(root)) for p in [spec, log, process]} | {allocation_path}
     if continued:
-        proof = technical.proof_path(root, phase, job)
+        proof = (
+            technical.legacy_proof_path(root, phase, job)
+            if prior_epoch
+            else technical.proof_path(root, phase, job)
+        )
         proof_name = str(proof.relative_to(root))
         required_process |= {
             str(p.relative_to(root))
@@ -216,7 +402,17 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
         )
         require(
             record.get("strict_proof") == proof_name
-            and strict.get("status") == "strict_original_worker_artifacts_passed"
+            and strict.get("status")
+            == (
+                "strict_original_worker_artifacts_passed"
+                if prior_epoch or phase == "full_development"
+                else "scientific_artifact_replay_passed"
+            )
+            and (
+                prior_epoch
+                or phase == "full_development"
+                or strict.get("proof_contract") == technical.PROOF_CONTRACT
+            )
             and strict.get("job") == job
             and strict.get("worker_files") == worker_files
             and strict.get("sampler_calls") == 0
@@ -256,58 +452,8 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
         ),
         "exact worker/authority/source/cost supervision proof required",
     )
-    result, inputs, membership = [
-        data._json(root, pins, name(n)) for n in ["result.json", "inputs.json", "membership.json"]
-    ]
-    target, model = admission["specs"][job["model_key"]]
-    require(
-        result.get("job") == data._json(root, pins, name("job.json")) == job
-        and result.get("status") == ("needs_numerical_review" if failed else fit.SUCCESS)
-        and result.get("confirmation_outcomes_parsed") is True
-        and result.get("reserved_outcomes") == "sealed"
-        and inputs.get("files") == admission["files"]
-        and inputs.get("model_spec") == model
-        and (
-            inputs.get("protocol") == recovery.protocol()
-            if phase == "full_design_recovery"
-            else inputs.get("specification_freeze_sha256") == pins[data.FREEZE]
-        ),
-        "unchanged successful frozen worker result required",
-    )
-    settings = None
-    if raw is not None:
-        require(
-            result.get("posterior") == str(raw.relative_to(root))
-            and result.get("posterior_sha256") == pins[str(raw.relative_to(root))]
-            and result.get("diagnostics", {}).get("screen_passed") is True
-            and data._json(root, pins, name("sampling-start.json")) == job,
-            "literal sampled posterior and diagnostic proof required",
-        )
-        settings = data._json(root, pins, name("prior-settings.json"))
-        base, wider, effective = fit._priors(root, target, model)
-        require(
-            settings == dict(base_prior=base, wider_prior=wider, **effective),
-            "same priors required",
-        )
-    if phase == "full_design_recovery":
-        require(
-            result.get("sampler_call_started") is True
-            and result.get("numerical_oracles_passed") is True
-            and data._json(root, pins, name("numerical-oracles.json")).get("passed") is True
-            and data._json(root, pins, name("diagnostics.json")) == result["diagnostics"]
-            and membership.get("truth") == job["truth"]
-            and result.get("scope") == recovery.protocol()["scope"]
-            and result.get("calibration_or_coverage_claim") is False,
-            "reviewed fixed-truth G smoke metadata required",
-        )
     return dict(
-        job=job,
-        target=target,
-        spec=model,
-        folder=folder,
-        result=result,
-        membership=membership,
-        settings=settings,
+        **_saved_worker_metadata(root, pins, admission, job, phase, failed=failed),
         files=record["files"],
         receipt=receipt,
         receipt_sha256=pins[receipt],
@@ -326,8 +472,6 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False,
             if legacy and logical_record is not None
             else None
         ),
-        events_path=name("event-results.json"),
-        prediction_path=name("held-out-record-predictions.csv"),
     )
 
 
@@ -725,6 +869,7 @@ def verify_report_sources(root):
         AUTHORITY["check"],
         SUMMARIES["check"],
         technical.BASELINE,
+        technical.G2_REVIEW,
         *(technical.authority_path(phase) for phase in technical.PHASES),
         *(str(technical.summary_path(root, phase).relative_to(root)) for phase in technical.PHASES),
     }
@@ -788,6 +933,8 @@ def verify_report_sources(root):
             require(
                 program.get("phase") == phase
                 and program.get("complete") is True
+                and program.get("remaining_jobs") == []
+                and program.get("source_epoch") == "technical-completion-v2"
                 and program.get("jobs") == jobs[phase]
                 and program.get("dispatch_jobs")
                 == (jobs[phase][1:] if phase == "full_design_recovery" else jobs[phase])
@@ -864,7 +1011,11 @@ def verify_report_sources(root):
         [case["program_record"] for case in smokes]
         == summaries["full_design_recovery"]["accepted_records"]
         and summaries["full_design_recovery"]["attempt_records"]
-        == summaries["full_design_recovery"]["accepted_records"][1:]
+        == [
+            record
+            for record in summaries["full_design_recovery"]["accepted_records"]
+            if "receipt" in record
+        ]
         and sum(case["program_record"]["cost"] for case in smokes) == 6
         and sum(case["program_record"]["start_markers"] for case in smokes) == 6,
         "all six exact reviewed smoke process/attempt proofs required",
@@ -882,7 +1033,7 @@ def verify_report_sources(root):
         for j in jobs["full_development"]
     ]
     require(
-        [case["public_record"] for case in cases]
+        [case["program_record"] for case in cases]
         == summaries["full_development"]["accepted_records"]
         == summaries["full_development"]["attempt_records"],
         "full phase summary must preserve exact public attempts",
@@ -963,6 +1114,13 @@ def verify_report_sources(root):
             G0_logical_outcome="accepted_under_strict_revalidation",
             G0_sampler_calls=1,
             no_additional_G0_sampling=True,
+            G2_review=technical.G2_REVIEW,
+            G2_review_sha256=pins[technical.G2_REVIEW],
+            original_G2_controller_outcome="failed_before_attempt",
+            G2_logical_outcome="accepted_under_stable_revalidation",
+            G2_sampler_calls=1,
+            no_additional_G2_sampling=True,
+            source_epoch="technical-completion-v2",
         ),
     )
 
@@ -1001,6 +1159,9 @@ def render_markdown(summary):
         "Unresolved scores remain unavailable. The first recovery smoke retains its original "
         "controller failure and was independently accepted under strict revalidation of the "
         "same saved computation; no additional sampler call was made. "
+        "Recovery smoke G2 retains its earlier proof failure and absent accepted attempt; "
+        "a separate stable recomputation of the original scientific diagnostics validates "
+        "the same saved computation, with no additional sampling. "
         "Mixed-method aggregate uncertainty sums the "
         "shared-draw MCSE estimate and the weighted integration MCSE estimate, without "
         "assuming independence; this is not a finite-bias bound. Model selection stays frozen."

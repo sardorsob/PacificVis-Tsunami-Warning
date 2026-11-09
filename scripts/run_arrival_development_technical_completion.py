@@ -1,4 +1,4 @@
-"""One fixed development dispatch or strict read-only artifact proof."""
+"""One fixed development dispatch or versioned read-only scientific artifact proof."""
 # pyright: basic
 
 import argparse
