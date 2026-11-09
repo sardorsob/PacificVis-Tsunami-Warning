@@ -1,0 +1,72 @@
+{
+  "augmented_chain_overlap": [
+    0.6932386656755057,
+    0.7089418032066723,
+    0.6923957802853656,
+    0.6940414014083165
+  ],
+  "augmented_functional_mixing": {
+    "constant": false,
+    "ess_bulk": 9192.412011761562,
+    "ess_tail": 5789.319629972967,
+    "passed": true,
+    "rhat": 1.0009688352973831
+  },
+  "augmented_influence_mcse": 0.006983210017352169,
+  "augmented_q_quantiles": [
+    0.013372777678676617,
+    0.09576698487153609,
+    0.30909901466915407,
+    0.6963417879922731,
+    0.9085138297311456,
+    0.9658257832459244,
+    0.9887004712655074
+  ],
+  "augmented_weight_concentration": 5638.922508400677,
+  "chain_joint_log_predictive": [
+    -12.301177006892972,
+    -12.34756892026639,
+    -12.308276852823747,
+    -12.326081110267708
+  ],
+  "chain_joint_log_predictive_range": 0.04639191337341764,
+  "fixedpoint_derivative": 0.0009059871899698146,
+  "implicit_root_denominator": 0.9990940128100302,
+  "joint_log_mcse_delta": 0.009982349925233697,
+  "joint_log_predictive": -12.320648882986601,
+  "method": "two_posterior_marginal_hyperparameter_bridge",
+  "normalized_event_score": -0.25144181393850207,
+  "normalized_mcse": 0.00020372142704558566,
+  "overlap": 0.697154412643965,
+  "overlap_augmented": 0.697154412643965,
+  "overlap_training": 0.697154412643965,
+  "precision_passed": true,
+  "records": 49,
+  "root_log_equation_residual": 0.0,
+  "s0": 0.5,
+  "s1": 0.5,
+  "training_chain_overlap": [
+    0.7070203243550965,
+    0.6903367445046831,
+    0.7009843501045755,
+    0.6902762316115048
+  ],
+  "training_functional_mixing": {
+    "constant": false,
+    "ess_bulk": 9140.968118873088,
+    "ess_tail": 5579.208779449391,
+    "passed": true,
+    "rhat": 1.0000286703997538
+  },
+  "training_influence_mcse": 0.007133168151905962,
+  "training_q_quantiles": [
+    0.0011658513634526298,
+    0.01296014877348283,
+    0.06747443495602572,
+    0.30860437901176696,
+    0.696788506297601,
+    0.8879009019058565,
+    0.9712312091058833
+  ],
+  "training_weight_concentration": 5507.012562104734
+}

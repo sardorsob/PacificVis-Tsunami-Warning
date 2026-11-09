@@ -1,0 +1,36 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0013772179877520785,
+    "max_rhat": 1.0022080910396636,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9564476390817281,
+    "min_ess_bulk": 3236.070181452707,
+    "min_ess_tail": 3942.3316213888534,
+    "screen_passed": true
+  },
+  "held_loglikelihood": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-019-path-v1/repeat-node-07.loglikelihood.npz",
+  "held_loglikelihood_sha256": "577a825d579a5164f66f6f4b99f8588167e63a8f5d0ce00dcf8cec2f00125678",
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "event_id": "usp000exfn",
+    "id": "repeat-node-07",
+    "kind": "mean-curvature",
+    "node": 7,
+    "path_role": "repeat",
+    "prior": "base",
+    "seed": 2876129957,
+    "sequence": "seq-usp000exfn",
+    "target": "NCEI-native-duration",
+    "temperature": 0.19140625,
+    "tune": 1000
+  },
+  "likelihood_measure": "log_ratio_response_explicit_alpha_beta_gamma_new_u_integrated",
+  "posterior": "data/processed/models/mean-curvature-sequence-v1/resolution-fold-019-path-v1/repeat-node-07.nc",
+  "posterior_sha256": "0326400cf6d909118096efb96c711413e71eacf01ba8cab5c777360ca9031b73",
+  "reserved_outcomes": "sealed",
+  "status": "node_computed_pending_review"
+}
