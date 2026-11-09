@@ -1,0 +1,115 @@
+"""Export independently audited, visually reviewed final47 evidence and typed receipt.
+No sampler, controller execution, STATE/source/Git/context writes.
+"""
+from pathlib import Path
+import json
+import sys
+ROOT = Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+sys.path.insert(0, str(ROOT))
+from analysis.arrival.evidence import sha256
+from scripts import run_arrival_sensitivity_finish as m
+TEMP = Path('/private/tmp/s5-repair047-attempt2-science')
+STATE_SHA = '0d29cf77699f9e96eb31280e099d82cd999d7019d46f1b45a1b720328cc05f41'
+GATE_SHA = '57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca'
+BASE = m.r.OUTPUT + '/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2'
+
+def dump(path, value):
+    with path.open('x') as f:
+        json.dump(value, f, indent=2, sort_keys=True, allow_nan=False); f.write('\n')
+
+def main():
+    e = json.loads((TEMP / 'result.json').read_text())
+    visual = json.loads((TEMP / 'visual-review.json').read_text())
+    assert e['status'] == 'independent_computations_pass_pending_visual_review'
+    assert e['case47_outcome'] == 'accepted_repair'
+    assert visual['status'] == 'accepted' and len(visual['plots']) == 2
+    assert visual['plots_reopened'] == 2
+    statebytes = (ROOT / m.r.STATE).read_bytes()
+    assert sha256(ROOT / m.r.STATE) == STATE_SHA == e['state_sha256']
+    state = json.loads(statebytes); admission = m.verify_gate(ROOT)
+    m.validate_state(state, admission); entry = m.entry_of(state)
+    assert entry['status'] == 'awaiting_case47_review' and entry['current'] is None
+    assert entry['accepted'] == [e['accepted']] and entry['attempts'] == [e['attempt']]
+    assert state['calls_charged'] == state['calls_started'] == 51
+    assert e['diagnostics']['screen_passed'] and e['diagnostics']['divergences'] == e['diagnostics']['maxdepth_reached'] == 0
+    assert e['full_worker_artifacts_replay_pass'] and e['native_mask_backend_metadata_diagnostics_pass']
+    assert len(e['density_gradient_checks']) >= 12
+    assert e['process']['numerical_gate_sha256'] == e['process']['execution_authority_gate_sha256'] == GATE_SHA
+    assert e['confirmation_outcomes_parsed'] is False and e['reserved_outcomes'] == 'sealed'
+    m.c._unchanged(ROOT, e['source_files']); m.inventory(ROOT, admission, state)
+    assert m.quota(ROOT, admission, state, reserve=True) is None
+    helpers = {
+        'batch_checker': m.r.OUTPUT + '/remaining-sensitivity-checkpoints-v1/batch-044-045/audit.py.txt',
+        'independent_math': m.r.OUTPUT + '/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt'}
+    assert sha256(ROOT / helpers['batch_checker']) == 'e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4'
+    assert sha256(ROOT / helpers['independent_math']) == '28a82cd489a17a61a817f69508fb7db171ffbcd8e5a27d0c4ad4345ceb06174c'
+    mappings = [(Path('/private/tmp/check_s5_repair047_attempt2.py'), 'audit.py.txt', e['code_sha256']),
+                (TEMP / 'result.json', 'original-audit-result.json', sha256(TEMP / 'result.json')),
+                (TEMP / 'visual-review.json', 'visual-review.json', sha256(TEMP / 'visual-review.json')),
+                (Path(__file__), 'export.py.txt', sha256(Path(__file__)))]
+    mappings += [(Path(path), 'original-plots/' + Path(path).name, digest) for path, digest in e['plots'].items()]
+    mappings += [(Path(path), 'plots/' + Path(path).name, digest) for path, digest in visual['plots'].items()]
+    if (TEMP / 'chart-check.json').exists():
+        mappings += [(TEMP / 'chart-check.json', 'chart-check.json', sha256(TEMP / 'chart-check.json')),
+                     (Path('/private/tmp/render_s5_repair047_chartcheck.py'), 'chart-renderer.py.txt', sha256(Path('/private/tmp/render_s5_repair047_chartcheck.py')))]
+    for source, _, digest in mappings:
+        assert sha256(source) == digest
+    folder = ROOT / BASE; folder.mkdir(exist_ok=False); (folder / 'plots').mkdir(); (folder / 'original-plots').mkdir()
+    added, origins = {}, {}
+    for source, name, digest in mappings:
+        target = folder / name
+        with target.open('xb') as f: f.write(source.read_bytes())
+        assert sha256(target) == digest
+        rel = str(target.relative_to(ROOT)); added[rel] = digest
+        origins[str(source)] = dict(project_path=rel, sha256=digest)
+    index = dict(status='portable_independent_case47_repair_scientific_evidence', files=added,
+                 original_location_mapping=origins, helper_sources=helpers,
+                 note='Original audit JSON is byte-exact and retains temporary provenance names. Runtime admission uses only project-relative paths and hashes. Native draws stay in the original pinned store; no duplicate raw data. Original plots retain the original audit bytes; final plots use identical arrays with accessible colors, dash styles, external legends and source text. No numerical quantity changed.',
+                 reproduction='Restore the pinned helper files and exact closed51 project source state, then run the preserved audit with explicit Root closure flag and exact STATE SHA; no sampler is called.',
+                 visual_review=visual, confirmation_outcomes_parsed=False, reserved_outcomes='sealed')
+    dump(folder / 'index.json', index); added[BASE + '/index.json'] = sha256(folder / 'index.json')
+    pins = m.p.merge(e['source_files'], added, {p: sha256(ROOT / p) for p in helpers.values()})
+    checks = e['density_gradient_checks']
+    aggregate = dict(oracle_points=len(checks), max_dense_block_difference=max(abs(c['dense_block_difference']) for c in checks),
+                     max_independent_density_difference=max(abs(c['difference']) for c in checks),
+                     max_gradient_difference=max(c['gradient_max_error'] for c in checks),
+                     max_finite_difference_error=max(c['finite_difference_error'] for c in checks if c['finite_difference_error'] is not None))
+    body = dict(status='accepted_sensitivity_case47_disposition', independent_checker=True,
+                confirmation_outcomes_parsed=False, reserved_outcomes='sealed',
+                case47_outcome='accepted_repair', repair_job=admission['repair_job'],
+                execution_authority_gate_sha256=GATE_SHA, repair_spec_gate_sha256=GATE_SHA,
+                calls_charged=51, calls_started=51, accepted=e['accepted'],
+                remaining_authorization=dict(status='accepted_sensitivity_final_seven_execution', authorized=True,
+                                             jobs=admission['newremaining_jobs'], calls_before=51, started_before=51,
+                                             resources=m.resources(), path_bindings=m.bindings(ROOT), max_sampler_call_slots=110),
+                evidence_index=BASE + '/index.json', evidence_index_sha256=added[BASE + '/index.json'],
+                audit_source=BASE + '/audit.py.txt', audit_result=BASE + '/original-audit-result.json',
+                helper_sources=helpers, diagnostic_metrics=e['diagnostics'], aggregate_checks=aggregate,
+                records=150, events=5, event_counts=e['event_counts'],
+                native_mask_backend_metadata_diagnostics_pass=True,
+                unconditional_complete_producer_replay=True, seeded800_summary_and_all_five_CSVs_replayed=True,
+                independent_native_quantile_and_predictive_replay=e['independent_predictive_summary'],
+                visual_review={k:v for k,v in visual.items() if k != 'plots'},
+                plots={Path(p).name:BASE + '/plots/' + Path(p).name for p in visual['plots']},
+                original50_history_and_four_failed_calls_preserved=True,
+                original_case36_remains_unresolved=True, no_case36_retry=True,
+                no_third_case47_attempt=True, source_execution_git=e['process']['invocation_git_sha'],
+                prior_normalization_qualification='Independent prior-only calculations at two parameter positions isolate the case-specific installed constant, independently predicted and recorded in the audit result; no fitted correction or floor masks a parameter-dependent discrepancy.',
+                limitations=e['limitations'] + ['Case36 has no accepted posterior; this successful curvature stress fit does not establish a curvature winner, robustness across the unresolved linear stress, or a physical/era advantage.','Conditional PPC misses remain descriptive adequacy evidence, not held-out predictive validation. The final seven require Root readback, commit and explicit resume.'],
+                files=pins)
+    assert '/private/tmp' not in json.dumps(body)
+    assert all(not Path(p).is_absolute() and '..' not in Path(p).parts for p in pins)
+    m.c._unchanged(ROOT, pins)
+    assert (ROOT / m.r.STATE).read_bytes() == statebytes
+    assert m.quota(ROOT, admission, state, reserve=True) is None
+    receipt = ROOT / m.CASE47_REVIEW
+    dump(receipt, body)
+    checked = m.disposition(ROOT, admission, entry)
+    assert checked is not None and checked[0] == body
+    m.c._unchanged(ROOT, pins); m.inventory(ROOT, admission, state)
+    assert m.quota(ROOT, admission, state, reserve=True) is None
+    assert (ROOT / m.r.STATE).read_bytes() == statebytes
+    print(json.dumps(dict(receipt=m.CASE47_REVIEW, sha256=sha256(receipt), pins=len(pins), source_pins=len(e['source_files']),
+                         diagnostics=e['diagnostics'], aggregate=aggregate, inventory='PASS', quota_reserve='PASS', state_conservation='PASS'), sort_keys=True))
+
+if __name__ == '__main__': main()

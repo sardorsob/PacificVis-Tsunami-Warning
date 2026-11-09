@@ -1,0 +1,87 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/audit.py.txt": "01d36459ac4f4dde4bcb37ad725a48012f044f1ed389e12b748b552b26272331",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/chart-check.json": "201cbf174d62ea73e46cf93b0334bebb3e9cd0e9014030f033fe31155b1f2b8a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/chart-renderer.py.txt": "ad26a48d99f0a6b1f20611f8b89dbb4754d6da6ff42cea1f3324d0f61686d18f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/export.py.txt": "f7515515e0b25d7d5eca1a7e09cdf4028620179cc4c663c16e181190fa93c759",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-audit-result.json": "a3a0c1349412e4adb381e5cbd2c7199cdc7108eb1c73acbb4a28c2bb4e207203",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-plots/repair047-attempt2-energy.png": "30e6d562348d8588199f7ada7289d867afb19ad518e75046a79fde79bfa117c4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-plots/repair047-attempt2-trace-rank.png": "ffd25d5fadc1df60ac36ac6a1be840b11540ccf493a583ba2134fd07b5b934b5",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/plots/repair047-attempt2-energy.png": "cdb6193a6366beb205d202dceceacda04cc315edc9d8a77d623a3e2ab7140629",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/plots/repair047-attempt2-trace-rank.png": "5f35cc78dbb7f869030d4cf6ff9aac6c81cb86e0aea1d3ddb6af60f5da57ebdf",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/visual-review.json": "e99baba75205fe7cac3461131eff8ae47cf3231d3df7fb1c88a08cf965886673"
+  },
+  "helper_sources": {
+    "batch_checker": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-044-045/audit.py.txt",
+    "independent_math": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt"
+  },
+  "note": "Original audit JSON is byte-exact and retains temporary provenance names. Runtime admission uses only project-relative paths and hashes. Native draws stay in the original pinned store; no duplicate raw data. Original plots retain the original audit bytes; final plots use identical arrays with accessible colors, dash styles, external legends and source text. No numerical quantity changed.",
+  "original_location_mapping": {
+    "/private/tmp/check_s5_repair047_attempt2.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/audit.py.txt",
+      "sha256": "01d36459ac4f4dde4bcb37ad725a48012f044f1ed389e12b748b552b26272331"
+    },
+    "/private/tmp/render_s5_repair047_chartcheck.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/chart-renderer.py.txt",
+      "sha256": "ad26a48d99f0a6b1f20611f8b89dbb4754d6da6ff42cea1f3324d0f61686d18f"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/chart-check.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/chart-check.json",
+      "sha256": "201cbf174d62ea73e46cf93b0334bebb3e9cd0e9014030f033fe31155b1f2b8a"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-energy.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/plots/repair047-attempt2-energy.png",
+      "sha256": "cdb6193a6366beb205d202dceceacda04cc315edc9d8a77d623a3e2ab7140629"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-trace-rank.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/plots/repair047-attempt2-trace-rank.png",
+      "sha256": "5f35cc78dbb7f869030d4cf6ff9aac6c81cb86e0aea1d3ddb6af60f5da57ebdf"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/repair047-attempt2-energy.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-plots/repair047-attempt2-energy.png",
+      "sha256": "30e6d562348d8588199f7ada7289d867afb19ad518e75046a79fde79bfa117c4"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/repair047-attempt2-trace-rank.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-plots/repair047-attempt2-trace-rank.png",
+      "sha256": "ffd25d5fadc1df60ac36ac6a1be840b11540ccf493a583ba2134fd07b5b934b5"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/result.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/original-audit-result.json",
+      "sha256": "a3a0c1349412e4adb381e5cbd2c7199cdc7108eb1c73acbb4a28c2bb4e207203"
+    },
+    "/private/tmp/s5-repair047-attempt2-science/visual-review.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/visual-review.json",
+      "sha256": "e99baba75205fe7cac3461131eff8ae47cf3231d3df7fb1c88a08cf965886673"
+    },
+    "/private/tmp/seal_s5_repair047_attempt2.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/repair-047-attempt-2/export.py.txt",
+      "sha256": "f7515515e0b25d7d5eca1a7e09cdf4028620179cc4c663c16e181190fa93c759"
+    }
+  },
+  "reproduction": "Restore the pinned helper files and exact closed51 project source state, then run the preserved audit with explicit Root closure flag and exact STATE SHA; no sampler is called.",
+  "reserved_outcomes": "sealed",
+  "status": "portable_independent_case47_repair_scientific_evidence",
+  "visual_review": {
+    "chart_checker": {
+      "fails": 0,
+      "result": "pass",
+      "warns": 18
+    },
+    "chart_qualification": "Accessible colors and distinct line styles supply redundant chain cues; legends are outside data. Remaining advisories concern color similarity with redundant styles, reduced report-size text and diagnostic legend/title conventions. Inspect these detailed expert diagnostics at full resolution.",
+    "confirmation_outcomes_parsed": false,
+    "energy": "Centered-energy and transition distributions overlap across chains with no material energy mismatch.",
+    "numerical_values_changed": false,
+    "original_plots_reopened": 2,
+    "plots": {
+      "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-energy.png": "cdb6193a6366beb205d202dceceacda04cc315edc9d8a77d623a3e2ab7140629",
+      "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-trace-rank.png": "5f35cc78dbb7f869030d4cf6ff9aac6c81cb86e0aea1d3ddb6af60f5da57ebdf"
+    },
+    "plots_reopened": 2,
+    "reserved_outcomes": "sealed",
+    "scope": "Computational diagnostics only, not model selection, physical validity or held-out predictive validation.",
+    "status": "accepted",
+    "trace_rank": "All four chains and seven scalar coordinates inspected. No material drift, stuck chains or persistent chain separation; pooled rank displays remain descriptive.",
+    "visual_review_rounds": 3
+  }
+}

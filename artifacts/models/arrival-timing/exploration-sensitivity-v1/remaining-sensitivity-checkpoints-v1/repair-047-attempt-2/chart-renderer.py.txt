@@ -1,0 +1,45 @@
+"""Render exact audited chain arrays with accessible colors/styles and external legends."""
+from pathlib import Path
+import hashlib, json, sys
+import numpy as np
+import xarray as xr
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from scipy.stats import rankdata
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(ROOT))
+BASE=Path('/private/tmp/s5-repair047-attempt2-science')
+e=json.loads((BASE/'result.json').read_text())
+raw=ROOT/e['accepted']['posterior'];assert hashlib.sha256(raw.read_bytes()).hexdigest()==e['accepted']['posterior_sha256']
+with xr.open_datatree(raw,engine='h5netcdf') as tree:
+    post=tree['posterior'].to_dataset().load();stats=tree['sample_stats'].to_dataset().load()
+dest=BASE/'final-plots';dest.mkdir(exist_ok=True)
+colors=['#0072B2','#D55E00','#6A3D9A','#333333'];styles=['-','--','-.',':']
+columns=[(k,post[k].values) for k in ['alpha','beta','gamma','tau_event']]+[(f'sigma at {d} km',post.sigma_anchor.values[:,:,j]) for j,d in enumerate([500,2000,5000])]
+fig,axs=plt.subplots(7,2,figsize=(12,15.5))
+for row,(name,values) in enumerate(columns):
+    ranks=rankdata(values.ravel()).reshape(4,2000)
+    for chain in range(4):
+        style=dict(color=colors[chain],linestyle=styles[chain],label=f'Chain {chain+1}')
+        axs[row,0].plot(values[chain],lw=.5,**style)
+        counts=np.histogram(ranks[chain],bins=np.linspace(.5,8000.5,21))[0]
+        axs[row,1].step(np.arange(20)+.5,counts,where='mid',lw=1.3,**style)
+    axs[row,0].set(xlabel='Retained draw',ylabel=name)
+    axs[row,1].set(xlabel='Pooled rank bin',ylabel='Count per chain')
+    axs[row,1].axhline(100,color='#999999',lw=.6)
+handles,labels=axs[0,0].get_legend_handles_labels()
+fig.legend(handles,labels,loc='upper center',bbox_to_anchor=(.5,.978),ncol=4,frameon=False)
+fig.suptitle('Final case47 repair: chains overlap without material drift\nFour chains × 2000 retained draws; pooled ranks are descriptive',fontsize=12,y=.998)
+fig.text(.02,.006,'Source: pinned nutpie draws; 150 NCEI records, five events. Parameters use log-response units; computational checks only.',fontsize=9)
+fig.tight_layout(rect=(0,.022,1,.955));fig.savefig(dest/'repair047-attempt2-trace-rank.png',dpi=110);plt.close(fig)
+fig,axs=plt.subplots(1,2,figsize=(12,4.8))
+for chain in range(4):
+    energy=stats.energy.values[chain]
+    style=dict(bins=40,density=True,histtype='step',color=colors[chain],linestyle=styles[chain],linewidth=1.4,label=f'Chain {chain+1}')
+    axs[0].hist(energy-energy.mean(),**style)
+    axs[1].hist(np.diff(energy),**style)
+axs[0].set(xlabel='Centered energy (nat)',ylabel='Density');axs[1].set(xlabel='Energy transition (nat)',ylabel='Density')
+handles,labels=axs[0].get_legend_handles_labels();fig.legend(handles,labels,loc='upper center',bbox_to_anchor=(.5,.94),ncol=4,frameon=False)
+fig.suptitle('Final case47 repair: energy distributions overlap across chains',fontsize=12,y=.998)
+fig.text(.02,.015,'Source: original pinned nutpie sample statistics. No held-out predictive or model-selection claim.',fontsize=9)
+fig.tight_layout(rect=(0,.045,1,.87));fig.savefig(dest/'repair047-attempt2-energy.png',dpi=120);plt.close(fig)

@@ -1,0 +1,13 @@
+{
+  "charged_slots": 1,
+  "elapsed_seconds": 51.27234216593206,
+  "execution_authority_gate_sha256": "57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca",
+  "invocation_git_sha": "241e366f61e634759b3113be20259db2e0660bf5",
+  "job_sha256": "76b9f7658cd2f8d91d5f5920bf065bd9251b0a696a92b7f277507a4acd9c798d",
+  "monitor_failures": [],
+  "numerical_gate_sha256": "57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca",
+  "plan_sha256": "77cd9c3524bcdd2d087af99f65a199df8c403f7168430ef43f826a4429284b7d",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 1
+}

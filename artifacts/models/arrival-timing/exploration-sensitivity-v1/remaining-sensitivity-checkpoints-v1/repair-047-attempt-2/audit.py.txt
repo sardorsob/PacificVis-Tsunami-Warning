@@ -1,0 +1,246 @@
+"""Independent audit of Root-notified closed case47 final attempt; no sampling.
+
+Temporary evidence only. No Gate/STATE/project writes. No failed predictive summaries.
+"""
+from pathlib import Path
+import argparse
+import hashlib
+import importlib.util
+import json
+import re
+import sys
+
+import numpy as np
+from scipy.linalg import cho_factor, cho_solve
+
+ROOT = Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+sys.path.insert(0, str(ROOT))
+DEST = Path('/private/tmp/s5-repair047-attempt2-science')
+GATE_SHA = '57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca'
+HELPER = Path('/private/tmp/check_s5_remaining_batches.py')
+assert hashlib.sha256(HELPER.read_bytes()).hexdigest() == 'e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4'
+spec = importlib.util.spec_from_file_location('closed_sci_repair47', HELPER)
+audit = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(audit)
+old = audit.old
+
+
+def dense(q, d, y, event, prior):
+    X = old.design(d, True)
+    sigma = old.weights(d) @ np.exp(q[4:])
+    Z = (event[:, None] == np.unique(event)[None, :]).astype(float)
+    C = np.diag(sigma * sigma) + np.exp(2 * q[3]) * (Z @ Z.T)
+    factor = cho_factor(C, lower=True)
+    residual = y - X @ q[:3]
+    return float(-.5 * (len(y) * np.log(2 * np.pi) + 2 * np.log(np.diag(factor[0])).sum()
+                        + residual @ cho_solve(factor, residual))
+                 + old.independent_prior(q, prior, True)[0])
+
+
+def closed(state, admission):
+    entry = state.get('finish_runs', {}).get('finish-sensitivities-v1', {})
+    assert state['calls_charged'] == state['calls_started'] == 51
+    assert len(entry.get('attempts', [])) == 1
+    assert entry['attempts'][0]['execution_job'] == admission['repair_job']
+    good = entry['attempts'][0]['outcome'] == 'accepted'
+    assert entry['status'] == ('awaiting_case47_review' if good else 'needs_review')
+    assert entry['current'] == (None if good else admission['repair_job'])
+    assert entry['next_job'] == (1 if good else 0)
+    assert len(entry['accepted']) == int(good)
+    assert not entry.get('case47_review_sha256')
+    return entry, good
+
+
+def run(state_sha):
+    import pymc as pm
+    import xarray as xr
+    from scripts import run_arrival_sensitivity_finish as m
+    from analysis.arrival import model_sensitivity_repair47 as worker
+    from analysis.arrival import model_sensitivity_fit as fit, model_sensitivity_inputs as source_io
+    from analysis.arrival.model_sensitivity_design import case_lane, case_indices, build_sensitivity_design
+    from analysis.arrival.evidence import sha256
+
+    root = ROOT
+    read = lambda path: json.loads((root / path).read_text())
+    state_bytes = (root / m.r.STATE).read_bytes()
+    assert sha256(root / m.r.STATE) == state_sha
+    state = json.loads(state_bytes)
+    admission = m.verify_gate(root)
+    assert admission['initial_files'][m.GATE] == GATE_SHA
+    m.validate_state(state, admission)
+    entry, healthy = closed(state, admission)
+    execution = admission['repair_job']
+    job = execution['original_job']
+    assert execution == worker.repair_job(job) and job['order'] == 47
+    assert execution['sampler'] == dict(worker.PROTOCOL, seed=2886157800)
+    assert len(admission['accepted_prefix']) == 46 and len(admission['failed_attempts']) == 4
+    assert [u['order'] for u in admission['unresolved_cases']] == [36]
+    attempt = entry['attempts'][0]
+    assert attempt['charged_slots'] == attempt['start_markers'] == 1
+    assert read(attempt['controller_receipt']) == m.receipt_body(attempt)
+    sources = m.p.merge(admission['initial_files'], {
+        m.PLAN: entry['plan_sha256'], attempt['controller_receipt']: attempt['controller_receipt_sha256']})
+    if attempt.get('failure_receipt'):
+        sources = m.p.merge(sources, {attempt['failure_receipt']: attempt['failure_receipt_sha256']})
+    folder, raw = worker.case_paths(root, execution)
+    physical = m.physical_files(root, folder, raw)
+    sources = m.p.merge(sources, physical)
+    if healthy:
+        accepted = entry['accepted'][0]
+        assert accepted['order'] == 47 and accepted['execution_job'] == execution
+        m.new_provenance(root, admission, accepted)
+        # This replay is unconditional: accepted metadata does not replace native evidence.
+        proof = worker.case_artifacts(root, execution, admission['initial_files'], accepted)
+        sources = m.p.merge(sources, proof['files'], {accepted['receipt']: accepted['receipt_sha256']})
+    else:
+        accepted = None
+        assert not (folder / 'summary.json').exists()
+        assert not any((folder / (g.replace('_', '-') + '.csv')).exists() for g in worker.TABLES)
+    m.c._unchanged(root, sources)
+    m.inventory(root, admission, state, execution)
+    assert m.quota(root, admission, state, execution, reserve=True) is None
+
+    original = admission['original_admission']
+    lanes, frozen = fit.load_lanes(root)
+    assert frozen == original['contract']
+    meta = source_io.load_sensitivity_inputs(root, lanes, original['files'])
+    jobs = fit.sensitivity_jobs(build_sensitivity_design(lanes, meta))
+    assert jobs == admission['worker_admission']['original_jobs'] and job == jobs[47]
+    original_lane = lanes[job['target']]
+    lane = case_lane(original_lane, job, meta)
+    ids = case_indices(original_lane, job)
+    np.testing.assert_array_equal(ids, old.independent_mask(original_lane, meta, 'era-2014plus'))
+    assert len(ids) == 150 and job['kind'] == 'mean-curvature' and job['prior_variant'] == 'base'
+    assert lane.record_ids == original_lane.record_ids
+    np.testing.assert_array_equal(lane.y, original_lane.y)
+    np.testing.assert_array_equal(lane.distance_km, original_lane.distance_km)
+    assert job['training_record_ids'] == [lane.record_ids[i] for i in ids]
+    assert job['omitted_record_ids'] == [rid for rid, keep in zip(lane.record_ids, original_lane.included, strict=True) if keep and rid not in set(job['training_record_ids'])]
+    assert job['excluded_record_ids'] == [rid for rid, keep in zip(lane.record_ids, original_lane.included, strict=True) if not keep]
+    assert len(job['excluded_record_ids']) == 6
+    np.testing.assert_allclose(lane.reference_minutes, lane.distance_km / (np.sqrt(9.80665 * 4000) * 60 / 1000), rtol=1e-14, atol=1e-14)
+    np.testing.assert_allclose(lane.response, np.log(lane.y) - np.log(lane.reference_minutes), rtol=1e-14, atol=1e-14)
+    base, wider = fit._case_priors(root, job)
+    assert wider is None
+    inputs, membership = worker._metadata(execution, {**admission, 'files': admission['initial_files'], 'gate_path': m.GATE}, lane, ids, frozen, base)
+    assert read(str((folder / 'inputs.json').relative_to(root))) == inputs
+    assert read(str((folder / 'membership.json').relative_to(root))) == membership
+    old_folder = m.case_paths(root, admission, admission['failed_attempts'][-1])[0]
+    old_inputs = read(str((old_folder / 'inputs.json').relative_to(root)))
+    assert inputs == {**old_inputs, 'files': admission['initial_files'], 'run_id': m.RUN_ID, 'source_gate': m.GATE}
+    assert membership == read(str((old_folder / 'membership.json').relative_to(root)))
+    result = read(str((folder / 'result.json').relative_to(root)))
+    assert result['job'] == execution and result['original_job'] == job
+    assert result['code_and_config'] == admission['initial_files']
+    assert result['posterior_sha256'] == sha256(raw)
+    assert result['confirmation_outcomes_parsed'] is False and result['reserved_outcomes'] == 'sealed'
+    assert result['scoring_or_forecast_imputation'] is False
+    process = read(str(folder.with_name(folder.name + '.supervisor.json').relative_to(root)))
+    assert process['returncode'] == (0 if healthy else 2) and process['reason'] == 'worker_exit'
+    assert process['charged_slots'] == process['start_markers'] == 1 and not process['monitor_failures']
+    assert process['numerical_gate_sha256'] == process['execution_authority_gate_sha256'] == GATE_SHA
+    assert re.fullmatch('[0-9a-f]{40}', process['invocation_git_sha'])
+    with xr.open_datatree(raw, engine='h5netcdf') as tree:
+        post = worker._population(tree, execution).load()
+        stats = tree['sample_stats'].to_dataset().load()
+        observed = tree['observed_data'].to_dataset().load()
+        diagnostics, table = fit.sampling_diagnostics(tree)
+    assert diagnostics == result['diagnostics'] == read(str((folder / 'diagnostics.json').relative_to(root)))
+    assert table.to_csv(na_rep='unknown') == (folder / 'sampling-diagnostics.csv').read_text()
+    assert diagnostics['screen_passed'] is healthy
+    if healthy:
+        assert diagnostics['divergences'] == diagnostics['maxdepth_reached'] == 0
+    assert set(observed.data_vars) == {'native_minutes', 'distance_km', 'reference_minutes', 'response', 'event_id', 'sequence', 'site_id'}
+    for key, array in [('record', np.array(lane.record_ids)[ids]), ('native_minutes', lane.y[ids]), ('distance_km', lane.distance_km[ids]), ('reference_minutes', lane.reference_minutes[ids]), ('response', lane.response[ids]), ('event_id', np.array(lane.event_ids)[ids]), ('sequence', np.array(lane.sequences)[ids]), ('site_id', np.array(lane.site_ids)[ids])]:
+        np.testing.assert_array_equal(observed[key].values, array)
+    np.testing.assert_array_equal(post.chain.values, np.arange(4))
+    np.testing.assert_array_equal(post.draw.values, np.arange(2000))
+    np.testing.assert_array_equal(post.scale_anchor_km.values, [500, 2000, 5000])
+    assert set(post.data_vars) == {'alpha', 'beta', 'gamma', 'tau_event', 'sigma_anchor'}
+    assert post.attrs['inference_library'] == stats.attrs['inference_library'] == 'nutpie'
+    assert post.attrs['inference_library_version'] == stats.attrs['inference_library_version'] == '0.16.11'
+    assert post.attrs['tuning_steps'] == 4000
+    cfg = json.loads(stats.attrs['inference_library_settings'])
+    assert cfg['sampler'] == 'nuts' and cfg['settings']['num_tune'] == 4000
+    assert cfg['settings']['num_draws'] == 2000 and cfg['settings']['num_chains'] == 4
+    assert cfg['settings']['adapt_options']['step_size_settings']['target_accept'] == .999
+    event = observed.event_id.values
+    assert len(np.unique(event)) == 5
+    model = fit.build_sensitivity_model(lane, job['kind'], base, 'base', indices=ids)
+    priorfun, gradient = model.compile_logp(vars=list(model.free_RVs)), model.compile_dlogp()
+    names = ['alpha', 'beta', 'gamma', 'tau_event', 'sigma_anchor']
+    def q_at(c, d):
+        return np.r_[[float(post[k].values[c, d]) for k in names[:3]], np.log(post.tau_event.values[c, d]), np.log(post.sigma_anchor.values[c, d])]
+    def point(q):
+        return dict(alpha=q[0], beta=q[1], gamma=q[2], tau_event_log__=q[3], sigma_anchor_log__=q[4:])
+    q0 = q_at(0, 0)
+    q1 = q0.copy(); q1[:3] += .125 * np.array([base[k + '_sd'] for k in names[:3]]); q1[3:] += np.log(1.125)
+    offsets = [float(priorfun(point(q))) - old.independent_prior(q, base, True)[0] for q in [q0, q1]]
+    prediction = 0.
+    for name in names:
+        key = {'tau_event': 'tau_sd', 'sigma_anchor': 'sigma_sd'}.get(name, name + '_sd')
+        dist = (pm.HalfNormal if name in ['tau_event', 'sigma_anchor'] else pm.Normal).dist(sigma=base[key])
+        dtype = dist.owner.inputs[-1].dtype
+        prediction += (3 if name == 'sigma_anchor' else 1) * (np.log(float(base[key])) - float(np.log(np.asarray(base[key], dtype=dtype))))
+    assert abs(offsets[0] - offsets[1]) < 1e-10 and abs(offsets[0] - prediction) < 1e-10
+    tau = post.tau_event.values
+    tails = [tuple(map(int, np.unravel_index(f(tau), tau.shape))) for f in [np.argmin, np.argmax]]
+    points = sorted(set([(c, d) for c in range(4) for d in [0, 666, 1333]] + tails + [tuple(map(int, p)) for p in np.argwhere(stats.diverging.values)]))
+    assert len(points) >= 12
+    fd_points = set([(c, 0) for c in range(4)] + tails)
+    checks = []
+    for chain, draw in points:
+        q = q_at(chain, draw)
+        manual, g = old.independent_joint(q, observed.distance_km.values, observed.response.values, event, base, True)
+        full = dense(q, observed.distance_km.values, observed.response.values, event, base)
+        stored = float(stats.logp.values[chain, draw])
+        ge = float(np.max(abs(gradient(point(q)) - g)))
+        assert abs(full - manual) < 1e-9 and abs(manual - stored) < 1e-6
+        assert abs(manual - stored + offsets[0]) < 2e-7 and ge < 1e-7
+        fd_error = None
+        if (chain, draw) in fd_points:
+            h = 1e-5
+            fd = np.array([(dense(q + np.eye(7)[j] * h, observed.distance_km.values, observed.response.values, event, base) - dense(q - np.eye(7)[j] * h, observed.distance_km.values, observed.response.values, event, base)) / (2 * h) for j in range(7)])
+            fd_error = float(np.max(abs(fd - g)))
+            assert fd_error < 1e-5
+        checks.append(dict(chain=chain, draw=draw, tau_tail=(chain, draw) in tails, divergent_transition=bool(stats.diverging.values[chain, draw]), dense_logp=full, block_logp=manual, stored_logp=stored, dense_block_difference=full-manual, difference=manual-stored, gradient_max_error=ge, finite_difference_error=fd_error))
+    predictive = None
+    if healthy:
+        summary = read(str((folder / 'summary.json').relative_to(root)))
+        predictive = old.predictive_replay(job, post, observed, summary)
+        for row in summary['parameters']:
+            x = post[row['parameter']].values
+            if row['anchor_km'] is not None:
+                x = x[:, :, [500, 2000, 5000].index(row['anchor_km'])]
+            np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']], np.quantile(x, [.05,.5,.95]), rtol=1e-13, atol=1e-13)
+        for row in summary['curves']:
+            if row['curve'] == 'population_median':
+                d = row['distance_km']
+                x = post.alpha.values + post.beta.values*np.log(d/1000) + post.gamma.values*np.log((d+500)/(1.5*d)) + np.log(d/(np.sqrt(9.80665*4000)*60/1000))
+                np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']], np.exp(np.quantile(x, [.05,.5,.95])), rtol=1e-11, atol=1e-11)
+    DEST.mkdir(exist_ok=False)
+    title = {'id': 'Case47 final same-model repair | ' + ('computational audit' if healthy else 'FAILED: diagnostic draws only')}
+    trace, energy, maxrank = audit.figures(post, stats, title, DEST / 'repair047-attempt2')
+    m.c._unchanged(root, sources)
+    m.inventory(root, admission, state, execution)
+    assert m.quota(root, admission, state, execution, reserve=True) is None
+    assert (root / m.r.STATE).read_bytes() == state_bytes
+    output = dict(status='independent_computations_pass_pending_visual_review' if healthy else 'diagnostic_failure_independently_verified_not_accepted', case47_outcome='accepted_repair' if healthy else 'exhausted_unresolved', execution_job=execution, accepted=accepted, attempt=attempt, records=len(ids), events=5, event_counts={str(e):int((event==e).sum()) for e in np.unique(event)}, diagnostics=diagnostics, density_gradient_checks=checks, prior_only_offsets=offsets, predicted_prior_constant=prediction, independent_predictive_summary=predictive, full_worker_artifacts_replay_pass=healthy, native_mask_backend_metadata_diagnostics_pass=True, source_files=sources, physical_case_files=physical, state_sha256=state_sha, calls_charged=51, calls_started=51, retained_prior_failed_calls=4, previous50_history_preserved=True, no_case36_retry=True, case36_computationally_unresolved_not_interpreted=True, process=process, code_sha256=sha256(Path(__file__)), helpers={str(HELPER):sha256(HELPER),str(audit.HELPER):sha256(audit.HELPER)}, plots={str(p):sha256(p) for p in [trace,energy]}, maximum_rank_bin_deviation=maxrank, visual_review='PENDING', confirmation_outcomes_parsed=False, reserved_outcomes='sealed', actual_sampling_performed_by_auditor=False, limitations=['Finite saved-point density and gradient checks verify local implementation arithmetic, not global exploration.', 'Strict computational acceptance is separate from predictive adequacy, model selection and physical validity.', 'Final repair changes numerical settings only and is not an independent model or seed replication.'])
+    with (DEST / 'result.json').open('x') as f:
+        json.dump(output, f, indent=2, sort_keys=True, allow_nan=False); f.write('\n')
+    print(json.dumps(dict(path=str(DEST/'result.json'), sha256=sha256(DEST/'result.json'), pins=len(sources), outcome=output['case47_outcome'], diagnostics=diagnostics, oracle_points=len(checks)),sort_keys=True))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--root-confirmed-closed', action='store_true')
+    parser.add_argument('--state-sha256')
+    parser.add_argument('--self-check', action='store_true')
+    args = parser.parse_args()
+    if args.self_check:
+        old.self_check()
+        print('No real native/STATE read; dense/block helper synthetic checks passed.')
+    elif args.root_confirmed_closed and re.fullmatch('[0-9a-f]{64}', args.state_sha256 or ''):
+        run(args.state_sha256)
+    else:
+        parser.error('Root explicit closed51 notice, flag and exact STATE SHA required')

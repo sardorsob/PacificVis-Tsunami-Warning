@@ -1,0 +1,22 @@
+{
+  "chart_checker": {
+    "fails": 0,
+    "result": "pass",
+    "warns": 18
+  },
+  "chart_qualification": "Accessible colors and distinct line styles supply redundant chain cues; legends are outside data. Remaining advisories concern color similarity with redundant styles, reduced report-size text and diagnostic legend/title conventions. Inspect these detailed expert diagnostics at full resolution.",
+  "confirmation_outcomes_parsed": false,
+  "energy": "Centered-energy and transition distributions overlap across chains with no material energy mismatch.",
+  "numerical_values_changed": false,
+  "original_plots_reopened": 2,
+  "plots": {
+    "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-energy.png": "cdb6193a6366beb205d202dceceacda04cc315edc9d8a77d623a3e2ab7140629",
+    "/private/tmp/s5-repair047-attempt2-science/final-plots/repair047-attempt2-trace-rank.png": "5f35cc78dbb7f869030d4cf6ff9aac6c81cb86e0aea1d3ddb6af60f5da57ebdf"
+  },
+  "plots_reopened": 2,
+  "reserved_outcomes": "sealed",
+  "scope": "Computational diagnostics only, not model selection, physical validity or held-out predictive validation.",
+  "status": "accepted",
+  "trace_rank": "All four chains and seven scalar coordinates inspected. No material drift, stuck chains or persistent chain separation; pooled rank displays remain descriptive.",
+  "visual_review_rounds": 3
+}
