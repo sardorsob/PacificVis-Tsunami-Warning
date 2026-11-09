@@ -1,0 +1,3 @@
+parameter,anchor_km,q05,q50,q95,nonfinite_values,nonfinite_quantile_values,quantile_valid
+alpha,,-24.218974459678,-20.582242176319575,-16.990309610203052,0,0,True
+sigma,,25.69242094739916,28.10038446061906,30.94757030658115,0,0,True

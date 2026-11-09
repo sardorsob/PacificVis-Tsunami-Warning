@@ -1,0 +1,28 @@
+{
+  "after_state": {
+    "calls_charged": 22,
+    "calls_started": 22,
+    "current": null,
+    "next_case": 22,
+    "sha256": "34a9ed0e131b2aa8e011664a0d5fc31719b19011c8b17999e1a64dc693455e1b",
+    "status": "sensitivity_checkpoint"
+  },
+  "before_receipt_sha256": "a376ef4eb7f304a8db6654978dce2a32eed3fb2ae2b7862bd150ee0449155574",
+  "before_state": {
+    "calls_charged": 18,
+    "calls_started": 18,
+    "current": null,
+    "next_case": 18,
+    "sha256": "ad5a295540b73c9215c84d39340e5e51367eae6e6771f5bb8bc3108b4658ab2d",
+    "status": "sensitivity_checkpoint"
+  },
+  "controller_exception": null,
+  "invocation_git_sha": "1b363e50382c506aaeb6303a02cbc9b69283b4e6",
+  "original_gate_sha256": "1c72e1479c35ddb0818a89c1b168a1bb0ada3e092f337a42d051c60c3b13457a",
+  "original_plan_sha256": "77cd9c3524bcdd2d087af99f65a199df8c403f7168430ef43f826a4429284b7d",
+  "postcondition_failure": null,
+  "previous_after_receipt_sha256": "fb361313193e332220695c8c17f5992ea405cf8d80eb0d9606be06998e7547e4",
+  "resource_amendment_gate_sha256": "cdeb07ebd2f492dfca798a066408f1ceef17c373e960319344510b257b4065d8",
+  "resource_gate": "artifacts/models/arrival-timing/sensitivity-design-v1/resource-continuation-v1/review-acceptance.json",
+  "source_closure_sha256": "205802c885e1c8a24400f836b0c76e6fc8f15ec80c7c2d05351e65a80aa7e4e2"
+}

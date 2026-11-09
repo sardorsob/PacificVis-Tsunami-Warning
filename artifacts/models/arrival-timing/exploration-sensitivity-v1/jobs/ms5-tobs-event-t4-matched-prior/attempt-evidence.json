@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-tobs-event-t4-matched-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior-spec.json": "2bed031481a607287cec895d4ec2b949102da16cb64c4e43395ac9bc57039719",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior.log": "b48d2ad1ae895cf62591a4484945dcde0b46b296e0322b103dbc555dcdeaf6f4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior.supervisor.json": "7c2f48dee712e92d62a4dc01fd8d18a9bf410d4fdf60a9cb3f06860ed6f2e441",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/conditional-ppc.csv": "fa7365333480593f3ba1858430014871ea12d7709e0673ce01a3c463116b7c38",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/curves.csv": "8c58d1b655dc555ffbe27abc8dc1502995b07f01d90ad68fd8f8ac296af3147e",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/derived.csv": "3935fceba7a03e9f469a1fcf86b62c94c3f6c578ceb43d262d0cccd590dd496c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/diagnostics.json": "3c8da6995d0bc599137a4ab044c16d59e786bd73c27aa28491604d9019ae71b5",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/inputs.json": "4cf069640871d67138b9c103e796cc7efe93cd968916aa8e494d19dd87be2a17",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/job.json": "2bed031481a607287cec895d4ec2b949102da16cb64c4e43395ac9bc57039719",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/membership.json": "a50874d68915a010890f52f96991a32f5d57e76feedcd907a987ab33a90c2586",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/parameters.csv": "b9f1bc56cb9211e96389d365bda8d13c21958d91919711f6d41ada2c6fa12b0c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/record-intervals.csv": "c45f131c1b5ac2bc0ec279290fc3edf6808624518138cdbfc3e3abfd91b25129",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/result.json": "42cc0b0c01dc763b415f97bc7a2b9542b83af14d7cae04ceef392f68b60565b1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/sampling-diagnostics.csv": "79863fda3d0b10f69ed31ff922670885875b5a3fb61afa52c725a50b32b16a36",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/sampling-start.json": "2bed031481a607287cec895d4ec2b949102da16cb64c4e43395ac9bc57039719",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-event-t4-matched-prior/summary.json": "1893ee636a49bff9f9a5b621578c6b4ffcedabeff1cbb2ba27f097862da9bf03",
+    "data/processed/models/arrival-sensitivity-v1/ms5-tobs-event-t4-matched-prior.nc": "b885ff9005492066165907302f202189660ed7200d768c25beda773f96244119"
+  }
+}
