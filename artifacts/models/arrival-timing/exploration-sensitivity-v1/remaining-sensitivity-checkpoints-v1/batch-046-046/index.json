@@ -1,0 +1,20 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-046-046/audit.py.txt": "f709bc0f14bfddc823a9451543b90db1150d5afd9dee90f7cf306edabf7a5ef9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-046-046/plots/case-046-energy.png": "5631db3949e9ed45ff1f7787a3fd877eeadf05e9f50c0d0f839eadf3d251011b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-046-046/plots/case-046-trace-rank.png": "deb6e4fb2f28442ca7a2dca9d316a583a794c567035281e5d10092a5a0baab5f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-046-046/result.json": "c1c76afd7b4e2928803d7a10279b19daf11d8f1ad9f16d211c5cf39e6a265f84",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-046-046/seal.py.txt": "f1cdfbfda66bd97f9b7ffd9083bb81b769df510da7b8f1792e0507a7f1341e05"
+  },
+  "helper_source": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt",
+  "reproduction": "Restore pinned retained helper at /private/tmp/check_s5_remaining_completion.py; the preserved audit requires explicit Root closure notice and a matching idle accepted prefix, and never runs a sampler/controller.",
+  "reserved_outcomes": "sealed",
+  "scope": "Immutable independent SCI checkpoint, original closed cases only",
+  "visual_review": {
+    "energy": "All centered-energy and energy-transition plots viewed; no concerning chain mismatch.",
+    "plots_opened": 2,
+    "status": "accepted",
+    "trace_rank": "All four chains and all scalar coordinates viewed; no concerning drift/stuck chains/separation. Pooled rank plots are descriptive, not uniformity tests."
+  }
+}

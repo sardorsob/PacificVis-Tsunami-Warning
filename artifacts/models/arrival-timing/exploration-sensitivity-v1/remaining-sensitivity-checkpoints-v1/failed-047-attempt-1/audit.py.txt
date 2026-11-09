@@ -1,0 +1,118 @@
+"""Independent diagnostic-only audit of closed failed original47 attempt1.
+No sampling, posterior predictions, protected outcomes, project writes, or state changes.
+"""
+from pathlib import Path
+import hashlib, importlib.util, json, re, sys
+import numpy as np
+from scipy.linalg import cho_factor, cho_solve
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(ROOT))
+STATE_SHA='96fda61d59e9ae8714488cbccd4e17882f80eaa2faf32e5ed48c8518d390d83c'
+DEST=Path('/private/tmp/s5-failed047-diagnostic')
+HELPER=Path('/private/tmp/check_s5_remaining_batches.py')
+assert hashlib.sha256(HELPER.read_bytes()).hexdigest()=='e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4'
+spec=importlib.util.spec_from_file_location('closed_sci',HELPER);audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit);old=audit.old
+
+def scalar(value):
+    value=np.asarray(value).item()
+    if isinstance(value,(float,np.floating)) and not np.isfinite(value):return None
+    return value
+
+def dense(q,d,y,event,prior):
+    X=old.design(d,True);sigma=old.weights(d)@np.exp(q[4:]);unique=np.unique(event);Z=(event[:,None]==unique[None,:]).astype(float)
+    C=np.diag(sigma*sigma)+np.exp(2*q[3])*(Z@Z.T);factor=cho_factor(C,lower=True);r=y-X@q[:3]
+    return float(-.5*(len(y)*np.log(2*np.pi)+2*np.log(np.diag(factor[0])).sum()+r@cho_solve(factor,r))+old.independent_prior(q,prior,True)[0])
+
+def run():
+    import xarray as xr,pymc as pm
+    import matplotlib;matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from scripts import run_arrival_sensitivity_remaining as m
+    from analysis.arrival import model_sensitivity_fit as fit,model_sensitivity_numerical_fit as worker,model_sensitivity_inputs as source_io
+    from analysis.arrival.model_sensitivity_design import case_lane,case_indices,build_sensitivity_design
+    from analysis.arrival.evidence import sha256
+    root=ROOT;read=lambda p:json.loads((root/p).read_text());sb=(root/m.r.STATE).read_bytes();assert sha256(root/m.r.STATE)==STATE_SHA
+    state=json.loads(sb);entry=m.entry_of(state);admission=m.verify_gate(root);baseline=admission['baseline']
+    strip=lambda s:{k:v for k,v in s.items() if k not in {'calls_charged','calls_started','remaining_sensitivity_runs'}}
+    assert strip(state)==strip(baseline)
+    previous=dict(state.get('remaining_sensitivity_runs',{}));previous.pop(m.RUN_ID);assert previous==baseline.get('remaining_sensitivity_runs',{})
+    assert state['calls_charged']==state['calls_started']==50 and len(entry['accepted'])==10 and len(entry['attempts'])==11 and entry['next_job']==10 and entry['status']=='needs_review'
+    execution=entry['current'];assert execution==admission['jobs'][10] and execution['order']==47 and execution['attempt']==1
+    assert [x['execution_job'] for x in entry['accepted']]==admission['jobs'][:10]
+    sources=m.p.merge(admission['files'],m.pilot_review(root,admission,entry));admission['files']=sources
+    for item,attempt in zip(entry['accepted'],entry['attempts'][:10],strict=True):
+        assert attempt['outcome']=='accepted' and attempt['charged_slots']==attempt['start_markers']==1 and attempt['execution_job']==item['execution_job']
+        assert read(attempt['controller_receipt'])=={k:v for k,v in attempt.items() if k!='controller_receipt_sha256'}
+        m.new_case_provenance(root,admission,item)
+        sources=m.p.merge(sources,item['files'],{item['receipt']:item['receipt_sha256'],attempt['controller_receipt']:attempt['controller_receipt_sha256']})
+    failed=entry['attempts'][-1];assert failed['execution_job']==execution and failed['outcome']=='needs_review' and failed['charged_slots']==failed['start_markers']==1
+    expected={k:v for k,v in failed.items() if k not in {'controller_receipt_sha256','failure_receipt','failure_receipt_sha256'}}
+    assert read(failed['controller_receipt'])==expected
+    sources=m.p.merge(sources,{k:sha256(root/k) for k in [m.PLAN,m.CONTROL+'/failure.json',failed['controller_receipt'],failed['failure_receipt']]})
+    assert sources[failed['controller_receipt']]==failed['controller_receipt_sha256'] and sources[failed['failure_receipt']]==failed['failure_receipt_sha256']
+    rawadmission=admission['worker_admission'];original=admission['original_admission'];folder,raw=worker.case_paths(root,execution,rawadmission)
+    assert {p.name for p in folder.iterdir()}=={'sampling-diagnostics.csv','membership.json','result.json','diagnostics.json','sampling-start.json','inputs.json','job.json'}
+    physical=worker._inventory(root,folder,raw);sources=m.p.merge(sources,physical);m.c._unchanged(root,sources);m.inventory(root,admission,state,execution);assert m.quota(root,admission,state,execution,reserve=True) is None
+    job=execution['original_job'];assert execution['sampler']==dict(worker.PROTOCOL,seed=job['seed']) and job['kind']=='mean-curvature' and job['scenario']=='era-2014plus'
+    proc=read(str(folder.with_name(folder.name+'.supervisor.json').relative_to(root)));specpath=folder.with_name(folder.name+'-spec.json')
+    for p in [specpath,folder/'job.json',folder/'sampling-start.json']:assert json.loads(p.read_text())==execution
+    assert proc['returncode']==2 and proc['reason']=='worker_exit' and proc['charged_slots']==proc['start_markers']==1 and proc['monitor_failures']==[]
+    assert proc['job_sha256']==sha256(specpath) and proc['plan_sha256']==admission['initial_files'][m.c.PLAN] and proc['numerical_gate_sha256']==admission['initial_files'][m.b.GATE] and proc['execution_authority_gate_sha256']==admission['initial_files'][m.GATE] and re.fullmatch('[0-9a-f]{40}',proc['invocation_git_sha'])
+    lanes,frozen=fit.load_lanes(root);assert frozen==original['contract'];meta=source_io.load_sensitivity_inputs(root,lanes,original['files']);jobs=fit.sensitivity_jobs(build_sensitivity_design(lanes,meta));assert jobs==rawadmission['original_jobs'] and job==jobs[47]
+    original_lane=lanes[job['target']];lane=case_lane(original_lane,job,meta);ids=case_indices(original_lane,job)
+    np.testing.assert_array_equal(ids,old.independent_mask(original_lane,meta,'era-2014plus'));np.testing.assert_array_equal(lane.y,original_lane.y);assert lane.record_ids==original_lane.record_ids and len(ids)==150
+    assert job['training_record_ids']==[lane.record_ids[i] for i in ids]
+    assert job['omitted_record_ids']==[rid for rid,keep in zip(lane.record_ids,original_lane.included,strict=True) if keep and rid not in set(job['training_record_ids'])]
+    assert job['excluded_record_ids']==[rid for rid,keep in zip(lane.record_ids,original_lane.included,strict=True) if not keep] and len(job['excluded_record_ids'])==6
+    np.testing.assert_array_equal(lane.distance_km,original_lane.distance_km);np.testing.assert_allclose(lane.reference_minutes,lane.distance_km/(np.sqrt(9.80665*4000)*60/1000),rtol=1e-14,atol=1e-14);np.testing.assert_allclose(lane.response,np.log(lane.y)-np.log(lane.reference_minutes),rtol=1e-14,atol=1e-14)
+    base,wider=fit._case_priors(root,job);assert wider is None
+    meta_admission={**rawadmission,'files':rawadmission['initial_files']};inputs,membership=worker._metadata(execution,meta_admission,lane,ids,frozen,base)
+    assert read(str((folder/'inputs.json').relative_to(root)))==inputs and read(str((folder/'membership.json').relative_to(root)))==membership
+    result=read(str((folder/'result.json').relative_to(root)));assert result['status']=='diagnostic_failure' and result['job']==execution and result['original_job']==job and result['posterior_sha256']==sha256(raw) and result['code_and_config']==rawadmission['initial_files'] and result['records']==150 and result['events']==5
+    assert result['confirmation_outcomes_parsed'] is False and result['reserved_outcomes']=='sealed' and result['scoring_or_forecast_imputation'] is False
+    assert not (folder/'summary.json').exists()
+    with xr.open_datatree(raw,engine='h5netcdf') as tree:
+        post=worker._population(tree,execution).load();stats=tree['sample_stats'].to_dataset().load();observed=tree['observed_data'].to_dataset().load();diagnostics,table=fit.sampling_diagnostics(tree)
+    assert diagnostics==result['diagnostics']==read(str((folder/'diagnostics.json').relative_to(root))) and table.to_csv(na_rep='unknown')==(folder/'sampling-diagnostics.csv').read_text()
+    assert diagnostics['screen_passed'] is False and diagnostics['divergences']==1 and diagnostics['maxdepth_reached']==0
+    assert set(observed.data_vars)=={'native_minutes','distance_km','reference_minutes','response','event_id','sequence','site_id'}
+    for key,array in [('record',np.array(lane.record_ids)[ids]),('native_minutes',lane.y[ids]),('distance_km',lane.distance_km[ids]),('reference_minutes',lane.reference_minutes[ids]),('response',lane.response[ids]),('event_id',np.array(lane.event_ids)[ids]),('sequence',np.array(lane.sequences)[ids]),('site_id',np.array(lane.site_ids)[ids])]:np.testing.assert_array_equal(observed[key].values,array)
+    assert len(np.unique(observed.event_id.values))==5
+    names=['alpha','beta','gamma','tau_event','sigma_anchor'];model=fit.build_sensitivity_model(lane,job['kind'],base,'base',indices=ids);priorfun=model.compile_logp(vars=list(model.free_RVs));gradfun=model.compile_dlogp()
+    def q_at(c,d):return np.r_[[float(post[k].values[c,d]) for k in names[:3]],np.log(post.tau_event.values[c,d]),np.log(post.sigma_anchor.values[c,d])]
+    def point(q):return dict(alpha=q[0],beta=q[1],gamma=q[2],tau_event_log__=q[3],sigma_anchor_log__=q[4:])
+    q0=q_at(0,0);q1=q0.copy();q1[:3]+=.125*np.array([base[k+'_sd'] for k in names[:3]]);q1[3:]+=np.log(1.125)
+    offsets=[float(priorfun(point(q)))-old.independent_prior(q,base,True)[0] for q in [q0,q1]];prediction=0.
+    for name in names:
+        key={'tau_event':'tau_sd','sigma_anchor':'sigma_sd'}.get(name,name+'_sd');dist=(pm.HalfNormal if name in ['tau_event','sigma_anchor'] else pm.Normal).dist(sigma=base[key]);dtype=dist.owner.inputs[-1].dtype;prediction+=(3 if name=='sigma_anchor' else 1)*(np.log(float(base[key]))-float(np.log(np.asarray(base[key],dtype=dtype))))
+    assert abs(offsets[0]-offsets[1])<1e-10 and abs(offsets[0]-prediction)<1e-10
+    divergence=np.argwhere(stats.diverging.values);assert divergence.shape==(1,2);dc,dd=map(int,divergence[0]);points=[(0,0),(1,666),(dc,dd),(3,1999)];assert len(set(points))==4
+    checks=[];d=observed.distance_km.values;y=observed.response.values;event=observed.event_id.values
+    for chain,draw in points:
+        q=q_at(chain,draw);manual,g=old.independent_joint(q,d,y,event,base,True);full=dense(q,d,y,event,base);stored=float(stats.logp.values[chain,draw]);pg=gradfun(point(q));h=1e-5
+        fd=np.array([(dense(q+np.eye(7)[j]*h,d,y,event,base)-dense(q-np.eye(7)[j]*h,d,y,event,base))/(2*h) for j in range(7)])
+        assert abs(full-manual)<1e-9 and abs(manual-stored)<1e-6 and abs(manual-stored+offsets[0])<2e-7 and np.max(abs(pg-g))<1e-7 and np.max(abs(fd-g))<1e-5
+        checks.append(dict(chain=chain,draw=draw,divergent_transition=bool(stats.diverging.values[chain,draw]),block_logp=manual,dense_logp=full,stored_logp=stored,difference=manual-stored,dense_block_difference=full-manual,gradient_error=float(np.max(abs(pg-g))),finite_difference_h=h,finite_difference_error=float(np.max(abs(fd-g)))))
+    coordinates=np.stack([post.alpha.values,post.beta.values,post.gamma.values,post.tau_event.values,*[post.sigma_anchor.values[:,:,j] for j in range(3)]],axis=-1);labels=['alpha','beta','gamma','tau_event','sigma_500','sigma_2000','sigma_5000'];flat=coordinates.reshape(-1,7);divpoint=coordinates[dc,dd]
+    diagnostic_location={label:dict(saved_value=float(divpoint[j]),empirical_percentile_among_failed_draws=float(100*np.mean(flat[:,j]<=divpoint[j]))) for j,label in enumerate(labels)}
+    statpoint={name:scalar(stats[name].values[dc,dd]) for name in stats.data_vars}
+    cfg=json.loads(stats.attrs['inference_library_settings']);assert cfg['settings']['store_divergences'] is False
+    DEST.mkdir(exist_ok=False)
+    trace,energy,maxrank=audit.figures(post,stats,{'id':'FAILED case47: diagnostic draws only; no posterior acceptance'},DEST/'failed047')
+    fig,axs=plt.subplots(2,2,figsize=(12,9),layout='constrained');pairs=[(3,4),(3,5),(4,5),(1,2)]
+    for ax,(i,j) in zip(axs.flat,pairs,strict=True):
+        ax.scatter(flat[:,i],flat[:,j],s=3,color='#777777',alpha=.13,rasterized=True,label='Failed-run retained draws');ax.scatter(divpoint[i],divpoint[j],s=120,marker='X',color='#D55E00',edgecolor='black',linewidth=.6,label='Draw associated with divergent transition',zorder=3)
+        if i in [3,4,5]:ax.set_xscale('log')
+        if j in [3,4,5]:ax.set_yscale('log')
+        ax.set(xlabel=labels[i]+' (modeled-response units)',ylabel=labels[j]+' (modeled-response units)')
+    axs[0,0].legend(fontsize=8);fig.suptitle('Case47 numerical diagnosis: one divergent transition among8000 draws\nMarker is the retained draw, not the unavailable divergent integrator trajectory',fontsize=12);ridge=DEST/'failed047-geometry.png';fig.savefig(ridge,dpi=120);plt.close(fig)
+    fig,axs=plt.subplots(2,2,figsize=(12,8),layout='constrained');window=np.arange(max(0,dd-60),min(2000,dd+38));series=[('tau_event',coordinates[dc,:,3]),('sigma_500',coordinates[dc,:,4]),('energy',stats.energy.values[dc]),('max_energy_error',stats.max_energy_error.values[dc])]
+    for ax,(label,values) in zip(axs.flat,series,strict=True):
+        ax.plot(window,values[window],color='#555555',lw=1);ax.axvline(dd,color='#D55E00',ls='--',label='Divergent transition');ax.scatter([dd],[values[dd]],color='#D55E00',s=35,zorder=3);ax.set(xlabel='Retained draw index (zero based)',ylabel=label)
+    axs[0,0].legend();fig.suptitle(f'Failed case47: chain{dc+1}, draw{dd} transition neighborhood\nDiagnostic localization only; missing integrator path prevents a definitive root-cause claim',fontsize=12);local=DEST/'failed047-transition.png';fig.savefig(local,dpi=120);plt.close(fig)
+    np.savez_compressed(DEST/'plot-data.npz',coordinates=coordinates,divergence=divergence,energy=stats.energy.values,max_energy_error=stats.max_energy_error.values)
+    sources=m.p.merge(sources,{m.PLAN:sha256(root/m.PLAN)});m.c._unchanged(root,sources);m.inventory(root,admission,state,execution);assert m.quota(root,admission,state,execution,reserve=True) is None and (root/m.r.STATE).read_bytes()==sb
+    output=dict(status='diagnostic_failure_independently_verified_not_accepted',original_order=47,execution_job=execution,diagnostics=diagnostics,records=150,events=5,event_counts={str(x):int((event==x).sum()) for x in np.unique(event)},calls_charged=50,calls_started=50,retained_failed_calls=4,unresolved36_unchanged=True,state_sha256=STATE_SHA,source_files=sources,physical_case_files=physical,code_sha256=sha256(Path(__file__)),old_math_helper_sha256=sha256(audit.HELPER),prior_only_offsets=offsets,predicted_prior_constant=prediction,density_gradient_checks=checks,divergent_transition=dict(chain_zero_based=dc,draw_zero_based=dd,statistics=statpoint,saved_coordinates=diagnostic_location,actual_integrator_trajectory_available=False),diagnostic_coordinate_correlations=np.corrcoef(np.log(flat[:,3:]).T).tolist(),diagnostic_scale_labels=labels[3:],process=proc,full_native_mask_backend_metadata_and_diagnostics_replay=True,posterior_predictions_or_parameter_inference_performed=False,confirmation_outcomes_parsed=False,reserved_outcomes='sealed',plots={str(p):sha256(p) for p in [trace,energy,ridge,local]},visual_review='PENDING',plots_data_sha256=sha256(DEST/'plot-data.npz'),recommendation=dict(candidate_only='one final same-model/data/prior/original-seed numerical attempt for case47 after independent execution Gate',chains=4,draws=2000,tune=4000,target_accept=.999,nuts_sampler='nutpie',cores=2,seed=job['seed'],hard_timeout_seconds=600,strict_zero_divergence_acceptance=True,max_attempts_this_case=2,no_case36_retry=True,guaranteed_success=False),limitations=['Divergence signals numerical integration failure despite otherwise satisfactory bulk diagnostics.','The stored draw is associated with the divergent transition; actual divergence trajectory was not retained, so geometry association is not a proven unique cause.','Failed-run coordinates are used only for numerical diagnosis, never scientific estimates, posterior curves, or PPC.','Finite saved-point oracles verify implementation arithmetic locally, not global exploration or the discarded divergent proposal.'])
+    with (DEST/'result.json').open('x') as stream:json.dump(output,stream,indent=2,sort_keys=True,allow_nan=False);stream.write('\n')
+    print(json.dumps(dict(result=str(DEST/'result.json'),sha256=sha256(DEST/'result.json'),pins=len(sources),diagnostics=diagnostics,divergence=output['divergent_transition'],oracle=checks),sort_keys=True))
+
+if __name__=='__main__':run()

@@ -1,0 +1,49 @@
+"""Export reviewed failed47 diagnostic evidence; no source/STATE/control changes."""
+from pathlib import Path
+import hashlib,json,shutil,sys
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(ROOT))
+from scripts import run_arrival_sensitivity_remaining as m
+BASE='artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1'
+TEMP=Path('/private/tmp/s5-failed047-diagnostic')
+STATE_SHA='96fda61d59e9ae8714488cbccd4e17882f80eaa2faf32e5ed48c8518d390d83c'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def write(path,value):
+    with path.open('x') as f:json.dump(value,f,sort_keys=True,indent=2,allow_nan=False);f.write('\n')
+def relative(path):return str(path.relative_to(ROOT))
+
+def main():
+    review_path=TEMP/'review.json';original_path=TEMP/'result.json';assert sha(review_path)=='b8253c693c38594f7c71654dbbf7aa43cd832d4e16f159ec6100740640ef2163';assert sha(original_path)=='80f91d59ecc0f25e369c526f408136ec052f3a162fc28092d57819b19c8a7dee'
+    review=json.loads(review_path.read_text());initial=json.loads(original_path.read_text());statebytes=(ROOT/m.r.STATE).read_bytes();assert sha(ROOT/m.r.STATE)==STATE_SHA
+    state=json.loads(statebytes);entry=m.entry_of(state);admission=m.verify_gate(ROOT);pilot=m.pilot_review(ROOT,admission,entry);assert pilot is not None;admission['files']=m.p.merge(admission['files'],pilot)
+    assert state['calls_charged']==state['calls_started']==50 and entry['status']=='needs_review' and entry['current']==review['execution_job'] and len(entry['accepted'])==10 and len(entry['attempts'])==11
+    assert review['status']=='diagnostic_failure_independently_verified_not_accepted' and review['retained_failed_calls']==4 and review['diagnostics']['screen_passed'] is False and review['diagnostics']['divergences']==1
+    assert review['full_native_mask_backend_metadata_and_diagnostics_replay'] is True and review['posterior_predictions_or_parameter_inference_performed'] is False
+    sources=review['source_files'];assert len(sources)==13748
+    assert all(not Path(p).is_absolute() and '..' not in Path(p).parts and '/tmp/' not in p for p in sources)
+    m.c._unchanged(ROOT,sources);m.inventory(ROOT,admission,state,entry['current']);assert m.quota(ROOT,admission,state,entry['current'],reserve=True) is None
+    mappings=[(Path('/private/tmp/check_s5_failed047.py'),'audit.py.txt',review['code_sha256']),(Path('/private/tmp/render_s5_failed047.py'),'plot-renderer.py.txt',review['plot_renderer_sha256']),(original_path,'original-audit-result.json',review['initial_audit_result_sha256']),(review_path,'original-diagnostic-review.json',sha(review_path)),(TEMP/'diagnosis.md','diagnosis.md',review['diagnosis_sha256']),(TEMP/'chart-check.json','chart-check.json',review['chart_check_sha256']),(Path(__file__),'export.py.txt',sha(Path(__file__)))]
+    mappings += [(Path(name),'plots/'+Path(name).name,digest) for name,digest in review['plots'].items()]
+    for source,_,digest in mappings:assert source.is_file() and not source.is_symlink() and sha(source)==digest
+    assert review['code_sha256']=='61315ec4c9fe7d8703ccf9e460863af583a633089d6da8c510f56612c7ea2b8b' and review['plot_renderer_sha256']=='3575a7a6a827f9f2619c6347e0922df1407676e7a0074ac3f9045bdf7abafabd'
+    helper_refs={
+      'batch_checker':'artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-044-045/audit.py.txt',
+      'independent_math':'artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt'}
+    assert sha(ROOT/helper_refs['batch_checker'])=='e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4' and sha(ROOT/helper_refs['independent_math'])=='28a82cd489a17a61a817f69508fb7db171ffbcd8e5a27d0c4ad4345ceb06174c'
+    folder=ROOT/BASE;folder.mkdir(exist_ok=False);(folder/'plots').mkdir();copied={};origin_map={}
+    for source,dest,digest in mappings:
+        target=folder/dest
+        with target.open('xb') as f:f.write(source.read_bytes())
+        assert sha(target)==digest;copied[relative(target)]=digest;origin_map[str(source)]={'project_path':relative(target),'sha256':digest}
+    index=dict(status='portable_diagnostic_evidence_export_only',original_location_mapping=origin_map,files=copied,confirmation_outcomes_parsed=False,reserved_outcomes='sealed',historical_snapshot_qualification='Original JSON/code/diagnosis files are byte-exact historical snapshots and may retain temporary paths. Admission paths and hashes are in diagnostic-review.json. The final transition PNG supersedes the initial plot only by adding the absent-field/divergence-error annotation.',transition_plot_history={'initial_sha256':initial['plots'][str(TEMP/'failed047-transition.png')],'final_project_path':BASE+'/plots/failed047-transition.png','final_sha256':review['plots'][str(TEMP/'failed047-transition.png')]},helper_sources=helper_refs,reproduction='The exact audit, plot-renderer and export sources are retained as text. Audit rerun requires restoration of its original closed50 source state and isolated temporary locations; it is diagnostic-only and does not run a sampler. Raw native draws remain at their original pinned project path, with no duplicate native data in this checkpoint.')
+    write(folder/'index.json',index);copied[BASE+'/index.json']=sha(folder/'index.json')
+    pins=m.p.merge(sources,copied,{path:sha(ROOT/path) for path in helper_refs.values()})
+    result=dict(schema_version=1,status='retained_failed_sensitivity_attempt_independently_diagnosed',independent_checker=True,scientific_posterior_accepted=False,execution_authorization_granted=False,new_unresolved_disposition=False,original_order=47,case_id=review['execution_job']['original_job']['id'],execution_job=review['execution_job'],calls_charged=50,calls_started=50,retained_failed_calls=4,accepted_remaining_orders=list(range(37,47)),unresolved_case36_unchanged=True,no_case36_retry=True,baseline_state_sha256=STATE_SHA,worker_spec_gate_sha256=review['process']['numerical_gate_sha256'],execution_authority_gate_sha256=review['process']['execution_authority_gate_sha256'],execution_git_sha=review['process']['invocation_git_sha'],native_draws_path=next(path for path in review['physical_case_files'] if path.endswith('.nc')),original_audit_result=BASE+'/original-audit-result.json',original_diagnostic_review=BASE+'/original-diagnostic-review.json',audit_source=BASE+'/audit.py.txt',plot_renderer_source=BASE+'/plot-renderer.py.txt',export_source=BASE+'/export.py.txt',index=BASE+'/index.json',diagnosis=BASE+'/diagnosis.md',chart_check=BASE+'/chart-check.json',plots={Path(name).name:BASE+'/plots/'+Path(name).name for name in review['plots']},helper_sources=helper_refs,diagnostics=review['diagnostics'],records=review['records'],events=review['events'],event_counts=review['event_counts'],density_gradient_checks=review['density_gradient_checks'],prior_only_offsets=review['prior_only_offsets'],predicted_prior_constant=review['predicted_prior_constant'],divergent_transition_location={k:review['divergent_transition'][k] for k in ['chain_zero_based','draw_zero_based','actual_integrator_trajectory_available']},divergent_transition_statistics=review['divergent_transition']['statistics'],full_native_mask_backend_metadata_and_diagnostics_replay=True,posterior_predictions_or_parameter_inference_performed=False,visual_review=review['visual_review'],diagnostic_takeaway=review['diagnostic_takeaway'],one_final_attempt_proposal={**review['recommendation'],'root_adoption':'candidate adopted, pending independent execution Gate and source QA','automatic_execution_or_acceptance':False},limitations=review['limitations'],confirmation_outcomes_parsed=False,reserved_outcomes='sealed',original_project_source_pin_count=len(sources),copied_artifact_pin_count=len(copied),files=pins)
+    # New admission metadata contains only project-relative references; temporary names
+    # survive exclusively in explicit byte-original files and the provenance mapping.
+    assert '/private/tmp' not in json.dumps(result) and all(not Path(path).is_absolute() and '..' not in Path(path).parts for path in result['files'])
+    m.c._unchanged(ROOT,pins);assert (ROOT/m.r.STATE).read_bytes()==statebytes;assert m.quota(ROOT,admission,state,entry['current'],reserve=True) is None
+    write(folder/'diagnostic-review.json',result)
+    m.c._unchanged(ROOT,pins);m.inventory(ROOT,admission,state,entry['current']);assert m.quota(ROOT,admission,state,entry['current'],reserve=True) is None and (ROOT/m.r.STATE).read_bytes()==statebytes
+    print(json.dumps({'path':BASE+'/diagnostic-review.json','sha256':sha(folder/'diagnostic-review.json'),'pins':len(pins),'original_project_pins':len(sources),'copied_artifacts':len(copied),'state_sha256':STATE_SHA,'quota_with_reserve':'PASS','inventory':'PASS','state_conservation':'PASS','export_script_sha256':sha(Path(__file__))},sort_keys=True))
+
+if __name__=='__main__':main()

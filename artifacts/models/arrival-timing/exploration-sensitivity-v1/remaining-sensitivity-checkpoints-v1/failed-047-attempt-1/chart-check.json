@@ -1,0 +1,37 @@
+{
+ "result": "pass",
+ "dest": "report",
+ "figures": 1,
+ "fails": 0,
+ "warns": 4,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig0/ax0 legend",
+   "detail": "legend with 1 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig0/figure 'Retained draw ind...', '1900', '1920'",
+   "detail": "61 text(s) below 12 px at 600 px wide (report); smallest 10 pt = 6.9 px",
+   "fix": "Use at least 17.5 pt text at this 12.0 in figure width, or shrink figsize."
+  },
+  {
+   "check": "missing-source",
+   "severity": "warn",
+   "where": "fig0/figure",
+   "detail": "no text contains 'Source:' and no line starts with 'Source' or 'Data:'",
+   "fix": "Add a bottom-left line 'Source: <publisher>, <dataset>'."
+  },
+  {
+   "check": "title-too-long",
+   "severity": "warn",
+   "where": "fig0/figure 'Failed case 47: chain 3, draw 1962 transition n...'",
+   "detail": "title runs past 2 lines at report (151 chars, cut about 28)",
+   "fix": "Cut to one sentence that ev.fits_title accepts, on 1-2 lines; move detail to the subtitle."
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+"""Render diagnostic localization from saved audit arrays only; no native/raw reads."""
+from pathlib import Path
+import json
+import numpy as np
+import matplotlib.pyplot as plt
+DEST=Path('/private/tmp/s5-failed047-diagnostic')
+a=np.load(DEST/'plot-data.npz');coordinates=a['coordinates'];dc,dd=map(int,a['divergence'][0]);detail=json.loads((DEST/'result.json').read_text())['divergent_transition']['statistics']
+fig,axs=plt.subplots(2,2,figsize=(12,8),layout='constrained');window=np.arange(max(0,dd-60),min(2000,dd+38));series=[('tau_event',coordinates[dc,:,3]),('sigma_500',coordinates[dc,:,4]),('energy',a['energy'][dc]),('max_energy_error',a['max_energy_error'][dc])]
+for ax,(label,values) in zip(axs.flat,series,strict=True):
+    ax.plot(window,values[window],color='#555555',lw=1);ax.axvline(dd,color='#D55E00',ls='--',label='Divergent transition')
+    if np.isfinite(values[dd]):ax.scatter([dd],[values[dd]],color='#D55E00',s=35,zorder=3)
+    ax.set(xlabel='Retained draw index (zero based)',ylabel=label)
+axs[1,1].text(.025,.975,'At marked transition: maximum-error field absent.\nSeparate divergence error: '+format(detail['divergence_energy_error'],'.2f'),transform=axs[1,1].transAxes,va='top',fontsize=10,bbox=dict(facecolor='white',edgecolor='#888888',alpha=.95))
+axs[0,0].legend();fig.suptitle(f'Failed case 47: chain {dc+1}, draw {dd} transition neighborhood\nDiagnostic localization only; missing integrator path prevents a definitive root-cause claim',fontsize=12)
+fig.savefig(DEST/'failed047-transition.png',dpi=120)

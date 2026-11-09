@@ -1,0 +1,75 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/audit.py.txt": "61315ec4c9fe7d8703ccf9e460863af583a633089d6da8c510f56612c7ea2b8b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/chart-check.json": "ac1a979c4202d15a4630d434323f09cd5f55da6948999128c1ad7019dd0157ec",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/diagnosis.md": "6e539b387133aabbd35d281e82e64f057eca1c08d2ab1a9f409b839932ab8b4f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/export.py.txt": "98a72e7b11d084f0a1aecd8347c3dfe72244c69c1eaaa4f4470d2390cb940c62",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/original-audit-result.json": "80f91d59ecc0f25e369c526f408136ec052f3a162fc28092d57819b19c8a7dee",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/original-diagnostic-review.json": "b8253c693c38594f7c71654dbbf7aa43cd832d4e16f159ec6100740640ef2163",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plot-renderer.py.txt": "3575a7a6a827f9f2619c6347e0922df1407676e7a0074ac3f9045bdf7abafabd",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-energy.png": "daabef975b7bc29bfa9b02f811d0115ac88832c776bd14d392db417a612b5821",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-geometry.png": "57979d21979335ee9ae8edb08b65b25025c3c2b034418d8b5e18f4237a0118ed",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-trace-rank.png": "f37ea7bf6a976e8463a2878e8342f36d86969ac6743499ae00b3dc1d3b869af1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-transition.png": "1d48c944cf91823cb0ffb4ee7889337c9d2e7e1ef0fcda7f92091993fb00c3d1"
+  },
+  "helper_sources": {
+    "batch_checker": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-044-045/audit.py.txt",
+    "independent_math": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt"
+  },
+  "historical_snapshot_qualification": "Original JSON/code/diagnosis files are byte-exact historical snapshots and may retain temporary paths. Admission paths and hashes are in diagnostic-review.json. The final transition PNG supersedes the initial plot only by adding the absent-field/divergence-error annotation.",
+  "original_location_mapping": {
+    "/private/tmp/check_s5_failed047.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/audit.py.txt",
+      "sha256": "61315ec4c9fe7d8703ccf9e460863af583a633089d6da8c510f56612c7ea2b8b"
+    },
+    "/private/tmp/export_s5_failed047.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/export.py.txt",
+      "sha256": "98a72e7b11d084f0a1aecd8347c3dfe72244c69c1eaaa4f4470d2390cb940c62"
+    },
+    "/private/tmp/render_s5_failed047.py": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plot-renderer.py.txt",
+      "sha256": "3575a7a6a827f9f2619c6347e0922df1407676e7a0074ac3f9045bdf7abafabd"
+    },
+    "/private/tmp/s5-failed047-diagnostic/chart-check.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/chart-check.json",
+      "sha256": "ac1a979c4202d15a4630d434323f09cd5f55da6948999128c1ad7019dd0157ec"
+    },
+    "/private/tmp/s5-failed047-diagnostic/diagnosis.md": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/diagnosis.md",
+      "sha256": "6e539b387133aabbd35d281e82e64f057eca1c08d2ab1a9f409b839932ab8b4f"
+    },
+    "/private/tmp/s5-failed047-diagnostic/failed047-energy.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-energy.png",
+      "sha256": "daabef975b7bc29bfa9b02f811d0115ac88832c776bd14d392db417a612b5821"
+    },
+    "/private/tmp/s5-failed047-diagnostic/failed047-geometry.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-geometry.png",
+      "sha256": "57979d21979335ee9ae8edb08b65b25025c3c2b034418d8b5e18f4237a0118ed"
+    },
+    "/private/tmp/s5-failed047-diagnostic/failed047-trace-rank.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-trace-rank.png",
+      "sha256": "f37ea7bf6a976e8463a2878e8342f36d86969ac6743499ae00b3dc1d3b869af1"
+    },
+    "/private/tmp/s5-failed047-diagnostic/failed047-transition.png": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-transition.png",
+      "sha256": "1d48c944cf91823cb0ffb4ee7889337c9d2e7e1ef0fcda7f92091993fb00c3d1"
+    },
+    "/private/tmp/s5-failed047-diagnostic/result.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/original-audit-result.json",
+      "sha256": "80f91d59ecc0f25e369c526f408136ec052f3a162fc28092d57819b19c8a7dee"
+    },
+    "/private/tmp/s5-failed047-diagnostic/review.json": {
+      "project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/original-diagnostic-review.json",
+      "sha256": "b8253c693c38594f7c71654dbbf7aa43cd832d4e16f159ec6100740640ef2163"
+    }
+  },
+  "reproduction": "The exact audit, plot-renderer and export sources are retained as text. Audit rerun requires restoration of its original closed50 source state and isolated temporary locations; it is diagnostic-only and does not run a sampler. Raw native draws remain at their original pinned project path, with no duplicate native data in this checkpoint.",
+  "reserved_outcomes": "sealed",
+  "status": "portable_diagnostic_evidence_export_only",
+  "transition_plot_history": {
+    "final_project_path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/failed-047-attempt-1/plots/failed047-transition.png",
+    "final_sha256": "1d48c944cf91823cb0ffb4ee7889337c9d2e7e1ef0fcda7f92091993fb00c3d1",
+    "initial_sha256": "064e8c7eb686d5bf60bc5f7b0cf06293d1ae89026d6ac01a99a4f4d4c2d8481a"
+  }
+}

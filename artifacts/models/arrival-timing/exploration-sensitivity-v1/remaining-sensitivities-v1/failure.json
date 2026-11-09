@@ -1,0 +1,6 @@
+{
+  "calls_charged": 50,
+  "calls_started": 50,
+  "error": "failed computation retained; no retry/refund",
+  "status": "needs_review"
+}
