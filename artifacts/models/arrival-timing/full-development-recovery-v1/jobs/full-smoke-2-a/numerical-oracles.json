@@ -1,0 +1,72 @@
+{
+  "measure": "modeled_response_plus_selected_prior_and_transform_Jacobian",
+  "normal_log_scale_offset_prediction": -1.535239184669024e-07,
+  "normalizer_source": "pymc.distributions.continuous.Normal.logp/HalfNormal.logp symbolic log(sigma)",
+  "passed": true,
+  "points": [
+    {
+      "gradient_max_absolute_error": 5.3290705182007514e-14,
+      "logp_absolute_error": 1.5352406990132295e-07,
+      "logp_prior_offset_corrected_error": 1.509903313490213e-13,
+      "passed": true,
+      "point": "truth",
+      "prior_normalizer_offset": -1.535239189109916e-07,
+      "prior_offset_drift": 0.0
+    },
+    {
+      "gradient_max_absolute_error": 4.440892098500626e-16,
+      "logp_absolute_error": 1.5352395621448522e-07,
+      "logp_prior_offset_corrected_error": 3.730349362740526e-14,
+      "passed": true,
+      "point": "chain-0-draw-0",
+      "prior_normalizer_offset": -1.5352391535827792e-07,
+      "prior_offset_drift": 3.552713678800501e-15
+    },
+    {
+      "gradient_max_absolute_error": 1.0658141036401503e-14,
+      "logp_absolute_error": 1.535238425276475e-07,
+      "logp_prior_offset_corrected_error": 7.638334409421077e-14,
+      "passed": true,
+      "point": "chain-1-draw-1000",
+      "prior_normalizer_offset": -1.5352391713463476e-07,
+      "prior_offset_drift": 1.7763568394002505e-15
+    },
+    {
+      "gradient_max_absolute_error": 3.197442310920451e-14,
+      "logp_absolute_error": 1.535238425276475e-07,
+      "logp_prior_offset_corrected_error": 7.638334409421077e-14,
+      "passed": true,
+      "point": "chain-3-draw-1999",
+      "prior_normalizer_offset": -1.5352391713463476e-07,
+      "prior_offset_drift": 1.7763568394002505e-15
+    }
+  ],
+  "prior_normalizer_scope": "bounded_data_independent_PyMC_prior_constant_not_likelihood_adjustment",
+  "prior_only_checks": [
+    {
+      "offset": -1.535239189109916e-07,
+      "point": "truth"
+    },
+    {
+      "offset": -1.5352391535827792e-07,
+      "point": "fixed_prior_shift"
+    },
+    {
+      "offset": -1.5352391535827792e-07,
+      "point": "chain-0-draw-0"
+    },
+    {
+      "offset": -1.5352391713463476e-07,
+      "point": "chain-1-draw-1000"
+    },
+    {
+      "offset": -1.5352391713463476e-07,
+      "point": "chain-3-draw-1999"
+    }
+  ],
+  "selected_prior_scale_dtypes": {
+    "alpha": "float32",
+    "beta": "float32",
+    "sigma": "float32"
+  }
+}

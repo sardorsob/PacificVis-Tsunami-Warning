@@ -1,0 +1,41 @@
+{
+  "calibration_or_coverage_claim": false,
+  "confirmation_outcomes_parsed": true,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.036687116217083655,
+    "max_rhat": 1.002367007528999,
+    "maxdepth_reached": 0,
+    "min_bfmi": 1.0148427145760706,
+    "min_ess_bulk": 3347.18181392303,
+    "min_ess_tail": 3992.1405448101905,
+    "screen_passed": true
+  },
+  "job": {
+    "case": "A",
+    "conditional_seed": 2966130803,
+    "design_protocol_sha256": "2741a6727e6d150cb82b47caf834b9db5c36e166f003a4aeda2d25f1943df025",
+    "id": "full-smoke-2-a",
+    "model_key": "T-CAL:distance:selected",
+    "model_spec_sha256": "558d5add3bc9e17d0dbb2870489dc588a4146c44156b52b8541c1b849c2fecb6",
+    "order": 4,
+    "protocol_sha256": "918c1ca8b803c15dd552e33fde2383b63170ff3d3eeec2958024ca605e2b3062",
+    "role": "full_design_recovery",
+    "sampler_seed": 2966130802,
+    "simulator_seed": 2966130801,
+    "truth": {
+      "alpha": -15.0,
+      "beta": 5.0,
+      "sigma": 20.0
+    },
+    "truth_sha256": "581d6e708b9ed9907d88532f49a46d6460baf1ed7ed10e1693016646c3980e06"
+  },
+  "numerical_oracles_passed": true,
+  "posterior": "data/processed/models/arrival-development-recovery-v1/full-smoke-2-a.nc",
+  "posterior_sha256": "ac76589a757b1f892bbf2b234c34ea91fab3589190fb375654f45b663d0a6c38",
+  "reserved_outcomes": "sealed",
+  "sampler_call_started": true,
+  "scope": "two_fixed_truth_cases_not_calibration_coverage_bias_or_physical_validity",
+  "status": "computed_pending_scientific_review"
+}

@@ -1,0 +1,16 @@
+{
+  "base_prior": {
+    "alpha_sd": 30.0,
+    "beta_sd": 15.0,
+    "sigma_sd": 30.0,
+    "tau_sd": 30.0
+  },
+  "distribution_scales": {
+    "alpha_sd": 30.0,
+    "beta_sd": 15.0,
+    "sigma_sd": 30.0,
+    "tau_sd": 30.0
+  },
+  "family": "normal",
+  "wider_prior": null
+}

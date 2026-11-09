@@ -1,0 +1,4 @@
+parameter,anchor_km,truth,q05,q50,q95,nonfinite_values,nonfinite_quantile_values,quantile_valid,within90,interpretation
+alpha,,-15.0,-17.445117029032897,-13.860649388010465,-10.368909984356375,0,0,True,True,single_case_inclusion_not_coverage
+beta,,5.0,1.676078404510132,3.6795355974069786,5.68842962879848,0,0,True,True,single_case_inclusion_not_coverage
+sigma,,20.0,17.058992095226472,18.606722121005774,20.407965284116784,0,0,True,True,single_case_inclusion_not_coverage
