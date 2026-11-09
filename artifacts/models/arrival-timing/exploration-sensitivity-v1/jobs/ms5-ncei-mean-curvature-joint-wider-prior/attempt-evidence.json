@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-ncei-mean-curvature-joint-wider-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior-spec.json": "435eefb90989b5bfb30fe1fe31f0188fdc6e78d21fcb64cffb73c99566869948",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior.log": "0d59b49a048304c7279ac1d34cb031cdde6c576633bc39efbb601652d9e46457",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior.supervisor.json": "e1c330b923e4b9cf7f09690f09494817ae89460a63888cd4cd3b7982df28e8df",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/conditional-ppc.csv": "01d9b096913c1ab489d9de5a9cf8d267d001797a341156d1982562ec162b56e8",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/curves.csv": "0730d076cef2aed3552b32e9f4663c2fd9f0fa738104d2af53e48e7d778ed506",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/derived.csv": "abff33b24d200815a12d866961170cfa0c134e0f99abe3e15372645db8db98fd",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/diagnostics.json": "d2b8e5304afff757dacb109bc136f5a74f8eb6baafa5e4e63ad43b0daa3d8d0e",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/inputs.json": "684964365d2a6f26429a10fd4b169f69eec2d21f249a656d84443debf93f990a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/job.json": "435eefb90989b5bfb30fe1fe31f0188fdc6e78d21fcb64cffb73c99566869948",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/membership.json": "5412be31e35f67cea21921251af9d481e288971a4fcda992c7a911d08f585677",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/parameters.csv": "6f643546e758a74f325f1c0988dbb11716e58e0d44ab625a4af73cf37dd78d80",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/record-intervals.csv": "7f885ba2708b385dffaf1dabe86cced566f07e1c9b81d876b89548e050e935e9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/result.json": "70074abf6c1d35a6bb13be4855a92a202990a361d3aca938e55abbfbfeb58a93",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/sampling-diagnostics.csv": "e110a703de17a31cc4e06d589296a5155216be0c7acb7e82d3d0bd0403ef3de6",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/sampling-start.json": "435eefb90989b5bfb30fe1fe31f0188fdc6e78d21fcb64cffb73c99566869948",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-joint-wider-prior/summary.json": "fac4cbd378c5f39cf0ef71f89f2204c32c1ca73cde5a97505e98685eb1968f4b",
+    "data/processed/models/arrival-sensitivity-v1/ms5-ncei-mean-curvature-joint-wider-prior.nc": "f979132d10f003fd23eb18c51b7498bd302049a6192bb0eef258a5f95e73dcb6"
+  }
+}
