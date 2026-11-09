@@ -114,6 +114,8 @@ def report(root, output):
     if any(p in pins and pins[p] != h for p, h in new_pins.items()):
         raise ValueError("comparison source identity conflict")
     pins.update(new_pins)
+    if any(p in pins and pins[p] != h for p, h in code.items()):
+        raise ValueError("comparison helper identity conflicts with accepted evidence")
     pins.update(code)
     models = {
         ("NCEI-native-duration", k): old[("NCEI-native-duration", k)]
@@ -136,6 +138,15 @@ def report(root, output):
             "selection": "none; exploration comparison before sensitivity",
             "bootstrap_replicates": 2000,
             "bootstrap_seed": 25261108,
+            "curvature_cv": {
+                "calls_charged": 128,
+                "calls_started": 128,
+                "logical_folds": 29,
+                "direct_folds": 26,
+                "reviewed_resolutions": 3,
+                "continuation": "continuation-v3",
+            },
+            "curvature_numerical_provenance": candidate["numerical_provenance"],
         },
     )
     for name, rows in tables.items():
@@ -200,6 +211,16 @@ def report(root, output):
         "the two events remain one sequence for sampling uncertainty. The reported "
         "1,125-minute duration is unchanged.",
         "",
+        "Sumatra's 49-report event also failed direct-bridge overlap checks. Its "
+        "score uses a separately accepted path for the same model and prior, with "
+        "an independent repeat. All 80 reports in its three-event sequence were "
+        "excluded from training. The other 22-report and 9-report event scores and "
+        "all 80 original training-only predictions remain unchanged. The resolved "
+        "fold combines the three shared-training influence vectors before estimating "
+        "Monte Carlo variance, then adds independent later-path and augmented-stream "
+        "variances. The native-duration Jacobian is already included once in the "
+        "accepted event score; this comparison adds no Jacobian.",
+        "",
         "The paired intervals use sequence-cluster sandwich uncertainty with "
         "small-group t critical values. The metadata-defined groups and overlapping "
         "training sets limit interpretation. The PIT bands resample sequences and "
@@ -229,7 +250,8 @@ def report(root, output):
         "Reproduce with `uv run --locked --offline python "
         "scripts/summarize_arrival_curvature_comparison.py --output "
         "<new-project-path>`. The complete independently accepted curvature "
-        "continuation is required before any collection. Exact source, native-input "
+        "continuation-v3 (128 calls, 26 direct folds and three reviewed resolutions) "
+        "is required before any collection. Exact source, native-input "
         "and artifact hashes are in inputs.json and output-checksums.json.",
         "",
     ]

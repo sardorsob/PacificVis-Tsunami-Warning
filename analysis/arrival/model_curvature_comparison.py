@@ -41,7 +41,11 @@ def verify_complete_curvature(root):
             raise ValueError("complete reviewed science closure required")
         return json.loads(path.read_text())
 
-    continuation = OUTPUT + "/continuation-v2"
+    from analysis.arrival import model_curvature_sumatra_resolution_io as sumatra_io
+    from analysis.arrival.model_data import CONTRACT
+    from scripts import run_arrival_curvature_final_continuation as final
+
+    continuation = final.CONTINUATION
     summary = read(continuation + "/run-summary.json")
     plan = read(OUTPUT + "/plan.json")
     resumed = read(continuation + "/plan.json")
@@ -49,37 +53,52 @@ def verify_complete_curvature(root):
         summary.get("status") != "cv_computations_complete"
         or summary.get("logical_completed_folds") != 29
         or summary.get("planned_folds") != 29
-        or summary.get("direct_accepted_folds") != 27
-        or summary.get("reviewed_resolutions") != 2
+        or summary.get("direct_accepted_folds") != 26
+        or summary.get("reviewed_resolutions") != 3
         or summary.get("confirmation_outcomes_parsed") is not False
         or summary.get("reserved_outcomes") != "sealed"
         or len(plan.get("cases", [])) != 29
         or len(plan.get("memberships", {})) != 29
-        or summary.get("calls_charged") != 96
-        or summary.get("calls_started") != 96
-        or summary.get("inherited_slots") != 53
-        or summary.get("remaining_nominal_calls_at_start") != 43
+        or summary.get("calls_charged") != 128
+        or summary.get("calls_started") != 128
+        or summary.get("max_sampler_call_slots") != 248
+        or summary.get("inherited_slots") != 109
+        or summary.get("remaining_nominal_calls_at_start") != 19
         or resumed.get("cases") != plan["cases"]
         or resumed.get("original_plan_sha256") != pins[OUTPUT + "/plan.json"]
         or resumed.get("original_worker_files") != plan.get("files")
+        or resumed.get("inherited_slots") != 109
+        or resumed.get("remaining_nominal_slots") != 19
+        or resumed.get("global_call_ceiling") != 248
+        or resumed.get("resources") != final.resources()
+        or resumed.get("canonical_state_path") != final.STATE
+        or resumed.get("path_bindings")
+        != final.bindings(root, root / continuation, root / final.STORE, root / final.STATE)
     ):
-        raise ValueError("all29logicalfolds and inclusive96sampler accounting required")
+        raise ValueError("all29logicalfolds and inclusive128sampler accounting required")
     for sources in [plan.get("files"), resumed.get("files")]:
         if not sources or any(pins.get(p) != h for p, h in sources.items()):
             raise ValueError("complete reviewed source closure required")
     from scripts.run_arrival_curvature_completion import (
-        GATE,
         PRECISION_OUTPUT,
         PRECISION_REVIEW,
-        REHEARSAL,
     )
     from scripts.run_arrival_curvature_continuation import DERIVED, DERIVED_REVIEW
     from scripts.run_arrival_curvature_sequences import case_artifacts
 
-    for receipt in [GATE, REHEARSAL, DERIVED_REVIEW, PRECISION_REVIEW]:
+    for receipt in [
+        final.GATE,
+        final.REHEARSAL,
+        DERIVED_REVIEW,
+        PRECISION_REVIEW,
+        final.DERIVED_REVIEW,
+        sumatra_io.REVIEW,
+    ]:
         review = read(receipt)
         if (
             review.get("independent_checker") is not True
+            or review.get("confirmation_outcomes_parsed") is not False
+            or review.get("reserved_outcomes") != "sealed"
             or not review.get("files")
             or any(pins.get(p) != h for p, h in review["files"].items())
         ):
@@ -92,6 +111,12 @@ def verify_complete_curvature(root):
             PRECISION_OUTPUT,
             PRECISION_REVIEW,
             "accepted_same_model_curvature_precision_resolution",
+        ),
+        (
+            "fold-019",
+            final.DERIVED,
+            final.DERIVED_REVIEW,
+            "accepted_same_model_curvature_sumatra_fold_resolution",
         ),
     ]:
         prediction = OUTPUT + "/jobs/" + case_id + "/held-out-record-predictions.csv"
@@ -113,10 +138,39 @@ def verify_complete_curvature(root):
     if (
         resumed.get("resolutions") != resolutions
         or gate.get("resolutions") != resolutions
-        or read(GATE).get("status") != "accepted_curvature_completion_rehearsal"
-        or read(REHEARSAL).get("status") != "accepted_first_curvature_completion_fold"
+        or read(final.GATE).get("status") != "accepted_curvature_final_continuation_rehearsal"
+        or read(final.REHEARSAL).get("status") != "accepted_first_curvature_final_continuation_fold"
+        or read(final.GATE).get("resolutions") != resolutions
+        or read(final.GATE).get("resources") != final.resources()
+        or read(final.GATE).get("path_bindings") != resumed["path_bindings"]
+        or read(final.GATE).get("original_plan_sha256") != pins[OUTPUT + "/plan.json"]
+        or read(final.GATE).get("remaining_cases") != plan["cases"][20:]
+        or read(sumatra_io.REVIEW).get("status")
+        != "accepted_curvature_sumatra_primary_path_and_independent_repeat"
     ):
         raise ValueError("literal accepted same-model resolution registry required")
+    path_pins = sumatra_io.verified_path(root)
+    if not path_pins or any(pins.get(p) != h for p, h in path_pins.items()):
+        raise ValueError("complete independently reviewed Sumatra path closure required")
+    for name in [final.DERIVED + "/inputs.json", final.DERIVED + "/output-checksums.json"]:
+        read(name)
+    derived_inputs = read(final.DERIVED + "/inputs.json")
+    if (
+        not derived_inputs.get("files")
+        or any(pins.get(p) != h for p, h in derived_inputs["files"].items())
+        or derived_inputs.get("new_sampler_calls") != 0
+        or derived_inputs.get("confirmation_outcomes_parsed") is not False
+        or derived_inputs.get("reserved_outcomes") != "sealed"
+        or read(final.DERIVED + "/output-checksums.json")
+        != {name: pins[final.DERIVED + "/" + name] for name in ["inputs.json", "result.json"]}
+    ):
+        raise ValueError("complete reviewed zero-call derived Sumatra closure required")
+    if CONTRACT not in pins:
+        raise ValueError("reviewed contract required before outcome loading")
+    contract = tomllib.loads((root / CONTRACT).read_text())
+    if not contract.get("inputs") or any(pins.get(p) != h for p, h in contract["inputs"].items()):
+        raise ValueError("all frozen native inputs must be reviewed before parsing")
+    # Close every inventory before case_artifacts can parse a prediction table.
     for case in plan["cases"]:
         attempt = folder / "jobs" / case["id"]
         raw = root / "data/processed/models/mean-curvature-sequence-v1" / case["id"]
@@ -130,6 +184,7 @@ def verify_complete_curvature(root):
         )
         if any(str(p.relative_to(root)) not in pins for p in inventory):
             raise ValueError("complete reviewed science closure required before parsing")
+    for case in plan["cases"]:
         if case["id"] in resolutions:
             resolution = resolutions[case["id"]]
             failed_path = OUTPUT + "/jobs/" + case["id"] + "/result.json"
@@ -143,10 +198,45 @@ def verify_complete_curvature(root):
                 or result.get("source_result_sha256") != pins[failed_path]
                 or result.get("training_only_predictions") != resolution["prediction"]
                 or result.get("training_only_predictions_sha256") != resolution["prediction_sha256"]
+                or result.get("status") != "computed_pending_review"
+                or result.get("score_precision_passed") is not True
+                or result.get("prediction_precision_passed") is not True
+                or result.get("observation_measure")
+                != "native_minutes_Jacobian_already_applied_once"
             ):
                 raise ValueError(
                     "unchanged original failed result and training predictions required"
                 )
+            if case["id"] == "fold-019":
+                score = result.get("fold_score", {})
+                if (
+                    [(e.get("event_id"), e.get("records")) for e in result.get("events", [])]
+                    != [("usp000exfn", 49), ("usp000f2ab", 22), ("usp000gsmz", 9)]
+                    or result["events"][1:] != failed.get("events", [])[1:]
+                    or failed.get("heldout_records") != 80
+                    or result.get("retained_direct_bridge_status") != "precision_failure"
+                    or result.get("prediction_source")
+                    != "unchanged_original_training_only_predictions"
+                    or result.get("score_resolution")
+                    != "predesignated_same_model_full_coefficient_power_path"
+                    or result.get("primary_path") != sumatra_io.OUTPUT + "/primary-path-result.json"
+                    or result.get("primary_path_sha256")
+                    != pins[sumatra_io.OUTPUT + "/primary-path-result.json"]
+                    or score.get("events") != 3
+                    or score.get("event_precision_passed") is not True
+                    or score.get("source_training_posterior_sha")
+                    != pins[sumatra_io.ORIGINAL_RAW + "00-training.nc"]
+                    or score.get("mcse_scope")
+                    != (
+                        "path_and_other_event_training_influences_combined_"
+                        "before_independent_stage_variances"
+                    )
+                    or score.get("primary_path_training_variance")
+                    != "included_once_in_shared_vector_not_added_again"
+                ):
+                    raise ValueError(
+                        "resolved49/22/9 native scores and shared-T0 covariance required"
+                    )
             continue
         files, manifest = case_artifacts(root, case, plan["memberships"][case["id"]], plan["files"])
         files[str(manifest.relative_to(root))] = sha256(manifest)
@@ -157,6 +247,8 @@ def verify_complete_curvature(root):
             "files": {p: h for p, h in files.items() if p != str(manifest.relative_to(root))},
         }:
             raise ValueError("complete immutable attempt manifest required")
+    if any(sha256(checked_path(root, p)) != h for p, h in pins.items()):
+        raise ValueError("curvature evidence changed during complete-CV verification")
     return {**plan, "resolutions": resolutions}, pins
 
 
@@ -279,7 +371,7 @@ def collect_curvature(root):
             separators=(",", ":"),
         ).encode()
     ).hexdigest()
-    results, predictions = [], []
+    results, predictions, provenance = [], [], {}
     for case in plan["cases"]:
         folder = root / OUTPUT / "jobs" / case["id"]
         resolution = plan["resolutions"].get(case["id"])
@@ -297,8 +389,18 @@ def collect_curvature(root):
         if result["job"] != case:
             raise ValueError("frozen curvature job changed")
         results.append(result)
+        provenance[case["id"]] = {
+            "result": result_path,
+            "result_sha256": pins[result_path],
+            "original_predictions": prediction_path,
+            "original_predictions_sha256": pins[prediction_path],
+            "reviewed_resolution": resolution,
+            "observation_measure": result.get("observation_measure"),
+            "fold_mcse_scope": result.get("fold_score", {}).get("mcse_scope"),
+        }
         predictions += normalize_predictions(read_rows(root / prediction_path), lane.target)
     candidate = assemble_candidate(lane, results, predictions, cohort_sha256)
+    candidate["numerical_provenance"] = provenance
     if any(sha256(checked_path(root, p)) != h for p, h in pins.items()):
         raise ValueError("curvature comparison input drift")
     return candidate, pins
