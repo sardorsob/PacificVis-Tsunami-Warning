@@ -1,0 +1,28 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+D=Path('/private/tmp/tsunami-epoch2-G-authority-linear-draft.json')
+assert T.sha(D)=='4d26bdca7a5a04de5fc1ec7d32af3aab6f742cd6e5e21bea69ef7334a2ac2b3e'
+v=json.loads(D.read_text());g=v['gate'];phase=T.PHASES[0]
+assert hashlib.sha256(T.payload(g)).hexdigest()==v['gate_sha256']=='4620082532a5f0a03fb81da25741fcf75ffa710068e198ba9d7a2db27910433d'
+assert Path('/private/tmp/tsunami-epoch2-G-authority-independent-review.json').is_file()
+T.bootstrap(R,phase)
+T.fresh(R,g['files'])
+assert v['gate_path']==T.authority_path(phase)
+p=R/v['gate_path'];assert not p.exists() and not p.is_symlink()
+T.write(p,g)
+a=T.read_program_metadata(R,phase)
+assert a['calls_charged']==a['calls_started']==3 and not a['complete']
+assert [j['id'] for j in a['remaining_jobs']]==['full-smoke-1-b','full-smoke-2-a','full-smoke-2-b']
+assert len(a['accepted_records'])==3 and len(a['attempt_records'])==1
+from scripts import run_arrival_development_journal as J
+J.inventory(R,{'files':a['files'],'phase':phase},{})
+assert J.c2.quota(R,{'gate':a,'files':a['files'],'phase':phase},reserve=True,known_files=a['files']) is None
+for name,digest in a['baseline']['private_state_hashes_history_only'].items():assert T.sha(T.file(R,name))==digest
+assert not any(p.exists() or p.is_symlink() for p in [R/T.CONTROL/'.lock',R/J.CONTROL/'.journal.lock',R/T.CONTROL/'STOP',*J.stops(R)])
+T.fresh(R,a['files'])
+out=dict(status='root_published_epoch2_G_authority_preflight_passed',authority_gate=str(p.relative_to(R)),authority_gate_sha256=T.sha(p),pins=len(a['files']),calls_charged=3,calls_started=3,remaining_jobs=[j['id'] for j in a['remaining_jobs']],accepted_records=3,ordinary_attempt_records=1,historical_G2_attempt_absent=True,original_strict_G2_proof_absent=True,reserved_outcomes='sealed',new_sampler_calls=0,raw_arrays_parsed=False,private_STATE_bodies_parsed=False,inventory_quota_reserve_private_hashes_passed=True)
+o=Path('/private/tmp/tsunami-epoch2-G-root-preflight.json')
+with o.open('xb') as f:f.write(T.payload(out))
+print(json.dumps(out))

@@ -1,0 +1,125 @@
+"""Opaque synthetic protocol checks; never invoke audit or read project data."""
+# pyright: basic
+
+import copy
+import importlib.util
+from pathlib import Path
+from typing import Any
+
+import pytest
+
+s = importlib.util.spec_from_file_location(
+    "remaining_checker", Path("/private/tmp/check_technical_remaining_closed_runtime.py")
+)
+assert s is not None and s.loader is not None
+m = importlib.util.module_from_spec(s)
+s.loader.exec_module(m)
+CASES = [(m.G, m.G_IDS[4], 5, 18, False), (m.G, m.G_IDS[5], 6, 18, True)] + [
+    (m.F, j, 7 + i, 16, i == 2) for i, j in enumerate(m.F_IDS)
+]
+
+
+def fixture(phase, identifier):
+    c = m.protocol(phase, identifier)
+    ids = m.G_IDS if phase == m.G else m.F_IDS
+    jobs = [{"id": j, "role": phase} for j in ids]
+    job = jobs[c["index"]]
+    r = dict(
+        job_id=identifier,
+        phase=phase,
+        role=phase,
+        producer=c["producer"],
+        outcome="accepted",
+        cost=1,
+        start_markers=1,
+        worker_files={str(i): "opaque" for i in range(c["worker_count"])},
+        files={str(i): "opaque" for i in range(c["payload_count"])},
+    )
+    proof: dict[str, Any] = dict(
+        job=job,
+        sampler_calls=0,
+        status=c["proof_status"],
+        proof_contract=c["proof_contract"],
+        worker_files=r["worker_files"],
+        original_exact_oracle_equal=False,
+        diagnostic_comparison=dict(
+            proof_contract=m.T.PROOF_CONTRACT,
+            original_exact_oracle_equal=False,
+            original_scientific_predicates_passed=True,
+            fresh_original_componentwise_gradient_predicate=True,
+            cross_run_numeric_tolerance_used=False,
+        ),
+    )
+    count = c["calls"] - (2 if phase == m.G else 6)
+    a = dict(
+        jobs=jobs,
+        calls_charged=c["calls"],
+        calls_started=c["calls"],
+        complete=c["complete"],
+        remaining_jobs=jobs[c["index"] + 1 :],
+        attempt_records=[{}] * count,
+        accepted_records=[{}] * (c["calls"] if phase == m.G else count),
+    )
+    return a, job, r, proof, c
+
+
+@pytest.mark.parametrize("phase,identifier,calls,worker_count,complete", CASES)
+def test_fixed_five_phase_counter_and_proof_protocols(
+    phase, identifier, calls, worker_count, complete
+):
+    a, j, r, p, c = fixture(phase, identifier)
+    assert (c["calls"], c["worker_count"], c["complete"]) == (calls, worker_count, complete)
+    m.validate_closed_protocol(a, j, r, p, phase, c)
+
+
+@pytest.mark.parametrize(
+    "phase,identifier", [(m.G, m.G_IDS[3]), (m.G, m.F_IDS[0]), (m.F, m.G_IDS[4]), ("foreign", "x")]
+)
+def test_old_or_cross_phase_jobs_rejected(phase, identifier):
+    with pytest.raises(ValueError):
+        m.protocol(phase, identifier)
+
+
+@pytest.mark.parametrize("phase,identifier,_,__,___", CASES)
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "counter",
+        "start",
+        "producer",
+        "proof_status",
+        "proof_contract",
+        "worker_set",
+        "attempt_count",
+        "completion",
+        "sampler",
+    ],
+)
+def test_resealed_metadata_cannot_cross_phase_or_launder_cost(phase, identifier, _, __, ___, fault):
+    a, j, r, p, c = copy.deepcopy(fixture(phase, identifier))
+    if fault == "counter":
+        a["calls_charged"] -= 1
+    elif fault == "start":
+        r["start_markers"] = True
+    elif fault == "producer":
+        r["producer"] = (
+            "strict_startup_execution" if phase == m.G else "stable_scientific_startup_execution"
+        )
+    elif fault == "proof_status":
+        p["status"] = (
+            "strict_original_worker_artifacts_passed"
+            if phase == m.G
+            else "scientific_artifact_replay_passed"
+        )
+    elif fault == "proof_contract":
+        p["proof_contract"] = "other_phase"
+    elif fault == "worker_set":
+        r["worker_files"].pop("0")
+    elif fault == "attempt_count":
+        a["attempt_records"].append({})
+    elif fault == "completion":
+        a["complete"] = not a["complete"]
+    else:
+        p["sampler_calls"] = 1
+    with pytest.raises(AssertionError):
+        m.validate_closed_protocol(a, j, r, p, phase, c)

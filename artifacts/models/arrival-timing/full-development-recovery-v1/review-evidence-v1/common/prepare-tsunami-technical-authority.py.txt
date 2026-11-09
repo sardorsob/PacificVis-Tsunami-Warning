@@ -1,0 +1,200 @@
+"""Draft one Epoch2 authority in TMP; never publish, launch, or parse arrays."""
+
+# pyright: basic
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+R = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+sys.path.insert(0, str(R))
+from analysis.arrival import model_development_technical_completion as T  # noqa: E402
+
+
+def build(root: Path, phase: str) -> dict[str, Any]:
+    root = Path(root).resolve()
+    review_path = T.DESIGN + "/source-review-revision-2.json"
+    source = T.load(root, review_path)  # Missing actual independent QA must fail first.
+    T.require(
+        source.get("status") == "accepted_frozen_arrival_development_technical_source"
+        and source.get("independent_checker") is True
+        and source.get("execution_authority") is False,
+        "accepted independent source QA first",
+    )
+    baseline = T.load(root, T.BASELINE)
+    kernel = T.load(root, T.KERNELS[phase])
+    old = T.load(root, T.LEGACY_AUTHORITY)
+    T.require(
+        T.sha(T.file(root, T.LEGACY_AUTHORITY)) == T.LEGACY_AUTHORITY_SHA256,
+        "exact immutable V1 authority",
+    )
+    old_review = old["execution_source_review"]
+    T.require(old_review == T.LEGACY_DESIGN + "/source-review.json", "literal V1 source review")
+    T.require(
+        T.sha(T.file(root, old_review)) == old["execution_source_review_sha256"],
+        "unchanged V1 source QA",
+    )
+    historical = [old["files"], T.load(root, T.PILOT)["files"], T.load(root, old_review)["files"]]
+    pins = T.merge(*(T.historical_source_verify(root, m) for m in historical))
+    literal = [
+        T.BASELINE,
+        T.KERNELS[phase],
+        T.CHECK,
+        T.CHECK_SUMMARY,
+        T.FREEZE,
+        review_path,
+        T.G2_REVIEW,
+    ]
+    if phase == T.PHASES[1]:
+        previous = T.load(root, T.G_REVIEW)
+        T.require(
+            previous.get("status") == "accepted_frozen_full_development_design_checks"
+            and previous.get("independent_checker") is True,
+            "actual accepted six-G SCI first",
+        )
+        literal.append(T.G_REVIEW)
+    for name in literal:
+        obj = T.load(root, name)
+        pins = T.merge(pins, obj.get("files", {}), {name: T.sha(T.file(root, name))})
+    artifacts = [
+        T.LEGACY_AUTHORITY,
+        T.PILOT,
+        old_review,
+        str(T.legacy_plan_path(root, T.PHASES[0]).relative_to(root)),
+    ]
+    pins = T.merge(pins, {n: T.sha(T.file(root, n)) for n in artifacts})
+    T.require(
+        {T.SELF, T.CLI, T.TEST, T.REPLAY_SOURCE, T.REPLAY_TEST} <= set(source["files"]),
+        "current T3 and replay2 source QA required",
+    )
+    T.require(T.HISTORY_MANIFEST in pins, "explicit historical archive closure")
+    from scripts import run_arrival_development_journal as J
+
+    floors = {str(p.relative_to(root)): J.old.r.byte_count(p) for p in J.old.r.parent_roots(root)}
+    T.require(
+        len(floors) == 15
+        and set(floors) == set(kernel["parent_minimum_bytes"])
+        and all(floors[p] >= n for p, n in kernel["parent_minimum_bytes"].items()),
+        "all fifteen retained floors preserved",
+    )
+    outside = kernel["external_reference_files"]
+    T.require(
+        len(outside) == 11 and all(pins.get(p) == h for p, h in outside.items()),
+        "exact eleven outside references",
+    )
+    inherited = {
+        p: h for p, h in T.load(root, T.FREEZE)["files"].items() if p.startswith("context/")
+    }
+    T.require(
+        len(inherited) == 12
+        and {p: h for p, h in pins.items() if p.startswith("context/")} == inherited,
+        "only twelve inherited hash references; no live STATE pins",
+    )
+    # Retain closed peer-QA artifacts by bytes only; never flatten their embedded pin maps.
+    design_artifacts = {}
+    for entry in (root / T.DESIGN).rglob("*"):
+        T.require(
+            entry.resolve() == entry and (entry.is_file() or entry.is_dir()),
+            "literal closed authority-design artifact",
+        )
+        if entry.is_file():
+            name = str(entry.relative_to(root))
+            T.require(name != T.authority_path(phase), "prospective authority must not exist")
+            design_artifacts[name] = T.sha(entry)
+        else:
+            T.require(any(p.is_file() for p in entry.rglob("*")), "unknown empty design directory")
+    pins = T.merge(pins, design_artifacts)
+    count = 3 if phase == T.PHASES[0] else 6
+    gate = dict(
+        status="accepted_frozen_arrival_development_technical_continuation",
+        independent_checker=True,
+        phase=phase,
+        source_epoch="technical-completion-v2",
+        proof_contract=T.PROOF_CONTRACT if phase == T.PHASES[0] else T.FULL_PROOF_CONTRACT,
+        path_bindings=T.bindings(root),
+        max_sampler_call_slots=9,
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        no_retuning=True,
+        specification_freeze=T.FREEZE,
+        specification_freeze_sha256=pins[T.FREEZE],
+        baseline_review=T.BASELINE,
+        baseline_review_sha256=pins[T.BASELINE],
+        G2_review=T.G2_REVIEW,
+        G2_review_sha256=pins[T.G2_REVIEW],
+        worker_gate=T.KERNELS[phase],
+        worker_gate_sha256=pins[T.KERNELS[phase]],
+        jobs=kernel["jobs"],
+        dispatch_jobs=kernel["jobs"][1:] if phase == T.PHASES[0] else kernel["jobs"],
+        resources=kernel["resources"],
+        inherited_calls={"charged": count, "started": count},
+        inherited_context_files=inherited,
+        parent_minimum_bytes=floors,
+        external_reference_files=outside,
+        execution_source_review=review_path,
+        execution_source_review_sha256=pins[review_path],
+        historical_source_bindings=T.HISTORY_MANIFEST,
+        historical_source_bindings_sha256=pins[T.HISTORY_MANIFEST],
+        retained_design_artifacts=design_artifacts,
+        files=pins,
+    )
+    T.fresh(root, pins)
+    T._baseline(root, pins)
+    T._legacy_authority(root, pins)
+    T._g2_revalidation(root, dict(gate, jobs=T.load(root, T.KERNELS[T.PHASES[0]])["jobs"]))
+    T.require(
+        J.c2.quota(
+            root, {"gate": gate, "files": pins, "phase": phase}, reserve=True, known_files=pins
+        )
+        is None,
+        "all three extra roots, floors, caps, and 608MiB reserve",
+    )
+    T.require(
+        baseline["job"] == T.load(root, baseline["original_worker_gate"])["jobs"][0],
+        "same original G0 baseline",
+    )
+    for name, digest in baseline["private_state_hashes_history_only"].items():
+        T.require(T.sha(T.file(root, name)) == digest, "retained private history changed")
+    T.fresh(root, pins)
+    return dict(
+        status="draft_only_not_execution_authority",
+        gate_path=T.authority_path(phase),
+        gate_sha256=hashlib.sha256(T.payload(gate)).hexdigest(),
+        gate=gate,
+        actual_Gates_published=False,
+        native_arrays_parsed=False,
+        private_STATE_bodies_parsed=False,
+    )
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--phase", choices=T.PHASES, required=True)
+    p.add_argument("--output", type=Path, required=True)
+    a = p.parse_args()
+    T.require(
+        a.output.is_absolute()
+        and a.output.parent.resolve() == Path("/private/tmp")
+        and not a.output.exists()
+        and not a.output.is_symlink(),
+        "new literal TMP draft only",
+    )
+    draft = build(R, a.phase)
+    with a.output.open("xb") as stream:
+        stream.write(T.payload(draft))
+    print(
+        json.dumps(
+            {
+                "status": draft["status"],
+                "gate_sha256": draft["gate_sha256"],
+                "pins": len(draft["gate"]["files"]),
+            }
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

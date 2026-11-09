@@ -1,0 +1,13 @@
+{
+  "accepted_check_review": true,
+  "closed": true,
+  "controller_returncode": 0,
+  "controller_session": 2387,
+  "job_ids": [
+    "full-smoke-2-a"
+  ],
+  "phase": "full_design_recovery",
+  "producer_git_sha": "31ec177bbffcc667e163899ad9e9e93cec878305",
+  "root_closed_authorization": true,
+  "scientific_acceptance": false
+}

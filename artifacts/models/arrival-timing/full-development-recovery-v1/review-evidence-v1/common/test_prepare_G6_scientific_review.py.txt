@@ -1,0 +1,230 @@
+"""Synthetic closure/refusal tests; the actual G API is never called."""
+
+# pyright: basic
+import importlib.util
+from pathlib import Path
+from types import SimpleNamespace
+from typing import Any
+
+import pytest
+
+spec = importlib.util.spec_from_file_location(
+    "g6", "/private/tmp/prepare-tsunami-G6-scientific-review.py"
+)
+assert spec is not None and spec.loader is not None
+b = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(b)
+T = b.T
+
+
+@pytest.fixture
+def case(tmp_path, monkeypatch):
+    root = tmp_path / "project"
+    root.mkdir()
+    qc = tmp_path / "qc"
+    qc.mkdir()
+    monkeypatch.setattr(b, "TMP", tmp_path)
+
+    def put(p, value):
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(value if isinstance(value, bytes) else T.payload(value))
+        return T.sha(p)
+
+    pins = {
+        n: put(root / n, {"frozen": "bytes"}) for n in [T.FREEZE, T.CHECK, T.BASELINE, T.G2_REVIEW]
+    }
+    summary = str(T.summary_path(root, b.G).relative_to(root))
+    pins[summary] = put(root / summary, {"immutable": "summary"})
+    jobs = [{"id": f"g-{i}", "order": i} for i in range(6)]
+    records = [
+        dict(
+            job=j,
+            cost=1,
+            start_markers=1,
+            **({"receipt": f"attempt-{i}"} if i in [1, 3, 4, 5] else {}),
+        )
+        for i, j in enumerate(jobs)
+    ]
+    for record in records:
+        if "receipt" in record:
+            pins[record["receipt"]] = put(root / record["receipt"], {"accepted": True})
+    program = dict(
+        phase=b.G,
+        jobs=jobs,
+        accepted_records=records,
+        attempt_records=[r for r in records if "receipt" in r],
+        complete=True,
+        remaining_jobs=[],
+        calls_charged=6,
+        calls_started=6,
+        files=pins,
+        source_epoch="technical-completion-v2",
+        proof_contract=T.PROOF_CONTRACT,
+    )
+    calls = []
+
+    def metadata(*a):
+        calls.append(a)
+        return program
+
+    monkeypatch.setattr(T, "read_program_metadata", metadata)
+    monkeypatch.setattr(T, "summary_value", lambda _: {"immutable": "summary"})
+    consumer = "consumer.json"
+    consumer_sha = put(
+        root / consumer,
+        dict(
+            status="accepted_frozen_arrival_development_technical_consumer_source",
+            independent_checker=True,
+            files={},
+        ),
+    )
+    manifest: dict[str, Any] = dict(
+        consumer_review=dict(path=consumer, sha256=consumer_sha), case_reviews={}, extra_evidence={}
+    )
+    reviews = {}
+    for j in jobs:
+        if j["order"] not in [1, 3, 4, 5]:
+            continue
+        folder = qc / j["id"]
+        folder.mkdir()
+        images = {
+            str(folder / n): put(folder / n, b"opaque PNG") for n in ["trace.png", "energy.png"]
+        }
+        common = dict(job=j, independent_checker=True, new_sampler_calls_in_QA=0)
+        diag = dict(screen_passed=True, divergences=0, maxdepth_reached=0)
+        check = folder / "check.json"
+        checksha = put(check, dict(passed=True))
+        if j["order"] == 1:
+            review = dict(
+                common,
+                status="independently_accepted_closed_G1_computational_smoke_science",
+                native_diagnostics=diag,
+                generation_and_historical_Y_poison_invariance="PASS",
+                native_seven_arrays_ordered_design_identity="PASS",
+                unconditional_unmodified_G_case_artifacts_complete_pass=True,
+                seeded_summary=dict(passed=True),
+                audit_code_files={},
+                visual_review=dict(status="PASS_no_P0_P1_at_native_size", image_files=images),
+                chart_check=dict(path=str(check), sha256=checksha, fails=0),
+                process_proof=dict(path=str(check), sha256=checksha),
+                runtime_QA=dict(path=str(check), sha256=checksha),
+                scientific_check=str(check),
+                scientific_check_sha256=checksha,
+            )
+        else:
+            comparison = dict(
+                proof_contract=T.PROOF_CONTRACT,
+                original_exact_oracle_equal=True,
+                original_scientific_predicates_passed=True,
+                fresh_original_componentwise_gradient_predicate=True,
+                cross_run_numeric_tolerance_used=False,
+            )
+            review = dict(
+                common,
+                status="accepted_closed_computational_smoke_scientific_checks",
+                diagnostics=diag,
+                generation=dict(passed=True),
+                numerics=dict(passed=True),
+                summary=dict(passed=True),
+                original_exact_oracle_equal=True,
+                diagnostic_comparison=comparison,
+                visual=dict(
+                    P0_P1_issues=0,
+                    chart_fails=0,
+                    native_figures_reopened=True,
+                    six_hundred_pixel_previews_reopened=True,
+                ),
+                temporary_evidence_files={**images, str(check): checksha},
+            )
+        path = folder / "science.json"
+        digest = put(path, review)
+        files = b.declared_evidence(review)
+        manifest["case_reviews"][j["id"]] = dict(path=str(path), sha256=digest, files=files)
+        reviews[j["id"]] = review
+    return SimpleNamespace(
+        root=root, program=program, calls=calls, manifest=manifest, reviews=reviews, put=put
+    )
+
+
+def test_no_closed_notice_never_calls_actual_program(case):
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest)
+    assert not case.calls
+
+
+def test_six_mixed_dispositions_and_portable_closure(case):
+    x = b.build(case.root, case.manifest, root_confirmed_six_closed=True)
+    r = x["review"]
+    assert len(r["accepted_records"]) == 6 and len(r["attempt_records"]) == 4
+    assert r["calls_charged"] == r["calls_started"] == 6
+    assert (
+        r["original_G0_strict_review"] == T.BASELINE
+        and r["original_G2_stable_review"] == T.G2_REVIEW
+    )
+    assert all(
+        p.startswith(b.EVIDENCE + "/") and r["files"][p] == v["sha256"]
+        for p, v in x["copy_plan"].items()
+    )
+    assert not (case.root / T.G_REVIEW).exists() and not (case.root / b.EVIDENCE).exists()
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "incomplete",
+        "five_calls",
+        "fake_attempt",
+        "summary_missing",
+        "missing_review",
+        "bad_visual",
+        "missing_QC",
+        "changed_QC",
+        "stale_consumer",
+        "false_predicate",
+    ],
+)
+def test_finite_rejections(case, fault):
+    if fault == "incomplete":
+        case.program["complete"] = False
+    if fault == "five_calls":
+        case.program["calls_started"] = 5
+    if fault == "fake_attempt":
+        case.program["attempt_records"].append(case.program["accepted_records"][2])
+    if fault == "summary_missing":
+        case.program["files"].pop(str(T.summary_path(case.root, b.G).relative_to(case.root)))
+    if fault == "missing_review":
+        case.manifest["case_reviews"].pop("g-5")
+    if fault in {"bad_visual", "false_predicate"}:
+        review = case.reviews["g-3"]
+        if fault == "bad_visual":
+            review["visual"]["P0_P1_issues"] = 1
+        else:
+            review["diagnostic_comparison"]["cross_run_numeric_tolerance_used"] = True
+        item = case.manifest["case_reviews"]["g-3"]
+        item["sha256"] = case.put(Path(item["path"]), review)
+    if fault == "missing_QC":
+        case.manifest["case_reviews"]["g-1"]["files"].pop(
+            next(iter(case.manifest["case_reviews"]["g-1"]["files"]))
+        )
+    if fault == "changed_QC":
+        Path(next(iter(case.manifest["case_reviews"]["g-1"]["files"]))).write_bytes(b"late drift")
+    if fault == "stale_consumer":
+        case.manifest["consumer_review"]["sha256"] = "0" * 64
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest, root_confirmed_six_closed=True)
+    assert not (case.root / T.G_REVIEW).exists()
+
+
+def test_extra_native_mirror_and_basename_collision_rejected(case):
+    qc = Path(next(iter(case.manifest["case_reviews"]["g-1"]["files"]))).parent
+    native = qc / "forbidden.nc"
+    case.manifest["extra_evidence"][str(native)] = case.put(native, b"native mirror forbidden")
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest, root_confirmed_six_closed=True)
+    case.manifest["extra_evidence"] = {}
+    first, second = qc / "one" / "same.json", qc / "two" / "same.json"
+    case.manifest["extra_evidence"] = {
+        str(p): case.put(p, {"different": str(p)}) for p in [first, second]
+    }
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest, root_confirmed_six_closed=True)

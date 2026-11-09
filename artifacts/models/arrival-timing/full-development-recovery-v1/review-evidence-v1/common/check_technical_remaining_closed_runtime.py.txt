@@ -1,0 +1,343 @@
+"""Five fixed CLOSED G/full runtime checks; metadata and hashes only."""
+# pyright: basic
+
+import argparse
+import hashlib
+import json
+import re
+import subprocess
+import time
+from pathlib import Path
+from typing import Any
+
+from analysis.arrival import model_development_technical_completion as T
+
+ROOT = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+G, F = T.PHASES
+G_IDS = (
+    "full-smoke-0-a",
+    "full-smoke-0-b",
+    "full-smoke-1-a",
+    "full-smoke-1-b",
+    "full-smoke-2-a",
+    "full-smoke-2-b",
+)
+F_IDS = (
+    "dev-ncei-mean-curvature-selected-full",
+    "dev-tobs-pooled-selected-full",
+    "dev-tcal-distance-selected-full",
+)
+
+
+def protocol(phase: str, job_id: str) -> dict[str, Any]:
+    ids = G_IDS if phase == G else F_IDS if phase == F else ()
+    if job_id not in ids or (phase == G and ids.index(job_id) < 4):
+        raise ValueError("only the fixed remaining two G / three full jobs")
+    index = ids.index(job_id)
+    return dict(
+        index=index,
+        calls=index + (1 if phase == G else 7),
+        producer="stable_scientific_startup_execution"
+        if phase == G
+        else "strict_startup_execution",
+        proof_status="scientific_artifact_replay_passed"
+        if phase == G
+        else "strict_original_worker_artifacts_passed",
+        proof_contract=T.PROOF_CONTRACT if phase == G else T.FULL_PROOF_CONTRACT,
+        worker_count=18 if phase == G else 16,
+        payload_count=25 if phase == G else 23,
+        complete=index == len(ids) - 1,
+        remaining=list(ids[index + 1 :]),
+    )
+
+
+def validate_closed_protocol(a, job, record, proof, phase, expected):
+    assert [j["id"] for j in a["jobs"]] == list(G_IDS if phase == G else F_IDS)
+    assert a["jobs"][expected["index"]] == job
+    assert a["calls_charged"] == a["calls_started"] == expected["calls"] <= 9
+    assert a["complete"] is expected["complete"]
+    assert [j["id"] for j in a["remaining_jobs"]] == expected["remaining"]
+    count = expected["calls"] - (2 if phase == G else 6)
+    assert len(a["attempt_records"]) == count
+    assert len(a["accepted_records"]) == (expected["calls"] if phase == G else count)
+    assert record["job_id"] == job["id"] and record["producer"] == expected["producer"]
+    assert (
+        record["phase"] == phase
+        and record["role"] == job["role"]
+        and record["outcome"] == "accepted"
+    )
+    assert type(record["cost"]) is int and type(record["start_markers"]) is int
+    assert record["cost"] == record["start_markers"] == 1
+    assert proof["job"] == job and proof["sampler_calls"] == 0
+    assert (
+        proof["status"] == expected["proof_status"]
+        and proof["proof_contract"] == expected["proof_contract"]
+    )
+    if phase == G:
+        assert T._stable_comparison(proof)
+    assert (
+        proof["worker_files"] == record["worker_files"]
+        and len(record["worker_files"]) == expected["worker_count"]
+    )
+    assert len(record["files"]) == expected["payload_count"]
+
+
+def audit(args):
+    assert args.root_closed and re.fullmatch("[0-9a-f]{40}", args.producer_git)
+    expected = protocol(args.phase, args.job_id)
+    root = ROOT.resolve()
+    began = time.monotonic()
+    phase = args.phase
+    a = T.read_program_metadata(root, phase)
+    job = a["jobs"][expected["index"]]
+    record = a["attempt_records"][-1]
+    proof = T.load(root, record["strict_proof"])
+    validate_closed_protocol(a, job, record, proof, phase, expected)
+    assert a["proof_contract"] == expected["proof_contract"]
+    if phase == G:
+        assert (
+            a["authority_gate_sha256"]
+            == "4620082532a5f0a03fb81da25741fcf75ffa710068e198ba9d7a2db27910433d"
+        )
+
+    def rel(path):
+        return str(path.relative_to(root))
+
+    def sha(path):
+        assert path.resolve() == path and path.is_file()
+        return T.sha(path)
+
+    def git(*parts):
+        return subprocess.check_output(["git", *parts], cwd=root)
+
+    folder, raw, spec, log, supervisor = T.paths(root, phase, job)
+    alloc = T.allocation_path(root, phase, job)
+    receipt = T.attempt_path(root, phase, job)
+    plan = T.plan_path(root, phase)
+    charge = T.load(root, rel(alloc))
+    worker = T.load(root, rel(supervisor))
+    child = T.load(root, record["strict_proof_process"])
+    assert (
+        charge["job"] == job
+        and charge["cost"] == 1
+        and charge["invocation_git_sha"] == args.producer_git
+    )
+    for process in (worker, child):
+        assert (
+            process["returncode"] == 0
+            and process["reason"] == "worker_exit"
+            and process["monitor_failures"] == []
+        )
+        assert 0 < process["elapsed_seconds"] < 600 and process[
+            "startup_environment"
+        ] == T.environment(root, phase)
+        assert (
+            process["authority_gate_sha256"] == a["authority_gate_sha256"]
+            and process["worker_gate_sha256"] == a["worker_gate_sha256"]
+        )
+        assert process["job_sha256"] == sha(spec)
+    assert (
+        worker["cost"] == worker["start_markers"] == 1
+        and worker["invocation_git_sha"] == args.producer_git
+    )
+    assert child["sampler_calls"] == 0
+    assert T.load(root, rel(folder / "sampling-start.json")) == job
+    assert list(folder.glob("sampling-start*.json")) == [folder / "sampling-start.json"]
+    assert {q.name for q in folder.iterdir()} == T.producer_names(phase)
+    assert all(q.resolve() == q and q.is_file() for q in folder.iterdir())
+    raw_sha = sha(raw)
+    result = T.load(root, rel(folder / "result.json"))
+    assert (
+        result["job"] == job
+        and result["status"] == "computed_pending_scientific_review"
+        and result["sampler_call_started"] is True
+    )
+    assert (
+        result["reserved_outcomes"] == "sealed"
+        and result["posterior"] == rel(raw)
+        and result["posterior_sha256"] == raw_sha
+    )
+    assert record["worker_files"][rel(raw)] == raw_sha
+    if phase == G:
+        assert result["calibration_or_coverage_claim"] is False
+    files = {**record["files"], record["receipt"]: record["receipt_sha256"], rel(plan): sha(plan)}
+    assert len(files) == expected["payload_count"] + 2
+    summary = T.summary_path(root, phase)
+    assert summary.exists() is expected["complete"]
+    if summary.exists():
+        files[rel(summary)] = sha(summary)
+    assert not any(n.startswith("context/") for n in files)
+    T.fresh(root, files)
+    assert T.program_counters(root) == dict(charged=expected["calls"], started=expected["calls"])
+    assert sha(root / T.PILOT) == "4711aa22c5be3a6c84a7d8ceae3bbd918efc4661c5a22b5fbbd4ac9e4f805a2f"
+    base = a["baseline"]
+    assert T.load(root, base["original_receipt"])["outcome"] == "needs_review"
+    assert (
+        sha(root / T.BASELINE) == "f6218f6e73e599aa4d2aed705d9d5014d647ff1c7be13eadc9cfad731d39af99"
+    )
+    g2 = T.load(root, T.G2_REVIEW)
+    assert (
+        sha(root / T.G2_REVIEW)
+        == "156b89fd225705c39234ba3d6196bb06d5be71afb045a82d609ab1cac3fde293"
+    )
+    assert {rel(q) for q in (root / T.CONTROL / "failures").rglob("*")} == {g2["original_failure"]}
+    assert sha(root / g2["original_failure"]) == g2["original_failure_sha256"]
+    g2job = g2["job"]
+    assert (
+        not T.attempt_path(root, G, g2job).exists()
+        and not T.legacy_proof_path(root, G, g2job).exists()
+    )
+    assert not (root / T.CONTROL / "STOP").exists()
+    for pending in a["remaining_jobs"]:
+        assert all(
+            not q.exists() and not q.is_symlink()
+            for q in [
+                *T.paths(root, phase, pending),
+                T.proof_path(root, phase, pending),
+                T.allocation_path(root, phase, pending),
+                T.attempt_path(root, phase, pending),
+            ]
+        )
+    from scripts import run_arrival_development_journal as J
+
+    J.inventory(root, {"files": a["files"], "phase": phase}, {})
+    assert (
+        J.c2.quota(
+            root,
+            {"gate": a, "files": a["files"], "phase": phase},
+            reserve=True,
+            known_files=a["files"],
+        )
+        is None
+    )
+    pr = T.proof_path(root, phase, job)
+    job_bytes = J.old.r.byte_count(folder) + sum(
+        q.stat().st_size
+        for q in [
+            raw,
+            spec,
+            log,
+            supervisor,
+            alloc,
+            receipt,
+            pr,
+            pr.with_name("proof.log"),
+            pr.with_name("proof-process.json"),
+        ]
+    )
+    assert job_bytes <= 32 * 1024**2
+    states = base["private_state_hashes_history_only"]
+    assert len(states) == 3
+    for name, digest in states.items():
+        assert sha(root / name) == digest
+    leases = [
+        root / J.old.r.OLD_OUTPUT / ".controller.lock",
+        root / J.old.r.OUTPUT / ".controller.lock",
+        root / J.old.CONTROL / ".controller.lock",
+        root / J.c2.CONTROL / ".controller.lock",
+        root / J.CONTROL / ".journal.lock",
+        root / T.CONTROL / ".lock",
+    ]
+    assert not any(q.exists() or q.is_symlink() for q in leases)
+    source = {
+        n: h
+        for n, h in a["files"].items()
+        if n.startswith(("analysis/", "scripts/", "tests/", "config/"))
+        or n in {"pyproject.toml", "uv.lock"}
+    }
+    for name, digest in source.items():
+        assert hashlib.sha256(git("show", args.producer_git + ":" + name)).hexdigest() == digest, (
+            name
+        )
+    assert git("rev-parse", "HEAD").decode().strip() == args.producer_git
+    T.fresh(root, a["files"])
+    T.fresh(root, files)
+    for name, digest in states.items():
+        assert sha(root / name) == digest
+    assert not any(q.exists() or q.is_symlink() for q in leases)
+    assert T.program_counters(root) == dict(charged=expected["calls"], started=expected["calls"])
+    tag = job["id"]
+    proofpath = Path("/private/tmp") / ("tsunami-" + tag + "-closed-process-proof.json")
+    processproof = dict(
+        closed=True,
+        diagnostic_scope=False,
+        job_id=tag,
+        job=job,
+        cost=1,
+        start_markers=1,
+        quota_and_closed_prefix_passed=True,
+        files=files,
+        producer_git_sha=args.producer_git,
+        authority_gate=a["authority_gate"],
+        authority_gate_sha256=a["authority_gate_sha256"],
+        worker_gate=a["worker_gate"],
+        worker_gate_sha256=a["worker_gate_sha256"],
+        startup_environment=T.environment(root, phase),
+        proof_contract=expected["proof_contract"],
+        proof_child_sampler_calls=0,
+    )
+    proofpath.write_bytes(T.payload(processproof))
+    output = Path("/private/tmp") / ("tsunami-" + tag + "-closed-runtime-qa.json")
+    value = dict(
+        status="accepted_closed_technical_remaining_runtime_metadata",
+        independent_checker=True,
+        phase=phase,
+        job=job,
+        files=files,
+        process_proof=str(proofpath),
+        process_proof_sha256=sha(proofpath),
+        worker_seconds=worker["elapsed_seconds"],
+        worker_exitcode=0,
+        proof_child_exitcode=0,
+        proof_child_sampler_calls=0,
+        proof_contract=expected["proof_contract"],
+        worker_files=expected["worker_count"],
+        source_fresh_files=len(a["files"]),
+        producer_git_sha=args.producer_git,
+        source_git_blobs_verified=len(source),
+        raw_sha256=raw_sha,
+        raw_bytes=raw.stat().st_size,
+        combined_job_bytes=job_bytes,
+        calls_charged=expected["calls"],
+        calls_started=expected["calls"],
+        max_sampler_calls=9,
+        phase_complete=expected["complete"],
+        real_phase_attempts=len(a["attempt_records"]),
+        remaining_ids=expected["remaining"],
+        private_hashes_conserved=3,
+        leases_absent=6,
+        inventory_quota_three_extra_roots_and_608MiB_reserve_passed=True,
+        all_historical_G0_G2_failures_preserved=True,
+        native_arrays_or_coldproof_or_Jadmit_called=False,
+        scientific_acceptance=False,
+        project_files_written=False,
+        elapsed_seconds=time.monotonic() - began,
+    )
+    output.write_bytes(T.payload(value))
+    print(
+        json.dumps(
+            {
+                "receipt": str(output),
+                "receipt_sha256": sha(output),
+                "process_proof": str(proofpath),
+                "process_proof_sha256": sha(proofpath),
+                "job": tag,
+                "calls": expected["calls"],
+                "casefiles": len(files),
+                "elapsed_seconds": value["elapsed_seconds"],
+            }
+        )
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--phase", choices=T.PHASES, required=True)
+    parser.add_argument("--job-id", required=True)
+    parser.add_argument("--producer-git", required=True)
+    parser.add_argument("--root-closed", action="store_true", required=True)
+    audit(parser.parse_args())
+
+
+if __name__ == "__main__":
+    main()

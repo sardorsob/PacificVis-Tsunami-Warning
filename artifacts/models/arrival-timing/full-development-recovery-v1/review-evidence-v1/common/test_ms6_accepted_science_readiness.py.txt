@@ -1,0 +1,230 @@
+"""Source/synthetic metadata only; never admit or inspect actual computations."""
+
+# pyright: basic
+import importlib.util
+import json
+from pathlib import Path
+from typing import Any
+
+import pytest
+
+s = importlib.util.spec_from_file_location(
+    "accepted_audit", "/private/tmp/check-ms6-accepted-computation-science.py"
+)
+assert s and s.loader
+q = importlib.util.module_from_spec(s)
+s.loader.exec_module(q)
+
+
+def fixture(root: Path, phase: str) -> tuple[Any, ...]:
+    job = dict(id="synthetic-closed", role=phase)
+    folder = root / "artifacts/models/arrival-timing" / q.OUTPUTS[phase] / "jobs" / job["id"]
+    raw = root / "data/processed/models/synthetic.nc"
+    names = {
+        "job.json",
+        "inputs.json",
+        "membership.json",
+        "result.json",
+        "prior-settings.json",
+        "sampling-start.json",
+        "diagnostics.json",
+        "sampling-diagnostics.csv",
+        "summary.json",
+        "parameters.csv",
+        "derived.csv",
+        "curves.csv",
+        "conditional-ppc.csv",
+        "record-intervals.csv",
+        "output-checksums.json",
+    }
+    if phase == q.PHASES[0]:
+        names |= {"numerical-oracles.json", "truth-quantiles.csv"}
+    worker = {str((folder / n).relative_to(root)): "0" * 64 for n in names}
+    worker[str(raw.relative_to(root))] = "1" * 64
+    leaf = "diagnostic-replay-v2" if phase == q.PHASES[0] else "strict-proofs"
+    name = f"artifacts/models/arrival-timing/{q.OUTPUTS[phase]}/{leaf}/{job['id']}/proof.json"
+    proof = dict(
+        status=(
+            "scientific_artifact_replay_passed"
+            if phase == q.PHASES[0]
+            else "strict_original_worker_artifacts_passed"
+        ),
+        proof_contract=q.CONTRACTS[phase],
+        job=job,
+        sampler_calls=0,
+        worker_files=worker,
+        original_exact_oracle_equal=False,
+        diagnostic_comparison=dict(
+            proof_contract=q.CONTRACTS[phase],
+            original_scientific_predicates_passed=True,
+            fresh_original_componentwise_gradient_predicate=True,
+            cross_run_numeric_tolerance_used=False,
+        ),
+    )
+    p = root / name
+    p.parent.mkdir(parents=True)
+    p.write_text(json.dumps(proof))
+    receipt = (
+        "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/attempts/"
+        + phase
+        + "/"
+        + job["id"]
+        + ".json"
+    )
+    record = dict(
+        producer="stable_scientific_startup_execution"
+        if phase == q.PHASES[0]
+        else "strict_startup_execution",
+        outcome="accepted",
+        job_id=job["id"],
+        phase=phase,
+        cost=1,
+        start_markers=1,
+        strict_proof=name,
+        strict_proof_sha256=q.sha(p),
+        worker_files=worker,
+    )
+    rp = root / receipt
+    rp.parent.mkdir(parents=True)
+    rp.write_text(json.dumps(record))
+    process = dict(
+        closed=True,
+        job_id=job["id"],
+        job=job,
+        cost=1,
+        start_markers=1,
+        quota_and_closed_prefix_passed=True,
+        files={**worker, name: q.sha(p), receipt: q.sha(rp)},
+    )
+    return job, folder, raw, name, proof, receipt, record, process
+
+
+@pytest.mark.parametrize("phase", q.PHASES)
+def test_current_G_and_F_proof_names_contracts_producers_without_arrays(tmp_path, phase):
+    job, folder, raw, name, proof, _, _, process = fixture(tmp_path, phase)
+    assert q.admitted_replay(tmp_path, process, job, phase, folder, raw) == (name, proof)
+    assert not raw.exists()
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "proof_status",
+        "contract",
+        "sampler_bool",
+        "worker_missing",
+        "predicate",
+        "producer",
+        "outcome",
+        "cost_bool",
+        "old_G_namespace",
+    ],
+)
+def test_corrupt_public_proof_rejects_before_native(tmp_path, fault):
+    phase = q.PHASES[0]
+    job, folder, raw, name, proof, receipt, record, process = fixture(tmp_path, phase)
+    if fault == "proof_status":
+        proof["status"] = "needs_review"
+    elif fault == "contract":
+        proof["proof_contract"] = "strict_original_worker_artifacts_passed"
+    elif fault == "sampler_bool":
+        proof["sampler_calls"] = False
+    elif fault == "worker_missing":
+        proof["worker_files"].pop(next(iter(proof["worker_files"])))
+    elif fault == "predicate":
+        proof["diagnostic_comparison"]["original_scientific_predicates_passed"] = False
+    elif fault == "producer":
+        record["producer"] = "strict_startup_execution"
+    elif fault == "outcome":
+        record["outcome"] = "needs_review"
+    elif fault == "cost_bool":
+        record["cost"] = True
+    else:
+        process["files"].pop(name)
+    (tmp_path / name).write_text(json.dumps(proof))
+    record["strict_proof_sha256"] = q.sha(tmp_path / name)
+    (tmp_path / receipt).write_text(json.dumps(record))
+    if fault != "old_G_namespace":
+        process["files"][name] = q.sha(tmp_path / name)
+    process["files"][receipt] = q.sha(tmp_path / receipt)
+    with pytest.raises(ValueError):
+        q.admitted_replay(tmp_path, process, job, phase, folder, raw)
+    assert not raw.exists()
+
+
+@pytest.mark.parametrize(
+    "fault", ["notice", "diagnostic_only", "cost_bool", "no_G6", "private_pin"]
+)
+def test_actual_entry_blocked_before_admission_and_scientific_import(tmp_path, fault):
+    notice = dict(
+        root_closed_authorization=True,
+        closed=True,
+        accepted_check_review=True,
+        accepted_G6_review=True,
+        job_ids=["closed"],
+    )
+    process = dict(
+        closed=True,
+        job_id="closed",
+        job={},
+        cost=1,
+        start_markers=1,
+        quota_and_closed_prefix_passed=True,
+        files={"public.json": "0" * 64},
+    )
+    if fault == "notice":
+        notice["closed"] = False
+    elif fault == "diagnostic_only":
+        process["diagnostic_scope_only"] = True
+    elif fault == "cost_bool":
+        process["cost"] = True
+    elif fault == "no_G6":
+        notice["accepted_G6_review"] = False
+    else:
+        process["files"] = {"context/private.json": "0" * 64}
+    with pytest.raises(ValueError):
+        q.audit_closed_job(
+            tmp_path,
+            "closed",
+            phase=q.PHASES[1],
+            notice=notice,
+            process_proof=process,
+            output=tmp_path / "must-not-create",
+        )
+    assert not list(tmp_path.iterdir())
+
+
+def test_frozen_helpers_resolve_without_source_data():
+    g = q.load_helper(q.G_HELPER, q.G_SHA, "synthetic_G_math")
+    f = q.load_helper(q.F_HELPER, q.F_SHA, "synthetic_F_math")
+    assert callable(g.density_checks) and callable(g.summary_checks)
+    assert callable(f.density_checks) and callable(f.summary_checks)
+    assert q.sha(q.G_HELPER) == q.G_SHA and q.sha(q.F_HELPER) == q.F_SHA
+
+
+def test_future_environment_exact_before_interpreter_start():
+    value = q.required_environment(Path("/canonical/project"), q.PHASES[0])
+    assert (
+        value["PYTENSOR_FLAGS"]
+        == "floatX=float64,base_compiledir=/canonical/project/data/processed/models/"
+        "arrival-development-recovery-v1/cache/pytensor"
+    )
+    assert value["OPENBLAS_NUM_THREADS"] == value["VECLIB_MAXIMUM_THREADS"] == "2"
+
+
+@pytest.mark.parametrize("phase", q.PHASES)
+def test_other_phase_status_rejected_even_with_resealed_proof(tmp_path, phase):
+    job, folder, raw, name, proof, receipt, record, process = fixture(tmp_path, phase)
+    proof["status"] = (
+        "strict_original_worker_artifacts_passed"
+        if phase == q.PHASES[0]
+        else "scientific_artifact_replay_passed"
+    )
+    (tmp_path / name).write_text(json.dumps(proof))
+    record["strict_proof_sha256"] = q.sha(tmp_path / name)
+    (tmp_path / receipt).write_text(json.dumps(record))
+    process["files"][name] = q.sha(tmp_path / name)
+    process["files"][receipt] = q.sha(tmp_path / receipt)
+    with pytest.raises(ValueError, match="accepted unchanged zero-sampler replay"):
+        q.admitted_replay(tmp_path, process, job, phase, folder, raw)
+    assert not raw.exists()

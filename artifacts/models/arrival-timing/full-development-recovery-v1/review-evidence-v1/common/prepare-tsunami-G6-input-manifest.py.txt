@@ -1,0 +1,22 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+sha=T.sha
+paths={'full-smoke-0-b':'/private/tmp/ms6-recovery-science-full-smoke-0-b/independent-scientific-review.json',**{j:'/private/tmp/ms6-accepted-science-'+j+'/independent-scientific-review.json' for j in ['full-smoke-1-b','full-smoke-2-a','full-smoke-2-b']}}
+def declared(v):
+ if v['job']['order']!=1:return v['temporary_evidence_files']
+ m={**v['audit_code_files'],**v['visual_review']['image_files']}
+ for k in ['chart_check','process_proof','runtime_QA']:m[v[k]['path']]=v[k]['sha256']
+ m[v['scientific_check']]=v['scientific_check_sha256'];return m
+reviews={}
+for j,p in paths.items():
+ p=Path(p);v=json.loads(p.read_text());m=declared(v)
+ for n,h in m.items():assert sha(Path(n))==h,n
+ reviews[j]={'path':str(p),'sha256':sha(p),'files':m}
+extras=['/private/tmp/tsunami-epoch2-G-authority-independent-review.json','/private/tmp/tsunami-epoch2-G-root-preflight.json','/private/tmp/prepare-tsunami-technical-authority.py','/private/tmp/test_prepare_technical_authority_epoch2.py','/private/tmp/publish-preflight-tsunami-epoch2-G.py','/private/tmp/prepare-tsunami-G6-scientific-review.py','/private/tmp/test_prepare_G6_scientific_review.py','/private/tmp/prepare-tsunami-G6-input-manifest.py','/private/tmp/check_technical_remaining_closed_runtime.py','/private/tmp/test_check_technical_remaining_closed_runtime.py','/private/tmp/test_ms6_accepted_science_readiness.py','/private/tmp/ms6-accepted-computation-science-readiness-v2.json','/private/tmp/full-development-support-docs-receipt.json']
+source=T.DESIGN+'/consumer-source-review-revision-2.json'
+v={'consumer_review':{'path':source,'sha256':sha(R/source)},'case_reviews':reviews,'extra_evidence':{p:sha(Path(p)) for p in extras}}
+p=Path('/private/tmp/tsunami-G6-scientific-review-manifest.json')
+with p.open('xb') as f:f.write(T.payload(v))
+print('manifest',sha(p))

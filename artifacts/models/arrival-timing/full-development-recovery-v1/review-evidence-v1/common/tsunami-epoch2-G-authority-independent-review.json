@@ -1,0 +1,86 @@
+{
+  "G2_review_sha256": "156b89fd225705c39234ba3d6196bb06d5be71afb045a82d609ab1cac3fde293",
+  "accepted_logical_ids": [
+    "full-smoke-0-a",
+    "full-smoke-0-b",
+    "full-smoke-1-a"
+  ],
+  "actual_Gates_published": false,
+  "all_six_leases_absent": true,
+  "baseline_sha256": "f6218f6e73e599aa4d2aed705d9d5014d647ff1c7be13eadc9cfad731d39af99",
+  "baseline_worker_files": 18,
+  "calls_charged": 3,
+  "calls_started": 3,
+  "candidate_in_memory_only": {
+    "api_elapsed_seconds": 21.373046665918082,
+    "hits": {
+      "fresh": 2,
+      "load": 1,
+      "sha": 1
+    },
+    "overrides": [
+      "load exact candidate path",
+      "sha exact candidate path",
+      "fresh exact virtual candidate selfpin only"
+    ],
+    "unmodified_metadata_API_passed": true
+  },
+  "consumer_review_artifact_only_no_live_Reader_source_flattening": true,
+  "corrected_consumer_review_path": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/consumer-source-review-revision-2.json",
+  "corrected_consumer_review_pins": 92,
+  "corrected_consumer_review_sha256": "1f62c0abb2b4be8dbcb77852b0df73a779a50f23d0e057c74fa176d115cfb042",
+  "current_source_no_fallback": true,
+  "current_source_review_full_closure_present": true,
+  "current_source_review_pins": 94,
+  "draft_path": "/private/tmp/tsunami-epoch2-G-authority-linear-draft.json",
+  "draft_sha256": "4d26bdca7a5a04de5fc1ec7d32af3aab6f742cd6e5e21bea69ef7334a2ac2b3e",
+  "elapsed_seconds": 37.795060249976814,
+  "epoch2_plan_still_absent": true,
+  "exact_archived_source_bindings": 3,
+  "external_references": 11,
+  "extra_roots": [
+    "artifacts/models/arrival-timing/development-score-resolution-v1",
+    "artifacts/models/arrival-timing/development-numerical-resolution-design-v1",
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1"
+  ],
+  "fresh_actual_pins": 15141,
+  "gate_path": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/full_design_recovery/review-acceptance.json",
+  "gate_sha256": "4620082532a5f0a03fb81da25741fcf75ffa710068e198ba9d7a2db27910433d",
+  "head_observed": "20e0551302cd52d52a853bad56d82f80c850b530",
+  "historical_manifest_sha256": "585e40cffbcbcea780d111f85158776d28ed597fa8f5f93f55588229869e76ed",
+  "independent_checker": true,
+  "max_calls": 9,
+  "native_arrays_or_coldproof_or_Jadmit_repeated": false,
+  "old_G2_attempt_and_proof_still_absent": true,
+  "opaque_ledger_references": 12,
+  "parent_floors": 15,
+  "pilot_sha256": "4711aa22c5be3a6c84a7d8ceae3bbd918efc4661c5a22b5fbbd4ac9e4f805a2f",
+  "private_STATE_bodies_parsed": false,
+  "private_hashes_conserved": 3,
+  "production_execution_authorized_by_checker": false,
+  "project_source_authority_STATE_context_Git_writes": false,
+  "quota": {
+    "global_bytes": 2099610266,
+    "global_cap_bytes": 3221225472,
+    "local_bytes": 162025166,
+    "local_cap_bytes": 2147483648,
+    "passed": true,
+    "reserve_bytes": 637534208
+  },
+  "quota_helpers_may_import_scientific_modules_without_array_loaders": true,
+  "real_attempts": 1,
+  "remaining_ids": [
+    "full-smoke-1-b",
+    "full-smoke-2-a",
+    "full-smoke-2-b"
+  ],
+  "scientific_modules_imported_by_pure_API": false,
+  "source3": {
+    "analysis/arrival/model_development_technical_completion.py": "93784ed7188c4e663465ff7ab1302b60a5ef3d3ee7c2dba93e3410efd14e485d",
+    "scripts/run_arrival_development_technical_completion.py": "f2e7720d34381c58be90f6c0cb49637adda76931769861586f54db5b8e7257a1",
+    "tests/test_arrival_development_technical_completion.py": "0d03a0b3dc5a2a1c05822c75267c925af23463b717db7b3bd930d2805e093fd0"
+  },
+  "source_review_sha256": "71ee59a46e4b627abc07ba1ee6d58655516cb77b09f5bdf10f3a66eefa760217",
+  "status": "accepted_prospective_epoch2_G_authority_payload",
+  "strict_closed_inventory_passed": true
+}

@@ -1,0 +1,25 @@
+"""Root/P-authorized closed G1 independent science, no sampling/public writes."""
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+helper=Path('/private/tmp/check-ms6-recovery-science.py')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+assert sha(helper)=='7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713'
+p=Path('/private/tmp/tsunami-G1-closed-process-proof.json')
+assert sha(p)=='f0575c835f64326c9f2290e0b226881be5f070cc5449b8b68c0fa35d716ad061'
+proof=json.loads(p.read_text())
+assert proof['job_id']=='full-smoke-0-b' and len(proof['files'])==27
+assert proof['cost']==proof['start_markers']==1 and proof['closed'] is True
+spec=importlib.util.spec_from_file_location('frozen_G_science',helper)
+assert spec and spec.loader
+q=importlib.util.module_from_spec(spec);spec.loader.exec_module(q)
+result=q.audit_closed_job(ROOT,'full-smoke-0-b',notice=dict(root_closed_authorization=True,
+    closed=True,accepted_check_review=True,job_ids=['full-smoke-0-b']),process_proof=proof,
+    output='/private/tmp/ms6-recovery-science-full-smoke-0-b')
+out=Path('/private/tmp/ms6-recovery-science-full-smoke-0-b/scientific-check.json')
+print(json.dumps(dict(receipt=str(out),sha256=sha(out),status=result['status'],
+    density=result['density']['passed'],summary=result['summary']['passed'],
+    new_sampler_calls=0,visual_review=result['visual_review'])))

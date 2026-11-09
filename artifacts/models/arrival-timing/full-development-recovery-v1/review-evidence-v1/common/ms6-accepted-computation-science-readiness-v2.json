@@ -1,0 +1,44 @@
+{
+  "actual_program_or_native_reads": false,
+  "bounded_change": "Exact phase-specific replay status and corrected synthetic F producer fixture plus wrong-phase-status negative in both phases; math and18 existing guards unchanged.",
+  "entry": "audit_closed_job(root,job_id,phase=...,notice=RootClosedNotice,process_proof=PClosedProof,output=/private/tmp/ms6-accepted-science-ID)",
+  "files": {
+    "/private/tmp/check-ms6-accepted-computation-science.py": "728094ead6402e34630573161d440159c52875aef4db9cb6c7c4e93e5caeb192",
+    "/private/tmp/test_ms6_accepted_science_readiness.py": "8ee5a48f8dde421bf10dcb316cab0fa62c985d6ae99171e2da6f90ba4530cada"
+  },
+  "future_checks": [
+    "Independent G simulation and Y-poison invariance, or full design/native transforms without simulation truth",
+    "Actual population/protocol/native ordering/prior settings",
+    "Dense event Gaussian and proper prior/Jacobian checks plus finite-difference gradients at fixed points",
+    "Seeded800 summary quantiles, curves, conditionalPPC, per-record intervals and G truth quantiles",
+    "Trace/rank/energy PNGs followed by required expert full-size/600px visual review",
+    "Complete fresh source/worker/proof bytes at end"
+  ],
+  "new_sampler_calls": 0,
+  "producer_contract": {
+    "F": "strict_startup_execution",
+    "F_proof": "original_full_development_case_artifacts",
+    "F_status": "strict_original_worker_artifacts_passed",
+    "G": "stable_scientific_startup_execution",
+    "G_proof": "original_scientific_checks_diagnostic_recomputation_v2",
+    "G_status": "scientific_artifact_replay_passed"
+  },
+  "project_writes": false,
+  "reuse": "Frozen independent G/F math functions; controller full artifact replay consumed without repeating G/F case_artifacts or G.numerical_oracles",
+  "schema_version": 2,
+  "source_guard": "Root scoped CLOSED notice and P accepted process proof, exact environment before scientific imports, canonical accepted attempt and replay proof covered by fresh producer pins; full role also needs accepted_G6_review",
+  "status": "source_only_ready_actual_reads_not_authorized",
+  "supersedes_readiness_receipt_sha256": "659ef5e7b09f6fce766f26f576ec133c33a482170ceeab0b683582860bcce41c",
+  "tests": {
+    "help": "passed",
+    "pyright_errors": 0,
+    "pyright_warnings": 0,
+    "readiness_cli": "passed",
+    "red_before_fix": "Actual F-status fixture rejected and cross-phase scientific status wrongly accepted: 2 failed/2 passed; corrected phase-specific status makes all20 pass",
+    "ruff": "passed",
+    "ruff_format": "passed",
+    "seconds": 1.05,
+    "synthetic_readiness_passed": 20
+  },
+  "visual_acceptance": "pending_each_actual_closed_fit"
+}

@@ -1,0 +1,128 @@
+{
+ "result": "pass",
+ "dest": "report",
+ "figures": 2,
+ "fails": 0,
+ "warns": 17,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig0/figure legend",
+   "detail": "legend with 4 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig0/figure 'Source: supplied ...', 'Retained draw', '0'",
+   "detail": "196 text(s) below 12 px at 600 px wide (report); smallest 9 pt = 6.2 px",
+   "fix": "Use at least 17.5 pt text at this 12.0 in figure width, or shrink figsize."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax0 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax1 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax2 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax3 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax4 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax5 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax6 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax7 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax8 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax9 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax10 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax11 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax12 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "cvd",
+   "severity": "warn",
+   "where": "fig0/ax13 'Chain 1' x 'Chain 3'",
+   "detail": "#0072B2~#6A3D9A dE00 7.1 under deutan (floor 9.0; normal 28.1); told apart only by dash, marker, hatch, or mark type",
+   "fix": "Direct-label each series at its mark (ev.label_lines), or vary dash or marker; better, use palettes.json slots that stay distinct (blue #0072B2 vs vermillion #D55E00)."
+  },
+  {
+   "check": "small-text",
+   "severity": "warn",
+   "where": "fig1/figure 'Source: supplied ...', 'Centered energy (...', '\u22125.0'",
+   "detail": "40 text(s) below 12 px at 600 px wide (report); smallest 9 pt = 6.2 px",
+   "fix": "Use at least 17.5 pt text at this 12.0 in figure width, or shrink figsize."
+  }
+ ]
+}

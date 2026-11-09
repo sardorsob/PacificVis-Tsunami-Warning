@@ -1,0 +1,126 @@
+{
+  "audit_code_files": {
+    "/private/tmp/audit-ms6-G1-closed.py": "c4cece93889f4c15870c74c19a2014cae5a64e11a8a50b6e5c957f4675e2464d",
+    "/private/tmp/chartcheck-ms6-G1-trusted-plots.py": "453647a91834a651415ab8595406ce1235af993522e36b07d866087e3a3485d4",
+    "/private/tmp/check-ms6-recovery-science.py": "7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713"
+  },
+  "chart_check": {
+    "fails": 0,
+    "figures": 2,
+    "path": "/private/tmp/ms6-G1-chart-diagnostics.json",
+    "result": "pass",
+    "sha256": "44d645c9f7c44b3c344096e8e2333fdcf019d7b519d47dfd99f3c1c2eef9a59b",
+    "warning_counts": {
+      "cvd": 14,
+      "legend-direct-label": 1,
+      "small-text": 2
+    },
+    "warnings_reviewed": "Existing four-chain diagnostic styles retained. CVD pairs have distinct line dashes; legends are appropriate for overlapping chains. Small-text warnings apply to 600px thumbnails; required native-size inspection is readable. These are expert audit plots, not a dense600px reader chart.",
+    "warns": 17
+  },
+  "dense_prior_logJac_FD_checks": {
+    "FD_atol": 2e-05,
+    "FD_gradient_max": 5.107349210220491e-08,
+    "FD_rtol": 1e-07,
+    "corrected_bound": 2e-07,
+    "corrected_joint_max": 3.857536512441584e-11,
+    "points": 6,
+    "prior_isolation_points": 2,
+    "prior_offset": 7.618616848503734e-09,
+    "uncorrected_joint_bound": 1e-06,
+    "uncorrected_joint_max": 7.65719221362815e-09
+  },
+  "generation_and_historical_Y_poison_invariance": "PASS",
+  "independent_checker": true,
+  "job": {
+    "case": "B",
+    "conditional_seed": 2966110903,
+    "design_protocol_sha256": "2741a6727e6d150cb82b47caf834b9db5c36e166f003a4aeda2d25f1943df025",
+    "id": "full-smoke-0-b",
+    "model_key": "NCEI-native-duration:mean-curvature:selected",
+    "model_spec_sha256": "f0542d2665895808dbba2f5339488bbed08ebefaf33731eed687d0e3eac03a50",
+    "order": 1,
+    "protocol_sha256": "918c1ca8b803c15dd552e33fde2383b63170ff3d3eeec2958024ca605e2b3062",
+    "role": "full_design_recovery",
+    "sampler_seed": 2966110902,
+    "simulator_seed": 2966110901,
+    "truth": {
+      "alpha": 0.15,
+      "beta": -0.05,
+      "gamma": 0.5,
+      "sigma_anchor": [
+        0.6,
+        0.6,
+        0.1
+      ],
+      "tau_event": 0.05
+    },
+    "truth_sha256": "f3017523ab04a061afeed06259332de5988203a3793d4828f599c176913624fb"
+  },
+  "job_id": "full-smoke-0-b",
+  "native_diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0011145226282694425,
+    "max_rhat": 1.0011742090124964,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9593038048619974,
+    "min_ess_bulk": 3421.101548431955,
+    "min_ess_tail": 3628.3426592978544,
+    "screen_passed": true
+  },
+  "native_seven_arrays_ordered_design_identity": "PASS",
+  "new_sampler_calls_in_QA": 0,
+  "original_G0_controller_failure_unchanged": true,
+  "process_proof": {
+    "path": "/private/tmp/tsunami-G1-closed-process-proof.json",
+    "sha256": "f0575c835f64326c9f2290e0b226881be5f070cc5449b8b68c0fa35d716ad061"
+  },
+  "producer_git_sha": "c446079dcff1b1e04a734a74f77d551afd1aafb6",
+  "project_Source_Gate_STATE_PILOT_or_context_written": false,
+  "public_PILOT_created": false,
+  "runtime_QA": {
+    "path": "/private/tmp/tsunami-technical-G1-closed-runtime-qa.json",
+    "sha256": "2959c0aeacb9acc8fa02317608e28a20c368678e0210217dc930bcbd0278c7d8"
+  },
+  "scientific_check": "/private/tmp/ms6-recovery-science-full-smoke-0-b/scientific-check.json",
+  "scientific_check_sha256": "e587545d3fe674d49858a135edf06e56cdb4bdcc8d8b8d2361a2a8a1acbb36b5",
+  "scope": "One fixed difficult NCEI synthetic full-design computation smoke only; no calibration/coverage, bias, physical or operational validity claim.",
+  "seeded_summary": {
+    "all_population_draws": 8000,
+    "conditional_ppc_rows": 30,
+    "curve_rows": 18,
+    "derived_rows": 18,
+    "new_event_u_shared_across_grid": true,
+    "no_unused_u_rng_consumed": false,
+    "parameter_rows": 7,
+    "passed": true,
+    "record_intervals": 1215,
+    "selected_predictive_draws": 800,
+    "signed_target_preserved": false,
+    "truth_inclusions_not_pass_rule": true
+  },
+  "status": "independently_accepted_closed_G1_computational_smoke_science",
+  "truth_intervals": {
+    "acceptance_does_not_require_every_truth_inside90": true,
+    "coordinates": 7,
+    "descriptive_only": true,
+    "misses": [],
+    "within90": 7
+  },
+  "unconditional_unmodified_G_case_artifacts_complete_pass": true,
+  "visual_review": {
+    "alt_text": {
+      "energy": "Four chain distributions overlap for centered energy and energy transitions.",
+      "trace-rank": "Seven rows show four overlapping retained-chain traces and broadly similar pooled-rank histograms for the closed difficult NCEI smoke."
+    },
+    "energy": "Four styled centered-energy and transition distributions overlap; nat units and source qualification readable, no clipping.",
+    "image_files": {
+      "/private/tmp/ms6-recovery-science-full-smoke-0-b/energy.png": "8af20d37b926f8d3ecfe1ffd29552be131f13678241c4d0e79c78a9f946a1bea",
+      "/private/tmp/ms6-recovery-science-full-smoke-0-b/trace-rank.png": "262432c39fb8822499425ba6fc2eaa076cf8319e0c2380bf3e21aa07a9bc7129"
+    },
+    "method": "self-review of both reopened native-size PNGs",
+    "status": "PASS_no_P0_P1_at_native_size",
+    "trace_rank": "All7 coordinates and chain legends/source caption visible, no clipping; stationary overlapping4chain traces and comparable pooled-rank shapes. Rank deviation is descriptive only."
+  }
+}

@@ -1,0 +1,272 @@
+"""Draft one completed six-G review and explicit portable evidence-copy plan."""
+
+# pyright: basic
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+ROOT = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+sys.path.insert(0, str(ROOT))
+from analysis.arrival import model_development_technical_completion as T  # noqa: E402
+
+TMP = Path("/private/tmp")
+G = T.PHASES[0]
+EVIDENCE = T.OUTPUTS[G] + "/review-evidence-v1"
+
+
+def external(path, digest):
+    p = Path(path)
+    T.require(
+        p.is_absolute() and p.resolve() == p and p.is_file() and TMP in p.parents,
+        "literal retained TMP evidence only",
+    )
+    T.require(T.sha(p) == digest, "changed independently reviewed TMP evidence")
+    return p
+
+
+def declared_evidence(review):
+    if review["job"]["order"] != 1:
+        return review["temporary_evidence_files"]
+    result = T.merge(review["audit_code_files"], review["visual_review"]["image_files"])
+    for key in ["chart_check", "process_proof", "runtime_QA"]:
+        item = review[key]
+        result = T.merge(result, {item["path"]: item["sha256"]})
+    return T.merge(result, {review["scientific_check"]: review["scientific_check_sha256"]})
+
+
+def science(review, job):
+    older = job["order"] == 1
+    T.require(
+        review.get("independent_checker") is True
+        and review.get("job") == job
+        and review.get("new_sampler_calls_in_QA") == 0
+        and review.get("status")
+        == (
+            "independently_accepted_closed_G1_computational_smoke_science"
+            if older
+            else "accepted_closed_computational_smoke_scientific_checks"
+        ),
+        "each ordinary computation needs its exact independent scientific disposition",
+    )
+    diagnostics = review["native_diagnostics"] if older else review["diagnostics"]
+    T.require(
+        diagnostics.get("screen_passed") is True
+        and diagnostics.get("divergences") == 0
+        and diagnostics.get("maxdepth_reached") == 0,
+        "original diagnostic screen must pass",
+    )
+    if older:
+        T.require(
+            review.get("generation_and_historical_Y_poison_invariance") == "PASS"
+            and review.get("native_seven_arrays_ordered_design_identity") == "PASS"
+            and review.get("unconditional_unmodified_G_case_artifacts_complete_pass") is True
+            and review["seeded_summary"].get("passed") is True
+            and review["visual_review"].get("status") == "PASS_no_P0_P1_at_native_size"
+            and review["chart_check"].get("fails") == 0,
+            "G1 scientific and visual disposition",
+        )
+    else:
+        T.require(
+            review["generation"].get("passed") is True
+            and review["numerics"].get("passed") is True
+            and review["summary"].get("passed") is True
+            and T._stable_comparison(
+                dict(
+                    proof_contract=review["diagnostic_comparison"].get("proof_contract"),
+                    original_exact_oracle_equal=review.get("original_exact_oracle_equal"),
+                    diagnostic_comparison=review["diagnostic_comparison"],
+                )
+            )
+            and review["visual"].get("P0_P1_issues") == 0
+            and review["visual"].get("chart_fails") == 0
+            and review["visual"].get("native_figures_reopened") is True
+            and review["visual"].get("six_hundred_pixel_previews_reopened") is True,
+            "new G scientific and visual disposition",
+        )
+
+
+def build(
+    root: Path, manifest: dict[str, Any], *, root_confirmed_six_closed=False
+) -> dict[str, Any]:
+    T.require(
+        root_confirmed_six_closed is True, "Root closed-six notice required before program read"
+    )
+    root = Path(root).resolve()
+    program = T.read_program_metadata(root, G)  # Pure metadata, never a cold numeric verifier.
+    T.require(
+        program.get("complete") is True
+        and program.get("remaining_jobs") == []
+        and type(program.get("calls_charged")) is int
+        and type(program.get("calls_started")) is int
+        and program["calls_charged"] == program["calls_started"] == 6
+        and len(program["accepted_records"]) == 6
+        and len(program["attempt_records"]) == 4,
+        "all six computations closed, with four real ordinary receipts",
+    )
+    summary = str(T.summary_path(root, G).relative_to(root))
+    T.require(
+        summary in program["files"] and T.load(root, summary) == T.summary_value(program),
+        "immutable Epoch2 summary first",
+    )
+    T.require(
+        program["attempt_records"] == [r for r in program["accepted_records"] if "receipt" in r],
+        "no invented G0/G2 attempts",
+    )
+    source = manifest["consumer_review"]
+    consumer = T.load(root, source["path"])
+    T.require(
+        T.sha(T.file(root, source["path"])) == source["sha256"]
+        and consumer.get("status")
+        == "accepted_frozen_arrival_development_technical_consumer_source"
+        and consumer.get("independent_checker") is True,
+        "current independently accepted consumers",
+    )
+    pins = T.merge(program["files"], consumer["files"], {source["path"]: source["sha256"]})
+    ordinary = [job for job in program["jobs"] if job["order"] in [1, 3, 4, 5]]
+    T.require(
+        set(manifest["case_reviews"]) == {j["id"] for j in ordinary},
+        "exact G1/G3/G4/G5 independent reviews required",
+    )
+    copies, dispositions = {}, []
+
+    def copy_plan(src, digest, leaf):
+        original = external(src, digest)
+        T.require(original.stat().st_size <= 64 * 1024**2, "64MiB evidence file cap")
+        T.require(
+            Path(src).suffix in {".json", ".png", ".py", ".txt"}, "QC only; no NC/NPZ mirrors"
+        )
+        name = Path(src).name + (".txt" if Path(src).suffix == ".py" else "")
+        destination = EVIDENCE + "/" + leaf + "/" + name
+        T.require(
+            destination not in copies or copies[destination] == dict(source=src, sha256=digest),
+            "portable evidence basename collision",
+        )
+        T.require(destination not in pins, "existing public evidence is never overwritten")
+        copies[destination] = dict(source=src, sha256=digest)
+        return destination
+
+    for job in ordinary:
+        spec = manifest["case_reviews"][job["id"]]
+        review = json.loads(external(spec["path"], spec["sha256"]).read_text())
+        science(review, job)
+        declared = declared_evidence(review)
+        T.require(
+            all(spec["files"].get(p) == h for p, h in declared.items()),
+            "all code, math, runtime, chart and PNG evidence must be portable",
+        )
+        if "source_files" in review:
+            T._covered(program["files"], review["source_files"])
+        files = T.merge(spec["files"], {spec["path"]: spec["sha256"]})
+        for src, digest in files.items():
+            copy_plan(src, digest, job["id"])
+        portable = copy_plan(spec["path"], spec["sha256"], job["id"])
+        dispositions.append(
+            dict(
+                job=job,
+                review=portable,
+                review_sha256=spec["sha256"],
+                original_TMP_path_history_only=spec["path"],
+            )
+        )
+    for src, digest in manifest.get("extra_evidence", {}).items():
+        copy_plan(src, digest, "common")
+    planned_bytes = {p: Path(value["source"]).stat().st_size for p, value in copies.items()}
+    for job in ordinary:
+        record = next(
+            r
+            for r in program["accepted_records"]
+            if r.get("job") == job or r.get("job_id") == job["id"]
+        )
+        physical_bytes = sum(T.file(root, name).stat().st_size for name in record.get("files", {}))
+        qc_bytes = sum(
+            size
+            for name, size in planned_bytes.items()
+            if name.startswith(EVIDENCE + "/" + job["id"] + "/")
+        )
+        T.require(physical_bytes + qc_bytes <= 32 * 1024**2, "32MiB combined producer/review cap")
+    output_files = {p: value["sha256"] for p, value in copies.items()}
+    review = dict(
+        status="accepted_frozen_full_development_design_checks",
+        independent_checker=True,
+        specification_freeze=T.FREEZE,
+        specification_freeze_sha256=pins[T.FREEZE],
+        completed_check=T.CHECK,
+        completed_check_sha256=pins[T.CHECK],
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        no_retuning=True,
+        jobs=program["jobs"],
+        summary=summary,
+        summary_sha256=pins[summary],
+        accepted_records=program["accepted_records"],
+        attempt_records=program["attempt_records"],
+        calls_charged=6,
+        calls_started=6,
+        max_sampler_call_slots=9,
+        source_epoch=program["source_epoch"],
+        proof_contract=program["proof_contract"],
+        original_G0_strict_review=T.BASELINE,
+        original_G0_strict_review_sha256=pins[T.BASELINE],
+        original_G2_stable_review=T.G2_REVIEW,
+        original_G2_stable_review_sha256=pins[T.G2_REVIEW],
+        ordinary_scientific_dispositions=dispositions,
+        portable_evidence=copies,
+        consumer_review=source["path"],
+        consumer_review_sha256=source["sha256"],
+        computational_smokes_only=True,
+        coverage_calibration_or_physical_validation_claim=False,
+        initial_controller_failures_preserved=True,
+        no_new_sampler_calls_in_review=0,
+        files=T.merge(pins, output_files),
+    )
+    T.fresh(root, pins)
+    for value in copies.values():
+        external(value["source"], value["sha256"])
+    return dict(
+        status="draft_only_requires_Root_publication",
+        review_path=T.G_REVIEW,
+        review_sha256=hashlib.sha256(T.payload(review)).hexdigest(),
+        review=review,
+        copy_plan=copies,
+        planned_copy_bytes=sum(planned_bytes.values()),
+        project_writes_performed=False,
+        scientific_arrays_parsed=False,
+        publication_steps=[
+            "Root verifies closed-six SCI, source, draft and actual quota with 608MiB reserve.",
+            "Root exclusively copies copy_plan bytes; never rewrite QC JSON.",
+            "Root verifies copied SHAs, exact inventory, source and all resource caps.",
+            "Root publishes review_path last; verifies T metadata, source, quota and counters.",
+        ],
+    )
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--manifest", type=Path, required=True)
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--root-confirmed-six-closed", action="store_true")
+    a = p.parse_args()
+    T.require(
+        a.output.parent == Path("/private/tmp")
+        and not a.output.exists()
+        and not a.output.is_symlink(),
+        "new TMP draft only",
+    )
+    draft = build(
+        ROOT,
+        json.loads(a.manifest.read_text()),
+        root_confirmed_six_closed=a.root_confirmed_six_closed,
+    )
+    with a.output.open("xb") as f:
+        f.write(T.payload(draft))
+    print(
+        json.dumps(dict(review_sha256=draft["review_sha256"], files=len(draft["review"]["files"])))
+    )
+
+
+if __name__ == "__main__":
+    main()

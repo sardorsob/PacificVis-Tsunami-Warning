@@ -1,0 +1,197 @@
+"""Synthetic authority composition boundaries; no runtime or scientific arrays."""
+
+# pyright: basic
+import importlib.util
+import sys
+from types import SimpleNamespace
+
+import pytest
+
+spec = importlib.util.spec_from_file_location(
+    "builder", "/private/tmp/prepare-tsunami-technical-authority.py"
+)
+assert spec is not None and spec.loader is not None
+b = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(b)
+T = b.T
+
+
+@pytest.fixture
+def case(tmp_path, monkeypatch):
+    root = tmp_path.resolve()
+
+    def put(name, value):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(value if isinstance(value, bytes) else T.payload(value))
+        return T.sha(p)
+
+    inherited = {
+        f"context/old-{i}.json": put(f"context/old-{i}.json", b"opaque") for i in range(12)
+    }
+    outside = {
+        f"data/reference-{i}.nc": put(f"data/reference-{i}.nc", b"opaque") for i in range(11)
+    }
+    common = {**inherited, **outside}
+    sources = {
+        n: put(n, b"current source")
+        for n in [T.SELF, T.CLI, T.TEST, T.REPLAY_SOURCE, T.REPLAY_TEST]
+    }
+    archive = {
+        T.DESIGN + "/source-history/v1/" + str(i): put(
+            T.DESIGN + "/source-history/v1/" + str(i), b"old source"
+        )
+        for i in range(3)
+    }
+    old_sources = dict(zip([T.SELF, T.CLI, T.TEST], archive.values(), strict=True))
+    manifest = {T.HISTORY_MANIFEST: put(T.HISTORY_MANIFEST, {"test": "metadata"})}
+    history_calls = []
+
+    def history(r, pins):
+        assert r == root
+        history_calls.append(dict(pins))
+        for n in old_sources:
+            if n in pins:
+                T.require(pins[n] == old_sources[n], "old source identity")
+        return {**{n: h for n, h in pins.items() if n not in old_sources}, **archive, **manifest}
+
+    monkeypatch.setattr(T, "historical_source_verify", history)
+    monkeypatch.setattr(T, "_baseline", lambda *a: None)
+    monkeypatch.setattr(T, "_legacy_authority", lambda *a: None)
+    monkeypatch.setattr(T, "_g2_revalidation", lambda *a: None)
+    old_review = T.LEGACY_DESIGN + "/source-review.json"
+    old_review_sha = put(old_review, {"files": {**common, **old_sources}})
+    old_gate = dict(
+        files={**common, **old_sources},
+        execution_source_review=old_review,
+        execution_source_review_sha256=old_review_sha,
+    )
+    monkeypatch.setattr(T, "LEGACY_AUTHORITY_SHA256", put(T.LEGACY_AUTHORITY, old_gate))
+    put(T.PILOT, {"files": {**common, **old_sources}})
+    put(str(T.legacy_plan_path(root, T.PHASES[0]).relative_to(root)), {"old_plan": True})
+    put(T.FREEZE, {"files": common})
+    put(T.CHECK, {"files": common})
+    put(T.CHECK_SUMMARY, {"files": {}})
+    put(T.G2_REVIEW, {"files": common})
+    parents = [root / "parents" / str(i) for i in range(15)]
+    for p in parents:
+        p.mkdir(parents=True)
+    floors = {str(p.relative_to(root)): 1 for p in parents}
+    for phase in T.PHASES:
+        jobs = [{"id": f"job-{i}"} for i in range(6 if phase == T.PHASES[0] else 3)]
+        put(
+            T.KERNELS[phase],
+            dict(
+                jobs=jobs,
+                resources={"budget": "unchanged"},
+                files=common,
+                parent_minimum_bytes=floors,
+                external_reference_files=outside,
+            ),
+        )
+    put(
+        T.BASELINE,
+        dict(
+            files=common,
+            job={"id": "job-0"},
+            original_worker_gate=T.KERNELS[T.PHASES[0]],
+            private_state_hashes_history_only={},
+        ),
+    )
+    review_path = T.DESIGN + "/source-review-revision-2.json"
+    put(
+        review_path,
+        dict(
+            status="accepted_frozen_arrival_development_technical_source",
+            independent_checker=True,
+            execution_authority=False,
+            files={**common, **sources},
+        ),
+    )
+    quota_calls = []
+
+    def quota(*args, **kw):
+        quota_calls.append(kw)
+        return None
+
+    fake = SimpleNamespace(
+        old=SimpleNamespace(
+            r=SimpleNamespace(parent_roots=lambda r: parents, byte_count=lambda p: 1)
+        ),
+        c2=SimpleNamespace(quota=quota),
+    )
+    monkeypatch.setitem(sys.modules, "scripts.run_arrival_development_journal", fake)
+    import scripts
+
+    monkeypatch.setattr(scripts, "run_arrival_development_journal", fake, raising=False)
+    return SimpleNamespace(
+        root=root,
+        put=put,
+        source=review_path,
+        history=history_calls,
+        quota=quota_calls,
+        fake=fake,
+        old=old_sources,
+    )
+
+
+def test_G_uses_three_historical_closures_current_sources_and_reserve(case):
+    x = b.build(case.root, T.PHASES[0])
+    g = x["gate"]
+    assert g["inherited_calls"] == {"charged": 3, "started": 3}
+    assert (
+        g["source_epoch"] == "technical-completion-v2" and g["proof_contract"] == T.PROOF_CONTRACT
+    )
+    assert len(case.history) == 3 and len(g["jobs"]) == 6 and len(g["dispatch_jobs"]) == 5
+    assert g["files"][T.SELF] != case.old[T.SELF] and T.HISTORY_MANIFEST in g["files"]
+    assert case.quota[-1]["reserve"] is True and case.quota[-1]["known_files"] == g["files"]
+    assert not (case.root / T.authority_path(T.PHASES[0])).exists()
+
+
+def test_missing_source_review_fails_before_history_or_quota(case):
+    (case.root / case.source).unlink()
+    with pytest.raises(ValueError):
+        b.build(case.root, T.PHASES[0])
+    assert not case.history and not case.quota
+
+
+def test_full_requires_actual_accepted_G_review_and_six_calls(case):
+    with pytest.raises(ValueError):
+        b.build(case.root, T.PHASES[1])
+    case.put(
+        T.G_REVIEW,
+        dict(
+            status="accepted_frozen_full_development_design_checks",
+            independent_checker=True,
+            files={},
+        ),
+    )
+    x = b.build(case.root, T.PHASES[1])["gate"]
+    assert x["inherited_calls"] == {"charged": 6, "started": 6}
+    assert x["proof_contract"] == T.FULL_PROOF_CONTRACT and len(x["dispatch_jobs"]) == 3
+
+
+@pytest.mark.parametrize(
+    "fault", ["stale_source", "new_context", "quota", "floor", "outside", "source_status"]
+)
+def test_no_laundering_or_budget_failure(case, fault):
+    source = T.load(case.root, case.source)
+    if fault == "stale_source":
+        source["files"][T.SELF] = case.old[T.SELF]
+    if fault == "new_context":
+        source["files"]["context/live.json"] = case.put("context/live.json", b"no body parsing")
+    if fault == "source_status":
+        source["execution_authority"] = True
+    case.put(case.source, source)
+    if fault == "quota":
+        case.fake.c2.quota = lambda *a, **kw: "exceeded"
+    if fault in {"floor", "outside"}:
+        name = T.KERNELS[T.PHASES[0]]
+        k = T.load(case.root, name)
+        if fault == "floor":
+            k["parent_minimum_bytes"].pop(next(iter(k["parent_minimum_bytes"])))
+        else:
+            k["external_reference_files"].pop(next(iter(k["external_reference_files"])))
+        case.put(name, k)
+    with pytest.raises(ValueError):
+        b.build(case.root, T.PHASES[0])

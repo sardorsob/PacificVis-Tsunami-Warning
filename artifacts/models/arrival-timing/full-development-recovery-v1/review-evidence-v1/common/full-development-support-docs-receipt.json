@@ -1,0 +1,167 @@
+{
+  "accepted_review_bindings": {
+    "analysis/arrival/model_data.py": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "analysis/arrival/model_development_data.py": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "analysis/arrival/model_development_fit.py": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "analysis/arrival/model_development_recovery.py": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/confirmation/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/confirmation/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/confirmation/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/inputs.json": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json"
+    ],
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/membership.json": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json"
+    ],
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a/inputs.json": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a/membership.json": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ],
+    "config/arrival-model-contract-v1.toml": [
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json",
+      "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json",
+      "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json"
+    ]
+  },
+  "fields_used_from_approved_source_csvs": [
+    "record_id",
+    "event_id",
+    "physical_site_id"
+  ],
+  "final_full_fit_accepted": false,
+  "full_development_catalogue_entries": 57,
+  "future_report_links": "Draft navigation targets; not yet accepted or checked as existing final results. Root finalizes after actual full science.",
+  "models_or_scores_executed": false,
+  "ncei_exclusion_ids": [
+    "recovery-ncei-564962a202e9e2be:23",
+    "recovery-ncei-66bfa3cd99cb7161:198",
+    "recovery-ncei-9ffb03a9721a6bc9:23",
+    "recovery-ncei-9ffb03a9721a6bc9:41",
+    "recovery-ncei-c7a352e5a9628185:30",
+    "recovery-ncei-c7a352e5a9628185:56"
+  ],
+  "ncei_exclusion_interpretation": "Six reports in three unresolved repeated event/site groups excluded together by the frozen evidence rule; retained in sources; no whole event lost. This is not evidence of download failure or a causal explanation of source missingness.",
+  "patch": "/private/tmp/model-results-readme-navigation.patch",
+  "patch_sha256": "1cd3664e9e0e599bf5681624524bb1a8fcff733830b971beff329071ee4a6366",
+  "previous_patch_sha256": "2b993d98de2092ef7347c49aba9af09a26256c86fafda5ded990cf7eb8aa98f0",
+  "private_STATE_read": false,
+  "public_files_modified": false,
+  "readme_sha256": "45631f5229fdf82023a9d0a51f5ac7963ec97b529ba1f7e32c0b1e84f1f6c33b",
+  "reserved_outcomes_read": false,
+  "response_values_used": false,
+  "scope": "Approved 57-entry development pool and frozen membership/source rules only; not final fit or report acceptance",
+  "source_files": {
+    "analysis/arrival/model_data.py": "87a1d546af4549bb6f1baced49f4c7354c7608b22b392cb97f2c2859c73babb2",
+    "analysis/arrival/model_development_data.py": "94708278bc3b1d437168251ec68944a341e8404f530e5c5abf9405c459c7ae94",
+    "analysis/arrival/model_development_fit.py": "98f5d7392c33c8f02c5e998741aededb6f649b5090a2c9577f9734e886657c13",
+    "analysis/arrival/model_development_recovery.py": "62e150f350c74dc329ba4934f21d723e67d74b61b911a04ca6bab05b48361036",
+    "artifacts/eda/arrival-timing/results/confirmation/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "c5b8c7c118d09b846f6594795f6df802c4d4a0d6cea1efff0a7c488b481030fe",
+    "artifacts/eda/arrival-timing/results/confirmation/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "e0fa1fe58d9b026f874591a0953ec20600d1ecc71916e0c59cd2bf0b813fa5c0",
+    "artifacts/eda/arrival-timing/results/confirmation/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "325900a2c5c758325588c05f3613d3b5e93f3d9419ae054a70e44e0645231e0e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ncei-native-travel-duration-analysis-records.csv": "8aa7ed2227b68b4a7c9dbf0cfe13439770415d1906ecd234c6e2abab20caf72e",
+    "artifacts/eda/arrival-timing/results/exploration/data-integrity-and-response-records/ntwc-reported-travel-duration-analysis-records.csv": "106d6bacbd73497373ef7019f7397b50e41cc6cf67a9dca6573b75ff241f37c6",
+    "artifacts/eda/arrival-timing/results/exploration/estimated-minus-observed-timing-distributions/estimated-minus-observed-time-difference-versus-source-station-distance.csv": "1bbd3af184b9dc1ca37027000121e6d404d579f85269a3568325ecfdba00b4e2",
+    "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/G2-stable-review.json": "156b89fd225705c39234ba3d6196bb06d5be71afb045a82d609ab1cac3fde293",
+    "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/baseline-review.json": "f6218f6e73e599aa4d2aed705d9d5014d647ff1c7be13eadc9cfad731d39af99",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+    "artifacts/models/arrival-timing/development-check-v1/review-acceptance.json": "95dfb4125a7ed7604658a28b19de5cc218f01ac953bfcbe9e468ec69b7444509",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/inputs.json": "dd7f1d63278b34623c997646c1cd73c6eb6465be2ce2fbf19643ddd87e67d2f6",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/membership.json": "81ce8f699b878ceaf43de636defb3e66bd354459780183fbd3b0d7dbb5e9c871",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a/inputs.json": "271efa6f2918846c91d638e89bbbeb3dfa4b13e85331bdbb2c22c4f76b8c103a",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a/membership.json": "632a3d89870cc53d93c88bf57db6e4041d3cbbfeca2d1cd3eaa0ada9d96c7c43",
+    "config/arrival-model-contract-v1.toml": "7cdb86c6c2ef8e57f23251fea10d852cffe9bd7b33d4241660dfa1069c5a6264"
+  },
+  "source_support": {
+    "NCEI-native-duration": {
+      "counts_match_saved_membership": true,
+      "eligible_reports": 1215,
+      "excluded_event_site_groups": 3,
+      "excluded_group_sizes": [
+        2,
+        2,
+        2
+      ],
+      "excluded_reports": 6,
+      "membership": "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/membership.json",
+      "pre_exclusion_reports": 1221,
+      "represented_events": 47,
+      "training_only_purge_restored_in_full": 24,
+      "whole_events_removed": 0
+    },
+    "T-CAL": {
+      "counts_match_saved_membership": true,
+      "eligible_reports": 169,
+      "excluded_event_site_groups": 0,
+      "excluded_group_sizes": [],
+      "excluded_reports": 0,
+      "membership": "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json",
+      "pre_exclusion_reports": 169,
+      "represented_events": 18,
+      "training_only_purge_restored_in_full": 0,
+      "whole_events_removed": 0
+    },
+    "T-OBS": {
+      "counts_match_saved_membership": true,
+      "eligible_reports": 258,
+      "excluded_event_site_groups": 0,
+      "excluded_group_sizes": [],
+      "excluded_reports": 0,
+      "membership": "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a/membership.json",
+      "pre_exclusion_reports": 258,
+      "represented_events": 20,
+      "training_only_purge_restored_in_full": 0,
+      "whole_events_removed": 0
+    }
+  },
+  "status": "verified_full_development_support_metadata"
+}

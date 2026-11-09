@@ -1,0 +1,24 @@
+"""Only re-render trusted closed-G4 diagnostic artists for deterministic checking."""
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+
+import xarray as xr
+from analysis.arrival.model_sensitivity_priors import _population_spec
+
+root=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+helper=Path('/private/tmp/check-ms6-recovery-science.py')
+assert hashlib.sha256(helper.read_bytes()).hexdigest()=='7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713'
+proof=Path('/private/tmp/tsunami-full-smoke-2-a-closed-process-proof.json')
+assert hashlib.sha256(proof.read_bytes()).hexdigest()=='9830ab6c2f96e7cfbdb64bcf3fc1f919751142b400ec71980cd644a80b04dad1'
+case=json.loads(proof.read_text());assert case['closed'] and case['job_id']=='full-smoke-2-a'
+raw=root/'data/processed/models/arrival-development-recovery-v1/full-smoke-2-a.nc'
+assert hashlib.sha256(raw.read_bytes()).hexdigest()=='ac76589a757b1f892bbf2b234c34ea91fab3589190fb375654f45b663d0a6c38'
+assert (Path('/private/tmp/ms6-accepted-science-full-smoke-2-a')/'scientific-check.json').is_file()
+spec=importlib.util.spec_from_file_location('G_plot_arithmetic',helper)
+assert spec and spec.loader
+q=importlib.util.module_from_spec(spec);spec.loader.exec_module(q)
+out=Path('/private/tmp/ms6-G4-chartcheck-render');out.mkdir(exist_ok=True)
+with xr.open_dataset(raw,group='posterior',engine='h5netcdf') as post, xr.open_dataset(raw,group='sample_stats',engine='h5netcdf') as stats:
+    q.render_diagnostics(post[list(_population_spec('T-CAL','distance'))],stats,case['job'],out)

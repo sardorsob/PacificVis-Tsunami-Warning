@@ -1,0 +1,22 @@
+{
+  "accepted_records": 3,
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/full_design_recovery/review-acceptance.json",
+  "authority_gate_sha256": "4620082532a5f0a03fb81da25741fcf75ffa710068e198ba9d7a2db27910433d",
+  "calls_charged": 3,
+  "calls_started": 3,
+  "historical_G2_attempt_absent": true,
+  "inventory_quota_reserve_private_hashes_passed": true,
+  "new_sampler_calls": 0,
+  "ordinary_attempt_records": 1,
+  "original_strict_G2_proof_absent": true,
+  "pins": 15142,
+  "private_STATE_bodies_parsed": false,
+  "raw_arrays_parsed": false,
+  "remaining_jobs": [
+    "full-smoke-1-b",
+    "full-smoke-2-a",
+    "full-smoke-2-b"
+  ],
+  "reserved_outcomes": "sealed",
+  "status": "root_published_epoch2_G_authority_preflight_passed"
+}
