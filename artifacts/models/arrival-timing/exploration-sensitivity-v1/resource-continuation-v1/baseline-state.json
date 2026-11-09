@@ -1,0 +1,79 @@
+{
+  "accepted": [
+    {
+      "case_id": "ms5-ncei-mean-curvature-t4-matched-prior",
+      "charged_slots": 1,
+      "files": {
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior-spec.json": "68a427a4f9213aa3fc3655352ffae95cca7cbc7ec706b64be52bc1241b1f7799",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior.log": "490692c502f3af818422f3fcf440195e5f148cc52f2ba470d47c246b9de24b02",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior.supervisor.json": "a932e562deb7b46575059d24e03ff85ea2b1f2b875972174d046a1b46ce4e681",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/conditional-ppc.csv": "1236dfd049a403e9b78d63b2ced7115e91385c9b86c8681688941ce29e531865",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/curves.csv": "8d06d7a3fc892c5dc1efacd2340dcd8e8282e3411cfe662e0292827fc6d01956",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/derived.csv": "31306244ae6ade4cb5e79556cad33d9e452f0206f7278940020ffe5b11c8d74e",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/diagnostics.json": "4fb9a28c38fead3c1a8ffa9e9df0505ed2ccef2f21ab1636a8a704c0ed006a49",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/inputs.json": "7e603eb1daa6c130b2bb922e9a34b0e01ffc6af59197e56e2ee55db3d8068d1e",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/job.json": "68a427a4f9213aa3fc3655352ffae95cca7cbc7ec706b64be52bc1241b1f7799",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/membership.json": "5412be31e35f67cea21921251af9d481e288971a4fcda992c7a911d08f585677",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/parameters.csv": "99b80be57458b0180e50d2bec3b9efe4bcfd3cdfd778372ad81a1a5d98ecac4c",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/record-intervals.csv": "5d2f52268d1e94fa6fd4b6b3291964b05a5c75d789c289b526154df24c0b2536",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/result.json": "0087651b27e010e0aa119e2cd4b5646effbac0885c1594fd2998b610b9f52e83",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/sampling-diagnostics.csv": "af7353c1d572f22888dfd84eda63d858c27524bfd79e276dfa160cbff6b12938",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/sampling-start.json": "68a427a4f9213aa3fc3655352ffae95cca7cbc7ec706b64be52bc1241b1f7799",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/summary.json": "f81bb4588581447f11de45300019d995df98c69f8261926f0bb83ebab58065c7",
+        "data/processed/models/arrival-sensitivity-v1/ms5-ncei-mean-curvature-t4-matched-prior.nc": "b4139e849171c8f2af3b9c7bea5d82846b4a60012c92c7e5e319aba2a59fca59"
+      },
+      "receipt": "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/attempt-evidence.json",
+      "receipt_sha256": "1c673304bc8017fa722d3fbd7d8909656bbb5cf16d77a5ad945ccf06e3f32dd0"
+    },
+    {
+      "case_id": "ms5-tcal-event-t4-matched-prior",
+      "charged_slots": 1,
+      "files": {
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior-spec.json": "56caa430346ed3be7fd5c124269cbb4ba1b9faf35e471325f7682218f1e8abdf",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior.log": "b48d2ad1ae895cf62591a4484945dcde0b46b296e0322b103dbc555dcdeaf6f4",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior.supervisor.json": "c5d3aa216f2d72d5285ac37d677a95cbdabb63b9c4499f606745039f41a6b48c",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/conditional-ppc.csv": "3edc2bcc80c4b2c91ded76de537ec7588d0bca4cfd7817cd0375e22e1db3aa97",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/curves.csv": "70ee6a934acd24aab582f840e46e02039b20734c0567f8eddfcbe12e14aec441",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/derived.csv": "230b48c3e8975edea614395768c30fd1261474ac011e6cf99bbff6a07cddccde",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/diagnostics.json": "23e30d0ca4e6c397988787bc244f14ad13cbe72c98832592666dc385278c12d0",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/inputs.json": "486613e87a3a7a060a9a3644230f85a2d8b75c3a4c5ddd39ea9bb9b3d250c71c",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/job.json": "56caa430346ed3be7fd5c124269cbb4ba1b9faf35e471325f7682218f1e8abdf",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/membership.json": "fa26655e22c1255d66d52d81467773723b5ccef938a43d50ea37093e4033c041",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/parameters.csv": "f65781cb0b1ece91153dee8b3dfdf88e027668cf3e162d4137be20db27cc5766",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/record-intervals.csv": "e9c1296a000ca7b2f3608e13b5ffd479ef953816a6bc00e3a79ce8a079316ba0",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/result.json": "dc0a73ab1fb38d12fe21d679875834d8173c6236aff6260f9b2f650b2f4083bd",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/sampling-diagnostics.csv": "0cdee5e4e26148347902ae55f60735f379d9833244f41dbde51ceaa27b833705",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/sampling-start.json": "56caa430346ed3be7fd5c124269cbb4ba1b9faf35e471325f7682218f1e8abdf",
+        "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/summary.json": "b27fdc6378551380c2508899537e79f13cf682e27cc1e71ec2a62155c6903af8",
+        "data/processed/models/arrival-sensitivity-v1/ms5-tcal-event-t4-matched-prior.nc": "d4f96531f68eebe5d95a47baa02fcd75655b312e223bb6edf6add23257934233"
+      },
+      "receipt": "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/attempt-evidence.json",
+      "receipt_sha256": "83c83fb5a14dd60b797292a8b8c4a21d7c2996336d452a6367fd675b3811c6fb"
+    }
+  ],
+  "attempts": [
+    {
+      "case_id": "ms5-ncei-mean-curvature-t4-matched-prior",
+      "charged_slots": 1,
+      "outcome": "accepted",
+      "receipt": "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-mean-curvature-t4-matched-prior/attempt-evidence.json",
+      "receipt_sha256": "1c673304bc8017fa722d3fbd7d8909656bbb5cf16d77a5ad945ccf06e3f32dd0",
+      "start_markers": 1
+    },
+    {
+      "case_id": "ms5-tcal-event-t4-matched-prior",
+      "charged_slots": 1,
+      "outcome": "accepted",
+      "receipt": "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-t4-matched-prior/attempt-evidence.json",
+      "receipt_sha256": "83c83fb5a14dd60b797292a8b8c4a21d7c2996336d452a6367fd675b3811c6fb",
+      "start_markers": 1
+    }
+  ],
+  "calls_charged": 2,
+  "calls_started": 2,
+  "current": null,
+  "next_case": 2,
+  "pilot_review_sha256": null,
+  "plan_sha256": "77cd9c3524bcdd2d087af99f65a199df8c403f7168430ef43f826a4429284b7d",
+  "status": "sensitivity_pilot_review_required"
+}

@@ -1,0 +1,30 @@
+{
+  "basis": "1.5_times_larger_measured_pilot_combined_job_times_remaining53_plus_full_cache_growth_plus608MiB_reserve",
+  "cache_bytes": 2865870,
+  "external_reference_bytes": 18895366,
+  "external_reference_files": {
+    "data/processed/models/bridge-sequence-continuation-v1/NCEI-native-duration-distance-scale-fold-02-attempt-1/00-training.nc": "d55447b5d1a99d40265329f56dbeb683e95be5498074fc1cfd5e205a1c1f7a2d",
+    "data/processed/models/bridge-sequence-continuation-v2/NCEI-native-duration-distance-scale-fold-20-attempt-1/00-training.nc": "524b04ef4ce1660c1226c524c37212195c3fc83ad434ca467e00c1133f6d5104",
+    "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/00-training.nc": "b8f5096bcb0f09c165de35f025671fa55f7d66c1cda92cc08157b245e8353b17",
+    "data/processed/models/exploration-baselines-v1/T-CAL/distance.nc": "59d9de6ecc59db06e9ff6a8038a5158f829b8a646afbf5272d4e2047c44480e3",
+    "data/processed/models/exploration-baselines-v1/T-CAL/event.nc": "9b366a6ccf6e7f4d192f5a667cbfb56f50332cba017ec9be3d490f08c7dc7def",
+    "data/processed/models/exploration-baselines-v1/T-CAL/pooled.nc": "1a86badb267d1d98d151c74d2c2f7375d4db552ba0d71397bbcfa5dd1e956248",
+    "data/processed/models/exploration-baselines-v1/T-OBS/distance.nc": "f20dd2564b1231600e1bb4711fd31f8e04af1353c8856b436620205517b104a9",
+    "data/processed/models/exploration-baselines-v1/T-OBS/event.nc": "f53acb662cb27c9d28f2c6bbc59cc3c7ed06ae99d8d187b4e1a0b6d2a58f38e2",
+    "data/processed/models/exploration-baselines-v1/T-OBS/pooled.nc": "eb22c1b80ec6c57f21de2898355d484a9e2ef3bd5a782eed89f41197bafccb55",
+    "data/processed/models/exploration-distance-scale-v1.nc": "aa74dde5df1979dda3e560e7ce463810b3b6a2730cbfc3bdccfceeb1b5a14173"
+  },
+  "future_per_job_planning_allowance_bytes": 12686774,
+  "hard_watcher_required": true,
+  "local_bytes": 38914950,
+  "measured_pilot_job_bytes": [
+    8457849,
+    6898676
+  ],
+  "planning_estimate_not_guarantee": true,
+  "projected_global_peak_bytes": 2824866924,
+  "projected_local_peak_bytes": 1614417766,
+  "proposed_global_max_bytes": 3221225472,
+  "proposed_local_max_bytes": 2147483648,
+  "working_bytes": 1230468742
+}
