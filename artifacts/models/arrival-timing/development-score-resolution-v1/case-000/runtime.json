@@ -1,0 +1,73 @@
+{
+  "libraries": {
+    "h5netcdf": "1.8.2",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.8.0",
+    "xarray": "2026.9.0"
+  },
+  "protocol": {
+    "aggregate_mcse": "triangle_bound_old_shared_part_plus_QMC_part",
+    "aggregate_mcse_max": 0.002,
+    "agreement_max": 0.0005,
+    "arithmetic_batch_size": 256,
+    "case_id": "case-000",
+    "check_records": 151,
+    "coefficient_normal_sd": [
+      0.5,
+      0.25,
+      0.5
+    ],
+    "cross_proposal_dependence": "common_Sobol_scrambles_not_independent_evidence",
+    "crosscheck_proposal_df": 9,
+    "event_id": "usp0008rpa",
+    "event_records": 20,
+    "final_proposal_df": 5,
+    "hyperparameter_order": [
+      "sigma_500",
+      "sigma_2000",
+      "sigma_5000",
+      "tau_event"
+    ],
+    "levels": [
+      65536,
+      262144
+    ],
+    "mcse_max": 0.005,
+    "mcse_method": "max_paired_pooled_ratio_delta_and_replicate_logratio_SE",
+    "method": "exact_Normal_coefficient_event_marginal_importance_QMC_v1",
+    "model_key": "NCEI-native-duration:mean-curvature:selected",
+    "native_jacobian": "held_event_once_training_constant_cancels",
+    "no_adaptive_proposal": true,
+    "no_clipping": true,
+    "no_mcmc": true,
+    "no_reseed": true,
+    "proposal": "training_only_logtheta_mean_and_unbiased_covariance_variance_matched_t",
+    "proposal_df": [
+      5,
+      9
+    ],
+    "replicate_range": "diagnostic_only_range_over_MCSE_bounded_by_2sqrt6",
+    "scale_halfnormal_sd": [
+      0.4,
+      0.4,
+      0.4,
+      0.4
+    ],
+    "scrambles": [
+      2996110800,
+      2996110900,
+      2996111000,
+      2996111100
+    ],
+    "sobol_dimensions": 5,
+    "stream_block_size": 4096,
+    "training_draws": 8000,
+    "training_records": 1040,
+    "weight_concentration_min": 100.0
+  },
+  "quadrature_is_not_mcmc": true,
+  "source_gate_sha256": "2f34e8033c4f5eb15c81c450c12838a046bf88bd3789f57d6c4f13495dcb6ad7",
+  "store_full_nodes": false,
+  "training_posterior_sha256": "81cb836d8c6aa48d5b6a1095330090c43f73079da1c6c7bec5fb4382c4f473bb"
+}

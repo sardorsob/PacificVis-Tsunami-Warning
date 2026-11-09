@@ -1,0 +1,69 @@
+{
+  "available": true,
+  "primary": {
+    "equal_event_score": -5.136684443874578,
+    "events": 14,
+    "functional_mixing_original_part": {
+      "constant": false,
+      "ess_bulk": 5870.092614220003,
+      "ess_tail": 5062.123011456832,
+      "passed": true,
+      "rhat": 1.0002782956725664
+    },
+    "mcse_scope": "conservative_sum_of_estimated_MCSEs_not_a_bias_certificate",
+    "mcse_triangle_bound": 0.00028646289479918497,
+    "original_direct_events": [
+      "official20010623203314130_33",
+      "official20030925195006360_27",
+      "usp0009j4n",
+      "usp000cd1n",
+      "usp000d3ka",
+      "usp000fshy",
+      "usp000g3eq",
+      "usp000gv5p",
+      "usp000h5np",
+      "usp000hr97",
+      "usp000jeag",
+      "usp000jr83",
+      "usp000jrsw"
+    ],
+    "original_shared_part_mcse": 0.00028206838037543244,
+    "precision_passed": true,
+    "qmc_part_mcse": 4.394514423752516e-06,
+    "resolved_event_id": "usp0008rpa",
+    "status": "computed_pending_scientific_review"
+  },
+  "supplement_available": true,
+  "without_crossing_event": {
+    "equal_event_score": -5.202303751847915,
+    "events": 13,
+    "functional_mixing_original_part": {
+      "constant": false,
+      "ess_bulk": 5714.650195733241,
+      "ess_tail": 5174.187065846584,
+      "passed": true,
+      "rhat": 1.000271124884826
+    },
+    "mcse_scope": "conservative_sum_of_estimated_MCSEs_not_a_bias_certificate",
+    "mcse_triangle_bound": 0.00029919545033921344,
+    "original_direct_events": [
+      "official20010623203314130_33",
+      "official20030925195006360_27",
+      "usp0009j4n",
+      "usp000cd1n",
+      "usp000fshy",
+      "usp000g3eq",
+      "usp000gv5p",
+      "usp000h5np",
+      "usp000hr97",
+      "usp000jeag",
+      "usp000jr83",
+      "usp000jrsw"
+    ],
+    "original_shared_part_mcse": 0.00029446289634440305,
+    "precision_passed": true,
+    "qmc_part_mcse": 4.732553994810402e-06,
+    "resolved_event_id": "usp0008rpa",
+    "status": "computed_pending_scientific_review"
+  }
+}

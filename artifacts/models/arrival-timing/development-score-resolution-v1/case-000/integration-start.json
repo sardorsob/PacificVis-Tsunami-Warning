@@ -1,0 +1,13 @@
+{
+  "job": {
+    "event_id": "usp0008rpa",
+    "id": "case-000",
+    "model_key": "NCEI-native-duration:mean-curvature:selected",
+    "order": 0,
+    "protocol_sha256": "1bca30b3460b0e15f1d912845654325206410be9647b5ca1867eafc4a8a0c258",
+    "role": "numerical_score_resolution",
+    "sampler_calls": 0
+  },
+  "protocol_sha256": "1bca30b3460b0e15f1d912845654325206410be9647b5ca1867eafc4a8a0c258",
+  "sampler_calls": 0
+}

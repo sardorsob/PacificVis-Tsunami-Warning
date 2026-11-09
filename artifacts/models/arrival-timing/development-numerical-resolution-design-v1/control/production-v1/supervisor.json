@@ -1,0 +1,19 @@
+{
+  "elapsed_seconds": 112.32034200010821,
+  "integration_markers": 1,
+  "invocation_git_sha": "7a6c2d82900a38b1da7a0ed1524474940076f5f2",
+  "job_sha256": "2ff80e6a02fb7a3e72b0175660c67b72881b40933cbefbccbb6a40573689823a",
+  "launcher_sha256": "7a999b1b80b6df0203bdd72dc7ef0e12fb57df60cf3bc39c2f5faa97b6725d01",
+  "monitor_failures": [],
+  "numeric_gate_sha256": "2f34e8033c4f5eb15c81c450c12838a046bf88bd3789f57d6c4f13495dcb6ad7",
+  "original_kernel_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f",
+  "original_state_after_sha256": "8369712a58ef2d1c28527a6850fb8769b684147bbad0c12bf469d3e03907ace8",
+  "original_state_before_sha256": "8369712a58ef2d1c28527a6850fb8769b684147bbad0c12bf469d3e03907ace8",
+  "protocol_sha256": "1bca30b3460b0e15f1d912845654325206410be9647b5ca1867eafc4a8a0c258",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "sampler_calls": 0,
+  "sampler_markers": 0,
+  "source_identity": "d6d636ca463018e95435104eda3e60aec5d75339873c194e76e9337e2d7cd50b",
+  "specification_freeze_sha256": "b1de266480cb5dd31f18a34c4aef59d42866ed4f2a24b85a68b04d2045d22fce"
+}
