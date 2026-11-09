@@ -1,0 +1,23 @@
+{
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/full_development/review-acceptance.json",
+  "authority_gate_sha256": "48fb7d795d91981f50d6e510aa97cbd7908ac878955f2be132edc715bc2a23c2",
+  "cost": 1,
+  "invocation_git_sha": "023ae804ad193073e3cc2102a8786951a997f08f",
+  "job": {
+    "id": "dev-tcal-distance-selected-full",
+    "model_key": "T-CAL:distance:selected",
+    "order": 2,
+    "role": "full_development",
+    "seed": 2986111000,
+    "training_reference": null
+  },
+  "job_id": "dev-tcal-distance-selected-full",
+  "phase": "full_development",
+  "plan": "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/epochs/epoch-2/full_development-plan.json",
+  "plan_sha256": "be3399b3884187e6af4a4893d5faf1c7c4d5418d5ac5663110c4601df398d4b6",
+  "role": "full_development",
+  "spec": "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full-spec.json",
+  "spec_sha256": "4a254c80981f5e211c66f63e04d085a08e6ac16f443c390c9205aa908a3e1581",
+  "worker_gate": "artifacts/models/arrival-timing/full-development-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "02b581fe59ce577590213a2307d7b8cb64a039e0391d951ee5bdd909531a57bb"
+}

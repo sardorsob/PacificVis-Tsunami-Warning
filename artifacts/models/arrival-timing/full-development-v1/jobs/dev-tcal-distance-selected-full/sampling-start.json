@@ -1,0 +1,8 @@
+{
+  "id": "dev-tcal-distance-selected-full",
+  "model_key": "T-CAL:distance:selected",
+  "order": 2,
+  "role": "full_development",
+  "seed": 2986111000,
+  "training_reference": null
+}

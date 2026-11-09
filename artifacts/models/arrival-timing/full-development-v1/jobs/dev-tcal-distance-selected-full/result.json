@@ -1,0 +1,28 @@
+{
+  "confirmation_outcomes_parsed": true,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.05411904892825857,
+    "max_rhat": 1.0014451113389287,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.963546075210017,
+    "min_ess_bulk": 2983.5604472638533,
+    "min_ess_tail": 3803.9505325830546,
+    "screen_passed": true
+  },
+  "job": {
+    "id": "dev-tcal-distance-selected-full",
+    "model_key": "T-CAL:distance:selected",
+    "order": 2,
+    "role": "full_development",
+    "seed": 2986111000,
+    "training_reference": null
+  },
+  "posterior": "data/processed/models/arrival-development-v1/dev-tcal-distance-selected-full.nc",
+  "posterior_sha256": "0c2f1232c1148d4689ee9deb9be2eee96e1cab65842ffa14e52718eaba4c697b",
+  "reserved_outcomes": "sealed",
+  "sampler_call_started": true,
+  "scoring_performed": false,
+  "status": "computed_pending_scientific_review"
+}

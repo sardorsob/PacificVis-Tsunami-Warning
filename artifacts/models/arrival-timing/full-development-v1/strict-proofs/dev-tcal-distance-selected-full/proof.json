@@ -1,0 +1,33 @@
+{
+  "diagnostic_comparison": {},
+  "job": {
+    "id": "dev-tcal-distance-selected-full",
+    "model_key": "T-CAL:distance:selected",
+    "order": 2,
+    "role": "full_development",
+    "seed": 2986111000,
+    "training_reference": null
+  },
+  "original_exact_oracle_equal": true,
+  "proof_contract": "original_full_development_case_artifacts",
+  "sampler_calls": 0,
+  "status": "strict_original_worker_artifacts_passed",
+  "worker_files": {
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/conditional-ppc.csv": "a15262dd8df8e451e62ff196be9afb427e6dde9a36420961454a370592369cb2",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/curves.csv": "ae866027838e585f8b292e3f5e4249c0f67bf7d1373cd08467737498915f30c0",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/derived.csv": "ade3c6ed358ba5993833d3482e71be0d4cb02d66c1be5d916854ff266513e76c",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/diagnostics.json": "09841ffacf618e6ba50920b646c2376f0352d335d534045f84963bdb8d973f11",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/inputs.json": "4abf74b990200cfdb83aeb5d426322054d6a0e301368d442e52076c4a73fa461",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/job.json": "4a254c80981f5e211c66f63e04d085a08e6ac16f443c390c9205aa908a3e1581",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/membership.json": "71d4faac11e6cb386a41457f451925739c45dd5665f78f6742e0fe4947c70662",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/output-checksums.json": "ade7e4b2615bcee2d30a78e6399f458d0c8c931caf4e2364790be143d51665b9",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/parameters.csv": "5382ff587a15bf874883f6559ef100dc725f8c461f077de02a4a916d8b324188",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/prior-settings.json": "4b4e1bf174c75acf0c7e9033d41040f3dcd33cc0e065cb892657332226153f7a",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/record-intervals.csv": "071d4e081b5e5279b5506cd0d99e4c03079f8bf04156431276677424b676785b",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/result.json": "cbeb261daf270747370a7c636d4e863552f7e1459dcf4d5b0905e91fdaaf121b",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/sampling-diagnostics.csv": "47898011086351b9e8aaed803ce79892dae4974c9f922f82a6f6b6c4be8212f4",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/sampling-start.json": "4a254c80981f5e211c66f63e04d085a08e6ac16f443c390c9205aa908a3e1581",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/summary.json": "e1e5cd0b9ce4cff3ef07336cfe64ef40207f1b3e3821d411cbb55f659da1d125",
+    "data/processed/models/arrival-development-v1/dev-tcal-distance-selected-full.nc": "0c2f1232c1148d4689ee9deb9be2eee96e1cab65842ffa14e52718eaba4c697b"
+  }
+}
