@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-ncei-distance-scale-base-omit-tohoku-and-chile",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1-spec.json": "13f41a19d415afa328c4e85bfa83749dd8f3b48e5c43647261a613e7087665bf",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1.log": "bdf99b1e03bf1d42dff511036e36242085faf0d92bb3bc5f5322b276bd30274c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1.supervisor.json": "f7a305256eeeb0140e81286349d72d43780fc07f83286ae5bffcb714825243e3",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/conditional-ppc.csv": "fbe7749922b7bd139feecd7dc1b88d91e6f3a5ef4fe2c1fc5577d925e158a074",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/curves.csv": "f2d3c0436aa15196758090ba8280683c1acf772223c5fb31b4bb8bd41e6f2844",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/derived.csv": "7d3d5a059d1458c4bd546900ef27b8a663d9be2ac8b49860e122153f8377cac7",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/diagnostics.json": "f49e8fc68c19f4c15c3309fe3b1af20c641c8992f07403e9dfb6911777cc84ec",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/inputs.json": "8ebc68f36784dbce9c8e6100b2b35dd9900c0d41003b237371865c1c0a2ed266",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/job.json": "13f41a19d415afa328c4e85bfa83749dd8f3b48e5c43647261a613e7087665bf",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/membership.json": "a2e8022a875a67166846b4af7c370a8e1788ac45831c03ab0272128388c65f08",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/parameters.csv": "cb96c61400b88e28a7e26c3920f0b8d31ea049b107a13a92418330d0b9e793f8",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/record-intervals.csv": "1ef512eea0efce0e796b719605e56ce07904e9d2a16d562a3ea85cc8c267e335",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/result.json": "3beba4bde33b8ca775ea5f73760093f796d7119ba32f47c0ddc07ea74b462ee1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/sampling-diagnostics.csv": "bd09a77f6736bacff768adfae4b413c9610b68ae99c6b5b04d6b52a522258b09",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/sampling-start.json": "13f41a19d415afa328c4e85bfa83749dd8f3b48e5c43647261a613e7087665bf",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs/ms5-numerical-protocol-v2-042-attempt-1/summary.json": "73f0bd54446ee3499d1e73f66d25800517c301c18c4724ec0328a3a620fcce16",
+    "data/processed/models/arrival-sensitivity-numerical-protocol-v2/ms5-numerical-protocol-v2-042-attempt-1.nc": "00bdd6f586fb1eff0ecfea1511e4d729496d98cf64502344b193450e2a547d02"
+  }
+}

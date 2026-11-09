@@ -1,0 +1,21 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/audit.py.txt": "e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/plots/case-042-energy.png": "09424bad10f309840105c4aa8a9d4e1b5cd297c5686eb518dc4932212a7421d6",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/plots/case-042-trace-rank.png": "1c1b04912f0c7a5d327bbaa170a932f6e215bb4e038d45e7c5902884ae08b144",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/plots/case-043-energy.png": "b6771e63977e056fa0a59f04dbd0691613c4a33fc6fa7733b43647ac34d1b841",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/plots/case-043-trace-rank.png": "626b416fb8f29cf5353ceb87e46452691f68acdc0fcffb53695fc4bdf7f0732d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-042-043/result.json": "5492dd7d5eefe72fa013ef4e97115dbffdfef8265dbc0d17957acfe724132e5c"
+  },
+  "helper_source": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt",
+  "reproduction": "Restore pinned retained helper at /private/tmp/check_s5_remaining_completion.py; the preserved audit requires explicit Root closure notice and a matching idle accepted prefix, and never runs a sampler/controller.",
+  "reserved_outcomes": "sealed",
+  "scope": "Immutable independent SCI checkpoint, original closed cases only",
+  "visual_review": {
+    "energy": "All centered-energy and energy-transition plots viewed; no concerning chain mismatch.",
+    "plots_opened": 4,
+    "status": "accepted",
+    "trace_rank": "All four chains and all scalar coordinates viewed; no concerning drift/stuck chains/separation. Pooled rank plots are descriptive, not uniformity tests."
+  }
+}
