@@ -1,0 +1,15 @@
+import sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+T.bootstrap(R,T.PHASES[1])
+from analysis.arrival.model_development_readout import load_reader
+reader=load_reader(R)
+import xarray as xr
+
+def forbidden(*args,**kwargs):raise AssertionError('native posterior replay forbidden in accepted saved-table report')
+reader.fit._read_population=forbidden
+xr.open_dataset=forbidden
+output=R/'artifacts/models/arrival-timing/full-development-analysis-v1'
+reader.report(R,output)
+print('generated',output)

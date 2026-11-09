@@ -1,0 +1,137 @@
+"""Draft an append-only saved-table binding; never publish or generate a report."""
+
+# pyright: basic
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+ROOT = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+sys.path.insert(0, str(ROOT))
+from analysis.arrival import model_development_readout as A  # noqa: E402
+from analysis.arrival import model_development_technical_completion as T  # noqa: E402
+
+
+def build(root: Path) -> dict[str, Any]:
+    root = Path(root).resolve()
+    A._reader_path(root)
+    T.require(
+        T.sha(T.file(root, A.FULL_REVIEW)) == A.FULL_REVIEW_SHA256,
+        "immutable accepted FullSCI first",
+    )
+    upstream = T.load(root, A.FULL_REVIEW)
+    T.require(
+        upstream.get("status") == "accepted_frozen_full_development_fits"
+        and upstream.get("independent_checker") is True
+        and upstream.get("confirmation_outcomes_parsed") is True
+        and upstream.get("development_check_previously_inspected") is True
+        and upstream.get("reserved_outcomes") == "sealed"
+        and upstream.get("reserved_outcomes_parsed") is False
+        and upstream.get("calls_charged") == upstream.get("calls_started") == 9
+        and len(upstream["jobs"]) == len(upstream["accepted_records"]) == 3,
+        "three independently accepted full fits under the original nine calls",
+    )
+    pins = T.merge(
+        upstream["files"],
+        {A.FULL_REVIEW: A.FULL_REVIEW_SHA256},
+        {n: T.sha(T.file(root, n)) for n in [A.SELF, A.TEST]},
+    )
+    T.require(
+        A.REPORT_GATE not in pins and pins.get(A.READER) == A.READER_SHA256,
+        "append-only binding without cycles or changed reader",
+    )
+    accepted = []
+    dispositions = upstream["ordinary_scientific_dispositions"]
+    T.require(len(dispositions) == 3, "three existing scientific dispositions")
+    for job, record, sci in zip(
+        upstream["jobs"], upstream["accepted_records"], dispositions, strict=True
+    ):
+        receipt = str(T.attempt_path(root, T.PHASES[1], job).relative_to(root))
+        T.require(
+            job["role"] == T.PHASES[1]
+            and record.get("job_id") == job["id"]
+            and record.get("phase") == record.get("role") == T.PHASES[1]
+            and record.get("outcome") == "accepted"
+            and type(record.get("cost")) is int
+            and type(record.get("start_markers")) is int
+            and record["cost"] == record["start_markers"] == 1
+            and record.get("receipt") == receipt
+            and record.get("receipt_sha256") == pins.get(receipt)
+            and T.load(root, receipt)
+            == {
+                k: v
+                for k, v in record.items()
+                if k not in {"receipt_sha256", "producer_epoch", "proof_contract"}
+            },
+            "exact existing successful producer receipt",
+        )
+        T._covered(pins, record["files"])
+        folder = T.paths(root, T.PHASES[1], job)[0]
+        result = str((folder / "result.json").relative_to(root))
+        summary = str((folder / "summary.json").relative_to(root))
+        T.require(
+            {result, summary} <= set(record["files"])
+            and sci["job"] == job
+            and pins.get(sci["review"]) == sci["review_sha256"],
+            "literal final metadata and SCI",
+        )
+        science = T.load(root, sci["review"])
+        T.require(
+            science.get("status") == "accepted_closed_full_development_scientific_checks"
+            and science.get("independent_checker") is True
+            and science.get("job") == job,
+            "original independent full-fit science remains authoritative",
+        )
+        accepted.append(
+            dict(
+                job=job,
+                files=record["files"],
+                receipt=receipt,
+                receipt_sha256=record["receipt_sha256"],
+                result=result,
+                summary=summary,
+            )
+        )
+    gate = dict(
+        upstream,
+        accepted=accepted,
+        files=pins,
+        purpose="Read-only saved-table report binding; unchanged statistical results.",
+        upstream_full_fit_review=A.FULL_REVIEW,
+        upstream_full_fit_review_sha256=A.FULL_REVIEW_SHA256,
+        new_sampler_calls=0,
+        new_statistical_estimates=False,
+        readout_adapter=A.SELF,
+    )
+    T.fresh(root, pins)
+    A._reader_path(root)
+    return dict(
+        status="draft_only_not_published",
+        gate_path=A.REPORT_GATE,
+        gate=gate,
+        gate_sha256=hashlib.sha256(T.payload(gate)).hexdigest(),
+        project_writes_performed=False,
+        native_arrays_parsed=False,
+    )
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--output", type=Path, required=True)
+    a = p.parse_args()
+    T.require(
+        a.output.parent == Path("/private/tmp")
+        and not a.output.exists()
+        and not a.output.is_symlink(),
+        "new literal TMP draft only",
+    )
+    draft = build(ROOT)
+    with a.output.open("xb") as f:
+        f.write(T.payload(draft))
+    print(json.dumps(dict(gate_sha256=draft["gate_sha256"], pins=len(draft["gate"]["files"]))))
+
+
+if __name__ == "__main__":
+    main()

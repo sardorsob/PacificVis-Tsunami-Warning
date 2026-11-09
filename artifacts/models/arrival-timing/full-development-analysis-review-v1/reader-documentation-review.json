@@ -1,0 +1,120 @@
+{
+  "NCEI_exclusions": {
+    "eligible": 1215,
+    "excluded": 6,
+    "group_sizes": [
+      2,
+      2,
+      2
+    ],
+    "metadata_only_membership_source": "artifacts/models/arrival-timing/exploration-contract-v1/fold-membership.csv.gz",
+    "pre": 1221
+  },
+  "P0": 0,
+  "P1": 0,
+  "README_or_project_Source_Gates_STATE_context_Git_writes": false,
+  "README_sha256": "d50a20badd015fdf77f79941e50a0f11f936ca9bdaea1de1bdf14d3fc52acfc0",
+  "analysis_review_sha256": "5108ae32c540cc07916ecec9fd500a751a1178485245dcedec5366483a409f82",
+  "blocking_findings": [],
+  "checked_UTC": "2026-11-09T22:55:28.825342+00:00",
+  "figure_inventory": [
+    "caption.md",
+    "inputs.json",
+    "output-checksums.json",
+    "plot-saved-quantiles.py",
+    "plotted-quantiles.csv",
+    "selected-model-distance-curves-and-predictive-intervals.png"
+  ],
+  "figure_png_sha256": "89e010273a25e596e1bf8dbe2f2e2832ce2464cbca0cbcee39b03a6b32d86e51",
+  "files": {
+    "README.md": "d50a20badd015fdf77f79941e50a0f11f936ca9bdaea1de1bdf14d3fc52acfc0",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/findings.md": "dee543a8c960db453f06aa1f69f2f0a7b96eb90dfa108eb69933ec19595c15b1",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/inputs.json": "65b58ec28b172d3c5830dbf83680e962b01dd84475d9b97ad60f413a224875e0",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/output-checksums.json": "54fbea9d0daa3aca1c8f0f4e0233c7c9beb403dc6ad5efb53b016d8c5337a358",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/review-acceptance.json": "5108ae32c540cc07916ecec9fd500a751a1178485245dcedec5366483a409f82",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/summary.json": "7e55ca05a7b7d85df9faff99e4d6567c67285f41d668d0c9110dd694b1714f72",
+    "artifacts/models/arrival-timing/full-development-figures-v1/caption.md": "b405dd1c0ae57bfcf27072f4e10c3ecd2561a6a3ec900d48e687ad0f7917ab50",
+    "artifacts/models/arrival-timing/full-development-figures-v1/inputs.json": "23241396455772afc0f9638edd1180f75a0f7a63a96c71be04e570ecf8571b8d",
+    "artifacts/models/arrival-timing/full-development-figures-v1/output-checksums.json": "f68aa7a645bac20b18d4533fcecb940ee6e1bab1953af2b99d0062e7f6772697",
+    "artifacts/models/arrival-timing/full-development-figures-v1/plot-saved-quantiles.py": "f4bc00d03a870fa77f094c274ff080cd2b4a1b5233484abae5ed9005123607a1",
+    "artifacts/models/arrival-timing/full-development-figures-v1/plotted-quantiles.csv": "38b614230a6cc0933d1ec3ce2b573816317c78fc03ccaf115c84513410db85f7",
+    "artifacts/models/arrival-timing/full-development-figures-v1/selected-model-distance-curves-and-predictive-intervals.png": "89e010273a25e596e1bf8dbe2f2e2832ce2464cbca0cbcee39b03a6b32d86e51"
+  },
+  "independent_checker": true,
+  "interpretation_checks": {
+    "PPC_correlated_descriptive_cells_not_coverage": true,
+    "inspected_19_not_independent_test": true,
+    "no_physical_or_operational_claim": true,
+    "no_stale_unfitted_claim": true,
+    "reserved_18_sealed": true,
+    "sampler_diagnostics_separate_from_model_adequacy": true,
+    "two_runnerup_score_gaps_unavailable": true,
+    "unresolved_2014_linear_stress_not_curved_advantage": true
+  },
+  "limitations": [
+    "No new visual QA; accepted figure was checked through caption and exact manifest bytes.",
+    "Existing untouched README scientific-foundation and story sections were checked only for contradictions, not re-audited."
+  ],
+  "model_facts": [
+    {
+      "PPC_cells": 30,
+      "PPC_misses": 20,
+      "base_priors": true,
+      "divergences": 0,
+      "events": 47,
+      "kind": "mean-curvature",
+      "max_rhat": 1.0007746237880935,
+      "reports": 1215,
+      "target": "NCEI-native-duration"
+    },
+    {
+      "PPC_cells": 30,
+      "PPC_misses": 21,
+      "base_priors": true,
+      "divergences": 0,
+      "events": 20,
+      "kind": "pooled",
+      "max_rhat": 1.000331929488426,
+      "reports": 258,
+      "target": "T-OBS"
+    },
+    {
+      "PPC_cells": 30,
+      "PPC_misses": 10,
+      "base_priors": true,
+      "divergences": 0,
+      "events": 18,
+      "kind": "distance",
+      "max_rhat": 1.0014451113389287,
+      "reports": 169,
+      "target": "T-CAL"
+    }
+  ],
+  "native_arrays_or_response_source_rows_read": false,
+  "new_relative_links": [
+    "artifacts/models/arrival-timing/full-development-analysis-v1/findings.md",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/summary.json",
+    "artifacts/models/arrival-timing/full-development-analysis-v1/review-acceptance.json",
+    "docs/research/bayesian-model-readiness.md",
+    "artifacts/models/arrival-timing/full-development-figures-v1/selected-model-distance-curves-and-predictive-intervals.png",
+    "artifacts/models/arrival-timing/full-development-figures-v1/plotted-quantiles.csv"
+  ],
+  "new_relative_links_passed": 6,
+  "output_checksum_manifests_passed": {
+    "artifacts/models/arrival-timing/full-development-analysis-v1": 3,
+    "artifacts/models/arrival-timing/full-development-figures-v1": 5
+  },
+  "repo_docs_skill": "/Users/sobirov/Workspace/Projects/sardors-agentic-workflows/writing-agentic-workflow-kit/skills/repo-docs/SKILL.md",
+  "report_inventory": [
+    "findings.md",
+    "inputs.json",
+    "output-checksums.json",
+    "review-acceptance.json",
+    "summary.json"
+  ],
+  "reserved_outcome_links_followed": false,
+  "scope": "README diff, six new relative links, accepted saved-report facts and exact output inventories; no scientific rerun.",
+  "scoring_or_sampling_called": false,
+  "source_hashes_unchanged_before_after": true,
+  "status": "accepted_final_model_documentation"
+}

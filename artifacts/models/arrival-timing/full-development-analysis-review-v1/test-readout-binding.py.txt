@@ -1,0 +1,135 @@
+"""Synthetic descriptor-lineage tests for the append-only TMP binding builder."""
+
+# pyright: basic
+import importlib.util
+from types import SimpleNamespace
+
+import pytest
+
+spec = importlib.util.spec_from_file_location(
+    "builder", "/private/tmp/prepare-tsunami-development-readout-gate.py"
+)
+assert spec is not None and spec.loader is not None
+b = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(b)
+A, T = b.A, b.T
+
+
+@pytest.fixture
+def case(tmp_path, monkeypatch):
+    root = tmp_path
+
+    def put(name, value):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(T.payload(value))
+        return T.sha(p)
+
+    pins = {n: put(n, dict(opaque=True)) for n in [A.SELF, A.TEST, A.READER]}
+    monkeypatch.setattr(A, "READER_SHA256", pins[A.READER])
+    jobs = [dict(id=f"full-{i}", order=i, role=T.PHASES[1]) for i in range(3)]
+    records = []
+    science = []
+    for j in jobs:
+        folder = T.paths(root, T.PHASES[1], j)[0]
+        files = {
+            str((folder / n).relative_to(root)): put(
+                str((folder / n).relative_to(root)), dict(saved=True)
+            )
+            for n in ["result.json", "summary.json"]
+        }
+        receipt = str(T.attempt_path(root, T.PHASES[1], j).relative_to(root))
+        rec = dict(
+            job_id=j["id"],
+            phase=T.PHASES[1],
+            role=T.PHASES[1],
+            outcome="accepted",
+            cost=1,
+            start_markers=1,
+            receipt=receipt,
+            files=files,
+        )
+        pins.update(files)
+        pins[receipt] = put(receipt, rec)
+        records.append(
+            dict(
+                rec,
+                receipt_sha256=pins[receipt],
+                producer_epoch="technical-completion-v2",
+                proof_contract=T.FULL_PROOF_CONTRACT,
+            )
+        )
+        name = f"science-{j['order']}.json"
+        pins[name] = put(
+            name,
+            dict(
+                status="accepted_closed_full_development_scientific_checks",
+                independent_checker=True,
+                job=j,
+            ),
+        )
+        science.append(dict(job=j, review=name, review_sha256=pins[name]))
+    value = dict(
+        status="accepted_frozen_full_development_fits",
+        independent_checker=True,
+        confirmation_outcomes_parsed=True,
+        development_check_previously_inspected=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        calls_charged=9,
+        calls_started=9,
+        jobs=jobs,
+        accepted_records=records,
+        ordinary_scientific_dispositions=science,
+        files=pins,
+    )
+    monkeypatch.setattr(A, "FULL_REVIEW_SHA256", put(A.FULL_REVIEW, value))
+    return SimpleNamespace(root=root, value=value, put=put)
+
+
+def test_missing_legacy_descriptors_are_added_without_changing_science(case):
+    assert (
+        len(case.value.get("accepted", [])) == 0
+    )  # Reproduces the unchanged reader's old rejection.
+    old = (case.root / A.FULL_REVIEW).read_bytes()
+    x = b.build(case.root)
+    g = x["gate"]
+    assert len(g["accepted"]) == 3 and g["new_sampler_calls"] == 0
+    assert g["accepted_records"] == case.value["accepted_records"]
+    assert (case.root / A.FULL_REVIEW).read_bytes() == old
+    for j, r, d in zip(g["jobs"], g["accepted_records"], g["accepted"], strict=True):
+        assert (
+            d["job"] == j
+            and d["files"] == r["files"]
+            and d["receipt_sha256"] == r["receipt_sha256"]
+        )
+        assert d["result"].endswith(j["id"] + "/result.json") and d["summary"].endswith(
+            j["id"] + "/summary.json"
+        )
+    assert not (case.root / A.REPORT_GATE).exists()
+
+
+@pytest.mark.parametrize(
+    "fault",
+    ["wrong_receipt", "wrong_job", "missing_summary", "wrong_science", "oldSCI_drift", "raw_drift"],
+)
+def test_resealed_or_changed_lineage_rejects(case, monkeypatch, fault):
+    v = case.value
+    r = v["accepted_records"][0]
+    if fault == "wrong_receipt":
+        r["receipt"] = "foreign.json"
+    if fault == "wrong_job":
+        r["job_id"] = "foreign"
+    if fault == "missing_summary":
+        r["files"].pop(next(n for n in r["files"] if n.endswith("/summary.json")))
+    if fault == "wrong_science":
+        v["ordinary_scientific_dispositions"][0]["job"] = {"id": "foreign"}
+    if fault == "oldSCI_drift":
+        (case.root / A.FULL_REVIEW).write_bytes(b"changed")
+    elif fault == "raw_drift":
+        (case.root / next(iter(r["files"]))).write_bytes(b"changed")
+    else:
+        monkeypatch.setattr(A, "FULL_REVIEW_SHA256", case.put(A.FULL_REVIEW, v))
+    with pytest.raises(ValueError):
+        b.build(case.root)
+    assert not (case.root / A.REPORT_GATE).exists()

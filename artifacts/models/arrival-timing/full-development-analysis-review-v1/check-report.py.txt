@@ -1,0 +1,140 @@
+"""Independent saved-table-only report QA; no model/native/scoring imports."""
+import csv
+import hashlib
+import json
+from collections import Counter
+from decimal import Decimal
+from pathlib import Path
+
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+ART='artifacts/models/arrival-timing/'
+REPORT=ART+'full-development-analysis-v1'
+CHECK=ART+'development-check-v1/jobs/'
+FULL=ART+'full-development-v1/jobs/'
+BINDING=ART+'full-development-analysis-design-v1/review-acceptance.json'
+UPSTREAM=ART+'full-development-v1/review-acceptance.json'
+PRIVATE={'context/runs/arrival-model-fitting-v1/development-state.json',
+'context/runs/arrival-model-fitting-v1/development-completion-state.json',
+'context/runs/arrival-model-fitting-v1/sensitivity-state.json'}
+
+def sha(path):
+ with Path(path).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+def read(name):return json.loads((ROOT/name).read_text())
+def rows(name):
+ with (ROOT/name).open() as f:return list(csv.DictReader(f))
+def fresh(files):
+ for n,h in files.items():
+  p=ROOT/n;assert p.resolve()==p and p.is_file() and sha(p)==h,('fresh byte mismatch',n)
+def interval(row):return f"{row['q50']:.4g} [{row['q05']:.4g}, {row['q95']:.4g}]"
+
+def audit():
+ output=ROOT/REPORT
+ assert sorted(p.name for p in output.iterdir())==['findings.md','inputs.json','output-checksums.json','summary.json']
+ inputs=read(REPORT+'/inputs.json');pins=inputs['files'];manifest=read(REPORT+'/output-checksums.json')
+ assert set(manifest)=={'findings.md','inputs.json','summary.json'}
+ fresh(pins)
+ assert not PRIVATE&set(pins)
+ assert inputs['review']==BINDING
+ for n,h in manifest.items():assert sha(output/n)==h
+ binding,upstream=read(BINDING),read(UPSTREAM)
+ assert binding['upstream_full_fit_review']==UPSTREAM
+ assert binding['upstream_full_fit_review_sha256']==pins[UPSTREAM]==sha(ROOT/UPSTREAM)
+ assert binding['status']==upstream['status']=='accepted_frozen_full_development_fits'
+ assert binding['calls_charged']==binding['calls_started']==9
+ assert binding['new_statistical_estimates'] is False and binding['new_sampler_calls']==0
+ assert len(binding['accepted'])==len(upstream['accepted_records'])==3
+ for d,r,j in zip(binding['accepted'],upstream['accepted_records'],upstream['jobs'],strict=True):
+  assert d['job']==j and d['files']==r['files'] and d['receipt']==r['receipt']
+  assert d['receipt_sha256']==sha(ROOT/d['receipt'])==pins[d['receipt']]
+ summary=read(REPORT+'/summary.json');text=(output/'findings.md').read_text()
+ assert summary['interval_probability']==.9
+ assert summary['confirmation_outcomes_parsed'] is True and summary['development_check_previously_inspected'] is True
+ assert summary['reserved_outcomes']=='sealed' and summary['reserved_outcomes_parsed'] is False
+ expected=[('NCEI-native-duration','mean-curvature',1215,47),('T-OBS','pooled',258,20),('T-CAL','distance',169,18)]
+ assert [(x['target'],x['model']['kind'],x['support']['records'],len(x['support']['event_counts'])) for x in summary['lanes']]==expected
+ freeze=read(ART+'specification-freeze-v1/review-acceptance.json')
+ assert {n:h for n,h in pins.items() if n.startswith('context/')}=={n:h for n,h in freeze['files'].items() if n.startswith('context/')}
+ assert len([n for n in pins if n.startswith('context/')])==12
+ counts=Counter();ppcmisses={};checkfacts=[]
+ resolved=read(ART+'development-score-resolution-v1/case-000/result.json')
+ for lane,desc in zip(summary['lanes'],binding['accepted'],strict=True):
+  target,kind=lane['target'],lane['model']['kind'];saved=read(desc['summary']);base=Path(desc['summary']).parent
+  result=read(str(base/'result.json'));membership=read(str(base/'membership.json'));prior=read(str(base/'prior-settings.json'))
+  assert lane['model']==freeze['models'][target][0]
+  assert saved['target']==target and saved['kind']==kind and saved['conditional_predictive_draws']==800 and saved['posterior_draws']==8000
+  assert lane['support']==saved['support'] and lane['membership']==membership['counts']
+  assert lane['diagnostics']==result['diagnostics'] and lane['prior']==prior
+  for table in ['parameters','derived','curves']:
+   assert lane[table]==saved[table],(target,table)
+   counts[table+'_rows']+=len(lane[table])
+  ppc=[]
+  for raw in saved['conditional_ppc']:
+   strings={k:'' if v is None else str(v) for k,v in raw.items()}
+   low,high,observed=(Decimal(strings[k]) for k in ['replicated_q05','replicated_q95','observed'])
+   ppc.append(dict(model=kind,**strings,observed_outside_replicated_central90=not low<=observed<=high))
+  assert lane['conditional_ppc']==ppc
+  counts['conditional_ppc_rows']+=len(ppc);ppcmisses[target]=sum(x['observed_outside_replicated_central90'] for x in ppc)
+  assert f"Conditional PPC: {ppcmisses[target]}/{len(ppc)} observed quantile cells" in text
+  for row in lane['parameters']:
+   label=row['parameter']+(f" at {row['anchor_km']:g} km" if row.get('anchor_km') is not None else '')
+   assert f"| {label} | {interval(row)} |" in text,(target,'parameter display',label)
+  for row in lane['curves']:
+   support=row['support']+('; SD endpoint clamped' if row.get('residual_scale_endpoint_clamped') else '')
+   assert f"| {row['distance_km']:g} | {row['curve']} | {interval(row)} | {support} |" in text
+  assert len(lane['checks'])==2
+  for check in lane['checks']:
+   jid=next(j['id'] for j in read(ART+'development-design-v1/review-acceptance.json')['jobs'] if j['model_key']==check['model_key'])
+   ev=read(CHECK+jid+'/event-results.json');pred=rows(CHECK+jid+'/held-out-record-predictions.csv')
+   assert check['events']==len(ev['events']) and check['records']==len(pred)
+   assert check['distance_support']==dict(Counter(x['distance_support'] for x in pred))
+   assert check['prediction_precision_failures']==sum(x['prediction_precision_passed']=='False' for x in pred)
+   assert check['ambiguous_coverage90']==sum(x['coverage90_numerically_ambiguous']=='True' for x in pred)
+   for key in ['aggregate','aggregate_without_crossing_event']:
+    if ':runner_up' in check['model_key'] and target!='T-OBS':assert check[key] is None
+    elif target=='NCEI-native-duration':
+     source=resolved['aggregates']['primary' if key=='aggregate' else 'without_crossing_event'];v=check[key]
+     assert v['equal_event_score']==source['equal_event_score']
+     assert v['mcse_equal_event_score']==source['mcse_triangle_bound']
+     assert v['mcse_equal_event_score']==source['original_shared_part_mcse']+source['qmc_part_mcse']
+     assert v['mcse_kind']=='conservative_sum_of_estimated_MCSEs'
+    else:assert check[key]==ev[key]
+   v=check['aggregate'];cross=check['aggregate_without_crossing_event']
+   def score(value):
+    if value is None:return 'source-null; score/MCSE unavailable'
+    suffix=' (sum of MCSE estimates)' if value.get('mcse_kind')=='conservative_sum_of_estimated_MCSEs' else ' MCSE'
+    return f"{value['equal_event_score']:.5g} ± {value['mcse_equal_event_score']:.3g}"+suffix
+   assert f"| {check['model_key']} | {score(v)} | {score(cross)} |" in text
+   checkfacts.append(dict(model_key=check['model_key'],events=check['events'],records=check['records'],aggregate_available=v is not None,without_crossing_available=cross is not None))
+ assert len(checkfacts)==6
+ saved_s5=read(ART+'exploration-sensitivity-report-v1/summary.json')
+ h=summary['sensitivity_history']
+ for key in ['planned_cases','completed_probes','accepted_logical_fits','actual_sampler_calls','calls_charged','calls_started','max_sampler_call_slots','retained_failed_calls','unresolved_case_count','case47_outcome','probe_dispositions','protocol_amendment','successful_numerical_repair_mapping','unresolved_cases','unresolved_comparison','numerical_repair_method']:
+  assert h[key]==saved_s5[key],('sensitivity source field',key)
+ assert len(saved_s5['probe_dispositions'])==55 and saved_s5['views']==68
+ assert 'no posterior parameters, curves or predictive checks' not in text or 'Neither attempt supplies posterior parameters, curves or predictive checks' in text
+ for lane in summary['lanes']:
+  n=lane['support']['records'];e=len(lane['support']['event_counts']);lo=lane['support']['distance_km_min'];hi=lane['support']['distance_km_max']
+  assert f'Full fit: {n} reports across {e} eligible events.' in text
+  assert f'Distance range: {lo:.6g}–{hi:.6g} km.' in text
+ assert summary['technical_completion']['original_G0_controller_outcome']=='needs_review'
+ assert summary['technical_completion']['original_G2_controller_outcome']=='failed_before_attempt'
+ assert summary['technical_completion']['no_additional_G0_sampling'] is True and summary['technical_completion']['no_additional_G2_sampling'] is True
+ assert summary['technical_completion']['G0_sampler_calls']==summary['technical_completion']['G2_sampler_calls']==1
+ assert len(summary['numerical_check_gaps'])==2 and summary['numerical_resolution']['original_failure_retained'] is True and summary['numerical_resolution']['unchanged_predictions'] is True
+ h=summary['sensitivity_history'];assert {k:h[k] for k in ['planned_cases','completed_probes','accepted_logical_fits','actual_sampler_calls','retained_failed_calls','unresolved_case_count']}==dict(planned_cases=55,completed_probes=55,accepted_logical_fits=54,actual_sampler_calls=58,retained_failed_calls=4,unresolved_case_count=1)
+ assert len(h['probe_dispositions'])==55 and len(h['unresolved_cases'])==1 and h['unresolved_cases'][0]['order']==36
+ assert 'no basis to prefer curvature' in text and 'not a finite-bias bound' in text
+ phrases=['previously inspected during EDA','not an independent test','18 reserved outcomes remain sealed','not held-out validation','does not reopen model selection','no additional Jacobian','shared-training covariance','not calibration or coverage evidence','not a new predictive ranking or proof of equivalence','negative','warning']
+ # Signed/native meaning is explicit without requiring the word negative.
+ for phrase in phrases[:-2]:assert phrase in text,phrase
+ assert 'a signed archive discrepancy in minutes' in text and 'conditional on archive inclusion' in text
+ assert 'do not establish physical onset, causal delay, operational warning time' in text
+ assert 'both aggregate' in text and 'source-null; score/MCSE unavailable' in text
+ assert '800-draw budget' in text
+ fresh(pins)
+ outputpins={str(p.relative_to(ROOT)):sha(p) for p in output.iterdir()}
+ assert sorted(p.name for p in output.iterdir())==['findings.md','inputs.json','output-checksums.json','summary.json']
+ return dict(counts=dict(counts),ppc_misses=ppcmisses,check_views=checkfacts,input_pin_count=len(pins),output_files=outputpins,binding=BINDING,binding_sha256=pins[BINDING],upstream_full_fit_review=UPSTREAM,upstream_full_fit_review_sha256=pins[UPSTREAM],inherited_opaque_ledger_refs=12,all_source_and_output_end_hashes_passed=True,files={**pins,**outputpins})
+
+if __name__=='__main__':
+ result=audit();p=Path('/private/tmp/tsunami-final-development-analysis-numeric-qa.json');p.write_text(json.dumps(result,sort_keys=True,indent=2,allow_nan=False)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='files'},indent=2))

@@ -1,0 +1,17 @@
+import hashlib,importlib.util,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+T.bootstrap(R,T.PHASES[1])
+from analysis.arrival.model_development_readout import load_reader
+reader=load_reader(R)
+import xarray as xr
+
+def forbidden(*args,**kwargs):raise AssertionError('native posterior replay forbidden in metadata-only tracking')
+reader.fit._read_population=forbidden
+xr.open_dataset=forbidden
+script=Path('/private/tmp/track-tsunami-development-program.py');assert T.sha(script)=='9cee98833d69a2393f0393c26bdd443996a55b631609ba1e3178bfcde2722b7e'
+spec=importlib.util.spec_from_file_location('accepted_development_tracker',script);assert spec and spec.loader
+tracker=importlib.util.module_from_spec(spec);spec.loader.exec_module(tracker)
+result=tracker.register(R,R/'artifacts/models/arrival-timing/full-development-analysis-v1',execute=True,reader=reader)
+print(json.dumps({'status':result.get('status'),'parent':result.get('parent'),'children':len(result.get('children',[]))},default=str))

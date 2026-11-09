@@ -1,0 +1,49 @@
+{
+  "actual_report_or_tracking_acceptance": false,
+  "all_original_FullSCI_fields_records_flags_retained": true,
+  "binding_path": "artifacts/models/arrival-timing/full-development-analysis-design-v1/review-acceptance.json",
+  "binding_sha256": "1626c6f43ccfc94b450c30ed441e80314661b0e52d92a235ccceb67ed34de91f",
+  "canonical_reader_sha256": "fdb161e7a1b1bacddb4a3a2eee05ba04e03b7ed53c02840a9cb53150758f16be",
+  "canonical_reader_source_unchanged": true,
+  "cumulative_calls": 9,
+  "current_HEAD": "e3811e816d94aad294fa78808edaac6f50e4f899",
+  "draft_path": "/private/tmp/tsunami-development-readout-gate-draft.json",
+  "draft_sha256": "6b3f135713d566d0c00b4d098801660f67933f7cdb23fdaa3f3d59b3e0a00bc9",
+  "elapsed_seconds": 7.480889125261456,
+  "exact_legacy_descriptors": 3,
+  "files": {
+    "analysis/arrival/model_development_readout.py": "d1faddd6367e8557b609174aa89fafaf994c1b982bea2d1653da7f2858eb7662",
+    "tests/test_arrival_model_development_readout.py": "d10b6c1888cb80a2a0e4433499f1d4fa1fba60fde09d6ff80faed8f5b594ea4c"
+  },
+  "fresh_existing_pins": 15438,
+  "full_SCI_sha256": "3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9",
+  "independent_checker": true,
+  "new_sampler_calls": 0,
+  "new_statistical_estimates": false,
+  "no_report_coldproof_or_scientific_replay_run": true,
+  "no_virtual_JSON_or_private_STATE_or_native_body_reads": true,
+  "only_pin_additions": [
+    "immutable FullSCI selfpin",
+    "readout source",
+    "readout tests"
+  ],
+  "original_functions_and_guards_unmodified": true,
+  "private_loader_unregistered_and_only_GATE_CONSUMED_mutations": true,
+  "project_source_Gates_runtime_Git_context_written": false,
+  "publication_performed": false,
+  "reader_source_verified_before_and_after_private_execution": true,
+  "reserved18_sealed": true,
+  "source_and_prospective_binding_only": true,
+  "static": {
+    "Pyright_errors": 0,
+    "Pyright_warnings": 0,
+    "Ruff": "passed"
+  },
+  "status": "accepted_frozen_append_only_development_readout_binding",
+  "tests": {
+    "fixtures_synthetic_only": true,
+    "passed": 15,
+    "project_cache_and_bytecode_disabled": true,
+    "seconds": 0.12
+  }
+}

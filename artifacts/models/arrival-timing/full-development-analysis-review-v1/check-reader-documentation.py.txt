@@ -1,0 +1,74 @@
+"""Read-only README fact/link checks against accepted saved report metadata."""
+import collections,csv,datetime,gzip,hashlib,json,re,subprocess
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+report=R/'artifacts/models/arrival-timing/full-development-analysis-v1'
+fig=R/'artifacts/models/arrival-timing/full-development-figures-v1'
+expected_report={'findings.md','summary.json','inputs.json','output-checksums.json','review-acceptance.json'}
+expected_fig={'caption.md','inputs.json','output-checksums.json','plot-saved-quantiles.py','plotted-quantiles.csv','selected-model-distance-curves-and-predictive-intervals.png'}
+paths=[R/'README.md',*[report/n for n in expected_report],*[fig/n for n in expected_fig]]
+before={str(p.relative_to(R)):sha(p) for p in paths}
+assert {p.name for p in report.iterdir()}==expected_report
+assert {p.name for p in fig.iterdir()}==expected_fig
+manifest_checks={}
+for folder,expected in [(report,expected_report-{'output-checksums.json','review-acceptance.json'}),(fig,expected_fig-{'output-checksums.json'})]:
+    pins=json.loads((folder/'output-checksums.json').read_text());assert set(pins)==expected
+    assert all(sha(folder/n)==h for n,h in pins.items())
+    manifest_checks[str(folder.relative_to(R))]=len(pins)
+summary=json.loads((report/'summary.json').read_text())
+review=json.loads((report/'review-acceptance.json').read_text())
+assert review['status']=='accepted_frozen_arrival_development_analysis' and review['independent_checker'] is True
+assert summary['interval_probability']==.9 and summary['reserved_outcomes']=='sealed' and summary['reserved_outcomes_parsed'] is False
+expected=[('NCEI-native-duration','mean-curvature',1215,47,20),('T-OBS','pooled',258,20,21),('T-CAL','distance',169,18,10)]
+facts=[]
+for lane,(target,kind,rows,events,misses) in zip(summary['lanes'],expected,strict=True):
+    assert lane['target']==target and lane['model']['kind']==kind and lane['model']['prior_variant']=='base'
+    assert lane['membership']['combined_primary']==rows and lane['membership']['combined_eligible_events']==events
+    assert lane['diagnostics']['divergences']==0 and lane['diagnostics']['max_rhat']<1.002
+    cells=lane['conditional_ppc'];assert len(cells)==30
+    assert sum(c['observed_outside_replicated_central90'] for c in cells)==misses
+    assert all(c['observed_outside_replicated_central90']==(not(float(c['replicated_q05'])<=float(c['observed'])<=float(c['replicated_q95']))) for c in cells)
+    facts.append(dict(target=target,kind=kind,base_priors=True,reports=rows,events=events,divergences=0,max_rhat=lane['diagnostics']['max_rhat'],PPC_misses=misses,PPC_cells=30))
+member=R/'artifacts/models/arrival-timing/full-development-v1/jobs/dev-ncei-mean-curvature-selected-full/membership.json'
+m=json.loads(member.read_text());assert len(m['excluded_ids'])==6 and m['counts']['combined_pre']==1221 and m['counts']['combined_primary']==1215
+meta=R/'artifacts/models/arrival-timing/exploration-contract-v1/fold-membership.csv.gz'
+with gzip.open(meta,'rt') as f:
+    reader=csv.DictReader(f)
+    assert set(reader.fieldnames)=={'target','held_out_sequence','record_id','event_id','sequence_group','site_id','role','seen_site'}
+    excluded={v['record_id']:(v['event_id'],v['site_id']) for v in reader if v['target']=='NCEI-native-duration' and v['role']=='excluded'}
+assert set(excluded)==set(m['excluded_ids']) and sorted(collections.Counter(excluded.values()).values())==[2,2,2]
+gaps=summary['numerical_check_gaps'];assert len(gaps)==2
+assert {g['job']['model_key'] for g in gaps}=={'NCEI-native-duration:distance-scale:runner_up','T-CAL:pooled:runner_up'}
+assert all(g['primary_aggregate_available'] is False and g['without_crossing_aggregate_available'] is False for g in gaps)
+assert summary['sensitivity_history']['unresolved_cases']==1 if isinstance(summary['sensitivity_history'].get('unresolved_cases'),int) else len(summary['sensitivity_history']['unresolved_cases'])==1
+text=(R/'README.md').read_text()
+assert 'No Bayesian model is fitted.' not in text and 'no model fitted or physical onsets validated' not in text and 'neither view is approved for modeling' not in text
+for phrase in ['20/30 NCEI, 21/30 T-OBS and 10/30 T-CAL','These cells are correlated','not estimates of prediction coverage','18 reserved outcomes remain sealed','already inspected during EDA','These gaps do not establish a model ranking','not calibration or coverage evidence','do not validate physical onset or operational warning performance']:
+    assert phrase in ' '.join(text.split()),phrase
+diff=subprocess.check_output(['git','diff','--','README.md'],cwd=R,text=True)
+added='\n'.join(s[1:] for s in diff.splitlines() if s.startswith('+') and not s.startswith('+++'))
+links=re.findall(r'\[[^]]+\]\(([^)]+)\)',added)
+assert len(links)==6
+for name in links:
+    assert not Path(name).is_absolute() and 'reserved' not in name.lower()
+    p=R/name;assert p.resolve()==p and p.is_file()
+after={str(p.relative_to(R)):sha(p) for p in paths};assert after==before
+out=dict(status='accepted_final_model_documentation',independent_checker=True,checked_UTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+         scope='README diff, six new relative links, accepted saved-report facts and exact output inventories; no scientific rerun.',
+         repo_docs_skill='/Users/sobirov/Workspace/Projects/sardors-agentic-workflows/writing-agentic-workflow-kit/skills/repo-docs/SKILL.md',
+         README_sha256=before['README.md'],analysis_review_sha256=sha(report/'review-acceptance.json'),
+         figure_png_sha256=sha(fig/'selected-model-distance-curves-and-predictive-intervals.png'),
+         new_relative_links=links,new_relative_links_passed=6,report_inventory=sorted(expected_report),figure_inventory=sorted(expected_fig),
+         output_checksum_manifests_passed=manifest_checks,model_facts=facts,NCEI_exclusions=dict(pre=1221,eligible=1215,excluded=6,group_sizes=[2,2,2],metadata_only_membership_source=str(meta.relative_to(R))),
+         interpretation_checks=dict(PPC_correlated_descriptive_cells_not_coverage=True,sampler_diagnostics_separate_from_model_adequacy=True,
+             inspected_19_not_independent_test=True,reserved_18_sealed=True,two_runnerup_score_gaps_unavailable=True,
+             unresolved_2014_linear_stress_not_curved_advantage=True,no_physical_or_operational_claim=True,no_stale_unfitted_claim=True),
+         blocking_findings=[],P0=0,P1=0,source_hashes_unchanged_before_after=True,files=before,
+         native_arrays_or_response_source_rows_read=False,scoring_or_sampling_called=False,reserved_outcome_links_followed=False,
+         README_or_project_Source_Gates_STATE_context_Git_writes=False,
+         limitations=['No new visual QA; accepted figure was checked through caption and exact manifest bytes.','Existing untouched README scientific-foundation and story sections were checked only for contradictions, not re-audited.'])
+p=Path('/private/tmp/tsunami-final-model-docs-independent-review.json')
+assert not p.exists()
+with p.open('x') as f:json.dump(out,f,sort_keys=True,indent=2);f.write('\n')
+print(json.dumps(dict(status=out['status'],receipt_sha256=sha(p),links=6,report_files=5,figure_files=6,facts=facts)))

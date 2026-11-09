@@ -1,0 +1,15 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_readout as A
+from analysis.arrival import model_development_technical_completion as T
+D=Path('/private/tmp/tsunami-development-readout-gate-draft.json');assert T.sha(D)=='6b3f135713d566d0c00b4d098801660f67933f7cdb23fdaa3f3d59b3e0a00bc9'
+v=json.loads(D.read_text());g=v['gate'];assert hashlib.sha256(T.payload(g)).hexdigest()==v['gate_sha256']=='1626c6f43ccfc94b450c30ed441e80314661b0e52d92a235ccceb67ed34de91f'
+assert Path('/private/tmp/tsunami-readout-binding-independent-review.json').is_file()
+assert v['gate_path']==A.REPORT_GATE and T.sha(R/A.FULL_REVIEW)==A.FULL_REVIEW_SHA256
+T.fresh(R,g['files']);T.write(R/A.REPORT_GATE,g);T.fresh(R,g['files'])
+assert T.sha(R/A.REPORT_GATE)==v['gate_sha256']
+assert T.program_counters(R)=={'charged':9,'started':9}
+assert T.sha(R/A.FULL_REVIEW)==A.FULL_REVIEW_SHA256
+assert T.sha(R/A.READER)==A.READER_SHA256
+print(json.dumps({'status':'root_published_read_only_report_binding_verified','gate_sha256':v['gate_sha256'],'files':len(g['files']),'new_sampler_calls':0,'new_statistical_estimates':False,'canonical_FullSCI_and_reader_unchanged':True}))

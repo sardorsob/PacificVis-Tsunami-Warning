@@ -1,0 +1,88 @@
+"""Read-only integration/privacy check of the explicitly pending final bundle."""
+import ast,datetime,hashlib,json,re,subprocess
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+A=R/'artifacts/models/arrival-timing'
+Q=A/'full-development-analysis-review-v1';TR=A/'development-tracking-v1';REPORT=A/'full-development-analysis-v1'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+originals={
+'check-report.py.txt':'/private/tmp/check-final-development-report.py',
+'test-readout-binding.py.txt':'/private/tmp/test_development_readout_gate.py',
+'register-tracking.py.txt':'/private/tmp/register-tsunami-development-readout.py',
+'readout-binding-review.json':'/private/tmp/tsunami-readout-binding-independent-review.json',
+'check-reader-documentation.py.txt':'/private/tmp/check_final_model_docs.py',
+'publish-readout-binding.py.txt':'/private/tmp/publish-tsunami-readout-binding.py',
+'prepare-readout-binding.py.txt':'/private/tmp/prepare-tsunami-development-readout-gate.py',
+'reader-documentation-review.json':'/private/tmp/tsunami-final-model-docs-independent-review.json',
+'generate-readout.py.txt':'/private/tmp/generate-tsunami-full-development-readout.py',
+'report-numeric-review.json':'/private/tmp/tsunami-final-development-analysis-numeric-qa.json'}
+assert {p.name for p in Q.iterdir()}==set(originals)
+assert len(list(TR.iterdir()))==19
+pending=[R/'README.md',*REPORT.iterdir(),*TR.iterdir(),*Q.iterdir()]
+assert len(list(REPORT.iterdir()))==5
+before={str(p.relative_to(R)):sha(p) for p in pending}
+for p in pending:
+ assert p.resolve()==p and p.is_file()
+ assert p.name=='README.md' or p.suffix=='.json' or p.name.endswith('.py.txt') or p.name=='findings.md'
+for name,source in originals.items():assert sha(Q/name)==sha(Path(source)),name
+assert sha(TR/'registrar.py.txt')==json.loads((TR/'mlflow-receipt.json').read_text())['helper_sha256']
+assert sha(TR/'registrar.py.txt')==sha(Path('/private/tmp/track-tsunami-development-program.py'))
+# Exact prior accepted documentation facts bind all report/figure bytes and README.
+doc=json.loads((Q/'reader-documentation-review.json').read_text())
+assert doc['status']=='accepted_final_model_documentation' and doc['P0']==doc['P1']==0
+for name,digest in doc['files'].items(): assert sha(R/name)==digest,name
+assert sha(REPORT/'review-acceptance.json')=='5108ae32c540cc07916ecec9fd500a751a1178485245dcedec5366483a409f82'
+assert sha(A/'full-development-v1/review-acceptance.json')=='3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9'
+# Git path-only comparison confirms no consumed source/raw/figure/FullSCI changes; no bodies parsed.
+source_paths=['analysis','scripts','config','pyproject.toml','uv.lock','data',
+'artifacts/models/arrival-timing/full-development-v1','artifacts/models/arrival-timing/full-development-figures-v1']
+assert subprocess.check_output(['git','diff','--name-only','HEAD','--',*source_paths],cwd=R,text=True)==''
+credential=re.compile(r'BEGIN [A-Z ]*PRIVATE KEY|sk-[A-Za-z0-9]{20,}|AKIA[A-Z0-9]{16}|(?:password|api_key|access_token|refresh_token|authorization)\s*[:=]',re.I)
+context_refs=0
+
+def refs(value):
+ global context_refs
+ if isinstance(value,dict):
+  for k,v in value.items():
+   if k.startswith('context/'):
+    assert isinstance(v,str) and re.fullmatch('[0-9a-f]{64}',v), 'context body instead of SHA reference'
+    context_refs+=1
+   refs(v)
+ elif isinstance(value,list):
+  for v in value:refs(v)
+for p in [*Q.iterdir(),*TR.iterdir()]:
+ text=p.read_text();assert not credential.search(text),p.name
+ if p.suffix=='.json':refs(json.loads(text))
+roles={
+'check-report.py.txt':'saved-table numeric/provenance verification',
+'check-reader-documentation.py.txt':'README facts/links and metadata-only exclusions verification',
+'prepare-readout-binding.py.txt':'metadata-only readout draft reproduction',
+'publish-readout-binding.py.txt':'Root-reviewed append-only metadata binding publication reproduction',
+'generate-readout.py.txt':'saved-table-only readout generation reproduction',
+'register-tracking.py.txt':'project-local tracking registration reproduction',
+'test-readout-binding.py.txt':'opaque synthetic descriptor-lineage tests'}
+for name in roles:
+ tree=ast.parse((Q/name).read_text())
+ calls={ast.unparse(n.func) for n in ast.walk(tree) if isinstance(n,ast.Call)}
+ assert not any(c.endswith(('.sample','.sample_prior_predictive','.run_one')) or c in {'pm.sample','nutpie.sample'} for c in calls),name
+receipt=json.loads((TR/'mlflow-receipt.json').read_text())
+assert receipt['tracking_uri']=='.mlflow/mlruns' and receipt['raw_or_array_mirrors'] is False and receipt['scientific_estimates_recomputed'] is False
+assert len(receipt['children'])==16 and receipt['parent']['params']['actual_sampler_calls']=='9'
+program=json.loads((TR/'program.manifest.json').read_text())
+assert program['raw_and_array_bytes_mirrored'] is False and program['no_new_scientific_estimates'] is True
+assert before=={str(p.relative_to(R)):sha(p) for p in pending}
+out=dict(status='accepted_final_development_integration_scope_and_conservation',independent_checker=True,
+ checked_UTC=datetime.datetime.now(datetime.timezone.utc).isoformat(),pending_scope=dict(README=1,report_files=5,tracking_files=19,copied_peer_QA_files=10),
+ exact_peer_copies=True,peer_script_roles=roles,peer_scripts_add_no_sampler_or_controller=True,
+ source_raw_canonical_FullSCI_and_figures_unchanged=True,source_diff_check='git diff --name-only HEAD scoped to consumed source/config/raw/FullSCI/figures was empty',
+ exact_prior_report5_and_figure6_hashes_preserved=True,original_canonical_FullSCI_sha256='3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9',
+ no_context_body_cache_secret_or_credential_files=True,opaque_context_SHA_references=context_refs,
+ local_tracking_metadata_only=dict(uri='.mlflow/mlruns',children16=True,sampler_calls9=True,no_raw_array_mirrors=True,no_new_estimates=True),
+ source_hashes_unchanged_before_after=True,files=before,blocking_findings=[],P0=0,P1=0,
+ no_native_reserved_or_context_bodies_read=True,no_client_scoring_model_or_sampler_calls=True,no_project_Git_context_or_Source_writes=True,
+ limitations=['MLflow backend/readback correctness is independently handled by P; no client audit duplicated here.',
+ 'The seven py.txt copies include approved report generation, metadata publication and registration reproductions as well as scientific QA; none is a new model runner.',
+ 'Any peer tracking QA files added after this ten-file snapshot require separate inclusion/readback.'])
+p=Path('/private/tmp/tsunami-final-development-integration-review.json');assert not p.exists()
+with p.open('x') as f:json.dump(out,f,sort_keys=True,indent=2);f.write('\n')
+print(json.dumps(dict(status=out['status'],sha256=sha(p),pending_files=len(pending),peer_QA=10,tracking=19)))
