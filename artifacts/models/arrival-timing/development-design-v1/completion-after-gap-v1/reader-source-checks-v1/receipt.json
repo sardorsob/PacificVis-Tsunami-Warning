@@ -1,0 +1,64 @@
+{
+  "checks": [
+    "Fresh complete source closure before body/table parsing and before publication",
+    "Original case0 accepted numerical resolution and unchanged prediction lineage retained",
+    "Original case1 eleven-file failed attempt remains a zero-call unresolved gap with unavailable aggregates",
+    "Exact new job/plan/allocation/dual Gate/invocation Git/process metadata, including coherent resealed allocation-job mutations in all three phases",
+    "Unknown leaf, empty directory and symlink producer tails reject before table parsing and remain retained",
+    "All six logical check slots and identical ordered dispositions across phase summaries",
+    "Separately reviewed future CHECK gaps cannot invent scores or waive six recovery jobs or three full fits",
+    "No journal admission, integration, new scoring, native/posterior/NPZ parsing or private state reads"
+  ],
+  "copy_executed": false,
+  "findings": "No material blocker; no repair required",
+  "limitations": [
+    "Synthetic source and reader contract QA only; scientific artifact acceptance and actual report acceptance are separate",
+    "Journal compatibility dependency pinned at current bytes; independent journal source/runtime QA remains separate and pending"
+  ],
+  "passed_checks": 115,
+  "probe_copy_sha256": "c5f95554574fb9b24584f8ee21e6e503ee765022078a10ed09882e2cfe63f5dc",
+  "probe_origin": "/private/tmp/test_reader3_independent.py",
+  "probe_origin_sha256": "c5f95554574fb9b24584f8ee21e6e503ee765022078a10ed09882e2cfe63f5dc",
+  "reproduce_preserved_probe_from_project_root": "PYTHONPATH=. UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/reader-source-checks-v1/test_reader3_independent.py",
+  "reviewed_source_hashes": {
+    "analysis/arrival/model_development_completion_report.py": "54d546a8e5562aba94c6c4ddcfa4fa59ac9082490a54aea122162568cd45406b",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "7625c606cdb771d90691ed6655578143005f976d84693e9912a3083e60b2ae95"
+  },
+  "schema_version": 1,
+  "source_qa_only": true,
+  "static": {
+    "cli_help": "passed",
+    "pyright": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "ruff": "passed"
+  },
+  "status": "passed_bounded_source_qa",
+  "tests": [
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q tests/test_arrival_model_development_completion_report.py",
+      "kind": "persisted",
+      "passed": 89,
+      "seconds": 38.46
+    },
+    {
+      "command": "PYTHONPATH=. UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q /private/tmp/test_development_completion_reader_recheck.py -k \"not full_reader_path\"",
+      "deselected": 2,
+      "excluded_reason": "The old positive case0-unresolved report branch conflicts with the intentionally frozen after-gap accepted case0 resolution. New full-shape coverage replaces it.",
+      "kind": "prior_independent",
+      "passed": 16,
+      "probe_sha256": "7993635a2747e76410ad42dcdad7a2cf2789c6fa6b7ef796c949424f64a213a2",
+      "seconds": 10.28
+    },
+    {
+      "command": "PYTHONPATH=. UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q /private/tmp/test_reader3_independent.py",
+      "exact_preserved_copy": "artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/reader-source-checks-v1/test_reader3_independent.py",
+      "kind": "new_independent",
+      "passed": 10,
+      "probe_sha256": "c5f95554574fb9b24584f8ee21e6e503ee765022078a10ed09882e2cfe63f5dc",
+      "seconds": 11.85
+    }
+  ]
+}

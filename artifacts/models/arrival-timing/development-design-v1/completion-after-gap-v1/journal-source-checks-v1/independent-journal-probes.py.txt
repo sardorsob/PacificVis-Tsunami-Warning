@@ -1,0 +1,120 @@
+"""Independent synthetic journal boundary probes; no production files or samplers."""
+import json
+from pathlib import Path
+import pytest
+from analysis.arrival.evidence import sha256, write_json
+from scripts import run_arrival_development_journal as j
+from tests.test_run_arrival_development_journal import fixture, gap_review, previous_review
+
+
+@pytest.mark.parametrize('field',['job_id','role','plan','authority_gate','worker_gate','spec','spec_sha256','invocation_git_sha'])
+def test_resealed_complete_allocation_identity_must_reject(tmp_path,monkeypatch,field):
+    f=fixture(tmp_path,monkeypatch)
+    j.run(tmp_path,max_jobs=1)
+    job=f.original[2]
+    allocation=j.allocation_path(tmp_path,'check',job)
+    attempt=j.attempt_path(tmp_path,'check',job)
+    folder,_,_,_,process=j.old.paths(tmp_path,job,f.worker)
+    value=json.loads(allocation.read_text())
+    value[field]='wrong' if field != 'spec_sha256' else 'f'*64
+    write_json(allocation,value)
+    supervisor=json.loads(process.read_text())
+    supervisor['allocation_sha256']=sha256(allocation)
+    if field=='invocation_git_sha':supervisor[field]=value[field]
+    write_json(process,supervisor)
+    record=json.loads(attempt.read_text())
+    record['allocation_sha256']=sha256(allocation)
+    for path in [allocation,process]:record['files'][str(path.relative_to(tmp_path))]=sha256(path)
+    write_json(attempt,record)
+    with pytest.raises(ValueError):j.run(tmp_path,max_jobs=1)
+    assert len(f.calls)==1
+
+
+def test_truthful_after_gap_exposure_admission(tmp_path,monkeypatch):
+    f=fixture(tmp_path,monkeypatch)
+    gate_path=j.gate_path('check')
+    gate=json.loads((tmp_path/gate_path).read_text())
+    gate['confirmation_outcomes_parsed']=True
+    f.put(gate_path,gate)
+    admitted=j.admit(tmp_path,'check')
+    assert admitted['gate']['confirmation_outcomes_parsed'] is True
+
+
+@pytest.mark.parametrize('drift',['source','unknown'])
+def test_late_gap_disposition_failure_cannot_resume_after_bytes_restored(tmp_path,monkeypatch,drift):
+    f=fixture(tmp_path,monkeypatch)
+    f.behavior['exit']=2
+    with pytest.raises(ValueError):j.run(tmp_path)
+    job,_=gap_review(tmp_path,f)
+    real=j.old.new_json
+    original=(tmp_path/j.SELF).read_bytes()
+    extra=tmp_path/j.CONTROL/'late-unlisted.json'
+    def write(path,value):
+        real(path,value)
+        if path==j.disposition_path(tmp_path,job):
+            if drift=='source':(tmp_path/j.SELF).write_bytes(b'late source drift')
+            else:extra.write_bytes(b'unknown late bytes')
+    monkeypatch.setattr(j.old,'new_json',write)
+    with pytest.raises(ValueError):j.run(tmp_path,apply_check_gap=job['id'])
+    assert j.disposition_path(tmp_path,job).exists()
+    assert len(f.calls)==1
+    monkeypatch.setattr(j.old,'new_json',real)
+    (tmp_path/j.SELF).write_bytes(original)
+    if extra.exists():extra.unlink()
+    f.behavior['exit']=0
+    with pytest.raises(ValueError):j.run(tmp_path,max_jobs=1)
+    assert len(f.calls)==1
+
+
+@pytest.mark.parametrize('reason',['global_budget','reserve','cache_cap'])
+def test_storage_failure_before_allocation_is_effective(tmp_path,monkeypatch,reason):
+    f=fixture(tmp_path,monkeypatch)
+    monkeypatch.setattr(j.c2,'quota',lambda *a,**k:reason)
+    with pytest.raises(ValueError):j.run(tmp_path)
+    assert not f.calls and not (tmp_path/j.CONTROL/'allocations').exists()
+
+
+@pytest.mark.parametrize('root_index',range(3))
+def test_all_three_extra_inventory_roots_are_enforced(tmp_path,monkeypatch,root_index):
+    f=fixture(tmp_path,monkeypatch)
+    unknown=tmp_path/j.c2.EXTRA_ROOTS[root_index]/'unlisted-proof.json'
+    unknown.parent.mkdir(parents=True,exist_ok=True)
+    unknown.write_bytes(b'unknown')
+    def quota(root,a,**kwargs):
+        try:j.c2.extra_inventory(root,{**a['files'],**(kwargs.get('known_files') or {})})
+        except ValueError:return 'closed_extra_inventory'
+        return None
+    monkeypatch.setattr(j.c2,'quota',quota)
+    with pytest.raises(ValueError):j.run(tmp_path)
+    assert not f.calls
+
+
+def test_partial_marker_count_never_refunds_or_invents_second_start(tmp_path,monkeypatch):
+    f=fixture(tmp_path,monkeypatch)
+    j.run(tmp_path,max_jobs=4)
+    previous_review(tmp_path,f,'check')
+    f.gate('full_design_recovery')
+    admission=j.admit(tmp_path,'full_design_recovery')
+    job=admission['gate']['jobs'][0]
+    plan=j.plan_path(tmp_path,'full_design_recovery')
+    j.old.new_json(plan,j.phase_plan(tmp_path,admission))
+    allocation=j.allocation_path(tmp_path,'full_design_recovery',job)
+    j.old.new_json(allocation,dict(job=job,phase='full_design_recovery',cost=1,plan_sha256=sha256(plan)))
+    assert j.journal_counters(tmp_path)==dict(charged=1,started=0)
+    folder,_=f.worker.case_paths(tmp_path,job)
+    write_json(folder/'sampling-start.json',job)
+    assert j.journal_counters(tmp_path)==dict(charged=1,started=1)
+    write_json(folder/'sampling-start-extra.json',job)
+    with pytest.raises(ValueError):j.journal_counters(tmp_path)
+    assert json.loads(allocation.read_text())['cost']==1
+
+
+def test_foreign_journal_lease_is_preserved_and_cannot_return_success(tmp_path,monkeypatch):
+    f=fixture(tmp_path,monkeypatch)
+    lock=tmp_path/j.CONTROL/'.journal.lock'
+    foreign=b'{"pid":999999,"owner":"foreign"}\n'
+    def mutate(job,folder):lock.write_bytes(foreign)
+    f.behavior['late']=mutate
+    with pytest.raises(ValueError):j.run(tmp_path,max_jobs=1)
+    assert lock.exists() and lock.read_bytes()==foreign
+    assert len(f.calls)==1
