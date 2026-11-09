@@ -1,0 +1,12 @@
+{
+  "curvature-score-and-calibration.png": "c341e498f2dd2f08684b3aa819886d9d8bf607d9d0adf4ceac11aea44fde16c6",
+  "curvature-score-and-calibration.svg": "a2823641ac33ddb584411d854c35c4dd2fb95e8ba56dadb2541c21e45f9fba89",
+  "event-joint-scores.csv": "9e7a9251faa53fee8a7ecae35199337ae886dba7055b335a55bd7524be06fbc7",
+  "event-weighted-pit.csv": "b1dba716e7677acc6fff6a7d2de797dbd07a4774894b8097350b3c20c51eb32f",
+  "findings.md": "af690e777218ed50697c407b2c64b0104dfdd3fae74e030a73739ee86de49a59",
+  "inputs.json": "a772837ee76ab76c4ded64d8759acf7822d4d1c8c7773c174589f263732a0b21",
+  "model-scores.csv": "c6009799d100520fd7e4180849d34b69ead44d1ef39fd61d5af6b572fa006194",
+  "paired-score-differences.csv": "30d0a6c28481ceb61f06c3fec7bdc780b0eb9b1b143d2a27adf5164f06ab7e85",
+  "predictive-calibration-by-stratum.csv": "7d64c1b80918f0817531cf97e517c2193a2d25eccd3e535e25d374623b0e2850",
+  "sequence-score-influence.csv": "a1c67b1539edc0b67ffdd3df7d6e736b9f60763a3360944d9a3aafccc932e46e"
+}
