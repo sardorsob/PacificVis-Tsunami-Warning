@@ -1,0 +1,13 @@
+{
+  "aggregate_files": {},
+  "attempt_receipts": {
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-019-path-v1/jobs/primary-node-01/attempt-evidence.json": "cb160582ae3b3026318bdef27e224ffc5bef35ed70ab7232ce3451ecbbbb4630",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-019-path-v1/jobs/primary-node-02/attempt-evidence.json": "0ad7c655172f2d4780c2430745398da159ed8846f1c4fc0e3db96a723c74403f",
+    "artifacts/models/arrival-timing/mean-curvature-sequence-v1/resolutions/fold-019-path-v1/jobs/primary-node-03/attempt-evidence.json": "4944d4d580930babea313646f8dec971e88258803dd9c8c981dadd4dfa0c1997"
+  },
+  "end_node": 3,
+  "plan_sha256": "07008163dcb5c8857f4a5d86cda13872b358e8c95b58e82dadbeb02c646fc585",
+  "seconds": 24.88477912498638,
+  "start_node": 0,
+  "status": "path_checkpoint"
+}

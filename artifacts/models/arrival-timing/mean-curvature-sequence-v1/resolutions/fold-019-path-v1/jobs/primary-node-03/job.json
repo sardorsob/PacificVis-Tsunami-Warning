@@ -1,0 +1,15 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "event_id": "usp000exfn",
+  "id": "primary-node-03",
+  "kind": "mean-curvature",
+  "node": 3,
+  "path_role": "primary",
+  "prior": "base",
+  "seed": 2876129903,
+  "sequence": "seq-usp000exfn",
+  "target": "NCEI-native-duration",
+  "temperature": 0.03515625,
+  "tune": 1000
+}
