@@ -1,0 +1,25 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/audit.py.txt": "e6b6708dd2f01f907acba37232eb42aef5dd4bcb7035bbdf6607b84134c4dfa4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-038-energy.png": "cf92a9f9e213d344d0696f8029f843b295b340e936808b0d0dfcda8fab61338f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-038-trace-rank.png": "93779fc6734850e68d42d65af59eb0ea52eac591aa8979a40317ae95508a3b0c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-039-energy.png": "3e4ad550796a216ddd244c1b646200685dd5f5c2b333025014697671a8a5aa2a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-039-trace-rank.png": "09dc20b215c70548b502a7252beff6473bb021c52fbb6b17f3b48c896a75eaed",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-040-energy.png": "4f2c1e038bb856068ce5eb5ff468feece6d16a827db96d9d50ce33c82a4e5d8a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-040-trace-rank.png": "1c77ff84af08208b9dc6cbcfd2f9637a05c5de55412a396d674b2550d4ea022d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-041-energy.png": "d4679a69277164309e9660cc8a68d870a20581f17d510790465cab345f803cbe",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/plots/case-041-trace-rank.png": "7f009e1401c64610a7fce835c7afddf0b26016b4c91937a46f2ec8725f880c6a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/batch-038-041/result.json": "3920944bb49127066fe22161448e6290aaeba179c1c8bb36d0f965567c67c89e"
+  },
+  "helper_source": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt",
+  "reproduction": "Restore pinned retained helper at /private/tmp/check_s5_remaining_completion.py; the preserved audit requires explicit Root closure notice and a matching idle accepted prefix, and never runs a sampler/controller.",
+  "reserved_outcomes": "sealed",
+  "scope": "Immutable independent SCI checkpoint, original closed cases only",
+  "visual_review": {
+    "energy": "All centered-energy and energy-transition plots viewed; no concerning chain mismatch.",
+    "plots_opened": 8,
+    "status": "accepted",
+    "trace_rank": "All four chains and all scalar coordinates viewed; no concerning drift/stuck chains/separation. Pooled rank plots are descriptive, not uniformity tests."
+  }
+}
