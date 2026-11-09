@@ -1,0 +1,28 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/allocations/full_design_recovery/full-smoke-1-b.json",
+  "allocation_sha256": "ba2ea0b894620420876a1dd1e9540d5db78e53f045c66d7a3b6e193e52a8136c",
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/full_design_recovery/review-acceptance.json",
+  "authority_gate_sha256": "4620082532a5f0a03fb81da25741fcf75ffa710068e198ba9d7a2db27910433d",
+  "cost": 1,
+  "elapsed_seconds": 20.848169249948114,
+  "invocation_git_sha": "09169cc9451270deb4c08b3024aab4111876259b",
+  "job_sha256": "4dbc90997950105c6c5228a21ee8c42bc25dcd908eeea28438449a1773419da6",
+  "monitor_failures": [],
+  "plan": "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/epochs/epoch-2/full_design_recovery-plan.json",
+  "plan_sha256": "3b1a53e98558d47fc705994427fbcc3a7d86c915d0d2131c7893af0afd8458bd",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 1,
+  "startup_environment": {
+    "MKL_NUM_THREADS": "2",
+    "MPLCONFIGDIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/matplotlib",
+    "NUMBA_CACHE_DIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/numba",
+    "NUMEXPR_NUM_THREADS": "2",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "PYTENSOR_FLAGS": "floatX=float64,base_compiledir=/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/pytensor",
+    "VECLIB_MAXIMUM_THREADS": "2"
+  },
+  "worker_gate": "artifacts/models/arrival-timing/full-development-recovery-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "dc71468ca00980dff07e6e322452a1e8c07146aceea3baa49fa248a40bfe250c"
+}
