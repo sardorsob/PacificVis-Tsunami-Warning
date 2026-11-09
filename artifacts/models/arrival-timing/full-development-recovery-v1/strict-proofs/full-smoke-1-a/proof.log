@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/scripts/run_arrival_development_technical_completion.py", line 31, in <module>
+    main()
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/scripts/run_arrival_development_technical_completion.py", line 25, in main
+    program.proof_only(a.root.resolve(), a.phase, a.job, a.proof_output)
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_development_technical_completion.py", line 633, in proof_only
+    value = worker.case_artifacts(root, job, admission["files"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_development_recovery.py", line 689, in case_artifacts
+    raise ValueError("independent full-design density/gradient oracles must replay")
+ValueError: independent full-design density/gradient oracles must replay

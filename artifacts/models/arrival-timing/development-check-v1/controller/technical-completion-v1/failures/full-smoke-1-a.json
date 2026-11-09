@@ -1,0 +1,5 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/allocations/full_design_recovery/full-smoke-1-a.json",
+  "charged": 1,
+  "error": "ValueError('strict proof failure retained')"
+}

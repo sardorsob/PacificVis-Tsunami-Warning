@@ -1,0 +1,33 @@
+{
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v1/full_design_recovery/review-acceptance.json",
+  "authority_gate_sha256": "da7c13dcaaa43e7b7a8be73837794c6c6051e8ebd16c068063165b90b9a5b5a2",
+  "cost": 1,
+  "invocation_git_sha": "a7d102e4c7162007a3eee35bd9c7d6ee2e39741c",
+  "job": {
+    "case": "A",
+    "conditional_seed": 2966120803,
+    "design_protocol_sha256": "2741a6727e6d150cb82b47caf834b9db5c36e166f003a4aeda2d25f1943df025",
+    "id": "full-smoke-1-a",
+    "model_key": "T-OBS:pooled:selected",
+    "model_spec_sha256": "2bddcaa1084c04ebf5e8d1e20b545b0c3483870c34923344b6cf32afc3f1f62b",
+    "order": 2,
+    "protocol_sha256": "918c1ca8b803c15dd552e33fde2383b63170ff3d3eeec2958024ca605e2b3062",
+    "role": "full_design_recovery",
+    "sampler_seed": 2966120802,
+    "simulator_seed": 2966120801,
+    "truth": {
+      "alpha": 0.15,
+      "sigma": 0.3
+    },
+    "truth_sha256": "ac1ee620871d0e3589e9803d3fb097b58c7213c3b39716ecc34e83cfb83f1998"
+  },
+  "job_id": "full-smoke-1-a",
+  "phase": "full_design_recovery",
+  "plan": "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/plans/full_design_recovery.json",
+  "plan_sha256": "04837863a71a23702730ca88e70c3502f4fd6738245d78dedfc94e4b1e456085",
+  "role": "full_design_recovery",
+  "spec": "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-1-a-spec.json",
+  "spec_sha256": "23c24f6189cd14bd5b2518c69c1bbad4150f5848a7463c73238b6b38066c92f0",
+  "worker_gate": "artifacts/models/arrival-timing/full-development-recovery-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "dc71468ca00980dff07e6e322452a1e8c07146aceea3baa49fa248a40bfe250c"
+}

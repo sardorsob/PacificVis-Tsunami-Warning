@@ -1,0 +1,18 @@
+{
+  "conditional-ppc.csv": "5c8b303501b4ab130a10218700e11142a1a63f7d0b580813be033bd30eea9c9e",
+  "curves.csv": "25bfd329038b5b1391d40a2193bad866d8fb6203c265b5ad30b859193f390a77",
+  "derived.csv": "c22922eb43f4f5c070a2438e651fa4444e9907bdff3ade005359e44a012f99da",
+  "diagnostics.json": "90e43c2cb98756dc554e27847dfc51be79e652050a8b4c484fc680b64e5d4251",
+  "inputs.json": "271efa6f2918846c91d638e89bbbeb3dfa4b13e85331bdbb2c22c4f76b8c103a",
+  "job.json": "23c24f6189cd14bd5b2518c69c1bbad4150f5848a7463c73238b6b38066c92f0",
+  "membership.json": "632a3d89870cc53d93c88bf57db6e4041d3cbbfeca2d1cd3eaa0ada9d96c7c43",
+  "numerical-oracles.json": "5a78fbd359f741705f7a37b77168223375f264defe0396537a99723544fe473b",
+  "parameters.csv": "2c05e726b0ee8f6694ad3fe03ddda7858e3e3f346868f93ccf14e090036e7aa4",
+  "prior-settings.json": "e92c1cdb123c35ac387de39a6b71e697201aa4de4d6bbaad77723c65d5c0ffa7",
+  "record-intervals.csv": "ab2f192d9ed35d593b7a4a942fa1153fd3aa49d862a90692e757a5282f99222c",
+  "result.json": "ae511ed91593a43a1f3482ea076a3882e986d47ced13c9493156a87eb5d5b398",
+  "sampling-diagnostics.csv": "f0e1f46a1698320de21e903df7bf58093ef03862d6c967c17e9c62cf644bd75d",
+  "sampling-start.json": "23c24f6189cd14bd5b2518c69c1bbad4150f5848a7463c73238b6b38066c92f0",
+  "summary.json": "9ec4969a71f210487fbd3f52fa5283b2d339315ea0331362f68b7bff11e3d74c",
+  "truth-quantiles.csv": "62ab20956be7f6152cea5194edf702a63f1ac67663c0db36a4c4fdd3be5c5b71"
+}
