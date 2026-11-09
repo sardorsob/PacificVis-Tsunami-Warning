@@ -1,0 +1,17 @@
+{
+  "attempt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tcal-pooled-runner-up-check.json",
+  "attempt_sha256": "7b0e0174a03894a6bf4beb91970534305904d6481c3cc55ff0c59798597c26d7",
+  "job": {
+    "id": "dev-tcal-pooled-runner-up-check",
+    "model_key": "T-CAL:pooled:runner_up",
+    "order": 5,
+    "role": "check_evaluate",
+    "seed": 2976111300,
+    "training_reference": {
+      "kind": "historical"
+    }
+  },
+  "outcome": "accepted_unresolved_gap",
+  "review": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/review-acceptance.json",
+  "review_sha256": "93feb587f8c581e2d5dfe809a59b66dc3fad885d388632d98298c2507f4dc946"
+}

@@ -1,0 +1,39 @@
+{
+  "accepted_numerical_resolution": 1,
+  "accepted_summary": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/check-summary.json",
+  "accepted_summary_sha256": "e27e82262491270bd4409e460697166a5a6f12afb7c84d106d1657263b0c5c91",
+  "all_selected_usable": true,
+  "cold_numeric_stream_repeated": false,
+  "curved_resolution_MCSE_uses_accepted_conservative_sum_not_independence": true,
+  "direct_passes": 3,
+  "distinct_source_records": 186,
+  "event_score_slots_total": 50,
+  "event_score_slots_usable": 48,
+  "final_runtime_evidence": "artifacts/models/arrival-timing/development-check-v1/independent-scientific-checks-v1/zero-child-apply-runtime-qa.json",
+  "gap_models": [
+    "NCEI-native-duration:distance-scale:runner_up",
+    "T-CAL:pooled:runner_up"
+  ],
+  "independent_checker": true,
+  "live_private_state_parsed": false,
+  "model_prediction_rows_precision_passed": 372,
+  "native_positive_jacobian_subtracted_once": true,
+  "no_six_pass_claim": true,
+  "no_winner_or_equivalence_claim": true,
+  "numerical_replay_repeated": false,
+  "once_only": true,
+  "original_failed_statuses_preserved": true,
+  "original_prediction_files_preserved": true,
+  "primary_aggregate_views_available": 4,
+  "primary_aggregate_views_unavailable": 2,
+  "runner_up_gaps": 2,
+  "scientific_evidence": [
+    "artifacts/models/arrival-timing/development-score-resolution-v1/review-acceptance.json",
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/review-acceptance.json",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/review-acceptance.json"
+  ],
+  "shared_training_influence_combined_before_aggregate_MCSE": true,
+  "signed_Tcal_jacobian_zero": true,
+  "status": "independently_verified_six_frozen_check_dispositions",
+  "usable_selected_models": 3
+}

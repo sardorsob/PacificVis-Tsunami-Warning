@@ -1,0 +1,365 @@
+{
+  "accepted_records": [
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json",
+      "allocation_sha256": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check-spec.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check.supervisor.json": "0036e4db8969e0233a6644248cf2ee5f9060f4528e86df9350e098278774fa6f",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/direct-score-arrays.npz": "22314ceeee25c7577c9b33b1c673d3ab6d637f5d77a64b8098c867029d6ac8db",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/event-results.json": "54d6459f9c634a9363a88ef912ea1f606c570fa58171003ec554e21c033d83b4",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/held-out-record-predictions.csv": "1184fcd246a13bd0e59f493c246b3e1bd177e4453a5ea186a299bb3023ad985a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/inputs.json": "581eb8f18b02d7ff051aeaacb7f2cb856292430dceea53c27d66fe101d93e5bf",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/job.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/membership.json": "37e9ed774041cc82fc39f57f3579d3fee744ae601475e76b733bec1f85842cb9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/output-checksums.json": "2584ba58d6ba2e3e91182daca687615b39897f67fe70167572885858bc4e6ec2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/result.json": "9d27df2c647c4ed466dd69487a943feb762e03775736737accd1b0cb1991fbed"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tobs-pooled-selected-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tobs-pooled-selected-check.json",
+      "receipt_sha256": "cc8c5dd49b69904c9324008b4cf0e0b1c2e613b7938561ea948593eff256bbec",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/direct-score-arrays.npz": "22314ceeee25c7577c9b33b1c673d3ab6d637f5d77a64b8098c867029d6ac8db",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/event-results.json": "54d6459f9c634a9363a88ef912ea1f606c570fa58171003ec554e21c033d83b4",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/held-out-record-predictions.csv": "1184fcd246a13bd0e59f493c246b3e1bd177e4453a5ea186a299bb3023ad985a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/inputs.json": "581eb8f18b02d7ff051aeaacb7f2cb856292430dceea53c27d66fe101d93e5bf",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/job.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/membership.json": "37e9ed774041cc82fc39f57f3579d3fee744ae601475e76b733bec1f85842cb9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/output-checksums.json": "2584ba58d6ba2e3e91182daca687615b39897f67fe70167572885858bc4e6ec2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/result.json": "9d27df2c647c4ed466dd69487a943feb762e03775736737accd1b0cb1991fbed"
+      }
+    },
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json",
+      "allocation_sha256": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check-spec.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.supervisor.json": "55e4250511abecc8db0f58a7c48eaa8aefbc4cee61a4376464f41792c6b57b6d",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tobs-distance-runner-up-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tobs-distance-runner-up-check.json",
+      "receipt_sha256": "7725c5feee50810131999f9e2002fdf4518de181d80534a2b121d39dba0e3e37",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+      }
+    },
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json",
+      "allocation_sha256": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check-spec.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.supervisor.json": "422f9ae3e8d812af0ec5d573cd40ff2def39b8c099dfa736e311b28047d1d657",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tcal-distance-selected-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tcal-distance-selected-check.json",
+      "receipt_sha256": "1dbbc39f9c7fb3529b9c0673109f0bb319dd4044330628e98fefc77c3035db38",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+      }
+    }
+  ],
+  "attempt_records": [
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json",
+      "allocation_sha256": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check-spec.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check.supervisor.json": "0036e4db8969e0233a6644248cf2ee5f9060f4528e86df9350e098278774fa6f",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/direct-score-arrays.npz": "22314ceeee25c7577c9b33b1c673d3ab6d637f5d77a64b8098c867029d6ac8db",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/event-results.json": "54d6459f9c634a9363a88ef912ea1f606c570fa58171003ec554e21c033d83b4",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/held-out-record-predictions.csv": "1184fcd246a13bd0e59f493c246b3e1bd177e4453a5ea186a299bb3023ad985a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/inputs.json": "581eb8f18b02d7ff051aeaacb7f2cb856292430dceea53c27d66fe101d93e5bf",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/job.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/membership.json": "37e9ed774041cc82fc39f57f3579d3fee744ae601475e76b733bec1f85842cb9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/output-checksums.json": "2584ba58d6ba2e3e91182daca687615b39897f67fe70167572885858bc4e6ec2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/result.json": "9d27df2c647c4ed466dd69487a943feb762e03775736737accd1b0cb1991fbed"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tobs-pooled-selected-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tobs-pooled-selected-check.json",
+      "receipt_sha256": "cc8c5dd49b69904c9324008b4cf0e0b1c2e613b7938561ea948593eff256bbec",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/direct-score-arrays.npz": "22314ceeee25c7577c9b33b1c673d3ab6d637f5d77a64b8098c867029d6ac8db",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/event-results.json": "54d6459f9c634a9363a88ef912ea1f606c570fa58171003ec554e21c033d83b4",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/held-out-record-predictions.csv": "1184fcd246a13bd0e59f493c246b3e1bd177e4453a5ea186a299bb3023ad985a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/inputs.json": "581eb8f18b02d7ff051aeaacb7f2cb856292430dceea53c27d66fe101d93e5bf",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/job.json": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/membership.json": "37e9ed774041cc82fc39f57f3579d3fee744ae601475e76b733bec1f85842cb9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/output-checksums.json": "2584ba58d6ba2e3e91182daca687615b39897f67fe70167572885858bc4e6ec2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-pooled-selected-check/result.json": "9d27df2c647c4ed466dd69487a943feb762e03775736737accd1b0cb1991fbed"
+      }
+    },
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json",
+      "allocation_sha256": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check-spec.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.supervisor.json": "55e4250511abecc8db0f58a7c48eaa8aefbc4cee61a4376464f41792c6b57b6d",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tobs-distance-runner-up-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tobs-distance-runner-up-check.json",
+      "receipt_sha256": "7725c5feee50810131999f9e2002fdf4518de181d80534a2b121d39dba0e3e37",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+      }
+    },
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json",
+      "allocation_sha256": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check-spec.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.supervisor.json": "422f9ae3e8d812af0ec5d573cd40ff2def39b8c099dfa736e311b28047d1d657",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+      },
+      "gap_eligible": false,
+      "job_id": "dev-tcal-distance-selected-check",
+      "outcome": "accepted",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tcal-distance-selected-check.json",
+      "receipt_sha256": "1dbbc39f9c7fb3529b9c0673109f0bb319dd4044330628e98fefc77c3035db38",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+      }
+    },
+    {
+      "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-pooled-runner-up-check.json",
+      "allocation_sha256": "b6ed0eb81d4c2f7791036fb0a9e820c1948974eeb669e38eb37b469fbe9246ec",
+      "cost": 0,
+      "files": {
+        "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-pooled-runner-up-check.json": "b6ed0eb81d4c2f7791036fb0a9e820c1948974eeb669e38eb37b469fbe9246ec",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check-spec.json": "16e42b6319175b6d27284a070009403d19502a219dda438a4fc99c38f7067a2d",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check.supervisor.json": "17e1166088b1703f83af2592b6aebe3e536c22d00043047016b581ef6bcc95b9",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/direct-score-arrays.npz": "8fe659ac7f802d5fc5789dc9f658a9637d1d87170a7af30f5b3b322952298af7",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/event-results.json": "6d5d71eca1095519e7176028f8613389c0523838e03892f7cbebc68201360692",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/held-out-record-predictions.csv": "cfcbcfeb37fd808727d3dda73887b2ea5fa26786404142e7499c22a0e86a3591",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/inputs.json": "9b90f676021bd8a6087435ef7c2a111a514f57c53c092fbb87a999651fabd149",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/job.json": "16e42b6319175b6d27284a070009403d19502a219dda438a4fc99c38f7067a2d",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/membership.json": "23c04ff1940c2d11f0c66907d7806e11a87d5394fc4874c2fba5bd4cf5a5b6a4",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/output-checksums.json": "4cf0eae6e1cc42fc2c2f45270d591a615159120d6a6c493d9b72ed3b9714602c",
+        "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-pooled-runner-up-check/result.json": "fc1bed13f91b923e978f8891f8725f96823adea80beb1c1cfb5d01730b96c1a1"
+      },
+      "gap_eligible": true,
+      "job_id": "dev-tcal-pooled-runner-up-check",
+      "outcome": "needs_review",
+      "phase": "check",
+      "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tcal-pooled-runner-up-check.json",
+      "receipt_sha256": "7b0e0174a03894a6bf4beb91970534305904d6481c3cc55ff0c59798597c26d7",
+      "role": "check_evaluate",
+      "start_markers": 0,
+      "worker_files": {}
+    }
+  ],
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/check/review-acceptance.json",
+  "authority_gate_sha256": "b90d8a903061e27ebf54d97d444f325838f8d1275cf572954eaff2f36fb9ac20",
+  "calls_charged": 0,
+  "calls_started": 0,
+  "case0_outcome": "accepted_resolution",
+  "case1_outcome": "accepted_unresolved_gap",
+  "jobs": [
+    {
+      "id": "dev-tobs-pooled-selected-check",
+      "model_key": "T-OBS:pooled:selected",
+      "order": 2,
+      "role": "check_evaluate",
+      "seed": 2976111000,
+      "training_reference": {
+        "kind": "historical"
+      }
+    },
+    {
+      "id": "dev-tobs-distance-runner-up-check",
+      "model_key": "T-OBS:distance:runner_up",
+      "order": 3,
+      "role": "check_evaluate",
+      "seed": 2976111100,
+      "training_reference": {
+        "kind": "historical"
+      }
+    },
+    {
+      "id": "dev-tcal-distance-selected-check",
+      "model_key": "T-CAL:distance:selected",
+      "order": 4,
+      "role": "check_evaluate",
+      "seed": 2976111200,
+      "training_reference": {
+        "kind": "historical"
+      }
+    },
+    {
+      "id": "dev-tcal-pooled-runner-up-check",
+      "model_key": "T-CAL:pooled:runner_up",
+      "order": 5,
+      "role": "check_evaluate",
+      "seed": 2976111300,
+      "training_reference": {
+        "kind": "historical"
+      }
+    }
+  ],
+  "logical_check_dispositions": [
+    {
+      "job": {
+        "id": "dev-ncei-mean-curvature-selected-check",
+        "model_key": "NCEI-native-duration:mean-curvature:selected",
+        "order": 0,
+        "role": "check_evaluate",
+        "seed": 2976110800,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      "job_id": "dev-ncei-mean-curvature-selected-check",
+      "outcome": "accepted_resolution",
+      "primary_aggregate_available": true,
+      "review": "artifacts/models/arrival-timing/development-score-resolution-v1/review-acceptance.json",
+      "review_sha256": "4c68821d6f9e48df1e0d28a988c00306594ef9891db340050f01d1baed03bfeb"
+    },
+    {
+      "job": {
+        "id": "dev-ncei-distance-scale-runner-up-check",
+        "model_key": "NCEI-native-duration:distance-scale:runner_up",
+        "order": 1,
+        "role": "check_evaluate",
+        "seed": 2976110900,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      "job_id": "dev-ncei-distance-scale-runner-up-check",
+      "outcome": "accepted_unresolved_gap",
+      "primary_aggregate_available": false,
+      "review": "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/review-acceptance.json",
+      "review_sha256": "d647cebde5180f98da25936ca2df5561601a4b820411b7f91eccdb7b8da99acb"
+    },
+    {
+      "disposition": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/dispositions/check/dev-tcal-pooled-runner-up-check.json",
+      "disposition_sha256": "0f4cdf049168723b343a882132661822fd70965520c5ef35d1e2873ae76d0b74",
+      "job": {
+        "id": "dev-tcal-pooled-runner-up-check",
+        "model_key": "T-CAL:pooled:runner_up",
+        "order": 5,
+        "role": "check_evaluate",
+        "seed": 2976111300,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      "job_id": "dev-tcal-pooled-runner-up-check",
+      "outcome": "accepted_unresolved_gap",
+      "primary_aggregate_available": false,
+      "review": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/review-acceptance.json",
+      "review_sha256": "93feb587f8c581e2d5dfe809a59b66dc3fad885d388632d98298c2507f4dc946"
+    }
+  ],
+  "phase": "check",
+  "plan_sha256": "5e5c23ad718648dc76b588f9620cdfed6900e133db44a81c251c558b7d13346c",
+  "specification_freeze_sha256": "b1de266480cb5dd31f18a34c4aef59d42866ed4f2a24b85a68b04d2045d22fce",
+  "status": "computed_pending_independent_review",
+  "worker_gate": "artifacts/models/arrival-timing/development-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}
