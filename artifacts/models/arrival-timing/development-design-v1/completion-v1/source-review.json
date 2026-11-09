@@ -1,0 +1,134 @@
+{
+  "files": {
+    "analysis/arrival/evidence.py": "a725b62974b7e991fd717863f8bb93812e451a937e794db7b1a0ffe25f554eae",
+    "analysis/arrival/model_development_data.py": "94708278bc3b1d437168251ec68944a341e8404f530e5c5abf9405c459c7ae94",
+    "analysis/arrival/model_development_fit.py": "98f5d7392c33c8f02c5e998741aededb6f649b5090a2c9577f9734e886657c13",
+    "analysis/arrival/model_development_recovery.py": "62e150f350c74dc329ba4934f21d723e67d74b61b911a04ca6bab05b48361036",
+    "pyproject.toml": "9b88bd4504cd28000fd84221fc63c250847b4b921053ef5df6171b3114d8dcbf",
+    "scripts/check_arrival_development_recovery.py": "2441722786a345405a3b0a192be111ed7863229ade3fbe2c62519ddf1cc434ec",
+    "scripts/fit_arrival_development.py": "91a43734eb497ef6e887c334e5c344de49b92c7c1b3e451446c95b3aa3f6c9dc",
+    "scripts/run_arrival_curvature_final_continuation.py": "b81f27dff801f068100217818025490ac03fa0610c681e67ee51e4acae5f7a77",
+    "scripts/run_arrival_curvature_sequences.py": "2fd230191bc689e1dbcd52d6627f15952eea513e022eb4e34a491284f8eea5eb",
+    "scripts/run_arrival_development.py": "9197e0d1da45e340d37d823ff6d36949ae889520451f2dae773b03e6a824957a",
+    "scripts/run_arrival_development_completion.py": "d5ed27ef98563cae7765490560f26d58b94c5916c6df84449960e6bd7c123db0",
+    "scripts/run_arrival_model_batch.py": "3319dca87f7f9d58feb60cb9f754876fdc3017dcd00c0f1ef845a14917dafbdf",
+    "scripts/run_arrival_model_validation.py": "9f2d81ba8aaf3bd0c3d9817471b001a86ffed60f2bb954233b5632361644a638",
+    "scripts/run_arrival_sensitivities.py": "9e6c43c2dcf58e52158a9a2b7b09d0aa90b88f40042295c295168f6a2d7e1256",
+    "scripts/run_arrival_sensitivity_continuation.py": "0008708bbadd3386be9798c4f8adb5ce1a905585a991090586eba15edb9d788b",
+    "tests/test_run_arrival_development.py": "48ca63e54b76de5c6cf15e960ff317234a53fb36cbd1a8fde8e83643c7b9adb4",
+    "tests/test_run_arrival_development_completion.py": "30ac439258840147d7f39be63ab1cc365ee9ad3b1142c8ffc73da61a36b4e8ff",
+    "uv.lock": "f6c1bcf805ff54bd5f0344b63652d92065556ef3d076cf8fcd5018c464693623"
+  },
+  "independent_checker": true,
+  "production_execution_authorized": false,
+  "resource_contract": {
+    "all_phases_watch_resume_and_final_checks": true,
+    "cache_max_bytes": 268435456,
+    "case_000_max_bytes": 33554432,
+    "complete_extra_root_physical_inventory": true,
+    "extra_roots": [
+      "artifacts/models/arrival-timing/development-score-resolution-v1",
+      "artifacts/models/arrival-timing/development-numerical-resolution-design-v1",
+      "artifacts/models/arrival-timing/development-check-diagnostics-v1"
+    ],
+    "extra_roots_counted_once": true,
+    "file_max_bytes": 67108864,
+    "global_max_bytes": 3221225472,
+    "local_max_bytes": 2147483648,
+    "next_invocation_reserve_bytes": 637534208,
+    "old_parent_floors": 15,
+    "old_parent_floors_external_references_and_retained_sensitivity_stores_preserved": true,
+    "outside_references": 11
+  },
+  "review_limitations": {
+    "actual_sampling_performed": false,
+    "model_or_numerical_resolution_science_accepted_by_this_receipt": false,
+    "new_outcome_reads": false,
+    "production_state_or_execution_gate_written": false
+  },
+  "schema_version": 1,
+  "scientific_and_runtime_boundaries": {
+    "actual_first_two_sampler_starts_require_independent_pilot_before_third_start": true,
+    "automatic_retry": false,
+    "case0_independent_typed_disposition_required": [
+      "accepted_resolution",
+      "accepted_unresolved_gap"
+    ],
+    "counter_refund": false,
+    "cumulative_sampler_call_ceiling": 9,
+    "full_development_jobs": 3,
+    "no_model_prior_mask_seed_or_scoring_change": true,
+    "original_failed_check_state_and_evidence_remain_immutable": true,
+    "original_prediction_bytes_remain_bound_without_regeneration": true,
+    "phase_specific_source_authority_and_unchanged_worker_gate_both_bound": true,
+    "primary_aggregate_available_only_for_accepted_resolution": true,
+    "private_state_healing": false,
+    "recovery_jobs": 6,
+    "released_historical_controller_lease_not_recreated": true,
+    "remaining_check_jobs": 5,
+    "remaining_check_sampler_cost": 0
+  },
+  "scope": "Frozen completion coordinator source/runtime contracts only; separate numerical integration and prospective execution Gates remain required.",
+  "source_qa_only": true,
+  "status": "accepted_frozen_development_completion_sources",
+  "test_evidence": {
+    "accepted_fix_recheck": {
+      "corrected_independent_reproductions": [
+        "source-bound sibling resolution output rejects a retained file above 64 MiB",
+        "sibling resolution bytes participate in cumulative global/local caps; scaled-limit reproduction rejects",
+        "unknown empty sibling directory rejects before dispatch or state allocation"
+      ],
+      "includes_all_16_added_regressions": true,
+      "passed": 21,
+      "physical_regressions": [
+        "unknown files",
+        "empty directories",
+        "symlinks",
+        "FIFO/nonregular entries",
+        "accepted-resolution and accepted-gap histories",
+        "resume without new dispatch or state mutation"
+      ],
+      "pinned_cap_regressions": [
+        "64 MiB per file",
+        "32 MiB case-000",
+        "global and local usage",
+        "no double counting against old counted roots"
+      ],
+      "runs": [
+        {
+          "command": "UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q /private/tmp/test_development_completion_independent.py tests/test_run_arrival_development_completion.py -k 'sibling or extra or resolution or double or resource or roots or retained or quota or pinned or case_cap or physical'",
+          "deselected": 25,
+          "elapsed_seconds": 10.34,
+          "passed": 17
+        },
+        {
+          "command": "UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q tests/test_run_arrival_development_completion.py -k 'reviewed_numerical_files_are_counted_for_actual_caps'",
+          "deselected": 35,
+          "elapsed_seconds": 1.3,
+          "passed": 4
+        }
+      ]
+    },
+    "no_additional_test_run_for_receipt": true,
+    "original_review": {
+      "command": "UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q tests/test_run_arrival_development_completion.py",
+      "coordinator_sha256": "d2bcdb17a15fbee901e98f90841e8d60f4332175ba927d5b94276410d99a17a8",
+      "coverage": [
+        "source drift inside the lease before plan/state allocation",
+        "original failure and foreign-state conservation",
+        "fresh complete bytes and physical inventory on cached proofs",
+        "no failed-candidate resume or automatic retry",
+        "released historical lease remains absent",
+        "real dummy process-group timeout/STOP, descendant termination, retained partials and lease release"
+      ],
+      "elapsed_seconds": 22.39,
+      "passed": 23,
+      "tests_sha256": "fbbf43f6378b758bc679f0ee963ac183bc7762ee9b88da84c03b3343e3362789"
+    },
+    "static_checks": {
+      "cli_help": "passed",
+      "pyright": "0 errors, 0 warnings",
+      "ruff": "passed"
+    }
+  }
+}

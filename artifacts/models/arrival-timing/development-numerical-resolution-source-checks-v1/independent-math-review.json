@@ -1,0 +1,24 @@
+{
+  "status": "synthetic_math_checks_passed_not_production_acceptance",
+  "prototype_sha256": "18bde3fe79d99bcf9d6a9c5a474d1ca0eaa5359e12743ca2315c508432dcf63a",
+  "training_dense_evidence_max_error": 1.7763568394002505e-15,
+  "held_native_joint_ratio_max_error": 6.217248937900877e-15,
+  "halfnormal_logtheta_prior_max_error": 8.881784197001252e-16,
+  "finite_difference_gradient_max_error": 5.773159728050814e-10,
+  "coefficient_conditional_mean_max_error": 1.222980050563649e-16,
+  "coefficient_conditional_covariance_max_error": 2.7755575615628914e-17,
+  "proposal_checks": [
+    {
+      "df": 5,
+      "normalized_logq_max_error": 1.3322676295501878e-15
+    },
+    {
+      "df": 9,
+      "normalized_logq_max_error": 8.881784197001252e-16
+    }
+  ],
+  "paired_ratio_identity_error": 8.881784197001252e-16,
+  "actual_data_read": false,
+  "actual_production_integration": false,
+  "new_sampler_calls": 0
+}

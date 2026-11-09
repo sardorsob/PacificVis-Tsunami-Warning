@@ -1,0 +1,11 @@
+{
+  "cost": 0,
+  "elapsed_seconds": 21.387447332963347,
+  "invocation_git_sha": "880f8f2802df07b10fac21645b63ddd7f6468aa6",
+  "job_sha256": "f0807a0c3afd924a2e003a726c543f62e68e13605fd10257f6292da5d6895c09",
+  "monitor_failures": [],
+  "plan_sha256": "35fcdaa607615ae260d354788f6c121a67e1c19946b243d6bb8327a889874893",
+  "reason": "worker_exit",
+  "returncode": 2,
+  "start_markers": 0
+}

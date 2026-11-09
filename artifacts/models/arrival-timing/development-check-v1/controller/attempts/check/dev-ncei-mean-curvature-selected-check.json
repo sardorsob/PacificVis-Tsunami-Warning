@@ -1,0 +1,27 @@
+{
+  "cost": 0,
+  "dependency_files": {},
+  "files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/.controller.lock": "c8b2fa08d947819a563f6ba2fb4264e7af4546ab6ff4b5116e2e98ce7790f16b",
+    "artifacts/models/arrival-timing/development-check-v1/controller/check-plan.json": "35fcdaa607615ae260d354788f6c121a67e1c19946b243d6bb8327a889874893",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check-spec.json": "f0807a0c3afd924a2e003a726c543f62e68e13605fd10257f6292da5d6895c09",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check.supervisor.json": "6e7cb41889e0b273f10e4ad5a37ee5dc72aa393e988189daa41284ddd24b4b91",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/direct-score-arrays.npz": "60184dd280611e577969dc3d073b0b888ff9f4393edd5fe21c1d847a0c139159",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/event-results.json": "89ebdfacec61c6a41f5871904ef72aa3fca7fab5c84827f0491f4f557cfc668b",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/held-out-record-predictions.csv": "3ec1887135fcad9495f80f116bbcb34ed6c3928479d49bc944c72001962750d5",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/inputs.json": "89e5567e84244c2aa0fd0c71bf8f283dca1a4326a350c69a8ffd1a05e7d28d37",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/job.json": "f0807a0c3afd924a2e003a726c543f62e68e13605fd10257f6292da5d6895c09",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/membership.json": "26c7f8e415107a859bc92d3ca4066412f7a927561b00aa9bc5368c418d17d0a3",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/output-checksums.json": "fe360204499ab4792baf327d488cbc37f0631ef637a007dd4550d2dcc65dbba7",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-ncei-mean-curvature-selected-check/result.json": "6c196c2d40482844dd850cb6710983ef9cb9b2495b236dc27017c184afd392de",
+    "artifacts/models/arrival-timing/development-design-v1/review-acceptance.json": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+  },
+  "job_id": "dev-ncei-mean-curvature-selected-check",
+  "outcome": "needs_review",
+  "phase": "check",
+  "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/attempts/check/dev-ncei-mean-curvature-selected-check.json",
+  "role": "check_evaluate",
+  "start_markers": 0,
+  "worker_files": {}
+}

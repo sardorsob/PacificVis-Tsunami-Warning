@@ -1,0 +1,10 @@
+{
+  "id": "dev-ncei-mean-curvature-selected-check",
+  "model_key": "NCEI-native-duration:mean-curvature:selected",
+  "order": 0,
+  "role": "check_evaluate",
+  "seed": 2976110800,
+  "training_reference": {
+    "kind": "historical"
+  }
+}
