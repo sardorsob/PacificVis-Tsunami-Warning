@@ -1,0 +1,15 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json",
+  "allocation_sha256": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+  "authority_gate_sha256": "b90d8a903061e27ebf54d97d444f325838f8d1275cf572954eaff2f36fb9ac20",
+  "cost": 0,
+  "elapsed_seconds": 21.434369541238993,
+  "invocation_git_sha": "bfecbd8cac6367f32f7d3da5f205bef1ea2a306b",
+  "job_sha256": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+  "monitor_failures": [],
+  "plan_sha256": "5e5c23ad718648dc76b588f9620cdfed6900e133db44a81c251c558b7d13346c",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 0,
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}

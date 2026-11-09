@@ -1,0 +1,10 @@
+{
+  "id": "dev-tcal-pooled-runner-up-check",
+  "model_key": "T-CAL:pooled:runner_up",
+  "order": 5,
+  "role": "check_evaluate",
+  "seed": 2976111300,
+  "training_reference": {
+    "kind": "historical"
+  }
+}

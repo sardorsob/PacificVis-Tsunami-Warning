@@ -1,0 +1,5 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json",
+  "allocation_sha256": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+  "error": "ValueError('failed attempt retained; no automatic waiver/retry')"
+}

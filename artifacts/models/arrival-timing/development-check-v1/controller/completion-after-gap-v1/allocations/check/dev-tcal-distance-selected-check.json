@@ -1,0 +1,25 @@
+{
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/check/review-acceptance.json",
+  "authority_gate_sha256": "b90d8a903061e27ebf54d97d444f325838f8d1275cf572954eaff2f36fb9ac20",
+  "cost": 0,
+  "invocation_git_sha": "bfecbd8cac6367f32f7d3da5f205bef1ea2a306b",
+  "job": {
+    "id": "dev-tcal-distance-selected-check",
+    "model_key": "T-CAL:distance:selected",
+    "order": 4,
+    "role": "check_evaluate",
+    "seed": 2976111200,
+    "training_reference": {
+      "kind": "historical"
+    }
+  },
+  "job_id": "dev-tcal-distance-selected-check",
+  "phase": "check",
+  "plan": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/plans/check.json",
+  "plan_sha256": "5e5c23ad718648dc76b588f9620cdfed6900e133db44a81c251c558b7d13346c",
+  "role": "check_evaluate",
+  "spec": "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check-spec.json",
+  "spec_sha256": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+  "worker_gate": "artifacts/models/arrival-timing/development-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}

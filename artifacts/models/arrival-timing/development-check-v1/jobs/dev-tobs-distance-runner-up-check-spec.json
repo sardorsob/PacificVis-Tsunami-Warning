@@ -1,0 +1,10 @@
+{
+  "id": "dev-tobs-distance-runner-up-check",
+  "model_key": "T-OBS:distance:runner_up",
+  "order": 3,
+  "role": "check_evaluate",
+  "seed": 2976111100,
+  "training_reference": {
+    "kind": "historical"
+  }
+}

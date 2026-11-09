@@ -1,0 +1,36 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json",
+  "allocation_sha256": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+  "cost": 0,
+  "files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check-spec.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check.supervisor.json": "55e4250511abecc8db0f58a7c48eaa8aefbc4cee61a4376464f41792c6b57b6d",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+  },
+  "gap_eligible": false,
+  "job_id": "dev-tobs-distance-runner-up-check",
+  "outcome": "accepted",
+  "phase": "check",
+  "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tobs-distance-runner-up-check.json",
+  "role": "check_evaluate",
+  "start_markers": 0,
+  "worker_files": {
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/direct-score-arrays.npz": "04f25ad6c257f942cb49fea3804a28deaa47053ac592c605567942c367097e06",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/event-results.json": "75246d8cdd7060333615b8c885d278bd8f8ad5c4ef7f5877981b0f538930e0dd",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/held-out-record-predictions.csv": "de20b5824fe2e71ca0637ecc0626726c3c7173a8de3cfebc9cd5c73eea3b8198",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/inputs.json": "80bf3b8bdeba72048a8dc88140e54e915450ca0b503750a84f934e94a2e445c9",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/job.json": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/membership.json": "d7383743aeec7fb95029c34f37e72073fb548441cbcb7564adada0513a5132fa",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/output-checksums.json": "630db08b5974cb057668128df63345512114e59d05c6b1b056cea78276da05fe",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tobs-distance-runner-up-check/result.json": "ceed7be4923253c8436919de8eea303110c06cb961566b80d204fbac0d3e0c93"
+  }
+}

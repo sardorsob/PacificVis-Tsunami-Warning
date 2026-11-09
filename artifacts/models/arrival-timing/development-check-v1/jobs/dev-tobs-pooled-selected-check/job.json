@@ -1,0 +1,10 @@
+{
+  "id": "dev-tobs-pooled-selected-check",
+  "model_key": "T-OBS:pooled:selected",
+  "order": 2,
+  "role": "check_evaluate",
+  "seed": 2976111000,
+  "training_reference": {
+    "kind": "historical"
+  }
+}

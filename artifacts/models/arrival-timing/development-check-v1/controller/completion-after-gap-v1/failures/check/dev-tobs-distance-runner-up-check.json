@@ -1,0 +1,5 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json",
+  "allocation_sha256": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+  "error": "ValueError('failed attempt retained; no automatic waiver/retry')"
+}

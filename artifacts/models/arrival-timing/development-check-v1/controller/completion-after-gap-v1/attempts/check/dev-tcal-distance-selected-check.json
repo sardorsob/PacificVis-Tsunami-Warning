@@ -1,0 +1,36 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json",
+  "allocation_sha256": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+  "cost": 0,
+  "files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tcal-distance-selected-check.json": "c98a859d9261b2d840c81c825f91e02491056f95f51bd4b4c81d45836acbcbdb",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check-spec.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check.supervisor.json": "422f9ae3e8d812af0ec5d573cd40ff2def39b8c099dfa736e311b28047d1d657",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+  },
+  "gap_eligible": false,
+  "job_id": "dev-tcal-distance-selected-check",
+  "outcome": "accepted",
+  "phase": "check",
+  "receipt": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/check/dev-tcal-distance-selected-check.json",
+  "role": "check_evaluate",
+  "start_markers": 0,
+  "worker_files": {
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/direct-score-arrays.npz": "cfc9fefc121e306ad0f4d0879f186dad14cf4d23a2a62ac4099db3e1c9d0dde0",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/event-results.json": "a94f562e45ae10991025acfd3a928dc195108145f2ba1be52e26323950ccbdb7",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/held-out-record-predictions.csv": "29dc1e1fe9f2688aa7aea25598712ef722e38f0679ffca76586cca99cbcdec5b",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/inputs.json": "56fa8c343bb94023a6c18819ad804da23377ef2b1bc99b8ae2f4f0fd7222e283",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/job.json": "636f681240a059a70c0d283b083ee026197484dace205fe7c0b5950972916db9",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/membership.json": "119e6c061a2062cd918ea635825feabbe137fda76bdb29462ca28fa7d8cf4cd2",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/output-checksums.json": "1d4537e8339520c3c86ad813ef10f0e87eb4be2b29b2c1f10a4c524cc2bffae1",
+    "artifacts/models/arrival-timing/development-check-v1/jobs/dev-tcal-distance-selected-check/result.json": "15ac4a693e4c5eed6bdbec0ef24c9de0ab04368f1d192e984f1a62ed618016fc"
+  }
+}

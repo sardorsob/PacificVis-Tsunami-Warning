@@ -1,0 +1,15 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-distance-runner-up-check.json",
+  "allocation_sha256": "6d179e721a176c4054d0a2d444d03ccf4cba2ca3a0cbb94981a33b0dad91bc7e",
+  "authority_gate_sha256": "b90d8a903061e27ebf54d97d444f325838f8d1275cf572954eaff2f36fb9ac20",
+  "cost": 0,
+  "elapsed_seconds": 22.7267084158957,
+  "invocation_git_sha": "bfecbd8cac6367f32f7d3da5f205bef1ea2a306b",
+  "job_sha256": "e13267fecf18bce67964b2108772d3db9bad00459baf4d4a24ad510e33616f6a",
+  "monitor_failures": [],
+  "plan_sha256": "5e5c23ad718648dc76b588f9620cdfed6900e133db44a81c251c558b7d13346c",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 0,
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}

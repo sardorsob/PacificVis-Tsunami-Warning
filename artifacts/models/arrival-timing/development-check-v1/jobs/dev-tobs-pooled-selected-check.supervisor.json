@@ -1,0 +1,15 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json",
+  "allocation_sha256": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+  "authority_gate_sha256": "b90d8a903061e27ebf54d97d444f325838f8d1275cf572954eaff2f36fb9ac20",
+  "cost": 0,
+  "elapsed_seconds": 20.931875207927078,
+  "invocation_git_sha": "bfecbd8cac6367f32f7d3da5f205bef1ea2a306b",
+  "job_sha256": "d08821010be62551f57acc0e5c2094f266cf58ba4db2e2ad0597fbc7f6820dc7",
+  "monitor_failures": [],
+  "plan_sha256": "5e5c23ad718648dc76b588f9620cdfed6900e133db44a81c251c558b7d13346c",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 0,
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}

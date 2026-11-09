@@ -1,0 +1,10 @@
+{
+  "id": "dev-tcal-distance-selected-check",
+  "model_key": "T-CAL:distance:selected",
+  "order": 4,
+  "role": "check_evaluate",
+  "seed": 2976111200,
+  "training_reference": {
+    "kind": "historical"
+  }
+}

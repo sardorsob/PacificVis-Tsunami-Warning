@@ -1,0 +1,5 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/check/dev-tobs-pooled-selected-check.json",
+  "allocation_sha256": "6000256495f586974e095cf2a54329b55925009632d52f24e77b21a3bff0d24b",
+  "error": "ValueError('failed attempt retained; no automatic waiver/retry')"
+}
