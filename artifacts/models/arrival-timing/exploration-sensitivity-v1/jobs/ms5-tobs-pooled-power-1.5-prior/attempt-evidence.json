@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-tobs-pooled-power-1.5-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior-spec.json": "19750b45aba999832ad62ef600d23aec35162eb22e2fedb8c28e98478545c943",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior.log": "ef954797572f0e71aa8ad9f5b4337397156e7ba2e13231d5242186de34691954",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior.supervisor.json": "c703f178e503b411f802f6d75238974998309b4fbb24fc072e0fbcbf5e652e40",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/conditional-ppc.csv": "00b33aff0f1d7e1b0802692c70590890cd356bf378915fc9a883bea0682df4c0",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/curves.csv": "95c644fb99e8d53995711b1a895b182c4b4ff9f4420d79dcf9f38670b89f695d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/derived.csv": "2db97b0498d1c5b28cb2937fe7b7a3ea50d7b31357e3b4f79c09469e801c4415",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/diagnostics.json": "0d1e8609b1e3ca48bdc19d9cce668899ec4f32beace3faa9cd7d6d209cba77db",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/inputs.json": "4cf069640871d67138b9c103e796cc7efe93cd968916aa8e494d19dd87be2a17",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/job.json": "19750b45aba999832ad62ef600d23aec35162eb22e2fedb8c28e98478545c943",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/membership.json": "3afae8bc43cac203aeca8d97c93fafaac6cde846d73fb0210792379c3a350602",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/parameters.csv": "c4c0da9b86c7e7396dccc3e2aec759f3965777f03e995dd3aebbb67a3f970a87",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/record-intervals.csv": "90fab016b2de95c6445208ee17c333fe19058818222a488637441c98b1f900e9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/result.json": "3a42e0a4bec2c90d70b6f0bc8d33a0c669464c843d1e0ef0cf3b33fc4a633b71",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/sampling-diagnostics.csv": "e5a0aaa63fe206e1ead2af1549296ba2157d0e26d7802401534ab1416772f00b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/sampling-start.json": "19750b45aba999832ad62ef600d23aec35162eb22e2fedb8c28e98478545c943",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-pooled-power-1.5-prior/summary.json": "3d02feefd8c30f5ed66e12590f71cc58cadad501a85f7bf8af18894c9a7ef1cc",
+    "data/processed/models/arrival-sensitivity-v1/ms5-tobs-pooled-power-1.5-prior.nc": "c656cc2a7492b90ae687b0b53e0d63a9e79cf07e93fd0a6ea08764ef722d5787"
+  }
+}
