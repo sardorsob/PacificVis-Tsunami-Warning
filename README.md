@@ -24,7 +24,7 @@ design, or submission claim.
 | Lane | Main question | Intended output | Current state |
 | --- | --- | --- | --- |
 | Shared scientific foundation | What source data can be acquired, normalized, and interpreted defensibly? | Versioned source contracts, checksums, tables, quality evidence, and release manifests | All 118 entries in the frozen archive snapshot preserved; separate reported-arrival, observation and display layers |
-| Conference Paper | How do reported coastal arrivals differ from published estimates, and what uncertainty can the observing network support? | Multi-event research corpus, hierarchical Bayesian methods, evaluation, figures, and manuscript | Versioned data foundation and descriptive audits available; no model fitted or physical onsets validated |
+| Conference Paper | How do reported coastal arrivals differ from published estimates, and what uncertainty can the observing network support? | Multi-event research corpus, hierarchical Bayesian methods, evaluation, figures, and manuscript | Three source-specific Bayesian fits and independent computational checks complete; reserved evaluation remains sealed |
 | Visual Data Story | How did one tsunami produce different arrival-time experiences around the Pacific, and why is distance alone misleading? | Guided browser story in `app/` | Data proof in progress; production story not started |
 
 The **2011 Tōhoku earthquake and tsunami** is the provisional source event for
@@ -43,8 +43,9 @@ retains 1,177 source reports, including 388 source-supported reported-time pairs
 The observation snapshot retains 3,756,344 source rows in 1,783 normalized files.
 These counts do not imply independent measurements or validated physical onsets.
 Separate candidate views contain 258 reported durations from reviewed USGS
-reference origins and 169 signed estimated-minus-observed UTC differences;
-neither view is approved for modeling.
+reference origins and 169 signed estimated-minus-observed UTC differences.
+These source-level counts precede the model-specific eligibility and exclusion
+rules; eligible full-development counts appear below.
 The viewer export contains 13 development events that meet its station-ID and
 coverage rules; this display subset does not limit the broader acquisition.
 The browser demos do not yet load the multi-event export.
@@ -61,7 +62,61 @@ Start with the [EDA guide for Bayesian modeling](artifacts/eda/arrival-timing/RE
 for distributions, observation processes, parameter implications, and descriptive
 links to the plots and tables. The [results report](artifacts/eda/arrival-timing/arrival-timing-findings.md)
 records the frozen exploration/confirmation findings and their limitations.
-No Bayesian model is fitted.
+### Bayesian models and development support
+
+Three frozen models were fitted to eligible development records and independently reviewed.
+The [model findings](artifacts/models/arrival-timing/full-development-analysis-v1/findings.md)
+and [saved summaries](artifacts/models/arrival-timing/full-development-analysis-v1/summary.json)
+provide parameters, predictive checks and numerical uncertainty. The
+[independent review](artifacts/models/arrival-timing/full-development-analysis-v1/review-acceptance.json)
+identifies the accepted results and their source files. The
+[model-readiness guide](docs/research/bayesian-model-readiness.md) records the earlier
+EDA-to-model reasoning.
+
+The [distance-curve figure](artifacts/models/arrival-timing/full-development-figures-v1/selected-model-distance-curves-and-predictive-intervals.png)
+shows population-median uncertainty and new-report prediction intervals in
+native minutes. The [plotted quantiles](artifacts/models/arrival-timing/full-development-figures-v1/plotted-quantiles.csv)
+preserve the saved values and distance-support flags.
+
+| Response | Frozen selected form | Event hierarchy | Eligible reports / represented events |
+| --- | --- | --- | --- |
+| NCEI reported travel duration, in minutes | Curved log-distance mean and distance-varying spread for log duration relative to a fixed-depth reference | Partially pooled event offsets | 1,215 / 47 |
+| NTWC observed UTC minus reviewed origin (`T-OBS`), in minutes | Pooled log duration relative to the same reference | No event term | 258 / 20 |
+| NTWC estimated UTC minus observed UTC (`T-CAL`), signed minutes | Linear regression on log distance | No event term | 169 / 18 |
+
+All three retain their frozen base priors. No station effects are fitted. Source
+families remain separate, and the shared observed clock makes `T-OBS` and `T-CAL`
+dependent measurements. Counts follow each target's eligibility rules; the
+57-entry development catalogue is not the sample size of every fit.
+
+The NCEI design retains 1,215 of 1,221 reports. Six reports form three unresolved
+groups of two records sharing an event and site; the frozen evidence rule
+excludes each whole group. The source records remain preserved, and all 47
+represented events retain eligible reports. No reports are removed by this
+rule from the T-OBS or T-CAL design.
+
+The 19-event development check was already inspected during EDA; it is not an
+independent test. The 18 reserved outcomes remain sealed. Joint-score precision
+failures leave both aggregate score views unavailable for the NCEI distance-scale
+and `T-CAL` pooled alternatives; their marginal predictions remain available.
+These gaps do not establish a model ranking. The earlier unresolved linear
+2014-onward sensitivity also provides no evidence in favor of curvature.
+
+The frozen interval convention is central 90%. Parameter intervals describe posterior
+uncertainty; pointwise new-event prediction intervals also include modeled
+report variation. Positive-duration predictions are summarized by quantiles.
+The reported conditional predictive checks use fitted-event data and are descriptive.
+The six fixed-truth computations are smoke checks, not calibration or coverage evidence.
+All three full fits have zero divergences and maximum R-hat below 1.002;
+these are sampling diagnostics, with reserved evaluation still separate.
+Fitted-event checks show substantial discrepancies: observed quantile statistics
+fall outside replicated 90% intervals in 20/30 NCEI, 21/30 T-OBS and 10/30 T-CAL
+diagnostic cells. These cells are correlated; the counts signal distributional
+mismatch and are not estimates of prediction coverage.
+
+The models describe reported timings conditional on archive inclusion. They do
+not validate physical onset or operational warning performance. Model selection
+remains frozen after the development check.
 
 The original Tōhoku data proof remains separately preserved. Its evidence
 contains:
@@ -273,7 +328,7 @@ may consume it, but neither may consume the other's derived artifacts.
 | Surface | Shared foundation | Conference Paper | Visual Data Story |
 | --- | --- | --- | --- |
 | Data scope | Reviewed public sources and source-faithful tables | Versioned multi-event, multi-station corpus | One reviewed Tōhoku event and small observation chain |
-| Analysis | Data quality, missingness, schemas, and transparent source-factual derivations | Planned hierarchical Bayesian modeling, calibration, uncertainty, sensitivity, and visual-analytics evaluation | Descriptive EDA used to choose defensible narrative contrasts |
+| Analysis | Data quality, missingness, schemas, and transparent source-factual derivations | Source-specific Bayesian modeling, uncertainty, sensitivity, and development checks; visual-analytics evaluation remains separate | Descriptive EDA used to choose defensible narrative contrasts |
 | Main contribution | Trustworthy, reusable evidence | Scientific visual-analytics method and evaluated research claim | Original guided narrative and interaction design |
 | Outputs | Release manifests and shared reports | Paper-only models, figures, tables, supplements, and manuscript | Story-only static exports, scenes, prose, and browser application |
 | Prohibited crossover | No fitted submission-specific result | Must not import story modules or reuse story figures/prose | Must not import paper modules or expose paper-model results |
