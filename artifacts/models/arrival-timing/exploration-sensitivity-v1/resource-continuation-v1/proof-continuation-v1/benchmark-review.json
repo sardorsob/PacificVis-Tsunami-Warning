@@ -1,0 +1,28 @@
+{
+  "all_callbacks_restored_and_memory_cache_cleared": true,
+  "cold_counts": {
+    "full_proofs": 10,
+    "pending_captures": 0,
+    "pending_promotions": 0,
+    "warm_checks": 10
+  },
+  "cold_seconds": 127.13782262476161,
+  "confirmation_outcomes_parsed": false,
+  "old12_ledger_sha256_unchanged": true,
+  "performance_gate": "artifacts/models/arrival-timing/sensitivity-design-v1/proof-continuation-v1/review-acceptance.json",
+  "performance_gate_sha256": "722501591a73f9ad5d4b734dfb2467c112c23571a74dbd290e903eabf71d33ab",
+  "records_tested": "same_ten_accepted_case_bundles",
+  "reserved_outcomes": "sealed",
+  "sampler_calls_charged": 0,
+  "single_comparison_ratio_not_throughput_guarantee": 37.39865714175544,
+  "source_and_complete_case_hashes_fresh": true,
+  "state_sha256_unchanged": "692ef183ca0a99d8b7180f22c2e988720d2e34c6f0f90c465a9258f6855e3035",
+  "status": "accepted_parent_readonly_cold_warm_proof_benchmark",
+  "warm_counts": {
+    "full_proofs": 10,
+    "pending_captures": 0,
+    "pending_promotions": 0,
+    "warm_checks": 20
+  },
+  "warm_seconds": 3.3995290831662714
+}
