@@ -1,0 +1,43 @@
+"""Build a metadata-only prospective technical G/full authority, never publish/run."""
+import argparse,hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+
+def build(root,phase):
+ root=Path(root).resolve();baseline=T.load(root,T.BASELINE)
+ kernel=T.load(root,T.KERNELS[phase]);review_path=T.DESIGN+'/source-review.json'
+ source=T.load(root,review_path)
+ T.require(source['status']=='accepted_frozen_arrival_development_technical_source' and source['independent_checker'] is True and source['execution_authority'] is False,'accepted independent source QA first')
+ names=[T.BASELINE,T.KERNELS[phase],T.CHECK,T.CHECK_SUMMARY,T.FREEZE,review_path]
+ if phase==T.PHASES[1]:
+  g=T.load(root,T.G_REVIEW);T.require(g['status']=='accepted_frozen_full_development_design_checks' and g['independent_checker'] is True,'actual accepted six-G SCI first');names.append(T.G_REVIEW)
+ pins=T.merge(baseline['files'],kernel['files'],source['files'])
+ for n in names:
+  obj=T.load(root,n)
+  pins=T.merge(pins,obj.get('files',{}),{n:T.sha(root/n)})
+ design_artifacts={str(p.relative_to(root)):T.sha(p) for p in (root/T.DESIGN).rglob('*') if p.is_file()}
+ pins=T.merge(pins,design_artifacts)
+ from scripts import run_arrival_development_journal as J
+ floors={str(p.relative_to(root)):J.old.r.byte_count(p) for p in J.old.r.parent_roots(root)}
+ T.require(len(floors)==15 and all(floors[p]>=n for p,n in kernel['parent_minimum_bytes'].items()),'all retained floors preserved')
+ outside=kernel['external_reference_files'];T.require(len(outside)==11,'exact11 outside references')
+ T.require(all(pins[p]==h for p,h in outside.items()),'outside reference identity')
+ inherited={p:h for p,h in T.load(root,T.FREEZE)['files'].items() if p.startswith('context/')}
+ T.require(len(inherited)==12 and {p:h for p,h in pins.items() if p.startswith('context/')}==inherited,'only twelve inherited hash references')
+ g=dict(status='accepted_frozen_arrival_development_technical_continuation',independent_checker=True,phase=phase,path_bindings=T.bindings(root),max_sampler_call_slots=9,confirmation_outcomes_parsed=True,reserved_outcomes='sealed',reserved_outcomes_parsed=False,no_retuning=True,specification_freeze=T.FREEZE,specification_freeze_sha256=pins[T.FREEZE],baseline_review=T.BASELINE,baseline_review_sha256=pins[T.BASELINE],worker_gate=T.KERNELS[phase],worker_gate_sha256=pins[T.KERNELS[phase]],jobs=kernel['jobs'],dispatch_jobs=kernel['jobs'][1:] if phase==T.PHASES[0] else kernel['jobs'],resources=kernel['resources'],inherited_calls={'charged':1 if phase==T.PHASES[0] else 6,'started':1 if phase==T.PHASES[0] else 6},inherited_context_files=inherited,parent_minimum_bytes=floors,external_reference_files=outside,execution_source_review=review_path,execution_source_review_sha256=pins[review_path],retained_consumer_review_artifacts=design_artifacts,files=pins)
+ T.fresh(root,pins)
+ J.c2.quota(root,{'gate':g,'files':pins,'phase':phase},reserve=True,known_files=pins)
+ T.require(baseline['job']==T.load(root,baseline['original_worker_gate'])['jobs'][0],'same original G0 baseline')
+ for p,h in baseline['private_state_hashes_history_only'].items():T.require(T.sha(T.file(root,p))==h,'retained private history changed')
+ T.fresh(root,pins)
+ return dict(status='draft_only_not_execution_authority',gate_path=T.authority_path(phase),gate_sha256=hashlib.sha256(T.payload(g)).hexdigest(),gate=g,actual_Gates_published=False,native_arrays_parsed=False,private_STATE_bodies_parsed=False)
+
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--phase',choices=T.PHASES,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+ T.require(a.output.is_absolute() and a.output.parent.resolve()==Path('/private/tmp') and not a.output.exists(),'new literal TMP draft only')
+ draft=build(R,a.phase)
+ with a.output.open('xb') as f:f.write(T.payload(draft))
+ print(json.dumps({'status':draft['status'],'gate_sha256':draft['gate_sha256'],'pins':len(draft['gate']['files'])}))
+if __name__=='__main__':main()

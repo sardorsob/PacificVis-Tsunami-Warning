@@ -1,0 +1,57 @@
+import hashlib,json,shutil
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+D='artifacts/models/arrival-timing/development-design-v1/technical-completion-v1'
+A='artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def enc(v):return (json.dumps(v,sort_keys=True,indent=2,allow_nan=False)+'\n').encode()
+def save(p,v):
+ p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(enc(v))
+def merge(*maps):
+ out={}
+ for m in maps:
+  for p,h in m.items():
+   assert p not in out or out[p]==h,p
+   assert sha(R/p)==h,p
+   out[p]=h
+ return out
+source_expected={
+ 'analysis/arrival/model_development_technical_completion.py':'66cec4fdddde344ec60bce51f4681cd0faa5f5ca0db89b60f5cd8156e7621247',
+ 'scripts/run_arrival_development_technical_completion.py':'d8184af399ac762709e8493cbde497c3d6ddcbb382ba58b7a250a1b7025c0e76',
+ 'tests/test_arrival_development_technical_completion.py':'2296279e35001607c01af9acfdc3878b01c41735d7f1176cefb33464cf1dc25c'}
+reader_expected={
+ 'analysis/arrival/model_development_completion_report.py':'55eb662c0ba876b5a6e8a7d4e18b3e9da105edb0c82d845c741b3f3e06fc799e',
+ 'scripts/summarize_arrival_completed_development.py':'6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2',
+ 'tests/test_arrival_model_development_completion_report.py':'9a981f157e73202988c0496980936d2f3896aa6e3f92d70d5b812a7c99d8302c'}
+merge(source_expected,reader_expected)
+copies={
+ 'source-review-evidence-v1/source-qa.json':('/private/tmp/tsunami-development-technical-source-qa.json','704f98c18f61a45391e7d978e0d2d9ab0574d9c4ae7fa584bd6a8c380e089fe9'),
+ 'source-review-evidence-v1/baseline-metadata-qa.json':('/private/tmp/tsunami-technical-baseline-independent-metadata-qa.json','4becfdbadac3f8236022aa9466331984b1c652cfcf0f2cf476105e14e0595be8'),
+ 'consumer-review-evidence-v1/independent-review.json':('/private/tmp/tsunami-development-technical-consumer-independent-review.json','0f92c7a00c3f797ed950f4261e79d1d0997fed3a70fcb9b2cff3905268768496'),
+ 'consumer-review-evidence-v1/maker-checks.json':('/private/tmp/technical-consumer-compatibility-maker-receipt.json','c4e5ed88f9b7acacd9748a2a311cc281bf5ebde2f6e7ab552f4b754a123d9b1c'),
+ 'consumer-review-evidence-v1/full-worker-gate-builder.py.txt':('/private/tmp/prepare-tsunami-full-development-worker-gate.py','60bcfe0599934562bc3f5aa7454ac5f4c6bb214d36efe124b2123d5450f1bc95'),
+ 'consumer-review-evidence-v1/test-full-worker-gate-builder.py.txt':('/private/tmp/test_prepare_full_development_worker_gate.py','4f588c76fb8fd92e7ee84aa2d3e5bc51c36438ca8e8a3fe822ef19f75d126b59'),
+ 'consumer-review-evidence-v1/tracking.py.txt':('/private/tmp/track-tsunami-development-program.py','b9ea82ab685146323174eca408e1465ce06d5f95507cccd567809f2f77d925d9'),
+ 'consumer-review-evidence-v1/test-tracking.py.txt':('/private/tmp/test_track_development_program.py','1a5b2661cabde981c267b75c0ad82fc24d56b01bc833471b7e24ab3f522df6ee')}
+cp={}
+for dst,(src,h) in copies.items():
+ p=R/D/dst;assert sha(Path(src))==h,src
+ p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(Path(src).read_bytes())
+ cp[D+'/'+dst]=h
+pub=R/D/'source-review-evidence-v1/publication-code.py.txt'
+with pub.open('xb') as f:f.write(Path(__file__).read_bytes())
+cp[str(pub.relative_to(R))]=sha(pub)
+old=json.loads((R/A/'source-review.json').read_text())
+code_files=merge(old['files'],source_expected,{p:h for p,h in cp.items() if '/source-review-evidence-v1/' in p})
+common=dict(independent_checker=True,execution_authority=False,reserved_outcomes='sealed',new_sampler_calls=0,scientific_models_priors_seeds_thresholds_changed=False)
+src=dict(common,status='accepted_frozen_arrival_development_technical_source',source_files=source_expected,independent_tests_passed=46,static_checks_passed=True,source_qa=D+'/source-review-evidence-v1/source-qa.json',baseline_metadata_qa=D+'/source-review-evidence-v1/baseline-metadata-qa.json',original_worker_and_controller_sources_preserved=True,files=code_files)
+save(R/D/'source-review.json',src)
+oldr=json.loads((R/A/'reader-source-review.json').read_text())
+rbase={p:h for p,h in oldr['files'].items() if p not in reader_expected}
+consumer_files=merge(rbase,reader_expected,source_expected,{p:h for p,h in cp.items() if '/consumer-review-evidence-v1/' in p})
+cr=dict(common,status='accepted_frozen_arrival_development_technical_consumer_source',independent_tests_passed=211,static_checks_passed=True,current_reader_files=reader_expected,legacy_reader_source_review_history_only=A+'/reader-source-review.json',baseline_controller_outcome_preserved='needs_review',computation_children=16,parent_runs=1,maximum_sampler_calls=9,files=consumer_files)
+save(R/D/'consumer-source-review.json',cr)
+for name in ['source-review.json','consumer-source-review.json']:
+ p=R/D/name;obj=json.loads(p.read_text());merge(obj['files']);print(name,sha(p),len(obj['files']))

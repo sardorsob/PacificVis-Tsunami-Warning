@@ -1,0 +1,57 @@
+{
+  "Pyright": "0 errors / 0 warnings",
+  "Ruff": "PASS",
+  "actual_MLflow_client_created": false,
+  "actual_final_preflight_or_real_tracking_store_access": false,
+  "actual_native_NC_NPZ_outcome_or_private_STATE_reads": false,
+  "additional_independent_tests": {
+    "passed": 12,
+    "seconds": 5.63
+  },
+  "confirmed_P0_P1": [],
+  "execution_or_model_choice_authorized": false,
+  "extra_probes": [
+    "re-sealed continued-G strict-proof sampler cost1 rejects before tables",
+    "re-sealed continued-G startup env drift rejects before tables",
+    "re-sealed failed strict-proof process rejects before tables",
+    "tracking does not reconstruct old/private ordinary G namespace",
+    "both original-controller-outcome and retained-controller-failure terminal tag drift reject read-only",
+    "ledger alias/symlink and all17terminal replay/strict byte caps preserve prior guards"
+  ],
+  "files": {
+    "/private/tmp/prepare-tsunami-full-development-worker-gate.py": "60bcfe0599934562bc3f5aa7454ac5f4c6bb214d36efe124b2123d5450f1bc95",
+    "/private/tmp/test_development_tracking_ledgers_independent.py": "0574c377cb5b764c2ed5dd29ea23aa3c4fb936330ab186c3f35235ccfef0f6a2",
+    "/private/tmp/test_full_worker_gate_independent.py": "e0dc180e23874e5d27f47547f82172c8aa58c9494fdcc1d2b14b8857a18be172",
+    "/private/tmp/test_prepare_full_development_worker_gate.py": "4f588c76fb8fd92e7ee84aa2d3e5bc51c36438ca8e8a3fe822ef19f75d126b59",
+    "/private/tmp/test_technical_consumers_independent.py": "3f19f6a8d67bdc2cd689cf2101ea851ce9af5e432b2edfb703dcbdab0aba7d68",
+    "/private/tmp/test_track_development_independent.py": "a4f56cf7c08c088b1590468cc7e8493669d8e5af435241fbc62fe65d8df195ee",
+    "/private/tmp/test_track_development_program.py": "1a5b2661cabde981c267b75c0ad82fc24d56b01bc833471b7e24ab3f522df6ee",
+    "/private/tmp/track-tsunami-development-program.py": "b9ea82ab685146323174eca408e1465ce06d5f95507cccd567809f2f77d925d9",
+    "analysis/arrival/model_development_completion_report.py": "55eb662c0ba876b5a6e8a7d4e18b3e9da105edb0c82d845c741b3f3e06fc799e",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "9a981f157e73202988c0496980936d2f3896aa6e3f92d70d5b812a7c99d8302c"
+  },
+  "help": [
+    "reader PASS",
+    "builder PASS",
+    "tracking PASS"
+  ],
+  "independent_checker": true,
+  "interface_assumptions": [
+    "technical.read_program_metadata is the separately verified pure metadata admission API; these consumer tests intentionally use producer-shaped fixtures, not real program admission.",
+    "G0 remains one sampled computation: original needs_review receipt and separate strict SCI/full18inventory; original result and failed controller receipt are not rewritten.",
+    "six mixed G smokes include original G0 + five new strict-startup executions; full3 inherited6/max9; no old fake-complete G/full namespace summaries.",
+    "same six CHECK dispositions with C0 resolution and two alternative aggregate gaps retained; no six-pass/model-ranking claim.",
+    "tracking uses already admitted bundle.smokes;16computation children+parent17;G0 FINISHED with retained_controller_failure=true while three CHECK failures remain FAILED.",
+    "exact12 opaque immutable inherited ledgers streamed only for hashes; no context JSON body parsing or mirroring."
+  ],
+  "maker_receipt_sha256": "c4e5ed88f9b7acacd9748a2a311cc281bf5ebde2f6e7ab552f4b754a123d9b1c",
+  "project_files_written": false,
+  "scope": "Frozen Reader3, TEMP full-Gate builder2 and TEMP tracking2 compatibility only; technical coordinator has separate independent QA.",
+  "status": "independently_accepted_technical_development_consumers_sources",
+  "supplied_tests": {
+    "passed": 199,
+    "seconds": 58.28
+  },
+  "unmodified_math_and_native_scientific_semantics": true
+}

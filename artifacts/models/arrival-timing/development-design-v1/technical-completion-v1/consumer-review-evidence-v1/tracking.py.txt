@@ -1,0 +1,877 @@
+"""Register the closed MS6 program in its existing project-local MLflow store.
+
+Dry metadata admission is the default. Only --execute opens a client or writes
+tracking evidence. Raw NC/NPZ and the complete source closure remain hash refs.
+"""
+
+# pyright: basic
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import os
+import re
+import sys
+import tempfile
+from pathlib import Path
+from typing import Any
+from urllib.parse import unquote, urlsplit
+
+STATUS = "accepted_frozen_arrival_development_analysis"
+OUTPUT = "artifacts/models/arrival-timing/development-tracking-v1"
+EXPERIMENT = "arrival-model"
+FREEZE = "artifacts/models/arrival-timing/specification-freeze-v1/review-acceptance.json"
+SELF = Path(__file__).resolve()
+MAX_MANIFEST = 128 * 1024
+MAX_TRACKING = 4 * 1024**2
+
+
+def require(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+
+def payload(value):
+    return (
+        json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n"
+    ).encode()
+
+
+def sha(path):
+    with path.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def digest(value):
+    return hashlib.sha256(payload(value)).hexdigest()
+
+
+def path(root, name, *, inherited_refs=()):
+    p = root / name
+    require(
+        isinstance(name, str)
+        and not Path(name).is_absolute()
+        and p.is_relative_to(root)
+        and ".." not in Path(name).parts
+        and p.resolve() == p
+        and p.is_file()
+        and (not name.startswith("context/") or name in inherited_refs),
+        "literal public regular project file required",
+    )
+    return p
+
+
+def inherited_source_refs(root, pins):
+    """Admit the freeze's 12 old ledger hashes, never context JSON bodies."""
+    freeze_path = path(root, FREEZE)
+    require(pins.get(FREEZE) == sha(freeze_path), "pinned freeze required before ledger hashes")
+    freeze = json.loads(freeze_path.read_text())
+    inherited = {p: h for p, h in freeze.get("files", {}).items() if p.startswith("context/")}
+    actual = {p: h for p, h in pins.items() if "context/" in p}
+    live = {
+        "context/runs/arrival-model-fitting-v1/development-state.json",
+        "context/runs/arrival-model-fitting-v1/development-completion-state.json",
+    }
+    require(
+        len(inherited) == 12
+        and all(p.endswith(".json") for p in inherited)
+        and not live.intersection(inherited)
+        and actual == inherited,
+        "exact12 inherited immutable ledger hashes required; no live STATE",
+    )
+    return inherited
+
+
+def stable(root, pins):
+    require(isinstance(pins, dict) and pins, "complete accepted files required")
+    inherited = inherited_source_refs(root, pins)
+    for name, value in pins.items():
+        require(
+            isinstance(value, str)
+            and re.fullmatch("[0-9a-f]{64}", value) is not None
+            and sha(path(root, name, inherited_refs=inherited)) == value,
+            "source bytes changed: " + str(name),
+        )
+
+
+def read(root, pins, name):
+    require(name in pins, "file was not independently reviewed: " + name)
+    return json.loads(path(root, name).read_text())
+
+
+def metrics(value, prefix=""):
+    result = {}
+    if isinstance(value, dict):
+        for key, item in value.items():
+            label = prefix + "." + key if prefix else key
+            if isinstance(item, dict):
+                result.update(metrics(item, label))
+            elif type(item) in (int, float):
+                require(math.isfinite(item), "nonfinite saved metric: " + label)
+                result[label] = float(item)
+    return result
+
+
+def child(root, pins, key, case, phase, *, failed=False, process_name=None, result=None):
+    folder = case["folder"]
+    job = case["job"]
+    name = str((folder / "result.json").relative_to(root))
+    result = case["result"] if result is None else result
+    require(
+        result.get("status")
+        == ("needs_numerical_review" if failed else "computed_pending_scientific_review"),
+        "stored worker outcome must remain unchanged",
+    )
+    process_name = process_name or str(
+        folder.with_name(folder.name + ".supervisor.json").relative_to(root)
+    )
+    process = read(root, pins, process_name)
+    git = process.get("invocation_git_sha")
+    require(
+        isinstance(git, str) and re.fullmatch("[0-9a-f]{40}", git) is not None,
+        "actual producer Git must be recorded, not inferred from registration HEAD",
+    )
+    params = {
+        k: json.dumps(v, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if isinstance(v, (dict, list))
+        else str(v)
+        for k, v in dict(
+            job=job,
+            phase=phase,
+            model_spec=case.get("spec", {}),
+            prior_settings=case.get("settings"),
+            producer_git_sha=git,
+            result_sha256=pins[name],
+            specification_freeze_sha256=pins[case["freeze_path"]],
+            sampler_call_cost=0 if phase in {"check", "numerical_resolution"} else 1,
+            statistical_retuning=False,
+        ).items()
+    }
+    require(
+        all(len(v) <= 6000 for v in params.values()),
+        "parameter too large; keep portable references",
+    )
+    saved = metrics(result.get("diagnostics", {}), "diagnostics")
+    if not failed:
+        for section in [
+            "aggregate",
+            "aggregate_without_crossing_event",
+            "resolved_event_score",
+            "aggregates",
+        ]:
+            saved.update(metrics(result.get(section, {}), section))
+    if type(result.get("prediction_rows")) is int:
+        saved["prediction_rows"] = float(result["prediction_rows"])
+    refs = {
+        n: pins[n]
+        for n in [
+            name,
+            process_name,
+            *[
+                str((folder / leaf).relative_to(root))
+                for leaf in [
+                    "inputs.json",
+                    "membership.json",
+                    "prior-settings.json",
+                    "job.json",
+                    "summary.json",
+                ]
+            ],
+        ]
+        if n in pins
+    }
+    missing = {}
+    if case.get("public_record"):
+        record = case["public_record"]
+        require(
+            pins.get(record["receipt"]) == record["receipt_sha256"],
+            "exact public attempt SHA required",
+        )
+        refs.update({n: v for n, v in record["files"].items() if pins.get(n) == v})
+        missing = {n: v for n, v in record["files"].items() if pins.get(n) != v}
+        require(
+            not missing or (failed and all(n.endswith("/.controller.lock") for n in missing)),
+            "only reviewed released historical leases may lack persistent bytes",
+        )
+        refs[record["receipt"]] = record["receipt_sha256"]
+    technical = case.get("technical_revalidation")
+    if technical is not None:
+        require(
+            not failed
+            and phase == "full_design_recovery"
+            and technical.get("original_controller_outcome") == "needs_review"
+            and technical.get("original_receipt") == case["public_record"]["receipt"]
+            and case["public_record"].get("outcome") == "needs_review",
+            "strict G0 revalidation must retain the original controller failure",
+        )
+        for field in ["original_receipt", "technical_review", "strict_proof"]:
+            require(
+                pins.get(technical[field]) == technical[field + "_sha256"],
+                "literal accepted technical proof binding required",
+            )
+            refs[technical[field]] = technical[field + "_sha256"]
+    # Keep raw/array paths in manifests only; never mirror their bytes or 14k source pins.
+    manifest = dict(
+        key=key,
+        job=job,
+        phase=phase,
+        decision=(
+            "retained_numerical_failure_or_gap"
+            if failed
+            else "accepted_under_strict_revalidation"
+            if technical is not None
+            else "accepted_computation"
+        ),
+        technical_revalidation=technical,
+        scientific_gap=case.get("disposition") == "accepted_unresolved_gap",
+        retained_failure=failed,
+        released_ephemeral_history=missing,
+        source_files=refs,
+        source_closure_sha256=digest(pins),
+        params=params,
+        metrics=saved,
+        raw_and_array_bytes_mirrored=False,
+    )
+    require(len(payload(manifest)) <= MAX_MANIFEST, "bounded portable child manifest")
+    return dict(
+        key=key,
+        terminal="FAILED" if failed else "FINISHED",
+        params=params,
+        metrics=saved,
+        manifest=manifest,
+    )
+
+
+def prepare(root, report, *, reader=None) -> dict[str, Any]:
+    root = Path(root).resolve()
+    report = Path(report)
+    report = report if report.is_absolute() else root / report
+    require(
+        report.resolve() == report and report.is_relative_to(root),
+        "literal project report required",
+    )
+    review_name = str((report / "review-acceptance.json").relative_to(root))
+    review = json.loads(path(root, review_name).read_text())
+    require(
+        review.get("status") == STATUS
+        and review.get("independent_checker") is True
+        and review.get("reserved_outcomes") == "sealed"
+        and review.get("reserved_outcomes_parsed") is not True,
+        "final independent accepted analysis required before any producer or client",
+    )
+    pins = {**review["files"], review_name: sha(root / review_name)}
+    stable(root, pins)
+    if reader is None:
+        sys.path.insert(0, str(root))
+        from analysis.arrival import model_development_completion_report as reader
+    bundle = reader.verify_report_sources(
+        root
+    )  # Accepted metadata/byte admission; no native/NC/NPZ.
+    require(
+        all(pins.get(n) == v for n, v in bundle["files"].items()),
+        "final review must close complete computation sources",
+    )
+    inputs_name = str((report / "inputs.json").relative_to(root))
+    inputs = read(root, pins, inputs_name)
+    require(
+        inputs.get("files") == bundle["files"] and inputs.get("review") == reader.GATE,
+        "exact report inputs and accepted computation Gate required",
+    )
+    sums = read(root, pins, str((report / "output-checksums.json").relative_to(root)))
+    require(
+        set(sums) == {"inputs.json", "summary.json", "findings.md"}
+        and all(pins.get(str((report / n).relative_to(root))) == v for n, v in sums.items()),
+        "all report outputs reviewed",
+    )
+    for p in report.rglob("*"):
+        require(
+            p.resolve() == p and (p.is_file() or p.is_dir()), "closed report physical inventory"
+        )
+        require(
+            str(p.relative_to(root)) in pins
+            if p.is_file()
+            else any(p in (root / n).parents for n in pins),
+            "unknown report artifact",
+        )
+    children = []
+    freeze = reader.data.FREEZE
+    checks = bundle["checks"]
+    require(
+        len(checks) == 6 and len(bundle["full"]) == 3, "six checks and three final fits required"
+    )
+    for i, case in enumerate(checks):
+        case = {**case, "freeze_path": freeze}
+        if i == 0:
+            receipt = reader.old.CONTROL + "/attempts/check/" + case["job"]["id"] + ".json"
+            case["public_record"] = {
+                **read(root, pins, receipt),
+                "receipt": receipt,
+                "receipt_sha256": pins[receipt],
+            }
+        children.append(
+            child(
+                root,
+                pins,
+                "check-" + case["job"]["id"],
+                case,
+                "check",
+                failed=i < 2 or "gap_review" in case,
+            )
+        )
+    for phase in ["full_design_recovery", "full_development"]:
+        cases = bundle["smokes"] if phase == "full_design_recovery" else bundle["full"]
+        require(
+            len(cases) == (6 if phase == "full_design_recovery" else 3),
+            "fixed six G smokes and three full fits",
+        )
+        for case in cases:
+            case = {**case, "freeze_path": freeze}
+            children.append(child(root, pins, phase + "-" + case["job"]["id"], case, phase))
+    numeric_result = read(root, pins, reader.numerical.CASE_OUTPUT + "/result.json")
+    require(
+        checks[0].get("disposition") == "accepted_resolution"
+        and numeric_result.get("status") == reader.fit.SUCCESS
+        and numeric_result.get("sampler_calls") == 0,
+        "accepted zero-sampler numerical resolution required",
+    )
+    numeric = dict(
+        folder=root / reader.numerical.CASE_OUTPUT,
+        job=numeric_result["job"],
+        result=numeric_result,
+        spec={"method": numeric_result["method"]},
+        settings=None,
+        freeze_path=freeze,
+    )
+    numeric_process = str(
+        Path(reader.NUMERICAL_GATE).parent / "control/production-v1/supervisor.json"
+    )
+    children.append(
+        child(
+            root,
+            pins,
+            "numerical-resolution-case-000",
+            numeric,
+            "numerical_resolution",
+            process_name=numeric_process,
+        )
+    )
+    require(
+        len(children) == 16 and len({c["key"] for c in children}) == 16,
+        "sixteen unique meaningful computations required",
+    )
+    key = digest(
+        dict(
+            project=str(root), analysis_review=review_name, analysis_review_sha256=pins[review_name]
+        )
+    )
+    parent = dict(
+        key="program",
+        terminal="FINISHED",
+        params=dict(
+            analysis_review=review_name,
+            analysis_review_sha256=pins[review_name],
+            specification_freeze_sha256=pins[freeze],
+            meaningful_children="16",
+            actual_sampler_calls="9",
+        ),
+        metrics={},
+        manifest=dict(
+            key="program",
+            analysis_review=review_name,
+            analysis_review_sha256=pins[review_name],
+            report=str(report.relative_to(root)),
+            source_closure_sha256=digest(pins),
+            children=[
+                dict(key=c["key"], terminal=c["terminal"], manifest_sha256=digest(c["manifest"]))
+                for c in children
+            ],
+            no_new_scientific_estimates=True,
+            raw_and_array_bytes_mirrored=False,
+        ),
+    )
+    stable(root, pins)
+    return dict(
+        root=root,
+        report=report,
+        pins=pins,
+        fingerprint=key,
+        parent=parent,
+        children=children,
+        helper_sha256=sha(SELF),
+    )
+
+
+def local_artifacts(uri, expected):
+    parsed = urlsplit(uri or "")
+    location = Path(unquote(parsed.path))
+    require(
+        parsed.scheme == "file"
+        and parsed.netloc in {"", "localhost"}
+        and location == expected
+        and location.resolve() == location,
+        "exact project-local file artifact location required",
+    )
+
+
+def artifact_set(client, rid):
+    values = client.list_artifacts(rid)
+    require(
+        all(not x.is_dir and Path(x.path).name == x.path for x in values),
+        "unexpected tracking artifact subtree",
+    )
+    require(len({x.path for x in values}) == len(values), "duplicate artifact listing")
+    return {x.path for x in values}
+
+
+def terminal_proof(client, experiment, prepared, spec, artifact, tags, rid):
+    """Read-only terminal verification, including a post-download metadata read."""
+    expected_sha = digest(spec["manifest"])
+
+    def metadata():
+        run = client.get_run(rid)
+        local_artifacts(
+            run.info.artifact_uri,
+            prepared["root"] / ".mlflow/mlruns" / experiment / rid / "artifacts",
+        )
+        require(
+            run.info.run_id == rid
+            and run.info.experiment_id == experiment
+            and run.info.lifecycle_stage == "active"
+            and run.info.status == spec["terminal"]
+            and run.data.params == spec["params"]
+            and run.data.metrics == spec["metrics"]
+            and all(run.data.tags.get(k) == v for k, v in tags.items())
+            and artifact_set(client, rid) == {artifact.name},
+            "complete readonly terminal proof differs",
+        )
+
+    metadata()
+    with tempfile.TemporaryDirectory(dir="/private/tmp") as temp:
+        downloaded = Path(client.download_artifacts(rid, artifact.name, temp))
+        require(
+            downloaded == Path(temp) / artifact.name
+            and downloaded.resolve() == downloaded
+            and downloaded.is_file()
+            and sha(downloaded) == expected_sha,
+            "terminal artifact readback differs",
+        )
+    metadata()
+    return dict(
+        run_id=rid,
+        key=spec["key"],
+        status=spec["terminal"],
+        params=spec["params"],
+        metrics=spec["metrics"],
+        tags=tags,
+        artifacts={artifact.name: expected_sha},
+        readback_verified=True,
+    )
+
+
+def run_for(
+    client,
+    experiment,
+    prepared,
+    spec,
+    artifact,
+    *,
+    parent=None,
+    finish=True,
+    read_only=False,
+    recorded_run_id=None,
+):
+    require(
+        artifact.resolve() == artifact
+        and artifact.is_file()
+        and artifact.read_bytes() == payload(spec["manifest"]),
+        "immutable planned manifest bytes required",
+    )
+    expected_sha = digest(spec["manifest"])
+    key = digest(dict(program=prepared["fingerprint"], child=spec["key"]))
+    name = "MS6-" + prepared["fingerprint"][:12] + "-" + spec["key"]
+    tags = dict(
+        ms6_key=key,
+        ms6_program=prepared["fingerprint"],
+        project_root=str(prepared["root"]),
+        analysis_review_sha256=prepared["parent"]["params"]["analysis_review_sha256"],
+        decision=spec["manifest"]["decision"]
+        if "decision" in spec["manifest"]
+        else "accepted_analysis",
+        reserved_outcomes="sealed",
+        scientific_gap="true" if spec["manifest"].get("scientific_gap") else "false",
+        retained_failure="true" if spec["manifest"].get("retained_failure") else "false",
+        **{"mlflow.runName": name},
+    )
+    if spec["manifest"].get("technical_revalidation") is not None:
+        tags.update(original_controller_outcome="needs_review", retained_controller_failure="true")
+    if parent:
+        tags["mlflow.parentRunId"] = parent
+    runs = client.search_runs(
+        [experiment], filter_string=f"tags.ms6_key = '{key}'", run_view_type=3
+    )
+    require(
+        len(runs) <= 1, "ambiguous fingerprint including deleted runs; reconcile without duplicates"
+    )
+    if read_only:
+        require(
+            len(runs) == 1 and (recorded_run_id is None or runs[0].info.run_id == recorded_run_id),
+            "recorded terminal run missing or replaced; never recreate",
+        )
+        return terminal_proof(
+            client, experiment, prepared, spec, artifact, tags, runs[0].info.run_id
+        )
+    if not runs:
+        require(
+            not client.search_runs(
+                [experiment], filter_string=f"tags.`mlflow.runName` = '{name}'", run_view_type=3
+            ),
+            "incomplete/foreign name exists without identity; manual reconciliation required",
+        )
+    run = runs[0] if runs else client.create_run(experiment, tags=tags)
+    rid = run.info.run_id
+    run = client.get_run(rid)
+    local_artifacts(
+        run.info.artifact_uri, prepared["root"] / ".mlflow/mlruns" / experiment / rid / "artifacts"
+    )
+    require(
+        run.info.experiment_id == experiment
+        and run.info.lifecycle_stage == "active"
+        and all(run.data.tags.get(k) == v for k, v in tags.items()),
+        "project/parent/decision identity mismatch",
+    )
+    require(
+        run.info.status in {"RUNNING", spec["terminal"]},
+        "wrong terminal outcome; never turn a failed run green",
+    )
+    params = spec["params"]
+    scores = spec["metrics"]
+    existing = artifact_set(client, rid)
+    require(
+        set(run.data.params) <= set(params)
+        and set(run.data.metrics) <= set(scores)
+        and existing <= {artifact.name},
+        "unexpected stored metadata/artifacts; preserve for reconciliation",
+    )
+    require(
+        all(params[k] == v for k, v in run.data.params.items())
+        and all(scores[k] == v for k, v in run.data.metrics.items()),
+        "immutable metadata conflict",
+    )
+    terminal = run.info.status != "RUNNING"
+    require(
+        not terminal
+        or (
+            run.data.params == params and run.data.metrics == scores and existing == {artifact.name}
+        ),
+        "incomplete terminated run requires explicit reconciliation",
+    )
+    for k, v in params.items():
+        if k not in run.data.params:
+            client.log_param(rid, k, v, synchronous=True)
+    for k, v in scores.items():
+        if k not in run.data.metrics:
+            client.log_metric(rid, k, v, synchronous=True)
+    with tempfile.TemporaryDirectory(dir="/private/tmp") as temp:
+        if artifact.name not in existing:
+            client.log_artifact(rid, str(artifact))
+        downloaded = Path(client.download_artifacts(rid, artifact.name, temp))
+        require(
+            downloaded == Path(temp) / artifact.name
+            and downloaded.resolve() == downloaded
+            and downloaded.is_file()
+            and sha(downloaded) == expected_sha
+            and sha(artifact) == expected_sha,
+            "manifest readback differs",
+        )
+    actual = client.get_run(rid)
+    require(
+        actual.data.params == params
+        and actual.data.metrics == scores
+        and all(actual.data.tags.get(k) == v for k, v in tags.items())
+        and artifact_set(client, rid) == {artifact.name},
+        "complete readback required",
+    )
+    if finish and actual.info.status == "RUNNING":
+        client.set_terminated(rid, spec["terminal"])
+    require(
+        client.get_run(rid).info.status == (spec["terminal"] if finish else actual.info.status),
+        "status readback failed",
+    )
+    return dict(
+        run_id=rid,
+        key=spec["key"],
+        status=client.get_run(rid).info.status,
+        params=params,
+        metrics=scores,
+        tags=tags,
+        artifacts={artifact.name: expected_sha},
+        readback_verified=True,
+    )
+
+
+def write_once(p, content):
+    require(p.resolve() == p, "literal tracking evidence path")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if p.exists():
+        require(p.is_file() and p.read_bytes() == content, "immutable tracking evidence changed")
+    else:
+        with p.open("xb") as stream:
+            stream.write(content)
+
+
+def output_inventory(output, allowed):
+    if not output.exists():
+        return
+    require(output.resolve() == output and output.is_dir(), "literal tracking output required")
+    size = 0
+    for p in output.iterdir():
+        require(
+            p.resolve() == p
+            and p.is_file()
+            and (
+                p.name in allowed
+                or (
+                    re.fullmatch(r"unreviewed-receipt-[1-9][0-9]*-[0-9a-f]{64}\.json", p.name)
+                    is not None
+                    and p.name.endswith("-" + sha(p) + ".json")
+                )
+            ),
+            "unknown/nonregular tracking evidence; preserve for review",
+        )
+        size += p.stat().st_size
+        require(p.stat().st_size <= 1024**2, "small tracking file cap")
+    require(size <= MAX_TRACKING, "small portable tracking root cap")
+
+
+def local_evidence(output, specs, helper_sha, *, complete=True, receipt_bytes=None):
+    expected = {x["key"] + ".manifest.json": digest(x["manifest"]) for x in specs}
+    expected["registrar.py.txt"] = helper_sha
+    if receipt_bytes is not None:
+        expected["mlflow-receipt.json"] = hashlib.sha256(receipt_bytes).hexdigest()
+    for name, value in expected.items():
+        p = output / name
+        if not complete and not p.exists() and not p.is_symlink():
+            continue
+        require(
+            p.resolve() == p and p.is_file() and sha(p) == value,
+            "planned local tracking bytes differ: " + name,
+        )
+
+
+def receipt_base(prepared):
+    return dict(
+        status="registered_accepted_frozen_development_analysis",
+        tracking_uri=".mlflow/mlruns",
+        experiment=EXPERIMENT,
+        fingerprint=prepared["fingerprint"],
+        analysis_review=prepared["parent"]["params"]["analysis_review"],
+        helper_sha256=prepared["helper_sha256"],
+        raw_or_array_mirrors=False,
+        scientific_estimates_recomputed=False,
+    )
+
+
+def completed_receipt(client, experiment, prepared, specs, output):
+    """An immutable completed receipt authorizes readback only, never new writes."""
+    receipt = output / "mlflow-receipt.json"
+    original = receipt.read_bytes()
+    value = json.loads(original)
+    base = receipt_base(prepared)
+    require(
+        set(value) == set(base) | {"parent", "children"}
+        and all(value.get(k) == v for k, v in base.items())
+        and isinstance(value.get("children"), list)
+        and len(value["children"]) == 16,
+        "completed receipt plan/schema changed",
+    )
+    records = [value["parent"], *value["children"]]
+    require(
+        [r.get("key") for r in records] == [x["key"] for x in specs]
+        and all(isinstance(r.get("run_id"), str) and r["run_id"] for r in records)
+        and len({r["run_id"] for r in records}) == 17,
+        "exact unique recorded run identities required",
+    )
+    local_evidence(output, specs, prepared["helper_sha256"], receipt_bytes=original)
+    for i, (spec, record) in enumerate(zip(specs, records, strict=True)):
+        checked = run_for(
+            client,
+            experiment,
+            prepared,
+            spec,
+            output / (spec["key"] + ".manifest.json"),
+            parent=None if i == 0 else records[0]["run_id"],
+            read_only=True,
+            recorded_run_id=record["run_id"],
+        )
+        require(checked == record, "completed receipt readback differs")
+    local_evidence(output, specs, prepared["helper_sha256"], receipt_bytes=original)
+    stable(prepared["root"], prepared["pins"])
+    require(sha(SELF) == prepared["helper_sha256"], "helper drift on completed readback")
+    return value
+
+
+def register(root, report, *, execute=False, client_factory=None, reader=None) -> dict[str, Any]:
+    prepared = prepare(root, report, reader=reader)
+    if not execute:
+        return dict(
+            status="dry_metadata_admitted",
+            fingerprint=prepared["fingerprint"],
+            children=16,
+            sampler_calls=9,
+        )
+    root = prepared["root"]
+    store = root / ".mlflow/mlruns"
+    require(
+        store.resolve() == store and store.is_dir(),
+        "existing project-local MLflow file store required",
+    )
+    if client_factory is None:
+        os.environ["MLFLOW_ALLOW_FILE_STORE"] = "true"
+        os.environ["MLFLOW_DISABLE_AGENT_HINT"] = "1"
+        from mlflow.tracking import MlflowClient
+
+        client_factory = MlflowClient
+    client = client_factory(tracking_uri=store.as_uri())
+    experiment = client.get_experiment_by_name(EXPERIMENT)
+    if experiment is None:
+        raise ValueError("existing active arrival-model experiment required")
+    require(
+        experiment.lifecycle_stage == "active", "existing active arrival-model experiment required"
+    )
+    local_artifacts(experiment.artifact_location, store / experiment.experiment_id)
+    output = root / OUTPUT
+    records = []
+    receipt_existed = (output / "mlflow-receipt.json").exists()
+    specs = [prepared["parent"], *prepared["children"]]
+    allowed = {spec["key"] + ".manifest.json" for spec in specs} | {
+        "registrar.py.txt",
+        "mlflow-receipt.json",
+        "registration-failure.json",
+        "unreviewed-receipt.json",
+    }
+    output_inventory(output, allowed)
+    if receipt_existed:
+        result = completed_receipt(client, experiment.experiment_id, prepared, specs, output)
+        output_inventory(output, allowed)
+        return result
+    local_evidence(output, specs, prepared["helper_sha256"], complete=False)
+    for spec in specs:
+        write_once(output / (spec["key"] + ".manifest.json"), payload(spec["manifest"]))
+    write_once(output / "registrar.py.txt", SELF.read_bytes())
+    local_evidence(output, specs, prepared["helper_sha256"])
+    try:
+        parent = run_for(
+            client,
+            experiment.experiment_id,
+            prepared,
+            specs[0],
+            output / "program.manifest.json",
+            finish=False,
+        )
+        for spec in specs[1:]:
+            records.append(
+                run_for(
+                    client,
+                    experiment.experiment_id,
+                    prepared,
+                    spec,
+                    output / (spec["key"] + ".manifest.json"),
+                    parent=parent["run_id"],
+                )
+            )
+        # Read back all children again before closing the parent or writing portable acceptance.
+        for spec, record in zip(specs[1:], records, strict=True):
+            require(
+                run_for(
+                    client,
+                    experiment.experiment_id,
+                    prepared,
+                    spec,
+                    output / (spec["key"] + ".manifest.json"),
+                    parent=parent["run_id"],
+                )
+                == record,
+                "child changed during registration",
+            )
+        stable(root, prepared["pins"])
+        require(sha(SELF) == prepared["helper_sha256"], "helper changed during registration")
+        parent = run_for(
+            client, experiment.experiment_id, prepared, specs[0], output / "program.manifest.json"
+        )
+        expected_records = [parent, *records]
+        final = []
+        for i, (spec, record) in enumerate(zip(specs, expected_records, strict=True)):
+            checked = run_for(
+                client,
+                experiment.experiment_id,
+                prepared,
+                spec,
+                output / (spec["key"] + ".manifest.json"),
+                parent=None if i == 0 else parent["run_id"],
+                read_only=True,
+                recorded_run_id=record["run_id"],
+            )
+            require(checked == record, "final all-run readonly proof differs")
+            final.append(checked)
+        output_inventory(output, allowed)
+        local_evidence(output, specs, prepared["helper_sha256"])
+        receipt = {**receipt_base(prepared), "parent": final[0], "children": final[1:]}
+        stable(root, prepared["pins"])
+        require(sha(SELF) == prepared["helper_sha256"], "helper drift before receipt")
+        local_evidence(output, specs, prepared["helper_sha256"])
+        write_once(output / "mlflow-receipt.json", payload(receipt))
+        local_evidence(output, specs, prepared["helper_sha256"], receipt_bytes=payload(receipt))
+        output_inventory(output, allowed)
+        stable(root, prepared["pins"])
+        require(sha(SELF) == prepared["helper_sha256"], "helper drift after final evidence write")
+        return receipt
+    except BaseException as exc:
+        candidate = output / "mlflow-receipt.json"
+        if not receipt_existed and candidate.exists():
+            retained = output / "unreviewed-receipt.json"
+            number = 1
+            while retained.exists() or retained.is_symlink():
+                retained = output / (
+                    "unreviewed-receipt-" + str(number) + "-" + sha(candidate) + ".json"
+                )
+                number += 1
+            candidate.rename(retained)
+        failure = output / "registration-failure.json"
+        if not failure.exists():
+            write_once(
+                failure,
+                payload(
+                    dict(
+                        error=repr(exc),
+                        fingerprint=prepared["fingerprint"],
+                        completed_children=[r["run_id"] for r in records],
+                        reconciliation_required=True,
+                    )
+                ),
+            )
+        raise
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--root", type=Path, required=True)
+    p.add_argument("--report", type=Path, required=True)
+    p.add_argument("--execute", action="store_true")
+    a = p.parse_args()
+    result = register(a.root, a.report, execute=a.execute)
+    print(
+        json.dumps(
+            {k: v for k, v in result.items() if k != "children"}
+            | {
+                "children": len(result["children"])
+                if isinstance(result.get("children"), list)
+                else result.get("children")
+            }
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

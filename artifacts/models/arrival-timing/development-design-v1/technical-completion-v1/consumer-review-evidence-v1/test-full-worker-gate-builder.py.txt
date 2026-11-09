@@ -1,0 +1,334 @@
+"""Synthetic metadata builder tests; no native tables, NC parser, STATE or sampler."""
+
+# pyright: basic
+import importlib.util
+import json
+from types import SimpleNamespace
+
+import pytest
+
+from analysis.arrival import model_development_fit as fit
+from analysis.arrival import model_development_recovery as g
+from analysis.arrival import model_development_technical_completion as technical_source
+from scripts import run_arrival_development as old
+from scripts import run_arrival_development_completion as c2
+
+spec = importlib.util.spec_from_file_location(
+    "full_draft", "/private/tmp/prepare-tsunami-full-development-worker-gate.py"
+)
+assert spec and spec.loader
+m = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(m)
+
+
+def fixture(root, monkeypatch):
+    pins = {}
+    calls = []
+    quota = {"reason": None}
+
+    def put(name, value):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(value if isinstance(value, bytes) else m.encoded(value))
+        pins[name] = m.sha(p)
+
+    for name in set(fit.CONSUMED) | set(g.CONSUMED) | {old.SELF, old.TEST}:
+        put(name, b"current consumed source")
+    for i in range(12):
+        put("context/old-inherited-" + str(i) + ".json", b"hash-only legacy record")
+    external = {}
+    for i in range(11):
+        name = "references/outside-" + str(i) + ".nc"
+        put(name, b"fake raw bytes, never opened as NC")
+        external[name] = pins[name]
+    floors = {}
+    for i in range(15):
+        name = "retained/parent-" + str(i)
+        put(name + "/proof.json", {"immutable": True})
+        floors[name] = 1
+    freeze = dict(
+        files=dict(pins),
+        models={
+            target: [dict(kind=kind, role="selected", prior_variant="base")]
+            for target, kind in zip(
+                g.TARGETS, ["mean-curvature", "pooled", "distance"], strict=True
+            )
+        },
+        seeds={"full_development": 2986110800},
+        execution_source_review="accepted-code-review.json",
+    )
+    put(m.FREEZE, freeze)
+    monkeypatch.setattr(m, "FREEZE_SHA", pins[m.FREEZE])
+    check = dict(
+        status="accepted_frozen_arrival_development_check",
+        independent_checker=True,
+        completed_once=True,
+        no_retuning=True,
+        calls_charged=0,
+        calls_started=0,
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        specification_freeze_sha256=pins[m.FREEZE],
+        files=dict(pins),
+    )
+    put(m.CHECK, check)
+    jobs = g.jobs(freeze)
+    kernel = dict(
+        status="accepted_frozen_arrival_development_recovery_execution",
+        independent_checker=True,
+        jobs=jobs,
+        protocol=g.protocol(),
+        resources=fit.resources(),
+        parent_minimum_bytes=floors,
+        external_reference_files=external,
+        files=dict(pins),
+    )
+    put(g.GATE, kernel)
+    records = []
+    for job in jobs:
+        folder, raw, spec_path, log, process = old.paths(root, job, g)
+        files = {}
+        for p, value in [
+            (folder / "job.json", job),
+            (folder / "result.json", {"status": fit.SUCCESS}),
+            (raw, b"synthetic raw only"),
+            (spec_path, job),
+            (log, b"synthetic log"),
+            (process, {"returncode": 0}),
+        ]:
+            name = str(p.relative_to(root))
+            put(name, value)
+            files[name] = pins[name]
+        allocation = str((root / "allocations" / (job["id"] + ".json")).relative_to(root))
+        put(allocation, job)
+        files[allocation] = pins[allocation]
+        receipt = "attempts/" + job["id"] + ".json"
+        record = dict(
+            job_id=job["id"],
+            outcome="accepted",
+            cost=1,
+            start_markers=1,
+            files=files,
+            allocation=allocation,
+            receipt=receipt,
+        )
+        put(receipt, record)
+        record["receipt_sha256"] = pins[receipt]
+        records.append(record)
+    first = records[0]
+    first_body = {k: v for k, v in first.items() if k != "receipt_sha256"}
+    first_body["outcome"] = "needs_review"
+    put(first["receipt"], first_body)
+    baseline = dict(
+        job=jobs[0],
+        original_receipt=first["receipt"],
+        worker_files={k: v for k, v in first["files"].items() if k != first["allocation"]},
+    )
+    base = dict(
+        producer="legacy_G0_strict_revalidation",
+        job=jobs[0],
+        logical_outcome="accepted_under_strict_revalidation",
+        original_controller_outcome="needs_review",
+        original_receipt=first["receipt"],
+        original_receipt_sha256=pins[first["receipt"]],
+        worker_files=baseline["worker_files"],
+        files=first["files"],
+        cost=1,
+        start_markers=1,
+    )
+    new_records = []
+    for job, original in zip(jobs[1:], records[1:], strict=True):
+        record = {k: v for k, v in original.items() if k != "receipt_sha256"}
+        proof = technical_source.proof_path(root, "full_design_recovery", job)
+        for p in [proof, proof.with_name("proof.log"), proof.with_name("proof-process.json")]:
+            name = str(p.relative_to(root))
+            put(name, {"synthetic_strict_proof": True})
+            record["files"][name] = pins[name]
+        record.update(
+            producer="strict_startup_execution", strict_proof=str(proof.relative_to(root))
+        )
+        put(record["receipt"], record)
+        new_records.append({**record, "receipt_sha256": pins[record["receipt"]]})
+    put(
+        m.SUMMARY,
+        dict(
+            status="computed_pending_independent_review",
+            jobs=jobs,
+            accepted_records=[base, *new_records],
+            attempt_records=new_records,
+            dispatch_jobs=jobs[1:],
+            calls_charged=6,
+            calls_started=6,
+        ),
+    )
+    smoke = dict(
+        status="accepted_frozen_full_development_design_checks",
+        independent_checker=True,
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        specification_freeze_sha256=pins[m.FREEZE],
+        files=dict(pins),
+    )
+    put(m.SMOKE, smoke)
+
+    def verify(root, pins, full):
+        calls.append("full_metadata")
+        assert full is True
+        return freeze, None, None, None
+
+    data = SimpleNamespace(_unchanged=old.previous._unchanged, verify_development_sources=verify)
+
+    def floors_valid(root, gate):
+        assert len(gate["parent_minimum_bytes"]) == 15
+        assert all((root / n).is_dir() for n in gate["parent_minimum_bytes"])
+
+    monkeypatch.setattr(old.r, "parent_floors", floors_valid)
+    monkeypatch.setattr(old, "external_paths", lambda root, freeze: list(external))
+
+    def cap(root, admission, **kwargs):
+        calls.append("quota")
+        assert kwargs["reserve"] is True and kwargs["known_files"] == admission["files"]
+        return quota["reason"]
+
+    completion = SimpleNamespace(STATE=c2.STATE, quota=cap)
+
+    def metadata(root, phase):
+        assert phase == "full_design_recovery"
+        summary = json.loads((root / m.SUMMARY).read_text())
+        review = json.loads((root / m.SMOKE).read_text())
+        return dict(summary, baseline=baseline, complete=True, files=review["files"])
+
+    technical = SimpleNamespace(read_program_metadata=metadata)
+    monkeypatch.setattr(m, "modules", lambda root: (data, fit, g, old, completion, technical))
+    return SimpleNamespace(
+        put=put,
+        pins=pins,
+        calls=calls,
+        quota=quota,
+        freeze=freeze,
+        check=check,
+        smoke=smoke,
+        records=[base, *new_records],
+    )
+
+
+def test_positive_draft_exact_three_original_worker_jobs(tmp_path, monkeypatch):
+    f = fixture(tmp_path, monkeypatch)
+    result = m.build(tmp_path)
+    gate = result["gate"]
+    assert gate["jobs"] == [
+        dict(
+            id=name,
+            order=i,
+            role="full_development",
+            model_key=key,
+            seed=2986110800 + 100 * i,
+            training_reference=None,
+        )
+        for i, (name, key) in enumerate(
+            zip(
+                m.IDS,
+                [
+                    "NCEI-native-duration:mean-curvature:selected",
+                    "T-OBS:pooled:selected",
+                    "T-CAL:distance:selected",
+                ],
+                strict=True,
+            )
+        )
+    ]
+    assert gate["path_bindings"] == old.bindings(tmp_path) and gate["inherited_calls"] == dict(
+        charged=6, started=6
+    )
+    assert gate["max_sampler_call_slots"] == 9 and len(gate["external_reference_files"]) == 11
+    assert result["gate_path"] == fit.FULL_GATE and not (tmp_path / fit.FULL_GATE).exists()
+    assert f.calls == ["full_metadata", "quota"]
+
+
+@pytest.mark.parametrize("missing", [m.CHECK, m.SMOKE])
+def test_missing_real_receipt_rejects_before_imports(tmp_path, monkeypatch, missing):
+    f = fixture(tmp_path, monkeypatch)
+    (tmp_path / missing).unlink()
+    monkeypatch.setattr(m, "modules", lambda root: pytest.fail("imports before accepted reviews"))
+    with pytest.raises(ValueError):
+        m.build(tmp_path)
+    assert not f.calls
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "status",
+        "independent",
+        "freeze",
+        "counter",
+        "source",
+        "live",
+        "subset",
+        "quota",
+        "unknown_producer",
+    ],
+)
+def test_metadata_and_physical_failures_reject(tmp_path, monkeypatch, fault):
+    f = fixture(tmp_path, monkeypatch)
+    if fault in {"status", "independent", "freeze"}:
+        value = json.loads((tmp_path / m.SMOKE).read_text())
+        key = {
+            "status": "status",
+            "independent": "independent_checker",
+            "freeze": "specification_freeze_sha256",
+        }[fault]
+        value[key] = {"status": "pending", "independent": False, "freeze": "0" * 64}[fault]
+        f.put(m.SMOKE, value)
+    elif fault == "counter":
+        value = json.loads((tmp_path / m.SUMMARY).read_text())
+        value["calls_charged"] = 5
+        f.put(m.SUMMARY, value)
+        review = json.loads((tmp_path / m.SMOKE).read_text())
+        review["files"][m.SUMMARY] = f.pins[m.SUMMARY]
+        f.put(m.SMOKE, review)
+    elif fault == "source":
+        (tmp_path / fit.CONSUMED[0]).write_bytes(b"changed")
+    elif fault == "live":
+        f.put(old.STATE, b"forbidden live state")
+        review = json.loads((tmp_path / m.SMOKE).read_text())
+        review["files"][old.STATE] = f.pins[old.STATE]
+        f.put(m.SMOKE, review)
+    elif fault == "subset":
+        review = json.loads((tmp_path / m.SMOKE).read_text())
+        review["files"].pop(m.CHECK)
+        f.put(m.SMOKE, review)
+    elif fault == "quota":
+        f.quota["reason"] = "reserve_failure"
+    else:
+        folder, _ = g.case_paths(tmp_path, g.jobs(f.freeze)[0])
+        (folder / "unlisted.json").write_text("{}")
+    with pytest.raises((ValueError, KeyError)):
+        m.build(tmp_path)
+    assert not (tmp_path / fit.FULL_GATE).exists()
+
+
+@pytest.mark.parametrize("fault", ["promoted_original", "relaunch_g0", "logical_count"])
+def test_mixed_g0_history_cannot_promote_or_charge_the_original_again(tmp_path, monkeypatch, fault):
+    f = fixture(tmp_path, monkeypatch)
+    summary = json.loads((tmp_path / m.SUMMARY).read_text())
+    if fault == "promoted_original":
+        first = summary["accepted_records"][0]
+        name = first["original_receipt"]
+        original = json.loads((tmp_path / name).read_text())
+        original["outcome"] = "accepted"
+        f.put(name, original)
+        first["original_receipt_sha256"] = f.pins[name]
+    elif fault == "relaunch_g0":
+        summary["dispatch_jobs"] = summary["jobs"]
+    else:
+        summary["calls_charged"] = summary["calls_started"] = 7
+    f.put(m.SUMMARY, summary)
+    review = json.loads((tmp_path / m.SMOKE).read_text())
+    review["files"] = {n: f.pins.get(n, h) for n, h in review["files"].items()}
+    f.put(m.SMOKE, review)
+    with pytest.raises(ValueError):
+        m.build(tmp_path)
+    assert not (tmp_path / fit.FULL_GATE).exists()

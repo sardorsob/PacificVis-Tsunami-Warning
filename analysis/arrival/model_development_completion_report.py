@@ -17,6 +17,7 @@ from pathlib import Path
 
 from analysis.arrival import model_development_report as old
 from analysis.arrival import model_development_score_resolution as numerical
+from analysis.arrival import model_development_technical_completion as technical
 from analysis.arrival.evidence import read_rows, sha256, write_json
 
 data, fit, recovery = old.data, old.fit, old.recovery
@@ -46,6 +47,9 @@ CONSUMED = tuple(
             SELF,
             CLI,
             TEST,
+            technical.SELF,
+            technical.CLI,
+            technical.TEST,
             "scripts/run_arrival_development_completion.py",
             "tests/test_run_arrival_development_completion.py",
             "scripts/run_arrival_development_journal.py",
@@ -59,15 +63,53 @@ CONSUMED = tuple(
 require = old.require
 
 
-def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False):
+def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False, program=None):
     require(not failed or phase == "check", "only CHECK precision gaps may be disposed")
     worker = recovery if phase == "full_design_recovery" else fit
     folder, raw = worker.case_paths(root, job)
     name = lambda leaf: str((folder / leaf).relative_to(root))  # noqa: E731
-    receipt = CONTROL + f"/attempts/{phase}/{job['id']}.json"
-    plan_name = CONTROL + "/plans/" + phase + ".json"
+    legacy = (
+        program is not None
+        and phase == "full_design_recovery"
+        and job == program["baseline"]["job"]
+    )
+    continued = program is not None and not legacy
+    control = technical.CONTROL if continued else CONTROL
+    authority_name = technical.authority_path(phase) if continued else AUTHORITY[phase]
+    receipt = control + f"/attempts/{phase}/{job['id']}.json"
+    plan_name = control + "/plans/" + phase + ".json"
     record, plan = [data._json(root, pins, n) for n in [receipt, plan_name]]
-    authority = data._json(root, pins, AUTHORITY[phase])
+    authority = data._json(root, pins, authority_name)
+    logical_record = None
+    if program is not None:
+        require(not failed and phase in technical.PHASES, "technical continuation is G/full only")
+        data._require(pins, program["files"])
+        data._require(reviewed, program["files"])
+        matches = [
+            entry
+            for entry in program["accepted_records"]
+            if (entry.get("job") == job if legacy else entry.get("job_id") == job["id"])
+        ]
+        require(len(matches) == 1, "one public logical computation descriptor required")
+        logical_record = matches[0]
+        if legacy:
+            baseline = program["baseline"]
+            require(
+                logical_record.get("producer") == "legacy_G0_strict_revalidation"
+                and logical_record.get("logical_outcome") == "accepted_under_strict_revalidation"
+                and logical_record.get("original_controller_outcome") == "needs_review"
+                and logical_record.get("original_receipt") == receipt
+                and logical_record.get("original_receipt_sha256") == pins[receipt]
+                and baseline.get("original_receipt") == receipt
+                and baseline.get("original_controller_outcome") == "needs_review",
+                "original failed G0 attempt and separate strict revalidation required",
+            )
+        else:
+            require(
+                logical_record == {**record, "receipt_sha256": pins[receipt]}
+                and record.get("producer") == "strict_startup_execution",
+                "exact public technical execution receipt required",
+            )
     kernel_name = {
         "check": fit.GATE,
         "full_design_recovery": recovery.GATE,
@@ -78,22 +120,22 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
         and record.get("job_id") == job["id"]
         and record.get("phase") == phase
         and record.get("role") == job["role"]
-        and record.get("outcome") == ("needs_review" if failed else "accepted")
-        and record.get("gap_eligible") is failed
+        and record.get("outcome") == ("needs_review" if failed or legacy else "accepted")
+        and (continued or record.get("gap_eligible") is failed)
         and type(record.get("cost")) is int
         and type(record.get("start_markers")) is int
         and record.get("cost") == record.get("start_markers") == int(raw is not None)
         and plan.get("phase") == phase
-        and plan.get("gate") == AUTHORITY[phase]
+        and plan.get("authority_gate" if continued else "gate") == authority_name
         and plan.get("jobs") == authority["jobs"],
         "literal complete successful continuation process required",
     )
-    data._require(reviewed, {n: pins[n] for n in [receipt, plan_name, AUTHORITY[phase]]})
+    data._require(reviewed, {n: pins[n] for n in [receipt, plan_name, authority_name]})
     data._require(reviewed, record.get("files"))
     data._require(pins, record["files"])
     data._require(pins, plan.get("files"))
     require(
-        plan["files"] == {**authority["files"], AUTHORITY[phase]: pins[AUTHORITY[phase]]},
+        plan["files"] == {**authority["files"], authority_name: pins[authority_name]},
         "complete recorded execution admission required",
     )
     manifest = data._json(root, pins, name("output-checksums.json"))
@@ -120,14 +162,18 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
     if raw is not None:
         worker_files[str(raw.relative_to(root))] = pins[str(raw.relative_to(root))]
     require(
-        record.get("worker_files") == ({} if failed else worker_files),
+        record.get("worker_files") == ({} if failed or legacy else worker_files)
+        and (
+            not legacy
+            or (program is not None and program["baseline"]["worker_files"] == worker_files)
+        ),
         "exact worker inventory required",
     )
     data._require(record["files"], worker_files)
     spec, log, process = [
         folder.with_name(folder.name + s) for s in ["-spec.json", ".log", ".supervisor.json"]
     ]
-    allocation_path = CONTROL + f"/allocations/{phase}/{job['id']}.json"
+    allocation_path = control + f"/allocations/{phase}/{job['id']}.json"
     require(
         record.get("allocation") == allocation_path
         and record.get("allocation_sha256") == pins.get(allocation_path),
@@ -142,8 +188,8 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
         cost=int(raw is not None),
         plan=plan_name,
         plan_sha256=pins[plan_name],
-        authority_gate=AUTHORITY[phase],
-        authority_gate_sha256=pins[AUTHORITY[phase]],
+        authority_gate=authority_name,
+        authority_gate_sha256=pins[authority_name],
         worker_gate=kernel_name,
         worker_gate_sha256=pins[kernel_name],
         spec=str(spec.relative_to(root)),
@@ -157,6 +203,27 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
         "exact prelaunch job/plan/dual-authority/execution-Git allocation required",
     )
     required_process = {str(p.relative_to(root)) for p in [spec, log, process]} | {allocation_path}
+    if continued:
+        proof = technical.proof_path(root, phase, job)
+        proof_name = str(proof.relative_to(root))
+        required_process |= {
+            str(p.relative_to(root))
+            for p in [proof, proof.with_name("proof.log"), proof.with_name("proof-process.json")]
+        }
+        strict = data._json(root, pins, proof_name)
+        proof_process = data._json(
+            root, pins, str(proof.with_name("proof-process.json").relative_to(root))
+        )
+        require(
+            record.get("strict_proof") == proof_name
+            and strict.get("status") == "strict_original_worker_artifacts_passed"
+            and strict.get("job") == job
+            and strict.get("worker_files") == worker_files
+            and strict.get("sampler_calls") == 0
+            and proof_process.get("returncode") == 0
+            and proof_process.get("reason") == "worker_exit",
+            "separate unchanged zero-sampler strict proof required",
+        )
     require(
         set(record["files"]) == set(worker_files) | required_process,
         "exact retained worker/process inventory required",
@@ -178,11 +245,15 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
         and supervisor.get("cost") == supervisor.get("start_markers") == int(raw is not None)
         and supervisor.get("job_sha256") == pins[str(spec.relative_to(root))]
         and supervisor.get("plan_sha256") == pins[plan_name]
-        and supervisor.get("authority_gate_sha256") == pins[AUTHORITY[phase]]
+        and supervisor.get("authority_gate_sha256") == pins[authority_name]
         and supervisor.get("worker_gate_sha256") == pins[kernel_name]
         and supervisor.get("allocation") == allocation_path
         and supervisor.get("allocation_sha256") == pins[allocation_path]
-        and supervisor.get("invocation_git_sha") == allocation["invocation_git_sha"],
+        and supervisor.get("invocation_git_sha") == allocation["invocation_git_sha"]
+        and (
+            not continued
+            or supervisor.get("startup_environment") == technical.environment(root, phase)
+        ),
         "exact worker/authority/source/cost supervision proof required",
     )
     result, inputs, membership = [
@@ -241,6 +312,20 @@ def _ordinary_case(root, pins, admission, job, phase, reviewed, *, failed=False)
         receipt=receipt,
         receipt_sha256=pins[receipt],
         public_record={**record, "receipt_sha256": pins[receipt]},
+        program_record=logical_record,
+        technical_revalidation=(
+            dict(
+                original_controller_outcome="needs_review",
+                original_receipt=receipt,
+                original_receipt_sha256=pins[receipt],
+                technical_review=logical_record["technical_review"],
+                technical_review_sha256=logical_record["technical_review_sha256"],
+                strict_proof=logical_record["strict_proof"],
+                strict_proof_sha256=logical_record["strict_proof_sha256"],
+            )
+            if legacy and logical_record is not None
+            else None
+        ),
         events_path=name("event-results.json"),
         prediction_path=name("held-out-record-predictions.csv"),
     )
@@ -637,8 +722,11 @@ def verify_report_sources(root):
         CASE0_REVIEW,
         CASE1_REVIEW,
         BASELINE,
-        *AUTHORITY.values(),
-        *SUMMARIES.values(),
+        AUTHORITY["check"],
+        SUMMARIES["check"],
+        technical.BASELINE,
+        *(technical.authority_path(phase) for phase in technical.PHASES),
+        *(str(technical.summary_path(root, phase).relative_to(root)) for phase in technical.PHASES),
     }
     require(
         gate.get("status") == "accepted_frozen_full_development_fits"
@@ -690,8 +778,29 @@ def verify_report_sources(root):
         "full_design_recovery": smoke["gate"]["jobs"],
         "full_development": full["gate"]["jobs"],
     }
-    summaries = {}
+    summaries, programs = {}, {}
     for phase in PHASES:
+        if phase in technical.PHASES:
+            program = technical.read_program_metadata(root, phase)
+            data._require(pins, program["files"])
+            summary_name = str(technical.summary_path(root, phase).relative_to(root))
+            summary = data._json(root, pins, summary_name)
+            require(
+                program.get("phase") == phase
+                and program.get("complete") is True
+                and program.get("jobs") == jobs[phase]
+                and program.get("dispatch_jobs")
+                == (jobs[phase][1:] if phase == "full_design_recovery" else jobs[phase])
+                and program.get("calls_charged")
+                == program.get("calls_started")
+                == {"full_design_recovery": 6, "full_development": 9}[phase]
+                and program.get("authority_gate") == technical.authority_path(phase)
+                and pins.get(summary_name) == program["files"].get(summary_name)
+                and summary == technical.summary_value(program),
+                "complete public technical continuation metadata required",
+            )
+            programs[phase], summaries[phase] = program, summary
+            continue
         authority = data._json(root, pins, AUTHORITY[phase])
         summary = data._json(root, pins, SUMMARIES[phase])
         kernel = {
@@ -740,19 +849,36 @@ def verify_report_sources(root):
         "selected-only full fits required",
     )
     smokes = [
-        _ordinary_case(root, pins, smoke, job, "full_design_recovery", reviews[1]["files"])
+        _ordinary_case(
+            root,
+            pins,
+            smoke,
+            job,
+            "full_design_recovery",
+            reviews[1]["files"],
+            program=programs["full_design_recovery"],
+        )
         for job in jobs["full_design_recovery"]
     ]
     require(
-        [case["public_record"] for case in smokes]
+        [case["program_record"] for case in smokes]
         == summaries["full_design_recovery"]["accepted_records"]
-        == summaries["full_design_recovery"]["attempt_records"]
-        and sum(case["public_record"]["cost"] for case in smokes) == 6
-        and sum(case["public_record"]["start_markers"] for case in smokes) == 6,
+        and summaries["full_design_recovery"]["attempt_records"]
+        == summaries["full_design_recovery"]["accepted_records"][1:]
+        and sum(case["program_record"]["cost"] for case in smokes) == 6
+        and sum(case["program_record"]["start_markers"] for case in smokes) == 6,
         "all six exact reviewed smoke process/attempt proofs required",
     )
     cases = [
-        _ordinary_case(root, pins, full, j, "full_development", gate["files"])
+        _ordinary_case(
+            root,
+            pins,
+            full,
+            j,
+            "full_development",
+            gate["files"],
+            program=programs["full_development"],
+        )
         for j in jobs["full_development"]
     ]
     require(
@@ -823,7 +949,21 @@ def verify_report_sources(root):
     sensitivity = old._sensitivity_history(root, pins)
     data._unchanged(root, pins)
     return dict(
-        root=root, files=pins, freeze=freeze, full=cases, checks=checks, sensitivity=sensitivity
+        root=root,
+        files=pins,
+        freeze=freeze,
+        full=cases,
+        checks=checks,
+        smokes=smokes,
+        sensitivity=sensitivity,
+        technical_completion=dict(
+            baseline_review=technical.BASELINE,
+            baseline_review_sha256=pins[technical.BASELINE],
+            original_G0_controller_outcome="needs_review",
+            G0_logical_outcome="accepted_under_strict_revalidation",
+            G0_sampler_calls=1,
+            no_additional_G0_sampling=True,
+        ),
     )
 
 
@@ -858,7 +998,10 @@ def render_markdown(summary):
         "The linear NCEI runner-up has a separately reviewed numerical gap: both aggregate "
         "score views remain unavailable while its original marginal predictions are retained. "
         "This gap establishes neither model rejection nor superiority or equivalence. "
-        "Unresolved scores remain unavailable. Mixed-method aggregate uncertainty sums the "
+        "Unresolved scores remain unavailable. The first recovery smoke retains its original "
+        "controller failure and was independently accepted under strict revalidation of the "
+        "same saved computation; no additional sampler call was made. "
+        "Mixed-method aggregate uncertainty sums the "
         "shared-draw MCSE estimate and the weighted integration MCSE estimate, without "
         "assuming independence; this is not a finite-bias bound. Model selection stays frozen."
     )
@@ -908,6 +1051,7 @@ def report(root: Path, output: Path):
                 "aggregate_without_crossing_event"
             ]
     summary = old.report_tables(bundle)
+    summary["technical_completion"] = bundle["technical_completion"]
     summary["numerical_resolution"] = dict(
         review=CASE0_REVIEW,
         review_sha256=bundle["files"][CASE0_REVIEW],

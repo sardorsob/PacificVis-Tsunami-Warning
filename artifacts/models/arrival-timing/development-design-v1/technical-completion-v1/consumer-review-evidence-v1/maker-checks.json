@@ -1,0 +1,47 @@
+{
+  "actual_registration_or_sampling": false,
+  "files": {
+    "/private/tmp/prepare-tsunami-full-development-worker-gate.py": "60bcfe0599934562bc3f5aa7454ac5f4c6bb214d36efe124b2123d5450f1bc95",
+    "/private/tmp/test_full_worker_gate_independent.py": "e0dc180e23874e5d27f47547f82172c8aa58c9494fdcc1d2b14b8857a18be172",
+    "/private/tmp/test_prepare_full_development_worker_gate.py": "4f588c76fb8fd92e7ee84aa2d3e5bc51c36438ca8e8a3fe822ef19f75d126b59",
+    "/private/tmp/test_track_development_independent.py": "a4f56cf7c08c088b1590468cc7e8493669d8e5af435241fbc62fe65d8df195ee",
+    "/private/tmp/test_track_development_program.py": "1a5b2661cabde981c267b75c0ad82fc24d56b01bc833471b7e24ab3f522df6ee",
+    "/private/tmp/track-tsunami-development-program.py": "b9ea82ab685146323174eca408e1465ce06d5f95507cccd567809f2f77d925d9",
+    "analysis/arrival/model_development_completion_report.py": "55eb662c0ba876b5a6e8a7d4e18b3e9da105edb0c82d845c741b3f3e06fc799e",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "9a981f157e73202988c0496980936d2f3896aa6e3f92d70d5b812a7c99d8302c"
+  },
+  "next": "independent bounded consumer review after technical-source API freeze",
+  "public_api_boundary_in_consumer_tests": "technical.read_program_metadata is mocked with producer-shaped program; technical-controller own QA validates public admission; no native target arrays parsed",
+  "scope": {
+    "builder": "completed mixed G6 required, inherited6/max9 and original three selected full worker jobs",
+    "reader": "same CHECK and original failed G0 preserved; G/full use pure technical metadata; six logical G cases and five new G dispatches; three full fits; admitted smokes exposed",
+    "tracking": "16 computation children plus parent; actual MCMC9; G0 same computation under strict independent revalidation, original needs_review retained; no additional mirror artifacts"
+  },
+  "source_only": true,
+  "status": "maker_compatibility_ready_for_independent_review",
+  "tests": {
+    "combined_before_three_extra_builder_guards": {
+      "passed": 196,
+      "seconds": 60.46
+    },
+    "final_builder_including_three_extra_guards": {
+      "passed": 23,
+      "seconds": 7.56
+    },
+    "git_diff_check": "passed",
+    "help": [
+      "reader",
+      "tracking",
+      "full_worker_builder"
+    ],
+    "pyright": "0 errors, 0 warnings",
+    "ruff": "passed",
+    "unique_test_count": 199
+  },
+  "unmodified": [
+    "scripts/summarize_arrival_completed_development.py",
+    "old pure statistical functions",
+    "consumed workers, Gates, STATE, original results"
+  ]
+}

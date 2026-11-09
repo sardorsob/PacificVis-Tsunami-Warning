@@ -43,9 +43,24 @@ class UpstreamAdmissionReached(Exception):
 
 def ledger_admission_fixture(root, monkeypatch):
     needed = set(r.CONSUMED) | {
-        r.data.FREEZE, r.data.MS5_REVIEW, r.data.CHECK_REVIEW, r.old.SMOKE_REVIEW,
-        r.fit.GATE, r.fit.FULL_GATE, r.recovery.GATE, r.CASE0_REVIEW, r.CASE1_REVIEW,
-        r.BASELINE, *r.AUTHORITY.values(), *r.SUMMARIES.values(),
+        r.data.FREEZE,
+        r.data.MS5_REVIEW,
+        r.data.CHECK_REVIEW,
+        r.old.SMOKE_REVIEW,
+        r.fit.GATE,
+        r.fit.FULL_GATE,
+        r.recovery.GATE,
+        r.CASE0_REVIEW,
+        r.CASE1_REVIEW,
+        r.BASELINE,
+        r.AUTHORITY["check"],
+        r.SUMMARIES["check"],
+        r.technical.BASELINE,
+        *(r.technical.authority_path(phase) for phase in r.technical.PHASES),
+        *(
+            str(r.technical.summary_path(root, phase).relative_to(root))
+            for phase in r.technical.PHASES
+        ),
     }
     for name in needed:
         write_json(root / name, {})
@@ -60,10 +75,14 @@ def ledger_admission_fixture(root, monkeypatch):
     write_json(root / r.data.FREEZE, freeze)
     pins = {name: sha256(root / name) for name in needed} | inherited
     gate = dict(
-        status="accepted_frozen_full_development_fits", independent_checker=True,
-        confirmation_outcomes_parsed=True, development_check_previously_inspected=True,
-        reserved_outcomes="sealed", reserved_outcomes_parsed=False,
-        specification_freeze=r.data.FREEZE, specification_freeze_sha256=pins[r.data.FREEZE],
+        status="accepted_frozen_full_development_fits",
+        independent_checker=True,
+        confirmation_outcomes_parsed=True,
+        development_check_previously_inspected=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        specification_freeze=r.data.FREEZE,
+        specification_freeze_sha256=pins[r.data.FREEZE],
         files=pins,
     )
 
@@ -87,9 +106,18 @@ def test_exact12_inherited_opaque_ledgers_reach_admission_without_json_parsing(
 
 
 @pytest.mark.parametrize(
-    "fault", ["omitted", "extra", "original_live_state", "continuation_live_state",
-              "mismatched_hash", "non_json", "embedded_context", "freeze_hash",
-              "inherited_live_state"],
+    "fault",
+    [
+        "omitted",
+        "extra",
+        "original_live_state",
+        "continuation_live_state",
+        "mismatched_hash",
+        "non_json",
+        "embedded_context",
+        "freeze_hash",
+        "inherited_live_state",
+    ],
 )
 def test_invalid_ledger_map_rejected_before_any_context_hash(tmp_path, monkeypatch, fault):
     gate, freeze, save = ledger_admission_fixture(tmp_path, monkeypatch)
@@ -861,6 +889,286 @@ def add_case1_gap(root, monkeypatch, admission) -> dict[str, Any]:
     return review
 
 
+def completed_summary_path(root, phase):
+    return root / r.SUMMARIES[phase] if phase == "check" else r.technical.summary_path(root, phase)
+
+
+def technical_fixture(root, monkeypatch):
+    """Public-API-shaped mixed history; scientific/native admission stays mocked.
+
+    The separate technical-controller tests verify its public reader. Here the
+    consumer receives its closed metadata result and validates producer tables.
+    """
+    original = {phase: json.loads((root / r.SUMMARIES[phase]).read_text()) for phase in r.PHASES}
+    g0 = original["full_design_recovery"]["jobs"][0]
+    initial = original["full_design_recovery"]["attempt_records"][0]
+    failed = json.loads((root / initial["receipt"]).read_text())
+    original_workers = dict(failed["worker_files"])
+    failed.update(outcome="needs_review", worker_files={})
+    write_json(root / initial["receipt"], failed)
+    folder, raw = r.recovery.case_paths(root, g0)
+    strict_name = r.technical.CONTROL + "/review-evidence-v1/strict-proof.json"
+    write_json(
+        root / strict_name,
+        dict(
+            status="unmodified_G0_strict_artifact_proof_passed_exact_worker_startup",
+            new_sampler_calls=0,
+            proof={"files": original_workers},
+            exact_environment_before_scientific_imports=r.technical.environment(
+                root, "full_design_recovery"
+            ),
+        ),
+    )
+    baseline: dict[str, Any] = dict(
+        status="accepted_frozen_development_G0_strict_revalidation",
+        independent_checker=True,
+        job=g0,
+        cost=1,
+        start_markers=1,
+        original_controller_outcome="needs_review",
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        specification_freeze_sha256=sha256(root / r.data.FREEZE),
+        original_receipt=initial["receipt"],
+        original_allocation=initial["allocation"],
+        original_supervisor=str(
+            folder.with_name(folder.name + ".supervisor.json").relative_to(root)
+        ),
+        original_plan=r.CONTROL + "/plans/full_design_recovery.json",
+        original_worker_gate=r.recovery.GATE,
+        original_authority_gate=r.AUTHORITY["full_design_recovery"],
+        posterior=str(raw.relative_to(root)),
+        strict_proof=strict_name,
+        original_invocation_git_sha="a" * 40,
+        worker_files=original_workers,
+        files={
+            **failed["files"],
+            initial["receipt"]: sha256(root / initial["receipt"]),
+            strict_name: sha256(root / strict_name),
+        },
+    )
+    for key in [
+        "original_receipt",
+        "original_allocation",
+        "original_supervisor",
+        "original_plan",
+        "original_worker_gate",
+        "original_authority_gate",
+        "posterior",
+        "strict_proof",
+    ]:
+        baseline[key + "_sha256"] = sha256(root / baseline[key])
+        baseline["files"][baseline[key]] = baseline[key + "_sha256"]
+    write_json(root / r.technical.BASELINE, baseline)
+    for phase in r.technical.PHASES:
+        old_summary = original[phase]
+        authority_name = r.technical.authority_path(phase)
+        authority = json.loads((root / r.AUTHORITY[phase]).read_text())
+        authority.update(
+            status="accepted_frozen_arrival_development_technical_continuation",
+            authority_gate=authority_name,
+            dispatch_jobs=old_summary["jobs"][1:]
+            if phase == "full_design_recovery"
+            else old_summary["jobs"],
+        )
+        write_json(root / authority_name, authority)
+        plan = r.technical.plan_path(root, phase)
+        write_json(
+            plan,
+            dict(
+                phase=phase,
+                jobs=authority["jobs"],
+                dispatch_jobs=authority["dispatch_jobs"],
+                authority_gate=authority_name,
+                authority_gate_sha256=sha256(root / authority_name),
+                worker_gate=authority["worker_gate"],
+                worker_gate_sha256=authority["worker_gate_sha256"],
+                files={**authority["files"], authority_name: sha256(root / authority_name)},
+            ),
+        )
+        records = []
+        for job in authority["dispatch_jobs"]:
+            oldrecord = next(v for v in old_summary["attempt_records"] if v["job_id"] == job["id"])
+            record = json.loads((root / oldrecord["receipt"]).read_text())
+            worker = r.recovery if phase == "full_design_recovery" else r.fit
+            folder, _ = worker.case_paths(root, job)
+            process = folder.with_name(folder.name + ".supervisor.json")
+            allocation_path = r.technical.allocation_path(root, phase, job)
+            allocation = json.loads((root / record["allocation"]).read_text())
+            allocation.update(
+                plan=str(plan.relative_to(root)),
+                plan_sha256=sha256(plan),
+                authority_gate=authority_name,
+                authority_gate_sha256=sha256(root / authority_name),
+            )
+            write_json(allocation_path, allocation)
+            supervisor = json.loads(process.read_text())
+            supervisor.update(
+                plan_sha256=sha256(plan),
+                authority_gate_sha256=sha256(root / authority_name),
+                allocation=str(allocation_path.relative_to(root)),
+                allocation_sha256=sha256(allocation_path),
+                startup_environment=r.technical.environment(root, phase),
+            )
+            write_json(process, supervisor)
+            proof = r.technical.proof_path(root, phase, job)
+            write_json(
+                proof,
+                dict(
+                    status="strict_original_worker_artifacts_passed",
+                    job=job,
+                    worker_files=record["worker_files"],
+                    sampler_calls=0,
+                ),
+            )
+            proof.with_name("proof.log").write_text("synthetic strict proof")
+            write_json(
+                proof.with_name("proof-process.json"), dict(returncode=0, reason="worker_exit")
+            )
+            record["files"].pop(record["allocation"])
+            record.update(
+                producer="strict_startup_execution",
+                allocation=str(allocation_path.relative_to(root)),
+                allocation_sha256=sha256(allocation_path),
+                strict_proof=str(proof.relative_to(root)),
+                receipt=str(r.technical.attempt_path(root, phase, job).relative_to(root)),
+            )
+            record["files"].update(
+                {
+                    str(p.relative_to(root)): sha256(p)
+                    for p in [
+                        allocation_path,
+                        process,
+                        proof,
+                        proof.with_name("proof.log"),
+                        proof.with_name("proof-process.json"),
+                    ]
+                }
+            )
+            write_json(root / record["receipt"], record)
+            records.append({**record, "receipt_sha256": sha256(root / record["receipt"])})
+        summary = dict(
+            old_summary,
+            phase=phase,
+            jobs=authority["jobs"],
+            dispatch_jobs=authority["dispatch_jobs"],
+            authority_gate=authority_name,
+            authority_gate_sha256=sha256(root / authority_name),
+            attempt_records=records,
+            accepted_records=records,
+            baseline_review=r.technical.BASELINE,
+            baseline_review_sha256=sha256(root / r.technical.BASELINE),
+        )
+        for name in [
+            "specification_freeze_sha256",
+            "case0_outcome",
+            "case1_outcome",
+            "plan_sha256",
+        ]:
+            summary.pop(name, None)
+        write_json(r.technical.summary_path(root, phase), summary)
+        (root / r.SUMMARIES[phase]).unlink()
+    programs = {}
+
+    def pins(excluded=()):
+        return {
+            str(p.relative_to(root)): sha256(p)
+            for p in root.rglob("*")
+            if p.is_file() and str(p.relative_to(root)) not in excluded
+        }
+
+    def seal():
+        baseline = json.loads((root / r.technical.BASELINE).read_text())
+        first = json.loads((root / baseline["original_receipt"]).read_text())
+        first["files"] = {n: sha256(root / n) for n in first["files"]}
+        write_json(root / baseline["original_receipt"], first)
+        baseline["original_receipt_sha256"] = sha256(root / baseline["original_receipt"])
+        baseline["files"] = {n: sha256(root / n) for n in baseline["files"]}
+        write_json(root / r.technical.BASELINE, baseline)
+        base = dict(
+            producer="legacy_G0_strict_revalidation",
+            job=baseline["job"],
+            logical_outcome="accepted_under_strict_revalidation",
+            original_controller_outcome=baseline["original_controller_outcome"],
+            original_receipt=baseline["original_receipt"],
+            original_receipt_sha256=baseline["original_receipt_sha256"],
+            technical_review=r.technical.BASELINE,
+            technical_review_sha256=sha256(root / r.technical.BASELINE),
+            strict_proof=baseline["strict_proof"],
+            strict_proof_sha256=baseline["strict_proof_sha256"],
+            worker_files=baseline["worker_files"],
+            files=baseline["files"],
+            cost=1,
+            start_markers=1,
+        )
+        for phase in r.PHASES:
+            summary_path = completed_summary_path(root, phase)
+            summary = json.loads(summary_path.read_text())
+            updated = []
+            for oldrecord in summary["attempt_records"]:
+                record = json.loads((root / oldrecord["receipt"]).read_text())
+                job = next(j for j in summary["jobs"] if j["id"] == record["job_id"])
+                worker = r.recovery if phase == "full_design_recovery" else r.fit
+                folder, _ = worker.case_paths(root, job)
+                manifest = json.loads((folder / "output-checksums.json").read_text())
+                write_json(
+                    folder / "output-checksums.json", {n: sha256(folder / n) for n in manifest}
+                )
+                record["worker_files"] = {n: sha256(root / n) for n in record["worker_files"]}
+                record["files"] = {n: sha256(root / n) for n in record["files"]}
+                write_json(root / record["receipt"], record)
+                updated.append({**record, "receipt_sha256": sha256(root / record["receipt"])})
+            summary["attempt_records"] = updated
+            summary["accepted_records"] = ([base] if phase == "full_design_recovery" else []) + [
+                v for v in updated if v["outcome"] == "accepted"
+            ]
+            if phase != "check":
+                summary["baseline_review_sha256"] = sha256(root / r.technical.BASELINE)
+            write_json(summary_path, summary)
+        check = json.loads((root / r.data.CHECK_REVIEW).read_text())
+        check["files"] = pins([r.GATE, r.data.CHECK_REVIEW, r.old.SMOKE_REVIEW])
+        write_json(root / r.data.CHECK_REVIEW, check)
+        for phase in r.technical.PHASES:
+            summary_path = r.technical.summary_path(root, phase)
+            summary = json.loads(summary_path.read_text())
+            program = dict(
+                summary, complete=True, baseline=baseline, files=pins([r.GATE, r.old.SMOKE_REVIEW])
+            )
+            programs[phase] = program
+            if phase == "full_design_recovery":
+                review = json.loads((root / r.old.SMOKE_REVIEW).read_text())
+                review["files"] = dict(program["files"])
+                write_json(root / r.old.SMOKE_REVIEW, review)
+            else:
+                program["files"][r.old.SMOKE_REVIEW] = sha256(root / r.old.SMOKE_REVIEW)
+        final = json.loads((root / r.GATE).read_text())
+        final["accepted"] = [
+            dict(
+                job=job,
+                files=record["files"],
+                receipt=record["receipt"],
+                receipt_sha256=record["receipt_sha256"],
+            )
+            for job, record in zip(
+                programs["full_development"]["jobs"],
+                programs["full_development"]["accepted_records"],
+                strict=True,
+            )
+        ]
+        final["files"] = pins([r.GATE])
+        write_json(root / r.GATE, final)
+
+    def public_metadata(root, phase):
+        program = programs[phase]
+        r.data._unchanged(root, program["files"])
+        return program
+
+    seal()
+    monkeypatch.setattr(r.technical, "read_program_metadata", public_metadata)
+    return seal
+
+
 def complete_fixture(root, monkeypatch, unresolved=False):
     """Full saved-table path with all6real-shaped G process/attempt receipts."""
     check, disposition, _, _, seal_case = resolved_fixture(root, monkeypatch, unresolved=unresolved)
@@ -1107,7 +1415,7 @@ def complete_fixture(root, monkeypatch, unresolved=False):
         write_json(root / r.GATE, final)
 
     seal_all()
-    return seal_all
+    return technical_fixture(root, monkeypatch)
 
 
 @pytest.mark.parametrize("unresolved", [False, True])
@@ -1133,8 +1441,8 @@ def test_complete_reader_validates_all_six_smoke_receipts_without_arrays(
 )
 def test_resealed_g6_metadata_must_be_complete_before_tables(tmp_path, monkeypatch, fault):
     seal = complete_fixture(tmp_path, monkeypatch)
-    summary = json.loads((tmp_path / r.SUMMARIES["full_design_recovery"]).read_text())
-    record = summary["accepted_records"][0]
+    summary = json.loads((r.technical.summary_path(tmp_path, "full_design_recovery")).read_text())
+    record = summary["accepted_records"][1]
     receipt = tmp_path / record["receipt"]
     if fault in {"outcome", "cost"}:
         body = json.loads(receipt.read_text())
@@ -1142,12 +1450,12 @@ def test_resealed_g6_metadata_must_be_complete_before_tables(tmp_path, monkeypat
         write_json(receipt, body)
     elif fault in {"missing_receipt", "summary_outcome", "plan"}:
         if fault == "missing_receipt":
-            summary["accepted_records"][0] = {"job_id": record["job_id"]}
+            summary["accepted_records"][1] = {"job_id": record["job_id"]}
         elif fault == "summary_outcome":
             summary["case0_outcome"] = "accepted_unresolved_gap"
         else:
             summary["plan_sha256"] = "f" * 64
-        write_json(tmp_path / r.SUMMARIES["full_design_recovery"], summary)
+        write_json(r.technical.summary_path(tmp_path, "full_design_recovery"), summary)
     else:
         target = {"oracle": "numerical-oracles.json", "start": "sampling-start.json", "raw": None}[
             fault
@@ -1225,7 +1533,7 @@ def test_strict_resolver_metadata_and_anchor_reuse_rejects_resealed_gaps(
 @pytest.mark.parametrize("phase", r.PHASES)
 def test_every_phase_summary_must_match_exact_case0_disposition(tmp_path, monkeypatch, phase):
     seal = complete_fixture(tmp_path, monkeypatch)
-    name = r.SUMMARIES[phase]
+    name = str(completed_summary_path(tmp_path, phase).relative_to(tmp_path))
     summary = json.loads((tmp_path / name).read_text())
     summary["case0_outcome"] = "accepted_unresolved_gap"
     write_json(tmp_path / name, summary)
@@ -1425,7 +1733,7 @@ def future_gap_fixture(root, monkeypatch):
         disposition=disposition_path,
         disposition_sha256=sha256(root / disposition_path),
     )
-    for name in r.SUMMARIES.values():
+    for name in [str(completed_summary_path(root, p).relative_to(root)) for p in r.PHASES]:
         value = json.loads((root / name).read_text())
         value["logical_check_dispositions"].append(logical)
         write_json(root / name, value)
@@ -1479,7 +1787,9 @@ def test_future_gap_needs_its_own_complete_scientific_disposition(tmp_path, monk
         disposition = json.loads((tmp_path / disposition_path).read_text())
         disposition["review_sha256"] = sha256(tmp_path / review_path)
         write_json(tmp_path / disposition_path, disposition)
-        for name in r.SUMMARIES.values():
+        for name in [
+            str(completed_summary_path(tmp_path, p).relative_to(tmp_path)) for p in r.PHASES
+        ]:
             value = json.loads((tmp_path / name).read_text())
             logical = value["logical_check_dispositions"][-1]
             logical.update(
@@ -1488,7 +1798,7 @@ def test_future_gap_needs_its_own_complete_scientific_disposition(tmp_path, monk
             )
             write_json(tmp_path / name, value)
     else:
-        name = r.SUMMARIES["full_development"]
+        name = str(completed_summary_path(tmp_path, "full_development").relative_to(tmp_path))
         value = json.loads((tmp_path / name).read_text())
         if fault == "lost_gap":
             value["logical_check_dispositions"].pop()
@@ -1538,3 +1848,64 @@ def test_late_source_drift_during_table_read_never_publishes(tmp_path, monkeypat
     with pytest.raises(ValueError, match="source SHA changed"):
         r.report(tmp_path, tmp_path / "not-published")
     assert not (tmp_path / "not-published").exists()
+
+
+def test_completion_bundle_exposes_admitted_smokes_for_tracking(tmp_path, monkeypatch):
+    complete_fixture(tmp_path, monkeypatch)
+    bundle = r.verify_report_sources(tmp_path)
+    assert len(bundle["smokes"]) == 6
+    first = bundle["smokes"][0]
+    assert first["technical_revalidation"]["original_controller_outcome"] == "needs_review"
+    assert first["public_record"]["outcome"] == "needs_review"
+
+
+@pytest.mark.parametrize("fault", ["original_promoted", "baseline_outcome", "worker_inventory"])
+def test_revalidated_g0_keeps_failed_receipt_and_exact_original_worker_closure(
+    tmp_path, monkeypatch, fault
+):
+    seal = complete_fixture(tmp_path, monkeypatch)
+    baseline_path = tmp_path / r.technical.BASELINE
+    baseline = json.loads(baseline_path.read_text())
+    if fault == "original_promoted":
+        path = tmp_path / baseline["original_receipt"]
+        value = json.loads(path.read_text())
+        value["outcome"] = "accepted"
+        write_json(path, value)
+    elif fault == "baseline_outcome":
+        baseline["original_controller_outcome"] = "accepted"
+        write_json(baseline_path, baseline)
+    else:
+        baseline["worker_files"].pop(next(iter(baseline["worker_files"])))
+        write_json(baseline_path, baseline)
+    seal()
+    monkeypatch.setattr(r, "read_rows", lambda *args: pytest.fail("tables before G0 lineage"))
+    with pytest.raises(ValueError):
+        r.verify_report_sources(tmp_path)
+
+
+@pytest.mark.parametrize("fault", ["double_count", "dispatch_g0", "incomplete", "missing_attempt"])
+def test_public_technical_completion_requires_six_logical_and_five_new_g_calls(
+    tmp_path, monkeypatch, fault
+):
+    complete_fixture(tmp_path, monkeypatch)
+    admitted = r.technical.read_program_metadata
+
+    def changed(root, phase):
+        value = copy.deepcopy(admitted(root, phase))
+        if phase == "full_design_recovery":
+            if fault == "double_count":
+                value["calls_charged"] = value["calls_started"] = 7
+            elif fault == "dispatch_g0":
+                value["dispatch_jobs"] = value["jobs"]
+            elif fault == "incomplete":
+                value["complete"] = False
+            else:
+                value["attempt_records"].pop()
+        return value
+
+    monkeypatch.setattr(r.technical, "read_program_metadata", changed)
+    monkeypatch.setattr(
+        r, "read_rows", lambda *args: pytest.fail("tables before completed program")
+    )
+    with pytest.raises(ValueError):
+        r.verify_report_sources(tmp_path)

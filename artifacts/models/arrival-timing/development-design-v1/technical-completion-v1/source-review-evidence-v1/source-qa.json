@@ -1,0 +1,65 @@
+{
+  "TDD_evidence": {
+    "consolidated_runtime_metadata_guards": "41PASS/5RED, all5repaired",
+    "final_frozen_source_result": "46PASS",
+    "initial_required_baseline_guards": "20PASS/3RED, all3repaired"
+  },
+  "actual_G6_or_full3_scientific_acceptance": false,
+  "actual_Gates_allocations_runtime_STATE_Git_context_written": false,
+  "actual_baseline_metadata_audit": {
+    "actual_calls_charged_started": [
+      1,
+      1
+    ],
+    "baseline_review_sha256": "f6218f6e73e599aa4d2aed705d9d5014d647ff1c7be13eadc9cfad731d39af99",
+    "native_proof_repeated": false,
+    "path": "/private/tmp/tsunami-technical-baseline-independent-metadata-qa.json",
+    "sha256": "4becfdbadac3f8236022aa9466331984b1c652cfcf0f2cf476105e14e0595be8",
+    "strict_proof_sha256": "eb75a9416604bb63177ad7a7c06991d2d5bd6b01f8262506210c20bef9f21ed1"
+  },
+  "actual_native_or_private_state_body_reads_in_source_QA": false,
+  "bounded_review": [
+    "Original G0 needs_review receipt remains distinct from independently accepted strict revalidation; exact17producer leaves+raw18, strict posterior/path/SHA/role and onecall binding enforced",
+    "Stdlib-only startup applies float64/canonical caches/allfive numeric thread limits2/file64MiB before any scientific runtime import",
+    "Pure public metadata path imports no scientific modules and calls neither old J.admit/run nor old cold journal records; exact inherited12 opaque ledger references only",
+    "Original kernel jobs/seed/prior/protocol remain unchanged; only five remaining G jobs and selected three full jobs dispatch",
+    "Mixed sixG baseline+new5 and full3 metadata preserves charged/start1\u21926\u21929 and original CHECK dispositions",
+    "Unknown/retried paid allocations cannot vanish; integer call accounting includes incomplete charges and literal markers; no retry/refund beyond inclusive9",
+    "First two actual starts are legacyG0+newG1; independent pilot is required before third start",
+    "Fresh proof-only subprocess performs unchanged native worker semantic proof and is never a sampler; exact dualGate/plan/allocation/spec/Git/startup/process proof metadata",
+    "Frozen supervisor/resource/physical-inventory/lease helpers reused; synthetic timeout, proof failure, quota, STOP, source drift before allocation/inside lease/after cleanup and foreign lease preserve partials and hardstop",
+    "Runtime checks hash all three retained private histories including S5 without parsing or healing, and checks all retained baseline/current job evidence caps"
+  ],
+  "files": {
+    "analysis/arrival/model_development_technical_completion.py": "66cec4fdddde344ec60bce51f4681cd0faa5f5ca0db89b60f5cd8156e7621247",
+    "scripts/run_arrival_development_technical_completion.py": "d8184af399ac762709e8493cbde497c3d6ddcbb382ba58b7a250a1b7025c0e76",
+    "tests/test_arrival_development_technical_completion.py": "2296279e35001607c01af9acfdc3878b01c41735d7f1176cefb33464cf1dc25c"
+  },
+  "findings": "No remaining material blocker in the bounded frozen-source review.",
+  "independent_checker": true,
+  "independent_test_author_implementation_separation": "Checker authored only the test file; implementation owner authored only module and CLI.",
+  "limitations": [
+    "Source and synthetic runtime contracts only; no production authority or new scientific acceptance granted",
+    "Actual process-group timeout mechanics belong to the reused frozen supervisor; these tests verify delegation, fixed600s and retained-failure handling with a fake backend",
+    "Prospective technical execution Gate/resource payload and real worker closures require separate Root preflight and authorization"
+  ],
+  "production_execution_authorized": false,
+  "project_changes_by_checker": [
+    "tests/test_arrival_development_technical_completion.py"
+  ],
+  "source_qa_only": true,
+  "static": {
+    "CLI_help": "passed",
+    "pyright_errors": 0,
+    "pyright_warnings": 0,
+    "ruff": "passed"
+  },
+  "status": "accepted_frozen_development_technical_completion_sources",
+  "tests": {
+    "command": "UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline pytest -q tests/test_arrival_development_technical_completion.py",
+    "native_or_scientific_workers_called": false,
+    "passed": 46,
+    "seconds": 2.0,
+    "synthetic_fixtures_only": true
+  }
+}
