@@ -1,0 +1,22 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/audit.py.txt": "2a8124250e42560ed4eb615a2edd9ac40616510a9e7106a41efccf9fc7977940",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/plots/case-048-energy.png": "12e1d029327516f3cd3c3e4e4e83273832bbe8fdc8a18746047ff06ab73ed2b8",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/plots/case-048-trace-rank.png": "0e6d7393ca2bca2209ab51f49f53868db689bac629a4c469d0848ca2a8edc8db",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/plots/case-049-energy.png": "ab685b0cc206f04afa9c26e069b19365359decf3fd6581c5ac6c15d64f8494f4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/plots/case-049-trace-rank.png": "e9b1df089089f6fb60712bbe3ae61640094ecb4749cfdcbf4f337d8801f9a2a9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/result.json": "43ce095d3b6e61d34be2b6f6c52067421a21734ff428b1dc4679162980da6da8",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivity-checkpoints-v1/finish-tail-048-049/seal.py.txt": "46abce806a53efe9d83cd7c7d2817acb9009c82b3f44b5cb49faa5f4cbce71f5"
+  },
+  "helper_source": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt",
+  "reproduction": "Restore pinned retained helper at /private/tmp/check_s5_remaining_completion.py; the preserved audit requires explicit Root closure notice and a matching idle accepted prefix, and never runs a sampler/controller.",
+  "reserved_outcomes": "sealed",
+  "scope": "Immutable independent SCI checkpoint, original closed cases only",
+  "visual_review": {
+    "energy": "All centered-energy and energy-transition plots viewed; no concerning chain mismatch.",
+    "plots_opened": 4,
+    "status": "accepted",
+    "trace_rank": "All four chains and all scalar coordinates viewed; no concerning drift/stuck chains/separation. Pooled rank plots are descriptive, not uniformity tests."
+  }
+}
