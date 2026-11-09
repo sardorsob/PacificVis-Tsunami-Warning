@@ -21,6 +21,7 @@ from analysis.arrival.model_sensitivity_priors import (
     build_sensitivity_model,
 )
 from tests.test_arrival_model_development_fit import fixture as fit_fixture
+from tests.test_arrival_model_development_references import damage_native_metadata, native_metadata
 
 FORMS = [
     ("NCEI-native-duration", "distance-scale"),
@@ -224,7 +225,8 @@ def fixture(root, monkeypatch, *, target="NCEI-native-duration", kind="mean-curv
         calls.append(kwargs)
         post = posterior(actual_target, actual_kind, job["truth"])
         post["alpha"] = post.alpha + 1  # Deliberately outside truth; no inclusion pass rule.
-        return xr.DataTree.from_dict({"posterior": post})
+        stats = native_metadata(post)
+        return xr.DataTree.from_dict({"posterior": post, "sample_stats": stats})
 
     monkeypatch.setattr(recovery.pm, "sample", sample)
     monkeypatch.setattr(recovery, "sampling_diagnostics", fit.sampling_diagnostics)
@@ -348,3 +350,27 @@ def test_raw_preserved_on_diagnostic_failure(tmp_path, monkeypatch):
         raw
     )
     assert len(calls) == 1 and raw.stat().st_size > 0
+
+
+@pytest.mark.parametrize("fault", ["backend_note", "settings"])
+def test_invalid_native_smoke_is_saved_before_rejection_without_summary(
+    tmp_path, monkeypatch, fault
+):
+    jobs, calls, summary_calls = fixture(tmp_path, monkeypatch)
+    sample = recovery.pm.sample
+
+    def wrong_sample(**kwargs):
+        tree = sample(**kwargs)
+        post, stats = tree["posterior"].to_dataset(), tree["sample_stats"].to_dataset()
+        damage_native_metadata(post, stats, fault)
+        tree["posterior"], tree["sample_stats"] = xr.DataTree(post), xr.DataTree(stats)
+        return tree
+
+    monkeypatch.setattr(recovery.pm, "sample", wrong_sample)
+    output, raw = recovery.case_paths(tmp_path, jobs[0])
+    result = recovery.run_recovery_job(tmp_path, jobs[0], output, raw)
+    assert result["status"] == "needs_numerical_review"
+    assert raw.stat().st_size > 0 and result["posterior_sha256"] == sha256(raw)
+    assert len(calls) == 1 and summary_calls == []
+    assert not (output / "diagnostics.json").exists()
+    assert not (output / "summary.json").exists()

@@ -250,13 +250,11 @@ def _read_population(root, raw, lane, ids, kind):
             )
         ):
             raise ValueError("new training raw must match all literal native/source arrays")
-    with xr.open_dataset(raw, group="posterior", engine="h5netcdf") as saved:
-        if (
-            saved.sizes.get("chain") != 4
-            or saved.sizes.get("draw") != 2000
-            or "nutpie" not in str(saved.attrs).lower()
-        ):
-            raise ValueError("original4chain2000draw nutpie posterior required")
+    with (
+        xr.open_dataset(raw, group="posterior", engine="h5netcdf") as saved,
+        xr.open_dataset(raw, group="sample_stats", engine="h5netcdf") as sample_stats,
+    ):
+        references._native_protocol(saved, sample_stats)
         hyper, _ = _validated(lane, kind, saved, ids, 0, 800)
         return saved[list(hyper)].load()
 
@@ -631,6 +629,11 @@ def run_development_job(root: Path, job: dict[str, Any], output: Path, store: Pa
             tree.to_netcdf(store, engine="h5netcdf")
             raw_saved = True
             result.update(posterior=str(store.relative_to(root)), posterior_sha256=sha256(store))
+            if "sample_stats" not in tree:
+                raise ValueError("original native nutpie sample_stats required")
+            references._native_protocol(
+                tree["posterior"].to_dataset(), tree["sample_stats"].to_dataset()
+            )
             diagnostics, table = sampling_diagnostics(tree)
             table.to_csv(output / "sampling-diagnostics.csv", na_rep="unknown")
             write_json(output / "diagnostics.json", diagnostics)
@@ -641,7 +644,6 @@ def run_development_job(root: Path, job: dict[str, Any], output: Path, store: Pa
                 diagnostics.get("screen_passed") is True
                 and post.sizes.get("chain") == 4
                 and post.sizes.get("draw") == 2000
-                and "nutpie" in str(post.attrs).lower()
             )
             result["status"] = SUCCESS if numeric else "needs_numerical_review"
             if numeric and job["role"] == "full_development":

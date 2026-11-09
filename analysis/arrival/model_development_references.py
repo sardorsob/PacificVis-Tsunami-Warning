@@ -32,6 +32,42 @@ class RequiresNewFrozenTrainingFit(ValueError):
     """No exact admitted base-prior training posterior can serve this frozen view."""
 
 
+def _native_protocol(posterior, sample_stats):
+    """Validate original sampler metadata without adding provenance attributes."""
+    try:
+        config = json.loads(sample_stats.attrs["inference_library_settings"])
+        settings = config["settings"]
+        actual = {
+            "sampler": config["sampler"],
+            "tune": settings["num_tune"],
+            "draws": settings["num_draws"],
+            "chains": settings["num_chains"],
+            "target_accept": settings["adapt_options"]["step_size_settings"]["target_accept"],
+        }
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("complete original native nutpie sampler settings required") from error
+    if (
+        any(
+            group.attrs.get("inference_library") != "nutpie"
+            or group.attrs.get("inference_library_version") != "0.16.11"
+            for group in [posterior, sample_stats]
+        )
+        or type(posterior.attrs.get("tuning_steps")) not in {int, np.int32, np.int64}
+        or posterior.attrs.get("tuning_steps") != 1000
+        or any(type(actual[k]) is not int for k in ["tune", "draws", "chains"])
+        or actual
+        != {"sampler": "nuts", "tune": 1000, "draws": 2000, "chains": 4, "target_accept": 0.95}
+        or any(
+            group.sizes.get("chain") != 4
+            or group.sizes.get("draw") != 2000
+            or group.chain.values.tolist() != list(range(4))
+            or group.draw.values.tolist() != list(range(2000))
+            for group in [posterior, sample_stats]
+        )
+    ):
+        raise ValueError("genuine native nutpie backend/version/protocol/coordinates required")
+
+
 def _reference(target, kind) -> dict[str, Any]:
     if target != "NCEI-native-duration":
         return next(
@@ -234,13 +270,11 @@ def load_frozen_training_reference(
         native_present = "native_minutes" in observed
         if native_present and not np.array_equal(observed.native_minutes.values, source.y[indices]):
             raise ValueError("raw observed native minutes differ from frozen training source")
-    with xr.open_dataset(raw, group="posterior", engine="h5netcdf") as saved:
-        if (
-            saved.sizes.get("chain") != 4
-            or saved.sizes.get("draw") != 2000
-            or "nutpie" not in str(saved.attrs).lower()
-        ):
-            raise ValueError("literal original four-chain2000draw nutpie population required")
+    with (
+        xr.open_dataset(raw, group="posterior", engine="h5netcdf") as saved,
+        xr.open_dataset(raw, group="sample_stats", engine="h5netcdf") as sample_stats,
+    ):
+        _native_protocol(saved, sample_stats)
         hyper, _ = _validated(training_lane, spec["kind"], saved, indices, 0, 800)
         population = saved[list(hyper)].load()
     data._unchanged(root, pins)

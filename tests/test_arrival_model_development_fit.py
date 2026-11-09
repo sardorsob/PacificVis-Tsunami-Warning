@@ -13,6 +13,7 @@ from analysis.arrival import model_development_data as data
 from analysis.arrival import model_development_fit as worker
 from analysis.arrival.evidence import sha256, write_json
 from tests.test_arrival_model_development_data import accept_check
+from tests.test_arrival_model_development_references import damage_native_metadata, native_metadata
 from tests.test_arrival_model_development_references import fixture as reference_fixture
 
 
@@ -149,7 +150,8 @@ def fixture(
         if target == "NCEI-native-duration":
             post = post.assign_coords(scale_anchor_km=[500, 2000, 5000])
         calls.append(kwargs)
-        return xr.DataTree.from_dict({"posterior": post})
+        stats = native_metadata(post)
+        return xr.DataTree.from_dict({"posterior": post, "sample_stats": stats})
 
     monkeypatch.setattr(worker.pm, "sample", sample)
     monkeypatch.setattr(
@@ -203,6 +205,75 @@ def test_frozen_prior_variants_use_existing_builder(tmp_path, monkeypatch, varia
     assert settings["family"] == ("t4" if variant == "t4_matched" else "normal")
     if variant == "power_0.5":
         assert settings["distribution_scales"]["alpha_sd"] == 0.5 / np.sqrt(0.5)
+
+
+@pytest.mark.parametrize("fault", ["backend_note", "original_settings"])
+def test_wrong_native_backend_or_protocol_retains_raw_without_certifying_fit(
+    tmp_path, monkeypatch, fault
+):
+    jobs, calls, _ = fixture(tmp_path, monkeypatch)
+    sample = worker.pm.sample
+
+    def wrong_sample(**kwargs):
+        tree = sample(**kwargs)
+        if fault == "backend_note":
+            tree["posterior"].attrs.update(
+                inference_library="pymc", note="This unrelated note mentions nutpie"
+            )
+        else:
+            tree["posterior"].attrs["tuning_steps"] = 0
+            tree["sample_stats"] = xr.DataTree(
+                xr.Dataset(
+                    attrs={
+                        "inference_library": "nutpie",
+                        "inference_library_version": "0.16.11",
+                        "inference_library_settings": json.dumps(
+                            dict(
+                                sampler="nuts",
+                                settings=dict(
+                                    num_tune=0,
+                                    num_draws=2000,
+                                    num_chains=4,
+                                    adapt_options=dict(step_size_settings=dict(target_accept=0.5)),
+                                ),
+                            )
+                        ),
+                    }
+                )
+            )
+        return tree
+
+    monkeypatch.setattr(worker.pm, "sample", wrong_sample)
+    job = jobs[0]
+    output, raw = worker.case_paths(tmp_path, job)
+    result = worker.run_development_job(tmp_path, job, output, raw)
+    assert len(calls) == 1 and raw is not None and raw.stat().st_size > 0
+    assert result["status"] == "needs_numerical_review"
+    assert result["posterior_sha256"] == sha256(raw)
+    assert not (output / "diagnostics.json").exists()
+    assert not (output / "summary.json").exists()
+
+
+@pytest.mark.parametrize("fault", ["backend_note", "settings"])
+def test_resealed_raw_metadata_cannot_pass_full_artifact_replay(tmp_path, monkeypatch, fault):
+    jobs, _, _ = fixture(tmp_path, monkeypatch)
+    job = jobs[0]
+    output, raw = worker.case_paths(tmp_path, job)
+    assert raw is not None
+    assert worker.run_development_job(tmp_path, job, output, raw)["status"] == worker.SUCCESS
+    with xr.open_datatree(raw, engine="h5netcdf") as saved:
+        tree = saved.load()
+    post, stats = tree["posterior"].to_dataset(), tree["sample_stats"].to_dataset()
+    damage_native_metadata(post, stats, fault)
+    tree["posterior"], tree["sample_stats"] = xr.DataTree(post), xr.DataTree(stats)
+    tree.to_netcdf(raw, engine="h5netcdf")
+    tree.close()
+    result = json.loads((output / "result.json").read_text())
+    result["posterior_sha256"] = sha256(raw)
+    write_json(output / "result.json", result)
+    worker._manifest(output)
+    with pytest.raises(ValueError, match="native nutpie"):
+        worker.case_artifacts(tmp_path, job, worker.verify_gate(tmp_path, job["role"])["files"])
 
 
 @pytest.mark.parametrize("failure", ["status", "resources", "not_listed", "augmentation"])

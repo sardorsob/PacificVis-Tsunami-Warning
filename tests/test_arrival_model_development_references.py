@@ -17,6 +17,49 @@ from analysis.arrival.evidence import sha256, write_json
 from tests.test_arrival_model_development_data import fixture as data_fixture
 
 
+def native_metadata(post):
+    """Synthetic original backend metadata; no posterior inference is performed."""
+    attrs = {"inference_library": "nutpie", "inference_library_version": "0.16.11"}
+    post.attrs.update(**attrs, tuning_steps=1000)
+    return xr.Dataset(
+        coords={"chain": post.chain.values, "draw": post.draw.values},
+        attrs={
+            **attrs,
+            "inference_library_settings": json.dumps(
+                dict(
+                    sampler="nuts",
+                    settings=dict(
+                        num_tune=1000,
+                        num_draws=2000,
+                        num_chains=4,
+                        adapt_options=dict(step_size_settings=dict(target_accept=0.95)),
+                    ),
+                )
+            ),
+        },
+    )
+
+
+def damage_native_metadata(post, stats, fault):
+    if fault == "backend_note":
+        post.attrs.update(inference_library="pymc", note="nutpie is only an unrelated note")
+    elif fault == "stats_backend":
+        stats.attrs["inference_library"] = "pymc"
+    elif fault == "version":
+        post.attrs["inference_library_version"] = "wrong"
+    elif fault == "settings":
+        value = json.loads(stats.attrs["inference_library_settings"])
+        value["settings"]["num_tune"] = 0
+        value["settings"]["adapt_options"]["step_size_settings"]["target_accept"] = 0.5
+        stats.attrs["inference_library_settings"] = json.dumps(value)
+    elif fault == "coordinates":
+        stats.coords["chain"] = [3, 2, 1, 0]
+    elif fault == "tuning":
+        post.attrs["tuning_steps"] = 0
+    else:
+        raise ValueError("unknown synthetic metadata fault")
+
+
 def fixture(
     root, monkeypatch, target="NCEI-native-duration", kind="mean-curvature", *, raw_fault=None
 ):
@@ -64,7 +107,10 @@ def fixture(
     if target == "NCEI-native-duration":
         post = post.assign_coords(scale_anchor_km=[500, 2000, 5000])
     post["unused_old_event_effect"] = (("chain", "draw"), np.full((4, count), np.nan))
+    stats = native_metadata(post)
     post.attrs["inference_library"] = "wrong-backend" if raw_fault == "backend" else "nutpie"
+    if raw_fault and raw_fault.startswith("native_"):
+        damage_native_metadata(post, stats, raw_fault.removeprefix("native_"))
     if raw_fault == "nonfinite":
         post["alpha"].values[0, 0] = np.inf
     observed = xr.Dataset(
@@ -75,9 +121,9 @@ def fixture(
         observed["native_minutes"] = ("record", lane.y[ids])
     raw = root / ref["raw"]
     raw.parent.mkdir(parents=True, exist_ok=True)
-    xr.DataTree.from_dict({"posterior": post, "observed_data": observed}).to_netcdf(
-        raw, engine="h5netcdf"
-    )
+    xr.DataTree.from_dict(
+        {"posterior": post, "sample_stats": stats, "observed_data": observed}
+    ).to_netcdf(raw, engine="h5netcdf")
     job: dict[str, Any] = dict(
         target=target, kind=kind, seed=ref["seed"], draws=2000, tune=1000, cores=2
     )
@@ -254,7 +300,21 @@ def test_wrong_prior_cohort_or_source_proof_never_opens_netcdf(tmp_path, monkeyp
         refs.load_frozen_training_reference(tmp_path, key, lane, pins)
 
 
-@pytest.mark.parametrize("raw_fault", ["draws", "backend", "nonfinite", "order"])
+@pytest.mark.parametrize(
+    "raw_fault",
+    ["draws", "backend", "nonfinite", "order"]
+    + [
+        "native_" + fault
+        for fault in [
+            "backend_note",
+            "stats_backend",
+            "version",
+            "settings",
+            "coordinates",
+            "tuning",
+        ]
+    ],
+)
 def test_original_draws_backend_finiteness_and_native_order_required(
     tmp_path, monkeypatch, raw_fault
 ):

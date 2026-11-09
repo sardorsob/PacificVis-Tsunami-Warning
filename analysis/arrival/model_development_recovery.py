@@ -580,10 +580,10 @@ def run_recovery_job(root: Path, job: dict[str, Any], output: Path, store: Path)
         tree.to_netcdf(store, engine="h5netcdf")
         raw_saved = True
         result.update(posterior=str(store.relative_to(root)), posterior_sha256=sha256(store))
+        post = fit._read_population(root, store, fake, ids, spec["kind"])
         diagnostics, table = sampling_diagnostics(tree)
         write_json(output / "diagnostics.json", diagnostics)
         table.to_csv(output / "sampling-diagnostics.csv", na_rep="unknown")
-        post = fit._read_population(root, store, fake, ids, spec["kind"])
         oracle = numerical_oracles(model, fake, spec["kind"], job["truth"], settings, post)
         write_json(output / "numerical-oracles.json", oracle)
         summary = summarize_posterior(
