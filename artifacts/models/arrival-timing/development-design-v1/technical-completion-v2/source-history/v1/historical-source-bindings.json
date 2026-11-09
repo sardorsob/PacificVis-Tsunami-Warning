@@ -1,0 +1,35 @@
+{
+  "allowed_bindings": {
+    "analysis/arrival/model_development_technical_completion.py": {
+      "archived_path": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion.py.txt",
+      "expected_sha256": "66cec4fdddde344ec60bce51f4681cd0faa5f5ca0db89b60f5cd8156e7621247",
+      "git_blob_oid": "2799d3ab98135dd64e493fe7576e4b6f59df7458",
+      "producer_git_commit": "c446079dcff1b1e04a734a74f77d551afd1aafb6",
+      "recognized_source_epoch": "technical-completion-v1"
+    },
+    "scripts/run_arrival_development_technical_completion.py": {
+      "archived_path": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion-cli.py.txt",
+      "expected_sha256": "d8184af399ac762709e8493cbde497c3d6ddcbb382ba58b7a250a1b7025c0e76",
+      "git_blob_oid": "0da038f3b9b9d91adbacf657668bd2b9a04f2d71",
+      "producer_git_commit": "c446079dcff1b1e04a734a74f77d551afd1aafb6",
+      "recognized_source_epoch": "technical-completion-v1"
+    },
+    "tests/test_arrival_development_technical_completion.py": {
+      "archived_path": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion-tests.py.txt",
+      "expected_sha256": "2296279e35001607c01af9acfdc3878b01c41735d7f1176cefb33464cf1dc25c",
+      "git_blob_oid": "25956ba26b9fb2e6957328301708473377334343",
+      "producer_git_commit": "c446079dcff1b1e04a734a74f77d551afd1aafb6",
+      "recognized_source_epoch": "technical-completion-v1"
+    }
+  },
+  "data_config_kernel_context_rebinding_allowed": false,
+  "files": {
+    "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion-cli.py.txt": "d8184af399ac762709e8493cbde497c3d6ddcbb382ba58b7a250a1b7025c0e76",
+    "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion-tests.py.txt": "2296279e35001607c01af9acfdc3878b01c41735d7f1176cefb33464cf1dc25c",
+    "artifacts/models/arrival-timing/development-design-v1/technical-completion-v2/source-history/v1/technical-completion.py.txt": "66cec4fdddde344ec60bce51f4681cd0faa5f5ca0db89b60f5cd8156e7621247"
+  },
+  "historical_authority": "artifacts/models/arrival-timing/development-design-v1/technical-completion-v1/full_design_recovery/review-acceptance.json",
+  "historical_authority_sha256": "da7c13dcaaa43e7b7a8be73837794c6c6051e8ebd16c068063165b90b9a5b5a2",
+  "source_epoch": "technical-completion-v1",
+  "status": "preserved_original_technical_continuation_source_epoch"
+}
