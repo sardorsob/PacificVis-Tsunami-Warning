@@ -1,0 +1,9 @@
+{
+  "direct-score-arrays.npz": "03f4517af3e39ddade916f137019261965f8d7355e84ee90e0b0b82fb5b72a89",
+  "event-results.json": "5edd5fd45fa4596d0d49e2bc20da3ef81a0bc44b94c9b319114ba7cec2365baf",
+  "held-out-record-predictions.csv": "1a500df2c74397ea7724aedb58a9f746682748c8d82c38b5bc430633a9186877",
+  "inputs.json": "1df8d4c395ab319571127edda8b96b5cace93f8bcad94db946ad6fa32d5b5bc8",
+  "job.json": "1d4d9066b9bd01ed8d2364866ae0180769e0fdba9df6edaef7a88bdbfca5714c",
+  "membership.json": "77d2296c52b1730af4e513817fbe898b5bf7eb9c43c8b4e265228e94dd2f9d5b",
+  "result.json": "37f107fc9739afff4ea702851c8bc378f665ced1fa604a468bce2848e18daa58"
+}

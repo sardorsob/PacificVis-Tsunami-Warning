@@ -1,0 +1,13 @@
+{
+  "authority_gate_sha256": "cda4f8c39c807a094b4396f8037e81860545f5f2e847ae10b346b3cdfd907c65",
+  "cost": 0,
+  "elapsed_seconds": 36.84648549975827,
+  "invocation_git_sha": "bb56e79e0a2d7db8d598e2b9da9936483772dcab",
+  "job_sha256": "1d4d9066b9bd01ed8d2364866ae0180769e0fdba9df6edaef7a88bdbfca5714c",
+  "monitor_failures": [],
+  "plan_sha256": "08286495818fbd5e52c1fd2c4c77273aedba65179656c0fabbcb6b44b38de3b5",
+  "reason": "worker_exit",
+  "returncode": 2,
+  "start_markers": 0,
+  "worker_gate_sha256": "7e2738fab3044b8c5e6dd78d3a260cb4f84f3c25fabfd355b384c281be0b1b6f"
+}

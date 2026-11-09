@@ -1,0 +1,10 @@
+{
+  "id": "dev-ncei-distance-scale-runner-up-check",
+  "model_key": "NCEI-native-duration:distance-scale:runner_up",
+  "order": 1,
+  "role": "check_evaluate",
+  "seed": 2976110900,
+  "training_reference": {
+    "kind": "historical"
+  }
+}

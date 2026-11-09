@@ -1,0 +1,13 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. UV_CACHE_DIR=/private/tmp/tsunami-uv-cache uv run --locked --offline python /private/tmp/audit-ms6-linear-failure.py",
+  "no_production_or_state_authority": true,
+  "requires": "Explicit permission for the same closed NCEIlinear case; use a clean temporary workspace because audit outputs are exclusive.",
+  "restore_code_snapshots": {
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/audit-linear-failure.py": "/private/tmp/audit-ms6-linear-failure.py",
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/independent-case-check.py": "/private/tmp/check-tsunami-development-five.py",
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/independent-math.py": "/private/tmp/check-tsunami-development-math.py",
+    "artifacts/models/arrival-timing/development-check-diagnostics-v1/case-001/original-audit-helpers.py": "/private/tmp/audit-tsunami-development-case000.py"
+  },
+  "scope": "Audit-only reproduction using exact accepted source snapshots; no fit or retuning.",
+  "working_directory": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times"
+}
