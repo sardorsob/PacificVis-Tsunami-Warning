@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_sensitivity_prior_predictive_checks",
+  "original_tracking_receipt_unchanged": true,
+  "parent_review_artifact_verified": true,
+  "parent_run_id": "61e9bff691934c8f962777f44d2dfc3e",
+  "review": "artifacts/models/arrival-timing/sensitivity-design-v1/prior-predictive-v1/review-acceptance.json",
+  "review_sha256": "a46066ef1b22dd163309945b2d604b057fba29be14e6f89bb8d887111c3191ce",
+  "tagged_finished_runs": [
+    "61e9bff691934c8f962777f44d2dfc3e"
+  ]
+}
