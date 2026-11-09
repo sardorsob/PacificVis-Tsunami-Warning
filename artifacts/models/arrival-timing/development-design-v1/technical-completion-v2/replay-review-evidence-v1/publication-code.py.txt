@@ -1,0 +1,17 @@
+import hashlib,json
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');D='artifacts/models/arrival-timing/development-design-v1/technical-completion-v2'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def put(name,body):
+ p=R/D/name;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(body)
+ return str(p.relative_to(R)),sha(p)
+expected={'analysis/arrival/model_development_replay.py':'aa1a412424698f048a08488f948fd7172fd0bc1b9a6b261eeec126563737062d','tests/test_arrival_model_development_replay.py':'e5904a93f78e857aec52e07381eaa7cd6ddd60d51a2b459f553da1c13c18a3a3'}
+for p,h in expected.items():assert sha(R/p)==h
+files=json.loads((R/'artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/source-review.json').read_text())['files'].copy()
+files.update(expected)
+for n,s in [('replay-review-evidence-v1/maker-receipt.json','/private/tmp/development-replay-v2-maker-receipt.json'),('replay-review-evidence-v1/independent-tests.py.txt','/private/tmp/test_replay_v2_root_independent.py'),('replay-review-evidence-v1/publication-code.py.txt',__file__)]:
+ k,h=put(n,Path(s).read_bytes());files[k]=h
+v={'status':'accepted_frozen_development_diagnostic_replay_source','independent_checker':True,'execution_authority':False,'proof_contract':'original_scientific_checks_diagnostic_recomputation_v2','supplied_tests_passed':42,'independent_tests_passed':7,'ruff_passed':True,'pyright_errors':0,'new_actual_sampler_calls':0,'original_scientific_predicates_and_thresholds_unchanged':True,'only_explicit_derived_diagnostic_fields_allow_recomputation':True,'cross_run_tolerance_used':False,'source_files':expected,'files':files}
+for p,h in files.items():assert sha(R/p)==h,p
+k,h=put('replay-source-review.json',(json.dumps(v,sort_keys=True,indent=2)+'\n').encode());print(k,h,len(files))

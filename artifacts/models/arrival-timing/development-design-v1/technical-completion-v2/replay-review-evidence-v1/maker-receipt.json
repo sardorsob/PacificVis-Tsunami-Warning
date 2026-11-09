@@ -1,0 +1,68 @@
+{
+  "API": "case_artifacts(root,job,pins,accepted=None)",
+  "Gates_SCI_STATE_Git_context_written": false,
+  "actual_G2_stable_proof_run": false,
+  "actual_native_or_new_outcome_reads": false,
+  "additional_return_fields": [
+    "proof_contract",
+    "original_exact_oracle_equal",
+    "diagnostic_comparison"
+  ],
+  "every_changed_numeric_leaf_reported": true,
+  "exact_non_diagnostic_checks": [
+    "top and row schemas",
+    "point and prior-only label order",
+    "dtype mapping",
+    "normalizer source/measure/scope strings",
+    "predicted normalizer constant",
+    "boolean passed flags"
+  ],
+  "files": {
+    "analysis/arrival/model_development_replay.py": "aa1a412424698f048a08488f948fd7172fd0bc1b9a6b261eeec126563737062d",
+    "tests/test_arrival_model_development_replay.py": "e5904a93f78e857aec52e07381eaa7cd6ddd60d51a2b459f553da1c13c18a3a3"
+  },
+  "format": "PASS",
+  "independent_acceptance": false,
+  "negative_controls": [
+    "observed1.2434497875801753e-14 delta: old exact guard RED and new predicates GREEN",
+    "schema/labels/dtypes/non-diagnostic fields",
+    "bool/int/nonfinite and negative errors",
+    "saved/fresh original scalar predicate failures",
+    "real injected0.01 componentwise gradient failure",
+    "resealed inputs/prior/diagnostics/model/native/membership/summary/CSV/truth corruption",
+    "new source pin omission, alias root, late source drift, accepted inventory drift",
+    "fresh-interpreter import loads no numpy/pymc/pytensor/arviz"
+  ],
+  "numeric_whitelist": [
+    "points[*].logp_absolute_error",
+    "points[*].logp_prior_offset_corrected_error",
+    "points[*].prior_normalizer_offset",
+    "points[*].prior_offset_drift",
+    "points[*].gradient_max_absolute_error",
+    "prior_only_checks[*].offset"
+  ],
+  "original_sources_read_only": {
+    "analysis/arrival/model_development_fit.py": "98f5d7392c33c8f02c5e998741aededb6f649b5090a2c9577f9734e886657c13",
+    "analysis/arrival/model_development_recovery.py": "62e150f350c74dc329ba4934f21d723e67d74b61b911a04ca6bab05b48361036",
+    "scripts/run_arrival_development_journal.py": "d92d569a84113888f4b890e4539212a2211792e8286c853433272f4af5980546"
+  },
+  "predicates": "Original serialized scalar bounds checked for saved and fresh diagnostics; fresh unchanged G.numerical_oracles computes its full original componentwise gradient predicate. No max-error substitute/cross-run tolerance/fitted offset.",
+  "prefix_suffix_AST_equivalence": "PASS: original identity/manifest/native/prior/diagnostics/model/oracle prefix and summary5CSV/truth/accepted suffix identical after G qualifier normalization; own source pre/end guards and comparison/return metadata are isolated additions.",
+  "proof_contract": "original_scientific_checks_diagnostic_recomputation_v2",
+  "pyright": "0 errors / 0 warnings",
+  "return_original_fields": [
+    "files",
+    "result",
+    "posterior",
+    "posterior_sha256",
+    "role"
+  ],
+  "ruff": "PASS",
+  "source_preflight": "caller pins must include current SELF and TEST before lazy scientific imports; original G kernel closure still verified unchanged",
+  "status": "maker_replay_v2_ready_for_independent_source_QA",
+  "tests": {
+    "elapsed_seconds": 23.72,
+    "passed": 42,
+    "real_sampling": false
+  }
+}

@@ -1,0 +1,34 @@
+import copy,math
+import pytest
+from analysis.arrival import model_development_replay as R
+from analysis.arrival import model_development_recovery as G
+from tests.test_arrival_model_development_replay import oracle
+
+@pytest.mark.parametrize('mutation',[
+ lambda o:o.update(normal_log_scale_offset_prediction=math.nextafter(o['normal_log_scale_offset_prediction'],math.inf)),
+ lambda o:o['points'][0].update(passed=1),
+ lambda o:o['points'][0].update(gradient_max_absolute_error=-0.0-1e-99),
+ lambda o:o['prior_only_checks'][0].update(offset=True),
+ lambda o:o['points'][0].update(logp_absolute_error=G.protocol()['oracle_uncorrected_logp_atol']*1.000001),
+])
+def test_unapproved_or_invalid_diagnostic_changes_reject(mutation):
+ a=oracle();b=copy.deepcopy(a);mutation(b)
+ with pytest.raises(ValueError):R.compare_diagnostics(a,b,G.protocol())
+
+def test_report_is_directional_and_symmetric_absolute_difference():
+ a=oracle();b=copy.deepcopy(a)
+ b['points'][2]['gradient_max_absolute_error']=2.842170943040401e-14
+ f=R.compare_diagnostics(a,b,G.protocol())['diagnostic_deltas'][0]
+ rev=R.compare_diagnostics(b,a,G.protocol())['diagnostic_deltas'][0]
+ assert f['absolute_delta']==rev['absolute_delta']
+ assert f['saved']==rev['fresh'] and f['fresh']==rev['saved']
+
+def test_passing_relative_gradient_is_not_replaced_by_new_absolute_cutoff():
+ # The original componentwise check also has rtol: only its fresh passing
+ # result is authoritative, never a new cutoff applied to the scalar maximum.
+ a=oracle();b=copy.deepcopy(a)
+ a['points'][0]['gradient_max_absolute_error']=8e-5
+ b['points'][0]['gradient_max_absolute_error']=9e-5
+ assert R.compare_diagnostics(a,b,G.protocol())['original_scientific_predicates_passed']
+ b['points'][0]['passed']=False
+ with pytest.raises(ValueError):R.compare_diagnostics(a,b,G.protocol())
