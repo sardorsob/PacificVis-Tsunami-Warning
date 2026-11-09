@@ -1,0 +1,22 @@
+{
+  "Root_authorized_actual_notice_required": true,
+  "order": [
+    "Restore pure helper/math sources to their literal temporary paths.",
+    "Run audit-two-sealed-Tobs.py only with explicit corresponding target-scoped closed notice.",
+    "Run audit-final-NTWC.py after all four closed; uses immutable successful fit.case_artifacts and reuses original Tobs arithmetic.",
+    "Existing output paths are exclusive: use an isolated clean temporary workspace for reproduction."
+  ],
+  "original_helpers_restore": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/original-audit-helpers.py": "/private/tmp/audit-tsunami-development-case000.py"
+  },
+  "restore_exact_sources_to_clean_temporary_workspace": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/audit-final-NTWC.py": "/private/tmp/audit-ms6-NTWC-final-closed.py",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/audit-two-sealed-Tobs.py": "/private/tmp/audit-ms6-Tobs-sealed.py",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/independent-case-check.py": "/private/tmp/check-tsunami-development-five.py",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/independent-math.py": "/private/tmp/check-tsunami-development-math.py",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/independent-checks-v1/journal-target-audit.py": "/private/tmp/check-ms6-journal-NTWC.py"
+  },
+  "scientific_evaluation_original_artifacts_never_rewritten": true,
+  "scope": "Only four closed NTWC producers; no sampler, new integration, private-state access or model retuning.",
+  "working_directory": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times"
+}

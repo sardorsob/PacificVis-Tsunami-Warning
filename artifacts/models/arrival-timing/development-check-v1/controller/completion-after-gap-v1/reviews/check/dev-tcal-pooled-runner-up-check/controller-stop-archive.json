@@ -1,0 +1,24 @@
+{
+  "allocations_or_counters_changed": false,
+  "archive_root": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/reviewed-controller-stop-markers",
+  "archive_route_probe_sha256": "6be32c06fb095245ca817be19da0368d430bb547836da45b90bb824be68b870f",
+  "files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/reviewed-controller-stop-markers/check/dev-tcal-distance-selected-check.json": "d6f3244acb0b9ce9b335dd86ab1e5cece9859ab5ce7101c778a2eccdd8c77408",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/reviewed-controller-stop-markers/check/dev-tobs-distance-runner-up-check.json": "b372ae6d4acd01e0cf69ba31fbbbf8492687f02896a9246cedd9a81eb1551b01",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/reviews/check/dev-tcal-pooled-runner-up-check/reviewed-controller-stop-markers/check/dev-tobs-pooled-selected-check.json": "94c324154dba254acb8401aba827a3472c64af05efbaa0a8158630ef4650875b"
+  },
+  "original_evidence_commit": "b11c0eca7739452e4a4871a8caf3637ba47a0b60",
+  "original_failed_attempts_and_statuses_changed": false,
+  "original_locations_history_only": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/failures/check/dev-tcal-distance-selected-check.json": "d6f3244acb0b9ce9b335dd86ab1e5cece9859ab5ce7101c778a2eccdd8c77408",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/failures/check/dev-tobs-distance-runner-up-check.json": "b372ae6d4acd01e0cf69ba31fbbbf8492687f02896a9246cedd9a81eb1551b01",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/failures/check/dev-tobs-pooled-selected-check.json": "94c324154dba254acb8401aba827a3472c64af05efbaa0a8158630ef4650875b"
+  },
+  "original_root": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/failures",
+  "private_state_bodies_copied": false,
+  "runtime_review_sha256": "90f324a058a941d3a229bb03e28b21993f2c1108cd6d24b25eb67a90a5e15766",
+  "science_review_sha256": "14bb3b1acc5ed2e13ece23e4587501d7d291482bacb5e59024c6fe2948b8fd21",
+  "source_or_authority_changed": false,
+  "status": "preserved_controller_stop_markers_pending_independent_review",
+  "unreviewed_failure_markers_archived": false
+}

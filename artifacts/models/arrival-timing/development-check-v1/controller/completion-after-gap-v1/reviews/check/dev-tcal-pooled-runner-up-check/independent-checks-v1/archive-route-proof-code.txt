@@ -1,0 +1,180 @@
+"""Bounded route proof on synthetic files; frozen product code is never modified."""
+
+# pyright: basic
+import json
+from pathlib import Path
+
+import pytest
+
+from analysis.arrival.evidence import sha256, write_json
+from scripts import run_arrival_development_journal as j
+from tests.test_run_arrival_development_journal import fixture, gap_review, previous_review
+
+
+def stopped_four(root, monkeypatch):
+    f = fixture(root, monkeypatch)
+    supervise = j.old.supervise
+
+    def fixed(command, log, stop, seconds):
+        job = json.loads(Path(command[command.index("--job") + 1]).read_text())
+        f.behavior["exit"] = 2 if job == f.original[5] else 0
+        return supervise(command, log, stop, seconds)
+
+    monkeypatch.setattr(j.old, "supervise", fixed)
+    with pytest.raises(ValueError, match="failed attempt retained"):
+        j.run(root, max_jobs=4)
+    assert len(f.calls) == 4 and j.journal_counters(root) == dict(charged=0, started=0)
+    accepted = []
+    for job in f.original[2:5]:
+        receipt = j.attempt_path(root, "check", job)
+        record = json.loads(receipt.read_text())
+        process = j.old.paths(root, job, f.worker)[4]
+        body = json.loads(process.read_text())
+        assert (
+            record["outcome"] == "accepted"
+            and body["returncode"] == 0
+            and body["monitor_failures"] == []
+        )
+        accepted.append({**record, "receipt_sha256": sha256(receipt)})
+    last = json.loads(j.attempt_path(root, "check", f.original[5]).read_text())
+    assert last["outcome"] == "needs_review" and last["gap_eligible"] is True
+    failure = root / j.CONTROL / "failures"
+    assert {p.name for p in failure.rglob("*") if p.is_file()} == {
+        job["id"] + ".json" for job in f.original[2:5]
+    }
+    for job in f.original[2:5]:
+        marker = json.loads((failure / "check" / (job["id"] + ".json")).read_text())
+        assert marker["allocation"] == str(j.allocation_path(root, "check", job).relative_to(root))
+        assert marker["allocation_sha256"] == sha256(root / marker["allocation"])
+        assert "failed attempt retained" in marker["error"]
+    with pytest.raises(ValueError, match="retained interrupted"):
+        j.run(root, apply_check_gap=f.original[5]["id"])
+    conserved = {
+        str(p.relative_to(root)): sha256(p)
+        for base in j.old.roots(root)
+        for p in base.rglob("*")
+        if p.is_file()
+    }
+    return f, failure, accepted, last, conserved
+
+
+def archive_and_review(root, f, failure, accepted):
+    job = f.original[5]
+    review_parent = j.gap_review_path(root, job).parent
+    review_parent.mkdir(parents=True)
+    source = {str(p.relative_to(failure)): sha256(p) for p in failure.rglob("*") if p.is_file()}
+    archive = review_parent / "reviewed-controller-stop-markers"
+    failure.rename(archive)
+    assert not failure.exists() and source == {
+        str(p.relative_to(archive)): sha256(p) for p in archive.rglob("*") if p.is_file()
+    }
+    # Historical locations are descriptors only. files contains persistent archive paths.
+    historical = {str((failure / n).relative_to(root)): h for n, h in source.items()}
+    archive_files = {str((archive / n).relative_to(root)): h for n, h in source.items()}
+    job, name = gap_review(root, f)
+    review = json.loads((root / name).read_text())
+    a = j.admit(root, "check")
+    needed = dict(a["files"])
+    for record in accepted:
+        needed.update(record["files"])
+        needed[record["receipt"]] = record["receipt_sha256"]
+    needed.update(archive_files)
+    reconcile = str((review_parent / "controller-stop-reconciliation.json").relative_to(root))
+    write_json(
+        root / reconcile,
+        dict(
+            status="independently_reviewed_wrapper_stop_markers",
+            original_paths_history_only=historical,
+            archive_files=archive_files,
+            accepted_worker_receipts=[r["receipt"] for r in accepted],
+            calls_charged=0,
+            calls_started=0,
+            worker_or_model_failure_reclassified=False,
+            source_unchanged=True,
+        ),
+    )
+    review["files"].update(needed)
+    review["files"][reconcile] = sha256(root / reconcile)
+    review["reviewed_controller_stop_reconciliation"] = reconcile
+    write_json(root / name, review)
+    return job, name, historical, archive_files
+
+
+def test_exact_preserved_archive_apply_route_and_0_6_9(tmp_path, monkeypatch):
+    f, failure, accepted, last, conserved = stopped_four(tmp_path, monkeypatch)
+    job, name, historical, archive_files = archive_and_review(tmp_path, f, failure, accepted)
+    before_calls = len(f.calls)
+    j.run(tmp_path, apply_check_gap=job["id"])
+    assert len(f.calls) == before_calls  # explicit disposition operation launches no child
+    rows = j.journal_records(tmp_path, j.admit(tmp_path, "check"))
+    assert (
+        rows["completed"] == 4
+        and len(rows["accepted_records"]) == 3
+        and len(rows["logical_check_dispositions"]) == 1
+    )
+    summary = json.loads(j.summary_path(tmp_path, "check").read_text())
+    assert len(summary["logical_check_dispositions"]) + len(summary["accepted_records"]) == 6
+    assert summary["calls_charged"] == summary["calls_started"] == 0
+    for original, value in conserved.items():
+        if original in historical:
+            continue
+        assert sha256(tmp_path / original) == value
+    assert json.loads(j.attempt_path(tmp_path, "check", job).read_text()) == last
+    assert all(sha256(tmp_path / n) == h for n, h in archive_files.items())
+    assert all(sha256(tmp_path / n) == h for n, h in f.states.items())
+    # Exactly the same frozen driver can perform G6/full3 one job per invocation.
+    previous_review(tmp_path, f, "check")
+    f.gate("full_design_recovery")
+    f.behavior["exit"] = 0
+    for _ in range(2):
+        j.run(tmp_path, phase="full_design_recovery", max_jobs=1)
+    a = j.admit(tmp_path, "full_design_recovery")
+    _, _, charged, started, pilots = j.all_records(tmp_path, a, {})
+    assert charged == started == 2
+    prior = len(f.calls)
+    j.run(tmp_path, phase="full_design_recovery", max_jobs=1)
+    assert len(f.calls) == prior
+    f.put(
+        j.PILOT,
+        dict(
+            status="accepted_development_two_sampler_runtime_pilots",
+            independent_checker=True,
+            sampler_pilot_job_ids=pilots,
+            specification_freeze_sha256=f.pins[j.data.FREEZE],
+            files=f.current_files(),
+        ),
+    )
+    for _ in range(4):
+        j.run(tmp_path, phase="full_design_recovery", max_jobs=1)
+    assert j.journal_counters(tmp_path) == dict(charged=6, started=6)
+    previous_review(tmp_path, f, "full_design_recovery")
+    f.gate("full_development")
+    for _ in range(3):
+        j.run(tmp_path, phase="full_development", max_jobs=1)
+    assert j.journal_counters(tmp_path) == dict(charged=9, started=9)
+    full = json.loads(j.summary_path(tmp_path, "full_development").read_text())
+    assert full["logical_check_dispositions"] == summary["logical_check_dispositions"]
+    assert all(sha256(tmp_path / n) == h for n, h in f.states.items())
+
+
+def test_original_missing_paths_must_not_be_persistent_gap_files(tmp_path, monkeypatch):
+    f, failure, accepted, _, _ = stopped_four(tmp_path, monkeypatch)
+    job, name, historical, _ = archive_and_review(tmp_path, f, failure, accepted)
+    value = json.loads((tmp_path / name).read_text())
+    value["files"].update(historical)
+    write_json(tmp_path / name, value)
+    with pytest.raises((ValueError, OSError)):
+        j.run(tmp_path, apply_check_gap=job["id"])
+    assert not j.disposition_path(tmp_path, job).exists() and len(f.calls) == 4
+
+
+def test_archive_must_be_in_review_files_and_old_root_absent(tmp_path, monkeypatch):
+    f, failure, accepted, _, _ = stopped_four(tmp_path, monkeypatch)
+    job, name, _, archive_files = archive_and_review(tmp_path, f, failure, accepted)
+    value = json.loads((tmp_path / name).read_text())
+    for n in archive_files:
+        value["files"].pop(n)
+    write_json(tmp_path / name, value)
+    with pytest.raises(ValueError):
+        j.run(tmp_path, apply_check_gap=job["id"])
+    assert len(f.calls) == 4
