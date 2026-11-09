@@ -1,0 +1,20 @@
+{
+  "authority_gate_sha256": "da7c13dcaaa43e7b7a8be73837794c6c6051e8ebd16c068063165b90b9a5b5a2",
+  "elapsed_seconds": 27.291337833739817,
+  "job_sha256": "f150afbbf3cf69ec210705c43156228a306411864137418d64177f58ff996245",
+  "monitor_failures": [],
+  "reason": "worker_exit",
+  "returncode": 0,
+  "sampler_calls": 0,
+  "startup_environment": {
+    "MKL_NUM_THREADS": "2",
+    "MPLCONFIGDIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/matplotlib",
+    "NUMBA_CACHE_DIR": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/numba",
+    "NUMEXPR_NUM_THREADS": "2",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "PYTENSOR_FLAGS": "floatX=float64,base_compiledir=/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/data/processed/models/arrival-development-recovery-v1/cache/pytensor",
+    "VECLIB_MAXIMUM_THREADS": "2"
+  },
+  "worker_gate_sha256": "dc71468ca00980dff07e6e322452a1e8c07146aceea3baa49fa248a40bfe250c"
+}
