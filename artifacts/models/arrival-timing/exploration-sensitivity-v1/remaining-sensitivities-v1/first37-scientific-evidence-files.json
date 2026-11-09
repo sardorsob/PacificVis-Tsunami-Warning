@@ -1,0 +1,21 @@
+{
+  "audit_helper_source": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt",
+  "audit_reproduction": "Restore the pinned retained helper as /private/tmp/check_s5_remaining_completion.py before invoking the preserved first37 audit with --completed-case-37 and the project offline environment. That audit expects the original first-pilot idle state and must not be used to resume or mutate a later state.",
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/first37-energy.png": "a9192679450595bed257e4ba65694bcdff224ad864648956d8ec773290739d1a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/first37-scientific-audit.py.txt": "3ff6ff797a7cd7756c152dfeffd7da33ac4ac3ac58873f5d2803453dd91da915",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/first37-scientific-check.json": "d1446c5bbfd2396a45472c22e4a50b1cfa5402c9a344e68d786aff0bcb5fb9b8",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/first37-trace-rank.png": "a573d10d8675f02f4d1a5f1c692bee66c642963d659ef46afd5089689093049f"
+  },
+  "reserved_outcomes": "sealed",
+  "scope": "Read-only independent actual publisher-distance linear first37 audit",
+  "visual_review": {
+    "energy": "Centered energy and transition histograms inspected; strong overlap among all four chains.",
+    "reviewed_png_sha256": [
+      "a573d10d8675f02f4d1a5f1c692bee66c642963d659ef46afd5089689093049f",
+      "a9192679450595bed257e4ba65694bcdff224ad864648956d8ec773290739d1a"
+    ],
+    "trace_rank": "All six scalar coordinates and four chains inspected; no concerning drift or separated chain. Pooled rank displays are descriptive mixing checks, not a uniformity certificate."
+  }
+}

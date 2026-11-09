@@ -1,0 +1,93 @@
+"""Read-only first37 SCI audit. Explicit --completed-case-37 required after Root notice.
+No sampler/controller/state writer or project outputs. Uses exact accepted publisher-distance case.
+"""
+from pathlib import Path
+import argparse,hashlib,importlib.util,json,sys
+import numpy as np
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(ROOT))
+HELPER=Path('/private/tmp/check_s5_remaining_completion.py')
+assert hashlib.sha256(HELPER.read_bytes()).hexdigest()=='28a82cd489a17a61a817f69508fb7db171ffbcd8e5a27d0c4ad4345ceb06174c'
+spec=importlib.util.spec_from_file_location('retained_sci',HELPER);old=importlib.util.module_from_spec(spec);spec.loader.exec_module(old)
+
+def run():
+ import xarray as xr,pymc as pm
+ import matplotlib;matplotlib.use('Agg')
+ import matplotlib.pyplot as plt
+ from scipy.stats import rankdata
+ from analysis.arrival import model_sensitivity_fit as fit,model_sensitivity_numerical_fit as worker,model_sensitivity_inputs as source_io
+ from analysis.arrival.model_sensitivity_design import case_lane,case_indices
+ from analysis.arrival.evidence import sha256
+ from scripts import run_arrival_sensitivity_remaining as m
+ root=ROOT;read=lambda p:json.loads((root/p).read_text());state_bytes=(root/m.r.STATE).read_bytes();state=json.loads(state_bytes)
+ # Completion and literal accepted registry guard precede any new raw model body.
+ admission=m.verify_gate(root);m.validate_state(state,admission);entry=m.entry_of(state)
+ assert entry is not None and entry['status']=='awaiting_pilot_review' and len(entry['accepted'])==len(entry['attempts'])==1 and entry['next_job']==1 and entry['current'] is None
+ assert state['calls_charged']==state['calls_started']==40
+ item=entry['accepted'][0];execution=admission['jobs'][0];job=execution['original_job'];attempt=entry['attempts'][0]
+ assert execution['order']==job['order']==37 and execution['id']=='ms5-numerical-protocol-v2-037-attempt-1' and execution['attempt']==1
+ assert job['scenario']=='publisher-distance' and job['kind']=='distance-scale' and job['prior_variant']=='base' and job['seed']==2886147800 and job['target']=='NCEI-native-duration'
+ assert execution['sampler']==dict(worker.PROTOCOL,seed=job['seed']) and item['execution_job']==execution and attempt['execution_job']==execution and attempt['outcome']=='accepted' and attempt['charged_slots']==attempt['start_markers']==1
+ assert read(attempt['controller_receipt'])=={k:v for k,v in attempt.items() if k!='controller_receipt_sha256'} and sha256(root/attempt['controller_receipt'])==attempt['controller_receipt_sha256']
+ m.new_case_provenance(root,admission,item)
+ rawadmission=admission['worker_admission'];original=admission['original_admission'];pins=admission['initial_files'];m.c._unchanged(root,pins)
+ # Full original producer semantic proof: raw IDs, native units, diagnostics and five seeded summary CSVs.
+ proof=worker.case_artifacts(root,execution,rawadmission['files'],item)
+ lanes,frozen=fit.load_lanes(root);assert frozen==original['contract'];meta=source_io.load_sensitivity_inputs(root,lanes,original['files']);original_lane=lanes[job['target']]
+ lane=case_lane(original_lane,job,meta);ids=case_indices(original_lane,job)
+ np.testing.assert_array_equal(ids,old.independent_mask(original_lane,meta,job['scenario']));assert len(ids)==1064 and len(set(np.array(lane.event_ids)[ids]))==33
+ assert lane.record_ids==original_lane.record_ids;np.testing.assert_array_equal(lane.y,original_lane.y);np.testing.assert_array_equal(lane.distance_km,meta.publisher_distance_km)
+ np.testing.assert_allclose(lane.reference_minutes,lane.distance_km/(np.sqrt(9.80665*4000)*60/1000),rtol=1e-14,atol=1e-14);np.testing.assert_allclose(lane.response,np.log(lane.y)-np.log(lane.reference_minutes),rtol=1e-14,atol=1e-14)
+ assert job['training_record_ids']==[lane.record_ids[i] for i in ids] and job['omitted_record_ids']==[] and len(job['excluded_record_ids'])==6
+ folder,raw=worker.case_paths(root,execution,rawadmission)
+ with xr.open_datatree(raw,engine='h5netcdf') as tree:
+  observed=tree['observed_data'].to_dataset().load();post=tree['posterior'].to_dataset().load();ss=tree['sample_stats'].to_dataset().load()
+ np.testing.assert_array_equal(observed.record.values,np.array(lane.record_ids)[ids]);np.testing.assert_array_equal(observed.native_minutes.values,lane.y[ids]);np.testing.assert_array_equal(observed.distance_km.values,lane.distance_km[ids]);np.testing.assert_array_equal(observed.reference_minutes.values,lane.reference_minutes[ids]);np.testing.assert_array_equal(observed.response.values,lane.response[ids])
+ np.testing.assert_array_equal(post.chain.values,np.arange(4));np.testing.assert_array_equal(post.draw.values,np.arange(2000));np.testing.assert_array_equal(post.scale_anchor_km.values,[500,2000,5000]);assert set(post.data_vars)=={'alpha','beta','tau_event','sigma_anchor'}
+ assert post.attrs['inference_library']==ss.attrs['inference_library']=='nutpie' and post.attrs['inference_library_version']==ss.attrs['inference_library_version']=='0.16.11' and post.attrs['tuning_steps']==2000
+ cfg=json.loads(ss.attrs['inference_library_settings']);assert cfg['sampler']=='nuts' and cfg['settings']['num_tune']==2000 and cfg['settings']['num_draws']==2000 and cfg['settings']['num_chains']==4 and cfg['settings']['adapt_options']['step_size_settings']['target_accept']==.99
+ base,wider=fit._case_priors(root,job);assert wider is None;model=fit.build_sensitivity_model(lane,job['kind'],base,'base',indices=ids);priorfun=model.compile_logp(vars=list(model.free_RVs));gradient=model.compile_dlogp()
+ def q_at(c,d):return np.r_[post.alpha.values[c,d],post.beta.values[c,d],np.log(post.tau_event.values[c,d]),np.log(post.sigma_anchor.values[c,d])]
+ def point(q):return dict(alpha=q[0],beta=q[1],tau_event_log__=q[2],sigma_anchor_log__=q[3:])
+ q0=q_at(0,0);q1=q0.copy();q1[:2]+=.125*np.array([base['alpha_sd'],base['beta_sd']]);q1[2:]+=np.log(1.125)
+ offsets=[float(priorfun(point(q)))-old.independent_prior(q,base,False)[0] for q in [q0,q1]];assert abs(offsets[0])<=1e-6 and abs(offsets[1]-offsets[0])<=1e-10
+ prediction=0.
+ for name in ['alpha','beta','tau_event','sigma_anchor']:
+  key={'tau_event':'tau_sd','sigma_anchor':'sigma_sd'}.get(name,name+'_sd');dist=(pm.HalfNormal if name in ['tau_event','sigma_anchor'] else pm.Normal).dist(sigma=base[key]);dtype=dist.owner.inputs[-1].dtype;prediction+=(3 if name=='sigma_anchor' else 1)*(np.log(float(base[key]))-float(np.log(np.asarray(base[key],dtype=dtype))))
+ assert abs(offsets[0]-prediction)<1e-10
+ checks=[]
+ for chain in range(4):
+  for draw in [0,999,1999]:
+   q=q_at(chain,draw);manual,g=old.independent_joint(q,observed.distance_km.values,observed.response.values,observed.event_id.values,base,False);actual=float(ss.logp.values[chain,draw]);error=manual-actual;gd=float(np.max(abs(gradient(point(q))-g)))
+   assert abs(error)<1e-6 and abs(error+offsets[0])<2e-7 and gd<1e-7
+   checks.append(dict(chain=chain,draw=draw,independent_logp=manual,sampler_logp=actual,difference=error,gradient_max_error=gd))
+ summary=read(str((folder/'summary.json').relative_to(root)));predictive=old.predictive_replay(job,post,observed,summary)
+ for row in summary['parameters']:
+  x=post[row['parameter']].values
+  if row['anchor_km'] is not None:x=x[:,:,[500,2000,5000].index(row['anchor_km'])]
+  np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],np.quantile(x,[.05,.5,.95]),rtol=1e-13,atol=1e-13)
+ for row in summary['curves']:
+  if row['curve']=='population_median':
+   d=row['distance_km'];x=post.alpha.values+post.beta.values*np.log(d/1000)+np.log(d/(np.sqrt(9.80665*4000)*60/1000));np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],np.exp(np.quantile(x,[.05,.5,.95])),rtol=1e-11,atol=1e-11)
+ cols=[('alpha',post.alpha.values),('beta',post.beta.values),('tau_event',post.tau_event.values)]+[(f'sigma_anchor[{j}]',post.sigma_anchor.values[:,:,j]) for j in range(3)]
+ fig,axs=plt.subplots(6,2,figsize=(12,12.6),layout='constrained');maxrank=0
+ for row,(name,x) in enumerate(cols):
+  rank=rankdata(x.ravel()).reshape(4,2000);counts=[np.histogram(rr,bins=np.linspace(.5,8000.5,21))[0] for rr in rank];maxrank=max(maxrank,int(np.max(abs(np.asarray(counts)-100))))
+  for chain in range(4):axs[row,0].plot(x[chain],lw=.4,alpha=.65,label=f'Chain {chain+1}');axs[row,1].step(np.arange(20)+.5,counts[chain],where='mid')
+  axs[row,0].set(xlabel='Retained draw',ylabel=name);axs[row,1].set(xlabel='Pooled rank bin',ylabel='Count per chain');axs[row,1].axhline(100,color='gray',lw=.6)
+ axs[0,0].legend(ncol=4,fontsize=8);fig.suptitle('Publisher-distance linear | four chains × 2000 draws\nRank displays are descriptive mixing checks',fontsize=11);png=Path('/private/tmp/s5-first37-trace-rank.png');fig.savefig(png,dpi=100);plt.close(fig)
+ fig,axs=plt.subplots(1,2,figsize=(12,4),layout='constrained')
+ for chain in range(4):
+  energy=ss.energy.values[chain];axs[0].hist(energy-energy.mean(),bins=40,density=True,histtype='step',label=f'Chain {chain+1}');axs[1].hist(np.diff(energy),bins=40,density=True,histtype='step')
+ axs[0].set(xlabel='Centered energy',ylabel='Density');axs[1].set(xlabel='Energy transition',ylabel='Density');axs[0].legend();fig.suptitle('Publisher-distance linear | energy overlap and transitions');energy_png=Path('/private/tmp/s5-first37-energy.png');fig.savefig(energy_png,dpi=120);plt.close(fig)
+ sourcefiles=m.p.merge(pins,item['files'],{item['receipt']:item['receipt_sha256'],attempt['controller_receipt']:attempt['controller_receipt_sha256'],m.PLAN:entry['plan_sha256']});m.c._unchanged(root,sourcefiles);m.new_case_provenance(root,admission,item)
+ assert json.loads((root/m.r.STATE).read_text())==state
+ out=dict(status='temporary_scientific_evidence_pending_visual_review',accepted=item,attempt=attempt,source_files=sourcefiles,execution_authority_gate_sha256=pins[m.GATE],worker_spec_gate_sha256=pins[m.b.GATE],calls_charged=40,calls_started=40,native_rows=1064,events=33,publisher_distance_exact=True,native_y_ids_unchanged=True,prior_only_offsets=offsets,predicted_prior_constant=prediction,density_gradient_checks=checks,diagnostics=read(str((folder/'diagnostics.json').relative_to(root))),independent_predictive_summary=predictive,maximum_rank_bin_deviation=maxrank,trace_rank_png=str(png),trace_rank_sha256=sha256(png),energy_png=str(energy_png),energy_png_sha256=sha256(energy_png),old39_history_preserved=True,case36_unresolved_not_interpreted=True,visual_review='PENDING')
+ destination=Path('/private/tmp/s5-first37-scientific-check.json')
+ with destination.open('x') as h:json.dump(out,h,sort_keys=True,indent=2,allow_nan=False)
+ print(json.dumps({'evidence':str(destination),'source_files':len(sourcefiles),'max_density_error':max(abs(x['difference']) for x in checks),'max_gradient_error':max(x['gradient_max_error'] for x in checks),'records':1064,'events':33}))
+
+if __name__=='__main__':
+ parser=argparse.ArgumentParser();parser.add_argument('--self-check',action='store_true');parser.add_argument('--completed-case-37',action='store_true');args=parser.parse_args()
+ if args.self_check:old.self_check()
+ elif args.completed_case_37:run()
+ else:parser.error('Root completion notice and --completed-case-37 required; no model data opened')
