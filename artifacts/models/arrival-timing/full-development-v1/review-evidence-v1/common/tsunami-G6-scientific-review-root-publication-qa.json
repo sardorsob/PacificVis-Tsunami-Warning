@@ -1,0 +1,16 @@
+{
+  "calls_charged": 6,
+  "calls_started": 6,
+  "copied_QC_bytes": 24608372,
+  "copied_QC_files": 64,
+  "files": 15290,
+  "independent_science_cases": 6,
+  "inventory_quota_reserve_private_hashes_passed": true,
+  "new_sampler_calls": 0,
+  "old_G0_G2_controller_failures_preserved": true,
+  "physical_ordinary_receipts": 4,
+  "reserved_outcomes": "sealed",
+  "review_path": "artifacts/models/arrival-timing/full-development-recovery-v1/review-acceptance.json",
+  "review_sha256": "0b39467e005acc5e321b108ddfe4089ef5aad46f3075f9824663dce933d9b3c6",
+  "status": "root_published_G6_scientific_review_verified"
+}

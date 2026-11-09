@@ -1,0 +1,13 @@
+{
+  "P0_P1_issues": 0,
+  "advisories": "Seven automated display warnings retained: 600px small text, four-chain legend and color-vision similarity mitigated by distinct line styles. Native-size labels are readable and unclipped. Compact previews are navigation-only.",
+  "chain_trace": "Both population coordinates show intermixed chains without visible sustained drift or separated bands; ranks fluctuate around the common count.",
+  "chart_fails": 0,
+  "chart_warnings": 7,
+  "clipping_or_overlap_obscuring_evidence": false,
+  "energy": "Centered energy and energy transition histograms overlap across all four chains; axis labels use nats.",
+  "interpretation": "Full-data posterior diagnostics, not simulation recovery, coverage or physical validation.",
+  "native_figures_reopened": true,
+  "six_hundred_pixel_previews_reopened": true,
+  "status": "accepted_native_diagnostic_figures_with_display_advisories"
+}

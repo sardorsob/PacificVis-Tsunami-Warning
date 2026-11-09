@@ -1,0 +1,39 @@
+{
+  "AST": "pass",
+  "accepted_output_status": "accepted_closed_full_development_scientific_checks",
+  "actual_scientific_native_table_or_fullGate_reads": false,
+  "closed_guard": "Root accepted CHECK+G6 and scoped CLOSED/P processproof before reading audit JSON; accepted strict F replay metadata consumed, never repeated",
+  "files": {
+    "/private/tmp/finalize-ms6-full-science.py": "e85a2958f197d164561c36808e14f2f1724e72b44638562a3ea3a93f701fe80d",
+    "/private/tmp/test_ms6_full_science_finalizer.py": "fbea0bafdc3b2f8e01545e5790f5298759cbf72f52e5dd9f8461778d89b00409"
+  },
+  "finalizer": "finalize(root,output,notice_path,process_path,runtime_path,chart_path,chart_code_path,visual_path)",
+  "help": "pass",
+  "model_or_sampler_calls": 0,
+  "phase": "full_development",
+  "project_writes": false,
+  "pyright_errors": 0,
+  "pyright_warnings": 0,
+  "readiness": "pass",
+  "ruff": "pass",
+  "schema": {
+    "mandatory": [
+      "exactjob",
+      "producer_git_sha",
+      "independent_checker true",
+      "new_sampler_calls_in_QA0",
+      "diagnostics.screen_passed true,divergences0,maxdepth_reached0",
+      "numerics.passed true",
+      "summary.passed true",
+      "visual P0_P1_issues0/chart_fails0/native_figures_reopened true/six_hundred_pixel_previews_reopened true",
+      "generation null/truth_validation not_applicable_full_data_fit",
+      "source_files exactscientific+producerclosure, no new privateSTATEpins",
+      "temporary_evidence_files exact boundedcode/math/runtime/proof/notices/visual/chart/images"
+    ],
+    "qualification": "Source-specific descriptive arrival timing; conditionalPPC is in-sample; no physical/causal/warning/operational/calibration/coverage claim"
+  },
+  "seconds": 0.17,
+  "status": "metadata_only_full_receipt_ready_no_actual_fit_reads",
+  "synthetic_tests_passed": 13,
+  "visual": "Human independent review supplied only after opening both nativePNGs and600px previews; never inferred from chartchecker alone"
+}

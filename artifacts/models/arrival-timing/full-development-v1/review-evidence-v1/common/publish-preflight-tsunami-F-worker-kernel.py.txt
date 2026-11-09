@@ -1,0 +1,20 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+p=Path('/private/tmp/tsunami-full-development-worker-Gate-draft.json');assert T.sha(p)=='b3edb679d3acf4c4005cdef4a0544fc271eb28e9b75cb7420e90b80d902c52cb'
+v=json.loads(p.read_text());g=v['gate'];assert hashlib.sha256(T.payload(g)).hexdigest()==v['gate_sha256']=='02b581fe59ce577590213a2307d7b8cb64a039e0391d951ee5bdd909531a57bb'
+assert v['gate_path']==T.KERNELS[T.PHASES[1]] and Path('/private/tmp/tsunami-F-worker-kernel-independent-review.json').is_file()
+T.bootstrap(R,T.PHASES[1]);T.fresh(R,g['files']);T.write(R/v['gate_path'],g)
+from analysis.arrival import model_development_fit as F
+from scripts import run_arrival_development_journal as J
+a=F.verify_gate(R,T.PHASES[1]);assert a['gate']['jobs']==g['jobs']
+J.inventory(R,{'files':a['files'],'phase':T.PHASES[1]},{})
+assert J.c2.quota(R,{'gate':g,'files':a['files'],'phase':T.PHASES[1]},reserve=True,known_files=a['files']) is None
+assert T.program_counters(R)=={'charged':6,'started':6}
+for n,h in T.load(R,T.BASELINE)['private_state_hashes_history_only'].items():assert T.sha(T.file(R,n))==h
+T.fresh(R,a['files'])
+out=dict(status='root_published_F_worker_kernel_preflight_passed',worker_gate=v['gate_path'],worker_gate_sha256=v['gate_sha256'],files=len(a['files']),jobs=g['jobs'],calls_charged=6,calls_started=6,new_sampler_calls=0,reserved_outcomes='sealed',raw_arrays_parsed=False,private_STATE_bodies_parsed=False,inventory_quota_reserve_passed=True)
+p=Path('/private/tmp/tsunami-F-worker-kernel-root-preflight.json')
+with p.open('xb') as f:f.write(T.payload(out))
+print(json.dumps(out))

@@ -1,0 +1,257 @@
+"""TEMP metadata-only full-fit SCI receipt, after actual CLOSED science/visual QA."""
+
+# pyright: basic
+from __future__ import annotations
+
+import argparse
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+
+AUDIT = Path("/private/tmp/check-ms6-accepted-computation-science.py")
+AUDIT_SHA = "728094ead6402e34630573161d440159c52875aef4db9cb6c7c4e93e5caeb192"
+DEPS = {
+    AUDIT: AUDIT_SHA,
+    Path(
+        "/private/tmp/check-ms6-recovery-science.py"
+    ): "7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713",
+    Path(
+        "/private/tmp/check-ms6-full-science.py"
+    ): "7f1d4abab204a21406c4536b82fda4ae90359a191b79d6598a4af3d5871751c1",
+    Path(
+        "/private/tmp/recovery_scientific_checker.py"
+    ): "d976791947a9dcbdb672728acf01ee14abc95a2aefd5a05c4442e2560f5f3243",
+}
+PROTECTED = {
+    "context/runs/arrival-model-fitting-v1/development-state.json": (
+        "8369712a58ef2d1c28527a6850fb8769b684147bbad0c12bf469d3e03907ace8"
+    ),
+    "context/runs/arrival-model-fitting-v1/development-completion-state.json": (
+        "09e38b7765779348dc33945fddb1ca57b7ac072462a5e8e6d05f86451b6eaa57"
+    ),
+    "context/runs/arrival-model-fitting-v1/sensitivity-state.json": (
+        "08cc2909160eea0dc1ed2c7baf44edc6216f8931b17a330f108309e811ca3617"
+    ),
+}
+TMP_ROOT = Path("/private/tmp")
+TEST = Path("/private/tmp/test_ms6_full_science_finalizer.py")
+PHASE = "full_development"
+
+
+def require(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+
+def sha(path):
+    with Path(path).open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def fresh(root, files):
+    require(type(files) is dict and files, "nonempty exact byte closure")
+    for name, digest in files.items():
+        require(
+            isinstance(name, str)
+            and not Path(name).is_absolute()
+            and ".." not in Path(name).parts
+            and name not in PROTECTED,
+            "repo-relative scientific/producer closure without live private state",
+        )
+        path = root / name
+        require(
+            path.resolve() == path and path.is_file() and sha(path) == digest,
+            "fresh exact scientific source/producer bytes",
+        )
+
+
+def finalize(
+    root,
+    output,
+    *,
+    notice_path,
+    process_path,
+    runtime_path,
+    chart_path,
+    chart_code_path,
+    visual_path,
+):
+    root, output = Path(root).resolve(), Path(output).absolute()
+    require(sha(AUDIT) == AUDIT_SHA, "frozen accepted audit entry")
+    spec = importlib.util.spec_from_file_location("full_receipt_closed_guard", AUDIT)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    notice, process = read(notice_path), read(process_path)
+    jid = process.get("job_id")
+    module.closed_guard(notice, process, PHASE, jid)
+    require(
+        output == TMP_ROOT / ("ms6-accepted-science-" + jid) and output.resolve() == output,
+        "literal actual TEMP case folder",
+    )
+    destination = output / "independent-scientific-review.json"
+    require(not destination.exists(), "new exclusive independent receipt")
+    # No audit body, native/table body, model or scientific import precedes CLOSED proof.
+    audit_path = output / "scientific-check.json"
+    audit = read(audit_path)
+    require(
+        audit.get("status") == "independent_numerics_passed_visual_review_pending"
+        and audit.get("phase") == PHASE
+        and audit.get("job") == process.get("job")
+        and audit.get("generation") is None
+        and audit.get("complete_artifact_replay_repeated") is False
+        and audit.get("numerical_oracle_source_repeated") is False
+        and type(audit.get("new_sampler_calls_in_QA")) is int
+        and audit["new_sampler_calls_in_QA"] == 0,
+        "closed original full fit independent arithmetic only; no simulation truth",
+    )
+    require(
+        audit.get("density", {}).get("passed") is True
+        and audit.get("summary", {}).get("passed") is True,
+        "independent density/gradient and seeded summaries must pass",
+    )
+    diagnostics = audit.get("diagnostics", {})
+    require(
+        diagnostics.get("screen_passed") is True
+        and diagnostics.get("finite_diagnostics") is True
+        and type(diagnostics.get("divergences")) is int
+        and diagnostics["divergences"] == 0
+        and type(diagnostics.get("maxdepth_reached")) is int
+        and diagnostics["maxdepth_reached"] == 0,
+        "original full-fit native diagnostic screen",
+    )
+    for name, digest in process["files"].items():
+        require(audit["files"].get(name) == digest, "entire immutable producer/P closure")
+    fresh(root, audit["files"])
+    folder = root / "artifacts/models/arrival-timing/full-development-v1/jobs" / jid
+    raw = root / "data/processed/models/arrival-development-v1" / (jid + ".nc")
+    module.admitted_replay(root, process, audit["job"], PHASE, folder, raw)
+    runtime, chart, visual = read(runtime_path), read(chart_path), read(visual_path)
+    git_sha = process.get("producer_git_sha")
+    require(
+        isinstance(git_sha, str)
+        and len(git_sha) == 40
+        and all(c in "0123456789abcdef" for c in git_sha)
+        and runtime.get("producer_git_sha") == git_sha,
+        "literal producer identity from closed process, never current HEAD",
+    )
+    require(
+        chart.get("fails") == 0 and type(chart.get("fails")) is int and chart.get("figures") == 2,
+        "both diagnostic charts checked",
+    )
+    require(
+        visual.get("P0_P1_issues") == 0
+        and type(visual.get("P0_P1_issues")) is int
+        and visual.get("chart_fails") == 0
+        and type(visual.get("chart_fails")) is int
+        and visual.get("native_figures_reopened") is True
+        and visual.get("six_hundred_pixel_previews_reopened") is True,
+        "actual independent native and 600px visual acceptance required",
+    )
+    images = [
+        output / n
+        for n in ["trace-rank.png", "energy.png", "trace-rank-600px.png", "energy-600px.png"]
+    ]
+    for path in images:
+        require(path.resolve() == path and path.is_file(), "all four reviewed literal images")
+    for path, digest in DEPS.items():
+        require(sha(path) == digest, "frozen independent math dependency")
+    for name, digest in PROTECTED.items():
+        require(sha(root / name) == digest, "protected private hashes unchanged; hash only")
+    temporary = [
+        Path(__file__),
+        TEST,
+        audit_path,
+        *DEPS,
+        *images,
+        *map(
+            Path,
+            [notice_path, process_path, runtime_path, chart_path, chart_code_path, visual_path],
+        ),
+    ]
+    evidence = {str(path): sha(path) for path in temporary}
+    fresh(root, audit["files"])
+    for path, digest in evidence.items():
+        require(sha(path) == digest, "fresh complete temporary evidence")
+    result = dict(
+        status="accepted_closed_full_development_scientific_checks",
+        phase=PHASE,
+        independent_checker=True,
+        job=audit["job"],
+        producer_git_sha=git_sha,
+        source_at_current_HEAD_not_assumed=True,
+        new_sampler_calls_in_QA=0,
+        diagnostics=diagnostics,
+        numerics=audit["density"],
+        summary=audit["summary"],
+        native_protocol=audit["native_protocol"],
+        native_design=audit["native_design"],
+        visual=visual,
+        generation=None,
+        truth_validation="not_applicable_full_data_fit",
+        proof_contract=audit["proof_contract"],
+        accepted_replay_proof=audit["accepted_replay_proof"],
+        complete_artifact_replay_repeated=False,
+        numerical_oracle_source_repeated=False,
+        source_files=audit["files"],
+        temporary_evidence_files=evidence,
+        source_and_producer_end_hashes_passed=True,
+        protected_private_state_hashes_conserved=dict(PROTECTED),
+        private_state_bodies_parsed_or_copied=False,
+        private_state_files_added_to_live_pins=False,
+        scope="Source-specific descriptive arrival timing; conditional PPC is in-sample.",
+        physical_causal_warning_or_operational_claim=False,
+        coverage_or_calibration_claim=False,
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        project_source_Gates_STATE_Git_context_writes=False,
+    )
+    with destination.open("x") as stream:
+        json.dump(result, stream, sort_keys=True, indent=2, allow_nan=False)
+        stream.write("\n")
+    return result
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path)
+    parser.add_argument("--output", type=Path)
+    for name in ["notice", "process", "runtime", "chart", "chart-code", "visual"]:
+        parser.add_argument("--" + name, type=Path)
+    parser.add_argument("--readiness", action="store_true")
+    args = parser.parse_args()
+    if args.readiness:
+        print(json.dumps(dict(status="metadata_only_ready_no_actual_fit_reads")))
+    else:
+        require(
+            all(
+                [
+                    args.root,
+                    args.output,
+                    args.notice,
+                    args.process,
+                    args.runtime,
+                    args.chart,
+                    args.chart_code,
+                    args.visual,
+                ]
+            ),
+            "all closed/visual arguments required",
+        )
+        value = finalize(
+            args.root,
+            args.output,
+            notice_path=args.notice,
+            process_path=args.process,
+            runtime_path=args.runtime,
+            chart_path=args.chart,
+            chart_code_path=args.chart_code,
+            visual_path=args.visual,
+        )
+        print(json.dumps(dict(status=value["status"], job=value["job"]["id"])))

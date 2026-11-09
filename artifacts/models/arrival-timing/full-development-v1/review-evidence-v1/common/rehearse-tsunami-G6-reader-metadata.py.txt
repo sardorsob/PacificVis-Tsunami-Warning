@@ -1,0 +1,21 @@
+import json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+T.bootstrap(R,T.PHASES[1])
+from analysis.arrival import model_development_completion_report as q
+import xarray as xr
+
+def forbidden(*args,**kwargs):raise AssertionError('native or sampler read forbidden in metadata rehearsal')
+q.fit._read_population=forbidden
+xr.open_dataset=forbidden
+program=T.read_program_metadata(R,T.PHASES[0]);review=T.load(R,T.G_REVIEW);pins=T.merge(review['files'],{T.G_REVIEW:T.sha(R/T.G_REVIEW)})
+a=q.recovery.verify_gate(R)
+rows=[]
+for job in program['jobs']:
+ c=q._ordinary_case(R,pins,a,job,T.PHASES[0],review['files'],program=program)
+ rows.append({'job':job['id'],'source':c['target'],'same_native_worker_metadata':True,'program_producer':c['program_record']['producer']})
+v=dict(status='actual_six_G_reader_metadata_rehearsal_passed',source_files={p:T.sha(R/p) for p in [q.SELF,q.CLI,q.TEST,T.SELF,T.TEST]},cases=rows,new_sampler_calls=0,native_array_loads_forbidden=True,private_STATE_bodies_parsed=False,reserved_outcomes='sealed')
+p=Path('/private/tmp/tsunami-G6-reader-metadata-rehearsal.json')
+with p.open('xb') as f:f.write(T.payload(v))
+print(json.dumps(v))

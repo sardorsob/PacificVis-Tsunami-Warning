@@ -1,0 +1,14 @@
+{
+  "accepted_G6_review": true,
+  "accepted_check_review": true,
+  "closed": true,
+  "controller_returncode": 0,
+  "controller_session": 58073,
+  "job_ids": [
+    "dev-tobs-pooled-selected-full"
+  ],
+  "phase": "full_development",
+  "producer_git_sha": "ed6f0fc6a3d098f99e58864d27ceb133e9cb68a1",
+  "root_closed_authorization": true,
+  "scientific_acceptance": false
+}

@@ -1,0 +1,82 @@
+{
+  "G6_review_sha256": "0b39467e005acc5e321b108ddfe4089ef5aad46f3075f9824663dce933d9b3c6",
+  "all_selected_full_output_raw_allocation_attempt_plan_paths_absent": true,
+  "all_six_leases_absent": true,
+  "current_HEAD": "5c46dfb82e40eda442f98c48a2ba8e15b23a01af",
+  "draft": "/private/tmp/tsunami-full-development-worker-Gate-draft.json",
+  "draft_sha256": "b3edb679d3acf4c4005cdef4a0544fc271eb28e9b75cb7420e90b80d902c52cb",
+  "elapsed_seconds": 31.07420470798388,
+  "fresh_actual_pins": 15290,
+  "frozen_selected_BASE_only": true,
+  "independent_checker": true,
+  "inherited_calls": 6,
+  "inherited_opaque_refs": 12,
+  "inherited_starts": 6,
+  "jobs": [
+    {
+      "id": "dev-ncei-mean-curvature-selected-full",
+      "model_key": "NCEI-native-duration:mean-curvature:selected",
+      "order": 0,
+      "role": "full_development",
+      "seed": 2986110800,
+      "training_reference": null
+    },
+    {
+      "id": "dev-tobs-pooled-selected-full",
+      "model_key": "T-OBS:pooled:selected",
+      "order": 1,
+      "role": "full_development",
+      "seed": 2986110900,
+      "training_reference": null
+    },
+    {
+      "id": "dev-tcal-distance-selected-full",
+      "model_key": "T-CAL:distance:selected",
+      "order": 2,
+      "role": "full_development",
+      "seed": 2986111000,
+      "training_reference": null
+    }
+  ],
+  "kernel_gate": "artifacts/models/arrival-timing/full-development-design-v1/review-acceptance.json",
+  "kernel_sha256": "02b581fe59ce577590213a2307d7b8cb64a039e0391d951ee5bdd909531a57bb",
+  "max_calls": 9,
+  "mixed_G6_logical_cases": 6,
+  "native_tables_arrays_or_full_outcomes_or_STATE_bodies_parsed": false,
+  "no_stale_canonical_T_source": true,
+  "old_admit_Jadmit_or_coldworker_called": false,
+  "original_F_G_sources_unchanged": true,
+  "original_sampler_kwargs": {
+    "chains": 4,
+    "cores": 2,
+    "draws": 2000,
+    "nuts_sampler": "nutpie",
+    "target_accept": 0.95,
+    "tune": 1000
+  },
+  "outside_refs": 11,
+  "parent_floors": 15,
+  "private_hashes_conserved": 3,
+  "production_execution_authorized_by_checker": false,
+  "project_source_Gates_runtime_STATE_Git_context_written": false,
+  "publication_performed": false,
+  "real_G6_receipts": 4,
+  "resources": {
+    "cache_max_bytes": 268435456,
+    "chains": 4,
+    "cores": 2,
+    "draws": 2000,
+    "file_max_bytes": 67108864,
+    "global_max_bytes": 3221225472,
+    "job_max_bytes": 33554432,
+    "local_max_bytes": 2147483648,
+    "next_invocation_reserve_bytes": 637534208,
+    "timeout_seconds": 600,
+    "tune": 1000,
+    "watcher_seconds": 0.1
+  },
+  "same_freeze_sha256": "b1de266480cb5dd31f18a34c4aef59d42866ed4f2a24b85a68b04d2045d22fce",
+  "status": "accepted_prospective_selected_full_development_worker_kernel",
+  "strict_inventory_and_three_extra_roots_quota_with_608MiB_reserve_passed": true,
+  "summary_matches": true
+}

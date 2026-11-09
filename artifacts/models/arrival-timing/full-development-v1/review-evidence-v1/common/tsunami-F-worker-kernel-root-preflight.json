@@ -1,0 +1,39 @@
+{
+  "calls_charged": 6,
+  "calls_started": 6,
+  "files": 15291,
+  "inventory_quota_reserve_passed": true,
+  "jobs": [
+    {
+      "id": "dev-ncei-mean-curvature-selected-full",
+      "model_key": "NCEI-native-duration:mean-curvature:selected",
+      "order": 0,
+      "role": "full_development",
+      "seed": 2986110800,
+      "training_reference": null
+    },
+    {
+      "id": "dev-tobs-pooled-selected-full",
+      "model_key": "T-OBS:pooled:selected",
+      "order": 1,
+      "role": "full_development",
+      "seed": 2986110900,
+      "training_reference": null
+    },
+    {
+      "id": "dev-tcal-distance-selected-full",
+      "model_key": "T-CAL:distance:selected",
+      "order": 2,
+      "role": "full_development",
+      "seed": 2986111000,
+      "training_reference": null
+    }
+  ],
+  "new_sampler_calls": 0,
+  "private_STATE_bodies_parsed": false,
+  "raw_arrays_parsed": false,
+  "reserved_outcomes": "sealed",
+  "status": "root_published_F_worker_kernel_preflight_passed",
+  "worker_gate": "artifacts/models/arrival-timing/full-development-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "02b581fe59ce577590213a2307d7b8cb64a039e0391d951ee5bdd909531a57bb"
+}

@@ -1,0 +1,176 @@
+"""Pure synthetic metadata fixtures; no actual model/table/native admission."""
+
+# pyright: basic
+import importlib.util
+import json
+from typing import Any
+
+import pytest
+
+
+def module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    assert spec and spec.loader
+    value = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(value)
+    return value
+
+
+q = module("full_finalizer", "/private/tmp/finalize-ms6-full-science.py")
+s = module("old_readiness_fixture", "/private/tmp/test_ms6_accepted_science_readiness.py")
+
+
+def fixture(tmp_path, monkeypatch) -> tuple[Any, ...]:
+    root = tmp_path / "project"
+    job, folder, raw, pname, proof, receipt, record, process = s.fixture(root, "full_development")
+    proof["worker_files"].pop(str(raw.relative_to(root)))
+    raw = root / "data/processed/models/arrival-development-v1" / (job["id"] + ".nc")
+    proof["worker_files"][str(raw.relative_to(root))] = "1" * 64
+    for name in proof["worker_files"]:
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("synthetic retained bytes")
+        proof["worker_files"][name] = q.sha(p)
+    (root / pname).write_text(json.dumps(proof))
+    record["worker_files"] = proof["worker_files"]
+    record["strict_proof_sha256"] = q.sha(root / pname)
+    (root / receipt).write_text(json.dumps(record))
+    process.update(
+        producer_git_sha="1" * 40,
+        files={**proof["worker_files"], pname: q.sha(root / pname), receipt: q.sha(root / receipt)},
+    )
+    notice = dict(
+        root_closed_authorization=True,
+        closed=True,
+        accepted_check_review=True,
+        accepted_G6_review=True,
+        job_ids=[job["id"]],
+    )
+    output = tmp_path / ("ms6-accepted-science-" + job["id"])
+    output.mkdir()
+    audit = dict(
+        status="independent_numerics_passed_visual_review_pending",
+        phase="full_development",
+        job=job,
+        generation=None,
+        complete_artifact_replay_repeated=False,
+        numerical_oracle_source_repeated=False,
+        new_sampler_calls_in_QA=0,
+        density=dict(passed=True),
+        summary=dict(passed=True),
+        diagnostics=dict(
+            screen_passed=True, finite_diagnostics=True, divergences=0, maxdepth_reached=0
+        ),
+        files=process["files"],
+        native_protocol={},
+        native_design={},
+        proof_contract=proof["proof_contract"],
+        accepted_replay_proof=pname,
+    )
+    for name in ["trace-rank.png", "energy.png", "trace-rank-600px.png", "energy-600px.png"]:
+        (output / name).write_text("synthetic reviewed image bytes")
+    private = root / "context/private.json"
+    private.parent.mkdir(parents=True)
+    private.write_text("opaque bytes not parsed")
+    monkeypatch.setattr(q, "PROTECTED", {"context/private.json": q.sha(private)})
+    monkeypatch.setattr(q, "TMP_ROOT", tmp_path)
+    visual = dict(
+        P0_P1_issues=0,
+        chart_fails=0,
+        native_figures_reopened=True,
+        six_hundred_pixel_previews_reopened=True,
+    )
+    values = dict(
+        notice=notice,
+        process=process,
+        runtime=dict(producer_git_sha="1" * 40),
+        chart=dict(fails=0, figures=2, warns=0),
+        visual=visual,
+    )
+    args = {}
+    for name, value in values.items():
+        p = tmp_path / (name + ".json")
+        p.write_text(json.dumps(value))
+        args[name + "_path"] = p
+    chart_code = tmp_path / "chart.py"
+    chart_code.write_text("# synthetic never executed\n")
+    args["chart_code_path"] = chart_code
+    (output / "scientific-check.json").write_text(json.dumps(audit))
+    return root, output, audit, args
+
+
+def test_exact_full_schema_no_truth_or_scientific_import_and_exclusive(tmp_path, monkeypatch):
+    root, output, audit, args = fixture(tmp_path, monkeypatch)
+    result = q.finalize(root, output, **args)
+    assert result["status"] == "accepted_closed_full_development_scientific_checks"
+    assert (
+        result["generation"] is None
+        and result["truth_validation"] == "not_applicable_full_data_fit"
+    )
+    assert result["numerics"] == audit["density"] and result["summary"] == audit["summary"]
+    assert result["source_files"] == audit["files"]
+    assert result["visual"]["native_figures_reopened"] is True
+    assert (
+        result["new_sampler_calls_in_QA"] == 0
+        and result["private_state_bodies_parsed_or_copied"] is False
+    )
+    with pytest.raises(ValueError, match="exclusive"):
+        q.finalize(root, output, **args)
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "closed",
+        "G6",
+        "diagnostic",
+        "boolcost",
+        "generation",
+        "density",
+        "divergence",
+        "depth",
+        "visual",
+        "producer",
+        "source",
+        "private_pin",
+    ],
+)
+def test_fail_closed_and_no_receipt_on_corruption(tmp_path, monkeypatch, fault):
+    root, output, audit, args = fixture(tmp_path, monkeypatch)
+    if fault in ["closed", "G6"]:
+        name = "notice_path"
+        v = q.read(args[name])
+        v["closed" if fault == "closed" else "accepted_G6_review"] = False
+    elif fault in ["diagnostic", "boolcost"]:
+        name = "process_path"
+        v = q.read(args[name])
+        v["diagnostic_scope_only" if fault == "diagnostic" else "cost"] = True
+    elif fault == "visual":
+        name = "visual_path"
+        v = q.read(args[name])
+        v["six_hundred_pixel_previews_reopened"] = False
+    elif fault == "producer":
+        name = "runtime_path"
+        v = q.read(args[name])
+        v["producer_git_sha"] = "2" * 40
+    else:
+        name = None
+        v = None
+        if fault == "generation":
+            audit["generation"] = {"not_full_fit": True}
+        elif fault == "density":
+            audit["density"]["passed"] = False
+        elif fault == "divergence":
+            audit["diagnostics"]["divergences"] = True
+        elif fault == "depth":
+            audit["diagnostics"]["maxdepth_reached"] = 1
+        elif fault == "private_pin":
+            audit["files"].update(q.PROTECTED)
+        else:
+            (root / next(iter(audit["files"]))).write_text("changed retained bytes")
+    if name:
+        args[name].write_text(json.dumps(v))
+    (output / "scientific-check.json").write_text(json.dumps(audit))
+    with pytest.raises(ValueError):
+        q.finalize(root, output, **args)
+    assert not (output / "independent-scientific-review.json").exists()

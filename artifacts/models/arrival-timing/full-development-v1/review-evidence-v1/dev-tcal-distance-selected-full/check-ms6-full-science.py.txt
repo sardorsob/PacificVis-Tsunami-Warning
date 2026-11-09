@@ -1,0 +1,316 @@
+"""Finite FULL3 QA; real data require Root CLOSED notice and accepted CHECK/G6.
+
+Uses the accepted G6 independent density/summary arithmetic, with simulation and
+truth-only checks removed explicitly. No sampler, controller or public writes.
+Set per-job TEMP NUMBA_CACHE_DIR, MPLCONFIGDIR and PYTENSOR_FLAGS before Python.
+"""
+
+# pyright: basic
+from __future__ import annotations
+
+import argparse
+import ast
+import copy
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+from typing import cast
+
+import numpy as np
+
+HELPER = Path("/private/tmp/check-ms6-recovery-science.py")
+HELPER_SHA = "7bda5269951809400825c8262ea0bb7434127c85d7a322295719f0dcfcd54713"
+
+
+def require(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+
+def arithmetic():
+    require(
+        hashlib.sha256(HELPER.read_bytes()).hexdigest() == HELPER_SHA,
+        "accepted independent G6 arithmetic source changed",
+    )
+    spec = importlib.util.spec_from_file_location("full_independent_arithmetic", HELPER)
+    require(spec is not None and spec.loader is not None, "literal helper import required")
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def fixed_point(target, kind, settings):
+    from analysis.arrival.model_sensitivity_priors import _population_spec
+
+    return {
+        name: np.full(
+            shape,
+            0.6 * settings["distribution_scales"][key]
+            if name in {"sigma", "sigma_anchor", "tau_event"}
+            else 0.0,
+        )
+        for name, (key, shape) in _population_spec(target, kind).items()
+    }
+
+
+def design_checks(lane):
+    require(len(set(lane.record_ids)) == len(lane.rows), "unique literal full record IDs")
+    require(
+        np.isfinite(lane.distance_km).all() and (lane.distance_km > 0).all(),
+        "finite positive geodesic distances",
+    )
+    require(
+        np.isfinite(lane.reference_minutes).all() and (lane.reference_minutes > 0).all(),
+        "finite positive physical reference times",
+    )
+    require(
+        np.isfinite(lane.y).all() and np.isfinite(lane.response).all(),
+        "finite native and modeled observations",
+    )
+    if lane.target == "T-CAL":
+        np.testing.assert_array_equal(lane.response, lane.y)
+        jacobian = 0.0
+    else:
+        require((lane.y > 0).all(), "positive-source native support")
+        np.testing.assert_allclose(
+            lane.response, np.log(lane.y) - np.log(lane.reference_minutes), atol=1e-14, rtol=1e-14
+        )
+        jacobian = -float(np.log(lane.y[lane.included]).sum())
+    return dict(
+        rows=len(lane.rows),
+        primary_rows=int(lane.included.sum()),
+        event_count=len(set(lane.event_ids)),
+        native_jacobian_separate=jacobian,
+        signed_target_preserved=lane.target == "T-CAL",
+    )
+
+
+def summary_arithmetic(q):
+    """Remove exactly five truth-only statements, leaving every table check intact."""
+    tree = ast.parse(HELPER.read_text())
+    function = copy.deepcopy(
+        next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "summary_checks")
+    )
+    function.name = "full_summary_checks"
+    function.args.args = [a for a in function.args.args if a.arg not in {"truth", "truth_rows"}]
+    removed = []
+
+    class StripTruth(ast.NodeTransformer):
+        def visit_For(self, node):
+            node = cast(ast.For, self.generic_visit(node))
+            body = []
+            for statement in node.body:
+                names = {n.id for n in ast.walk(statement) if isinstance(n, ast.Name)}
+                if names & {"truth", "truth_rows", "tr", "actual"}:
+                    removed.append(statement)
+                else:
+                    body.append(statement)
+            node.body = body
+            return node
+
+    function = StripTruth().visit(function)
+    require(len(removed) == 5, "exact five simulation-truth statements must be removed")
+    for node in ast.walk(function):
+        if isinstance(node, ast.Call):
+            node.keywords = [k for k in node.keywords if k.arg != "truth_inclusions_not_pass_rule"]
+    require(
+        not any(
+            isinstance(n, ast.Name) and n.id in {"truth", "truth_rows", "tr", "actual"}
+            for n in ast.walk(function)
+        ),
+        "no truth semantics may survive FULL QA",
+    )
+    scope = dict(vars(q))
+    exec(
+        compile(
+            ast.fix_missing_locations(ast.Module(body=[function], type_ignores=[])),
+            str(HELPER),
+            "exec",
+        ),
+        scope,
+    )
+    return scope[function.name]
+
+
+def density_checks(model, lane, kind, settings, post):
+    q = arithmetic()
+    result = q.density_checks(
+        model, lane, kind, fixed_point(lane.target, kind, settings), settings, post
+    )
+    for row in result["points"] + result["prior_only_checks"]:
+        if row["point"] == "truth":
+            row["point"] = "fixed_global_point"
+    result["simulation_or_known_truth_used"] = False
+    return result
+
+
+def summary_checks(lane, kind, post, seed, summary):
+    q = arithmetic()
+    result = summary_arithmetic(q)(lane, kind, post, seed, summary)
+    result["simulation_or_known_truth_used"] = False
+    return result
+
+
+def require_closed(notice, job_id, process):
+    require(
+        notice.get("root_closed_authorization") is True
+        and notice.get("closed") is True
+        and notice.get("accepted_check_review") is True
+        and notice.get("accepted_G6_review") is True
+        and job_id in notice.get("job_ids", []),
+        "Root CLOSED selected full fit plus accepted CHECK/G6 required before any actual read",
+    )
+    require(
+        process.get("closed") is True
+        and process.get("job_id") == job_id
+        and type(process.get("cost")) is int
+        and process["cost"] == 1
+        and type(process.get("start_markers")) is int
+        and process["start_markers"] == 1
+        and process.get("quota_and_closed_prefix_passed") is True,
+        "independent closed one-call process/quota proof required",
+    )
+    require(
+        isinstance(process.get("files"), dict) and process["files"],
+        "complete persistent closed process files required",
+    )
+    require(
+        not any(
+            p.startswith("context/") or "STATE" in p or p.endswith("development-state.json")
+            for p in process["files"]
+        ),
+        "no private state/context process pins",
+    )
+
+
+def audit_closed_job(root, job_id, *, notice, process_proof, output):
+    require_closed(notice, job_id, process_proof)
+    # All scientific imports, metadata admission and native/body reads follow the notice guard.
+    import xarray as xr
+
+    from analysis.arrival import model_development_fit as F
+    from analysis.arrival.evidence import sha256
+    from analysis.arrival.model_sensitivity_priors import build_sensitivity_model
+
+    root = Path(root).resolve()
+    admission = F.verify_gate(root, "full_development")
+    job = next(j for j in admission["gate"]["jobs"] if j["id"] == job_id)
+    target, spec = admission["specs"][job["model_key"]]
+    require(
+        job["role"] == "full_development"
+        and spec["role"] == "selected"
+        and process_proof.get("job") == job,
+        "exact selected frozen FULL job required",
+    )
+    F.data._unchanged(root, process_proof["files"])
+    proof = F.case_artifacts(
+        root, job, admission["files"]
+    )  # Unconditional complete semantic replay.
+    folder, raw = F.case_paths(root, job)
+    require(raw is not None, "literal full-fit raw required")
+    assert raw is not None
+    lane = F.data.load_full_development_lanes(root, admission["files"])["combined"][target]
+    design = design_checks(lane)
+    ids = np.flatnonzero(lane.included)
+    post = F._read_population(root, raw, lane, ids, spec["kind"])
+    with xr.open_dataset(raw, group="observed_data", engine="h5netcdf") as observed:
+        expected = F._observed(lane, ids, "full_development")
+        require(observed.identical(expected), "exact native full57 eligible-cohort ordered payload")
+    base, wider, settings = F._priors(root, target, spec)
+    model = build_sensitivity_model(
+        lane, spec["kind"], base, spec["prior_variant"], wider_prior=wider, indices=ids
+    )
+    density = density_checks(model, lane, spec["kind"], settings, post)
+    summary = json.loads((folder / "summary.json").read_text())
+    tables = summary_checks(lane, spec["kind"], post, job["seed"] + 1, summary)
+    output = Path(output).absolute()
+    require(
+        output == Path("/private/tmp") / ("ms6-full-science-" + job_id)
+        and output.resolve() == output
+        and not output.exists(),
+        "new literal TEMP output only",
+    )
+    output.mkdir()
+    q = arithmetic()
+    with xr.open_dataset(raw, group="sample_stats", engine="h5netcdf") as sample_stats:
+        F.references._native_protocol(post, sample_stats)
+        # Exact existing chain styles; change the simulation-only caption for this adapter.
+        source = ast.parse(HELPER.read_text())
+        function = next(
+            n
+            for n in source.body
+            if isinstance(n, ast.FunctionDef) and n.name == "render_diagnostics"
+        )
+        changed = 0
+        for node in ast.walk(function):
+            if (
+                isinstance(node, ast.Constant)
+                and isinstance(node.value, str)
+                and "; computational smoke only" in node.value
+            ):
+                node.value = node.value.replace(
+                    "; computational smoke only", "; full-data posterior"
+                )
+                changed += 1
+        require(changed == 1, "single exact plot-caption adaptation required")
+        scope = dict(vars(q))
+        exec(
+            compile(
+                ast.fix_missing_locations(ast.Module(body=[function], type_ignores=[])),
+                str(HELPER),
+                "exec",
+            ),
+            scope,
+        )
+        figures = scope["render_diagnostics"](post, sample_stats, job, output)
+    files = dict(admission["files"])
+    for mapping in [proof["files"], process_proof["files"]]:
+        for name, digest in mapping.items():
+            require(name not in files or files[name] == digest, "inconsistent proof pin: " + name)
+            files[name] = digest
+    F.data._unchanged(root, files)
+    result = dict(
+        status="independent_full_numerics_passed_visual_review_pending",
+        job=job,
+        density=density,
+        summary=tables,
+        figures=figures,
+        files=files,
+        source_cohort=dict(
+            target=target,
+            **design,
+        ),
+        simulation_or_truth_or_coverage_claim=False,
+        predictive_means_claimed=False,
+        visual_review="PENDING_REQUIRED",
+        runtime_proof=process_proof,
+        new_sampler_calls_in_QA=0,
+        project_Gates_or_STATE_written=False,
+    )
+    for name in ["diagnostics.json", "prior-settings.json"]:
+        result[name.removesuffix(".json")] = json.loads((folder / name).read_text())
+    for name, digest in files.items():
+        require(sha256(root / name) == digest, "end source/producer drift: " + name)
+    with (output / "scientific-check.json").open("x") as stream:
+        json.dump(result, stream, sort_keys=True, indent=2, allow_nan=False)
+        stream.write("\n")
+    return result
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--readiness", action="store_true", required=True)
+    parser.parse_args()
+    arithmetic()
+    print(
+        json.dumps(
+            {
+                "status": "source_only_ready_no_actual_reads",
+                "API": "audit_closed_job(root,job_id,notice=...,process_proof=...,output=...)",
+                "simulated_truth": False,
+                "actual_Gates_or_native_opened": False,
+            }
+        )
+    )

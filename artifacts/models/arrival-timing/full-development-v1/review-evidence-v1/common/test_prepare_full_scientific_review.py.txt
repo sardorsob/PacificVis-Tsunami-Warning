@@ -1,0 +1,201 @@
+"""Opaque final-SCI metadata tests; never call the actual Full API or arrays."""
+
+# pyright: basic
+import importlib.util
+from pathlib import Path
+from types import SimpleNamespace
+from typing import Any
+
+import pytest
+
+spec = importlib.util.spec_from_file_location(
+    "fullsci", "/private/tmp/prepare-tsunami-full-scientific-review.py"
+)
+assert spec is not None and spec.loader is not None
+b = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(b)
+T = b.T
+
+
+@pytest.fixture
+def case(tmp_path, monkeypatch):
+    root = tmp_path / "repo"
+    root.mkdir()
+    qc = tmp_path / "qc"
+    qc.mkdir()
+    monkeypatch.setattr(b, "TMP", tmp_path)
+
+    def put(p, value):
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(value if isinstance(value, bytes) else T.payload(value))
+        return T.sha(p)
+
+    pins = {
+        n: put(root / n, dict(opaque=True))
+        for n in [T.FREEZE, T.CHECK, T.BASELINE, T.G2_REVIEW, T.G_REVIEW]
+    }
+    summary = str(T.summary_path(root, b.PHASE).relative_to(root))
+    pins[summary] = put(root / summary, dict(immutable=True))
+    needed = {"reader.py", "earlier-check-review.json"}
+    pins.update({n: put(root / n, b"current frozen source") for n in needed})
+    target = "final-review.json"
+    monkeypatch.setattr(b, "reader_contract", lambda: (target, needed))
+    jobs: list[dict[str, Any]] = [dict(id=f"full-{i}", order=i, role=b.PHASE) for i in range(3)]
+    records = []
+    for j in jobs:
+        receipt = f"case-{j['order']}.json"
+        pins[receipt] = put(root / receipt, dict(accepted=True))
+        allocation = str(T.allocation_path(root, b.PHASE, j).relative_to(root))
+        pins[allocation] = put(root / allocation, dict(invocation_git_sha="a" * 40))
+        records.append(dict(job=j, receipt=receipt, files={}, cost=1, start_markers=1))
+    program = dict(
+        phase=b.PHASE,
+        jobs=jobs,
+        accepted_records=records,
+        attempt_records=list(records),
+        complete=True,
+        remaining_jobs=[],
+        calls_charged=9,
+        calls_started=9,
+        files=pins,
+        source_epoch="technical-completion-v2",
+        proof_contract=T.FULL_PROOF_CONTRACT,
+    )
+    calls = []
+
+    def metadata(*a):
+        calls.append(a)
+        return program
+
+    monkeypatch.setattr(T, "read_program_metadata", metadata)
+    monkeypatch.setattr(T, "summary_value", lambda _: dict(immutable=True))
+    consumer = "consumer.json"
+    h = put(
+        root / consumer,
+        dict(
+            status="accepted_frozen_arrival_development_technical_consumer_source",
+            independent_checker=True,
+            files={},
+        ),
+    )
+    manifest: dict[str, Any] = dict(
+        consumer_review=dict(path=consumer, sha256=h), case_reviews={}, extra_evidence={}
+    )
+    reviews = {}
+    for j in jobs:
+        folder = qc / j["id"]
+        folder.mkdir()
+        evidence = {
+            str(folder / n): put(folder / n, b"opaque evidence")
+            for n in ["trace.png", "energy.png", "math.json"]
+        }
+        review = dict(
+            status="accepted_closed_full_development_scientific_checks",
+            phase=b.PHASE,
+            job=j,
+            producer_git_sha="a" * 40,
+            independent_checker=True,
+            new_sampler_calls_in_QA=0,
+            diagnostics=dict(screen_passed=True, divergences=0, maxdepth_reached=0),
+            numerics=dict(passed=True),
+            summary=dict(passed=True),
+            visual=dict(
+                P0_P1_issues=0,
+                chart_fails=0,
+                native_figures_reopened=True,
+                six_hundred_pixel_previews_reopened=True,
+            ),
+            temporary_evidence_files=evidence,
+            source_files=dict(pins),
+        )
+        path = folder / "science.json"
+        h = put(path, review)
+        manifest["case_reviews"][j["id"]] = dict(path=str(path), sha256=h, files=dict(evidence))
+        reviews[j["id"]] = review
+    return SimpleNamespace(
+        root=root,
+        manifest=manifest,
+        reviews=reviews,
+        program=program,
+        calls=calls,
+        put=put,
+        target=target,
+    )
+
+
+def test_no_closed_notice_does_not_touch_program(case):
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest)
+    assert not case.calls
+
+
+def test_three_full_fits_nine_calls_and_complete_portable_plan(case):
+    x = b.build(case.root, case.manifest, root_confirmed_three_closed=True)
+    r = x["review"]
+    assert r["status"] == "accepted_frozen_full_development_fits"
+    assert (
+        r["development_check_previously_inspected"] is True
+        and r["confirmation_outcomes_parsed"] is True
+    )
+    assert r["reserved_outcomes"] == "sealed" and r["reserved_outcomes_parsed"] is False
+    assert len(r["accepted_records"]) == len(r["attempt_records"]) == 3
+    assert (
+        r["calls_charged"] == r["calls_started"] == 9
+        and r["proof_contract"] == T.FULL_PROOF_CONTRACT
+    )
+    assert r["files"][T.G_REVIEW] == case.program["files"][T.G_REVIEW]
+    assert all(p.startswith(b.EVIDENCE + "/") for p in x["copy_plan"])
+    assert not (case.root / case.target).exists()
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "incomplete",
+        "calls8",
+        "missingSCI",
+        "job",
+        "phase",
+        "diag",
+        "visual",
+        "numeric",
+        "producer",
+        "missing_QC",
+        "late_QC",
+        "Readerclosure",
+    ],
+)
+def test_refusals(case, fault):
+    if fault == "incomplete":
+        case.program["complete"] = False
+    if fault == "calls8":
+        case.program["calls_started"] = 8
+    if fault == "missingSCI":
+        case.manifest["case_reviews"].pop("full-2")
+    if fault == "Readerclosure":
+        case.program["files"].pop("reader.py")
+    if fault in ["job", "phase", "diag", "visual", "numeric", "producer"]:
+        r = case.reviews["full-0"]
+        if fault == "job":
+            r["job"] = {**r["job"], "order": 99}
+        if fault == "phase":
+            r["phase"] = "full_design_recovery"
+        if fault == "diag":
+            r["diagnostics"]["divergences"] = 1
+        if fault == "visual":
+            r["visual"]["P0_P1_issues"] = 1
+        if fault == "numeric":
+            r["numerics"]["passed"] = False
+        if fault == "producer":
+            r["producer_git_sha"] = "b" * 40
+        item = case.manifest["case_reviews"]["full-0"]
+        item["sha256"] = case.put(Path(item["path"]), r)
+    if fault == "missing_QC":
+        case.manifest["case_reviews"]["full-0"]["files"].pop(
+            next(iter(case.manifest["case_reviews"]["full-0"]["files"]))
+        )
+    if fault == "late_QC":
+        Path(next(iter(case.manifest["case_reviews"]["full-0"]["files"]))).write_bytes(b"late")
+    with pytest.raises(ValueError):
+        b.build(case.root, case.manifest, root_confirmed_three_closed=True)
+    assert not (case.root / case.target).exists()

@@ -1,0 +1,278 @@
+"""Draft the final three-fit SCI and explicit portable evidence-copy plan."""
+
+# pyright: basic
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+ROOT = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+sys.path.insert(0, str(ROOT))
+from analysis.arrival import model_development_technical_completion as T  # noqa: E402
+
+TMP = Path("/private/tmp")
+PHASE = T.PHASES[1]
+EVIDENCE = T.OUTPUTS[PHASE] + "/review-evidence-v1"
+
+
+def external(path, digest):
+    p = Path(path)
+    T.require(
+        p.is_absolute() and p.resolve() == p and p.is_file() and TMP in p.parents,
+        "literal retained TMP evidence only",
+    )
+    T.require(T.sha(p) == digest, "changed independently reviewed TMP evidence")
+    return p
+
+
+def declared_evidence(review):
+    return review["temporary_evidence_files"]
+
+
+def science(review, job):
+    T.require(
+        review.get("status") == "accepted_closed_full_development_scientific_checks"
+        and review.get("phase") == PHASE
+        and review.get("independent_checker") is True
+        and review.get("job") == job
+        and review.get("new_sampler_calls_in_QA") == 0,
+        "exact independent full-fit SCI required",
+    )
+    diagnostics = review["diagnostics"]
+    T.require(
+        diagnostics.get("screen_passed") is True
+        and diagnostics.get("divergences") == 0
+        and diagnostics.get("maxdepth_reached") == 0
+        and review["numerics"].get("passed") is True
+        and review["summary"].get("passed") is True
+        and review["visual"].get("P0_P1_issues") == 0
+        and review["visual"].get("chart_fails") == 0
+        and review["visual"].get("native_figures_reopened") is True
+        and review["visual"].get("six_hundred_pixel_previews_reopened") is True,
+        "full-fit numeric/summary/visual SCI must pass; no simulated-truth test",
+    )
+
+
+def reader_contract():
+    # Constants only; no report verifier, table loader, scoring or array APIs are called.
+    from analysis.arrival import model_development_completion_report as reader
+
+    needed = set(reader.CONSUMED) | {
+        reader.data.FREEZE,
+        reader.data.MS5_REVIEW,
+        reader.data.CHECK_REVIEW,
+        reader.old.SMOKE_REVIEW,
+        reader.fit.GATE,
+        reader.fit.FULL_GATE,
+        reader.recovery.GATE,
+        reader.CASE0_REVIEW,
+        reader.CASE1_REVIEW,
+        reader.BASELINE,
+        reader.AUTHORITY["check"],
+        reader.SUMMARIES["check"],
+        T.BASELINE,
+        T.G2_REVIEW,
+        *(T.authority_path(phase) for phase in T.PHASES),
+        *(str(T.summary_path(ROOT, phase).relative_to(ROOT)) for phase in T.PHASES),
+    }
+    return reader.GATE, needed
+
+
+def build(
+    root: Path, manifest: dict[str, Any], *, root_confirmed_three_closed=False
+) -> dict[str, Any]:
+    T.require(
+        root_confirmed_three_closed is True, "Root closed-three notice required before program read"
+    )
+    root = Path(root).resolve()
+    program = T.read_program_metadata(root, PHASE)  # Pure metadata, never a cold numeric verifier.
+    T.require(
+        program.get("complete") is True
+        and program.get("remaining_jobs") == []
+        and type(program.get("calls_charged")) is int
+        and type(program.get("calls_started")) is int
+        and program["calls_charged"] == program["calls_started"] == 9
+        and len(program["accepted_records"]) == 3
+        and len(program["attempt_records"]) == 3,
+        "three full fits closed, with three real receipts and nine cumulative calls",
+    )
+    summary = str(T.summary_path(root, PHASE).relative_to(root))
+    T.require(
+        summary in program["files"] and T.load(root, summary) == T.summary_value(program),
+        "immutable Epoch2 summary first",
+    )
+    T.require(
+        program["attempt_records"] == [r for r in program["accepted_records"] if "receipt" in r],
+        "all three accepted fits require their real attempt receipts",
+    )
+    source = manifest["consumer_review"]
+    consumer = T.load(root, source["path"])
+    T.require(
+        T.sha(T.file(root, source["path"])) == source["sha256"]
+        and consumer.get("status")
+        == "accepted_frozen_arrival_development_technical_consumer_source"
+        and consumer.get("independent_checker") is True,
+        "current independently accepted consumers",
+    )
+    pins = T.merge(program["files"], consumer["files"], {source["path"]: source["sha256"]})
+    ordinary = program["jobs"]
+    T.require(
+        len(ordinary) == 3 and all(j["role"] == PHASE for j in ordinary),
+        "exact three selected full jobs",
+    )
+    T.require(
+        set(manifest["case_reviews"]) == {j["id"] for j in ordinary},
+        "exact three independent full-fit reviews required",
+    )
+    target, needed = reader_contract()
+    T.require(needed <= set(pins), "complete current Reader and prior-phase closure required")
+    copies, dispositions = {}, []
+
+    def copy_plan(src, digest, leaf):
+        original = external(src, digest)
+        T.require(original.stat().st_size <= 64 * 1024**2, "64MiB evidence file cap")
+        T.require(
+            Path(src).suffix in {".json", ".png", ".py", ".txt"}, "QC only; no NC/NPZ mirrors"
+        )
+        name = Path(src).name + (".txt" if Path(src).suffix == ".py" else "")
+        destination = EVIDENCE + "/" + leaf + "/" + name
+        T.require(
+            destination not in copies or copies[destination] == dict(source=src, sha256=digest),
+            "portable evidence basename collision",
+        )
+        T.require(destination not in pins, "existing public evidence is never overwritten")
+        copies[destination] = dict(source=src, sha256=digest)
+        return destination
+
+    for job in ordinary:
+        spec = manifest["case_reviews"][job["id"]]
+        review = json.loads(external(spec["path"], spec["sha256"]).read_text())
+        science(review, job)
+        allocation = str(T.allocation_path(root, PHASE, job).relative_to(root))
+        T.require(
+            allocation in program["files"]
+            and review.get("producer_git_sha") == T.load(root, allocation)["invocation_git_sha"],
+            "scientific review must match the actual producer Git",
+        )
+        declared = declared_evidence(review)
+        T.require(
+            all(spec["files"].get(p) == h for p, h in declared.items()),
+            "all code, math, runtime, chart and PNG evidence must be portable",
+        )
+        if "source_files" in review:
+            T._covered(program["files"], review["source_files"])
+        files = T.merge(spec["files"], {spec["path"]: spec["sha256"]})
+        for src, digest in files.items():
+            copy_plan(src, digest, job["id"])
+        portable = copy_plan(spec["path"], spec["sha256"], job["id"])
+        dispositions.append(
+            dict(
+                job=job,
+                review=portable,
+                review_sha256=spec["sha256"],
+                original_TMP_path_history_only=spec["path"],
+            )
+        )
+    for src, digest in manifest.get("extra_evidence", {}).items():
+        copy_plan(src, digest, "common")
+    planned_bytes = {p: Path(value["source"]).stat().st_size for p, value in copies.items()}
+    for job in ordinary:
+        record = next(
+            r
+            for r in program["accepted_records"]
+            if r.get("job") == job or r.get("job_id") == job["id"]
+        )
+        physical_bytes = sum(T.file(root, name).stat().st_size for name in record.get("files", {}))
+        qc_bytes = sum(
+            size
+            for name, size in planned_bytes.items()
+            if name.startswith(EVIDENCE + "/" + job["id"] + "/")
+        )
+        T.require(physical_bytes + qc_bytes <= 32 * 1024**2, "32MiB combined producer/review cap")
+    output_files = {p: value["sha256"] for p, value in copies.items()}
+    review = dict(
+        status="accepted_frozen_full_development_fits",
+        independent_checker=True,
+        specification_freeze=T.FREEZE,
+        specification_freeze_sha256=pins[T.FREEZE],
+        completed_check=T.CHECK,
+        completed_check_sha256=pins[T.CHECK],
+        confirmation_outcomes_parsed=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        no_retuning=True,
+        development_check_previously_inspected=True,
+        jobs=program["jobs"],
+        summary=summary,
+        summary_sha256=pins[summary],
+        accepted_records=program["accepted_records"],
+        attempt_records=program["attempt_records"],
+        calls_charged=9,
+        calls_started=9,
+        max_sampler_call_slots=9,
+        source_epoch=program["source_epoch"],
+        proof_contract=program["proof_contract"],
+        original_G0_strict_review=T.BASELINE,
+        original_G0_strict_review_sha256=pins[T.BASELINE],
+        original_G2_stable_review=T.G2_REVIEW,
+        original_G2_stable_review_sha256=pins[T.G2_REVIEW],
+        ordinary_scientific_dispositions=dispositions,
+        portable_evidence=copies,
+        consumer_review=source["path"],
+        consumer_review_sha256=source["sha256"],
+        full_selected_fits_only=True,
+        G6_scope="Computational smokes only; not SBC, calibration or coverage validation.",
+        coverage_calibration_or_physical_validation_claim=False,
+        initial_controller_failures_preserved=True,
+        no_new_sampler_calls_in_review=0,
+        files=T.merge(pins, output_files),
+    )
+    T.fresh(root, pins)
+    for value in copies.values():
+        external(value["source"], value["sha256"])
+    return dict(
+        status="draft_only_requires_Root_publication",
+        review_path=target,
+        review_sha256=hashlib.sha256(T.payload(review)).hexdigest(),
+        review=review,
+        copy_plan=copies,
+        planned_copy_bytes=sum(planned_bytes.values()),
+        project_writes_performed=False,
+        scientific_arrays_parsed=False,
+        publication_steps=[
+            "Root verifies closed-three SCI, source, draft and actual quota with 608MiB reserve.",
+            "Root exclusively copies copy_plan bytes; never rewrite QC JSON.",
+            "Root verifies copied SHAs, exact inventory, source and all resource caps.",
+            "Root publishes review_path last; verifies T metadata, source, quota and counters.",
+        ],
+    )
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--manifest", type=Path, required=True)
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--root-confirmed-three-closed", action="store_true")
+    a = p.parse_args()
+    T.require(
+        a.output.parent == Path("/private/tmp")
+        and not a.output.exists()
+        and not a.output.is_symlink(),
+        "new TMP draft only",
+    )
+    draft = build(
+        ROOT,
+        json.loads(a.manifest.read_text()),
+        root_confirmed_three_closed=a.root_confirmed_three_closed,
+    )
+    with a.output.open("xb") as f:
+        f.write(T.payload(draft))
+    print(
+        json.dumps(dict(review_sha256=draft["review_sha256"], files=len(draft["review"]["files"])))
+    )
+
+
+if __name__ == "__main__":
+    main()

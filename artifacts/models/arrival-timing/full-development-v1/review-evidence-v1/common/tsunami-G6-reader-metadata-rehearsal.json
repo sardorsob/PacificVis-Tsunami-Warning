@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "job": "full-smoke-0-a",
+      "program_producer": "legacy_G0_strict_revalidation",
+      "same_native_worker_metadata": true,
+      "source": "NCEI-native-duration"
+    },
+    {
+      "job": "full-smoke-0-b",
+      "program_producer": "strict_startup_execution",
+      "same_native_worker_metadata": true,
+      "source": "NCEI-native-duration"
+    },
+    {
+      "job": "full-smoke-1-a",
+      "program_producer": "G2_stable_scientific_revalidation",
+      "same_native_worker_metadata": true,
+      "source": "T-OBS"
+    },
+    {
+      "job": "full-smoke-1-b",
+      "program_producer": "stable_scientific_startup_execution",
+      "same_native_worker_metadata": true,
+      "source": "T-OBS"
+    },
+    {
+      "job": "full-smoke-2-a",
+      "program_producer": "stable_scientific_startup_execution",
+      "same_native_worker_metadata": true,
+      "source": "T-CAL"
+    },
+    {
+      "job": "full-smoke-2-b",
+      "program_producer": "stable_scientific_startup_execution",
+      "same_native_worker_metadata": true,
+      "source": "T-CAL"
+    }
+  ],
+  "native_array_loads_forbidden": true,
+  "new_sampler_calls": 0,
+  "private_STATE_bodies_parsed": false,
+  "reserved_outcomes": "sealed",
+  "source_files": {
+    "analysis/arrival/model_development_completion_report.py": "fdb161e7a1b1bacddb4a3a2eee05ba04e03b7ed53c02840a9cb53150758f16be",
+    "analysis/arrival/model_development_technical_completion.py": "93784ed7188c4e663465ff7ab1302b60a5ef3d3ee7c2dba93e3410efd14e485d",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_development_technical_completion.py": "0d03a0b3dc5a2a1c05822c75267c925af23463b717db7b3bd930d2805e093fd0",
+    "tests/test_arrival_model_development_completion_report.py": "0ac3ee5229e0a9b6a4f9d72c03420d3772f44c5f4c3cee0827245acf10a71be1"
+  },
+  "status": "actual_six_G_reader_metadata_rehearsal_passed"
+}

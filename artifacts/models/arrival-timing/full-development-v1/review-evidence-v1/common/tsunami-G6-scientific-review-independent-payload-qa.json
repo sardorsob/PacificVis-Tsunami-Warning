@@ -1,0 +1,74 @@
+{
+  "accepted_logical_cases": 6,
+  "all_copy_sources_fresh_and_destinations_absent": true,
+  "all_six_leases_absent": true,
+  "calls_charged": 6,
+  "calls_started": 6,
+  "case_projected_bytes": {
+    "full-smoke-0-b": {
+      "combined": 10708050,
+      "planned_QC": 4151842,
+      "retained_and_receipt": 6556208
+    },
+    "full-smoke-1-b": {
+      "combined": 11456224,
+      "planned_QC": 6663649,
+      "retained_and_receipt": 4792575
+    },
+    "full-smoke-2-a": {
+      "combined": 11526603,
+      "planned_QC": 6837333,
+      "retained_and_receipt": 4689270
+    },
+    "full-smoke-2-b": {
+      "combined": 11560342,
+      "planned_QC": 6871772,
+      "retained_and_receipt": 4688570
+    }
+  },
+  "consumer_current92_sourcepins_covered": true,
+  "consumer_review_sha256": "1f62c0abb2b4be8dbcb77852b0df73a779a50f23d0e057c74fa176d115cfb042",
+  "current_HEAD": "bd66d3e9f9275bb2e38406a35a9bca8991810068",
+  "draft": "/private/tmp/tsunami-G6-scientific-review-draft.json",
+  "draft_sha256": "d80b34d6a963261c156277e10e43193302772e546b387b147664658642ad7a89",
+  "elapsed_seconds": 33.282134499866515,
+  "existing_fresh_pins": 15225,
+  "files": 15289,
+  "independent_checker": true,
+  "initial_failures_and_missing_old_G2_attempt_proof_preserved": true,
+  "manifest_sha256": "bfdb91fffc475a763e7aa6b807d25d9de2dc1992ce4d2f35839e7b9857722e15",
+  "native_arrays_or_coldproof_or_Jadmit_or_STATE_bodies_read": false,
+  "no_coverage_calibration_physical_claim": true,
+  "no_symlink_overwrite_basename_clash_or_native_mirror": true,
+  "ordinary_science_reviews": {
+    "full-smoke-0-b": "40b2a0dafb2e72d0e99cf55af657a56409f22ec10c06cf074fbed5d055431f77",
+    "full-smoke-1-b": "4b8bd62f036362728b14c9e1296f6ef5bfe300d906412262c4930a9c3b4ae03b",
+    "full-smoke-2-a": "c5ba2dac1341337f4adaa92a82477ccfa74d4ae7ce7c19f4ca86f58210754308",
+    "full-smoke-2-b": "baec84b97f78c8b85137ceed8e5e275c5fbf75f009a624baab90096982c89441"
+  },
+  "planned_copy_bytes": 24608372,
+  "planned_copy_files": 64,
+  "private_hashes_conserved": 3,
+  "production_execution_authorized_by_checker": false,
+  "project_source_Gates_runtime_STATE_Git_context_written": false,
+  "publication_performed": false,
+  "quota": {
+    "all_three_extra_roots_passed": true,
+    "external_refs": 11,
+    "global_before": 2127740331,
+    "global_projected_with_reserve": 2799302516,
+    "inherited_opaque_refs": 12,
+    "local_before": 190155231,
+    "local_projected_with_reserve": 861717416,
+    "parent_floors": 15,
+    "planned_increment": 34027977,
+    "reserve": 637534208
+  },
+  "real_ordinary_attempts": 4,
+  "review_bytes": 9419605,
+  "review_path": "artifacts/models/arrival-timing/full-development-recovery-v1/review-acceptance.json",
+  "review_sha256": "0b39467e005acc5e321b108ddfe4089ef5aad46f3075f9824663dce933d9b3c6",
+  "scientific_recomputation_performed": false,
+  "source_forms_and_historical_failure_discriminators_passed": true,
+  "status": "accepted_prospective_G6_scientific_review_payload"
+}

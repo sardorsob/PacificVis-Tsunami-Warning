@@ -1,0 +1,15 @@
+import json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+ids=['dev-ncei-mean-curvature-selected-full','dev-tobs-pooled-selected-full','dev-tcal-distance-selected-full'];reviews={}
+for j in ids:
+ p=Path('/private/tmp/ms6-accepted-science-'+j+'/independent-scientific-review.json');v=json.loads(p.read_text());assert v['status']=='accepted_closed_full_development_scientific_checks' and v['job']['id']==j and v['phase']==T.PHASES[1]
+ for n,h in v['temporary_evidence_files'].items():assert T.sha(Path(n))==h,n
+ reviews[j]={'path':str(p),'sha256':T.sha(p),'files':v['temporary_evidence_files']}
+extras=['/private/tmp/tsunami-G6-scientific-review-independent-payload-qa.json','/private/tmp/tsunami-G6-scientific-review-root-publication-qa.json','/private/tmp/publish-tsunami-G6-scientific-review.py','/private/tmp/tsunami-F-worker-kernel-independent-review.json','/private/tmp/tsunami-F-worker-kernel-root-preflight.json','/private/tmp/publish-preflight-tsunami-F-worker-kernel.py','/private/tmp/tsunami-epoch2-F-authority-independent-review.json','/private/tmp/tsunami-epoch2-F-root-preflight.json','/private/tmp/publish-preflight-tsunami-epoch2-F.py','/private/tmp/prepare-tsunami-full-scientific-review.py','/private/tmp/test_prepare_full_scientific_review.py','/private/tmp/prepare-tsunami-full-SCI-input-manifest.py','/private/tmp/ms6-full-science-finalizer-readiness.json','/private/tmp/rehearse-tsunami-G6-reader-metadata.py','/private/tmp/tsunami-G6-reader-metadata-rehearsal.json']
+source=T.DESIGN+'/consumer-source-review-revision-2.json'
+v={'consumer_review':{'path':source,'sha256':T.sha(R/source)},'case_reviews':reviews,'extra_evidence':{n:T.sha(Path(n)) for n in extras}}
+p=Path('/private/tmp/tsunami-full-scientific-review-manifest.json')
+with p.open('xb') as f:f.write(T.payload(v))
+print('manifest',T.sha(p))

@@ -1,0 +1,24 @@
+import hashlib,json,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+D=Path('/private/tmp/tsunami-epoch2-F-authority-draft.json');assert T.sha(D)=='55a54aee8639b8f490efa2e73ef48ae2adaa403714704908a0031c58ee58fa73'
+v=json.loads(D.read_text());g=v['gate'];phase=T.PHASES[1]
+assert hashlib.sha256(T.payload(g)).hexdigest()==v['gate_sha256']=='48fb7d795d91981f50d6e510aa97cbd7908ac878955f2be132edc715bc2a23c2'
+assert v['gate_path']==T.authority_path(phase)
+assert Path('/private/tmp/tsunami-epoch2-F-authority-independent-review.json').is_file()
+T.bootstrap(R,phase);T.fresh(R,g['files']);T.write(R/v['gate_path'],g)
+a=T.read_program_metadata(R,phase)
+assert a['calls_charged']==a['calls_started']==6 and not a['complete'] and a['accepted_records']==a['attempt_records']==[]
+ids=['dev-ncei-mean-curvature-selected-full','dev-tobs-pooled-selected-full','dev-tcal-distance-selected-full'];assert [j['id'] for j in a['remaining_jobs']]==ids
+assert T.program_counters(R)=={'charged':6,'started':6}
+from scripts import run_arrival_development_journal as J
+J.inventory(R,{'files':a['files'],'phase':phase},{})
+assert J.c2.quota(R,{'gate':a,'files':a['files'],'phase':phase},reserve=True,known_files=a['files']) is None
+for n,h in a['baseline']['private_state_hashes_history_only'].items():assert T.sha(T.file(R,n))==h
+assert not any(p.exists() or p.is_symlink() for p in [R/T.CONTROL/'.lock',R/J.CONTROL/'.journal.lock',R/T.CONTROL/'STOP',*J.stops(R)])
+T.fresh(R,a['files'])
+out=dict(status='root_published_epoch2_F_authority_preflight_passed',authority_gate=v['gate_path'],authority_gate_sha256=v['gate_sha256'],pins=len(a['files']),calls_charged=6,calls_started=6,remaining_jobs=ids,accepted_records=0,ordinary_attempt_records=0,G6_review_sha256=a['files'][T.G_REVIEW],worker_kernel_sha256=a['files'][T.KERNELS[phase]],reserved_outcomes='sealed',new_sampler_calls=0,raw_arrays_parsed=False,private_STATE_bodies_parsed=False,inventory_quota_reserve_private_hashes_passed=True)
+p=Path('/private/tmp/tsunami-epoch2-F-root-preflight.json')
+with p.open('xb') as f:f.write(T.payload(out))
+print(json.dumps(out))
