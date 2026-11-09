@@ -1,0 +1,9 @@
+"""Trusted rendering only from the independently matched saved quantile rows."""
+import importlib.util,json,sys
+sys.dont_write_bytecode=True
+from pathlib import Path
+source=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/full-development-figures-v1/plot-saved-quantiles.py')
+spec=importlib.util.spec_from_file_location('frozen_saved_plotter',source)
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+panels=json.loads(Path('/private/tmp/tsunami-final-figure-QA/panels.json').read_text())
+figure=module.render(panels)

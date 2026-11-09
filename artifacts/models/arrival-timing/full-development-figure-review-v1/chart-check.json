@@ -1,0 +1,30 @@
+{
+ "result": "fail",
+ "dest": "report",
+ "figures": 1,
+ "fails": 2,
+ "warns": 1,
+ "findings": [
+  {
+   "check": "legend-direct-label",
+   "severity": "warn",
+   "where": "fig0/figure legend",
+   "detail": "legend with 3 entries on a line chart",
+   "fix": "Remove the legend and label each line directly at its end in the line's color."
+  },
+  {
+   "check": "cumulative-as-rate",
+   "severity": "fail",
+   "where": "fig0/ax0 line #174e5b",
+   "detail": "1 series only ever rise, like a running total, under a rate/share/% label",
+   "fix": "Plot per-period values (np.diff of the running total) for a rate, or say 'Cumulative' in the label."
+  },
+  {
+   "check": "cumulative-as-rate",
+   "severity": "fail",
+   "where": "fig0/ax1 line #174e5b",
+   "detail": "1 series only ever rise, like a running total, under a rate/share/% label",
+   "fix": "Plot per-period values (np.diff of the running total) for a rate, or say 'Cumulative' in the label."
+  }
+ ]
+}

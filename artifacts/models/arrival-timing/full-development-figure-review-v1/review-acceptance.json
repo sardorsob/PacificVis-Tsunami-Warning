@@ -1,0 +1,136 @@
+{
+  "FullSCI_sha256": "3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9",
+  "P0_findings": 0,
+  "P1_findings": 0,
+  "QA_wrapper_bytecode_disabled_before_public_module_import": true,
+  "actual_figure_acceptance": true,
+  "authorized_checker_cache_cleanup": {
+    "all_six_original_bytes_preserved": true,
+    "exact_six_file_inventory_restored": true,
+    "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/full-development-figures-v1/__pycache__",
+    "removed_only_own_generated_pyc_sha256": "4819d887af2337c3e5202c60afd662914637bb5f05bd541a5310ad4d4f667e29"
+  },
+  "chart_checker": {
+    "adjudication": [
+      {
+        "check": "cumulative-as-rate",
+        "disposition": "rejected_false_positive",
+        "panels": [
+          "NCEI",
+          "T-OBS"
+        ],
+        "reason": "Ordered x is source-station distance; y is duration(minutes), not a rate/share/time series or running total. Monotone fitted quantiles are correctly connected saved locations."
+      },
+      {
+        "check": "legend-direct-label",
+        "disposition": "accepted_shared_legend_design",
+        "reason": "Three entries distinguish prediction band, posterior band and posterior median throughout all three panels; not three competing lines. Direct labels would repeat interval definitions and collide near right-hand endpoints."
+      }
+    ],
+    "no_CVD_contrast_text_clipped_overlap_inverted_dual_axis_or_log_unlabeled_findings": true,
+    "path": "/private/tmp/tsunami-final-figure-QA/chart-check.json",
+    "raw_fails": 2,
+    "raw_result": "fail",
+    "raw_warns": 1,
+    "sha256": "d31014d4a14a490b8c5b2fa1576ed6110047329ec71ce2ca3058e7ad053c9610"
+  },
+  "controlled_QA_files": {
+    "/private/tmp/tsunami-final-figure-QA/chart-check-wrapper.py": "973407200707fd23ed254a6e3ed131d68eb901da1eaa62bcd49fb0e85a2972d0",
+    "/private/tmp/tsunami-final-figure-QA/chart-check.json": "d31014d4a14a490b8c5b2fa1576ed6110047329ec71ce2ca3058e7ad053c9610",
+    "/private/tmp/tsunami-final-figure-QA/report-width-625px.png": "dd4f3eb5201461569d4dbeff59fd5dc513e6ef70299d6fa35dc3628c7e0ef7ca",
+    "/private/tmp/tsunami-final-figure-QA/report-width-grayscale.png": "808353b61ab1b334e80deedd8bbcee27ecf56de13c23ce47ac8946b20722fbc4"
+  },
+  "cumulative_calls_charged": 9,
+  "cumulative_calls_started": 9,
+  "exact3_actual_receipts_and_independent_SCI_dispositions_verified": true,
+  "figure_folder": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/full-development-figures-v1",
+  "full_PNG_dimensions": [
+    1875,
+    3450
+  ],
+  "independent_checker": true,
+  "input_pins": 19,
+  "known_scope_limits": [
+    "Saved pointwise quantiles at nine distances; connectors/bands do not evaluate additional predictions.",
+    "Archive-conditional model summaries; no calibration,physical-onset or operational validation."
+  ],
+  "minimum_font_report_preview_px": 12.777777777777777,
+  "no_public_figure_source_Git_or_context_content_changes": true,
+  "plotted_rows": 54,
+  "plotter_sha256": "f4bc00d03a870fa77f094c274ff080cd2b4a1b5233484abae5ed9005123607a1",
+  "population_median_q50_endpoint_minutes": {
+    "NCEI-native-duration": {
+      "20.0": 10.60618823425525,
+      "20000.0": 1674.8584568850629
+    },
+    "T-CAL": {
+      "20.0": 31.071454547318247,
+      "20000.0": -35.77003914957884
+    },
+    "T-OBS": {
+      "20.0": 1.8632947700130458,
+      "20000.0": 1863.2947700130464
+    }
+  },
+  "preview_dimensions": [
+    625,
+    1150
+  ],
+  "public_figure_inventory_preserved": true,
+  "quantile_values_checked": 162,
+  "raw_posterior_or_new_predictions_scores_or_scientific_fit_read_or_run": false,
+  "recovered_message": "The selected models show distance-dependent typical timing, with new-report variability wider than population-median posterior uncertainty; T-CAL remains signed and changes sign with distance.",
+  "report_preview": "/private/tmp/tsunami-final-figure-QA/report-width-625px.png",
+  "review_method": "Independent self-review as subagent: reopened full PNG,625px report preview and grayscale; trusted render only from saved quantiles.",
+  "review_rounds": 1,
+  "saved_only_rerender_pixels_exactly_equal_actual_PNG": true,
+  "selected_full_jobs": 3,
+  "six_output_files": {
+    "caption.md": "b405dd1c0ae57bfcf27072f4e10c3ecd2561a6a3ec900d48e687ad0f7917ab50",
+    "inputs.json": "23241396455772afc0f9638edd1180f75a0f7a63a96c71be04e570ecf8571b8d",
+    "output-checksums.json": "f68aa7a645bac20b18d4533fcecb940ee6e1bab1953af2b99d0062e7f6772697",
+    "plot-saved-quantiles.py": "f4bc00d03a870fa77f094c274ff080cd2b4a1b5233484abae5ed9005123607a1",
+    "plotted-quantiles.csv": "38b614230a6cc0933d1ec3ce2b573816317c78fc03ccaf115c84513410db85f7",
+    "selected-model-distance-curves-and-predictive-intervals.png": "89e010273a25e596e1bf8dbe2f2e2832ce2464cbca0cbcee39b03a6b32d86e51"
+  },
+  "source_inputs_fresh_before_and_end": true,
+  "status": "accepted_actual_final_saved_quantile_uncertainty_figure",
+  "support": [
+    {
+      "events": 47,
+      "maximum_km": 18273.84730627641,
+      "minimum_km": 32.919669484458595,
+      "records": 1215,
+      "target": "NCEI-native-duration"
+    },
+    {
+      "events": 20,
+      "maximum_km": 17840.95741370068,
+      "minimum_km": 75.74553243489157,
+      "records": 258,
+      "target": "T-OBS"
+    },
+    {
+      "events": 18,
+      "maximum_km": 17224.954446871343,
+      "minimum_km": 124.03053020481337,
+      "records": 169,
+      "target": "T-CAL"
+    }
+  ],
+  "support_and_NCEI_endpoint_clamp_flags_exact": true,
+  "three_saved_CSVs_and_summary_q05_q50_q95_exact": true,
+  "visual_checks": {
+    "Tcal_signed_linear_axis_zero_reference_and_sign_convention_clear": true,
+    "caption_and_plotted_CSV_available": true,
+    "color_not_only_channel": true,
+    "full_and_report_width_legible": true,
+    "grayscale_distinction_passed": true,
+    "log_distance_and_positive_duration_axes_labeled": true,
+    "no_simultaneous_band_or_new_prediction_claim": true,
+    "no_text_overlap_or_clipping": true,
+    "population_median_and_new_report_90percent_pointwise_intervals_explicit": true,
+    "source_support_hatching_separate_from_NCEI_scale_clamp": true,
+    "three_source_panels_and_counts_match": true
+  }
+}

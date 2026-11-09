@@ -1,0 +1,47 @@
+{
+  "full_review": "artifacts/models/arrival-timing/full-development-v1/review-acceptance.json",
+  "full_review_sha256": "3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9",
+  "input_files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/attempts/full_development/dev-ncei-mean-curvature-selected-full.json": "d63e4ad62ac8a56691b7f53a604194085a613c8c42cf92aade79ecf7bfcc5b66",
+    "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/attempts/full_development/dev-tcal-distance-selected-full.json": "dc24ba8d93b5548ebad2ea231d8b8610d7eb76fae6679d2b9dd8778d105c9d40",
+    "artifacts/models/arrival-timing/development-check-v1/controller/technical-completion-v1/attempts/full_development/dev-tobs-pooled-selected-full.json": "bed09c188e3f02d03bd64b1133b6a89827181bd4ec3c8e1807e99a08e8db285d",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-ncei-mean-curvature-selected-full/curves.csv": "f1f2a856e3b33609cc6b8100cfb7c918c1a06c8db17567f4c87f37efbeb073fb",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-ncei-mean-curvature-selected-full/job.json": "b8ae231be45a44b3cc62006ac6365037feb7e414d79773eee8a8bd1fd0a026e4",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-ncei-mean-curvature-selected-full/result.json": "d85b0cc2e6b0ed06ea14239cd22c0dcfcdb1a8f81802932567e878f9c0b11a19",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-ncei-mean-curvature-selected-full/summary.json": "1f82dc59f4bfeda656bd7e411fbf7312129c0142126ea2678fc2473e1d890d5f",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/curves.csv": "ae866027838e585f8b292e3f5e4249c0f67bf7d1373cd08467737498915f30c0",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/job.json": "4a254c80981f5e211c66f63e04d085a08e6ac16f443c390c9205aa908a3e1581",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/result.json": "cbeb261daf270747370a7c636d4e863552f7e1459dcf4d5b0905e91fdaaf121b",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tcal-distance-selected-full/summary.json": "e1e5cd0b9ce4cff3ef07336cfe64ef40207f1b3e3821d411cbb55f659da1d125",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tobs-pooled-selected-full/curves.csv": "a4f9152590e0f58178ee137509c57675dd9fb127e413d66184312b9eeb134eb0",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tobs-pooled-selected-full/job.json": "a45bf87846c38846157627a86e3c98e104c6ad145b97d2731cb4276573e7542c",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tobs-pooled-selected-full/result.json": "a4a78874b544cc4ec35f9d7e76b5b05fe9d7a5bd39884082d1eff42256c04dd5",
+    "artifacts/models/arrival-timing/full-development-v1/jobs/dev-tobs-pooled-selected-full/summary.json": "565d5b34cd25fda04d123bca8dd60f57d19d22d73fa180df0c3aa7d23799ea72",
+    "artifacts/models/arrival-timing/full-development-v1/review-acceptance.json": "3b7e50e44f41a8adbc4994f600cc30f22cc829a3569c38f75b4b5f01f3232ff9",
+    "artifacts/models/arrival-timing/full-development-v1/review-evidence-v1/dev-ncei-mean-curvature-selected-full/independent-scientific-review.json": "4ae0ae4efe6662743ac285ca9bda4bbb6860c4456b10b27c91bd13aa2ea70e99",
+    "artifacts/models/arrival-timing/full-development-v1/review-evidence-v1/dev-tcal-distance-selected-full/independent-scientific-review.json": "c66dd2aee67a612f1260978b669979204cd7cf853636bf8d14cf9f77c0bd53c6",
+    "artifacts/models/arrival-timing/full-development-v1/review-evidence-v1/dev-tobs-pooled-selected-full/independent-scientific-review.json": "1b438ffcd5d83834858658007a344c89f119748b76c4ca36393ef416c65b4467"
+  },
+  "inputs": "accepted saved quantiles only",
+  "new_predictions_or_scores": false,
+  "plotter_sha256": "f4bc00d03a870fa77f094c274ff080cd2b4a1b5233484abae5ed9005123607a1",
+  "raw_posterior_replayed": false,
+  "status": "rendered_pending_independent_visual_review",
+  "support": [
+    {
+      "events": 47,
+      "records": 1215,
+      "target": "NCEI-native-duration"
+    },
+    {
+      "events": 20,
+      "records": 258,
+      "target": "T-OBS"
+    },
+    {
+      "events": 18,
+      "records": 169,
+      "target": "T-CAL"
+    }
+  ]
+}
