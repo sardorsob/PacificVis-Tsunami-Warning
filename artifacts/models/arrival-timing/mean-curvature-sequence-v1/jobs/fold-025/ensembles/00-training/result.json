@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0015569331634344417,
+    "max_rhat": 1.001948144945981,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9670946977336197,
+    "min_ess_bulk": 2123.1726212902236,
+    "min_ess_tail": 3077.811305054196,
+    "screen_passed": true
+  },
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "event": null,
+    "id": "fold-025",
+    "kind": "mean-curvature",
+    "phase": "training",
+    "prior": "base",
+    "seed": 2856135800,
+    "sequence": "seq-usp000hrw0",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "posterior": "data/processed/models/mean-curvature-sequence-v1/fold-025/00-training.nc",
+  "posterior_sha256": "c0a5f64cae73bb31cdf6c33424d601b1f5b33c7fcae7e5f89af008a9aff16549",
+  "records": 1061,
+  "scope": "training_prediction_and_normalization"
+}

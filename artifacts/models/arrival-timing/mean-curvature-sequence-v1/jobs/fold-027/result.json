@@ -1,0 +1,183 @@
+{
+  "aggregation_note": "final program averages33event scores, not29fold means",
+  "bridge_arrays": "data/processed/models/mean-curvature-sequence-v1/fold-027/bridge-arrays.npz",
+  "bridge_arrays_sha256": "c2decc512a55d7ecf03479a7397bf875a54390fe8fd2fb0c53739c4945185547",
+  "confirmation_outcomes_parsed": false,
+  "events": [
+    {
+      "augmented_chain_overlap": [
+        0.9712276516273116,
+        0.973594046088938,
+        0.9703318641379959,
+        0.968193970014411
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10859.969214126837,
+        "ess_tail": 5559.331519507981,
+        "passed": true,
+        "rhat": 1.0018155286899335
+      },
+      "augmented_influence_mcse": 0.001644999657510004,
+      "augmented_q_quantiles": [
+        0.21680784456353852,
+        0.31699913463744517,
+        0.40542203289157597,
+        0.5172937907175332,
+        0.6214027204809477,
+        0.6948103354805063,
+        0.7713755116806125
+      ],
+      "augmented_weight_concentration": 7771.249761803829,
+      "chain_joint_log_predictive": [
+        -57.56447860503488,
+        -57.56324834543494,
+        -57.56317740830298,
+        -57.56227542637748
+      ],
+      "chain_joint_log_predictive_range": 0.0022031786573961654,
+      "event_id": "usp000j48h",
+      "fixedpoint_derivative": 0.0002794641391377084,
+      "implicit_root_denominator": 0.9997205358608623,
+      "joint_log_mcse_delta": 0.0023788516838561965,
+      "joint_log_predictive": -57.563295516404615,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -5.756329551640461,
+      "normalized_mcse": 0.00023788516838561965,
+      "overlap": 0.9708368829671631,
+      "overlap_augmented": 0.9708368829671649,
+      "overlap_training": 0.9708368829671631,
+      "precision_passed": true,
+      "records": 10,
+      "root_log_equation_residual": 1.7763568394002505e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "sequence": "seq-usp000j48h",
+      "training_chain_overlap": [
+        0.9700773934385609,
+        0.973639782358342,
+        0.9704464245565748,
+        0.9691839315151766
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10497.886669481226,
+        "ess_tail": 5423.694628730198,
+        "passed": true,
+        "rhat": 1.0007262638901437
+      },
+      "training_influence_mcse": 0.0017184037536555343,
+      "training_q_quantiles": [
+        0.17056114186470656,
+        0.2857723644220963,
+        0.3720267527361602,
+        0.48727011299371553,
+        0.5951472288455906,
+        0.672973381050726,
+        0.7543330404696325
+      ],
+      "training_weight_concentration": 7757.812180777323
+    },
+    {
+      "augmented_chain_overlap": [
+        0.9987095940231123,
+        0.9985135554227368,
+        0.998361919811282,
+        0.9996973820435882
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10612.281656005149,
+        "ess_tail": 4859.759818076104,
+        "passed": true,
+        "rhat": 1.0013055581888068
+      },
+      "augmented_influence_mcse": 0.00033059710914259076,
+      "augmented_q_quantiles": [
+        0.43832933245676686,
+        0.4587160996023996,
+        0.4782403265269206,
+        0.5012119353790243,
+        0.5221293538806482,
+        0.5381225408436243,
+        0.554193656717561
+      ],
+      "augmented_weight_concentration": 7990.762322497617,
+      "chain_joint_log_predictive": [
+        -7.6102211782863005,
+        -7.610694545382859,
+        -7.609660538253786,
+        -7.610454695110966
+      ],
+      "chain_joint_log_predictive_range": 0.001034007129073089,
+      "event_id": "usp000j9nm",
+      "fixedpoint_derivative": -3.5631551611015055e-05,
+      "implicit_root_denominator": 1.000035631551611,
+      "joint_log_mcse_delta": 0.00046066367843745285,
+      "joint_log_predictive": -7.610257744286171,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -3.8051288721430856,
+      "normalized_mcse": 0.00023033183921872643,
+      "overlap": 0.9988206128251784,
+      "overlap_augmented": 0.9988206128251784,
+      "overlap_training": 0.9988206128251784,
+      "precision_passed": true,
+      "records": 2,
+      "root_log_equation_residual": 0.0,
+      "s0": 0.5,
+      "s1": 0.5,
+      "sequence": "seq-usp000j48h",
+      "training_chain_overlap": [
+        0.998746119377425,
+        0.9980772258338056,
+        0.9989584336145707,
+        0.9995006724749115
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 11149.268252828544,
+        "ess_tail": 5598.196392077837,
+        "passed": true,
+        "rhat": 1.0011782478432911
+      },
+      "training_influence_mcse": 0.0003208061346952188,
+      "training_q_quantiles": [
+        0.42802502703538353,
+        0.4575928353157414,
+        0.47719595575203955,
+        0.4999915588427746,
+        0.520610182922271,
+        0.5364030461265762,
+        0.5526839947660084
+      ],
+      "training_weight_concentration": 7990.936937355008
+    }
+  ],
+  "fold_score": {
+    "equal_event_score": -4.7807292118917735,
+    "event_precision_passed": true,
+    "events": 2,
+    "mcse_equal_event_score": 0.00014071785562657963,
+    "mcse_scope": "shared_training_covariance_and_independent_augmented_ensembles",
+    "min_bridge_overlap": 0.9708368829671631
+  },
+  "heldout_records": 12,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "id": "fold-027",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2856137800,
+    "sequence": "seq-usp000j48h",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "observation_measure": "native_minutes_Jacobian_already_applied_once",
+  "prediction_precision_passed": true,
+  "reserved_outcomes": "sealed",
+  "sampler_calls_started": 3,
+  "score_precision_passed": true,
+  "status": "computed_pending_review",
+  "training_records": 1052
+}

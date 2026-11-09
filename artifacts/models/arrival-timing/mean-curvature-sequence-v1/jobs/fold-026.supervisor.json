@@ -1,0 +1,11 @@
+{
+  "charged_slots": 2,
+  "continuation_plan_sha256": "abf9687fcf8ba32cc65a6bb46a38ec384a228d8693d2b9d4305e874f298fa432",
+  "elapsed_seconds": 9.251658250112087,
+  "job_sha256": "0cf46eeaf8334185d58fa676eaa6ef2835e20f7d504be2f590e118cebdeaaf91",
+  "monitor_failures": [],
+  "plan_sha256": "a64a2f78b61b458bb6d9cbc72c66a755c1bf7acc5b7ec70b2ef7a09f19f609b4",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 2
+}

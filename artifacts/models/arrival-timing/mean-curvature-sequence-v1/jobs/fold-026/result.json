@@ -1,0 +1,109 @@
+{
+  "aggregation_note": "final program averages33event scores, not29fold means",
+  "bridge_arrays": "data/processed/models/mean-curvature-sequence-v1/fold-026/bridge-arrays.npz",
+  "bridge_arrays_sha256": "d05a5ae949fb2c9ea54b1ea7593a34c829c95e25f8ff837eac03a4ad604a2abd",
+  "confirmation_outcomes_parsed": false,
+  "events": [
+    {
+      "augmented_chain_overlap": [
+        0.9952972516215529,
+        0.9962321998793779,
+        0.9975752441091154,
+        0.9962881467137795
+      ],
+      "augmented_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10790.856699466198,
+        "ess_tail": 5510.387690192081,
+        "passed": true,
+        "rhat": 1.0001413417183505
+      },
+      "augmented_influence_mcse": 0.0006077423667808236,
+      "augmented_q_quantiles": [
+        0.38499468427384953,
+        0.4253898159345499,
+        0.4612490846747412,
+        0.502885539292542,
+        0.5407886934401183,
+        0.5702954985473283,
+        0.6183124464738508
+      ],
+      "augmented_weight_concentration": 7968.381613345777,
+      "chain_joint_log_predictive": [
+        -37.30432389160534,
+        -37.30858396744946,
+        -37.30978550049817,
+        -37.30629792662718
+      ],
+      "chain_joint_log_predictive_range": 0.005461608892829872,
+      "event_id": "usp000j3mq",
+      "fixedpoint_derivative": 0.00037618444379328153,
+      "implicit_root_denominator": 0.9996238155562067,
+      "joint_log_mcse_delta": 0.0008699773329605662,
+      "joint_log_predictive": -37.30724794330949,
+      "method": "two_posterior_marginal_hyperparameter_bridge",
+      "normalized_event_score": -5.329606849044213,
+      "normalized_mcse": 0.00012428247613722375,
+      "overlap": 0.9963482105809551,
+      "overlap_augmented": 0.9963482105809551,
+      "overlap_training": 0.9963482105809587,
+      "precision_passed": true,
+      "records": 7,
+      "root_log_equation_residual": 3.552713678800501e-15,
+      "s0": 0.5,
+      "s1": 0.5,
+      "sequence": "seq-usp000j3mq",
+      "training_chain_overlap": [
+        0.9982091746500024,
+        0.994901570465051,
+        0.9950477051458213,
+        0.9972343920629594
+      ],
+      "training_functional_mixing": {
+        "constant": false,
+        "ess_bulk": 10672.381878574835,
+        "ess_tail": 5166.8914370534385,
+        "passed": true,
+        "rhat": 1.000668130007175
+      },
+      "training_influence_mcse": 0.0006225028317082764,
+      "training_q_quantiles": [
+        0.3590228596433382,
+        0.41958564166998663,
+        0.4566225015540571,
+        0.49933058616127285,
+        0.5377898425058328,
+        0.5682944073057369,
+        0.6193641439719185
+      ],
+      "training_weight_concentration": 7967.19512824958
+    }
+  ],
+  "fold_score": {
+    "equal_event_score": -5.329606849044213,
+    "event_precision_passed": true,
+    "events": 1,
+    "mcse_equal_event_score": 0.00012428247613722383,
+    "mcse_scope": "shared_training_covariance_and_independent_augmented_ensembles",
+    "min_bridge_overlap": 0.9963482105809551
+  },
+  "heldout_records": 7,
+  "job": {
+    "cores": 2,
+    "draws": 2000,
+    "id": "fold-026",
+    "kind": "mean-curvature",
+    "prior": "base",
+    "seed": 2856136800,
+    "sequence": "seq-usp000j3mq",
+    "target": "NCEI-native-duration",
+    "tune": 1000
+  },
+  "observation_measure": "native_minutes_Jacobian_already_applied_once",
+  "prediction_precision_passed": true,
+  "reserved_outcomes": "sealed",
+  "sampler_calls_started": 2,
+  "score_precision_passed": true,
+  "status": "computed_pending_review",
+  "training_records": 1057
+}
