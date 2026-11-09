@@ -1,0 +1,17 @@
+{
+  "invocation_git_sha": "5aece2bc5d2b8f3e1d03979ab11f55b6c7d4c094",
+  "original_gate_sha256": "1c72e1479c35ddb0818a89c1b168a1bb0ada3e092f337a42d051c60c3b13457a",
+  "original_plan_sha256": "77cd9c3524bcdd2d087af99f65a199df8c403f7168430ef43f826a4429284b7d",
+  "previous_after_receipt_sha256": "5d3f5eabf7082d0b6362020e395c75642865b9bae5a3f876890f9e960722b169",
+  "resource_amendment_gate_sha256": "cdeb07ebd2f492dfca798a066408f1ceef17c373e960319344510b257b4065d8",
+  "resource_gate": "artifacts/models/arrival-timing/sensitivity-design-v1/resource-continuation-v1/review-acceptance.json",
+  "source_closure_sha256": "205802c885e1c8a24400f836b0c76e6fc8f15ec80c7c2d05351e65a80aa7e4e2",
+  "state": {
+    "calls_charged": 22,
+    "calls_started": 22,
+    "current": null,
+    "next_case": 22,
+    "sha256": "34a9ed0e131b2aa8e011664a0d5fc31719b19011c8b17999e1a64dc693455e1b",
+    "status": "sensitivity_checkpoint"
+  }
+}

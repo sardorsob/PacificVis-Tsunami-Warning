@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-tcal-pooled-joint-wider-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior-spec.json": "fdb56ed09f1590ad5b8a58cef9ec6746a22192b57bd24a00f16cb2e05b950528",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior.log": "ef954797572f0e71aa8ad9f5b4337397156e7ba2e13231d5242186de34691954",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior.supervisor.json": "903770d5db80dee016a7739b839a41927be7666a477b88f34b3f4c3ab859a860",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/conditional-ppc.csv": "f20fdae66a881ebefa92ab3e356a6d469d34c0c9409d82497d97930b9cbbc8a9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/curves.csv": "9bc784684eba67cc2c374d1927352380a0534a2cc6de2d910c20067c43ade148",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/derived.csv": "b981e57e07e2c9aa773a1427bee4cc75af43a9fe9e775c3215ae6a4a79d05e96",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/diagnostics.json": "9b9d425e0850faf42c80ae289cae58b08bf777af27be444be9148d2f2e37be0a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/inputs.json": "711674bf9c320b3c1e8a9b145487f95ed591df63d5c9a03ab62011c5bd6879da",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/job.json": "fdb56ed09f1590ad5b8a58cef9ec6746a22192b57bd24a00f16cb2e05b950528",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/membership.json": "6307849400311d836a6ddb622f8fc65d1f8302cc07381e4b1ad173fd0a7867eb",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/parameters.csv": "632ef103b6df796e4d26bb196f97b48aa1540ab452582b175f929cfa6f5f38ab",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/record-intervals.csv": "81c70d5fdf55dbe93f2e690f3ee0be9cb1489e17aee5a08e76e7562913cd2101",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/result.json": "0f9ef8abd97702699b41ee7d3d08a90293fc430a34c8821d68dee89ac24b7d3c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/sampling-diagnostics.csv": "cc33a783c9b1305a07ed74623edb5c8d0a5004f051891e2b8bd654a96d4c5a5a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/sampling-start.json": "fdb56ed09f1590ad5b8a58cef9ec6746a22192b57bd24a00f16cb2e05b950528",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-pooled-joint-wider-prior/summary.json": "6f30191817bbc082579f5e9a92849f74d2f4fc77934d05c735252234b01a6d8d",
+    "data/processed/models/arrival-sensitivity-v1/ms5-tcal-pooled-joint-wider-prior.nc": "c9545e66c34d0654494539e1d8a4b55d93211c11b7d57c4082ccedb82c90088a"
+  }
+}
