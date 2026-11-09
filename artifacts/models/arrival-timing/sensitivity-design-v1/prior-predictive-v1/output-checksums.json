@@ -1,0 +1,7 @@
+{
+  "case-manifest.json": "67d0dad5da2643cbc9fc74a4d97cb232febe619981052b430a8eb754468474ae",
+  "inputs.json": "5d9986b76e594c0015f8ec6438e891a118e8bfc15b96ff9eea4f59f82dc56e62",
+  "new-event-prior-quantiles.csv": "0a78d2ef64314a1082c0caf11c4155d8fc701558b3ac698f05dae326aef13f9f",
+  "population-prior-quantiles.csv": "4814d0a30233a16bb5ebdcb4eb3188a9c508efc23c13a1a8a41f26105bb467e2",
+  "summary.json": "593b5f8f1e1700fdeddd312dff82917912380687b4287d4fe2794f87dc0c0392"
+}

@@ -1,0 +1,44 @@
+{
+  "artifacts": {
+    "case-manifest.json": "67d0dad5da2643cbc9fc74a4d97cb232febe619981052b430a8eb754468474ae",
+    "inputs.json": "5d9986b76e594c0015f8ec6438e891a118e8bfc15b96ff9eea4f59f82dc56e62",
+    "new-event-prior-quantiles.csv": "0a78d2ef64314a1082c0caf11c4155d8fc701558b3ac698f05dae326aef13f9f",
+    "output-checksums.json": "8526c6f96e147d11317b6e4203da8a213a7cdbe02f619dab0703125d5d4cb6e7",
+    "population-prior-quantiles.csv": "4814d0a30233a16bb5ebdcb4eb3188a9c508efc23c13a1a8a41f26105bb467e2",
+    "summary.json": "593b5f8f1e1700fdeddd312dff82917912380687b4287d4fe2794f87dc0c0392"
+  },
+  "bundle_sha256": "8526c6f96e147d11317b6e4203da8a213a7cdbe02f619dab0703125d5d4cb6e7",
+  "confirmation_outcomes_parsed": false,
+  "decision": "computed_pending_independent_sensitivity_prior_review",
+  "metrics": {
+    "configurations": 41.0,
+    "initial_fit_jobs": 55.0,
+    "max_sampler_call_slots": 110.0,
+    "modeled_response_nonfinite_values": 0,
+    "population_nonfinite_values": 0,
+    "response_nonfinite_values": 0,
+    "reused_training_posteriors": 6.0,
+    "sampler_calls": 0.0,
+    "total_ancestral_draws": 82000.0,
+    "unrepresentable_native_values": 0
+  },
+  "params": {
+    "ancestral_draws_per_configuration": 2000,
+    "base_forms": 8,
+    "bundle_sha256": "8526c6f96e147d11317b6e4203da8a213a7cdbe02f619dab0703125d5d4cb6e7",
+    "configurations": 41,
+    "generator_execution_git_sha": "not_recorded_in_generator_inputs; source_bytes_hash_pinned",
+    "native_moment_scope": "no_mean_or_variance_claim",
+    "perturbations": 33,
+    "predictive_seed_offset": 1,
+    "prior_origin": "analyst_post_EDA_sensitivity_not_expert_facts",
+    "registration_git_sha": "c60fce7c1bcfeb3a28e89dabec9abfce883d2494",
+    "seed_base": 2896110800,
+    "seed_stride": 1000,
+    "stage": "MS5_prior_predictive",
+    "t4_matched_scale_factor": 0.7059257108562306
+  },
+  "readback_verified": true,
+  "reserved_outcomes": "sealed",
+  "run_id": "61e9bff691934c8f962777f44d2dfc3e"
+}

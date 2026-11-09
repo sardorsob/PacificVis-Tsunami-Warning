@@ -1,0 +1,11 @@
+{
+  "decision": "accepted_comparison_no_model_selected",
+  "original_tracking_receipt_unchanged": true,
+  "parent_review_artifact_verified": true,
+  "parent_run_id": "a05b7c0e7b944f72b920f8c74944da26",
+  "review": "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/review-acceptance.json",
+  "review_sha256": "a489d8379a68d88c816a7d220f0c0055f5fb16dc53afb8322d9443a20e939f27",
+  "tagged_finished_runs": [
+    "a05b7c0e7b944f72b920f8c74944da26"
+  ]
+}
