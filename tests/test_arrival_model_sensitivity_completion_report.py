@@ -1,4 +1,4 @@
-"""Synthetic schema3 report admission; no native data, NetCDF, sampling or Gates."""
+"""Synthetic schema4 report admission; no native data, NetCDF, sampling or Gates."""
 
 # pyright: basic
 from __future__ import annotations
@@ -17,13 +17,21 @@ from analysis.arrival.evidence import sha256, write_json
 from tests.test_arrival_model_sensitivity_report import views
 
 
-def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
+def fixture(
+    root, monkeypatch, *, exhausted47=False
+) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     old, repair, numerical = report.old, report.repair, report.numerical_api()
     for name in report.CONSUMED:
         p = root / name
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text("synthetic consumed source")
-    write_json(root / old.fit.GATE, {"status": "synthetic original Gate"})
+    for name in [
+        old.fit.GATE,
+        report.NUMERICAL_GATE,
+        report.OLD_EXECUTION_GATE,
+        report.EXECUTION_GATE,
+    ]:
+        write_json(root / name, {"status": "synthetic authority"})
     original_pins = {name: sha256(root / name) for name in [old.fit.GATE, *old.CONSUMED]}
     new = [v for v in views() if v["role"] == "sensitivity"]
     jobs = []
@@ -40,75 +48,100 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
                 "seed": 2886110800 + 1000 * order,
             }
         )
-    repair_job = repair.repair_job(jobs[34])
     execution_jobs = numerical.execution_jobs(
         jobs[36:],
         "numerical-protocol-v2",
         {j["id"]: 2 if j["order"] == 36 else 1 for j in jobs[36:]},
         dict(numerical.PROTOCOL),
     )
+    repair47 = numerical.execution_jobs(
+        [jobs[47]], "numerical-protocol-v2", {jobs[47]["id"]: 2}, report.REPAIR47_PROTOCOL
+    )[0]
+    tail = execution_jobs[12:]
+    new_jobs = [repair47, *tail]
     write_json(
         root / old.PLAN,
         {"jobs": jobs, "files": original_pins, "gate_sha256": original_pins[old.fit.GATE]},
     )
-    accepted = []
-    for original, view in zip(jobs, new, strict=True):
-        order = original["order"]
-        if order == 36:
-            continue
-        producer = (
-            "repair_v1" if order == 34 else "numerical_protocol" if order >= 36 else "original"
-        )
-        execution = (
-            repair_job if order == 34 else execution_jobs[order - 36] if order >= 36 else original
-        )
+
+    def produce(original, execution, producer, failed=False):
         if producer == "repair_v1":
             folder, raw = root / repair.OUTPUT, root / repair.STORE
-        elif producer == "numerical_protocol":
+        elif producer in {"numerical_protocol", "repair47"}:
             folder, raw = numerical.case_paths(root, execution)
         else:
             folder, raw = (
                 root / old.fit.OUTPUT / "jobs" / original["id"],
                 root / old.fit.STORE / (original["id"] + ".nc"),
             )
+        leaves = report.CASE_FILES if not failed else report.CASE_FILES[:7]
         paths = (
-            [folder / n for n in report.CASE_FILES]
+            [folder / n for n in leaves]
             + [raw]
             + [
                 folder.with_name(folder.name + s)
                 for s in ["-spec.json", ".log", ".supervisor.json"]
             ]
         )
-        for path in paths:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text("synthetic evidence; no admission body parse")
-        write_json(folder / "summary.json", view["summary"])
-        prior = dict(alpha_sd=0.5, beta_sd=0.25, tau_sd=0.4, sigma_sd=0.4)
-        if original["kind"] == "mean-curvature":
-            prior["gamma_sd"] = 0.4
-        write_json(
-            folder / "inputs.json",
-            {
-                "base_prior": prior,
-                "wider_prior": {k: v * 2 for k, v in prior.items()}
-                if original["prior_variant"] == "joint_wider"
-                else None,
-            },
-        )
-        files = {str(path.relative_to(root)): sha256(path) for path in paths}
-        receipt = folder / "attempt-evidence.json"
-        write_json(receipt, {"case_id": original["id"], "files": files})
-        entry = dict(
-            order=order,
+        for p in paths:
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text("synthetic bytes; never native")
+        if not failed:
+            write_json(folder / "summary.json", new[original["order"]]["summary"])
+            prior = dict(alpha_sd=0.5, beta_sd=0.25, tau_sd=0.4, sigma_sd=0.4)
+            if original["kind"] == "mean-curvature":
+                prior["gamma_sd"] = 0.4
+            write_json(
+                folder / "inputs.json",
+                {
+                    "base_prior": prior,
+                    "wider_prior": {k: 2 * v for k, v in prior.items()}
+                    if original["prior_variant"] == "joint_wider"
+                    else None,
+                },
+            )
+        else:
+            write_json(
+                folder / "result.json",
+                dict(
+                    job=execution,
+                    status="diagnostic_failure",
+                    posterior=str(raw.relative_to(root)),
+                    posterior_sha256=sha256(raw),
+                ),
+            )
+        files = {str(p.relative_to(root)): sha256(p) for p in paths}
+        physical = dict(files)
+        if not failed or original["order"] == 34:
+            receipt = folder / "attempt-evidence.json"
+            write_json(receipt, {"case_id": original["id"], "files": files})
+            physical[str(receipt.relative_to(root))] = sha256(receipt)
+        else:
+            control = (
+                report.CONTROL
+                if producer == "repair47"
+                else report.OLD_CONTROL
+                if original["order"] == 47
+                else report.NUMERICAL_OUTPUT
+                if producer == "numerical_protocol"
+                else report.first_completion.OUTPUT
+            )
+            receipt = root / control / "attempts" / (execution["id"] + ".json")
+            write_json(
+                receipt,
+                dict(
+                    case_id=original["id"],
+                    execution_job=execution,
+                    outcome="needs_review",
+                    charged_slots=1,
+                    start_markers=1,
+                ),
+            )
+            files[str(receipt.relative_to(root))] = sha256(receipt)
+        return dict(
+            order=original["order"],
             case_id=original["id"],
             producer=producer,
-            source_role=(
-                "numerical_repair"
-                if order in {34, 36}
-                else "numerical_protocol"
-                if order >= 37
-                else "original"
-            ),
             original_job=original,
             execution_job=execution,
             posterior=str(raw.relative_to(root)),
@@ -117,118 +150,97 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
             files=files,
             receipt=str(receipt.relative_to(root)),
             receipt_sha256=sha256(receipt),
+        ), physical
+
+    accepted = []
+    for job in jobs:
+        n = job["order"]
+        if n == 36 or n == 47 and exhausted47:
+            continue
+        producer = (
+            "repair_v1"
+            if n == 34
+            else "repair47"
+            if n == 47
+            else "numerical_protocol"
+            if n >= 37
+            else "original"
         )
-        if order >= 36:
-            entry.update(
+        execution = (
+            repair.repair_job(job)
+            if n == 34
+            else repair47
+            if n == 47
+            else execution_jobs[n - 36]
+            if n >= 37
+            else job
+        )
+        e, _ = produce(job, execution, producer)
+        e["source_role"] = (
+            "numerical_repair" if n in {34, 47} else "numerical_protocol" if n >= 37 else "original"
+        )
+        if n >= 37:
+            e.update(
                 run_id="numerical-protocol-v2",
-                execution_gate=report.EXECUTION_GATE,
-                worker_spec_gate=report.NUMERICAL_GATE,
+                execution_gate=report.EXECUTION_GATE if n >= 47 else report.OLD_EXECUTION_GATE,
+                worker_spec_gate=report.EXECUTION_GATE if n == 47 else report.NUMERICAL_GATE,
+                execution_authority_run_id="finish-sensitivities-v1"
+                if n >= 47
+                else "remaining-sensitivities-v1",
             )
-        accepted.append(entry)
+        accepted.append(e)
     failures = []
-    for order, attempt in [(34, 1), (36, 1), (36, 2)]:
-        job = jobs[order]
-        execution = execution_jobs[0] if attempt == 2 else job
-        if attempt == 2:
-            folder, raw = numerical.case_paths(root, execution)
-        else:
-            folder = root / old.fit.OUTPUT / "jobs" / job["id"]
-            raw = root / old.fit.STORE / (job["id"] + ".nc")
-        paths = (
-            [
-                folder / n
-                for n in [
-                    "job.json",
-                    "inputs.json",
-                    "membership.json",
-                    "sampling-start.json",
-                    "result.json",
-                    "diagnostics.json",
-                    "sampling-diagnostics.csv",
-                ]
-            ]
-            + [raw]
-            + [
-                folder.with_name(folder.name + suffix)
-                for suffix in ["-spec.json", ".log", ".supervisor.json"]
-            ]
+    for order, attempt in [(34, 1), (36, 1), (36, 2), (47, 1)] + ([(47, 2)] if exhausted47 else []):
+        execution = (
+            repair47
+            if order == 47 and attempt == 2
+            else execution_jobs[order - 36]
+            if order == 47 or attempt == 2
+            else jobs[order]
         )
-        for path in paths:
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text("retained failed physical evidence")
-        write_json(
-            folder / "result.json",
-            dict(
-                job=execution,
-                status="diagnostic_failure",
-                posterior=str(raw.relative_to(root)),
-                posterior_sha256=sha256(raw),
-            ),
+        producer = (
+            "repair47"
+            if order == 47 and attempt == 2
+            else "numerical_protocol"
+            if order == 47 or attempt == 2
+            else "original"
         )
-        files = {str(path.relative_to(root)): sha256(path) for path in paths}
-        physical = dict(files)
-        if order == 34:
-            receipt = folder / "attempt-evidence.json"
-            write_json(receipt, {"case_id": job["id"], "files": files})
-            physical[str(receipt.relative_to(root))] = sha256(receipt)
-        else:
-            control = report.NUMERICAL_OUTPUT if attempt == 2 else report.first_completion.OUTPUT
-            receipt = root / control / "attempts" / (execution["id"] + ".json")
-            write_json(
-                receipt,
-                dict(
-                    case_id=job["id"],
-                    execution_job=execution,
-                    outcome="needs_review",
-                    charged_slots=1,
-                    start_markers=1,
-                ),
-            )
-            files[str(receipt.relative_to(root))] = sha256(receipt)
-        failure = dict(
-            order=order,
-            case_id=job["id"],
-            original_job=job,
-            execution_job=execution,
-            attempt=attempt,
-            charged_slots=1,
-            start_markers=1,
-            outcome="needs_review",
-            files=files,
-            receipt=str(receipt.relative_to(root)),
-            receipt_sha256=sha256(receipt),
-            physical_files=physical,
-            posterior=str(raw.relative_to(root)),
-            posterior_sha256=sha256(raw),
-        )
-        if attempt == 2:
-            failure.update(producer="numerical_protocol", execution_gate=report.NUMERICAL_GATE)
-        failures.append(failure)
+        e, physical = produce(jobs[order], execution, producer, True)
+        e.update(attempt=attempt, start_markers=1, outcome="needs_review", physical_files=physical)
+        failures.append(e)
     unresolved = [
         dict(
-            case_id=jobs[36]["id"],
-            order=36,
-            original_job=jobs[36],
+            case_id=jobs[n]["id"],
+            order=n,
+            original_job=jobs[n],
             status="computationally_unresolved",
-            failed_attempts=failures[1:],
+            failed_attempts=[f for f in failures if f["order"] == n],
             no_third_attempt=True,
             posterior=None,
         )
+        for n in ([36, 47] if exhausted47 else [36])
     ]
+    outcome = "exhausted_unresolved" if exhausted47 else "accepted_repair"
+    counts = report.report_counts(dict(schema_version=4, unresolved_cases=unresolved))
     prerequisites = {
         "original_plan": old.PLAN,
         "worker_spec_gate": report.NUMERICAL_GATE,
+        "repair_spec_gate": report.EXECUTION_GATE,
         "execution_authority_gate": report.EXECUTION_GATE,
         "baseline_state": report.CONTROL + "/baseline-state.json",
         "baseline_registry": report.CONTROL + "/baseline-registry.json",
-        "disposition_review": report.SCIENTIFIC_REVIEWS["unresolved_case"],
-        "pilot_review": report.CONTROL + "/pilot-review-acceptance.json",
+        "baseline_review": report.SCIENTIFIC_REVIEWS["baseline50"],
+        "case47_disposition_review": report.SCIENTIFIC_REVIEWS["case47_disposition"],
     }
     for name in prerequisites.values():
         if not (root / name).exists():
             write_json(root / name, {"synthetic": "prerequisite"})
+
+    def allpins():
+        return {str(p.relative_to(root)): sha256(p) for p in root.rglob("*") if p.is_file()}
+
     for label, path in report.SCIENTIFIC_REVIEWS.items():
-        if label in {"remaining", "unresolved_case"}:
+        if label in {"remaining", "baseline50", "case47_disposition"}:
             continue
         write_json(
             root / path,
@@ -237,23 +249,52 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
                 independent_checker=True,
                 confirmation_outcomes_parsed=False,
                 reserved_outcomes="sealed",
-                files=original_pins,
+                no_third_case36_attempt=True,
+                files={
+                    k: v
+                    for k, v in allpins().items()
+                    if k != path
+                    and k
+                    not in [
+                        report.SCIENTIFIC_REVIEWS["baseline50"],
+                        report.SCIENTIFIC_REVIEWS["case47_disposition"],
+                    ]
+                },
             ),
         )
-    pins = {str(p.relative_to(root)): sha256(p) for p in root.rglob("*") if p.is_file()}
-    disposition = report.SCIENTIFIC_REVIEWS["unresolved_case"]
+    baseline = report.SCIENTIFIC_REVIEWS["baseline50"]
     write_json(
-        root / disposition,
+        root / baseline,
         dict(
-            status=report.SCIENCE_STATUSES["unresolved_case"],
+            status=report.SCIENCE_STATUSES["baseline50"],
             independent_checker=True,
             confirmation_outcomes_parsed=False,
             reserved_outcomes="sealed",
-            no_third_case36_attempt=True,
-            files={k: v for k, v in pins.items() if k != disposition},
+            files={
+                k: v
+                for k, v in allpins().items()
+                if k not in [baseline, report.SCIENTIFIC_REVIEWS["case47_disposition"]]
+            },
         ),
     )
-    pins[disposition] = sha256(root / disposition)
+    path = report.SCIENTIFIC_REVIEWS["case47_disposition"]
+    write_json(
+        root / path,
+        dict(
+            status=report.SCIENCE_STATUSES["case47_disposition"],
+            independent_checker=True,
+            confirmation_outcomes_parsed=False,
+            reserved_outcomes="sealed",
+            files={k: v for k, v in allpins().items() if k != path},
+            case47_outcome=outcome,
+            repair_job=repair47,
+            calls_charged=51,
+            calls_started=51,
+            execution_authority_gate_sha256=sha256(root / report.EXECUTION_GATE),
+            repair_spec_gate_sha256=sha256(root / report.EXECUTION_GATE),
+        ),
+    )
+    pins = allpins()
     original_admission = dict(
         files=original_pins, gate={"jobs": jobs}, contract={"source": "fixed"}
     )
@@ -270,36 +311,51 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
         files=dict(pins),
         original_admission=original_admission,
         worker_admission=worker,
+        repair_admission={"files": dict(pins)},
         original_jobs=jobs,
-        accepted_prefix=accepted[:36],
-        failed_attempts=failures,
-        unresolved_cases=unresolved,
-        jobs=execution_jobs[1:],
-        gate={"protocol": dict(numerical.PROTOCOL), "run_id": "remaining-sensitivities-v1"},
+        accepted_prefix=accepted[:46],
+        failed_attempts=failures[:4],
+        unresolved_cases=unresolved[:1],
+        repair_job=repair47,
+        remaining_jobs=tail,
+        jobs=new_jobs,
+        gate={"protocol": dict(numerical.PROTOCOL), "run_id": "finish-sensitivities-v1"},
     )
+    by_order = {e["order"]: e for e in accepted}
     mapping = {
-        jobs[34]["id"]: dict(
-            posterior=accepted[34]["posterior"], posterior_sha256=accepted[34]["posterior_sha256"]
-        )
+        jobs[n]["id"]: {k: by_order[n][k] for k in ["posterior", "posterior_sha256"]}
+        for n in ([34] if exhausted47 else [34, 47])
     }
     protocol = dict(
         protocol=dict(numerical.PROTOCOL),
         first_attempt_original_case_ids=[j["id"] for j in jobs[37:]],
         execution_jobs=execution_jobs[1:],
+        case47_final_repair=dict(
+            execution_job=repair47,
+            protocol=report.REPAIR47_PROTOCOL,
+            worker_spec_gate=report.EXECUTION_GATE,
+            worker_spec_gate_sha256=pins[report.EXECUTION_GATE],
+        ),
+        remaining_execution_jobs=tail,
     )
     summary = dict(
-        schema_version=3,
-        run_id="remaining-sensitivities-v1",
-        status="sensitivity_program_complete_with_unresolved_case",
-        **report.REPORT_COUNTS,
+        schema_version=4,
+        run_id="finish-sensitivities-v1",
+        status="sensitivity_program_complete_with_unresolved_cases",
+        **counts,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
         accepted=accepted,
         retained_failures=failures,
         unresolved_cases=unresolved,
+        case47_outcome=outcome,
+        repair_job=repair47,
+        remaining_jobs=tail,
         successful_numerical_repair_mapping=mapping,
         protocol_amendment=protocol,
-        completion_attempts=[{"synthetic": i} for i in range(18)],
+        completion_attempts=[
+            dict(execution_job=j, charged_slots=1, start_markers=1) for j in new_jobs
+        ],
         **prerequisites,
         **{k + "_sha256": pins[v] for k, v in prerequisites.items()},
     )
@@ -320,16 +376,17 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
         independent_checker=True,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
-        files=dict(pins),
-        execution_jobs=execution_jobs[1:],
-        **report.REPORT_COUNTS,
+        files=dict(completed["files"]),
+        execution_jobs=new_jobs,
+        case47_outcome=outcome,
+        **counts,
     )
     path = report.SCIENTIFIC_REVIEWS["remaining"]
     write_json(root / path, science)
     pins = {**completed["files"], path: sha256(root / path)}
     gate = dict(
-        status="accepted_completed_sensitivity_program_with_unresolved_case",
-        **report.REPORT_COUNTS,
+        status="accepted_completed_sensitivity_program_with_unresolved_cases",
+        **counts,
         independent_checker=True,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
@@ -340,6 +397,7 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
         retained_failures=failures,
         successful_numerical_repair_mapping=mapping,
         unresolved_cases=unresolved,
+        case47_outcome=outcome,
         protocol_amendment=protocol,
         files=pins,
     )
@@ -370,7 +428,7 @@ def test_metadata_admission_preserves55_probes54_valid57_calls_three_failed_raw(
     forbid_reads(monkeypatch)
     checked = report.verify_report_sources(tmp_path)
     assert checked["gate"] == gate and len(checked["accepted"]) == 54
-    assert checked["run_summary"]["actual_sampler_calls"] == 57
+    assert checked["run_summary"]["actual_sampler_calls"] == 58
 
 
 @pytest.mark.parametrize(
@@ -462,8 +520,8 @@ def test_gate_failure_allocates_no_output(tmp_path):
     assert not output.exists()
 
 
-def collection_fixture(root, monkeypatch):
-    gate, checked, new = fixture(root, monkeypatch)
+def collection_fixture(root, monkeypatch, *, exhausted47=False):
+    gate, checked, new = fixture(root, monkeypatch, exhausted47=exhausted47)
     original_calls, repair_calls, historical, simulated = [], [], [], []
     forbid_case_replays(monkeypatch)
     from analysis.arrival.model_data import lane_arrays
@@ -514,7 +572,7 @@ def test_exact35_original_one_repair18_numerical_without_cold_replay_and68_views
     assert [
         sum(v["provenance"].get("source_role") == role for v in result[:54])
         for role in ["original", "numerical_repair", "numerical_protocol"]
-    ] == [35, 1, 18]
+    ] == [35, 2, 17]
     assert historical == [d["key"] for d in report.old.refs.descriptors()]
     assert simulated == [(2916110800 + 1000 * i, 800) for i in range(14)]
     assert [v["view_id"] for v in result[:54]] == [
@@ -530,7 +588,7 @@ def test_exact35_original_one_repair18_numerical_without_cold_replay_and68_views
     assert repaired["provenance"]["execution_job"]["sampler"]["target_accept"] == 0.99
     assert repaired["provenance"]["posterior"] == report.repair.STORE
     assert sum(v["provenance"].get("new_sampler_calls", 0) for v in result) == 54
-    assert run["actual_sampler_calls"] == 57 and pins[report.GATE] == sha256(tmp_path / report.GATE)
+    assert run["actual_sampler_calls"] == 58 and pins[report.GATE] == sha256(tmp_path / report.GATE)
 
 
 @pytest.mark.parametrize("mutation", ["mapping", "counter", "role", "repair-summary-fallback"])
@@ -589,7 +647,7 @@ def test_report_reuses_pure_tables_figures_findings_and_reconciles_counts(tmp_pa
     collection_fixture(tmp_path, monkeypatch)
     figure_calls = []
 
-    def figures(tables, output):
+    def figures(tables, output, unresolved_orders):
         figure_calls.append(tables)
         for name in ["prior-population-median-curves", "ncei-data-stress-log-changes"]:
             for ext in ["png", "svg"]:
@@ -600,14 +658,14 @@ def test_report_reuses_pure_tables_figures_findings_and_reconciles_counts(tmp_pa
     report.report(tmp_path, output)
     summary = json.loads((output / "summary.json").read_text())
     assert summary["views"] == 68 and summary["accepted_logical_fits"] == 54
-    assert summary["actual_sampler_calls"] == summary["calls_charged"] == 57
-    assert summary["retained_failed_calls"] == 3 and summary["selection"] == "none"
+    assert summary["actual_sampler_calls"] == summary["calls_charged"] == 58
+    assert summary["retained_failed_calls"] == 4 and summary["selection"] == "none"
     assert tuple(summary["qualifications"]) == report.old.QUALIFICATIONS
     assert len(figure_calls) == 1 and set(figure_calls[0]) == set(report.TABLES)
     text = (output / "findings.md").read_text()
     assert "scripts/summarize_arrival_completed_sensitivities.py" in text
     assert "scripts/summarize_arrival_sensitivities.py" not in text
-    assert "2,000 tuning draws" in text and "target_accept=0.99" in text
+    assert "2,000 tuning steps" in text and "target_accept=0.99" in text
     assert "failed diagnostics" in text and "computationally unresolved" in text
     assert text.index("computationally unresolved") < text.index("54 usable fits")
     assert "favor curvature" in text and "150 original observations" in text
@@ -642,7 +700,7 @@ def test_old_failed_run_summary_is_hash_only_not_final_accounting(tmp_path, monk
     write_json(tmp_path / report.GATE, gate)
     forbid_reads(monkeypatch)
     checked = report.verify_report_sources(tmp_path)
-    assert checked["run_summary"]["actual_sampler_calls"] == 57
+    assert checked["run_summary"]["actual_sampler_calls"] == 58
 
 
 @pytest.mark.parametrize("mutation", ["counter", "missing-new-raw"])
@@ -751,3 +809,199 @@ def test_unexpected_missing_heatmap_cell_raises(tmp_path):
     del rows[index]
     with pytest.raises(ValueError, match="only reviewed unresolved"):
         report.figures(tables, tmp_path)
+
+
+@pytest.mark.parametrize("unresolved_orders", [(36,), (36, 47)])
+def test_schema4_counts_follow_exact_typed_dispositions(unresolved_orders):
+    run = dict(schema_version=4, unresolved_cases=[{"order": n} for n in unresolved_orders])
+    expected = dict(
+        planned_cases=55,
+        completed_probes=55,
+        accepted_logical_fits=55 - len(unresolved_orders),
+        unresolved_case_count=len(unresolved_orders),
+        actual_sampler_calls=58,
+        calls_charged=58,
+        calls_started=58,
+        retained_failed_calls=3 + len(unresolved_orders),
+        max_sampler_call_slots=110,
+    )
+    assert report.report_counts(run) == expected
+
+
+@pytest.mark.parametrize("orders", [[], [47], [36, 46], [36, 47, 48], [36, 36], [47, 36]])
+def test_schema4_counts_reject_other_missing_patterns(orders):
+    with pytest.raises(ValueError):
+        report.report_counts(
+            dict(schema_version=4, unresolved_cases=[{"order": n} for n in orders])
+        )
+
+
+@pytest.mark.parametrize("unresolved_orders", [(36,), (36, 47)])
+def test_schema4_surviving_math_matches_full_original_oracle(unresolved_orders):
+    full = views()
+    new = [v for v in full if v["role"] == "sensitivity"]
+    missing = {new[i]["view_id"] for i in unresolved_orders}
+    expected = report.old.sensitivity_tables(full)
+    actual = report.sensitivity_tables(
+        [v for v in full if v["view_id"] not in missing], unresolved_orders
+    )
+    for name, rows in expected.items():
+        assert actual[name] == [row for row in rows if row["view_id"] not in missing]
+
+
+def test_schema4_missing_curved_fit_requires_explicit_reviewed_disposition():
+    full = views()
+    new = [v for v in full if v["role"] == "sensitivity"]
+    missing = {new[i]["view_id"] for i in [36, 47]}
+    with pytest.raises(ValueError):
+        report.sensitivity_tables([v for v in full if v["view_id"] not in missing], (36,))
+
+
+@pytest.mark.parametrize("exhausted47", [False, True])
+def test_schema4_full_metadata_accepts_only_exact_final_branch(tmp_path, monkeypatch, exhausted47):
+    gate, completed, _ = fixture(tmp_path, monkeypatch, exhausted47=exhausted47)
+    forbid_reads(monkeypatch)
+    checked = report.verify_report_sources(tmp_path)
+    assert checked["gate"] == gate
+    assert len(checked["accepted"]) == (53 if exhausted47 else 54)
+    assert len(checked["failures"]) == (5 if exhausted47 else 4)
+    assert [x["order"] for x in checked["unresolved"]] == ([36, 47] if exhausted47 else [36])
+    slots = report.probe_dispositions(completed["summary"])
+    assert len(slots) == 55 and slots[36]["posterior"] is None
+    if exhausted47:
+        assert slots[47]["posterior"] is None
+        assert slots[47]["failed_attempt_receipts"][1]["attempt"] == 2
+    else:
+        repaired = next(e for e in checked["accepted"] if e["order"] == 47)
+        assert repaired["producer"] == "repair47"
+        assert repaired["execution_job"]["sampler"]["tune"] == 4000
+        assert repaired["execution_job"]["sampler"]["seed"] == 2886157800
+        assert repaired["execution_job"]["sampler"]["target_accept"] == 0.999
+        assert repaired["worker_spec_gate"] == repaired["execution_gate"] == report.EXECUTION_GATE
+
+
+def reseal_schema4(root, gate, completed):
+    write_json(root / report.COMPLETION_SUMMARY, completed["summary"])
+    digest = sha256(root / report.COMPLETION_SUMMARY)
+    completed["files"][report.COMPLETION_SUMMARY] = gate["files"][report.COMPLETION_SUMMARY] = (
+        digest
+    )
+    path = report.SCIENTIFIC_REVIEWS["remaining"]
+    science = json.loads((root / path).read_text())
+    science["files"][report.COMPLETION_SUMMARY] = digest
+    write_json(root / path, science)
+    gate["files"][path] = sha256(root / path)
+    write_json(root / report.GATE, gate)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "index47-map",
+        "repair47-protocol",
+        "repair47-role",
+        "repair47-authority",
+        "tail-authority",
+        "retune-first47",
+        "lost-case47-outcome",
+        "extra-failure",
+        "typed-count",
+    ],
+)
+def test_schema4_resealed_corruptions_fail_before_native_reads(tmp_path, monkeypatch, mutation):
+    gate, completed, _ = fixture(tmp_path, monkeypatch)
+    run = completed["summary"]
+    by_order = {e["order"]: e for e in run["accepted"]}
+    entry = by_order[47]
+    if mutation == "index47-map":
+        run["successful_numerical_repair_mapping"][entry["case_id"]]["posterior"] = run["accepted"][
+            47
+        ]["posterior"]
+    elif mutation == "repair47-protocol":
+        entry["execution_job"] = copy.deepcopy(entry["execution_job"])
+        entry["execution_job"]["sampler"]["tune"] = 2000
+    elif mutation == "repair47-role":
+        entry["source_role"] = "numerical_protocol"
+    elif mutation == "repair47-authority":
+        entry["worker_spec_gate"] = report.NUMERICAL_GATE
+    elif mutation == "tail-authority":
+        by_order[48]["execution_gate"] = report.OLD_EXECUTION_GATE
+    elif mutation == "retune-first47":
+        run["protocol_amendment"]["execution_jobs"] = copy.deepcopy(
+            run["protocol_amendment"]["execution_jobs"]
+        )
+        run["protocol_amendment"]["execution_jobs"][10]["sampler"]["target_accept"] = 0.999
+    elif mutation == "lost-case47-outcome":
+        run.pop("case47_outcome")
+    elif mutation == "extra-failure":
+        run["retained_failures"].append(copy.deepcopy(run["retained_failures"][-1]))
+    else:
+        run["accepted_logical_fits"] = 53
+    reseal_schema4(tmp_path, gate, completed)
+    forbid_reads(monkeypatch)
+    with pytest.raises(ValueError):
+        report.verify_report_sources(tmp_path)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "failed47-as-fit",
+        "third47-attempt",
+        "repaired47-map",
+        "wrong-final-protocol",
+        "missing-final-failure",
+    ],
+)
+def test_schema4_exhausted_branch_never_substitutes_failed47(tmp_path, monkeypatch, mutation):
+    gate, completed, _ = fixture(tmp_path, monkeypatch, exhausted47=True)
+    run = completed["summary"]
+    missing = run["unresolved_cases"][1]
+    if mutation == "failed47-as-fit":
+        run["accepted"].insert(46, copy.deepcopy(run["retained_failures"][-1]))
+    elif mutation == "third47-attempt":
+        missing["no_third_attempt"] = False
+    elif mutation == "repaired47-map":
+        run["successful_numerical_repair_mapping"][missing["case_id"]] = {
+            "posterior": run["retained_failures"][-1]["posterior"]
+        }
+    elif mutation == "wrong-final-protocol":
+        run["retained_failures"][-1]["execution_job"] = copy.deepcopy(
+            run["retained_failures"][-1]["execution_job"]
+        )
+        run["retained_failures"][-1]["execution_job"]["sampler"]["seed"] += 1
+    else:
+        run["retained_failures"].pop()
+    reseal_schema4(tmp_path, gate, completed)
+    forbid_reads(monkeypatch)
+    with pytest.raises(ValueError):
+        report.verify_report_sources(tmp_path)
+
+
+def test_schema4_qualification_distinguishes_both_numerical_protocols_and_gaps():
+    for orders in [[36], [36, 47]]:
+        run = {"schema_version": 4, "unresolved_cases": [{"order": n} for n in orders]}
+        note, method = report.unresolved_note(run), report.method_note(run)
+        assert "favor curvature" in note and "era advantage" in note
+        assert "4,000 tuning steps" in method and "target_accept=0.999" in method
+        assert "2,000 tuning steps" in method and "target_accept=0.99" in method
+        assert "58 sampler calls" in method
+        assert f"{55 - len(orders)} usable sensitivity fits" in method
+
+
+def test_schema4_exhausted_report_keeps67_views55_probes_and_both_gaps(tmp_path, monkeypatch):
+    collection_fixture(tmp_path, monkeypatch, exhausted47=True)
+    recorded = []
+    monkeypatch.setattr(report, "figures", lambda tables, output, missing: recorded.append(missing))
+    output = tmp_path / "report"
+    report.report(tmp_path, output)
+    saved = json.loads((output / "summary.json").read_text())
+    assert saved["views"] == 67 and saved["new_fits"] == 53 and saved["retained_failed_calls"] == 5
+    assert saved["actual_sampler_calls"] == 58 and len(saved["probe_dispositions"]) == 55
+    assert (
+        saved["probe_dispositions"][36]["posterior"]
+        is saved["probe_dispositions"][47]["posterior"]
+        is None
+    )
+    assert recorded == [(36, 47)]
+    assert "Neither mean form has a usable posterior" in (output / "findings.md").read_text()

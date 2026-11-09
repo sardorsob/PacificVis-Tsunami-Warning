@@ -25,6 +25,17 @@ MS5_SUMMARY = str(Path(data.MS5_REVIEW).parent / "summary.json")
 MS5_INPUTS = str(Path(data.MS5_REVIEW).parent / "inputs.json")
 MS5_PROBES = str(Path(data.MS5_REVIEW).parent / "probe-dispositions.json")
 MS5_CONTROLLER = data.ART + "exploration-sensitivity-v1/remaining-sensitivities-v1/run-summary.json"
+MS5_FINISH_CONTROLLER = (
+    data.ART + "exploration-sensitivity-v1/finish-sensitivities-v1/run-summary.json"
+)
+MS5_FINISH_DISPOSITION = (
+    data.ART + "exploration-sensitivity-v1/finish-sensitivities-v1/case47-review-acceptance.json"
+)
+MS5_FINISH_GATE = data.ART + "sensitivity-design-v1/finish-sensitivities-v1/review-acceptance.json"
+MS5_NUMERICAL_GATE = data.ART + "sensitivity-design-v1/numerical-protocol-v2/review-acceptance.json"
+MS5_OLD_EXECUTION_GATE = (
+    data.ART + "sensitivity-design-v1/remaining-sensitivities-v1/review-acceptance.json"
+)
 MS5_COUNTS = dict(
     planned_cases=55,
     completed_probes=55,
@@ -319,6 +330,238 @@ def _schema3_sensitivity_history(root, pins, review, saved, inputs):
     )
 
 
+def _schema4_sensitivity_history(root, pins, review, saved, inputs):
+    """Read only admitted schema4 metadata, retaining both possible era-comparison gaps."""
+    require(
+        {MS5_FINISH_CONTROLLER, MS5_PROBES, MS5_FINISH_DISPOSITION} <= set(review["files"])
+        and {MS5_FINISH_CONTROLLER, MS5_FINISH_DISPOSITION} <= set(inputs["files"]),
+        "schema4 final controller, typed disposition and55 probes must be source-bound",
+    )
+    controller = data._json(root, pins, MS5_FINISH_CONTROLLER)
+    dispositions = data._json(root, pins, MS5_PROBES)
+    decision = data._json(root, pins, MS5_FINISH_DISPOSITION)
+    data._require(pins, decision.get("files"))
+    unresolved = controller.get("unresolved_cases")
+    require(isinstance(unresolved, list), "schema4 typed unresolved list required")
+    assert isinstance(unresolved, list)
+    orders = [e.get("order") for e in unresolved]
+    require(
+        all(type(n) is int for n in orders) and orders in [[36], [36, 47]],
+        "schema4 only unresolved36 and optional exhausted47 permitted",
+    )
+    count = len(orders)
+    counts = dict(
+        planned_cases=55,
+        completed_probes=55,
+        accepted_logical_fits=55 - count,
+        unresolved_case_count=count,
+        actual_sampler_calls=58,
+        calls_charged=58,
+        calls_started=58,
+        retained_failed_calls=3 + count,
+        max_sampler_call_slots=110,
+    )
+    outcome = "exhausted_unresolved" if 47 in orders else "accepted_repair"
+    require(
+        all(v.get("schema_version") == 4 for v in [saved, inputs, controller])
+        and controller.get("status") == "sensitivity_program_complete_with_unresolved_cases"
+        and all(
+            type(v.get(k)) is int and v[k] == expected
+            for v in [saved, controller]
+            for k, expected in counts.items()
+        )
+        and saved.get("views") == 69 - count
+        and saved.get("new_fits") == 55 - count
+        and saved.get("selection") == "none"
+        and all(
+            v.get("confirmation_outcomes_parsed") is False
+            and v.get("reserved_outcomes") == "sealed"
+            for v in [saved, inputs, controller, decision]
+        )
+        and all(v.get("case47_outcome") == outcome for v in [saved, inputs, controller, decision]),
+        "schema4 exact55 probes/53-or54 usable/58 calls/four-or-five failures required",
+    )
+    accepted, failed, probes = (
+        controller.get("accepted"),
+        controller.get("retained_failures"),
+        saved.get("probe_dispositions"),
+    )
+    require(
+        isinstance(accepted, list) and isinstance(failed, list) and isinstance(probes, list),
+        "schema4 exact accepted/failed/probe lists required",
+    )
+    assert isinstance(accepted, list) and isinstance(failed, list) and isinstance(probes, list)
+    require(
+        [e.get("order") for e in accepted] == [i for i in range(55) if i not in orders]
+        and [(e.get("order"), e.get("attempt")) for e in failed]
+        == [(34, 1), (36, 1), (36, 2), (47, 1)] + ([(47, 2)] if count == 2 else [])
+        and [e.get("order") for e in probes] == list(range(55))
+        and len({e.get("case_id") for e in probes}) == 55
+        and dispositions.get("probes") == probes
+        and saved.get("unresolved_cases") == dispositions.get("unresolved_cases") == unresolved,
+        "schema4 all55 dispositions and exact failed history required",
+    )
+    jobs = [e.get("original_job") for e in probes]
+    require(
+        all(
+            isinstance(j, dict) and j.get("order") == i and j.get("id") == probes[i].get("case_id")
+            for i, j in enumerate(jobs)
+        ),
+        "schema4 original ordered probe identities required",
+    )
+    by_order = {e["order"]: e for e in accepted}
+    for e in accepted:
+        probe = probes[e["order"]]
+        require(
+            probe.get("original_job") == e.get("original_job") == jobs[e["order"]]
+            and probe.get("case_id") == e.get("case_id")
+            and probe.get("posterior") == e.get("posterior")
+            and probe.get("status") == "accepted_scientific_computation",
+            "schema4 accepted probes must bind actual controller fits",
+        )
+    for e in unresolved:
+        order = e["order"]
+        job = jobs[order]
+        attempts = [f for f in failed if f["order"] == order]
+        require(
+            job.get("target") == "NCEI-native-duration"
+            and job.get("kind") == ("distance-scale" if order == 36 else "mean-curvature")
+            and job.get("scenario") == "era-2014plus"
+            and e.get("original_job") == job
+            and e.get("case_id") == job["id"]
+            and e.get("status") == "computationally_unresolved"
+            and e.get("no_third_attempt") is True
+            and e.get("posterior") is None
+            and e.get("posterior_sha256") is None
+            and not any(k in e for k in ["summary", "parameters", "curves", "conditional_ppc"])
+            and e.get("failed_attempts") == attempts
+            and len(attempts) == 2
+            and all(f.get("original_job") == job for f in attempts)
+            and probes[order].get("posterior") is None
+            and probes[order].get("status") == "computationally_unresolved",
+            "schema4 unresolved36/47 require exact two failures, no third attempt or posterior",
+        )
+    protocol = dict(
+        draws=2000, tune=2000, chains=4, cores=2, target_accept=0.99, nuts_sampler="nutpie"
+    )
+    repair_protocol = {**protocol, "tune": 4000, "target_accept": 0.999}
+
+    def execution(n, attempt=1):
+        return dict(
+            id=f"ms5-numerical-protocol-v2-{n:03d}-attempt-{attempt}",
+            original_job=jobs[n],
+            attempt=attempt,
+            sampler={
+                **(repair_protocol if n == 47 and attempt == 2 else protocol),
+                "seed": jobs[n]["seed"],
+            },
+            order=n,
+        )
+
+    repair_job = execution(47, 2)
+    tail = [execution(n) for n in range(48, 55)]
+    expected_failures = [jobs[34], jobs[36], execution(36, 2), execution(47)] + (
+        [repair_job] if count == 2 else []
+    )
+    require(
+        [f.get("execution_job") for f in failed] == expected_failures,
+        "schema4 failed executions must retain original seeds and literal protocols",
+    )
+    require(
+        all(
+            v.get("repair_job") == repair_job and v.get("remaining_jobs") == tail
+            for v in [saved, inputs, controller]
+        ),
+        "schema4 full finalrepair and seven-tail execution identities required",
+    )
+    for n in [*range(37, 47), *range(48, 55)]:
+        require(
+            by_order[n].get("execution_job") == execution(n)
+            and by_order[n].get("producer") == "numerical_protocol"
+            and by_order[n].get("source_role") == "numerical_protocol"
+            and by_order[n].get("execution_gate")
+            == (MS5_FINISH_GATE if n >= 48 else MS5_OLD_EXECUTION_GATE)
+            and by_order[n].get("worker_spec_gate") == MS5_NUMERICAL_GATE,
+            "schema4 actual first-attempt executions and dual authority must remain exact",
+        )
+    if count == 1:
+        e = by_order[47]
+        require(
+            e.get("execution_job") == repair_job
+            and e.get("producer") == "repair47"
+            and e.get("source_role") == "numerical_repair"
+            and e.get("execution_gate") == e.get("worker_spec_gate") == MS5_FINISH_GATE,
+            "schema4 repaired47 is a distinct literal second attempt under final authority",
+        )
+    require(
+        MS5_FINISH_GATE in pins
+        and all(
+            v.get("case47_disposition_review") == MS5_FINISH_DISPOSITION
+            and v.get("case47_disposition_review_sha256") == pins[MS5_FINISH_DISPOSITION]
+            for v in [saved, inputs, controller]
+        )
+        and decision.get("status") == "accepted_sensitivity_case47_disposition"
+        and decision.get("independent_checker") is True
+        and decision.get("repair_job") == repair_job
+        and decision.get("calls_charged") == decision.get("calls_started") == 51
+        and decision.get("execution_authority_gate_sha256")
+        == decision.get("repair_spec_gate_sha256")
+        == pins[MS5_FINISH_GATE],
+        "schema4 typed independent case47 disposition must bind the51-call repair and authority",
+    )
+    amendment = dict(
+        protocol=protocol,
+        first_attempt_original_case_ids=[j["id"] for j in jobs[37:]],
+        execution_jobs=[execution(n) for n in range(37, 55)],
+        case47_final_repair=dict(
+            execution_job=repair_job,
+            protocol=repair_protocol,
+            worker_spec_gate=MS5_FINISH_GATE,
+            worker_spec_gate_sha256=pins[MS5_FINISH_GATE],
+        ),
+        remaining_execution_jobs=tail,
+    )
+    require(
+        all(v.get("protocol_amendment") == amendment for v in [saved, inputs, controller])
+        and [a.get("execution_job") for a in controller.get("completion_attempts", [])]
+        == [repair_job, *tail],
+        "schema4 original18 plus distinct finalrepair and seven-tail protocols must agree",
+    )
+    mapping = saved.get("successful_numerical_repair_mapping")
+    repair_orders = [34] + ([47] if count == 1 else [])
+    require(
+        isinstance(mapping, dict)
+        and set(mapping) == {jobs[n]["id"] for n in repair_orders}
+        and mapping
+        == inputs.get("successful_numerical_repair_mapping")
+        == controller.get("successful_numerical_repair_mapping")
+        and all(
+            mapping[jobs[n]["id"]].get(k) == by_order[n].get(k)
+            for n in repair_orders
+            for k in ["posterior", "posterior_sha256"]
+        )
+        and not any("numerical_repair_mapping" in v for v in [saved, inputs, controller]),
+        "schema4 mapping requires original-order34 and optional47 successful fits",
+    )
+    qualification = saved.get("unresolved_comparison")
+    require(
+        isinstance(qualification, str) and bool(qualification.strip()),
+        "schema4 accepted unresolved qualification required",
+    )
+    return dict(
+        status="available",
+        source_schema_version=4,
+        **counts,
+        case47_outcome=outcome,
+        successful_numerical_repair_mapping=mapping,
+        protocol_amendment=amendment,
+        numerical_repair_method=saved.get("numerical_repair_method"),
+        unresolved_cases=unresolved,
+        unresolved_comparison=qualification,
+        probe_dispositions=probes,
+    )
+
+
 def _sensitivity_history(root, pins):
     review = data._json(root, pins, data.MS5_REVIEW)
     data._require(pins, review.get("files"))
@@ -328,6 +571,21 @@ def _sensitivity_history(root, pins):
     )
     saved, inputs = [data._json(root, pins, path) for path in [MS5_SUMMARY, MS5_INPUTS]]
     data._require(pins, inputs.get("files"))
+    schema4_keys = {
+        "case47_outcome",
+        "repair_job",
+        "remaining_jobs",
+        "case47_disposition_review",
+        "case47_disposition_review_sha256",
+    }
+    if any(
+        schema4_keys.intersection(value) or value.get("schema_version") == 4
+        for value in [saved, inputs]
+    ) or any(
+        {MS5_FINISH_CONTROLLER, MS5_FINISH_DISPOSITION}.intersection(value)
+        for value in [review["files"], inputs["files"]]
+    ):
+        return _schema4_sensitivity_history(root, pins, review, saved, inputs)
     schema3_keys = {
         "successful_numerical_repair_mapping",
         "unresolved_cases",
@@ -612,7 +870,7 @@ def render_markdown(summary):
         "quantiles, with no predictive mean or moment claim.",
     ]
     history = summary["sensitivity_history"]
-    if history.get("source_schema_version") == 3:
+    if history.get("source_schema_version") in {3, 4}:
         text += [
             "",
             history["unresolved_comparison"],
@@ -725,7 +983,7 @@ def render_markdown(summary):
             f"{history['accepted_logical_fits']} usable fits across "
             f"{history['planned_cases']} planned probes "
             f"({history['unresolved_case_count']} computationally unresolved)"
-            if history.get("source_schema_version") == 3
+            if history.get("source_schema_version") in {3, 4}
             else f"{history['accepted_logical_fits']} logical fits"
         )
         text += [

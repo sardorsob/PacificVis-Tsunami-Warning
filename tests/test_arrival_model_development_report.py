@@ -1016,3 +1016,401 @@ def test_schema3_fixture_execution_jobs_match_the_frozen_producer(tmp_path, monk
     )
     assert controller["protocol_amendment"]["execution_jobs"] == expected
     assert [entry["execution_job"] for entry in controller["accepted"][36:]] == expected
+
+
+def schema4_fixture(root, monkeypatch, *, exhausted47=False):
+    gate, old_seal, admissions, _, probes_path = schema3_fixture(root, monkeypatch)
+    jobs = [p["original_job"] for p in json.loads((root / probes_path).read_text())["probes"]]
+    jobs[47]["kind"] = "mean-curvature"
+    jobs[47]["scenario"] = "era-2014plus"
+    protocol = dict(
+        draws=2000, tune=2000, chains=4, cores=2, target_accept=0.99, nuts_sampler="nutpie"
+    )
+    repair_protocol = {**protocol, "tune": 4000, "target_accept": 0.999}
+
+    def execution(n, attempt=1):
+        return dict(
+            id=f"ms5-numerical-protocol-v2-{n:03d}-attempt-{attempt}",
+            original_job=jobs[n],
+            attempt=attempt,
+            sampler={
+                **(repair_protocol if n == 47 and attempt == 2 else protocol),
+                "seed": jobs[n]["seed"],
+            },
+            order=n,
+        )
+
+    finish_gate = (
+        r.data.ART + "sensitivity-design-v1/finish-sensitivities-v1/review-acceptance.json"
+    )
+    numerical_gate = (
+        r.data.ART + "sensitivity-design-v1/numerical-protocol-v2/review-acceptance.json"
+    )
+    old_execution_gate = (
+        r.data.ART + "sensitivity-design-v1/remaining-sensitivities-v1/review-acceptance.json"
+    )
+    controller_path = (
+        r.data.ART + "exploration-sensitivity-v1/finish-sensitivities-v1/run-summary.json"
+    )
+    decision_path = (
+        r.data.ART
+        + "exploration-sensitivity-v1/finish-sensitivities-v1/case47-review-acceptance.json"
+    )
+    write_json(root / finish_gate, {"synthetic": "authority"})
+    repair_job = execution(47, 2)
+    tail = [execution(n) for n in range(48, 55)]
+    failed = []
+    for n, attempt in [(34, 1), (36, 1), (36, 2), (47, 1)] + ([(47, 2)] if exhausted47 else []):
+        failed.append(
+            dict(
+                case_id=jobs[n]["id"],
+                order=n,
+                attempt=attempt,
+                original_job=jobs[n],
+                execution_job=execution(n, attempt) if n == 47 or attempt == 2 else jobs[n],
+                receipt=f"retained/{n}-{attempt}.json",
+                posterior=f"retained/{n}-{attempt}.nc",
+            )
+        )
+    missing_orders = [36, 47] if exhausted47 else [36]
+    unresolved = [
+        dict(
+            case_id=jobs[n]["id"],
+            order=n,
+            original_job=jobs[n],
+            status="computationally_unresolved",
+            failed_attempts=[f for f in failed if f["order"] == n],
+            no_third_attempt=True,
+            posterior=None,
+        )
+        for n in missing_orders
+    ]
+    accepted = []
+    for job in jobs:
+        n = job["order"]
+        if n in missing_orders:
+            continue
+        e = dict(
+            case_id=job["id"],
+            order=n,
+            original_job=job,
+            execution_job=repair_job if n == 47 else execution(n) if n >= 37 else job,
+            posterior=f"usable/{job['id']}.nc",
+            posterior_sha256="a" * 64,
+        )
+        if n >= 37:
+            e.update(
+                producer="repair47" if n == 47 else "numerical_protocol",
+                source_role="numerical_repair" if n == 47 else "numerical_protocol",
+                execution_gate=finish_gate if n >= 47 else old_execution_gate,
+                worker_spec_gate=finish_gate if n == 47 else numerical_gate,
+            )
+        accepted.append(e)
+    by_order = {e["order"]: e for e in accepted}
+    probes = [
+        dict(
+            case_id=j["id"],
+            order=j["order"],
+            original_job=j,
+            status="computationally_unresolved"
+            if j["order"] in missing_orders
+            else "accepted_scientific_computation",
+            posterior=None if j["order"] in missing_orders else by_order[j["order"]]["posterior"],
+        )
+        for j in jobs
+    ]
+    counts = dict(
+        planned_cases=55,
+        completed_probes=55,
+        accepted_logical_fits=len(accepted),
+        unresolved_case_count=len(unresolved),
+        actual_sampler_calls=58,
+        calls_charged=58,
+        calls_started=58,
+        retained_failed_calls=len(failed),
+        max_sampler_call_slots=110,
+    )
+    mapping = {
+        jobs[n]["id"]: {k: by_order[n][k] for k in ["posterior", "posterior_sha256"]}
+        for n in ([34] if exhausted47 else [34, 47])
+    }
+    amendment = dict(
+        protocol=protocol,
+        first_attempt_original_case_ids=[j["id"] for j in jobs[37:]],
+        execution_jobs=[execution(n) for n in range(37, 55)],
+        case47_final_repair=dict(
+            execution_job=repair_job,
+            protocol=repair_protocol,
+            worker_spec_gate=finish_gate,
+            worker_spec_gate_sha256=sha256(root / finish_gate),
+        ),
+        remaining_execution_jobs=tail,
+    )
+    outcome = "exhausted_unresolved" if exhausted47 else "accepted_repair"
+    decision = dict(
+        status="accepted_sensitivity_case47_disposition",
+        independent_checker=True,
+        confirmation_outcomes_parsed=False,
+        reserved_outcomes="sealed",
+        case47_outcome=outcome,
+        repair_job=repair_job,
+        calls_charged=51,
+        calls_started=51,
+        execution_authority_gate_sha256=sha256(root / finish_gate),
+        repair_spec_gate_sha256=sha256(root / finish_gate),
+        files={finish_gate: sha256(root / finish_gate)},
+    )
+    write_json(root / decision_path, decision)
+    common = dict(
+        schema_version=4,
+        case47_outcome=outcome,
+        repair_job=repair_job,
+        remaining_jobs=tail,
+        case47_disposition_review=decision_path,
+        case47_disposition_review_sha256=sha256(root / decision_path),
+        successful_numerical_repair_mapping=mapping,
+        protocol_amendment=amendment,
+        confirmation_outcomes_parsed=False,
+        reserved_outcomes="sealed",
+    )
+    controller = dict(
+        common,
+        **counts,
+        status="sensitivity_program_complete_with_unresolved_cases",
+        accepted=accepted,
+        retained_failures=failed,
+        unresolved_cases=unresolved,
+        completion_attempts=[
+            dict(execution_job=j, charged_slots=1, start_markers=1) for j in [repair_job, *tail]
+        ],
+    )
+    write_json(root / controller_path, controller)
+    inputs = json.loads((root / r.MS5_INPUTS).read_text())
+    inputs.update(common)
+    inputs["files"].update(
+        {name: sha256(root / name) for name in [controller_path, decision_path, finish_gate]}
+    )
+    write_json(root / r.MS5_INPUTS, inputs)
+    saved = dict(
+        common,
+        **counts,
+        views=len(accepted) + 14,
+        new_fits=len(accepted),
+        selection="none",
+        unresolved_cases=unresolved,
+        probe_dispositions=probes,
+        unresolved_comparison=(
+            "Linear 2014-onward sensitivity is computationally unresolved; "
+            "no robustness or curvature advantage follows."
+        )
+        + (
+            " Curved 2014-onward sensitivity is also computationally unresolved."
+            if exhausted47
+            else ""
+        ),
+        numerical_repair_method=(
+            "Repair34 .99/2000; finalrepair47 .999/4000. Same models, data, priors and seeds."
+        ),
+    )
+    write_json(root / r.MS5_SUMMARY, saved)
+    write_json(root / probes_path, dict(probes=probes, unresolved_cases=unresolved))
+
+    def seal():
+        inputs = json.loads((root / r.MS5_INPUTS).read_text())
+        inputs["files"].update(
+            {name: sha256(root / name) for name in [controller_path, decision_path, finish_gate]}
+        )
+        write_json(root / r.MS5_INPUTS, inputs)
+        review = json.loads((root / r.data.MS5_REVIEW).read_text())
+        review["files"].update(
+            {
+                name: sha256(root / name)
+                for name in [
+                    r.MS5_INPUTS,
+                    r.MS5_SUMMARY,
+                    controller_path,
+                    decision_path,
+                    finish_gate,
+                    probes_path,
+                ]
+            }
+        )
+        write_json(root / r.data.MS5_REVIEW, review)
+        old_seal()
+
+    seal()
+    return gate, seal, admissions, controller_path, decision_path
+
+
+@pytest.mark.parametrize("exhausted47", [False, True])
+def test_schema4_history_propagates_both_exact_terminal_branches(
+    tmp_path, monkeypatch, exhausted47
+):
+    schema4_fixture(tmp_path, monkeypatch, exhausted47=exhausted47)
+    r.report(tmp_path, tmp_path / "report")
+    saved = json.loads((tmp_path / "report" / "summary.json").read_text())
+    history = saved["sensitivity_history"]
+    assert history["source_schema_version"] == 4
+    assert history["accepted_logical_fits"] == (53 if exhausted47 else 54)
+    assert history["actual_sampler_calls"] == 58 and history["retained_failed_calls"] == (
+        5 if exhausted47 else 4
+    )
+    assert [x["order"] for x in history["unresolved_cases"]] == ([36, 47] if exhausted47 else [36])
+    text = (tmp_path / "report" / "findings.md").read_text()
+    assert "computationally unresolved" in text and "58 sampler calls" in text
+
+
+@pytest.mark.parametrize("exhausted47", [False, True])
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "counts",
+        "mapping-index",
+        "repair-protocol",
+        "tail-protocol",
+        "initial47-retuned",
+        "wrong-authority",
+        "lost-outcome",
+        "qualification",
+        "no-third",
+        "disposition-type",
+    ],
+)
+def test_schema4_resealed_semantic_corruptions_reject_before_tables(
+    tmp_path, monkeypatch, exhausted47, bad
+):
+    _, seal, _, controller_path, decision_path = schema4_fixture(
+        tmp_path, monkeypatch, exhausted47=exhausted47
+    )
+    saved = json.loads((tmp_path / r.MS5_SUMMARY).read_text())
+    inputs = json.loads((tmp_path / r.MS5_INPUTS).read_text())
+    controller = json.loads((tmp_path / controller_path).read_text())
+    decision = json.loads((tmp_path / decision_path).read_text())
+    if bad == "counts":
+        saved["actual_sampler_calls"] = 57
+    elif bad == "mapping-index":
+        for value in [saved, inputs, controller]:
+            value["successful_numerical_repair_mapping"]["case-47"] = {
+                "posterior": controller["accepted"][47]["posterior"],
+                "posterior_sha256": "a" * 64,
+            }
+    elif bad in ["repair-protocol", "tail-protocol", "initial47-retuned"]:
+        for value in [saved, inputs, controller]:
+            if bad == "repair-protocol":
+                value["repair_job"]["sampler"].update(tune=2000, target_accept=0.99)
+                value["protocol_amendment"]["case47_final_repair"]["execution_job"][
+                    "sampler"
+                ].update(tune=2000, target_accept=0.99)
+                value["protocol_amendment"]["case47_final_repair"]["protocol"].update(
+                    tune=2000, target_accept=0.99
+                )
+            elif bad == "tail-protocol":
+                value["remaining_jobs"][0]["sampler"]["nuts_sampler"] = "pymc"
+                value["protocol_amendment"]["remaining_execution_jobs"][0]["sampler"][
+                    "nuts_sampler"
+                ] = "pymc"
+            else:
+                value["protocol_amendment"]["execution_jobs"][10]["sampler"].update(
+                    tune=4000, target_accept=0.999
+                )
+        if bad == "repair-protocol":
+            for e in controller["accepted"]:
+                if e["order"] == 47:
+                    e["execution_job"]["sampler"].update(tune=2000, target_accept=0.99)
+            for f in controller["retained_failures"]:
+                if f["order"] == 47 and f["attempt"] == 2:
+                    f["execution_job"]["sampler"].update(tune=2000, target_accept=0.99)
+    elif bad == "wrong-authority":
+        next(e for e in controller["accepted"] if e["order"] == 48)["execution_gate"] = (
+            r.MS5_OLD_EXECUTION_GATE
+        )
+    elif bad == "lost-outcome":
+        saved.pop("case47_outcome")
+    elif bad == "qualification":
+        saved["unresolved_comparison"] = ""
+    elif bad == "no-third":
+        saved["unresolved_cases"][0]["no_third_attempt"] = False
+    else:
+        decision["case47_outcome"] = "accepted_repair" if exhausted47 else "exhausted_unresolved"
+    for path, value in [
+        (r.MS5_SUMMARY, saved),
+        (r.MS5_INPUTS, inputs),
+        (controller_path, controller),
+        (decision_path, decision),
+    ]:
+        write_json(tmp_path / path, value)
+    seal()
+    monkeypatch.setattr(
+        r, "_match_table", lambda *a: pytest.fail("table body before schema4 admission")
+    )
+    with pytest.raises(ValueError):
+        r.report(tmp_path, tmp_path / "report")
+
+
+@pytest.mark.parametrize(
+    "signal",
+    [
+        "saved-key",
+        "inputs-key",
+        "saved-version",
+        "inputs-version",
+        "review-controller",
+        "inputs-controller",
+        "review-decision",
+        "inputs-decision",
+    ],
+)
+def test_each_schema4_signal_prevents_legacy_or_schema3_fallback(tmp_path, signal):
+    saved: dict[str, Any] = {"views": 69}
+    sentinel = tmp_path / "synthetic-source.txt"
+    sentinel.write_text("synthetic admitted source")
+    inputs: dict[str, Any] = {"files": {"synthetic-source.txt": sha256(sentinel)}}
+    if signal == "saved-key":
+        saved["case47_outcome"] = "accepted_repair"
+    elif signal == "inputs-key":
+        inputs["repair_job"] = {}
+    elif signal == "saved-version":
+        saved["schema_version"] = 4
+    elif signal == "inputs-version":
+        inputs["schema_version"] = 4
+    for path, body in [(r.MS5_SUMMARY, saved), (r.MS5_INPUTS, inputs)]:
+        write_json(tmp_path / path, body)
+    extra = {}
+    if signal.startswith(("review-", "inputs-")) and signal not in ["inputs-key", "inputs-version"]:
+        name = (
+            r.MS5_FINISH_CONTROLLER if signal.endswith("controller") else r.MS5_FINISH_DISPOSITION
+        )
+        write_json(tmp_path / name, {"schema4_binding": True})
+        extra[name] = sha256(tmp_path / name)
+        if signal.startswith("inputs-"):
+            inputs["files"].update(extra)
+            write_json(tmp_path / r.MS5_INPUTS, inputs)
+    pins = {name: sha256(tmp_path / name) for name in [r.MS5_SUMMARY, r.MS5_INPUTS]}
+    pins.update(inputs["files"])
+    pins.update(extra)
+    review = {"files": dict(pins)}
+    write_json(tmp_path / r.data.MS5_REVIEW, review)
+    pins[r.data.MS5_REVIEW] = sha256(tmp_path / r.data.MS5_REVIEW)
+    with pytest.raises(ValueError, match="schema4"):
+        r._sensitivity_history(tmp_path, pins)
+
+
+def test_schema4_fixture_full_execution_shapes_match_real_worker(tmp_path, monkeypatch):
+    from analysis.arrival import model_sensitivity_numerical_fit as producer
+
+    _, _, _, path, _ = schema4_fixture(tmp_path, monkeypatch)
+    run = json.loads((tmp_path / path).read_text())
+    job = run["repair_job"]["original_job"]
+    assert (
+        run["repair_job"]
+        == producer.execution_jobs(
+            [job],
+            "numerical-protocol-v2",
+            {job["id"]: 2},
+            {**producer.PROTOCOL, "tune": 4000, "target_accept": 0.999},
+        )[0]
+    )
+    jobs = [e["original_job"] for e in run["remaining_jobs"]]
+    assert run["remaining_jobs"] == producer.execution_jobs(
+        jobs, "numerical-protocol-v2", {j["id"]: 1 for j in jobs}, dict(producer.PROTOCOL)
+    )

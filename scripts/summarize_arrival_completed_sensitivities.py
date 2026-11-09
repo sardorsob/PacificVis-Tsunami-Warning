@@ -1,4 +1,4 @@
-"""Summarize 54 usable sensitivity fits and preserve the unresolved probe and three failures."""
+"""Summarize usable sensitivity fits while preserving all typed unresolved probes and failures."""
 
 from __future__ import annotations
 
