@@ -1,0 +1,28 @@
+{
+  "confirmation_outcomes_parsed": true,
+  "diagnostics": {
+    "divergences": 0,
+    "finite_diagnostics": true,
+    "max_mcse_mean": 0.0011357748127855728,
+    "max_rhat": 1.0007746237880935,
+    "maxdepth_reached": 0,
+    "min_bfmi": 0.9860122791190727,
+    "min_ess_bulk": 3737.9013894846753,
+    "min_ess_tail": 4306.372281724659,
+    "screen_passed": true
+  },
+  "job": {
+    "id": "dev-ncei-mean-curvature-selected-full",
+    "model_key": "NCEI-native-duration:mean-curvature:selected",
+    "order": 0,
+    "role": "full_development",
+    "seed": 2986110800,
+    "training_reference": null
+  },
+  "posterior": "data/processed/models/arrival-development-v1/dev-ncei-mean-curvature-selected-full.nc",
+  "posterior_sha256": "937e68ba5c5ec7d91298ee02c977bee3524b62bdb9807cc4b947629efe59513f",
+  "reserved_outcomes": "sealed",
+  "sampler_call_started": true,
+  "scoring_performed": false,
+  "status": "computed_pending_scientific_review"
+}

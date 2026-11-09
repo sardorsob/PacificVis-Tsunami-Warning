@@ -1,0 +1,8 @@
+{
+  "id": "dev-ncei-mean-curvature-selected-full",
+  "model_key": "NCEI-native-duration:mean-curvature:selected",
+  "order": 0,
+  "role": "full_development",
+  "seed": 2986110800,
+  "training_reference": null
+}
