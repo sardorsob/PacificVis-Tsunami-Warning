@@ -637,10 +637,17 @@ def test_late_change_to_earlier_accepted_job_blocks_current_acceptance(tmp_path,
     assert len(s["phases"]["check"]["attempts"]) == 2
 
 
-def test_sensitivity_repair_store_all_bytes_reach_global_budget(tmp_path, monkeypatch):
+@pytest.mark.parametrize(
+    "store",
+    [
+        "data/processed/models/arrival-sensitivity-repair-v1",
+        "data/processed/models/arrival-sensitivity-numerical-protocol-v2",
+    ],
+)
+def test_sensitivity_repair_store_all_bytes_reach_global_budget(tmp_path, monkeypatch, store):
     fixture(tmp_path, monkeypatch)
     admission = c.admit(tmp_path, "check")
-    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    repair = tmp_path / store
     for name, size in [("repair.nc", 13), ("cache/compiled.bin", 17), ("unlisted.partial", 29)]:
         path = repair / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -655,11 +662,20 @@ def test_sensitivity_repair_store_all_bytes_reach_global_budget(tmp_path, monkey
     assert c.quota(tmp_path, admission) == "global_storage"
 
 
+@pytest.mark.parametrize(
+    "store",
+    [
+        "data/processed/models/arrival-sensitivity-repair-v1",
+        "data/processed/models/arrival-sensitivity-numerical-protocol-v2",
+    ],
+)
 @pytest.mark.parametrize("bad", ["large-file", "root-symlink", "child-symlink"])
-def test_sensitivity_repair_store_shares_global_file_and_symlink_guards(tmp_path, monkeypatch, bad):
+def test_sensitivity_repair_store_shares_global_file_and_symlink_guards(
+    tmp_path, monkeypatch, bad, store
+):
     fixture(tmp_path, monkeypatch)
     admission = c.admit(tmp_path, "check")
-    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    repair = tmp_path / store
     repair.parent.mkdir(parents=True, exist_ok=True)
     if bad == "root-symlink":
         target = tmp_path / "retained-repair-files"
@@ -677,12 +693,19 @@ def test_sensitivity_repair_store_shares_global_file_and_symlink_guards(tmp_path
     )
 
 
+@pytest.mark.parametrize(
+    "store",
+    [
+        "data/processed/models/arrival-sensitivity-repair-v1",
+        "data/processed/models/arrival-sensitivity-numerical-protocol-v2",
+    ],
+)
 def test_sensitivity_repair_store_counted_once_without_changing_local_or_phase_cache(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, store
 ):
     fixture(tmp_path, monkeypatch)
     admission = c.admit(tmp_path, "check")
-    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    repair = tmp_path / store
     repair.mkdir(parents=True)
     (repair / "unlisted.partial").write_bytes(b"retained")
     original = c.r.byte_count
@@ -702,8 +725,36 @@ def test_sensitivity_repair_store_counted_once_without_changing_local_or_phase_c
     assert (tmp_path / c.fit.STORE / "cache", tmp_path / c.RECOVERY_STORE / "cache") in calls
 
 
-def test_sensitivity_repair_training_reference_is_not_counted_as_external_twice(tmp_path):
-    raw = "data/processed/models/arrival-sensitivity-repair-v1/unexpected-reference.nc"
+@pytest.mark.parametrize(
+    "store",
+    [
+        "data/processed/models/arrival-sensitivity-repair-v1",
+        "data/processed/models/arrival-sensitivity-numerical-protocol-v2",
+    ],
+)
+def test_sensitivity_repair_training_reference_is_not_counted_as_external_twice(tmp_path, store):
+    raw = store + "/unexpected-reference.nc"
     baseline = c.external_paths(tmp_path, {"training_references": {}})
     actual = c.external_paths(tmp_path, {"training_references": {"example": {"raw": raw}}})
     assert actual == baseline
+
+
+def test_both_sensitivity_stores_count_globally_once_and_stay_outside_local(tmp_path, monkeypatch):
+    fixture(tmp_path, monkeypatch)
+    admission = c.admit(tmp_path, "check")
+    history = [tmp_path / c.SENSITIVITY_REPAIR_STORE, tmp_path / c.SENSITIVITY_NUMERICAL_STORE]
+    for path in history:
+        path.mkdir(parents=True)
+        (path / "retained.partial").write_bytes(b"retained")
+    original, calls = c.r.byte_count, []
+
+    def count(*paths):
+        calls.append(paths)
+        return original(*paths) + sum(1100 * c.r.MIB for path in history if path in paths)
+
+    monkeypatch.setattr(c.r, "working_bytes", lambda *args: 0)
+    monkeypatch.setattr(c.r, "byte_count", count)
+    assert c.quota(tmp_path, admission) is None
+    assert all(sum(path in paths for paths in calls) == 1 for path in history)
+    assert not any(path in c.roots(tmp_path) for path in history)
+    assert (tmp_path / c.fit.STORE / "cache", tmp_path / c.RECOVERY_STORE / "cache") in calls

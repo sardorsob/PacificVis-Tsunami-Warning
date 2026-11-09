@@ -28,6 +28,7 @@ PHASES = ("check", "full_design_recovery", "full_development")
 RECOVERY_OUTPUT = fit.data.ART + "full-development-recovery-v1"
 RECOVERY_STORE = "data/processed/models/arrival-development-recovery-v1"
 SENSITIVITY_REPAIR_STORE = "data/processed/models/arrival-sensitivity-repair-v1"
+SENSITIVITY_NUMERICAL_STORE = "data/processed/models/arrival-sensitivity-numerical-protocol-v2"
 RECOVERY_GATE = fit.data.ART + "full-development-recovery-design-v1/review-acceptance.json"
 RECOVERY_REVIEW = RECOVERY_OUTPUT + "/review-acceptance.json"
 RECOVERY_SOURCE = "analysis/arrival/model_development_recovery.py"
@@ -109,7 +110,7 @@ def roots(root):
 
 def global_roots(root):
     # Retained MS5 repair bytes belong to the cumulative budget, outside development's local cap.
-    return roots(root) + [root / SENSITIVITY_REPAIR_STORE]
+    return roots(root) + [root / SENSITIVITY_REPAIR_STORE, root / SENSITIVITY_NUMERICAL_STORE]
 
 
 def external_paths(root, freeze):
