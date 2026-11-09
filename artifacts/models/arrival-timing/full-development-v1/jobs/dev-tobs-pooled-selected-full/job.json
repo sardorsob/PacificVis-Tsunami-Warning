@@ -1,0 +1,8 @@
+{
+  "id": "dev-tobs-pooled-selected-full",
+  "model_key": "T-OBS:pooled:selected",
+  "order": 1,
+  "role": "full_development",
+  "seed": 2986110900,
+  "training_reference": null
+}
