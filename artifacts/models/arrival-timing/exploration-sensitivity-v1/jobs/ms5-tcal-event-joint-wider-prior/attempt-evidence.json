@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-tcal-event-joint-wider-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior-spec.json": "1fdcf86ab9f0d8a4d1ed3b412ea4bbd78abd0a303a7ac8d05cfd2b1f5766136b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior.log": "b48d2ad1ae895cf62591a4484945dcde0b46b296e0322b103dbc555dcdeaf6f4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior.supervisor.json": "47c349ce6520053e2d8beb1ebfd692cadd5b45672e0a762c46e6e440838bfbc9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/conditional-ppc.csv": "4a7c10c58a3ac67d0310a900531196683c766bb8520c6793b31735536c708045",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/curves.csv": "3b96400656cc0c787dd5139eaa26733b0282e502e51f466da90aae399dfe88fe",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/derived.csv": "410080ad1dde27dbafd204c876d8f9ad3b6b100a103eaaff56a2fff2052b34ae",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/diagnostics.json": "6e0a1cc36cf4db1b38a9252b088d3d80e3ac211cac3b7eb291d9340b7511dad9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/inputs.json": "711674bf9c320b3c1e8a9b145487f95ed591df63d5c9a03ab62011c5bd6879da",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/job.json": "1fdcf86ab9f0d8a4d1ed3b412ea4bbd78abd0a303a7ac8d05cfd2b1f5766136b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/membership.json": "fa26655e22c1255d66d52d81467773723b5ccef938a43d50ea37093e4033c041",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/parameters.csv": "bc5e27c96857f67853b91173ad8f3287319981c77b0dd0355120762c721bfbcc",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/record-intervals.csv": "bdc34f7da01c3454433772da3874e9f40629e90fac1c5de4d757c150a407f5a1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/result.json": "9bde48809e4c8013871fc6104954b96d185055ca779a17bfdc44bbfccbce8c89",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/sampling-diagnostics.csv": "20ba58e14b250ceef3da71b18fdc6e1f3a12dc07caa0d2d4219a4451e2d9f92c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/sampling-start.json": "1fdcf86ab9f0d8a4d1ed3b412ea4bbd78abd0a303a7ac8d05cfd2b1f5766136b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tcal-event-joint-wider-prior/summary.json": "f3d59102cf9b46c97848a61a618987852589c9cf4552332de9d9c5cd250f6a78",
+    "data/processed/models/arrival-sensitivity-v1/ms5-tcal-event-joint-wider-prior.nc": "647e2d17b6c76adf029452940d4647e3a37f5b77c604fd4cac9586021750b5bd"
+  }
+}

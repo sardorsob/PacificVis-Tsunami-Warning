@@ -1,0 +1,29 @@
+{
+  "after_state": {
+    "calls_charged": 34,
+    "calls_started": 34,
+    "current": null,
+    "next_case": 34,
+    "sha256": "8a2be4d070f99d3ab087142975bd684d007c52ab6cdc2454492e075c9b851c79",
+    "status": "sensitivity_checkpoint"
+  },
+  "before_state": {
+    "calls_charged": 30,
+    "calls_started": 30,
+    "current": null,
+    "next_case": 30,
+    "sha256": "ce62003401f5844f2a09b910705d11f4df6defcc8a7f0dabcc9639bbb8fb70b2",
+    "status": "sensitivity_checkpoint"
+  },
+  "cache_counts": {
+    "full_proofs": 34,
+    "pending_captures": 24,
+    "pending_promotions": 24,
+    "warm_checks": 756
+  },
+  "exception": null,
+  "expected_owned_after_sha256": "8a2be4d070f99d3ab087142975bd684d007c52ab6cdc2454492e075c9b851c79",
+  "invocation_git_sha": "ccda5f577a8acbfdf33135eab2a3673e0755b230",
+  "performance_gate_sha256": "722501591a73f9ad5d4b734dfb2467c112c23571a74dbd290e903eabf71d33ab",
+  "source_closure_sha256": "dbef8b3afe26a7d62b3a3dcc21a3891526efd5b726c248640236f572e91dff3a"
+}

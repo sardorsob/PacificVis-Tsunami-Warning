@@ -1,13 +1,13 @@
 {
-  "calls_charged": 30,
-  "calls_started": 30,
+  "calls_charged": 34,
+  "calls_started": 34,
   "confirmation_outcomes_parsed": false,
   "max_sampler_call_slots": 110,
   "monitor_failures": [],
-  "next_case": 30,
+  "next_case": 34,
   "planned_cases": 55,
   "reserved_outcomes": "sealed",
   "scientific_acceptance": "pending_independent_checker",
   "status": "sensitivity_checkpoint",
-  "working_bytes": 1477538845
+  "working_bytes": 1510283535
 }

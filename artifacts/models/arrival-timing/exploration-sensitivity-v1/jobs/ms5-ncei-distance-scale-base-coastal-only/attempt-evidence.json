@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-ncei-distance-scale-base-coastal-only",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only-spec.json": "99165f1392fd6fd3588d7de64a85927a53c79719a24ef0de8cd6ec1fa1749739",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only.log": "bdf99b1e03bf1d42dff511036e36242085faf0d92bb3bc5f5322b276bd30274c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only.supervisor.json": "c370f05e730550623d9005b6860a2bfe2378c1bad377b778d8dce70bae7469f1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/conditional-ppc.csv": "30b781ac18c7b9b27a36b9126fc954a48900197e44e8ec012dbe8551ac952715",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/curves.csv": "e7de210e905bb891081b111f11f131188b2df741be56c6fae017884eb3f5ad05",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/derived.csv": "7a4415134947503a06e57350ce6b202c3aa36974ee158150bd5c83ffeaa4095d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/diagnostics.json": "3077abcf160e01cd0571785f257ddc24d5238f21e8c5ef64117b1a70ce5ca8e3",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/inputs.json": "4cf069640871d67138b9c103e796cc7efe93cd968916aa8e494d19dd87be2a17",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/job.json": "99165f1392fd6fd3588d7de64a85927a53c79719a24ef0de8cd6ec1fa1749739",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/membership.json": "f4e5e10b77c60f9942311849f59449503ee38cd154f36a1fb479a87c2220960c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/parameters.csv": "4635d393bc3818013721913721817d4e313be088121a0ade91e526019a7269c7",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/record-intervals.csv": "efe3f29ee735037d755d73c02489fd3844be7bc57d837154759dc4a492e7ce59",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/result.json": "1573986f0743c3949337c00a2e9566c988db00bc63f81200897e818585e55b9c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/sampling-diagnostics.csv": "ef179e146327ae2a9caea59a219725b2e8cba5ca79edc05c1e67578a2fdda158",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/sampling-start.json": "99165f1392fd6fd3588d7de64a85927a53c79719a24ef0de8cd6ec1fa1749739",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-base-coastal-only/summary.json": "c5c58ea47aa4a5d3f704996030e5096224d8b1b1814ea1f32cd8b9ade8251592",
+    "data/processed/models/arrival-sensitivity-v1/ms5-ncei-distance-scale-base-coastal-only.nc": "4ea95fd2c666f38c65e993b0a2f1e72f58f3bd904ce1c231705f31636403cb1f"
+  }
+}
