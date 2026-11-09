@@ -1,0 +1,10 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/unresolved-era2014-audit.py.txt": "c8b5db4d2cfd0f1c2bcc7a8c0bcfb16aaf57c56c8f6ec9d961716ee87c6ad193",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/unresolved-era2014-diagnosis.json": "767b4bc256dfd9323826941c8ec395439a3ef3b08eb2d7672a192caa9652900a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/unresolved-era2014-divergence-diagnosis.png": "a5c70a50e70b747870481efbcb1b4edfb7b7ef0eda3758ac4d3702c21dfe211f"
+  },
+  "reserved_outcomes": "sealed",
+  "scope": "diagnostic evidence for unresolved case; no posterior interpretation or third attempt"
+}

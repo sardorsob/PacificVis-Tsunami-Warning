@@ -1,4 +1,4 @@
-"""Summarize 55 accepted logical sensitivities and retain both failed-call histories."""
+"""Summarize 54 usable sensitivity fits and preserve the unresolved probe and three failures."""
 
 from __future__ import annotations
 

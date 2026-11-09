@@ -1,0 +1,69 @@
+from pathlib import Path
+import json,tomllib
+import numpy as np,xarray as xr
+from scipy.linalg import cho_factor,cho_solve
+from scipy.stats import norm,halfnorm
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from analysis.arrival.model_data import TARGET_FILES,METADATA,SPLIT,lane_arrays
+from analysis.arrival.evidence import read_rows,sha256
+from analysis.arrival.model_scale import build_scale_model,scale_weights
+from analysis.arrival.models import read_prior
+from analysis.arrival.model_validation import sampling_diagnostics
+root=Path.cwd();case='ms5-numerical-protocol-v2-036-attempt-2';folder=root/'artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/jobs'/case
+raw=root/'data/processed/models/arrival-sensitivity-numerical-protocol-v2'/f'{case}.nc'
+assert sha256(raw)=='8a64ff86e24796377b68d5f7c2f9fae5c42d720c33a71ee60a85f35c182751ca'
+execution=json.loads((folder/'job.json').read_text());job=execution['original_job'];inputs=json.loads((folder/'inputs.json').read_text())
+for p in ['job.json','sampling-start.json']:assert json.loads((folder/p).read_text())==execution
+with xr.open_datatree(raw,engine='h5netcdf') as tree:
+ p=tree['posterior'].to_dataset().load();s=tree['sample_stats'].to_dataset().load();o=tree['observed_data'].to_dataset().load();diag,table=sampling_diagnostics(tree)
+assert diag==json.loads((folder/'diagnostics.json').read_text())
+assert table.to_csv(na_rep='unknown')==(folder/'sampling-diagnostics.csv').read_text()
+meta=read_rows(root/METADATA);split=tomllib.loads((root/SPLIT).read_text())
+lane=lane_arrays('NCEI-native-duration',read_rows(root/TARGET_FILES['NCEI-native-duration']),{m['event_id']:m['sequence_group'] for m in meta},set(split['exploration']))
+lookup={e:i for i,e in enumerate(lane.record_ids)};ids=np.array([lookup[e] for e in job['training_record_ids']])
+assert len(ids)==150 and len(set(lane.event_ids[i] for i in ids))==5
+assert list(o.record.values)==job['training_record_ids']
+for key,v in [('native_minutes',lane.y),('response',lane.response),('distance_km',lane.distance_km),('reference_minutes',lane.reference_minutes)]:np.testing.assert_array_equal(o[key],v[ids])
+prior=read_prior(root,lane.target,'base');assert inputs['base_prior']==prior and job['prior_variant']=='base'
+weights=scale_weights(lane.distance_km[ids]);x=lane.x[ids];y=lane.response[ids];events=sorted(set(lane.event_ids[i] for i in ids));Z=np.array([[float(lane.event_ids[i]==e) for e in events] for i in ids]);X=np.column_stack([np.ones(len(ids)),x])
+a=np.column_stack([p.alpha.values.ravel(),p.beta.values.ravel(),p.tau_event.values.ravel(),p.sigma_anchor.values.reshape(-1,3)])
+q=a.copy();q[:,2:]=np.log(q[:,2:]);d=s.diverging.values.ravel();ed=s.divergence_energy_error.values.ravel()
+model=build_scale_model(lane,prior,indices=ids);logp=model.compile_logp();grad=model.compile_dlogp()
+
+def dense(v,gradient=False):
+ b=v[:2];tau=np.exp(v[2]);anchors=np.exp(v[3:]);sd=weights@anchors
+ C=np.diag(sd*sd)+tau*tau*(Z@Z.T);ch=cho_factor(C,lower=True);res=y-X@b;z=cho_solve(ch,res);inv=cho_solve(ch,np.eye(len(y)))
+ value=-.5*(len(y)*np.log(2*np.pi)+2*np.log(np.diag(ch[0])).sum()+res@z)
+ value+=norm.logpdf(b[0],scale=prior['alpha_sd'])+norm.logpdf(b[1],scale=prior['beta_sd'])+halfnorm.logpdf(tau,scale=prior['tau_sd'])+halfnorm.logpdf(anchors,scale=prior['sigma_sd']).sum()+v[2:].sum()
+ gb=X.T@z-b/np.array([prior['alpha_sd'],prior['beta_sd']])**2
+ gt=tau*(np.sum((Z.T@z)**2)-np.trace(Z.T@inv@Z))
+ gs=weights.T@(sd*(z*z-np.diag(inv)))
+ g=np.r_[gb,tau*(gt-tau/prior['tau_sd']**2)+1,anchors*(gs-anchors/prior['sigma_sd']**2)+1]
+ return (float(value),g) if gradient else float(value)
+
+indices=[int(np.nanargmax(np.where(d,ed,np.nan))),int(np.argmin(a[:,2])),int(np.where(d)[0][0]),int(np.argmin(np.sum(((q-np.median(q,axis=0))/q.std(axis=0))**2,axis=1))),int(np.argmax(a[:,2]))]
+indices=list(dict.fromkeys(indices));regular_low=int(np.argmin(np.where(d.ravel(),np.inf,a[:,2])));indices+=[] if regular_low in indices else [regular_low]
+checks=[]
+for i in indices:
+ v=q[i];point={'alpha':v[0],'beta':v[1],'tau_event_log__':v[2],'sigma_anchor_log__':v[3:]};dl,dg=dense(v,True);pl=float(logp(point));pg=grad(point)
+ h=1e-5;fd=np.array([(dense(v+np.eye(6)[k]*h)-dense(v-np.eye(6)[k]*h))/(2*h) for k in range(6)])
+ checks.append(dict(flat_index=i,chain=i//2000,draw=i%2000,divergent=bool(d[i]),tau=float(a[i,2]),logp=pl,dense_logp=dl,logp_difference=pl-dl,gradient_max_difference=float(np.max(abs(pg-dg))),dense_gradient_fd_max_difference=float(np.max(abs(dg-fd))),sampler_logp_difference=float(s.logp.values.ravel()[i]-pl)))
+ assert abs(pl-dl)<1e-7 and np.max(abs(pg-dg))<1e-6 and np.max(abs(dg-fd))<1e-5
+print('DENSE',json.dumps(checks,indent=2))
+percentiles=np.array([np.searchsorted(np.sort(a[:,k]),a[d,k])/len(a) for k in range(6)]).T
+print('NECK_COUNTS',json.dumps({'divergences':int(d.sum()),'div_by_chain':s.diverging.sum('draw').values.tolist(),'tau_div_below_5pct':int((percentiles[:,2]<.05).sum()),'tau_div_below_10pct':int((percentiles[:,2]<.1).sum()),'tau_regular_below_5pct':int((a[~d,2]<np.quantile(a[:,2],.05)).sum()),'beta_div_below_10pct':int((percentiles[:,1]<.1).sum()),'div_fisher_median':float(np.median(s.fisher_distance.values.ravel()[d])),'regular_fisher_median':float(np.median(s.fisher_distance.values.ravel()[~d])),'bfmi':(np.mean(np.diff(s.energy.values,axis=1)**2,axis=1)/np.var(s.energy.values,axis=1)).tolist(),'mean_tree_accept_by_chain':s.mean_tree_accept.mean('draw').values.tolist()},indent=2))
+# No scientific publication claim; diagnostic positions retained in original order.
+plt.rcParams.update({'font.size':12});fig,ax=plt.subplots(2,2,figsize=(13,9),constrained_layout=True)
+for axis,j,label in [(ax[0,0],1,'Distance slope beta'),(ax[0,1],3,'Near residual SD sigma(500 km)')]:
+ axis.scatter(a[:,2],a[:,j],s=6,c='0.65',alpha=.22,rasterized=True);axis.scatter(a[d,2],a[d,j],s=38,c='#c53326',edgecolors='black',linewidths=.4,label='1 divergent transition');axis.set_xscale('log');axis.set_xlabel('Event SD tau (log axis)');axis.set_ylabel(label);axis.legend(fontsize=10)
+for chain in range(4):ax[1,0].plot(np.arange(2000),p.tau_event.values[chain],linewidth=.55,alpha=.65,label=f'Chain {chain+1}')
+ax[1,0].set_xlabel('Retained draw');ax[1,0].set_ylabel('Event SD tau');ax[1,0].legend(ncol=2,fontsize=10)
+for chain in range(4):ax[1,1].hist(s.energy.values[chain],bins=45,density=True,histtype='step',linewidth=1.4,label=f'Chain {chain+1}')
+ax[1,1].set_xlabel('Hamiltonian energy (recorded sampler units)');ax[1,1].set_ylabel('Density');ax[1,1].legend(fontsize=10)
+fig.suptitle('One divergence remains after the prespecified numerical repair',fontsize=17)
+fig.supxlabel('Unresolved second 2014+ attempt:150 records,5 events; all8000 draws retained. Red marks are retained states, not failed trajectory endpoints.',fontsize=11)
+fig.savefig('/tmp/s5-era2014-second-divergence-diagnosis.png',dpi=150)
+report={'raw_sha256':sha256(raw),'diagnostics':diag,'density_checks':checks,'parameter_order':['alpha','beta','log_tau','log_s500','log_s2000','log_s5000'],'correlation':np.corrcoef(q.T).tolist(),'divergence_indices':np.argwhere(s.diverging.values).tolist(),'tau_div_below5pct':int((percentiles[:,2]<.05).sum()),'tau_div_below10pct':int((percentiles[:,2]<.1).sum()),'distance_bin_counts':{'below500':int((o.distance_km.values<500).sum()),'500to2000':int(((o.distance_km.values>=500)&(o.distance_km.values<2000)).sum()),'2000to5000':int(((o.distance_km.values>=2000)&(o.distance_km.values<5000)).sum()),'5000plus':int((o.distance_km.values>=5000).sum())},'anchor_weight_sums':weights.sum(0).tolist()}
+Path('/tmp/s5-era2014-second-diagnosis.json').write_text(json.dumps(report,indent=2));print('DIAG',diag);print('SUPPORT',report['distance_bin_counts'],report['anchor_weight_sums'])

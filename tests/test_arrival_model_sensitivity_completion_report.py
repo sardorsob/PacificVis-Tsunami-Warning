@@ -1,4 +1,4 @@
-"""Synthetic schema2 report admission; no native data, NetCDF, sampling or Gates."""
+"""Synthetic schema3 report admission; no native data, NetCDF, sampling or Gates."""
 
 # pyright: basic
 from __future__ import annotations
@@ -54,6 +54,8 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
     accepted = []
     for original, view in zip(jobs, new, strict=True):
         order = original["order"]
+        if order == 36:
+            continue
         producer = (
             "repair_v1" if order == 34 else "numerical_protocol" if order >= 36 else "original"
         )
@@ -117,13 +119,21 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
             receipt_sha256=sha256(receipt),
         )
         if order >= 36:
-            entry.update(run_id="numerical-protocol-v2", execution_gate=report.NUMERICAL_GATE)
+            entry.update(
+                run_id="numerical-protocol-v2",
+                execution_gate=report.EXECUTION_GATE,
+                worker_spec_gate=report.NUMERICAL_GATE,
+            )
         accepted.append(entry)
     failures = []
-    for order in [34, 36]:
+    for order, attempt in [(34, 1), (36, 1), (36, 2)]:
         job = jobs[order]
-        folder = root / old.fit.OUTPUT / "jobs" / job["id"]
-        raw = root / old.fit.STORE / (job["id"] + ".nc")
+        execution = execution_jobs[0] if attempt == 2 else job
+        if attempt == 2:
+            folder, raw = numerical.case_paths(root, execution)
+        else:
+            folder = root / old.fit.OUTPUT / "jobs" / job["id"]
+            raw = root / old.fit.STORE / (job["id"] + ".nc")
         paths = (
             [
                 folder / n
@@ -139,8 +149,8 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
             ]
             + [raw]
             + [
-                folder.with_name(folder.name + s)
-                for s in ["-spec.json", ".log", ".supervisor.json"]
+                folder.with_name(folder.name + suffix)
+                for suffix in ["-spec.json", ".log", ".supervisor.json"]
             ]
         )
         for path in paths:
@@ -149,46 +159,76 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
         write_json(
             folder / "result.json",
             dict(
-                job=job,
+                job=execution,
                 status="diagnostic_failure",
                 posterior=str(raw.relative_to(root)),
                 posterior_sha256=sha256(raw),
             ),
         )
         files = {str(path.relative_to(root)): sha256(path) for path in paths}
-        receipt = folder / "attempt-evidence.json"
-        write_json(receipt, {"case_id": job["id"], "files": files})
-        failures.append(
-            dict(
-                order=order,
-                case_id=job["id"],
-                original_job=job,
-                execution_job=job,
-                attempt=1,
-                charged_slots=1,
-                start_markers=1,
-                outcome="needs_review",
-                files=files,
-                receipt=str(receipt.relative_to(root)),
-                receipt_sha256=sha256(receipt),
-                physical_files={**files, str(receipt.relative_to(root)): sha256(receipt)},
-                posterior=str(raw.relative_to(root)),
-                posterior_sha256=sha256(raw),
+        physical = dict(files)
+        if order == 34:
+            receipt = folder / "attempt-evidence.json"
+            write_json(receipt, {"case_id": job["id"], "files": files})
+            physical[str(receipt.relative_to(root))] = sha256(receipt)
+        else:
+            control = report.NUMERICAL_OUTPUT if attempt == 2 else report.first_completion.OUTPUT
+            receipt = root / control / "attempts" / (execution["id"] + ".json")
+            write_json(
+                receipt,
+                dict(
+                    case_id=job["id"],
+                    execution_job=execution,
+                    outcome="needs_review",
+                    charged_slots=1,
+                    start_markers=1,
+                ),
             )
+            files[str(receipt.relative_to(root))] = sha256(receipt)
+        failure = dict(
+            order=order,
+            case_id=job["id"],
+            original_job=job,
+            execution_job=execution,
+            attempt=attempt,
+            charged_slots=1,
+            start_markers=1,
+            outcome="needs_review",
+            files=files,
+            receipt=str(receipt.relative_to(root)),
+            receipt_sha256=sha256(receipt),
+            physical_files=physical,
+            posterior=str(raw.relative_to(root)),
+            posterior_sha256=sha256(raw),
         )
+        if attempt == 2:
+            failure.update(producer="numerical_protocol", execution_gate=report.NUMERICAL_GATE)
+        failures.append(failure)
+    unresolved = [
+        dict(
+            case_id=jobs[36]["id"],
+            order=36,
+            original_job=jobs[36],
+            status="computationally_unresolved",
+            failed_attempts=failures[1:],
+            no_third_attempt=True,
+            posterior=None,
+        )
+    ]
     prerequisites = {
         "original_plan": old.PLAN,
-        "gate_path": report.NUMERICAL_GATE,
-        "baseline_state": report.NUMERICAL_OUTPUT + "/baseline-state.json",
-        "baseline_registry": report.NUMERICAL_OUTPUT + "/baseline-registry.json",
-        "baseline_review": report.SCIENTIFIC_REVIEWS["baseline_v2"],
-        "pilot_review": report.NUMERICAL_OUTPUT + "/pilot-review-acceptance.json",
+        "worker_spec_gate": report.NUMERICAL_GATE,
+        "execution_authority_gate": report.EXECUTION_GATE,
+        "baseline_state": report.CONTROL + "/baseline-state.json",
+        "baseline_registry": report.CONTROL + "/baseline-registry.json",
+        "disposition_review": report.SCIENTIFIC_REVIEWS["unresolved_case"],
+        "pilot_review": report.CONTROL + "/pilot-review-acceptance.json",
     }
     for name in prerequisites.values():
         if not (root / name).exists():
             write_json(root / name, {"synthetic": "prerequisite"})
     for label, path in report.SCIENTIFIC_REVIEWS.items():
-        if label == "numerical_v2":
+        if label in {"remaining", "unresolved_case"}:
             continue
         write_json(
             root / path,
@@ -201,45 +241,65 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
             ),
         )
     pins = {str(p.relative_to(root)): sha256(p) for p in root.rglob("*") if p.is_file()}
+    disposition = report.SCIENTIFIC_REVIEWS["unresolved_case"]
+    write_json(
+        root / disposition,
+        dict(
+            status=report.SCIENCE_STATUSES["unresolved_case"],
+            independent_checker=True,
+            confirmation_outcomes_parsed=False,
+            reserved_outcomes="sealed",
+            no_third_case36_attempt=True,
+            files={k: v for k, v in pins.items() if k != disposition},
+        ),
+    )
+    pins[disposition] = sha256(root / disposition)
     original_admission = dict(
         files=original_pins, gate={"jobs": jobs}, contract={"source": "fixed"}
     )
-    admission = dict(
+    worker = dict(
         files=dict(pins),
         original_admission=original_admission,
         original_jobs=jobs,
         accepted_prefix=accepted[:36],
-        failed_attempts=failures,
+        failed_attempts=failures[:2],
         jobs=execution_jobs,
         gate={"protocol": dict(numerical.PROTOCOL), "run_id": "numerical-protocol-v2"},
     )
+    admission = dict(
+        files=dict(pins),
+        original_admission=original_admission,
+        worker_admission=worker,
+        original_jobs=jobs,
+        accepted_prefix=accepted[:36],
+        failed_attempts=failures,
+        unresolved_cases=unresolved,
+        jobs=execution_jobs[1:],
+        gate={"protocol": dict(numerical.PROTOCOL), "run_id": "remaining-sensitivities-v1"},
+    )
     mapping = {
-        jobs[i]["id"]: dict(
-            posterior=accepted[i]["posterior"], posterior_sha256=accepted[i]["posterior_sha256"]
+        jobs[34]["id"]: dict(
+            posterior=accepted[34]["posterior"], posterior_sha256=accepted[34]["posterior_sha256"]
         )
-        for i in [34, 36]
     }
     protocol = dict(
         protocol=dict(numerical.PROTOCOL),
         first_attempt_original_case_ids=[j["id"] for j in jobs[37:]],
-        execution_jobs=execution_jobs,
+        execution_jobs=execution_jobs[1:],
     )
     summary = dict(
-        schema_version=2,
-        run_id="numerical-protocol-v2",
-        status="sensitivity_computations_complete",
-        logical_cases=55,
-        actual_sampler_calls=57,
-        calls_charged=57,
-        calls_started=57,
-        max_sampler_call_slots=110,
+        schema_version=3,
+        run_id="remaining-sensitivities-v1",
+        status="sensitivity_program_complete_with_unresolved_case",
+        **report.REPORT_COUNTS,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
         accepted=accepted,
         retained_failures=failures,
-        numerical_repair_mapping=mapping,
+        unresolved_cases=unresolved,
+        successful_numerical_repair_mapping=mapping,
         protocol_amendment=protocol,
-        completion_attempts=[{"synthetic": i} for i in range(19)],
+        completion_attempts=[{"synthetic": i} for i in range(18)],
         **prerequisites,
         **{k + "_sha256": pins[v] for k, v in prerequisites.items()},
     )
@@ -256,22 +316,20 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
     )
     monkeypatch.setattr(old.refs, "verify_reference_sources", lambda *a: None)
     science = dict(
-        status=report.SCIENCE_STATUSES["numerical_v2"],
+        status=report.SCIENCE_STATUSES["remaining"],
         independent_checker=True,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
         files=dict(pins),
-        execution_jobs=execution_jobs,
-        logical_cases=55,
-        actual_sampler_calls=57,
-        calls_charged=57,
-        calls_started=57,
+        execution_jobs=execution_jobs[1:],
+        **report.REPORT_COUNTS,
     )
-    path = report.SCIENTIFIC_REVIEWS["numerical_v2"]
+    path = report.SCIENTIFIC_REVIEWS["remaining"]
     write_json(root / path, science)
     pins = {**completed["files"], path: sha256(root / path)}
     gate = dict(
-        status="accepted_all_exploration_sensitivity_computations",
+        status="accepted_completed_sensitivity_program_with_unresolved_case",
+        **report.REPORT_COUNTS,
         independent_checker=True,
         confirmation_outcomes_parsed=False,
         reserved_outcomes="sealed",
@@ -280,7 +338,8 @@ def fixture(root, monkeypatch) -> tuple[dict[str, Any], dict[str, Any], list[dic
         scientific_reviews=report.SCIENTIFIC_REVIEWS,
         accepted=accepted,
         retained_failures=failures,
-        numerical_repair_mapping=mapping,
+        successful_numerical_repair_mapping=mapping,
+        unresolved_cases=unresolved,
         protocol_amendment=protocol,
         files=pins,
     )
@@ -304,11 +363,13 @@ def forbid_reads(monkeypatch):
     forbid_case_replays(monkeypatch)
 
 
-def test_metadata_admission_preserves55_logical57_actual_two_failed_raw(tmp_path, monkeypatch):
+def test_metadata_admission_preserves55_probes54_valid57_calls_three_failed_raw(
+    tmp_path, monkeypatch
+):
     gate, _, _ = fixture(tmp_path, monkeypatch)
     forbid_reads(monkeypatch)
     checked = report.verify_report_sources(tmp_path)
-    assert checked["gate"] == gate and len(checked["accepted"]) == 55
+    assert checked["gate"] == gate and len(checked["accepted"]) == 54
     assert checked["run_summary"]["actual_sampler_calls"] == 57
 
 
@@ -328,7 +389,7 @@ def test_metadata_admission_preserves55_logical57_actual_two_failed_raw(tmp_path
         "gate-consumer",
         "private-state",
         "unknown-producer",
-        "repair-as-first-attempt",
+        "first-attempt-as-repair",
         "unknown-file",
         "missing-science",
         "proof-contract",
@@ -348,13 +409,13 @@ def test_all_provenance_failures_precede_body_reads(tmp_path, monkeypatch, mutat
         "repair-path",
         "repair-job",
         "unknown-producer",
-        "repair-as-first-attempt",
+        "first-attempt-as-repair",
     }:
         entry = checked["summary"]["accepted"][36]
         field, value = {
             "order": ("order", 35),
             "role": ("source_role", "original"),
-            "repair-as-first-attempt": ("source_role", "numerical_protocol"),
+            "first-attempt-as-repair": ("source_role", "numerical_repair"),
             "repair-path": ("posterior", "wrong.nc"),
             "repair-job": ("execution_job", entry["original_job"]),
             "unknown-producer": ("producer", "unknown"),
@@ -381,7 +442,7 @@ def test_all_provenance_failures_precede_body_reads(tmp_path, monkeypatch, mutat
             tmp_path / Path(checked["summary"]["accepted"][36]["receipt"]).parent / "extra.txt"
         ).write_text("unexpected")
     elif mutation == "missing-science":
-        gate["files"].pop(report.SCIENTIFIC_REVIEWS["numerical_v2"])
+        gate["files"].pop(report.SCIENTIFIC_REVIEWS["remaining"])
     elif mutation == "proof-contract":
         gate["report_proof_contract"] = {}
     elif mutation == "failed-map":
@@ -441,7 +502,7 @@ def collection_fixture(root, monkeypatch):
     return gate, checked, new, original_calls, repair_calls, historical, simulated
 
 
-def test_exact35_original_one_repair19_numerical_without_cold_replay_and69_views(
+def test_exact35_original_one_repair18_numerical_without_cold_replay_and68_views(
     tmp_path, monkeypatch
 ):
     _, checked, new, originals, repairs, historical, simulated = collection_fixture(
@@ -449,24 +510,26 @@ def test_exact35_original_one_repair19_numerical_without_cold_replay_and69_views
     )
     result, provenance, pins, run = report.collect_views(tmp_path)
     assert originals == repairs == []
-    assert len(result) == 69 and len(provenance) == 14
+    assert len(result) == 68 and len(provenance) == 14
     assert [
-        sum(v["provenance"].get("source_role") == role for v in result[:55])
+        sum(v["provenance"].get("source_role") == role for v in result[:54])
         for role in ["original", "numerical_repair", "numerical_protocol"]
-    ] == [35, 2, 18]
+    ] == [35, 1, 18]
     assert historical == [d["key"] for d in report.old.refs.descriptors()]
     assert simulated == [(2916110800 + 1000 * i, 800) for i in range(14)]
-    assert [v["view_id"] for v in result[:55]] == [
-        j["id"] for j in checked["admission"]["original_jobs"]
+    assert [v["view_id"] for v in result[:54]] == [
+        j["id"] for j in checked["admission"]["original_jobs"] if j["order"] != 36
     ]
-    assert [v["summary"] for v in result[:55]] == [v["summary"] for v in new]
+    assert [v["summary"] for v in result[:54]] == [
+        v["summary"] for i, v in enumerate(new) if i != 36
+    ]
     repaired = result[34]
     assert repaired["scenario"] == "era-pre2007" and repaired["prior_variant"] == "base"
     assert repaired["provenance"]["prediction_seed"] == 2886144801
     assert repaired["provenance"]["execution_job"]["sampler"]["tune"] == 2000
     assert repaired["provenance"]["execution_job"]["sampler"]["target_accept"] == 0.99
     assert repaired["provenance"]["posterior"] == report.repair.STORE
-    assert sum(v["provenance"].get("new_sampler_calls", 0) for v in result) == 55
+    assert sum(v["provenance"].get("new_sampler_calls", 0) for v in result) == 54
     assert run["actual_sampler_calls"] == 57 and pins[report.GATE] == sha256(tmp_path / report.GATE)
 
 
@@ -474,9 +537,9 @@ def test_exact35_original_one_repair19_numerical_without_cold_replay_and69_views
 def test_resealed_corruptions_are_not_accepted_by_matching_hashes(tmp_path, monkeypatch, mutation):
     gate, checked, _ = fixture(tmp_path, monkeypatch)
     if mutation == "mapping":
-        checked["summary"]["numerical_repair_mapping"][report.repair.ORIGINAL_ID]["posterior"] = (
-            checked["summary"]["accepted"][0]["posterior"]
-        )
+        checked["summary"]["successful_numerical_repair_mapping"][report.repair.ORIGINAL_ID][
+            "posterior"
+        ] = checked["summary"]["accepted"][0]["posterior"]
     elif mutation == "counter":
         checked["summary"]["calls_charged"] = checked["summary"]["calls_started"] = checked[
             "summary"
@@ -532,22 +595,26 @@ def test_report_reuses_pure_tables_figures_findings_and_reconciles_counts(tmp_pa
             for ext in ["png", "svg"]:
                 (output / f"{name}.{ext}").write_text("synthetic plotting artifact")
 
-    monkeypatch.setattr(report.old, "figures", figures)
+    monkeypatch.setattr(report, "figures", figures)
     output = tmp_path / "report"
     report.report(tmp_path, output)
     summary = json.loads((output / "summary.json").read_text())
-    assert summary["views"] == 69 and summary["accepted_logical_fits"] == 55
+    assert summary["views"] == 68 and summary["accepted_logical_fits"] == 54
     assert summary["actual_sampler_calls"] == summary["calls_charged"] == 57
-    assert summary["retained_failed_calls"] == 2 and summary["selection"] == "none"
+    assert summary["retained_failed_calls"] == 3 and summary["selection"] == "none"
     assert tuple(summary["qualifications"]) == report.old.QUALIFICATIONS
     assert len(figure_calls) == 1 and set(figure_calls[0]) == set(report.TABLES)
     text = (output / "findings.md").read_text()
     assert "scripts/summarize_arrival_completed_sensitivities.py" in text
     assert "scripts/summarize_arrival_sensitivities.py" not in text
     assert "2,000 tuning draws" in text and "target_accept=0.99" in text
-    assert "failed diagnostics" in text and "neither failed summary is used" in text
+    assert "failed diagnostics" in text and "computationally unresolved" in text
+    assert text.index("computationally unresolved") < text.index("54 usable fits")
+    assert "favor curvature" in text and "150 original observations" in text
+    assert len(summary["probe_dispositions"]) == 55
+    assert summary["probe_dispositions"][36]["posterior"] is None
     manifest = json.loads((output / "output-checksums.json").read_text())
-    assert len(manifest) == 13 and all(sha256(output / n) == h for n, h in manifest.items())
+    assert len(manifest) == 14 and all(sha256(output / n) == h for n, h in manifest.items())
     before = copy.deepcopy(manifest)
     with pytest.raises(ValueError, match="new nonsymlink"):
         report.report(tmp_path, output)
@@ -557,7 +624,7 @@ def test_report_reuses_pure_tables_figures_findings_and_reconciles_counts(tmp_pa
 def test_end_drift_leaves_no_output_acceptance_manifest(tmp_path, monkeypatch):
     _, _, _, _, _, _, _ = collection_fixture(tmp_path, monkeypatch)
     monkeypatch.setattr(
-        report.old,
+        report,
         "figures",
         lambda *a: (tmp_path / report.CONSUMED[0]).write_text("drift after rendering"),
     )
@@ -583,7 +650,7 @@ def test_underlying_numerical_science_is_required_even_with_resealed_final_gate(
     tmp_path, monkeypatch, mutation
 ):
     gate, checked, _ = fixture(tmp_path, monkeypatch)
-    name = report.SCIENTIFIC_REVIEWS["numerical_v2"]
+    name = report.SCIENTIFIC_REVIEWS["remaining"]
     review = json.loads((tmp_path / name).read_text())
     if mutation == "counter":
         review["actual_sampler_calls"] = 56
@@ -601,9 +668,86 @@ def test_end_unknown_producer_file_blocks_publication_manifest(tmp_path, monkeyp
     _, checked, _, _, _, _, _ = collection_fixture(tmp_path, monkeypatch)
     folder = tmp_path / Path(checked["summary"]["accepted"][50]["receipt"]).parent
     monkeypatch.setattr(
-        report.old, "figures", lambda *a: (folder / "unexpected.txt").write_text("late file")
+        report, "figures", lambda *a: (folder / "unexpected.txt").write_text("late file")
     )
     output = tmp_path / "report"
     with pytest.raises(ValueError, match="physical inventory changed"):
         report.report(tmp_path, output)
     assert output.exists() and not (output / "output-checksums.json").exists()
+
+
+def test_tables_match_frozen_math_for_every_surviving_synthetic_view():
+    full = views()
+    sensitivities = [view for view in full if view["role"] == "sensitivity"]
+    unresolved_id = sensitivities[36]["view_id"]
+    subset = [view for view in full if view["view_id"] != unresolved_id]
+    expected = report.old.sensitivity_tables(full)
+    actual = report.sensitivity_tables(subset)
+    assert set(actual) == set(expected)
+    for name in expected:
+        assert actual[name] == [row for row in expected[name] if row["view_id"] != unresolved_id]
+        assert all(row["view_id"] != unresolved_id for row in actual[name])
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ["third-attempt", "posterior", "wrong-original", "lost-failure", "repair-mapping", "valid36"],
+)
+def test_resealed_unresolved_case_cannot_become_a_fit(tmp_path, monkeypatch, mutation):
+    gate, checked, _ = fixture(tmp_path, monkeypatch)
+    run = checked["summary"]
+    missing = run["unresolved_cases"][0]
+    if mutation == "third-attempt":
+        missing["no_third_attempt"] = False
+    elif mutation == "posterior":
+        missing["posterior"] = run["retained_failures"][-1]["posterior"]
+    elif mutation == "wrong-original":
+        missing["original_job"] = {**missing["original_job"], "seed": 1}
+    elif mutation == "lost-failure":
+        missing["failed_attempts"] = missing["failed_attempts"][:1]
+    elif mutation == "repair-mapping":
+        run["successful_numerical_repair_mapping"][missing["case_id"]] = {
+            "posterior": run["retained_failures"][-1]["posterior"]
+        }
+    else:
+        run["accepted"].insert(36, dict(run["retained_failures"][-1]))
+    write_json(tmp_path / report.COMPLETION_SUMMARY, run)
+    digest = sha256(tmp_path / report.COMPLETION_SUMMARY)
+    gate["files"][report.COMPLETION_SUMMARY] = checked["files"][report.COMPLETION_SUMMARY] = digest
+    write_json(tmp_path / report.GATE, gate)
+    forbid_reads(monkeypatch)
+    with pytest.raises(ValueError):
+        report.collect_views(tmp_path)
+
+
+def test_no_failed_summary_is_read_when_collecting54_views(tmp_path, monkeypatch):
+    _, checked, _, _, _, _, _ = collection_fixture(tmp_path, monkeypatch)
+    original = report.old._read
+    bad_folders = [str(Path(f["posterior"]).stem) for f in checked["summary"]["retained_failures"]]
+
+    def checked_read(root, pins, name):
+        if name.endswith(("summary.json", "inputs.json")) and "/jobs/" in name:
+            assert not any("/jobs/" + folder + "/" in name for folder in bad_folders)
+        return original(root, pins, name)
+
+    monkeypatch.setattr(report.old, "_read", checked_read)
+    result, *_ = report.collect_views(tmp_path)
+    assert len(result) == 68
+
+
+def test_unexpected_missing_heatmap_cell_raises(tmp_path):
+    full = views()
+    missing = [v for v in full if v["role"] == "sensitivity"][36]["view_id"]
+    tables = report.sensitivity_tables([v for v in full if v["view_id"] != missing])
+    name = report.TABLES[2]
+    rows = tables[name]
+    index = next(
+        i
+        for i, r in enumerate(rows)
+        if r["target"] == "NCEI-native-duration"
+        and r["kind"] == "mean-curvature"
+        and r["scenario"] == "era-2014plus"
+    )
+    del rows[index]
+    with pytest.raises(ValueError, match="only reviewed unresolved"):
+        report.figures(tables, tmp_path)
