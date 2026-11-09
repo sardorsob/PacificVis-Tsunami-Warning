@@ -1,0 +1,70 @@
+{
+  "attempt_status_changed": false,
+  "authority_gate": "artifacts/models/arrival-timing/development-design-v1/completion-after-gap-v1/full_design_recovery/review-acceptance.json",
+  "authority_gate_sha256": "9fb1c6fc0372153e30383a4455b059425895224bd3b1dcb9b6918b9512f1a3fd",
+  "elapsed_seconds": 83.60504875006154,
+  "exception": {
+    "message": "independent full-design density/gradient oracles must replay",
+    "traceback": "Traceback (most recent call last):\n  File \"/private/tmp/diagnose_g0_artifact_proof.py\", line 10, in <module>\n    proof=j.process_proof(root,a,job,allocation,{})\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/scripts/run_arrival_development_journal.py\", line 411, in process_proof\n    worker_files = _worker_files(root, a, job, cache)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/scripts/run_arrival_development_journal.py\", line 374, in _worker_files\n    a[\"worker\"].case_artifacts(root, job, source)[\"files\"],\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/analysis/arrival/model_development_recovery.py\", line 689, in case_artifacts\n    raise ValueError(\"independent full-design density/gradient oracles must replay\")\nValueError: independent full-design density/gradient oracles must replay\n",
+    "type": "ValueError"
+  },
+  "files": {
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/full_design_recovery/full-smoke-0-a.json": "da4585cd461744a39fc47b3667aa9df3bcf90e1d8086c7f4b8f6f4ad0a812bbf",
+    "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/attempts/full_design_recovery/full-smoke-0-a.json": "e86a354f1a1e9a28615bf9178b9b23aa5b1d725f9a415b4be29d151b51500441",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a-spec.json": "57bfac30836a657bd602795bb059a0c754fb63237491ff3baad0fe225d013e4b",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a.log": "490692c502f3af818422f3fcf440195e5f148cc52f2ba470d47c246b9de24b02",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a.supervisor.json": "b835c3729d3ce87eeeca963b06c02efbb2a5a036e79b8d58157095c8e0462837",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/conditional-ppc.csv": "a3711d38341bfa61c404f27212dc64b0da1c65a657874c7e7aafd3a853bbc963",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/curves.csv": "979040f4e502f5658f96bfd39720db44e07ecd18ce3edcc56b4811779dd33ae5",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/derived.csv": "3b8df9944364e0276642d1bf699989f36db421f9253561c44394d8c07d292274",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/diagnostics.json": "b45973c6d1001e8d668b25a6cd466ba6ea177d497c84ad33c399ddf238c9696f",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/inputs.json": "dd7f1d63278b34623c997646c1cd73c6eb6465be2ce2fbf19643ddd87e67d2f6",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/job.json": "57bfac30836a657bd602795bb059a0c754fb63237491ff3baad0fe225d013e4b",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/membership.json": "81ce8f699b878ceaf43de636defb3e66bd354459780183fbd3b0d7dbb5e9c871",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/numerical-oracles.json": "b539ec76b634ab582fe6db67b300c84a93f7d67e9fd1b3056553a4020c7037ea",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/output-checksums.json": "7e26a0091813bbca7164391aadd538e550c76cf6e0cd375e01dbdc044651ddeb",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/parameters.csv": "74943d6bdf4884ac9be4f11c1a21a2b69f4e8f9b1f89c39e6fa2f161043a5707",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/prior-settings.json": "eeb5b0768ee75b5dfbdacc0dcbb8eff1019c4611c55e41b4e0ed1f8fd6fa5011",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/record-intervals.csv": "ee76ef33a63db401a2db3b35d5a27ff39116e4e83a3a27b4532db618f3b29bc8",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/result.json": "de1e1358ae4df8d6cd0fb0aacb436740c31f2f2fda34f34fffc01c744f0be31b",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/sampling-diagnostics.csv": "a71778478d6c6827d029c18e819ded9a7ab2b019823137cc31a1ca14b8b88f4a",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/sampling-start.json": "57bfac30836a657bd602795bb059a0c754fb63237491ff3baad0fe225d013e4b",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/summary.json": "537ed8e0ed908a730debf43296cf6da6c6618b24620744237b0b6d560345ca78",
+    "artifacts/models/arrival-timing/full-development-recovery-v1/jobs/full-smoke-0-a/truth-quantiles.csv": "8095fe23a3964a1155391fe869934064105d49f69597f9f4533e5d9bc2f1a155",
+    "data/processed/models/arrival-development-recovery-v1/full-smoke-0-a.nc": "bd29f67ec725326efda9805f650af3f8cae033a4a5f7f28bdc3902edb71ed13c"
+  },
+  "independent_checker": true,
+  "job": {
+    "case": "A",
+    "conditional_seed": 2966110803,
+    "design_protocol_sha256": "2741a6727e6d150cb82b47caf834b9db5c36e166f003a4aeda2d25f1943df025",
+    "id": "full-smoke-0-a",
+    "model_key": "NCEI-native-duration:mean-curvature:selected",
+    "model_spec_sha256": "f0542d2665895808dbba2f5339488bbed08ebefaf33731eed687d0e3eac03a50",
+    "order": 0,
+    "protocol_sha256": "918c1ca8b803c15dd552e33fde2383b63170ff3d3eeec2958024ca605e2b3062",
+    "role": "full_design_recovery",
+    "sampler_seed": 2966110802,
+    "simulator_seed": 2966110801,
+    "truth": {
+      "alpha": 0.15,
+      "beta": -0.05,
+      "gamma": 0.0,
+      "sigma_anchor": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "tau_event": 0.25
+    },
+    "truth_sha256": "42844fb3bf4d3b0927555309b4dcedd35d380e98c9553c3c5ff92c86207f0bd7"
+  },
+  "new_sampler_calls": 0,
+  "project_files_written": false,
+  "sampler_calls_charged": 1,
+  "sampler_calls_started": 1,
+  "source_admission_files": 14981,
+  "status": "retained_original_artifact_proof_failure_reproduced",
+  "worker_gate": "artifacts/models/arrival-timing/full-development-recovery-design-v1/review-acceptance.json",
+  "worker_gate_sha256": "dc71468ca00980dff07e6e322452a1e8c07146aceea3baa49fa248a40bfe250c"
+}

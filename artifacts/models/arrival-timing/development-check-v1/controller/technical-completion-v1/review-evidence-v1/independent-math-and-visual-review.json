@@ -1,0 +1,58 @@
+{
+  "Source_Gates_STATE_project_or_context_written": false,
+  "actual_runtime_QA": {
+    "path": "/private/tmp/tsunami-g0-closed-runtime-qa.json",
+    "sha256": "4ee01a8ecd2791055ddd112a5ae7487ec7b6c2a987fdf9f5978552e17354871a"
+  },
+  "audit_code": {
+    "path": "/private/tmp/audit-ms6-G0-closed-diagnostic.py",
+    "sha256": "52134b727263933b903c4360f303a78317b8f4ab8840f1d125ddfa2d68d197c8"
+  },
+  "controlled_diagnostic_env": {
+    "MPLCONFIGDIR": "/private/tmp/tsunami-G0-science-mpl",
+    "NUMBA_CACHE_DIR": "/private/tmp/tsunami-G0-science-numba",
+    "OMP_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "PYTENSOR_FLAGS": "base_compiledir=/private/tmp/tsunami-G0-science-pytensor,compiledir=/private/tmp/tsunami-G0-science-pytensor/compiled",
+    "VECLIB_MAXIMUM_THREADS": "2"
+  },
+  "controlled_oracle_dict_exact_equality": true,
+  "controlled_regenerated_oracles_passed": true,
+  "controller_attempt_unchanged": "needs_review",
+  "diagnostic_harness_precondition_issue": {
+    "correction": "Used genuine freshly regenerated seeded summary, asserted full equality with saved JSON, then all5 summaryCSV/truthCSV literal replays passed. No producer defect inferred.",
+    "discarded_alert": "Parsed sorted-key summary JSON was initially supplied to F._replay_table, changing the expected sorting-column order."
+  },
+  "figures": {
+    "/private/tmp/ms6-G0-closed-scientific-diagnostic/energy.png": "9410a14356cda935e3c8023e3cad182a73af6bbe9578f1653cf7aed4d6ac16b3",
+    "/private/tmp/ms6-G0-closed-scientific-diagnostic/trace-rank.png": "2ffc264b19348fd4bf1f51c21d9c9f2104f5bcfa8d72b8681d886d3afdab5f2a"
+  },
+  "fresh_seeded_summary_and_all6_CSVs_passed": true,
+  "independent_checker": true,
+  "independent_math_passed": true,
+  "new_sampler_calls": 0,
+  "original_failure_cause_not_yet_isolated": true,
+  "original_saved_oracles_passed": true,
+  "original_verifier_failure": {
+    "message": "independent full-design density/gradient oracles must replay",
+    "receipt": "/private/tmp/tsunami-g0-original-artifact-proof-diagnosis.json",
+    "sha256": "c494152746190662674381917f1d442688fd708833c7c2b1bcb7b842735c6911",
+    "type": "ValueError"
+  },
+  "scientific_diagnostic": "/private/tmp/ms6-G0-closed-scientific-diagnostic/scientific-diagnostic.json",
+  "scientific_diagnostic_sha256": "f338d23cec6de2c093783201961c6e1d05c5e51c21ba4781faef9d8a8571fcd7",
+  "status": "independent_G0_math_and_visual_diagnostic_complete_original_verifier_failure_retained",
+  "technical_recovery_or_additional_execution_authorized": false,
+  "truth_inclusions": {
+    "coordinates": 7,
+    "pass_rule": false,
+    "within90": 7
+  },
+  "visual_review": {
+    "energy": "Centered-energy and energy-transition curves overlap across all4 styled chains; axes/nat units/source qualification readable; no clipping.",
+    "scope": "Visual checks supplement strict native diagnostics; one known-truth computation smoke does not establish calibration, coverage, bias or physical/operational validity.",
+    "status": "PASS_at_native_resolution",
+    "trace_rank": "All7 coordinates visible with readable axes/legend/source caption; no clipping. Four chain traces overlap; rank bins show no persistent chain-specific displacement. Maximum deviation27 from expected100 is descriptive. No divergence marks, consistent with strict0 count."
+  },
+  "worker_status_unchanged": "computed_pending_scientific_review"
+}
