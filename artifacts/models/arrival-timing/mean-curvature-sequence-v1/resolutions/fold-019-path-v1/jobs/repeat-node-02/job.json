@@ -1,0 +1,15 @@
+{
+  "cores": 2,
+  "draws": 2000,
+  "event_id": "usp000exfn",
+  "id": "repeat-node-02",
+  "kind": "mean-curvature",
+  "node": 2,
+  "path_role": "repeat",
+  "prior": "base",
+  "seed": 2876129952,
+  "sequence": "seq-usp000exfn",
+  "target": "NCEI-native-duration",
+  "temperature": 0.015625,
+  "tune": 1000
+}
