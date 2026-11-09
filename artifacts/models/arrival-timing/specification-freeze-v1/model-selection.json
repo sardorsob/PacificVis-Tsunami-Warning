@@ -1,0 +1,200 @@
+{
+  "accepted_ms5_report_review": "artifacts/models/arrival-timing/exploration-sensitivity-report-v1/review-acceptance.json",
+  "accepted_ms5_report_review_sha256": "3d4ae48e971efce9164b98dd625498d25a243256f8e0fd27a959e4a94a76093a",
+  "check_execution": {
+    "inherited_calls": {
+      "charged": 0,
+      "started": 0
+    },
+    "jobs": [
+      {
+        "id": "dev-ncei-mean-curvature-selected-check",
+        "model_key": "NCEI-native-duration:mean-curvature:selected",
+        "order": 0,
+        "role": "check_evaluate",
+        "seed": 2976110800,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      {
+        "id": "dev-ncei-distance-scale-runner-up-check",
+        "model_key": "NCEI-native-duration:distance-scale:runner_up",
+        "order": 1,
+        "role": "check_evaluate",
+        "seed": 2976110900,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      {
+        "id": "dev-tobs-pooled-selected-check",
+        "model_key": "T-OBS:pooled:selected",
+        "order": 2,
+        "role": "check_evaluate",
+        "seed": 2976111000,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      {
+        "id": "dev-tobs-distance-runner-up-check",
+        "model_key": "T-OBS:distance:runner_up",
+        "order": 3,
+        "role": "check_evaluate",
+        "seed": 2976111100,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      {
+        "id": "dev-tcal-distance-selected-check",
+        "model_key": "T-CAL:distance:selected",
+        "order": 4,
+        "role": "check_evaluate",
+        "seed": 2976111200,
+        "training_reference": {
+          "kind": "historical"
+        }
+      },
+      {
+        "id": "dev-tcal-pooled-runner-up-check",
+        "model_key": "T-CAL:pooled:runner_up",
+        "order": 5,
+        "role": "check_evaluate",
+        "seed": 2976111300,
+        "training_reference": {
+          "kind": "historical"
+        }
+      }
+    ],
+    "max_sampler_call_slots": 9
+  },
+  "confirmation_outcomes_parsed": false,
+  "decision_scope": "Working scientific specifications for a single previously EDA-inspected development check and subsequent selected-only full-development refits; no best-model or physical-validity certificate.",
+  "distance_mode": "geodesic_km",
+  "evidence_files": {
+    "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/review-acceptance.json": "a489d8379a68d88c816a7d220f0c0055f5fb16dc53afb8322d9443a20e939f27",
+    "artifacts/models/arrival-timing/exploration-sensitivity-report-v1/review-acceptance.json": "3d4ae48e971efce9164b98dd625498d25a243256f8e0fd27a959e4a94a76093a",
+    "artifacts/models/arrival-timing/sequence-predictive-comparison-v1/review-acceptance.json": "9a5b3f8c6f5b9690d2e2088722bf5a0bae5efb3644cfe1bad092e3c05f822f0f"
+  },
+  "evidence_paths": [
+    "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/review-acceptance.json",
+    "artifacts/models/arrival-timing/sequence-predictive-comparison-v1/review-acceptance.json",
+    "artifacts/models/arrival-timing/exploration-sensitivity-report-v1/review-acceptance.json"
+  ],
+  "implementation_git_sha": "397c313",
+  "limitations": [
+    "Separate source-specific likelihoods; no independent pooling across source clocks.",
+    "Substantial conditional PPC discrepancies remain; computational convergence does not establish scientific adequacy.",
+    "Era and omission probes do not identify a missingness mechanism or fix selection bias.",
+    "The19-event data were already inspected in EDA; the next frozen check is development evidence, not untouched confirmation.",
+    "Uniform purge of the crossing exploration sequence removes24NCEI training rows before every check model.",
+    "No re-selection, prior tuning, or model revision from the19-event results. Report all frozen comparisons and mismatches.",
+    "18reserved outcomes remain sealed; MS7 requires separate authorization.",
+    "Choosing a form without an event term for a small target does not establish that between-event physical heterogeneity is absent.",
+    "The archive does not provide balanced magnitude/region coverage; no broad transport claim follows from the selected empirical duration or calibration relation."
+  ],
+  "models": {
+    "NCEI-native-duration": [
+      {
+        "base_prior_sd": {
+          "alpha_sd": 0.5,
+          "beta_sd": 0.25,
+          "gamma_sd": 0.5,
+          "sigma_sd": 0.4,
+          "tau_sd": 0.4
+        },
+        "kind": "mean-curvature",
+        "prior_variant": "base",
+        "role": "selected",
+        "wider_prior_sd": null
+      },
+      {
+        "base_prior_sd": {
+          "alpha_sd": 0.5,
+          "beta_sd": 0.25,
+          "sigma_sd": 0.4,
+          "tau_sd": 0.4
+        },
+        "kind": "distance-scale",
+        "prior_variant": "base",
+        "role": "runner_up",
+        "wider_prior_sd": null
+      }
+    ],
+    "T-CAL": [
+      {
+        "base_prior_sd": {
+          "alpha_sd": 30.0,
+          "beta_sd": 15.0,
+          "sigma_sd": 30.0
+        },
+        "kind": "distance",
+        "prior_variant": "base",
+        "role": "selected",
+        "wider_prior_sd": null
+      },
+      {
+        "base_prior_sd": {
+          "alpha_sd": 30.0,
+          "sigma_sd": 30.0
+        },
+        "kind": "pooled",
+        "prior_variant": "base",
+        "role": "runner_up",
+        "wider_prior_sd": null
+      }
+    ],
+    "T-OBS": [
+      {
+        "base_prior_sd": {
+          "alpha_sd": 0.5,
+          "sigma_sd": 0.4
+        },
+        "kind": "pooled",
+        "prior_variant": "base",
+        "role": "selected",
+        "wider_prior_sd": null
+      },
+      {
+        "base_prior_sd": {
+          "alpha_sd": 0.5,
+          "beta_sd": 0.25,
+          "sigma_sd": 0.4
+        },
+        "kind": "distance",
+        "prior_variant": "base",
+        "role": "runner_up",
+        "wider_prior_sd": null
+      }
+    ]
+  },
+  "no_retuning_after_development_check": true,
+  "observation_contract": "config/arrival-model-contract-v1.toml",
+  "prior_decision": "Keep all reviewed base population priors: supported population-median sensitivity to the tested prior variants is small on the saved grid; this does not establish predictive-tail robustness. No additional CV claim is inherited by a nonbase prior. Priors were chosen after descriptive exploration, not expert elicitation.",
+  "rationale": {
+    "NCEI-native-duration": "Select curved mean with existing distance-varying residual SD and event effect; keep linear mean with same residual/event forms as runner-up. The accepted sequence CV point gain is 0.08389189150672258nats/record; descriptive clustered95% interval [-0.04872626774297359,0.21651005075641874] includes 0. Native near-field predictions differ materially and curve improves some held-out discrepancies, so the amended plan permits a working curved choice with an uncertain gain. Base gamma 0.545[0.420,0.676] remains 0.613[0.479,0.741] after jointly deleting Tohoku/Chile and0.552[0.426,0.679] with gamma prior widened. These are marginal posterior summaries, not predictive-score comparisons or physical curvature proof. Both forms retain substantial in-sample PPC misses; unresolved36 cannot favor curve. Era/subset differences require explicit scope limitations. Curvature is not stable across all era-only cohorts: gamma is 0.919 [0.680,1.144] before 2007, 0.461 [0.276,0.646] in 2007\u20132013, and -0.111 [-0.450,0.239] in 2014 onward (90% marginal posterior intervals). Those data-selected contrasts do not identify era causes or establish universal curvature; unresolved linear36 prevents the recent-era comparison of linear and curved mean forms.",
+    "T-CAL": "Select distance form with pooled runner-up: primary difference vs pooled 0.040850086157737664, descriptive clustered95% interval [-0.16003455505976577,0.2417347273752411], plus distinguishable distance-dependent signed timing pattern and modest predictive-error/width improvement. Event form offers only 0.020466925668126364 vs distance, interval [-0.09880142383494697,0.13973527517119969], with extra event variance and weak practical support, so do not carry it into the frozen comparison. Positive means historical forecast timestamp later than observed; not operational warning delay.",
+    "T-OBS": "Select pooled log-reference-ratio form as simplest best primary CV point score; pooled still incorporates physical reference duration t0(d). Distance form is runner-up because its lower equal-event mean absolute error (43.088 versus 69.376 minutes, distance versus pooled) is a real scientific tradeoff, while its primary score difference vs pooled is -0.33226476137225364 with descriptive clustered95% interval [-1.1408288076424031,0.4762992848978959]. No equivalence or universal winner claimed; this choice does not discard distance-dependent predictions."
+  },
+  "reserved_outcomes": "sealed",
+  "scientific_stage": "before_the_single_previously_EDA_inspected_development_check",
+  "scoring_contract": "config/arrival-model-scoring-v1.toml",
+  "seeds": {
+    "check": 2976110800,
+    "full_development": 2986110800
+  },
+  "status": "frozen_working_arrival_model_specifications",
+  "unresolved_sensitivity_acknowledgement": {
+    "attempt_divergences": [
+      30,
+      1
+    ],
+    "case": "ms5-ncei-distance-scale-base-era-2014plus",
+    "interpretation": "Missing within-era comparison cannot favor curvature or establish era robustness.",
+    "order": 36,
+    "posterior_interpreted": false,
+    "third_attempt": false
+  }
+}
