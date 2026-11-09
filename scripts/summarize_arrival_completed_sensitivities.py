@@ -1,4 +1,4 @@
-"""Summarize 55 accepted logical sensitivities with one reviewed numerical repair."""
+"""Summarize 55 accepted logical sensitivities and retain both failed-call histories."""
 
 from __future__ import annotations
 
