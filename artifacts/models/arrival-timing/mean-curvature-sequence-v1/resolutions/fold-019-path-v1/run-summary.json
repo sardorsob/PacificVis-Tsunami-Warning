@@ -1,13 +1,13 @@
 {
-  "accepted_nodes": 24,
-  "active_seconds": 198.69844266725704,
+  "accepted_nodes": 32,
+  "active_seconds": 265.3199026659131,
   "confirmation_outcomes_parsed": false,
   "max_curvature_slots": 248,
   "new_slots_charged": 32,
   "primary_score_acceptance": "pending_independent_replay",
   "reserved_outcomes": "sealed",
-  "status": "path_checkpoint",
+  "status": "path_computations_complete",
   "total_curvature_calls_charged": 109,
-  "total_curvature_calls_started": 101,
-  "working_bytes": 1114977378
+  "total_curvature_calls_started": 109,
+  "working_bytes": 1135833824
 }
