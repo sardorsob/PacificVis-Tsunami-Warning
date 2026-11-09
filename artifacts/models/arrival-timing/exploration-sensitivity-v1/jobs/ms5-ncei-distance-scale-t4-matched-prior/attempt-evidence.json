@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-ncei-distance-scale-t4-matched-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior-spec.json": "4ec9d24c703144775975506b4df47fbd6af04fcf510ff1719efdd7b9c731af45",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior.log": "bdf99b1e03bf1d42dff511036e36242085faf0d92bb3bc5f5322b276bd30274c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior.supervisor.json": "1bb1ecff1ca67680ceb34fdb99e14a242c4dd11310867c539502aa95e07f1910",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/conditional-ppc.csv": "d8bfc01bfa1cbada2bd5410a7e6771be248c3a17e34a82f02521c7c00ec9b41a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/curves.csv": "6539de46abc7ebc5e190e7a40744b931fae47cfe1b838d9231f6146e1401848c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/derived.csv": "46c8e67bce4b8fb523154a462afc98185c16027c4bebf13ed4d0b45d680c3b27",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/diagnostics.json": "ca44fad2fe364639218e5c487b80d97bb11d261c5ca2ac5a6e443dfae8da37a4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/inputs.json": "4cf069640871d67138b9c103e796cc7efe93cd968916aa8e494d19dd87be2a17",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/job.json": "4ec9d24c703144775975506b4df47fbd6af04fcf510ff1719efdd7b9c731af45",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/membership.json": "15857b34fb02958470bd0f110e94b5beed7edb193609b6b377943d4e5f37d252",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/parameters.csv": "5678d6db6bb7c0ed2cfe5277e7bf05ba2b4931f7fc7b0234eb85e51cf932c93f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/record-intervals.csv": "f102d5c8f700b82624e6c3d1320746036af36d68249750723ead830c592d28d9",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/result.json": "de817e9a5638298086e70304ab887dd3fe263aa01a77ea6eeba49f1f0539b47b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/sampling-diagnostics.csv": "42e2070a7c381265846ad429df9ed9863545a2da1e5e9ac3a6e7d75c01519e01",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/sampling-start.json": "4ec9d24c703144775975506b4df47fbd6af04fcf510ff1719efdd7b9c731af45",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-ncei-distance-scale-t4-matched-prior/summary.json": "20352657a29596d6945519874efa7952659057f813d908e0d9a8f02ef4c55bb1",
+    "data/processed/models/arrival-sensitivity-v1/ms5-ncei-distance-scale-t4-matched-prior.nc": "5e2486093f88006f199852aba6e0f1501ce2152bc514e33231fc543906b8c4a5"
+  }
+}
