@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-ncei-distance-scale-base-era-pre2007",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2-spec.json": "89864f05ea1b3c793fa1778bcff8dc69d0e8deafcd96fce594f97ed075292bc4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2.log": "bdf99b1e03bf1d42dff511036e36242085faf0d92bb3bc5f5322b276bd30274c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2.supervisor.json": "76c29f43f5594d757f99561f42565c384e617c0f559f3458e0175b55e4051e9a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/conditional-ppc.csv": "87d622eb87dbad1f0dce8b2c8a4d3819271d0ce5416efd9c076ca4c6630d7d99",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/curves.csv": "b067b0ab9e8ce5d80e7a5ef016d4847bad37acd546e6119743bd754f0bc43c1f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/derived.csv": "83c7ce24c68561820a2f0c1d0312fbdb6be472af272759b40385fb6fa6e1132f",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/diagnostics.json": "1ac91a4962ce3d76b273eb9909f2be3044b0627aba6f09923a49b8245fade627",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/inputs.json": "f847a1537f48834c7eb51dde7cbbbf788b297b7b290d9159c288dfb07d826501",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/job.json": "89864f05ea1b3c793fa1778bcff8dc69d0e8deafcd96fce594f97ed075292bc4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/membership.json": "ed5375d2b09712065385314b6b1ee967080725180323c9c1e2608d84e3d53ace",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/parameters.csv": "4671bff1d7b294d089e0a23ad0a191bfb6962aac4b34e14d5e1ca17002c7b2fb",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/record-intervals.csv": "fd9a0ebe236abbc797209424cd4b57efcd39c107d4fd4a3da29e406b1de9a0e4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/result.json": "482619f744ad0e7215e4699e8d628cf8b82991a831eabd17ff6ff9b05bea22a6",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/sampling-diagnostics.csv": "2b22f588b9c8e21e7bfe06546910f8b4a20544551d2ab51613af3ac1e690f657",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/sampling-start.json": "89864f05ea1b3c793fa1778bcff8dc69d0e8deafcd96fce594f97ed075292bc4",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/jobs/era-pre2007-linear-attempt-2/summary.json": "83f18adb149bbe72675245d5e47e5351cd08baa3ba1c4584625e9e67e44ef98c",
+    "data/processed/models/arrival-sensitivity-repair-v1/era-pre2007-linear-attempt-2.nc": "f9ce6817c1193ee587d9f1b16b0a76c796a17ffc5fe7c5087e64f07ebadedc4b"
+  }
+}

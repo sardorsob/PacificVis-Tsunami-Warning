@@ -1,0 +1,10 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/pre2007-linear-repair-diagnostics.png": "1dabf7dfc6a13365636952a8169f587ea932b58814c23bca5df4dac5730a6e39",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/pre2007-linear-repair-neck-traces.png": "5a6bdc36e57ee8c4bd1b8177c992270fbf8ae57512e76196b42b7803724ade11"
+  },
+  "repair_review_sha256": "3b3b8507eeb4113e4d97cd97b66a72315e55df848f8bacb4eafb8c48b3ea4e13",
+  "reserved_outcomes": "sealed",
+  "scope": "same_data_numerical_diagnostics_not_predictive_adequacy"
+}
