@@ -1,0 +1,11 @@
+{
+  "divergences": 0,
+  "finite_diagnostics": true,
+  "max_mcse_mean": 0.001531916326675955,
+  "max_rhat": 1.0013311946661052,
+  "maxdepth_reached": 0,
+  "min_bfmi": 0.9241252688199911,
+  "min_ess_bulk": 3352.5037175227994,
+  "min_ess_tail": 2453.45434298279,
+  "screen_passed": true
+}

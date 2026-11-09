@@ -1,0 +1,19 @@
+{
+  "cache_counts": {
+    "full_proofs": 14,
+    "pending_captures": 4,
+    "pending_promotions": 4,
+    "warm_checks": 66
+  },
+  "invocation_git_sha": "c4aea708c24e440b3ddc216383f7fee98d35512c",
+  "performance_gate_sha256": "722501591a73f9ad5d4b734dfb2467c112c23571a74dbd290e903eabf71d33ab",
+  "source_closure_sha256": "dbef8b3afe26a7d62b3a3dcc21a3891526efd5b726c248640236f572e91dff3a",
+  "state": {
+    "calls_charged": 14,
+    "calls_started": 14,
+    "current": null,
+    "next_case": 14,
+    "sha256": "2857cb46ffc1704e6618d1eb5482f8f05961ca49937b7a8b5be076e11963b78c",
+    "status": "sensitivity_checkpoint"
+  }
+}

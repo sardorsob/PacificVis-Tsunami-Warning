@@ -1,0 +1,22 @@
+{
+  "case_id": "ms5-tobs-distance-power-1.5-prior",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior-spec.json": "c0dbf3ffab7be387e4c2f3608c926d76239f6ec314ac5fbd96294d366d267f4d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior.log": "b9c3c9286721f2165ad5ba293d4ffe2b83f4970ab970bddd332b55f5cf857223",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior.supervisor.json": "0746fefbb7adbdf81301721b5b7b20b384458cdd1acde1f6e15cc57ad7b0055c",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/conditional-ppc.csv": "f4bc0f5d364f4813ba7394e0a125024dc4c795bd97d06a293d5d567b2cbbdfdc",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/curves.csv": "060fff2d2908793b7941f8b116b3359f0115ba06a728291da89f0621afe6f87d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/derived.csv": "d5524e55cef340384e95d9346563b7951cad42f93ccec9f39f66ed430ec9aac1",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/diagnostics.json": "d2ba71decf9128921c316188397ea486111c9506350df0d2c898034cd738472a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/inputs.json": "4cf069640871d67138b9c103e796cc7efe93cd968916aa8e494d19dd87be2a17",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/job.json": "c0dbf3ffab7be387e4c2f3608c926d76239f6ec314ac5fbd96294d366d267f4d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/membership.json": "a50874d68915a010890f52f96991a32f5d57e76feedcd907a987ab33a90c2586",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/parameters.csv": "4e2a63ae8a0f8adf2546fc38ebef178d7dfd42c9498432c697cb2fad4be7bb12",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/record-intervals.csv": "aba4381df684be828645ad3ff33d787d99c0e56bdc2f1292da11c9cfd07bb7dc",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/result.json": "be9b69be2d0ada6428587d3f0dcb0ecc6ae9b77bbfbd402acb59ef6b358ae1ab",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/sampling-diagnostics.csv": "f6c9fc07613f420a5446b6ca5c8bb281036193c3116e73be30c69fad8b6bdda7",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/sampling-start.json": "c0dbf3ffab7be387e4c2f3608c926d76239f6ec314ac5fbd96294d366d267f4d",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/jobs/ms5-tobs-distance-power-1.5-prior/summary.json": "3615b2ab7cc2f9cfa478cea560c345e8c4e952ce6be124b0f7109a738c635975",
+    "data/processed/models/arrival-sensitivity-v1/ms5-tobs-distance-power-1.5-prior.nc": "82422e9a2e481b0ff89419e5c34d80b8ffadc3425940bbe64ce377a13329fb2b"
+  }
+}
