@@ -1,0 +1,10 @@
+import xarray as xr,numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+with xr.open_datatree('data/processed/models/arrival-sensitivity-repair-v1/era-pre2007-linear-attempt-2.nc',engine='h5netcdf') as t:p=t['posterior'].to_dataset().load()
+fig,axs=plt.subplots(3,1,figsize=(13,9),constrained_layout=True)
+for ax,v,name in [(axs[0],np.log(p.tau_event.values),'Log event SD tau'),(axs[1],p.beta.values,'Distance slope beta'),(axs[2],np.log(p.sigma_anchor.values[:,:,2]),'Log far residual SD at 5000 km')]:
+ for c in range(4):ax.plot(v[c],lw=.6,alpha=.7,label=f'Chain {c+1}')
+ ax.set_ylabel(name+' (log-ratio scale)');ax.set_xlabel('Retained draw')
+axs[0].legend(ncol=4);fig.suptitle('All four chains revisit the low-event-SD region after the numerical repair',fontsize=16);fig.savefig('/tmp/s5-actual-repair-neck-traces.png',dpi=130)

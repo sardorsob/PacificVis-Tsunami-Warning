@@ -1,0 +1,14 @@
+{
+  "confirmation_outcomes_parsed": false,
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/era2007-2013-scientific-check.json": "2fe7fd3b0c80d7a229dcd1526093c6cb1b99f9d9b3584f17b06fd214048ed70b",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/era2007-2013-trace-rank.png": "9098d026cea81b26454d4f6afd129bc52a573b171f8efb339cc547295c1c3483",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/era2014-divergence-audit.py.txt": "6670c788f51db68d3abef7bb10e62c0fed397c8915eabfbfa0c38f658a383956",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/era2014-divergence-diagnosis.json": "063ee28e4009ea3c86a0e76c20750a377e24f7c65910815889ec473b17aee951",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/era2014-divergence-diagnosis.png": "1de7c25b987c28dfd10b70412f6f0938520677506929d43b2395bf9af7b09543",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/retained-sensitivity-scientific-checker.py.txt": "28a82cd489a17a61a817f69508fb7db171ffbcd8e5a27d0c4ad4345ceb06174c"
+  },
+  "reserved_outcomes": "sealed",
+  "scope": "exploration-only computational and diagnostic evidence; no model adequacy claim",
+  "source": "exact independent scientific-check outputs and generating source"
+}

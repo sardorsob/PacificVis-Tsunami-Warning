@@ -1,0 +1,19 @@
+{
+  "environment": {
+    "MPLCONFIGDIR": "/tmp/tsunami-s5-era-mpl",
+    "NUMBA_CACHE_DIR": "/tmp/tsunami-s5-era-numba",
+    "PYTENSOR_FLAGS": "compiledir=/tmp/tsunami-s5-era-pytensor,numba__cache=False",
+    "PYTHONPATH": "."
+  },
+  "executed_audit_script": "/private/tmp/check-s5-actual-repair.py",
+  "files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/pre2007-linear-repair-audit.json": "671943692c8ca95258a8d49bcf19d3d9024261cc0487ea4d5b7d815b11724493",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/pre2007-linear-repair-audit.py.txt": "53098ceb96439f31ba4400400ebb98ce2aa8e1983bb1c53fe24e9656a8de369a",
+    "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/pre2007-linear-repair-neck-traces.py.txt": "c1daf2b34b1c3bc678665b51e2e55863d435fd3bb031d66b4d19a696a63f067e"
+  },
+  "neck_plot_source": "preserved exact inline generator; script pathname was created after execution",
+  "raw": "data/processed/models/arrival-sensitivity-repair-v1/era-pre2007-linear-attempt-2.nc",
+  "raw_sha256": "f9ce6817c1193ee587d9f1b16b0a76c796a17ffc5fe7c5087e64f07ebadedc4b",
+  "run_from": "project root with project uv environment",
+  "scope": "historical audit at36calls; full audit intentionally rejects later mutable live state. Plot and independent density/gradient code are preserved for reproduction; never restore or overwrite live state."
+}

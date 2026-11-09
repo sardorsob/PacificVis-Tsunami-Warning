@@ -1,0 +1,175 @@
+"""Read-only SCI replay of an already accepted slice of original MS5 jobs35..54.
+
+Never waits for cases or parses an unfinished case. No Gate/state/project write.
+Temporary outputs are evidence requiring subsequent visual review/Root acceptance.
+"""
+from pathlib import Path
+import argparse, json, hashlib, importlib, sys
+import numpy as np
+from scipy.linalg import cho_factor, cho_solve
+from scipy.stats import norm, rankdata
+
+ROOT=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times')
+sys.path.insert(0,str(ROOT))
+
+def selected(state,start,stop):
+    if not (35<=start<stop<=55 and stop-start<=12):
+        raise ValueError('one bounded accepted slice,35<=start<stop<=55,count<=12')
+    entry=state.get('completion_v1') or {}; registry=entry.get('accepted_remaining',[])
+    if len(registry)<stop-35:raise ValueError('requested case is not yet accepted; no raw body may be opened')
+    return registry[start-35:stop-35]
+
+def weights(distance):
+    return np.column_stack([np.interp(np.log(distance),np.log([500,2000,5000]),np.eye(3)[j]) for j in range(3)])
+
+def design(distance,curved):
+    columns=[np.ones(len(distance)),np.log(distance/1000)]
+    if curved:columns.append(np.log((distance+500)/(1.5*distance)))
+    return np.column_stack(columns)
+
+def independent_prior(q,prior,curved):
+    ncoef=3 if curved else 2; coeff=q[:ncoef];positive=np.exp(q[ncoef:]);scales=np.array([prior[k] for k in ['alpha_sd','beta_sd']+(['gamma_sd'] if curved else [])])
+    pscales=np.array([prior['tau_sd']]+[prior['sigma_sd']]*3)
+    value=float(norm.logpdf(coeff,scale=scales).sum()+norm.logpdf(positive,scale=pscales).sum()+4*np.log(2)+q[ncoef:].sum())
+    gradient=np.r_[-coeff/scales**2,1-positive**2/pscales**2]
+    return value,gradient
+
+def independent_joint(q,distance,response,event,prior,curved):
+    X=design(distance,curved);w=weights(distance);ncoef=X.shape[1];tau=np.exp(q[ncoef]);anchors=np.exp(q[ncoef+1:]);sigma=w@anchors
+    residual=response-X@q[:ncoef];value,gprior=independent_prior(q,prior,curved);g=np.zeros_like(q)
+    for name in sorted(set(event)):
+        ix=np.flatnonzero(event==name);sd=sigma[ix];C=np.diag(sd**2)+tau**2*np.ones((len(ix),len(ix)));factor=cho_factor(C,lower=True);z=cho_solve(factor,residual[ix]);inv=cho_solve(factor,np.eye(len(ix)))
+        value+=-.5*(len(ix)*np.log(2*np.pi)+2*np.log(np.diag(factor[0])).sum()+residual[ix]@z)
+        g[:ncoef]+=X[ix].T@z
+        g[ncoef]+=tau**2*(z.sum()**2-inv.sum())
+        g[ncoef+1:]+=anchors*(w[ix].T@(sd*(z*z-np.diag(inv))))
+    return float(value),g+gprior
+
+def self_check():
+    # Fixed deterministic arithmetic oracle, not a fitted/simulated dataset trial.
+    distance=np.array([100.,300.,700.,1400.,2500.,4000.,7000.,12000.]);response=np.sin(np.arange(8))/4;event=np.array(['a','a','b','b','b','c','c','c']);prior=dict(alpha_sd=.5,beta_sd=.25,gamma_sd=.5,tau_sd=.4,sigma_sd=.4)
+    for curved in [False,True]:
+        q=np.r_[[.1,-.03,.2] if curved else [.1,-.03],np.log([.2,.3,.4,.15])];value,g=independent_joint(q,distance,response,event,prior,curved);h=1e-5
+        fd=np.array([(independent_joint(q+np.eye(len(q))[j]*h,distance,response,event,prior,curved)[0]-independent_joint(q-np.eye(len(q))[j]*h,distance,response,event,prior,curved)[0])/(2*h) for j in range(len(q))]);assert np.max(abs(g-fd))<1e-7
+        X=design(distance,curved);w=weights(distance);nc=X.shape[1];tau=np.exp(q[nc]);sd=w@np.exp(q[nc+1:]);Z=np.array([[float(e==v) for v in sorted(set(event))] for e in event]);C=np.diag(sd**2)+tau**2*(Z@Z.T);ch=cho_factor(C,lower=True);r=response-X@q[:nc];full=-.5*(len(r)*np.log(2*np.pi)+2*np.log(np.diag(ch[0])).sum()+r@cho_solve(ch,r))+independent_prior(q,prior,curved)[0];assert abs(value-full)<1e-12
+    try:selected({'completion_v1':{'accepted_remaining':[]}},35,36)
+    except ValueError:pass
+    else:raise AssertionError('unfinished registry admitted')
+    print('SELF_CHECK_PASS: both block/dense likelihoods, analytic gradients, unfinished guard')
+
+def predictive_replay(job,post,observed,summary):
+    hyper={k:v.values for k,v in post.data_vars.items()};n=post.sizes['chain']*post.sizes['draw'];seeds=np.random.SeedSequence(job['seed']+1).generate_state(4);take=np.sort(np.random.default_rng(seeds[0]).choice(n,800,replace=False));np.testing.assert_array_equal(take,summary['posterior_flat_indices']);np.testing.assert_array_equal(seeds,summary['stream_seeds'])
+    d=observed.distance_km.values;y=observed.response.values;events=np.unique(observed.event_id.values)
+    def components(pop,dist):
+        mu=pop['alpha'][...,None]+pop['beta'][...,None]*np.log(dist/1000)
+        if 'gamma' in pop:mu=mu+pop['gamma'][...,None]*np.log((dist+500)/(1.5*dist))
+        sd=np.einsum('...j,ij->...i',pop['sigma_anchor'],weights(dist));return mu,sd
+    mu,sd=components(hyper,d);noise=np.random.default_rng(seeds[1]).normal(size=(4,2000,len(events)));effects=np.empty_like(noise)
+    for j,event in enumerate(events):
+        ix=observed.event_id.values==event;precision=1/sd[:,:,ix]**2;total=precision.sum(-1);variance=hyper['tau_event']**2/(1+hyper['tau_event']**2*total);mean=variance*np.sum(precision*(y[ix]-mu[:,:,ix]),axis=-1);effects[:,:,j]=mean+np.sqrt(variance)*noise[:,:,j]
+    pop={k:v.reshape((n,*v.shape[2:]))[take] for k,v in hyper.items()};mu,sd=components(pop,d);conditional=mu+effects.reshape(n,len(events))[take][:,np.searchsorted(events,observed.event_id.values)]+sd*np.random.default_rng(seeds[2]).normal(size=mu.shape);native=conditional+np.log(observed.reference_minutes.values)
+    assert np.isfinite(conditional).all() and np.isfinite(native).all()
+    for j,row in enumerate(summary['record_intervals']):
+        assert row['record_id']==str(observed.record.values[j]);q=np.exp(np.quantile(native[:,j],[.05,.5,.95]));np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],q,rtol=1e-10,atol=1e-10)
+    grid=np.array([20.,50.,100.,500.,1000.,2000.,5000.,10000.,20000.]);mu,sd=components(pop,grid);rng=np.random.default_rng(seeds[3]);new=mu+pop['tau_event'][:,None]*rng.normal(size=(800,1))+sd*rng.normal(size=mu.shape);new+=np.log(grid/(np.sqrt(9.80665*4000)*60/1000));assert np.isfinite(new).all()
+    for row in summary['curves']:
+        if row['curve']=='new_event':q=np.exp(np.quantile(new[:,np.where(grid==row['distance_km'])[0][0]],[.05,.5,.95]));np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],q,rtol=1e-10,atol=1e-10)
+    for row in summary['derived']:
+        dist=row['distance_km'];v=components({k:v.reshape((n,*v.shape[2:])) for k,v in hyper.items()},np.array([dist]))[1][:,0] if row['quantity']=='residual_sd_modeled_response' else 1+hyper['beta'].ravel()-hyper.get('gamma',np.zeros((4,2000))).ravel()*500/(dist+500);np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],np.quantile(v,[.05,.5,.95]),rtol=1e-12,atol=1e-12)
+    misses=[]
+    for row in summary['conditional_ppc']:
+        label=row['stratum'];mask={'all':np.ones(len(d),bool),'under-500km':d<500,'500-to-2000km':(d>=500)&(d<2000),'2000-to-5000km':(d>=2000)&(d<5000),'5000km-and-above':d>=5000}[label];data=conditional if row['scale']=='modeled-response' else native;obs=y if row['scale']=='modeled-response' else np.log(observed.native_minutes.values);q=np.quantile(np.quantile(data[:,mask],row['quantile'],axis=1),[.05,.5,.95]);oq=np.quantile(obs[mask],row['quantile'])
+        if row['scale']=='native-minutes':q=np.exp(q);oq=np.exp(oq)
+        np.testing.assert_allclose([row['replicated_'+k] for k in ['q05','q50','q95']],q,rtol=1e-10,atol=1e-10);np.testing.assert_allclose(row['observed'],oq,rtol=1e-10,atol=1e-10)
+        if row['scale']=='modeled-response' and not q[0]<=oq<=q[2]:misses.append([label,row['quantile']])
+    return dict(record_intervals=len(summary['record_intervals']),new_event_curves=9,derived_rows=len(summary['derived']),ppc_rows=len(summary['conditional_ppc']),modeled_response_ppc_misses=misses)
+
+def independent_mask(lane,metadata,scenario):
+    ids=np.array(lane.record_ids);years=np.array([metadata.event_years[e] for e in lane.event_ids])
+    rules={
+        'coastal-only':metadata.coastal,
+        'era-pre2007':years<2007,
+        'era-2007-2013':(years>=2007)&(years<=2013),
+        'era-2014plus':years>=2014,
+        'publisher-distance':np.ones(len(ids),bool),
+        'omit-triage':~np.isin(ids,metadata.triage_record_ids),
+        'component-assessed':np.isin(ids,metadata.component_assessed_record_ids),
+        'omit-native-below10':lane.y>=10,
+        'omit-lata-only':ids!=metadata.lata_record_id,
+        'omit-tohoku-and-chile':~np.isin(lane.sequences,[metadata.influence_sequences['tohoku'],metadata.influence_sequences['chile2010']]),
+        'omit-definition':~np.isin(ids,metadata.definition_record_ids),
+    }
+    return np.flatnonzero(lane.included&rules[scenario])
+
+def run(start,stop):
+    import xarray as xr,pymc as pm
+    import matplotlib;matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from analysis.arrival import model_sensitivity_fit as f
+    from scripts import run_arrival_sensitivity_completion as m
+    from analysis.arrival.evidence import sha256
+    from analysis.arrival.model_sensitivity_design import build_sensitivity_design,case_lane,case_indices
+    root=ROOT;state=json.loads((root/m.r.STATE).read_text());accepted=selected(state,start,stop);entry=state['completion_v1'];checked=m.verify_gate(root);fresh=m.repair_review(root,checked,entry);assert fresh is not None
+    initial=m.p.merge(checked['files'],fresh);m.c._unchanged(root,initial)
+    original=checked['repair_admission']['original_admission'];jobs=checked['jobs'];assert state['accepted']==checked['baseline']['accepted'] and state['attempts']==checked['baseline']['attempts']
+    source_io=importlib.import_module('analysis.arrival.model_sensitivity_inputs');lanes,frozen=f.load_lanes(root);assert frozen==original['contract'];metadata=source_io.load_sensitivity_inputs(root,lanes,original['files']);assert f.sensitivity_jobs(build_sensitivity_design(lanes,metadata))==jobs
+    sources={};case_inputs={}
+    for order,item in zip(range(start,stop),accepted,strict=True):
+        job=jobs[order];assert item['case_id']==job['id'] and item['charged_slots']==1 and job['target']=='NCEI-native-duration' and job['prior_variant']=='base';attempt=entry['attempts'][1+order-35];assert attempt['kind']=='original' and attempt['execution_job']==job and attempt['case_id']==job['id'] and attempt['charged_slots']==attempt['start_markers']==1 and attempt['outcome']=='accepted';assert sha256(root/attempt['completion_receipt'])==attempt['completion_receipt_sha256'];assert json.loads((root/attempt['completion_receipt']).read_text())=={k:v for k,v in attempt.items() if k!='completion_receipt_sha256'}
+        sources=m.p.merge(sources,item['files'],{item['receipt']:item['receipt_sha256'],attempt['completion_receipt']:attempt['completion_receipt_sha256']});lane=case_lane(lanes[job['target']],job,metadata);ids=case_indices(lanes[job['target']],job);np.testing.assert_array_equal(ids,independent_mask(lanes[job['target']],metadata,job['scenario']));np.testing.assert_array_equal(lane.y,lanes[job['target']].y);assert lane.record_ids==lanes[job['target']].record_ids;assert job['omitted_record_ids']==[rid for rid,keep in zip(lane.record_ids,lanes[job['target']].included,strict=True) if keep and rid not in set(job['training_record_ids'])];assert job['excluded_record_ids']==[rid for rid,keep in zip(lane.record_ids,lanes[job['target']].included,strict=True) if not keep]
+        if job['scenario']=='publisher-distance':np.testing.assert_array_equal(lane.distance_km,metadata.publisher_distance_km)
+        np.testing.assert_allclose(lane.reference_minutes,lane.distance_km/(np.sqrt(9.80665*4000)*60/1000),rtol=1e-14,atol=1e-14);np.testing.assert_allclose(lane.response,np.log(lane.y)-np.log(lane.reference_minutes),rtol=1e-14,atol=1e-14);case_inputs[job['id']]=(lane,ids,frozen)
+    m.c._unchanged(root,sources);out=dict(start_order=start,stop_order_exclusive=stop,source_files=initial,cases={},case_files=sources,original_failure_retained=True,repair_review=m.REPAIR_REVIEW,mutable_STATE_not_pinned=True,visual_review='PENDING_reopen_every_generated_PNG',acceptance='NONE_this_is_temporary_evidence')
+    old=(f.verify_gate,f._case_data,f._unchanged)
+    f.verify_gate=lambda root:original
+    def admitted_data(root,job,admission):
+        assert admission==original and job==jobs[job['order']];return case_inputs[job['id']]
+    f._case_data=admitted_data;f._unchanged=lambda root,pins:None
+    try:
+        for order,item in zip(range(start,stop),accepted,strict=True):
+            job=jobs[order];lane,ids,_=case_inputs[job['id']];files,receipt=f.case_artifacts(root,job,original['files'],item);folder,raw,spec,log,process=m.r.case_paths(root,job);supervisor=json.loads(process.read_text());assert supervisor['repair_gate_sha256']==checked['files'][m.REPAIR_GATE] and supervisor['completion_gate_sha256']==checked['files'][m.GATE]
+            with xr.open_datatree(raw,engine='h5netcdf') as tree:post=tree['posterior'].to_dataset().load();ss=tree['sample_stats'].to_dataset().load();observed=tree['observed_data'].to_dataset().load()
+            np.testing.assert_array_equal(post.chain.values,np.arange(4));np.testing.assert_array_equal(post.draw.values,np.arange(2000));np.testing.assert_array_equal(post.scale_anchor_km.values,[500,2000,5000]);assert post.attrs['inference_library_version']==ss.attrs['inference_library_version']=='0.16.11';cfg=json.loads(ss.attrs['inference_library_settings']);assert cfg['sampler']=='nuts' and cfg['settings']['num_tune']==1000 and cfg['settings']['num_draws']==2000 and cfg['settings']['num_chains']==4 and cfg['settings']['adapt_options']['step_size_settings']['target_accept']==.95;assert post.attrs['tuning_steps']==1000 and post.attrs['inference_library']==ss.attrs['inference_library']=='nutpie'
+            base,wider=f._case_priors(root,job);assert wider is None;curved=job['kind']=='mean-curvature';names=['alpha','beta']+(['gamma'] if curved else [])+['tau_event','sigma_anchor'];assert set(post.data_vars)==set(names)
+            model=f.build_sensitivity_model(lane,job['kind'],base,'base',indices=ids);priorfun=model.compile_logp(vars=list(model.free_RVs));gradfun=model.compile_dlogp();ncoef=3 if curved else 2
+            def q_at(c,d):return np.r_[[float(post[k].values[c,d]) for k in names[:-2]],np.log(float(post.tau_event.values[c,d])),np.log(post.sigma_anchor.values[c,d])]
+            def point(q):return {**{k:q[j] for j,k in enumerate(names[:ncoef])},'tau_event_log__':q[ncoef],'sigma_anchor_log__':q[ncoef+1:]}
+            q0=q_at(0,0);q1=q0.copy();q1[:ncoef]+=.125*np.array([base[k+'_sd'] for k in names[:ncoef]]);q1[ncoef:]+=np.log(1.125);offsets=[float(priorfun(point(q)))-independent_prior(q,base,curved)[0] for q in [q0,q1]];assert abs(offsets[0])<=1e-6 and abs(offsets[1]-offsets[0])<=1e-10
+            prediction=0.
+            for name in names:
+                key='tau_sd' if name=='tau_event' else 'sigma_sd' if name=='sigma_anchor' else name+'_sd';dist=(pm.HalfNormal if name in ['tau_event','sigma_anchor'] else pm.Normal).dist(sigma=base[key]);dtype=dist.owner.inputs[-1].dtype;prediction+=(3 if name=='sigma_anchor' else 1)*(np.log(float(base[key]))-float(np.log(np.asarray(base[key],dtype=dtype))))
+            assert abs(offsets[0]-prediction)<1e-10
+            comparisons=[]
+            for chain in range(4):
+                for draw in [0,999,1999]:
+                    q=q_at(chain,draw);manual,g=independent_joint(q,observed.distance_km.values,observed.response.values,observed.event_id.values,base,curved);stored=float(ss.logp.values[chain,draw]);gd=float(np.max(abs(gradfun(point(q))-g)));error=manual-stored;assert abs(error)<1e-6 and abs(error+offsets[0])<2e-7 and gd<=1e-7;comparisons.append(dict(chain=chain,draw=draw,manual_transformed_logp=manual,sampler_logp=stored,difference=error,gradient_max_error=gd))
+            summary=json.loads((folder/'summary.json').read_text())
+            for row in summary['parameters']:
+                v=post[row['parameter']].values
+                if row['anchor_km'] is not None:v=v[:,:,[500,2000,5000].index(row['anchor_km'])]
+                np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],np.quantile(v,[.05,.5,.95]),rtol=1e-13,atol=1e-13)
+            for row in summary['curves']:
+                if row['curve']=='population_median':
+                    d=row['distance_km'];v=post.alpha.values+post.beta.values*np.log(d/1000)+(post.gamma.values*np.log((d+500)/(1.5*d)) if curved else 0)+np.log(d/(np.sqrt(9.80665*4000)*60/1000));np.testing.assert_allclose([row[k] for k in ['q05','q50','q95']],np.exp(np.quantile(v,[.05,.5,.95])),rtol=1e-11,atol=1e-11)
+            predictive=predictive_replay(job,post,observed,summary);cols=[]
+            for name in names:
+                v=post[name].values;cols.extend([(f'{name}[{j}]',v[:,:,j]) for j in range(3)] if v.ndim==3 else [(name,v)])
+            fig,axs=plt.subplots(len(cols),2,figsize=(12,2.1*len(cols)),squeeze=False,layout='constrained');maxrank=0
+            for row,(name,v) in enumerate(cols):
+                rank=rankdata(v.ravel()).reshape(4,2000);counts=[np.histogram(rr,bins=np.linspace(.5,8000.5,21))[0] for rr in rank];maxrank=max(maxrank,int(np.max(abs(np.asarray(counts)-100))))
+                for c in range(4):axs[row,0].plot(v[c],lw=.4,alpha=.65,label=f'Chain{c+1}');axs[row,1].step(np.arange(20)+.5,counts[c],where='mid')
+                axs[row,0].set(xlabel='Retained draw',ylabel=name);axs[row,1].set(xlabel='Pooled rank bin',ylabel='Count per chain');axs[row,1].axhline(100,c='gray',lw=.6)
+            axs[0,0].legend(ncol=4,fontsize=8);fig.suptitle(job['id']+' | all4chains and2000retained draws',fontsize=11);png=Path('/private/tmp')/(job['id']+'-completion-trace-rank.png');fig.savefig(png,dpi=100);plt.close(fig)
+            out['cases'][job['id']]=dict(order=order,files=files,receipt=str(receipt.relative_to(root)),receipt_sha256=sha256(receipt),records=len(ids),events=len(set(observed.event_id.values)),kind=job['kind'],scenario=job['scenario'],prior_only_offsets=offsets,predicted_prior_constant=prediction,density_gradient_checks=comparisons,diagnostics=json.loads((folder/'diagnostics.json').read_text()),independent_predictive_summary=predictive,trace_rank_png=str(png),trace_rank_sha256=sha256(png),maximum_rankbin_deviation=maxrank,visual_review='PENDING')
+            print('CASE_PASS',order,job['id'],len(ids),'rawdensity',max(abs(x['difference']) for x in comparisons),'gradient',max(x['gradient_max_error'] for x in comparisons),flush=True)
+    finally:f.verify_gate,f._case_data,f._unchanged=old
+    m.c._unchanged(root,initial);m.c._unchanged(root,sources);end=json.loads((root/m.r.STATE).read_text());assert selected(end,start,stop)==accepted
+    destination=Path('/private/tmp')/f's5-completion-science-{start:03d}-{stop:03d}.json'
+    with destination.open('x') as stream:json.dump(out,stream,sort_keys=True,indent=2,allow_nan=False)
+    print('TEMP_EVIDENCE_WRITTEN',str(destination),'NO_ACCEPTANCE_GATE_WRITTEN',flush=True)
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser();parser.add_argument('--start',type=int);parser.add_argument('--stop',type=int);parser.add_argument('--self-check',action='store_true');args=parser.parse_args()
+    if args.self_check:self_check()
+    elif args.start is not None and args.stop is not None:run(args.start,args.stop)
+    else:parser.error('explicit accepted[start,stop)slice or--self-check required')

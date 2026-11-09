@@ -1,0 +1,74 @@
+from pathlib import Path
+import json,tomllib,hashlib
+import numpy as np,xarray as xr
+from scipy.linalg import cho_factor,cho_solve
+from scipy.stats import norm,halfnorm,rankdata
+import arviz_stats as azs
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from analysis.arrival import model_sensitivity_repair as a
+from scripts import run_arrival_sensitivity_completion as m
+from analysis.arrival.evidence import read_rows,sha256
+from analysis.arrival.model_data import TARGET_FILES,METADATA,SPLIT,lane_arrays
+from analysis.arrival.model_scale import build_scale_model,scale_weights
+from analysis.arrival.models import read_prior
+root=Path.cwd();statebytes=(root/m.r.STATE).read_bytes();state=json.loads(statebytes);entry=state['completion_v1']
+assert state['current'] is None and entry['current'] is None
+assert not (root/m.r.OUTPUT/'.controller.lock').exists() and not (root/m.OUTPUT/'.controller.lock').exists()
+checked=m.verify_gate(root);print('COMPLETE_GATE_PASS',len(checked['files']),flush=True)
+m.validate_state(state,checked)
+baseline=checked['baseline'];assert state['accepted']==baseline['accepted'] and state['attempts']==baseline['attempts'] and state['status']==baseline['status'] and state['next_case']==34
+assert state['calls_charged']==state['calls_started']==36 and len(entry['attempts'])==1 and entry['accepted_remaining']==[] and entry['next_original_order']==35 and entry['status']=='awaiting_repair_review'
+job=checked['repair_job'];original=checked['jobs'][34];admission=checked['repair_admission'];accepted=entry['repair']
+proof=a.case_artifacts(root,job,admission['files'],accepted);print('FULL_ORIGINAL_CASE_REPLAY_PASS',len(proof['files']),flush=True)
+assert sha256(root/a.STORE)=='f9ce6817c1193ee587d9f1b16b0a76c796a17ffc5fe7c5087e64f07ebadedc4b'
+attempt=entry['attempts'][0];assert attempt['outcome']=='accepted' and attempt['charged_slots']==attempt['start_markers']==1
+assert sha256(root/attempt['completion_receipt'])==attempt['completion_receipt_sha256']
+assert json.loads((root/attempt['completion_receipt']).read_text())=={k:v for k,v in attempt.items() if k!='completion_receipt_sha256'}
+assert entry['plan_sha256']==sha256(root/m.PLAN)
+with xr.open_datatree(root/a.STORE,engine='h5netcdf') as t:p=t['posterior'].to_dataset().load();s=t['sample_stats'].to_dataset().load();o=t['observed_data'].to_dataset().load()
+oldraw=root/a.fit.STORE/(a.ORIGINAL_ID+'.nc');assert sha256(oldraw)=='9eb90419e7e7335fd3c75912aa2e827a04f06d1df9cf8fffe2262b455efd9fc5'
+with xr.open_datatree(oldraw,engine='h5netcdf') as t:oldp=t['posterior'].to_dataset().load();olds=t['sample_stats'].to_dataset().load();oldo=t['observed_data'].to_dataset().load()
+xr.testing.assert_identical(o,oldo)
+meta=read_rows(root/METADATA);split=tomllib.loads((root/SPLIT).read_text());lane=lane_arrays('NCEI-native-duration',read_rows(root/TARGET_FILES['NCEI-native-duration']),{m['event_id']:m['sequence_group'] for m in meta},set(split['exploration']))
+lookup={rid:i for i,rid in enumerate(lane.record_ids)};ids=np.array([lookup[r] for r in original['training_record_ids']]);assert len(ids)==147 and len(set(lane.event_ids[i] for i in ids))==11
+assert o.record.values.tolist()==original['training_record_ids']
+for key,v in [('native_minutes',lane.y),('response',lane.response),('distance_km',lane.distance_km),('reference_minutes',lane.reference_minutes)]:np.testing.assert_array_equal(o[key],v[ids])
+prior=read_prior(root,lane.target,'base');inputproof=json.loads((root/a.OUTPUT/'inputs.json').read_text());assert inputproof['base_prior']==prior and inputproof['wider_prior'] is None
+w=scale_weights(lane.distance_km[ids]);x=lane.x[ids];y=lane.response[ids];events=sorted(set(lane.event_ids[i] for i in ids));Z=np.array([[float(lane.event_ids[i]==e) for e in events] for i in ids]);X=np.column_stack([np.ones(len(ids)),x])
+values=lambda post:np.column_stack([post.alpha.values.ravel(),post.beta.values.ravel(),post.tau_event.values.ravel(),post.sigma_anchor.values.reshape(-1,3)])
+pa=values(p);oldpa=values(oldp);q=pa.copy();q[:,2:]=np.log(q[:,2:]);oldq=oldpa.copy();oldq[:,2:]=np.log(oldq[:,2:])
+model=build_scale_model(lane,prior,indices=ids);logp=model.compile_logp();grad=model.compile_dlogp()
+def dense(v):
+ b=v[:2];tau=np.exp(v[2]);anchors=np.exp(v[3:]);sd=w@anchors;C=np.diag(sd*sd)+tau*tau*(Z@Z.T);ch=cho_factor(C,lower=True);res=y-X@b;z=cho_solve(ch,res);iv=cho_solve(ch,np.eye(len(y)))
+ val=-.5*(len(y)*np.log(2*np.pi)+2*np.log(np.diag(ch[0])).sum()+res@z)+norm.logpdf(b[0],scale=prior['alpha_sd'])+norm.logpdf(b[1],scale=prior['beta_sd'])+halfnorm.logpdf(tau,scale=prior['tau_sd'])+halfnorm.logpdf(anchors,scale=prior['sigma_sd']).sum()+v[2:].sum()
+ gb=X.T@z-b/np.array([prior['alpha_sd'],prior['beta_sd']])**2;gt=tau*(np.sum((Z.T@z)**2)-np.trace(Z.T@iv@Z));gs=w.T@(sd*(z*z-np.diag(iv)));g=np.r_[gb,tau*(gt-tau/prior['tau_sd']**2)+1,anchors*(gs-anchors/prior['sigma_sd']**2)+1]
+ return float(val),g
+positions=[('repair',i) for i in [j*2000+k for j in range(4) for k in [0,999,1999]]]+[('repair',int(np.argmin(pa[:,2]))),('repair',int(np.argmax(pa[:,2]))),('legacy_divergent',1494),('legacy_divergent',505)]
+checks=[]
+for origin,i in positions:
+ v=(q if origin=='repair' else oldq)[i];point={'alpha':v[0],'beta':v[1],'tau_event_log__':v[2],'sigma_anchor_log__':v[3:]};dl,dg=dense(v);pl=float(logp(point));pg=grad(point);recorded=(s if origin=='repair' else olds).logp.values.ravel()[i]
+ assert abs(pl-dl)<2e-8 and np.max(abs(pg-dg))<1e-7 and abs(recorded-pl)<1e-9
+ checks.append(dict(source=origin,chain=i//2000,draw=i%2000,tau=float(np.exp(v[2])),dense_logp=dl,compiled_logp=pl,sampler_logp=float(recorded),density_difference=pl-dl,gradient_max_difference=float(np.max(abs(pg-dg)))))
+print('DENSITY_GRADIENT_PASS',len(checks),max(v['gradient_max_difference'] for v in checks),flush=True)
+lowthreshold=float(np.quantile(oldpa[:,2],.05));indicator=(p.tau_event.values<lowthreshold).astype(float);visits=indicator.sum(1).astype(int).tolist();assert all(v>0 for v in visits)
+rank=rankdata(p.tau_event.values.ravel()).reshape(4,2000)/8000
+summaries={}
+for k,name in enumerate(['alpha','beta','tau_event','sigma500','sigma2000','sigma5000']):summaries[name]=dict(repair_q05_q50_q95=np.quantile(pa[:,k],[.05,.5,.95]).tolist(),failed_descriptive_only_q05_q50_q95=np.quantile(oldpa[:,k],[.05,.5,.95]).tolist())
+extra=dict(lowtau_fixed_legacy_fifth_percentile=lowthreshold,lowtau_visits_by_chain=visits,lowtau_probability=float(indicator.mean()),lowtau_indicator_mcse=float(azs.mcse(indicator,method='mean')),lowtau_indicator_rhat=float(azs.rhat(indicator)),lowtau_indicator_bulk_ess=float(azs.ess(indicator,method='bulk')),mean_tree_accept_by_chain=s.mean_tree_accept.mean('draw').values.tolist(),step_size_bar_by_chain=s.step_size_bar.mean('draw').values.tolist(),bfmi_by_chain=(np.mean(np.diff(s.energy.values,axis=1)**2,axis=1)/np.var(s.energy.values,axis=1)).tolist(),correlation_logcoordinates=np.corrcoef(q.T).tolist())
+plt.rcParams.update({'font.size':11});fig,axs=plt.subplots(2,3,figsize=(16,9),constrained_layout=True)
+for axis,j,label in [(axs[0,0],1,'Distance slope beta'),(axs[0,1],5,'Far residual SD sigma(5000 km)')]:
+ axis.scatter(pa[:,2],pa[:,j],c='0.5',s=5,alpha=.2,rasterized=True);axis.scatter(oldpa[olds.diverging.values.ravel(),2],oldpa[olds.diverging.values.ravel(),j],c='#c53326',marker='x',s=40,label='Legacy13 divergent states');axis.set_xscale('log');axis.set_xlabel('Event SD tau (log axis)');axis.set_ylabel(label);axis.legend(fontsize=9)
+for chain in range(4):
+ axs[0,2].hist(s.energy.values[chain],bins=40,density=True,histtype='step',label=f'Chain{chain+1}');axs[1,0].plot(p.tau_event.values[chain],linewidth=.6,alpha=.7);axs[1,1].plot(p.beta.values[chain],linewidth=.6,alpha=.7);axs[1,2].plot(np.sort(rank[chain]),np.arange(1,2001)/2000,linewidth=1.2,label=f'Chain{chain+1}')
+axs[0,2].set(xlabel='Recorded Hamiltonian energy',ylabel='Density');axs[0,2].legend(fontsize=9)
+axs[1,0].set(xlabel='Retained draw',ylabel='Event SD tau');axs[1,1].set(xlabel='Retained draw',ylabel='Distance slope beta');axs[1,2].plot([0,1],[0,1],color='black',linestyle='--');axs[1,2].set(xlabel='Pooled tau rank fraction',ylabel='Within-chain ECDF')
+fig.suptitle('One numerical repair traverses the low-event-SD ridge with zero recorded divergences',fontsize=17)
+fig.supxlabel('Same147records/11events/base priors;4x2000retained,tune2000,target_accept=.99. Legacy red states are diagnostic context only, never pooled.',fontsize=11)
+fig.savefig('/tmp/s5-actual-repair-diagnostics.png',dpi=130)
+assert (root/m.r.STATE).read_bytes()==statebytes
+assert m.quota(root,checked,state,reserve=True) is None
+out=dict(initial_files=checked['initial_files'],repair_files=proof['files'],repair_receipt=accepted['receipt'],repair_receipt_sha256=accepted['receipt_sha256'],completion_receipt=attempt['completion_receipt'],completion_receipt_sha256=attempt['completion_receipt_sha256'],completion_plan_sha256=entry['plan_sha256'],state_snapshot_sha256=hashlib.sha256(statebytes).hexdigest(),original_job=original,repair_job=job,raw_sha256=sha256(root/a.STORE),diagnostics=proof['result']['diagnostics'],independent_dense_checks=checks,geometry=extra,descriptive_quantiles=summaries,summary=json.loads((root/a.OUTPUT/'summary.json').read_text()),scope='Computational same-model repair acceptance only; no predictive adequacy or sensitivity robustness conclusion.',source_gate_sha256=checked['files'][m.GATE],repair_gate_sha256=checked['files'][a.GATE])
+Path('/tmp/s5-actual-repair-check.json').write_text(json.dumps(out,sort_keys=True,indent=2,allow_nan=False))
+print('RESULT',json.dumps({'diagnostics':out['diagnostics'],'geometry':extra,'max_density_error':max(abs(v['density_difference']) for v in checks),'max_gradient_error':max(v['gradient_max_difference'] for v in checks),'source_pins':len(checked['initial_files'])},indent=2))
