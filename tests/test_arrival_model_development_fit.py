@@ -467,3 +467,211 @@ def test_real_positive_full_summary_mixed_ppc_csv_replays(tmp_path, monkeypatch)
     admission = worker.verify_gate(tmp_path, job["role"])
     inventory = worker.case_artifacts(tmp_path, job, admission["files"])
     assert inventory["posterior_sha256"] == result["posterior_sha256"]
+
+
+def crossing_evaluation_fixture(
+    monkeypatch,
+    events,
+    *,
+    failed_event=None,
+    precision_failed=False,
+    supplement_precision_failure=False,
+):
+    from analysis.arrival import model_development_scoring as scoring
+    from analysis.arrival.model_data import lane_arrays
+    from tests.test_arrival_model_development_scoring import labelled
+
+    rows = [
+        dict(
+            record_id=f"r-{i}",
+            event_id=event,
+            physical_site_id=f"site-{i}",
+            target="T-CAL",
+            target_minutes=str(i - 1),
+            distance_km=str(100 + 20 * i),
+        )
+        for i, event in enumerate(events)
+    ]
+    held = lane_arrays("T-CAL", rows, {e: f"seq-{e}" for e in events}, set(events))
+    values = np.random.default_rng(772).normal(
+        -20, 0.3 if supplement_precision_failure else 0.05, (4, 2000)
+    )
+    if supplement_precision_failure:
+        # Equal empirical chain normalizers isolate the supplementary precision rule.
+        rng = np.random.default_rng(994)
+        values = np.stack([rng.permutation(values[0]) for _ in range(4)])
+    likelihoods = {
+        event: labelled(
+            (-values - 40)
+            if event == data.CROSS_CHECK and supplement_precision_failure
+            else values + (5 if event == data.CROSS_CHECK else -3 if event == "kept-b" else 0),
+            event=event,
+            target="T-CAL",
+        )
+        for event in events
+    }
+    scores = {e: scoring.direct_event_score(value, 1) for e, value in likelihoods.items()}
+
+    def likelihood(lane, ids, kind, post):
+        event = lane.event_ids[int(ids[0])]
+        if event == failed_event and not precision_failed:
+            raise ValueError("synthetic failed event likelihood")
+        return likelihoods[event], {}
+
+    direct = worker.direct_event_score
+
+    def score(logl, records):
+        result = direct(logl, records)
+        if logl.attrs["event_id"] == failed_event and precision_failed:
+            result.update(
+                precision_passed=False,
+                status="needs_numerical_review",
+                numerical_failures=["synthetic_event_precision_failure"],
+            )
+        return result
+
+    def predictions(lane, ids, kind, post, *, training_distance_range_km):
+        return [
+            {"record_id": lane.record_ids[int(i)], "event_id": lane.event_ids[int(i)]} for i in ids
+        ], {"status": "computed_pending_review"}
+
+    monkeypatch.setattr(worker, "event_loglikelihood", likelihood)
+    monkeypatch.setattr(worker, "direct_event_score", score)
+    monkeypatch.setattr(worker, "new_event_predictions", predictions)
+    post = xr.Dataset(coords={"chain": ["a", "b", "c", "d"], "draw": np.arange(2000)})
+    args = (held, held, {"kind": "event"}, post, {"raw_sha256": "f" * 64})
+    return args, scores
+
+
+def test_crossing_diagnostic_keeps_shared_covariance_and_primary_outputs(tmp_path, monkeypatch):
+    import math
+
+    from analysis.arrival.model_development_scoring import aggregate_shared_training_events
+
+    args, scores = crossing_evaluation_fixture(monkeypatch, ["kept-a", data.CROSS_CHECK, "kept-b"])
+    expected_all = aggregate_shared_training_events([scores[e] for e in sorted(scores)], "f" * 64)
+    expected_kept = aggregate_shared_training_events(
+        [scores[e] for e in ["kept-a", "kept-b"]], "f" * 64
+    )
+    all_influence = expected_all.pop("shared_influence").values
+    kept_influence = expected_kept.pop("shared_influence").values
+    result = worker._evaluate(tmp_path, tmp_path, *args)
+    saved = json.loads((tmp_path / "event-results.json").read_text())
+    assert result["status"] == worker.SUCCESS and saved["aggregate"] == expected_all
+    diagnostic = saved["aggregate_without_crossing_event"]
+    assert diagnostic["kept_event_ids"] == ["kept-a", "kept-b"]
+    assert diagnostic["excluded_event_ids"] == [data.CROSS_CHECK]
+    assert {k: diagnostic[k] for k in expected_kept} == expected_kept
+    assert (
+        diagnostic["mcse_equal_event_score"]
+        > math.hypot(*(scores[e]["normalized_mcse"] for e in ["kept-a", "kept-b"])) / 2 * 1.3
+    )
+    assert diagnostic["equal_event_score"] != saved["aggregate"]["equal_event_score"]
+    with np.load(tmp_path / "direct-score-arrays.npz", allow_pickle=False) as arrays:
+        np.testing.assert_array_equal(arrays["aggregate_shared_influence"], all_influence)
+        np.testing.assert_array_equal(
+            arrays["aggregate_without_crossing_shared_influence"], kept_influence
+        )
+        for order, event in enumerate(sorted(scores)):
+            np.testing.assert_array_equal(
+                arrays[f"event_{order:03d}_joint_influence"],
+                scores[event]["joint_influence"].values,
+            )
+    assert result == worker._evaluate(tmp_path, tmp_path, *args, verify=True)
+    assert result["prediction_rows"] == 3
+    assert result["aggregate_without_crossing_event"] == diagnostic
+
+
+@pytest.mark.parametrize("events", [["kept-a", "kept-b"], [data.CROSS_CHECK]])
+def test_crossing_absent_or_no_kept_event_is_explicit(tmp_path, monkeypatch, events):
+    args, _ = crossing_evaluation_fixture(monkeypatch, events)
+    result = worker._evaluate(tmp_path, tmp_path, *args)
+    diagnostic = result["aggregate_without_crossing_event"]
+    assert result["status"] == worker.SUCCESS
+    with np.load(tmp_path / "direct-score-arrays.npz", allow_pickle=False) as arrays:
+        if data.CROSS_CHECK not in events:
+            assert diagnostic["excluded_event_ids"] == []
+            assert diagnostic["kept_event_ids"] == sorted(events)
+            assert {k: diagnostic[k] for k in result["aggregate"]} == result["aggregate"]
+            np.testing.assert_array_equal(
+                arrays["aggregate_shared_influence"],
+                arrays["aggregate_without_crossing_shared_influence"],
+            )
+        else:
+            assert diagnostic["status"] == "not_applicable" and diagnostic["events"] == 0
+            assert diagnostic["kept_event_ids"] == [] and diagnostic["excluded_event_ids"] == [
+                data.CROSS_CHECK
+            ]
+            assert (
+                "mcse_equal_event_score" not in diagnostic and "equal_event_score" not in diagnostic
+            )
+            assert "aggregate_without_crossing_shared_influence" not in arrays.files
+
+
+@pytest.mark.parametrize("precision_failed", [False, True])
+def test_failed_kept_score_never_shifts_event_identity_or_hides_failure(
+    tmp_path, monkeypatch, precision_failed
+):
+    args, _ = crossing_evaluation_fixture(
+        monkeypatch,
+        ["kept-a", "kept-b", data.CROSS_CHECK],
+        failed_event="kept-a",
+        precision_failed=precision_failed,
+    )
+    result = worker._evaluate(tmp_path, tmp_path, *args)
+    diagnostic = result["aggregate_without_crossing_event"]
+    assert result["status"] == "needs_numerical_review"
+    assert diagnostic["status"] == "needs_numerical_review" and diagnostic["events"] == 2
+    assert diagnostic["kept_event_ids"] == ["kept-a", "kept-b"]
+    assert diagnostic["failed_event_ids"] == ["kept-a"]
+    with np.load(tmp_path / "direct-score-arrays.npz", allow_pickle=False) as arrays:
+        assert "aggregate_without_crossing_shared_influence" not in arrays.files
+    assert result == worker._evaluate(tmp_path, tmp_path, *args, verify=True)
+
+
+def test_failed_crossing_score_does_not_block_supplement_or_rescue_primary(tmp_path, monkeypatch):
+    args, _ = crossing_evaluation_fixture(
+        monkeypatch, ["kept-a", "kept-b", data.CROSS_CHECK], failed_event=data.CROSS_CHECK
+    )
+    result = worker._evaluate(tmp_path, tmp_path, *args)
+    assert result["status"] == "needs_numerical_review"
+    assert result["aggregate_without_crossing_event"]["status"] == "computed_pending_review"
+    assert result["aggregate_without_crossing_event"]["failed_event_ids"] == []
+    with np.load(tmp_path / "direct-score-arrays.npz", allow_pickle=False) as arrays:
+        assert "aggregate_without_crossing_shared_influence" in arrays.files
+
+
+@pytest.mark.parametrize("corruption", ["metadata", "influence"])
+def test_crossing_supplement_metadata_and_influence_replay_exactly(
+    tmp_path, monkeypatch, corruption
+):
+    args, _ = crossing_evaluation_fixture(monkeypatch, ["kept-a", "kept-b", data.CROSS_CHECK])
+    worker._evaluate(tmp_path, tmp_path, *args)
+    if corruption == "metadata":
+        path = tmp_path / "event-results.json"
+        result = json.loads(path.read_text())
+        result["aggregate_without_crossing_event"]["kept_event_ids"] = [data.CROSS_CHECK]
+        write_json(path, result)
+    else:
+        path = tmp_path / "direct-score-arrays.npz"
+        with np.load(path, allow_pickle=False) as old:
+            arrays = {key: old[key].copy() for key in old.files}
+        arrays["aggregate_without_crossing_shared_influence"][0, 0] += 1
+        np.savez_compressed(path, **arrays)
+    with pytest.raises(ValueError, match="replay|arrays"):
+        worker._evaluate(tmp_path, tmp_path, *args, verify=True)
+
+
+def test_supplement_precision_failure_does_not_change_primary_pass_rule(tmp_path, monkeypatch):
+    args, _ = crossing_evaluation_fixture(
+        monkeypatch, ["kept-a", "kept-b", data.CROSS_CHECK], supplement_precision_failure=True
+    )
+    result = worker._evaluate(tmp_path, tmp_path, *args)
+    assert result["status"] == worker.SUCCESS
+    diagnostic = result["aggregate_without_crossing_event"]
+    assert diagnostic["status"] == "needs_numerical_review"
+    assert "aggregate_mcse" in diagnostic["numerical_failures"]
+    assert diagnostic["failed_event_ids"] == []
+    with np.load(tmp_path / "direct-score-arrays.npz", allow_pickle=False) as arrays:
+        assert "aggregate_shared_influence" in arrays.files
+        assert "aggregate_without_crossing_shared_influence" not in arrays.files

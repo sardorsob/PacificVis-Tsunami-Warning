@@ -353,6 +353,7 @@ def _training_reference(root, job, lane, admission):
 def _evaluate(root, output, lane, held, spec, post, proof, *, verify=False):
     events: list[dict[str, Any]] = []
     scores, predictions = [], []
+    scores_by_event = {}
     arrays: dict[str, Any] = {}
     expected = sorted(
         {event for event, keep in zip(held.event_ids, held.included, strict=True) if keep}
@@ -372,6 +373,7 @@ def _evaluate(root, output, lane, held, spec, post, proof, *, verify=False):
             score = direct_event_score(logl, records=len(ids))
             arrays[f"event_{order:03d}_joint_influence"] = score["joint_influence"].values
             scores.append(score)
+            scores_by_event[event] = score
             entry["score"] = {
                 key: value for key, value in score.items() if key != "joint_influence"
             }
@@ -408,10 +410,52 @@ def _evaluate(root, output, lane, held, spec, post, proof, *, verify=False):
             numerical_failures=["aggregate_evaluation_failure"],
             error=str(error),
         )
+    kept = [event for event in expected if event != data.CROSS_CHECK]
+    excluded = [event for event in expected if event == data.CROSS_CHECK]
+    failed_kept = [
+        event
+        for event in kept
+        if event not in scores_by_event
+        or scores_by_event[event]["status"] != "computed_pending_review"
+    ]
+    without_crossing: dict[str, Any]
+    try:
+        if not kept:
+            without_crossing = dict(status="not_applicable", events=0)
+        elif any(event not in scores_by_event for event in kept):
+            without_crossing = dict(
+                status="needs_numerical_review",
+                events=len(kept),
+                numerical_failures=["event_evaluation_failure"],
+            )
+        else:
+            # Keep the shared draw stream: event MCSEs are not independent.
+            without_crossing = aggregate_shared_training_events(
+                [scores_by_event[event] for event in kept], proof["raw_sha256"]
+            )
+    except (ValueError, FloatingPointError, OverflowError) as error:
+        without_crossing = dict(
+            status="needs_numerical_review",
+            events=len(kept),
+            numerical_failures=["aggregate_evaluation_failure"],
+            error=str(error),
+        )
+    without_crossing.update(
+        kept_event_ids=kept, excluded_event_ids=excluded, failed_event_ids=failed_kept
+    )
+    if "shared_influence" in without_crossing:
+        influence = without_crossing.pop("shared_influence")
+        if without_crossing["status"] == "computed_pending_review":
+            arrays["aggregate_without_crossing_shared_influence"] = influence.values
     if "shared_influence" in aggregate:
         arrays["aggregate_shared_influence"] = aggregate.pop("shared_influence").values
     arrays.update(chain_coordinates=post.chain.values, draw_coordinates=post.draw.values)
-    event_results = {"expected_event_ids": expected, "events": events, "aggregate": aggregate}
+    event_results = {
+        "expected_event_ids": expected,
+        "events": events,
+        "aggregate": aggregate,
+        "aggregate_without_crossing_event": without_crossing,
+    }
     if verify:
         if json.loads((output / "event-results.json").read_text()) != event_results:
             raise ValueError("frozen direct-score results must replay from original training draws")
@@ -440,6 +484,7 @@ def _evaluate(root, output, lane, held, spec, post, proof, *, verify=False):
     return dict(
         status=SUCCESS if passed else "needs_numerical_review",
         aggregate=aggregate,
+        aggregate_without_crossing_event=without_crossing,
         expected_events=len(expected),
         prediction_rows=len(predictions),
         training_reference=proof,
