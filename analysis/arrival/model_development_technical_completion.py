@@ -160,7 +160,8 @@ def historical_source_verify(root, pins, source_epoch="technical-completion-v1")
         if name in V1_SOURCE_HASHES:
             require(digest == V1_SOURCE_HASHES[name], "no alternate historical code hash")
             name = manifest["allowed_bindings"][name]["archived_path"]
-        result = merge(result, {name: digest})
+        require(name not in result or result[name] == digest, "conflicting SHA closure")
+        result[name] = digest
     result = merge(result, archived, {HISTORY_MANIFEST: HISTORY_MANIFEST_SHA256})
     fresh(root, result)
     return result

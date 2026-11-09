@@ -1,0 +1,351 @@
+"""Draft the original selected-only full-development worker Gate; never publish."""
+
+# pyright: basic
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path("/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times")
+ART = "artifacts/models/arrival-timing/"
+FREEZE = ART + "specification-freeze-v1/review-acceptance.json"
+FREEZE_SHA = "b1de266480cb5dd31f18a34c4aef59d42866ed4f2a24b85a68b04d2045d22fce"
+CHECK = ART + "development-check-v1/review-acceptance.json"
+SMOKE = ART + "full-development-recovery-v1/review-acceptance.json"
+SUMMARY = (
+    ART + "development-check-v1/controller/technical-completion-v1/epochs/epoch-2/"
+    "full_design_recovery-summary.json"
+)
+IDS = [
+    "dev-ncei-mean-curvature-selected-full",
+    "dev-tobs-pooled-selected-full",
+    "dev-tcal-distance-selected-full",
+]
+
+
+def require(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+
+def sha(p):
+    with p.open("rb") as stream:
+        return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def encoded(value):
+    return (json.dumps(value, sort_keys=True, indent=2, allow_nan=False) + "\n").encode()
+
+
+def read(root, name):
+    p = root / name
+    require(
+        not Path(name).is_absolute()
+        and ".." not in Path(name).parts
+        and p.resolve() == p
+        and p.is_file(),
+        "literal existing metadata file required: " + name,
+    )
+    return json.loads(p.read_text())
+
+
+def modules(root):
+    sys.path.insert(0, str(root))
+    from analysis.arrival import model_development_data as data
+    from analysis.arrival import model_development_fit as fit
+    from analysis.arrival import model_development_recovery as smoke
+    from analysis.arrival import model_development_technical_completion as technical
+    from scripts import run_arrival_development as old
+    from scripts import run_arrival_development_completion as completion
+
+    return data, fit, smoke, old, completion, technical
+
+
+def build(root):
+    root = Path(root).resolve()
+    # Missing actual independent receipts fail before any scientific imports or output.
+    check, recovery = [read(root, p) for p in [CHECK, SMOKE]]
+    require(
+        check.get("status") == "accepted_frozen_arrival_development_check"
+        and check.get("completed_once") is True
+        and check.get("no_retuning") is True
+        and check.get("calls_charged") == check.get("calls_started") == 0
+        and recovery.get("status") == "accepted_frozen_full_development_design_checks",
+        "actual complete check and G6 scientific reviews required",
+    )
+    for review in [check, recovery]:
+        require(
+            review.get("independent_checker") is True
+            and review.get("reserved_outcomes") == "sealed"
+            and review.get("confirmation_outcomes_parsed") is True
+            and review.get("reserved_outcomes_parsed") is False
+            and review.get("specification_freeze_sha256") == FREEZE_SHA,
+            "independent same-freeze already-inspected/sealed reviews required",
+        )
+    data, fit, g, old, completion, technical = modules(root)
+    freeze = read(root, FREEZE)
+    kernel = read(root, g.GATE)
+    require(sha(root / FREEZE) == FREEZE_SHA, "original b1de scientific freeze changed")
+    pins = old._merge(
+        freeze["files"],
+        kernel["files"],
+        check["files"],
+        recovery["files"],
+        {
+            FREEZE: FREEZE_SHA,
+            CHECK: sha(root / CHECK),
+            SMOKE: sha(root / SMOKE),
+            g.GATE: sha(root / g.GATE),
+        },
+    )
+    old.previous._require(check["files"], {**freeze["files"], FREEZE: FREEZE_SHA})
+    old.previous._require(
+        recovery["files"],
+        {**check["files"], CHECK: pins[CHECK], **kernel["files"], g.GATE: pins[g.GATE]},
+    )
+    require(
+        set(fit.CONSUMED) | set(g.CONSUMED) | {old.SELF, old.TEST} <= set(pins),
+        "full current worker/runtime consumer closure required",
+    )
+    inherited = {p: h for p, h in freeze["files"].items() if p.startswith("context/")}
+    require(
+        len(inherited) == 12
+        and {p: h for p, h in pins.items() if p.startswith("context/")} == inherited
+        and old.STATE not in pins
+        and completion.STATE not in pins,
+        "only exact12 inherited immutable ledger SHA references; never live STATE",
+    )
+    data._unchanged(root, pins)
+    checked, *_ = data.verify_development_sources(root, pins, full=True)
+    require(checked == freeze, "same frozen full-development metadata required")
+    smoke_jobs = g.jobs(freeze)
+    require(
+        kernel.get("status") == "accepted_frozen_arrival_development_recovery_execution"
+        and kernel.get("independent_checker") is True
+        and kernel.get("jobs") == smoke_jobs
+        and kernel.get("protocol") == g.protocol()
+        and kernel.get("resources") == fit.resources(),
+        "original accepted fixed G6 kernel/protocol required",
+    )
+    program = technical.read_program_metadata(root, "full_design_recovery")
+    old.previous._require(recovery["files"], program["files"])
+    summary = read(root, SUMMARY)
+    require(
+        SUMMARY in recovery["files"]
+        and program.get("complete") is True
+        and program.get("remaining_jobs") == []
+        and program.get("source_epoch") == "technical-completion-v2"
+        and program.get("jobs") == summary.get("jobs") == smoke_jobs
+        and program.get("dispatch_jobs") == smoke_jobs[1:]
+        and summary.get("status") == "computed_pending_independent_review"
+        and program.get("calls_charged")
+        == program.get("calls_started")
+        == summary.get("calls_charged")
+        == summary.get("calls_started")
+        == 6
+        and summary.get("accepted_records") == program.get("accepted_records")
+        and summary.get("attempt_records") == program.get("attempt_records")
+        and summary["attempt_records"] == [r for r in summary["accepted_records"] if "receipt" in r]
+        and len(summary["accepted_records"]) == 6,
+        "six same-call computations, including separately reviewed G0/G2, required",
+    )
+    for i, (job, descriptor) in enumerate(
+        zip(smoke_jobs, program["accepted_records"], strict=True)
+    ):
+        if i == 0:
+            baseline = program["baseline"]
+            require(
+                descriptor.get("producer") == "legacy_G0_strict_revalidation"
+                and descriptor.get("job") == job == baseline.get("job")
+                and descriptor.get("logical_outcome") == "accepted_under_strict_revalidation"
+                and descriptor.get("original_controller_outcome") == "needs_review"
+                and descriptor.get("original_receipt") == baseline["original_receipt"]
+                and descriptor.get("original_receipt_sha256") == pins[baseline["original_receipt"]]
+                and descriptor.get("worker_files") == baseline["worker_files"],
+                "original failed controller receipt and independent strict G0 proof required",
+            )
+            record = read(root, baseline["original_receipt"])
+            require(
+                record.get("outcome") == "needs_review", "original G0 failure must remain retained"
+            )
+            physical = {p: h for p, h in record["files"].items() if p != record["allocation"]}
+        elif i == 2:
+            record = descriptor
+            require(
+                record.get("producer") == "G2_stable_scientific_revalidation"
+                and record.get("producer_epoch") == "technical-completion-v2"
+                and record.get("proof_contract") == technical.PROOF_CONTRACT
+                and record.get("job") == job
+                and record.get("logical_outcome") == "accepted_under_stable_revalidation"
+                and record.get("original_controller_outcome") == "failed_before_attempt"
+                and "receipt" not in record
+                and "receipt_sha256" not in record,
+                "reviewed G2 computation must preserve absent accepted attempt",
+            )
+            _, _, spec, log, process = old.paths(root, job, g)
+            physical = {
+                **record["worker_files"],
+                **{
+                    str(p.relative_to(root)): pins[str(p.relative_to(root))]
+                    for p in [spec, log, process]
+                },
+            }
+        else:
+            record = descriptor
+            require(
+                record.get("producer")
+                == ("strict_startup_execution" if i == 1 else "stable_scientific_startup_execution")
+                and record.get("producer_epoch")
+                == ("technical-completion-v1" if i == 1 else "technical-completion-v2")
+                and record.get("proof_contract")
+                == (
+                    "strict_original_worker_artifacts_passed"
+                    if i == 1
+                    else technical.PROOF_CONTRACT
+                )
+                and record.get("outcome") == "accepted"
+                and read(root, record["receipt"])
+                == {
+                    k: v
+                    for k, v in record.items()
+                    if k not in {"receipt_sha256", "producer_epoch", "proof_contract"}
+                },
+                "immutable successful technical G attempt required",
+            )
+            proof = Path(record["strict_proof"])
+            extra = {
+                record["allocation"],
+                str(proof),
+                str(proof.with_name("proof.log")),
+                str(proof.with_name("proof-process.json")),
+            }
+            physical = {p: h for p, h in record["files"].items() if p not in extra}
+        require(
+            (record.get("job_id") == job["id"] or (i == 2 and record.get("job") == job))
+            and record.get("cost") == record.get("start_markers") == 1,
+            "six successful single-call producer receipts required",
+        )
+        old.previous._require(recovery["files"], record["files"])
+        old.case_inventory(root, job, g, physical, smoke_jobs)
+    keys = list(dict.fromkeys(job["model_key"] for job in smoke_jobs))
+    require(
+        keys
+        == [
+            f"{target}:{kind}:selected"
+            for target, kind in zip(
+                g.TARGETS, ["mean-curvature", "pooled", "distance"], strict=True
+            )
+        ]
+        and all(freeze["models"][t][0].get("prior_variant") == "base" for t in g.TARGETS),
+        "same three selected BASE specifications required",
+    )
+    seed = freeze["seeds"]["full_development"]
+    jobs = [
+        dict(
+            id=identifier,
+            order=i,
+            role="full_development",
+            model_key=key,
+            seed=seed + 100 * i,
+            training_reference=None,
+        )
+        for i, (identifier, key) in enumerate(zip(IDS, keys, strict=True))
+    ]
+    require(
+        all(type(j["seed"]) is int and 0 <= j["seed"] < 2**32 - 1 for j in jobs),
+        "frozen uint32 seeds required",
+    )
+    floors = kernel["parent_minimum_bytes"]
+    require(len(floors) == 15, "all15 inherited floors required")
+    old.r.parent_floors(root, kernel)
+    external = {p: pins[p] for p in old.external_paths(root, freeze)}
+    require(
+        len(external) == 11 and external == kernel["external_reference_files"],
+        "same11 outside references required",
+    )
+    gate = dict(
+        status="accepted_frozen_arrival_development_execution",
+        independent_checker=True,
+        specification_freeze=FREEZE,
+        specification_freeze_sha256=FREEZE_SHA,
+        completed_check=CHECK,
+        completed_check_sha256=pins[CHECK],
+        full_design_recovery_review=SMOKE,
+        full_design_recovery_review_sha256=pins[SMOKE],
+        confirmation_outcomes_parsed=True,
+        development_check_previously_inspected=True,
+        reserved_outcomes="sealed",
+        reserved_outcomes_parsed=False,
+        no_retuning_after_development_check=True,
+        crossing_policy="uniform_purge_all_check_sequences",
+        jobs=jobs,
+        inherited_calls={"charged": 6, "started": 6},
+        max_sampler_call_slots=9,
+        resources=fit.resources(),
+        path_bindings=old.bindings(root),
+        parent_minimum_bytes=floors,
+        external_reference_files=external,
+        execution_source_review=freeze["execution_source_review"],
+        files=pins,
+    )
+    require(
+        completion.quota(
+            root,
+            {"gate": gate, "files": pins, "phase": "full_development"},
+            reserve=True,
+            known_files=pins,
+        )
+        is None,
+        "fresh resource/floor/three-extra-root/608MiB reserve check failed",
+    )
+    data._unchanged(root, pins)
+    return dict(
+        status="draft_only_not_execution_authority",
+        gate_path=fit.FULL_GATE,
+        gate=gate,
+        gate_sha256=hashlib.sha256(encoded(gate)).hexdigest(),
+        actual_Gates_published=False,
+        native_table_bodies_parsed=False,
+        NetCDF_arrays_parsed=False,
+        reference_files_hashed_only=True,
+        private_STATE_bodies_parsed_or_written=False,
+        after_Root_publication=[
+            'fit.verify_gate(root,"full_development")',
+            'old.admit(root,"full_development")',
+            "new journal full-development authority admission and quota; never resume old STATE",
+        ],
+        limits=[
+            "Three selected full fits only; no retuning or reserved18/MS7 authorization.",
+            "G6 is a computational smoke, not SBC/coverage/physical validity evidence.",
+        ],
+    )
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--root", type=Path, default=ROOT)
+    p.add_argument("--output", type=Path, required=True)
+    a = p.parse_args()
+    try:
+        require(
+            a.output.is_absolute()
+            and a.output.parent.resolve() == Path("/private/tmp")
+            and not a.output.exists()
+            and not a.output.is_symlink(),
+            "new /private/tmp draft only",
+        )
+        result = build(a.root)
+        with a.output.open("xb") as stream:
+            stream.write(encoded(result))
+    except (ValueError, KeyError, OSError) as exc:
+        p.exit(2, str(exc) + "\n")
+    print(
+        json.dumps(
+            {"status": result["status"], "draft": str(a.output), "actual_Gates_published": False}
+        )
+    )
+
+
+if __name__ == "__main__":
+    main()

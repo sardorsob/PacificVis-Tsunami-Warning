@@ -1,0 +1,33 @@
+import json,subprocess,sys
+from pathlib import Path
+R=Path('/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times');sys.path.insert(0,str(R))
+from analysis.arrival import model_development_technical_completion as T
+D=T.DESIGN;oldsource=D+'/source-review.json';oldconsumer=D+'/consumer-source-review.json'
+qa=json.loads(Path('/private/tmp/tsunami-technical-linear-history-source-qa.json').read_text());T.fresh(R,qa['files'])
+assert qa['status']=='accepted_frozen_development_technical_linear_history_sources' and qa['independent_checker'] and qa['tests']['passed']==81
+maker=json.loads(Path('/private/tmp/epoch2-consumer-producer-fix-maker-receipt.json').read_text())
+for n,h in maker['files'].items():assert T.sha(Path(n) if n.startswith('/') else R/n)==h,n
+cp={}
+def savebytes(leaf,b):
+ p=R/D/leaf;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('xb') as f:f.write(b)
+ cp[str(p.relative_to(R))]=T.sha(p)
+def copy(n,leaf):savebytes(leaf,Path(n).read_bytes())
+for name in [T.SELF,T.TEST]:
+ b=subprocess.check_output(['git','show','839dc90:'+name],cwd=R)
+ savebytes('source-review-evidence-v3/prior-epoch2-'+Path(name).name+'.txt',b)
+for src,leaf in [('/private/tmp/tsunami-technical-linear-history-source-qa.json','source-review-evidence-v3/linear-source-qa.json'),('/private/tmp/tsunami-linear-history-independent-tests.log','source-review-evidence-v3/root-source-tests.txt'),('/private/tmp/epoch2-consumer-producer-fix-maker-receipt.json','consumer-review-evidence-v3/producer-fix-maker.json'),('/private/tmp/tsunami-epoch2-consumer-producer-independent-review.json','consumer-review-evidence-v3/root-independent-review.json'),('/private/tmp/tsunami-epoch2-consumer-producer-independent.log','consumer-review-evidence-v3/root-producer-tests.txt'),('/private/tmp/tsunami-epoch2-consumer-positive-independent.log','consumer-review-evidence-v3/root-positive-tests.txt'),('/private/tmp/prepare-tsunami-full-development-worker-gate.py','consumer-review-evidence-v3/full-worker-gate-builder.py.txt'),('/private/tmp/test_prepare_full_development_worker_gate.py','consumer-review-evidence-v3/test-full-worker-gate-builder.py.txt')]:copy(src,leaf)
+copy(__file__,'source-review-evidence-v3/publication-code.py.txt')
+old=T.load(R,oldsource)
+files=T.merge({p:h for p,h in old['files'].items() if p not in {T.SELF,T.TEST}},qa['files'],cp,{oldsource:T.sha(R/oldsource)})
+T.fresh(R,files)
+source=dict(status='accepted_frozen_arrival_development_technical_source',source_epoch='technical-completion-v2',independent_checker=True,execution_authority=False,new_sampler_calls=0,proof_contract=T.PROOF_CONTRACT,source_files=qa['files'],independent_tests_passed=81,static_checks_passed=True,scientific_models_priors_seeds_thresholds_changed=False,performance_only_revision=True,prior_source_review_history_only=oldsource,no_additional_historical_fallback=True,files=files)
+savebytes('source-review-revision-2.json',T.payload(source))
+reader=['analysis/arrival/model_development_completion_report.py','scripts/summarize_arrival_completed_development.py','tests/test_arrival_model_development_completion_report.py']
+rbase={p:h for p,h in T.load(R,oldconsumer)['files'].items() if p not in set(reader)|{T.SELF,T.TEST}}
+files=T.merge(rbase,{p:T.sha(R/p) for p in reader},qa['files'],cp,{oldconsumer:T.sha(R/oldconsumer)})
+T.fresh(R,files)
+consumer=dict(status='accepted_frozen_arrival_development_technical_consumer_source',source_epoch='technical-completion-v2',independent_checker=True,execution_authority=False,new_sampler_calls=0,corrected_actual_epoch_phase_producer_contract=True,independent_repair_tests_passed=21,maker_repair_tests_passed=153,prior_consumer_review_history_only=oldconsumer,current_reader_files={p:T.sha(R/p) for p in reader},computation_children=16,parent_runs=1,maximum_sampler_calls=9,files=files)
+savebytes('consumer-source-review-revision-2.json',T.payload(consumer))
+for n in ['source-review-revision-2.json','consumer-source-review-revision-2.json']:
+ p=R/D/n;v=json.loads(p.read_text());T.fresh(R,v['files']);print(n,T.sha(p),len(v['files']))

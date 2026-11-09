@@ -1369,3 +1369,59 @@ def test_current_execution_source_cannot_borrow_its_old_archive_hash(program):
     (c.root / p.SELF).write_bytes((c.root / archive).read_bytes())
     with pytest.raises(ValueError):
         p.read_program_metadata(c.root, G)
+
+
+@pytest.mark.parametrize("same_digest", [True, False])
+def test_historical_merge_rebound_archive_collision_retains_exact_semantics(program, same_digest):
+    c = program
+    source = p.SELF
+    archive = c.history["allowed_bindings"][source]["archived_path"]
+    digest = c.old_code[source]
+    pins = {source: digest, archive: digest if same_digest else "d" * 64}
+    if same_digest:
+        resolved = p.historical_source_verify(c.root, pins)
+        assert resolved[archive] == digest and source not in resolved
+        assert len(resolved) == 4
+    else:
+        with pytest.raises(ValueError, match="conflicting SHA closure"):
+            p.historical_source_verify(c.root, pins)
+
+
+def test_historical_merge_rejects_invalid_unrebound_digest(program):
+    c = program
+    path = "opaque-extra.bin"
+    put(c.root, path, b"hash-only fixture")
+    with pytest.raises(ValueError, match="conflicting SHA closure"):
+        p.historical_source_verify(c.root, {**c.old_code, path: "not-a-sha256"})
+
+
+def test_historical_merge_key_order_does_not_change_materialized_mapping(program):
+    c = program
+    archive = c.history["allowed_bindings"][p.SELF]["archived_path"]
+    pins = {**c.old_code, archive: c.old_code[p.SELF]}
+    forward = p.historical_source_verify(c.root, pins)
+    backward = p.historical_source_verify(c.root, dict(reversed(list(pins.items()))))
+    assert forward == backward
+
+
+def test_historical_merge_input_visits_are_linear_for_thousand_pins(program, monkeypatch):
+    c = program
+    pins = dict(c.old_code)
+    for i in range(1000):
+        name = f"opaque-history/file-{i:04d}.bin"
+        put(c.root, name, b"opaque hash fixture")
+        pins[name] = p.sha(c.root / name)
+    original_merge = p.merge
+    visits = []
+
+    def counted_merge(*maps):
+        visits.append(sum(len(values) for values in maps))
+        return original_merge(*maps)
+
+    monkeypatch.setattr(p, "merge", counted_merge)
+    resolved = p.historical_source_verify(c.root, pins)
+    assert len(resolved) == 1004
+    assert sum(visits) <= 5 * (len(pins) + 4), (
+        f"historical normalization revisited {sum(visits)} merge inputs for {len(pins)} pins"
+    )
+    p.fresh(c.root, resolved)

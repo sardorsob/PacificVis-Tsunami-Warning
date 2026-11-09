@@ -1,0 +1,23 @@
+{
+  "execution_authority": false,
+  "files": {
+    "analysis/arrival/model_development_completion_report.py": "fdb161e7a1b1bacddb4a3a2eee05ba04e03b7ed53c02840a9cb53150758f16be",
+    "scripts/summarize_arrival_completed_development.py": "6ee362f99849da53444801c259ffb4c40f0a4750e396656dd17ecce658eb5df2",
+    "tests/test_arrival_model_development_completion_report.py": "0ac3ee5229e0a9b6a4f9d72c03420d3772f44c5f4c3cee0827245acf10a71be1"
+  },
+  "independent_checker": true,
+  "independent_checks": {
+    "positive_actual_producer_fixtures": 5,
+    "positive_seconds": 4.81,
+    "producer_boundary_cases": 16,
+    "seconds": 13.16
+  },
+  "maker_receipt_sha256": "69c61603e4fa6251130d9d94001e57077791303dc97a8e4a3d7e9e45bc06613c",
+  "manual_diff_review": "Exact phase/epoch/proof contract admits historical G1 strict producer, Epoch2 G3..5 stable producer, and full-development strict producer; all other labels fail closed",
+  "new_actual_sampler_calls": 0,
+  "original_models_data_priors_seeds_scientific_thresholds_changed": false,
+  "publication_deferred_until_all_G_closed_to_preserve_frozen_inventory": true,
+  "source_only": true,
+  "status": "accepted_frozen_epoch2_consumer_producer_contract_repair",
+  "supersedes_live_consumer_source_review": "640294ad2ccc780caad7ffcaf9f94f7e946a518d8f7da7477d96aff51a277eb0"
+}

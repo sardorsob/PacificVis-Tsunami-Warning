@@ -1,0 +1,67 @@
+{
+  "actual_sampler_or_client_calls": 0,
+  "allowed_ordinary_contracts": [
+    {
+      "epoch": "technical-completion-v1",
+      "job": "G1 historical",
+      "phase": "full_design_recovery",
+      "producer": "strict_startup_execution",
+      "proof_contract": "strict_original_worker_artifacts_passed"
+    },
+    {
+      "epoch": "technical-completion-v2",
+      "job": "new G3..5",
+      "phase": "full_design_recovery",
+      "producer": "stable_scientific_startup_execution",
+      "proof_contract": "original_scientific_checks_diagnostic_recomputation_v2"
+    },
+    {
+      "epoch": "technical-completion-v2",
+      "job": "three original selected fits",
+      "phase": "full_development",
+      "producer": "strict_startup_execution",
+      "proof_contract": "original_full_development_case_artifacts"
+    }
+  ],
+  "before_snapshots": "/private/tmp/epoch2-consumer-producer-before-fix",
+  "checks": {
+    "diff_check": "passed",
+    "help": [
+      "reader",
+      "full_worker_builder"
+    ],
+    "pyright": "0 errors, 0 warnings",
+    "ruff": "passed"
+  },
+  "files": {
+    "/private/tmp/prepare-tsunami-full-development-worker-gate.py": "0539d5e4082d40da8a07916f523891fd9e7122c6eed35900b88df89701ee442d",
+    "/private/tmp/test_prepare_full_development_worker_gate.py": "70da21d3f53a0fe30fb0f84bbd0d61a2eac9d976680943ec9dd2658b9d02c099",
+    "analysis/arrival/model_development_completion_report.py": "fdb161e7a1b1bacddb4a3a2eee05ba04e03b7ed53c02840a9cb53150758f16be",
+    "tests/test_arrival_model_development_completion_report.py": "0ac3ee5229e0a9b6a4f9d72c03420d3772f44c5f4c3cee0827245acf10a71be1"
+  },
+  "green": {
+    "complete_suite_passed": 153,
+    "complete_suite_seconds": 93.11,
+    "initial_positive_passed": 3,
+    "new_negative_cases": 15
+  },
+  "red": {
+    "cause": "Actual new-G stable_scientific_startup_execution rejected by strict-only predicates",
+    "failed": 3,
+    "seconds": 4.82
+  },
+  "runner_oracle": "analysis/arrival/model_development_technical_completion.py",
+  "runner_oracle_sha256": "416bf8b4ae093ca0de3523ddf70dcc40859a06d0654d4f0f042040b71ff01877",
+  "scope": "Narrow Reader/builder adaptation to actual runner ordinary producer labels; no scientific computation change",
+  "status": "maker_producer_contract_fix_verified",
+  "unmodified": [
+    "MLflow helper/tests",
+    "Reader CLI",
+    "runtime/source worker code",
+    "Gates",
+    "public QA",
+    "STATE",
+    "Git",
+    "context"
+  ]
+}

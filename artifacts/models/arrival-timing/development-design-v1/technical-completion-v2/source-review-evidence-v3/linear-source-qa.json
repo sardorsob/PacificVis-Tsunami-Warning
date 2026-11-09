@@ -1,0 +1,62 @@
+{
+  "actual_native_outcomes_or_private_STATE_bodies_read": false,
+  "actual_sampler_or_production_proof_called": false,
+  "ast_outside_historical_source_verify_unchanged": true,
+  "change_scope": "Replace accumulated merge per normalized pin with same collision guard and assignment; one final validated merge unchanged.",
+  "exact_three_archived_sources_unchanged": true,
+  "files": {
+    "analysis/arrival/model_development_technical_completion.py": "93784ed7188c4e663465ff7ab1302b60a5ef3d3ee7c2dba93e3410efd14e485d",
+    "scripts/run_arrival_development_technical_completion.py": "f2e7720d34381c58be90f6c0cb49637adda76931769861586f54db5b8e7257a1",
+    "tests/test_arrival_development_technical_completion.py": "0d03a0b3dc5a2a1c05822c75267c925af23463b717db7b3bd930d2805e093fd0"
+  },
+  "historical_manifest_sha256": "585e40cffbcbcea780d111f85158776d28ed597fa8f5f93f55588229869e76ed",
+  "independent_checker": true,
+  "obsolete_prospective_draft": "922bcef... was never published; must refresh Source3/test pin closure before prospective execution",
+  "owned_project_change": "tests/test_arrival_development_technical_completion.py",
+  "production_execution_authorized": false,
+  "project_implementation_Gate_runtime_STATE_Git_context_writes": false,
+  "red_green": {
+    "bound": 5035,
+    "current_merge_calls": 1,
+    "current_merge_input_visits": 1007,
+    "failure": "linear input-visit upper bound",
+    "old_git_commit": "839dc90",
+    "old_merge_input_visits": 504513,
+    "old_module_sha256": "416bf8b4ae093ca0de3523ddf70dcc40859a06d0654d4f0f042040b71ff01877",
+    "old_results": {
+      "deselected": 76,
+      "failed": 1,
+      "passed": 4,
+      "seconds": 0.61
+    },
+    "operation_measurement_synthetic_only": true,
+    "pins": 1003
+  },
+  "scientific_acceptance_granted": false,
+  "semantic_guards": [
+    "identical rebound archive collision accepted",
+    "different rebound archive collision rejected",
+    "invalid unrebound digest rejected by final merge",
+    "mapping invariant under reversed key order",
+    "literal fresh byte verification remains unconditional"
+  ],
+  "source_qa_only": true,
+  "source_test_authorship_separation": {
+    "implementation_owner": "ms4_scale_design_checker",
+    "test_author_and_independent_checker": "s5_pilot_checker"
+  },
+  "static": {
+    "CLI_help": "passed",
+    "Pyright_errors": 0,
+    "Pyright_warnings": 0,
+    "Ruff": "passed",
+    "format_check": "passed"
+  },
+  "status": "accepted_frozen_development_technical_linear_history_sources",
+  "tests": {
+    "new_checks": 5,
+    "passed": 81,
+    "prior_epoch2_checks_retained": 76,
+    "seconds": 6.11
+  }
+}
