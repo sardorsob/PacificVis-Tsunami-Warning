@@ -1,15 +1,15 @@
 {
-  "calls_charged": 111,
-  "calls_started": 111,
+  "calls_charged": 117,
+  "calls_started": 117,
   "confirmation_outcomes_parsed": false,
-  "direct_accepted_folds": 18,
+  "direct_accepted_folds": 21,
   "inherited_slots": 109,
-  "logical_completed_folds": 21,
+  "logical_completed_folds": 24,
   "max_sampler_call_slots": 248,
   "planned_folds": 29,
   "remaining_nominal_calls_at_start": 19,
   "reserved_outcomes": "sealed",
   "reviewed_resolutions": 3,
   "status": "cv_checkpoint",
-  "working_bytes": 1146654038
+  "working_bytes": 1162237264
 }
