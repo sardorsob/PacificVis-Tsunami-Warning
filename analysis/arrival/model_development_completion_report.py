@@ -601,6 +601,28 @@ def _journal_gap(root, pins, admission, job, logical, reviewed):
     }
 
 
+def _inherited_ledger_references(root, pins):
+    """Allow only the freeze's 12 immutable ledger hashes; never parse their bodies."""
+    require(
+        sha256(data._path(root, data.FREEZE)) == pins[data.FREEZE],
+        "pinned specification freeze required before ledger admission",
+    )
+    freeze = data._json(root, pins, data.FREEZE)
+    inherited = {p: h for p, h in freeze.get("files", {}).items() if p.startswith("context/")}
+    actual = {p: h for p, h in pins.items() if "context/" in p}
+    live = {
+        old.PRIVATE_STATE,
+        "context/runs/arrival-model-fitting-v1/development-completion-state.json",
+    }
+    require(
+        len(inherited) == 12
+        and all(p.endswith(".json") for p in inherited)
+        and not live.intersection(inherited)
+        and actual == inherited,
+        "exact12 inherited immutable ledger SHA references required; no live STATE",
+    )
+
+
 def verify_report_sources(root):
     root = root.resolve()
     gate = json.loads(data._path(root, GATE).read_text())
@@ -628,11 +650,11 @@ def verify_report_sources(root):
         and needed <= set(gate.get("files", {}))
         and old.PRIVATE_STATE not in gate["files"]
         and "context/runs/arrival-model-fitting-v1/development-completion-state.json"
-        not in gate["files"]
-        and not any("context/" in p for p in gate["files"]),
+        not in gate["files"],
         "complete accepted completion closure required before result tables",
     )
     pins = {**gate["files"], GATE: sha256(root / GATE)}
+    _inherited_ledger_references(root, pins)
     data._unchanged(root, pins)
     full, check = [fit.verify_gate(root, role) for role in ["full_development", "check_evaluate"]]
     smoke = recovery.verify_gate(root)

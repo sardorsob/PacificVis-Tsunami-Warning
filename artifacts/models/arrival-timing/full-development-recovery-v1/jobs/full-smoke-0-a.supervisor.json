@@ -1,0 +1,15 @@
+{
+  "allocation": "artifacts/models/arrival-timing/development-check-v1/controller/completion-after-gap-v1/allocations/full_design_recovery/full-smoke-0-a.json",
+  "allocation_sha256": "da4585cd461744a39fc47b3667aa9df3bcf90e1d8086c7f4b8f6f4ad0a812bbf",
+  "authority_gate_sha256": "9fb1c6fc0372153e30383a4455b059425895224bd3b1dcb9b6918b9512f1a3fd",
+  "cost": 1,
+  "elapsed_seconds": 42.19070633407682,
+  "invocation_git_sha": "ea6111ccf7e4e62f5b60955c7f8ce74cd3e78652",
+  "job_sha256": "57bfac30836a657bd602795bb059a0c754fb63237491ff3baad0fe225d013e4b",
+  "monitor_failures": [],
+  "plan_sha256": "d69864f71505f49af1522c669196044f336a93dc41b6667842c938e6216a2e07",
+  "reason": "worker_exit",
+  "returncode": 0,
+  "start_markers": 1,
+  "worker_gate_sha256": "dc71468ca00980dff07e6e322452a1e8c07146aceea3baa49fa248a40bfe250c"
+}

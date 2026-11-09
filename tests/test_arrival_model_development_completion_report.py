@@ -13,7 +13,122 @@ import pytest
 
 from analysis.arrival import model_development_completion_report as r
 from analysis.arrival.evidence import sha256, write_json
-from tests.test_arrival_model_development_report import fixture as legacy_fixture
+from tests import test_arrival_model_development_report as legacy_tests
+
+
+def legacy_fixture(root, monkeypatch):
+    """Include the real freeze's shape without parsing any legacy ledger body."""
+    writer = legacy_tests.write_json
+
+    def with_ledgers(path, value):
+        if path == root / r.data.FREEZE:
+            inherited = {}
+            for i in range(12):
+                name = f"context/immutable-ledgers/ledger-{i:02}.json"
+                ledger = root / name
+                ledger.parent.mkdir(parents=True, exist_ok=True)
+                ledger.write_bytes(b"opaque immutable ledger; deliberately not JSON")
+                inherited[name] = sha256(ledger)
+            value["files"] = {**value.get("files", {}), **inherited}
+        writer(path, value)
+
+    with monkeypatch.context() as local:
+        local.setattr(legacy_tests, "write_json", with_ledgers)
+        return legacy_tests.fixture(root, monkeypatch)
+
+
+class UpstreamAdmissionReached(Exception):
+    pass
+
+
+def ledger_admission_fixture(root, monkeypatch):
+    needed = set(r.CONSUMED) | {
+        r.data.FREEZE, r.data.MS5_REVIEW, r.data.CHECK_REVIEW, r.old.SMOKE_REVIEW,
+        r.fit.GATE, r.fit.FULL_GATE, r.recovery.GATE, r.CASE0_REVIEW, r.CASE1_REVIEW,
+        r.BASELINE, *r.AUTHORITY.values(), *r.SUMMARIES.values(),
+    }
+    for name in needed:
+        write_json(root / name, {})
+    inherited = {}
+    for i in range(12):
+        name = f"context/immutable-ledgers/ledger-{i:02}.json"
+        ledger = root / name
+        ledger.parent.mkdir(parents=True, exist_ok=True)
+        ledger.write_bytes(b"opaque immutable ledger; deliberately not JSON")
+        inherited[name] = sha256(ledger)
+    freeze = {"files": inherited}
+    write_json(root / r.data.FREEZE, freeze)
+    pins = {name: sha256(root / name) for name in needed} | inherited
+    gate = dict(
+        status="accepted_frozen_full_development_fits", independent_checker=True,
+        confirmation_outcomes_parsed=True, development_check_previously_inspected=True,
+        reserved_outcomes="sealed", reserved_outcomes_parsed=False,
+        specification_freeze=r.data.FREEZE, specification_freeze_sha256=pins[r.data.FREEZE],
+        files=pins,
+    )
+
+    def save():
+        write_json(root / r.GATE, gate)
+
+    def admitted(*args):
+        raise UpstreamAdmissionReached()
+
+    save()
+    monkeypatch.setattr(r.fit, "verify_gate", admitted)
+    return gate, freeze, save
+
+
+def test_exact12_inherited_opaque_ledgers_reach_admission_without_json_parsing(
+    tmp_path, monkeypatch
+):
+    ledger_admission_fixture(tmp_path, monkeypatch)
+    with pytest.raises(UpstreamAdmissionReached):
+        r.verify_report_sources(tmp_path)
+
+
+@pytest.mark.parametrize(
+    "fault", ["omitted", "extra", "original_live_state", "continuation_live_state",
+              "mismatched_hash", "non_json", "embedded_context", "freeze_hash",
+              "inherited_live_state"],
+)
+def test_invalid_ledger_map_rejected_before_any_context_hash(tmp_path, monkeypatch, fault):
+    gate, freeze, save = ledger_admission_fixture(tmp_path, monkeypatch)
+    key = next(iter(freeze["files"]))
+    pins = gate["files"]
+    if fault == "omitted":
+        pins.pop(key)
+    elif fault == "extra":
+        pins["context/unreviewed.json"] = "f" * 64
+    elif fault == "original_live_state":
+        pins[r.old.PRIVATE_STATE] = "f" * 64
+    elif fault == "continuation_live_state":
+        pins["context/runs/arrival-model-fitting-v1/development-completion-state.json"] = "f" * 64
+    elif fault == "mismatched_hash":
+        pins[key] = "f" * 64
+    elif fault == "embedded_context":
+        pins["artifacts/context/unreviewed.json"] = "f" * 64
+    elif fault == "freeze_hash":
+        pins[r.data.FREEZE] = "f" * 64
+    else:
+        destination = (
+            key.removesuffix(".json") + ".txt" if fault == "non_json" else r.old.PRIVATE_STATE
+        )
+        freeze["files"][destination] = freeze["files"].pop(key)
+        pins[destination] = pins.pop(key)
+        write_json(tmp_path / r.data.FREEZE, freeze)
+        pins[r.data.FREEZE] = sha256(tmp_path / r.data.FREEZE)
+        gate["specification_freeze_sha256"] = pins[r.data.FREEZE]
+    save()
+    real = r.data._unchanged
+
+    def before_hash(root, refs):
+        if any("context/" in name for name in refs):
+            pytest.fail("Invalid context map reached hashing")
+        return real(root, refs)
+
+    monkeypatch.setattr(r.data, "_unchanged", before_hash)
+    with pytest.raises(ValueError):
+        r.verify_report_sources(tmp_path)
 
 
 def add_allocation(root, job, phase, record):
