@@ -1,0 +1,100 @@
+{
+  "after_files": {
+    "conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+    "findings.md": "f4d6f04a1015242865029521c82fc96980f7ac9fe1bf38727abd87c7dad49b40",
+    "inputs.json": "f77375e6f4cccd8cc064283a95fc3d42c91761e5052417a8b9caf436c1ac86b8",
+    "ncei-data-stress-log-changes.png": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+    "ncei-data-stress-log-changes.svg": "4933c22f697ed4188af83df09426037f150e9b1f559cfc1f4b90990c8e2c3a70",
+    "output-checksums.json": "46d6d72ac2b95c3736c1741887bad5aab92754d0dff47e5e6147f4e1d25d5c61",
+    "population-median-and-predictive-quantiles.csv": "ce7d5b38f96b72eab8620ce1517aae89dbb849b349011a7fb14e7552d228b7e6",
+    "posterior-parameters.csv": "badff882a13c32e3d2b93745e1a3d1feb6a5d3c750853ee27765837221e2c23a",
+    "prior-population-median-curves.png": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+    "prior-population-median-curves.svg": "3c38059109e80d42526e2155c126c2ad69fc006cf878193012cd8f6dd64097fe",
+    "probe-dispositions.json": "c988c92801ba1d5bf9522d33b26fdf7ec052c839b71b8578adf9cd802c06fa26",
+    "reference-provenance.json": "4b40a9737c656051089c102e00bec4765f7715b23475d3f7a23e8473b30fcd9c",
+    "summary.json": "00e4337106ac99042f973c5fcdaf04b074fec7e870e07e9a973ffa1b5219c666",
+    "supported-distance-sensitivity-changes.csv": "7c32053ba5380bde726cd40afe4b6bac5b5237f9cdce3cccbbe2dfcd1f229767",
+    "training-cohorts-and-omissions.csv": "2c53678d2653834f9818d6857efc2b2aca9287514faa23de70b32040b4ee661a"
+  },
+  "base_counts": {
+    "distance-scale": {
+      "modeled-response": {
+        "checks": 15,
+        "misses": 11
+      },
+      "native-minutes": {
+        "checks": 15,
+        "misses": 10
+      }
+    },
+    "mean-curvature": {
+      "modeled-response": {
+        "checks": 15,
+        "misses": 8
+      },
+      "native-minutes": {
+        "checks": 15,
+        "misses": 9
+      }
+    }
+  },
+  "before_files": {
+    "conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+    "findings.md": "c0eecb8f486419fd74e80a8b92d01343530d9b68766ace8234245c525e4a06f3",
+    "inputs.json": "f77375e6f4cccd8cc064283a95fc3d42c91761e5052417a8b9caf436c1ac86b8",
+    "ncei-data-stress-log-changes.png": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+    "ncei-data-stress-log-changes.svg": "4933c22f697ed4188af83df09426037f150e9b1f559cfc1f4b90990c8e2c3a70",
+    "output-checksums.json": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+    "population-median-and-predictive-quantiles.csv": "ce7d5b38f96b72eab8620ce1517aae89dbb849b349011a7fb14e7552d228b7e6",
+    "posterior-parameters.csv": "badff882a13c32e3d2b93745e1a3d1feb6a5d3c750853ee27765837221e2c23a",
+    "prior-population-median-curves.png": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+    "prior-population-median-curves.svg": "3c38059109e80d42526e2155c126c2ad69fc006cf878193012cd8f6dd64097fe",
+    "probe-dispositions.json": "c988c92801ba1d5bf9522d33b26fdf7ec052c839b71b8578adf9cd802c06fa26",
+    "reference-provenance.json": "4b40a9737c656051089c102e00bec4765f7715b23475d3f7a23e8473b30fcd9c",
+    "summary.json": "2954887175b02bc1cf043735debcf83cea24b4317e9aed883eaa9bc66c88bd9a",
+    "supported-distance-sensitivity-changes.csv": "7c32053ba5380bde726cd40afe4b6bac5b5237f9cdce3cccbbe2dfcd1f229767",
+    "training-cohorts-and-omissions.csv": "2c53678d2653834f9818d6857efc2b2aca9287514faa23de70b32040b4ee661a"
+  },
+  "changed_files": [
+    "findings.md",
+    "output-checksums.json",
+    "summary.json"
+  ],
+  "confirmation_outcomes_parsed": false,
+  "numerical_tables_figures_and_other_qualifications_unchanged": true,
+  "original_correction_command": "python scripts/correct_arrival_sensitivity_qualifications.py --expected-manifest-sha256 81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490 --apply",
+  "original_manifest_sha256": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+  "replacement": {
+    "new_text": "In the current NCEI base-report views, observed quantiles fall outside the conditional replicated 90% interval in 11/15 modeled-response and 10/15 native checks for the linear form, and 8/15 modeled-response and 9/15 native checks for the curved form. These overlapping in-sample checks do not rank held-out performance.",
+    "old_sentence": "The original NCEI linear and curved fits each retained 8/15 conditional predictive-check misses."
+  },
+  "report_path": "artifacts/models/arrival-timing/exploration-sensitivity-report-v1",
+  "reproduction": [
+    "uv run --locked --offline python scripts/summarize_arrival_completed_sensitivities.py --output artifacts/models/arrival-timing/exploration-sensitivity-report-v1",
+    "shasum -a 256 artifacts/models/arrival-timing/exploration-sensitivity-report-v1/output-checksums.json",
+    "python scripts/correct_arrival_sensitivity_qualifications.py --expected-manifest-sha256 <reviewed-generated-manifest-sha256> --apply"
+  ],
+  "reproduction_note": "Generate into a fresh report directory in a restored source checkout. SVG creation timestamps can change output hashes; review the generated report and supply its manifest hash. This receipt binds the exact original and corrected report bytes, rather than promising timestamp-identical figures.",
+  "reserved_outcomes": "sealed",
+  "schema_version": 1,
+  "snapshots": {
+    "findings.md": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-findings.md",
+      "sha256": "c0eecb8f486419fd74e80a8b92d01343530d9b68766ace8234245c525e4a06f3"
+    },
+    "output-checksums.json": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-output-checksums.json",
+      "sha256": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490"
+    },
+    "summary.json": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-summary.json",
+      "sha256": "2954887175b02bc1cf043735debcf83cea24b4317e9aed883eaa9bc66c88bd9a"
+    }
+  },
+  "source_files": {
+    "artifacts/models/arrival-timing/exploration-sensitivity-report-v1/conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+    "scripts/correct_arrival_sensitivity_qualifications.py": "4b8de74a79c6478cf11447e6e31c01072a75b7e2a45f54e93e9594a15db6d958",
+    "tests/test_correct_arrival_sensitivity_qualifications.py": "1ae90227a6d382c4f9cd65b4548a1a9de5727ccc9de6e17dfef5f117c1e37ae8"
+  },
+  "status": "corrected_sensitivity_predictive_check_qualification"
+}

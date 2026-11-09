@@ -1,0 +1,78 @@
+{
+  "compact_preview_limit": {
+    "description": "Dense facet labels, heatmap row labels and legend text require the native PNG or zoomed SVG; report explicitly discloses this.",
+    "priority": "P2",
+    "width_pixels": 600
+  },
+  "confirmation_outcomes_parsed": false,
+  "current_NCEI_base_PPC_counts": {
+    "distance_scale": {
+      "modeled_response": [
+        11,
+        15
+      ],
+      "native_minutes": [
+        10,
+        15
+      ]
+    },
+    "mean_curvature": {
+      "modeled_response": [
+        8,
+        15
+      ],
+      "native_minutes": [
+        9,
+        15
+      ]
+    }
+  },
+  "figures": [
+    {
+      "height": 2400,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/prior-population-median-curves.png",
+      "sha256": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+      "width": 2080
+    },
+    {
+      "height": 1440,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/ncei-data-stress-log-changes.png",
+      "sha256": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+      "width": 2560
+    }
+  ],
+  "final_overall_report_acceptance": false,
+  "material_reader_issue": {
+    "finding": "Linear original accepted saved tables have11/15modeled-response and10/15native-minute misses; all current numerical tables are correct.",
+    "priority": "P1",
+    "statement": "The original NCEI linear and curved fits each retained8/15conditional predictive-check misses.",
+    "status": "awaiting_reproducible_correction"
+  },
+  "method": "reopened actual native PNGs and600px previews; independent reviewer of producer",
+  "narrative_scalar_counts": {
+    "common_supported_change_cells": 429,
+    "ppc_checks": 2040,
+    "ppc_outside_cells": 1157,
+    "supported_typed_intervals": 858,
+    "total_change_cells": 612,
+    "usable_views": 68
+  },
+  "native_visual_P0_P1": [],
+  "native_visual_checks": [
+    "No clipped or overlapping labels, legends, titles, source lines or axes.",
+    "Eight prior facets distinguish positive log-duration from signed T-CAL axes.",
+    "Population-median90% base bands and alternative median lines are labeled correctly.",
+    "Heatmap uses a shared signed zero-centered scale; unsupported cells are gray.",
+    "Only linear2014-onward is hatched Unresolved; valid curved47 is retained without zero-filling.",
+    "No physical, operational-warning, causal or model-winner claim is made in figures."
+  ],
+  "new_sampler_calls": 0,
+  "numeric_receipt": "/private/tmp/tsunami-completed-sensitivity-report-check.json",
+  "numeric_receipt_sha256": "736edb64bfc4a7b5ea6be77e82ed9c6ec62261b131230c002fff8234713eac91",
+  "report_checksums_sha256": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+  "reserved_outcomes": "sealed",
+  "review_rounds": 1,
+  "skill": "/Users/sobirov/.codex/skills/evident-charts/SKILL.md",
+  "source_or_report_edited": false,
+  "status": "independent_visual_review_passed_pending_reader_prose_correction"
+}

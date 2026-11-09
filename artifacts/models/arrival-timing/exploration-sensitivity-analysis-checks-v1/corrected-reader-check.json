@@ -1,0 +1,335 @@
+{
+  "accepted_case_NC_replays": 0,
+  "base_PPC_counts_independently_recomputed": {
+    "distance-scale": {
+      "modeled-response": {
+        "checks": 15,
+        "misses": 11
+      },
+      "native-minutes": {
+        "checks": 15,
+        "misses": 10
+      }
+    },
+    "mean-curvature": {
+      "modeled-response": {
+        "checks": 15,
+        "misses": 8
+      },
+      "native-minutes": {
+        "checks": 15,
+        "misses": 9
+      }
+    }
+  },
+  "case47_outcome": "accepted_repair",
+  "confirmation_outcomes_parsed": false,
+  "counts": {
+    "accepted_logical_fits": 54,
+    "actual_sampler_calls": 58,
+    "calls_charged": 58,
+    "calls_started": 58,
+    "completed_probes": 55,
+    "max_sampler_call_slots": 110,
+    "planned_cases": 55,
+    "retained_failed_calls": 4,
+    "unresolved_case_count": 1
+  },
+  "descriptive_ranges": [
+    {
+      "cells": 28,
+      "group": "Prior assumptions",
+      "kind": "distance-scale",
+      "maximum": 0.0001316759698894998,
+      "minimum": -0.003939326444991176,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 91,
+      "group": "Data stresses and sequence deletions",
+      "kind": "distance-scale",
+      "maximum": 0.33066223048666177,
+      "minimum": -0.02515730674438088,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 35,
+      "group": "Prior assumptions",
+      "kind": "mean-curvature",
+      "maximum": 0.014237924040817251,
+      "minimum": -0.011897634393246648,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 96,
+      "group": "Data stresses and sequence deletions",
+      "kind": "mean-curvature",
+      "maximum": 0.3983272556282582,
+      "minimum": -0.06913647073004547,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "pooled",
+      "maximum": 0.0010612071653897104,
+      "minimum": -0.0005280714574125156,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "distance",
+      "maximum": 0.008550555915910252,
+      "minimum": -0.002741420992005583,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "event",
+      "maximum": 0.0036386575001778887,
+      "minimum": -0.006118938092135817,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "pooled",
+      "maximum": 0.06489997663774005,
+      "minimum": -0.05035333646746665,
+      "target": "T-CAL",
+      "units": "minutes"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "distance",
+      "maximum": 0.14082962428964407,
+      "minimum": -0.11352005554198641,
+      "target": "T-CAL",
+      "units": "minutes"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "event",
+      "maximum": 0.7106094738869366,
+      "minimum": -0.5489797636530298,
+      "target": "T-CAL",
+      "units": "minutes"
+    }
+  ],
+  "execution_authority_gate_sha256": "57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca",
+  "failed_NC_reads": 0,
+  "figure_bytes_identical_to_original_review": true,
+  "figure_files": [
+    {
+      "height": 2400,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/prior-population-median-curves.png",
+      "sha256": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+      "width": 2080
+    },
+    {
+      "height": 1440,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/ncei-data-stress-log-changes.png",
+      "sha256": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+      "width": 2560
+    }
+  ],
+  "new_reference_NC_reads": 0,
+  "new_sampler_calls": 0,
+  "numeric_checks": {
+    "csv_cells": 113932,
+    "ppc_outside_cells": 1157,
+    "table_rows": {
+      "conditional-predictive-checks": 2040,
+      "population-median-and-predictive-quantiles": 858,
+      "posterior-parameters": 1121,
+      "supported-distance-sensitivity-changes": 612,
+      "training-cohorts-and-omissions": 68
+    }
+  },
+  "numeric_evidence_reused": true,
+  "numerical_worker_spec_gate_sha256": "93dd4a7c0eeb43df5f4142c364a23dfb908d0d5ad30ae78a3078fe8081f53413",
+  "original_numeric_checker_sha256": "d48da6ff2a9431cd0d9b8764769b3838db0c05af3b17101248f111817dff1bc9",
+  "original_numeric_receipt": "/private/tmp/tsunami-completed-sensitivity-report-check.json",
+  "original_numeric_receipt_sha256": "736edb64bfc4a7b5ea6be77e82ed9c6ec62261b131230c002fff8234713eac91",
+  "original_reference_NC_group_opens": 28,
+  "original_reference_NC_unique_files": 14,
+  "qualification_correction": {
+    "after_files": {
+      "conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+      "findings.md": "f4d6f04a1015242865029521c82fc96980f7ac9fe1bf38727abd87c7dad49b40",
+      "inputs.json": "f77375e6f4cccd8cc064283a95fc3d42c91761e5052417a8b9caf436c1ac86b8",
+      "ncei-data-stress-log-changes.png": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+      "ncei-data-stress-log-changes.svg": "4933c22f697ed4188af83df09426037f150e9b1f559cfc1f4b90990c8e2c3a70",
+      "output-checksums.json": "46d6d72ac2b95c3736c1741887bad5aab92754d0dff47e5e6147f4e1d25d5c61",
+      "population-median-and-predictive-quantiles.csv": "ce7d5b38f96b72eab8620ce1517aae89dbb849b349011a7fb14e7552d228b7e6",
+      "posterior-parameters.csv": "badff882a13c32e3d2b93745e1a3d1feb6a5d3c750853ee27765837221e2c23a",
+      "prior-population-median-curves.png": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+      "prior-population-median-curves.svg": "3c38059109e80d42526e2155c126c2ad69fc006cf878193012cd8f6dd64097fe",
+      "probe-dispositions.json": "c988c92801ba1d5bf9522d33b26fdf7ec052c839b71b8578adf9cd802c06fa26",
+      "reference-provenance.json": "4b40a9737c656051089c102e00bec4765f7715b23475d3f7a23e8473b30fcd9c",
+      "summary.json": "00e4337106ac99042f973c5fcdaf04b074fec7e870e07e9a973ffa1b5219c666",
+      "supported-distance-sensitivity-changes.csv": "7c32053ba5380bde726cd40afe4b6bac5b5237f9cdce3cccbbe2dfcd1f229767",
+      "training-cohorts-and-omissions.csv": "2c53678d2653834f9818d6857efc2b2aca9287514faa23de70b32040b4ee661a"
+    },
+    "base_counts": {
+      "distance-scale": {
+        "modeled-response": {
+          "checks": 15,
+          "misses": 11
+        },
+        "native-minutes": {
+          "checks": 15,
+          "misses": 10
+        }
+      },
+      "mean-curvature": {
+        "modeled-response": {
+          "checks": 15,
+          "misses": 8
+        },
+        "native-minutes": {
+          "checks": 15,
+          "misses": 9
+        }
+      }
+    },
+    "new_text": "In the current NCEI base-report views, observed quantiles fall outside the conditional replicated 90% interval in 11/15 modeled-response and 10/15 native checks for the linear form, and 8/15 modeled-response and 9/15 native checks for the curved form. These overlapping in-sample checks do not rank held-out performance.",
+    "original_manifest_sha256": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+    "qualifications": [
+      "These are source-specific reported-data sensitivities, conditional on reporting; they do not identify physical first arrival or actionable warning time.",
+      "Population median 90% posterior bands describe parameter uncertainty. New-event report 90% predictive quantiles include event and report variation; they are a different type.",
+      "Predictive summaries use 800 simulated draws and finite posterior draws. Tiny changes are not automatically material; interval overlap establishes neither equivalence nor a winner.",
+      "In the current NCEI base-report views, observed quantiles fall outside the conditional replicated 90% interval in 11/15 modeled-response and 10/15 native checks for the linear form, and 8/15 modeled-response and 9/15 native checks for the curved form. These overlapping in-sample checks do not rank held-out performance. The 1,125-minute LATA report remains a hard case in the full cohorts.",
+      "Conditional checks use fitted events and are in-sample model criticism, not held-out validation. Finite autocorrelation calibration checks do not establish physical validity.",
+      "Matched Student-t4 population priors change priors, not the Normal residual likelihood. Positive-native predictive means and variances can be infinite even under a posterior; only medians and quantiles are reported, with log-space validity retained.",
+      "Priors are analyst choices informed by exploration, not expert facts. Era and omission stresses do not correct values or identify selection or missingness; omitting short rows does not fit a truncated population or a verified rounding model.",
+      "Publisher distance units are km, but its algorithm is unknown. All dependent response, reference and predictor quantities change coherently; native durations and IDs stay fixed.",
+      "The 1/2/5-km site keys preserve the mask and likelihood without a retained site effect; this does not demonstrate the absence of site effects. T-CAL lineage is unknown; independent cross-source pooling is not justified.",
+      "Changes are compared within source and form on the common training-distance range only. This range check does not prove dense coverage between endpoints or geographic transfer. Changed cohorts receive no ELPD ranking, Bayes factor or new model selection.",
+      "The 19-event development check is not revisited; 18 reserved outcomes remain sealed. This report remains pending independent scientific and figure review."
+    ],
+    "receipt": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/receipt.json",
+    "receipt_sha256": "d93f174b5e9b724ee641c02032c1c831291f0b458f7bb66bae05ec3cb8e1cfaf",
+    "source_files": {
+      "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-findings.md": "c0eecb8f486419fd74e80a8b92d01343530d9b68766ace8234245c525e4a06f3",
+      "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-output-checksums.json": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+      "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/original-summary.json": "2954887175b02bc1cf043735debcf83cea24b4317e9aed883eaa9bc66c88bd9a",
+      "artifacts/models/arrival-timing/exploration-sensitivity-qualification-v1/receipt.json": "d93f174b5e9b724ee641c02032c1c831291f0b458f7bb66bae05ec3cb8e1cfaf",
+      "artifacts/models/arrival-timing/exploration-sensitivity-report-v1/conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+      "scripts/correct_arrival_sensitivity_qualifications.py": "4b8de74a79c6478cf11447e6e31c01072a75b7e2a45f54e93e9594a15db6d958",
+      "tests/test_correct_arrival_sensitivity_qualifications.py": "1ae90227a6d382c4f9cd65b4548a1a9de5727ccc9de6e17dfef5f117c1e37ae8"
+    }
+  },
+  "reference_NC_allowlist": [
+    "data/processed/models/exploration-distance-scale-v1.nc",
+    "data/processed/models/mean-curvature-fit-v1/primary.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/pooled.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/distance.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/event.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/pooled.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/distance.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/event.nc",
+    "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-002/00-training.nc",
+    "data/processed/models/bridge-sequence-continuation-v1/NCEI-native-duration-distance-scale-fold-02-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-001/00-training.nc",
+    "data/processed/models/bridge-sequence-continuation-v2/NCEI-native-duration-distance-scale-fold-20-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-008/00-training.nc"
+  ],
+  "reference_NC_group_opens": 0,
+  "reference_NC_unique_files": 0,
+  "reference_summary_draws": 800,
+  "reference_summary_seeds": [
+    2916110800,
+    2916111800,
+    2916112800,
+    2916113800,
+    2916114800,
+    2916115800,
+    2916116800,
+    2916117800,
+    2916118800,
+    2916119800,
+    2916120800,
+    2916121800,
+    2916122800,
+    2916123800
+  ],
+  "report": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1",
+  "report_checksums_sha256": "46d6d72ac2b95c3736c1741887bad5aab92754d0dff47e5e6147f4e1d25d5c61",
+  "reserved_outcomes": "sealed",
+  "scientific_reviews": {
+    "baseline50": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/baseline-review.json",
+      "sha256": "8c1fc3745eb3387af3d8a06cc58ba2a8e161dcf9be74682af01ef87c275a2548",
+      "status": "accepted_late_sensitivity_repair_and_tail_plan"
+    },
+    "baseline_v2": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/baseline-review.json",
+      "sha256": "84a0c4c28faf01c688f02792ab8f8a74d3cb7bb66a523880cef680f01adcccc6",
+      "status": "accepted_sensitivity_remaining_numerical_protocol_plan"
+    },
+    "case47_disposition": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/case47-review-acceptance.json",
+      "sha256": "d9e88f0e86e329331f477ef2dccfd967d1d68d4fe51f35e941c2f176194210f4",
+      "status": "accepted_sensitivity_case47_disposition"
+    },
+    "first34": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/batch-034-review-acceptance.json",
+      "sha256": "2917c34871d78435e535283c8ce5ce7e50fdaf55b60cc58ba3cd37c312359ec1",
+      "status": "accepted_sensitivity_thirty_four_case_checkpoint"
+    },
+    "remaining": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/scientific-review.json",
+      "sha256": "4ef8bba793d0c5a98f83a21df12a05a55a5ea1680b01f4ceddef4d1e58c63261",
+      "status": "accepted_finished_sensitivity_computations"
+    },
+    "repair_v1": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/review-acceptance.json",
+      "sha256": "3b3b8507eeb4113e4d97cd97b66a72315e55df848f8bacb4eafb8c48b3ea4e13",
+      "status": "accepted_sensitivity_same_model_numerical_repair"
+    },
+    "unresolved_case": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/disposition-review.json",
+      "sha256": "82c811e2d9c96e08e68cbe6f798fc9b4ed28060de3da7711332a8f793a5ac448",
+      "status": "accepted_sensitivity_unresolved_case_disposition"
+    }
+  },
+  "source_gate_sha256": "04f285a13799c9db0053227f625d0f37689786b0f916fa89f4c7e036aee78476",
+  "source_saved_summaries": 54,
+  "status": "independent_corrected_reader_checks_passed_pending_visual_review",
+  "unchanged_mathematical_artifacts_reused": [
+    "conditional-predictive-checks.csv",
+    "inputs.json",
+    "ncei-data-stress-log-changes.png",
+    "ncei-data-stress-log-changes.svg",
+    "population-median-and-predictive-quantiles.csv",
+    "posterior-parameters.csv",
+    "prior-population-median-curves.png",
+    "prior-population-median-curves.svg",
+    "probe-dispositions.json",
+    "reference-provenance.json",
+    "supported-distance-sensitivity-changes.csv",
+    "training-cohorts-and-omissions.csv"
+  ],
+  "views": 68,
+  "visual_checklist": [
+    "Open both actual PNGs at native resolution; inspect panels, axes, legends and source lines for clipping/overlap.",
+    "Prior panels: separate source/form labels and central90 intervals; median bands distinct from predictive variation.",
+    "Heatmap: the reviewed linear era2014plus gap, and curved gap only if exhausted, are hatched and labeled Unresolved; unsupported cells gray, never zeros.",
+    "Diverging scale centered at zero and shared across NCEI forms; no visual ranking from the unresolved gap.",
+    "Titles, units, uncertainty and qualifications readable at intended report size; preserve compact-preview text limitations."
+  ],
+  "visual_review_required": true
+}

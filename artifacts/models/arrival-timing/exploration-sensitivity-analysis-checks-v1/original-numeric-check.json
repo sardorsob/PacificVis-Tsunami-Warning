@@ -1,0 +1,224 @@
+{
+  "accepted_case_NC_replays": 0,
+  "case47_outcome": "accepted_repair",
+  "confirmation_outcomes_parsed": false,
+  "counts": {
+    "accepted_logical_fits": 54,
+    "actual_sampler_calls": 58,
+    "calls_charged": 58,
+    "calls_started": 58,
+    "completed_probes": 55,
+    "max_sampler_call_slots": 110,
+    "planned_cases": 55,
+    "retained_failed_calls": 4,
+    "unresolved_case_count": 1
+  },
+  "descriptive_ranges": [
+    {
+      "cells": 28,
+      "group": "Prior assumptions",
+      "kind": "distance-scale",
+      "maximum": 0.0001316759698894998,
+      "minimum": -0.003939326444991176,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 91,
+      "group": "Data stresses and sequence deletions",
+      "kind": "distance-scale",
+      "maximum": 0.33066223048666177,
+      "minimum": -0.02515730674438088,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 35,
+      "group": "Prior assumptions",
+      "kind": "mean-curvature",
+      "maximum": 0.014237924040817251,
+      "minimum": -0.011897634393246648,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 96,
+      "group": "Data stresses and sequence deletions",
+      "kind": "mean-curvature",
+      "maximum": 0.3983272556282582,
+      "minimum": -0.06913647073004547,
+      "target": "NCEI-native-duration",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "pooled",
+      "maximum": 0.0010612071653897104,
+      "minimum": -0.0005280714574125156,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "distance",
+      "maximum": 0.008550555915910252,
+      "minimum": -0.002741420992005583,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 24,
+      "group": "Prior assumptions",
+      "kind": "event",
+      "maximum": 0.0036386575001778887,
+      "minimum": -0.006118938092135817,
+      "target": "T-OBS",
+      "units": "log units"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "pooled",
+      "maximum": 0.06489997663774005,
+      "minimum": -0.05035333646746665,
+      "target": "T-CAL",
+      "units": "minutes"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "distance",
+      "maximum": 0.14082962428964407,
+      "minimum": -0.11352005554198641,
+      "target": "T-CAL",
+      "units": "minutes"
+    },
+    {
+      "cells": 20,
+      "group": "Prior assumptions",
+      "kind": "event",
+      "maximum": 0.7106094738869366,
+      "minimum": -0.5489797636530298,
+      "target": "T-CAL",
+      "units": "minutes"
+    }
+  ],
+  "execution_authority_gate_sha256": "57cbbffd2d1dcf8eb9630e6a4f072010e4b23fbd6ee31cc87fe1283829a1d7ca",
+  "failed_NC_reads": 0,
+  "figure_files": [
+    {
+      "height": 2400,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/prior-population-median-curves.png",
+      "sha256": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+      "width": 2080
+    },
+    {
+      "height": 1440,
+      "path": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1/ncei-data-stress-log-changes.png",
+      "sha256": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+      "width": 2560
+    }
+  ],
+  "new_sampler_calls": 0,
+  "numeric_checks": {
+    "csv_cells": 113932,
+    "ppc_outside_cells": 1157,
+    "table_rows": {
+      "conditional-predictive-checks": 2040,
+      "population-median-and-predictive-quantiles": 858,
+      "posterior-parameters": 1121,
+      "supported-distance-sensitivity-changes": 612,
+      "training-cohorts-and-omissions": 68
+    }
+  },
+  "numerical_worker_spec_gate_sha256": "93dd4a7c0eeb43df5f4142c364a23dfb908d0d5ad30ae78a3078fe8081f53413",
+  "reference_NC_allowlist": [
+    "data/processed/models/exploration-distance-scale-v1.nc",
+    "data/processed/models/mean-curvature-fit-v1/primary.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/pooled.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/distance.nc",
+    "data/processed/models/exploration-baselines-v1/T-OBS/event.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/pooled.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/distance.nc",
+    "data/processed/models/exploration-baselines-v1/T-CAL/event.nc",
+    "data/processed/models/bridge-sequence-validation-v1/NCEI-native-duration-distance-scale-fold-01-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-002/00-training.nc",
+    "data/processed/models/bridge-sequence-continuation-v1/NCEI-native-duration-distance-scale-fold-02-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-001/00-training.nc",
+    "data/processed/models/bridge-sequence-continuation-v2/NCEI-native-duration-distance-scale-fold-20-attempt-1/00-training.nc",
+    "data/processed/models/mean-curvature-sequence-v1/fold-008/00-training.nc"
+  ],
+  "reference_NC_group_opens": 28,
+  "reference_NC_unique_files": 14,
+  "reference_summary_draws": 800,
+  "reference_summary_seeds": [
+    2916110800,
+    2916111800,
+    2916112800,
+    2916113800,
+    2916114800,
+    2916115800,
+    2916116800,
+    2916117800,
+    2916118800,
+    2916119800,
+    2916120800,
+    2916121800,
+    2916122800,
+    2916123800
+  ],
+  "report": "/Users/sobirov/Workspace/Projects/Tsunami-Warning-Times/artifacts/models/arrival-timing/exploration-sensitivity-report-v1",
+  "report_checksums_sha256": "81d9c762fed6b6ae7f7becf73274f511d459aea8f4e2a90bd29cda04a7cbb490",
+  "reserved_outcomes": "sealed",
+  "scientific_reviews": {
+    "baseline50": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/baseline-review.json",
+      "sha256": "8c1fc3745eb3387af3d8a06cc58ba2a8e161dcf9be74682af01ef87c275a2548",
+      "status": "accepted_late_sensitivity_repair_and_tail_plan"
+    },
+    "baseline_v2": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-protocol-v2/baseline-review.json",
+      "sha256": "84a0c4c28faf01c688f02792ab8f8a74d3cb7bb66a523880cef680f01adcccc6",
+      "status": "accepted_sensitivity_remaining_numerical_protocol_plan"
+    },
+    "case47_disposition": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/case47-review-acceptance.json",
+      "sha256": "d9e88f0e86e329331f477ef2dccfd967d1d68d4fe51f35e941c2f176194210f4",
+      "status": "accepted_sensitivity_case47_disposition"
+    },
+    "first34": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/batch-034-review-acceptance.json",
+      "sha256": "2917c34871d78435e535283c8ce5ce7e50fdaf55b60cc58ba3cd37c312359ec1",
+      "status": "accepted_sensitivity_thirty_four_case_checkpoint"
+    },
+    "remaining": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/finish-sensitivities-v1/scientific-review.json",
+      "sha256": "4ef8bba793d0c5a98f83a21df12a05a55a5ea1680b01f4ceddef4d1e58c63261",
+      "status": "accepted_finished_sensitivity_computations"
+    },
+    "repair_v1": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/numerical-repair-v1/review-acceptance.json",
+      "sha256": "3b3b8507eeb4113e4d97cd97b66a72315e55df848f8bacb4eafb8c48b3ea4e13",
+      "status": "accepted_sensitivity_same_model_numerical_repair"
+    },
+    "unresolved_case": {
+      "path": "artifacts/models/arrival-timing/exploration-sensitivity-v1/remaining-sensitivities-v1/disposition-review.json",
+      "sha256": "82c811e2d9c96e08e68cbe6f798fc9b4ed28060de3da7711332a8f793a5ac448",
+      "status": "accepted_sensitivity_unresolved_case_disposition"
+    }
+  },
+  "source_gate_sha256": "04f285a13799c9db0053227f625d0f37689786b0f916fa89f4c7e036aee78476",
+  "source_saved_summaries": 54,
+  "status": "independent_saved_cell_checks_passed_pending_visual_review",
+  "views": 68,
+  "visual_checklist": [
+    "Open both actual PNGs at native resolution; inspect panels, axes, legends and source lines for clipping/overlap.",
+    "Prior panels: separate source/form labels and central90 intervals; median bands distinct from predictive variation.",
+    "Heatmap: the reviewed linear era2014plus gap, and curved gap only if exhausted, are hatched and labeled Unresolved; unsupported cells gray, never zeros.",
+    "Diverging scale centered at zero and shared across NCEI forms; no visual ranking from the unresolved gap.",
+    "Titles, units, uncertainty and qualifications readable at intended report size; preserve compact-preview text limitations."
+  ],
+  "visual_review_required": true
+}

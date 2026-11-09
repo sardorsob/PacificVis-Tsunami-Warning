@@ -1,0 +1,16 @@
+{
+  "conditional-predictive-checks.csv": "69b5a9009b063087f58dbaddd78fc239c655da95f9f24df7b8cf54bf0687a5e4",
+  "findings.md": "c0eecb8f486419fd74e80a8b92d01343530d9b68766ace8234245c525e4a06f3",
+  "inputs.json": "f77375e6f4cccd8cc064283a95fc3d42c91761e5052417a8b9caf436c1ac86b8",
+  "ncei-data-stress-log-changes.png": "73eef717da1e75fd24f8287385e9ea79f30679fa7fba93ddef2a5282d73d9226",
+  "ncei-data-stress-log-changes.svg": "4933c22f697ed4188af83df09426037f150e9b1f559cfc1f4b90990c8e2c3a70",
+  "population-median-and-predictive-quantiles.csv": "ce7d5b38f96b72eab8620ce1517aae89dbb849b349011a7fb14e7552d228b7e6",
+  "posterior-parameters.csv": "badff882a13c32e3d2b93745e1a3d1feb6a5d3c750853ee27765837221e2c23a",
+  "prior-population-median-curves.png": "8a7f240a3494f88fb8d0e561e4354baf2e4b5bfcf068f742425dbf4d52920550",
+  "prior-population-median-curves.svg": "3c38059109e80d42526e2155c126c2ad69fc006cf878193012cd8f6dd64097fe",
+  "probe-dispositions.json": "c988c92801ba1d5bf9522d33b26fdf7ec052c839b71b8578adf9cd802c06fa26",
+  "reference-provenance.json": "4b40a9737c656051089c102e00bec4765f7715b23475d3f7a23e8473b30fcd9c",
+  "summary.json": "2954887175b02bc1cf043735debcf83cea24b4317e9aed883eaa9bc66c88bd9a",
+  "supported-distance-sensitivity-changes.csv": "7c32053ba5380bde726cd40afe4b6bac5b5237f9cdce3cccbbe2dfcd1f229767",
+  "training-cohorts-and-omissions.csv": "2c53678d2653834f9818d6857efc2b2aca9287514faa23de70b32040b4ee661a"
+}
