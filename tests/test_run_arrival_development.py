@@ -635,3 +635,75 @@ def test_late_change_to_earlier_accepted_job_blocks_current_acceptance(tmp_path,
     assert s["phases"]["check"]["next_job"] == 1
     assert s["current"]["job_id"] == "dev-check-1"
     assert len(s["phases"]["check"]["attempts"]) == 2
+
+
+def test_sensitivity_repair_store_all_bytes_reach_global_budget(tmp_path, monkeypatch):
+    fixture(tmp_path, monkeypatch)
+    admission = c.admit(tmp_path, "check")
+    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    for name, size in [("repair.nc", 13), ("cache/compiled.bin", 17), ("unlisted.partial", 29)]:
+        path = repair / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"x" * size)
+    external = sum(
+        (tmp_path / name).stat().st_size for name in admission["gate"]["external_reference_files"]
+    )
+    working = (
+        3072 * c.r.MIB - c.r.byte_count(*c.roots(tmp_path)) - external - c.r.byte_count(repair) + 1
+    )
+    monkeypatch.setattr(c.r, "working_bytes", lambda *args: working)
+    assert c.quota(tmp_path, admission) == "global_storage"
+
+
+@pytest.mark.parametrize("bad", ["large-file", "root-symlink", "child-symlink"])
+def test_sensitivity_repair_store_shares_global_file_and_symlink_guards(tmp_path, monkeypatch, bad):
+    fixture(tmp_path, monkeypatch)
+    admission = c.admit(tmp_path, "check")
+    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    repair.parent.mkdir(parents=True, exist_ok=True)
+    if bad == "root-symlink":
+        target = tmp_path / "retained-repair-files"
+        target.mkdir()
+        repair.symlink_to(target, target_is_directory=True)
+    else:
+        repair.mkdir()
+        if bad == "child-symlink":
+            (repair / "unlisted.partial").symlink_to(tmp_path / "frozen.py")
+        else:
+            with (repair / "unlisted.partial").open("wb") as stream:
+                stream.truncate(c.r.FILE_MAX + 1)
+    assert c.quota(tmp_path, admission) == (
+        "per_file_storage" if bad == "large-file" else "symlink_storage"
+    )
+
+
+def test_sensitivity_repair_store_counted_once_without_changing_local_or_phase_cache(
+    tmp_path, monkeypatch
+):
+    fixture(tmp_path, monkeypatch)
+    admission = c.admit(tmp_path, "check")
+    repair = tmp_path / "data/processed/models/arrival-sensitivity-repair-v1"
+    repair.mkdir(parents=True)
+    (repair / "unlisted.partial").write_bytes(b"retained")
+    original = c.r.byte_count
+    # One historical store fits globally; counting it twice or locally exceeds a cap.
+    historical = 2200 * c.r.MIB
+    calls = []
+
+    def count(*paths):
+        calls.append(paths)
+        return original(*paths) + (historical if repair in paths else 0)
+
+    monkeypatch.setattr(c.r, "working_bytes", lambda *args: 0)
+    monkeypatch.setattr(c.r, "byte_count", count)
+    assert c.quota(tmp_path, admission) is None
+    assert sum(repair in paths for paths in calls) == 1
+    assert repair not in c.roots(tmp_path)
+    assert (tmp_path / c.fit.STORE / "cache", tmp_path / c.RECOVERY_STORE / "cache") in calls
+
+
+def test_sensitivity_repair_training_reference_is_not_counted_as_external_twice(tmp_path):
+    raw = "data/processed/models/arrival-sensitivity-repair-v1/unexpected-reference.nc"
+    baseline = c.external_paths(tmp_path, {"training_references": {}})
+    actual = c.external_paths(tmp_path, {"training_references": {"example": {"raw": raw}}})
+    assert actual == baseline

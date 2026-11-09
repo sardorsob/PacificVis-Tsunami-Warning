@@ -27,6 +27,7 @@ CONTROL = fit.CHECK_OUTPUT + "/controller"
 PHASES = ("check", "full_design_recovery", "full_development")
 RECOVERY_OUTPUT = fit.data.ART + "full-development-recovery-v1"
 RECOVERY_STORE = "data/processed/models/arrival-development-recovery-v1"
+SENSITIVITY_REPAIR_STORE = "data/processed/models/arrival-sensitivity-repair-v1"
 RECOVERY_GATE = fit.data.ART + "full-development-recovery-design-v1/review-acceptance.json"
 RECOVERY_REVIEW = RECOVERY_OUTPUT + "/review-acceptance.json"
 RECOVERY_SOURCE = "analysis/arrival/model_development_recovery.py"
@@ -106,8 +107,13 @@ def roots(root):
     ]
 
 
+def global_roots(root):
+    # Retained MS5 repair bytes belong to the cumulative budget, outside development's local cap.
+    return roots(root) + [root / SENSITIVITY_REPAIR_STORE]
+
+
 def external_paths(root, freeze):
-    counted = previous.counted_roots(root, r.parent_roots(root)) + roots(root)
+    counted = previous.counted_roots(root, r.parent_roots(root)) + global_roots(root)
     names = {ref["raw"] for ref in previous.references.descriptors()}
     names.update(ref["raw"] for ref in freeze.get("training_references", {}).values())
     return sorted(
@@ -480,7 +486,7 @@ def inventory(root, state, current=None):
 def quota(root, admission, current=None, *, reserve=False):
     try:
         parents = r.parent_floors(root, admission["gate"])
-        for base in roots(root):
+        for base in global_roots(root):
             if base.is_symlink():
                 return "symlink_storage"
             for p in base.rglob("*"):
@@ -494,7 +500,7 @@ def quota(root, admission, current=None, *, reserve=False):
         )
         extra = r.RESERVE if reserve else 0
         if (
-            r.working_bytes(root, parents) + r.byte_count(*roots(root)) + external + extra
+            r.working_bytes(root, parents) + r.byte_count(*global_roots(root)) + external + extra
             > 3072 * r.MIB
         ):
             return "global_storage"
