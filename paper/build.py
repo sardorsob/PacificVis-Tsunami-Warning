@@ -23,13 +23,13 @@ def build(output: Path) -> None:
     body = body.replace("## Acknowledgments", "\\clearpage\n\n## Acknowledgments {-}")
     table = r"""\begin{table*}[t]
 \centering
-\caption{Full-development modeling cohorts. Counts are target-specific and are not
-independent across source families. The two NTWC targets can share an observed clock.}
+\caption{Reports used in the final fits. Each timing quantity has its own inclusion rules.
+The two NTWC datasets can share an observed time and are fitted separately.}
 \begin{tabular}{llrr}
 \hline
 Response & Definition & Reports & Events \\
 \hline
-NCEI duration & Native positive reported travel duration & 1,215 & 47 \\
+NCEI duration & Positive travel duration reported by NCEI & 1,215 & 47 \\
 T-OBS & Observed UTC minus reviewed USGS origin & 258 & 20 \\
 T-CAL & Estimated UTC minus observed UTC & 169 & 18 \\
 \hline

@@ -1,16 +1,27 @@
-\documentclass[review]{vgtc}
+\documentclass[preprint]{vgtc}
 \usepackage[T1]{fontenc}
 \usepackage{times}
 \usepackage{mathptmx}
 \usepackage{url}
 \usepackage[numbers]{natbib}
 \usepackage{amsmath,amssymb}
-\reviewtext{Author-review draft}
+\usepackage[hidelinks]{hyperref}
+\preprinttext{}
 \vgtccategory{Research}
 \title{Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences}
-\author{}
+\author{Sardor Sobirov}
+\hypersetup{
+  pdftitle={Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences},
+  pdfauthor={Sardor Sobirov},
+  pdfsubject={Research paper},
+  pdfdisplaydoctitle=true}
+\affiliation{\normalsize
+Hal{\i}c{\i}o\u{g}lu Data Science Institute\\
+University of California San Diego\\[0.4em]
+Category: Research\\[0.4em]
+Code Repository: \url{https://github.com/sardorsob/PacificVis-Tsunami-Warning}}
 \abstract{\input{abstract.tex}}
-\keywords{Bayesian modeling; tsunami arrival times; hierarchical models; uncertainty visualization; posterior predictive checks.}
+\keywords{Bayesian modeling, tsunami arrival times, hierarchical models, uncertainty visualization, posterior predictive checks.}
 \begin{document}
 \maketitle
 \input{body.tex}

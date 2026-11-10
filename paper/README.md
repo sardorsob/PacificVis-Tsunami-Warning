@@ -11,11 +11,11 @@ The [evidence index](evidence-index.md) identifies the tables, denominators and
 checksums behind its numerical claims. The [bibliography](references.bib) contains
 ten selected scholarly and institutional sources; the manuscript makes no
 first-use claim for Bayesian hierarchical tsunami modeling. Source details appear in footnotes at the bottom
-of the relevant page, as requested for this author-review version; the complete
-bibliography remains at the end. Final venue-format approval remains an author
-check.
+of the relevant page. The complete bibliography remains at the end.
 
-This is an anonymous **author-review draft**, rather than an approved submission.
+This is a **working draft** by Sardor Sobirov, Halıcıoğlu Data Science Institute,
+University of California San Diego. The title block includes the research
+category and a clickable link to the project repository.
 Its main scientific limitation is substantial conditional predictive mismatch
 despite satisfactory reported sampling checks. It reports neither an untouched
 test result nor validated physical first-arrival or operational forecast accuracy.
@@ -25,15 +25,15 @@ decision. No user study or evaluated interactive system is claimed.
 
 Before submission, the authors need to review and approve the actual claims,
 confirm the departure from the prospective abstract's uncertain physical picks
-and site hierarchy, set the appropriate review identity in `main.tex`, and
-provide the intended stable, appropriately anonymized replication materials.
+and site hierarchy, confirm the final venue formatting, and
+provide stable replication materials for the submitted version.
 The PDF also needs a manual accessibility and reading-order check; it is not
 tagged. The acknowledgments disclose the role of ChatGPT/Codex and must accurately
 describe the authors' use of those tools.
 
 The official [conference call](https://pacificvis2027.github.io/contribute/conference-papers/)
 sets a maximum of nine content pages plus two pages containing only
-acknowledgments and references. The draft has six pages: five content pages,
+acknowledgments and references. The draft has seven pages: six content pages,
 including the figures, followed by one acknowledgments/reference page.
 [Submission requirements](https://pacificvis2027.github.io/contribute/paper-submission-guidelines/)
 were checked on November 9, 2026. The paper deadline is November 9 at 23:59 AoE
@@ -73,7 +73,7 @@ python3 paper/build.py --output-directory /private/tmp/tsunami-paper-build
 ```
 
 The command creates an editable TeX bundle and `main.pdf` in the specified
-directory. It converts the current Markdown, places concise source details in
+directory. It converts the current Markdown, places source details in
 page footnotes, retains numbered BibTeX references at the end,
 embeds the three vector paper figures without changing their data, and compiles using
 the official conference class. The standard Times-compatible fonts, margins and
