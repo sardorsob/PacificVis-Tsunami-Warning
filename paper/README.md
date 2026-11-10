@@ -6,7 +6,7 @@ The title matches the registered PacificVis 2027 conference-paper abstract:
 
 The draft reports the completed source-separated Bayesian analysis. It contains
 the model equations and priors, sequence-based comparisons, parameter estimates,
-three existing analytical figures, predictive discrepancies and limitations.
+three compact vector figures drawn from the saved tables, predictive discrepancies and limitations.
 The [evidence index](evidence-index.md) identifies the tables, denominators and
 checksums behind its numerical claims. The [bibliography](references.bib) contains
 nine primary sources; the manuscript makes no first-use claim for Bayesian
@@ -30,11 +30,36 @@ describe the authors' use of those tools.
 
 The official [conference call](https://pacificvis2027.github.io/contribute/conference-papers/)
 sets a maximum of nine content pages plus two pages containing only
-acknowledgments and references. The draft has eight pages: seven content pages,
+acknowledgments and references. The draft has seven pages: six content pages,
 including the figures, followed by one acknowledgments/reference page.
 [Submission requirements](https://pacificvis2027.github.io/contribute/paper-submission-guidelines/)
 were checked on November 9, 2026. The paper deadline is November 9 at 23:59 AoE
 (November 10 at 03:59 Pacific Standard Time).
+
+## Paper figures
+
+The figures use consistent typography, compact horizontal panels and a restrained
+palette. Interval types, signed units and extrapolation remain explicit; longer
+scientific qualifications are in the captions. The data values and original
+result artifacts are unchanged.
+
+| Figure | Preview | Editable vector | Publication vector |
+| --- | --- | --- | --- |
+| Residual spread and event variation | [PNG](figures/residual-spread-and-event-variation.png) | [SVG](figures/residual-spread-and-event-variation.svg) | [PDF](figures/residual-spread-and-event-variation.pdf) |
+| Sequence prediction and probability check | [PNG](figures/sequence-prediction-and-probability-check.png) | [SVG](figures/sequence-prediction-and-probability-check.svg) | [PDF](figures/sequence-prediction-and-probability-check.pdf) |
+| Median and new-report intervals | [PNG](figures/median-and-new-report-intervals.png) | [SVG](figures/median-and-new-report-intervals.svg) | [PDF](figures/median-and-new-report-intervals.pdf) |
+
+Regenerate them into a new output directory using the pinned project environment:
+
+```sh
+MPLCONFIGDIR=/private/tmp/tsunami-paper-mpl uv run --locked --offline python paper/plot_figures.py --output-directory /private/tmp/tsunami-paper-figures
+```
+
+The renderer refuses to overwrite an existing figure directory. Its saved-table
+inputs and exact plotted data are listed in the [evidence index](evidence-index.md).
+The six CSV exports, vector files and 600-pixel previews have recorded checksums.
+Two fresh visual review rounds and an independent numeric/range audit checked
+the revised figures. A physical print and accessibility review remain useful.
 
 ## Rebuild
 
@@ -46,7 +71,7 @@ python3 paper/build.py --output-directory /private/tmp/tsunami-paper-build
 
 The command creates an editable TeX bundle and `main.pdf` in the specified
 directory. It converts the current Markdown, uses numeric BibTeX citations,
-copies the three existing figures without modifying them, and compiles using
+embeds the three vector paper figures without changing their data, and compiles using
 the official conference class. The standard Times-compatible fonts, margins and
 type sizes are retained. Tectonic may fetch public TeX resources into its cache
 on the first build. No statistical analysis or model fitting is performed.

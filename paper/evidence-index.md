@@ -50,3 +50,21 @@ without claiming that a public replication archive has already been deposited.
 | [artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv](../artifacts/eda/arrival-timing/frozen-inputs/development-event-metadata.csv) | `cfd73bf800ee1afe52253d847f7446ed778eb9ee40b8205429b6429c052d9781` |
 | [artifacts/eda/arrival-timing/frozen-inputs/response-record-event-station-counts.csv](../artifacts/eda/arrival-timing/frozen-inputs/response-record-event-station-counts.csv) | `a4c25e36f7fa62d4b412d211c73d4a38f7f5d7fbdbca6a254e994aa804c6a852` |
 | [artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json](../artifacts/eda/arrival-timing/frozen-inputs/source-file-checksums.json) | `0b421f67eaf9a47e2772a05d854b4615054802d373a8f98b4c1038c81f1c3feb` |
+
+## Compact figure derivatives
+
+The paper figures in `figures/` are presentation derivatives of the same frozen
+tables. [Figure inputs](figures/inputs.json) bind six scientific files and the
+plotter; [output checksums](figures/output-checksums.json) bind the PNG, vector PDF,
+editable SVG, previews and six exact plotted-data CSVs. The original analysis
+figures remain unchanged at the source locations above. Only the paper's figure
+links and captions changed; research prose and statistical results are unchanged.
+
+- Figure1: [spread curves](figures/spread-curves.csv) and [event SDs](figures/event-spread.csv).
+- Figure2: [paired scores](figures/paired-scores.csv), [probability curves](figures/pit-curves.csv)
+  and [curved-model band](figures/pit-band.csv). The band is the existing saved CDF
+  plus/minus its saved sup-norm radius, bounded to [0,1].
+- Figure3: [native-minute quantiles and support flags](figures/arrival-quantiles.csv).
+  All54 intervals are retained in full; no new predictions or summary statistics
+  were computed. Hatched distance regions and residual-SD endpoint clamping keep
+  their original distinct meanings.

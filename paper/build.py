@@ -46,16 +46,23 @@ T-CAL & Estimated UTC minus observed UTC & 169 & 18 \\
         raise ValueError("Expected exactly one source cohort table")
 
     def figure(match: re.Match[str]) -> str:
-        description, source, number, caption = match.groups()
+        _description, source, number, caption = match.groups()
+        caption = caption.replace("%", r"\%")
         source_path = (paper / source).resolve()
-        source_path.relative_to(root / "artifacts")
-        destination = output / f"figure{number}.png"
+        try:
+            source_path.relative_to(root / "artifacts")
+        except ValueError:
+            source_path.relative_to(paper / "figures")
+        vector = source_path.with_suffix(".pdf")
+        if vector.is_file():
+            source_path = vector
+        destination = output / f"figure{number}{source_path.suffix}"
         shutil.copyfile(source_path, destination)
         # Full-width floats preserve figure text; clearpage keeps all before references.
         return (
             "\\begin{figure*}[tp]\n\\centering\n"
-            f"\\includegraphics[width=\\textwidth,height=0.74\\textheight,keepaspectratio]{{figure{number}.png}}\n"
-            f"\\caption{{{description} {caption}}}\n\\end{{figure*}}\n"
+            f"\\includegraphics[width=\\textwidth,height=0.74\\textheight,keepaspectratio]{{{destination.name}}}\n"
+            f"\\caption{{{caption}}}\n\\end{{figure*}}\n"
         )
 
     body, figures = re.subn(

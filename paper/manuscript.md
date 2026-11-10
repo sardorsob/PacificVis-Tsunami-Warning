@@ -135,9 +135,9 @@ These are static analytical views using established encodings. We do not report 
 
 On the same 1,064-report, 33-event NCEI exploration cohort, the posterior median event SD changes from 0.352 [0.220, 0.510] under constant residual spread to 0.046 [0.029, 0.084] under distance-varying spread. These are central 90% posterior intervals. The change occurs between model specifications, not merely between prior settings. It shows that an event effect can absorb residual structure under one likelihood and become much smaller under another. Neither estimate identifies a physical between-tsunami variance component.
 
-![Changing residual spread changes the attribution of NCEI event variation. Both models use the same 1,064 exploration reports from 33 events. The figure compares their distance-dependent spread and event-effect summaries; uncertainty concerns the fitted statistical models.](../artifacts/models/arrival-timing/distance-scale-fit-report-v1/distance-spread-and-event-attribution.png)
+![Changing residual spread changes the attribution of NCEI event variation. Both models use the same 1,064 exploration reports from 33 events. The figure compares their distance-dependent spread and event-effect summaries; uncertainty concerns the fitted statistical models.](figures/residual-spread-and-event-variation.png)
 
-**Figure 1.** Residual specification and event attribution. The comparison holds the exploration cohort fixed and does not establish that one variance decomposition is physical truth.
+**Figure 1.** Residual specification and event attribution for the same 1,064 NCEI reports from 33 exploration events. Bands and bars are central 90% posterior intervals. Changing the residual specification changes the estimated event variation; neither decomposition identifies physical variance. Source: NOAA NCEI.
 
 ### 6.2. Curvature improves a point estimate of sequence score, with uncertainty
 
@@ -145,9 +145,9 @@ The simpler NCEI distance-only model improves the sequence score over the pooled
 
 The earlier NTWC sequence comparisons also do not establish a general advantage for event hierarchies. The event-minus-pooled T-OBS score difference is -0.424 [-1.382, 0.534] nats per report; the event-minus-distance T-CAL difference is 0.0205 [-0.0988, 0.1397]. Both are descriptive 95% sequence-cluster intervals. These results motivate retaining simpler frozen NTWC forms without implying equivalence between the models.
 
-![Omitted-sequence score differences and predictive diagnostics for the NCEI mean-form comparison. The original figure retains sequence-cluster uncertainty and calibration strata; it does not supply reserved-test evaluation.](../artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/curvature-score-and-calibration.png)
+![Omitted-sequence score differences and predictive diagnostics for the NCEI mean-form comparison. The original figure retains sequence-cluster uncertainty and calibration strata; it does not supply reserved-test evaluation.](figures/sequence-prediction-and-probability-check.png)
 
-**Figure 2.** Sequence-prediction comparison. Numerical precision and between-sequence uncertainty answer different questions. The comparison is exploratory model-development evidence.
+**Figure 2.** Exploratory sequence-prediction comparison for 1,064 NCEI reports, 33 events and 29 sequences. Positive score differences favor the curved, varying-spread specification; bars show descriptive 95% sequence-cluster intervals. The probability panel shows three saved CDFs and the curved model's 95% sequence-bootstrap sup-norm band, not a uniformity test. Numerical precision and between-sequence uncertainty are distinct. Source: NOAA NCEI.
 
 ### 6.3. Frozen full-development parameters
 
@@ -159,9 +159,9 @@ For T-OBS, $\alpha_O=0.102$ [0.0562, 0.148] and $\sigma_O=0.442$ [0.411, 0.476].
 
 For T-CAL, $\alpha_C=-6.73$ [-11.59, -1.91] minutes and $\beta_C=-9.67$ [-12.44, -6.98] minutes per unit log distance, with residual SD 25.2 [23.1, 27.6] minutes. The fitted center becomes more negative with distance, conditional on the included archive reports. At 1,000 km, the new-report predictive interval spans -48.3 to +32.7 minutes. Thus a negative center neither implies that every estimate precedes observation nor establishes an operational bias mechanism.
 
-![Native-minute uncertainty for the three frozen models. Dark intervals summarize the population median; light intervals predict a new report. Logarithmic duration axes, the signed discrepancy axis, extrapolation hatching and residual-scale clamping distinguish the quantities being displayed.](../artifacts/models/arrival-timing/full-development-figures-v1/selected-model-distance-curves-and-predictive-intervals.png)
+![Native-minute uncertainty for the three frozen models. Dark intervals summarize the population median; light intervals predict a new report. Logarithmic duration axes, the signed discrepancy axis, extrapolation hatching and residual-scale clamping distinguish the quantities being displayed.](figures/median-and-new-report-intervals.png)
 
-**Figure 3.** Frozen full-development curves from saved quantiles. NCEI includes a new event offset; the selected NTWC forms have no event effects. Lines join nine evaluated distances. These archive-conditional distributions are not validated physical arrival forecasts.
+**Figure 3.** Full-development median and new-report intervals from nine saved distances. All intervals are central 90% and pointwise. NCEI predictions include a new event offset; the NTWC forms have no event term. The signed difference is estimated minus observed UTC. Hatching marks distance extrapolation. NCEI residual SD is separately held constant below 500 km and above 5,000 km. These archive-conditional distributions are not validated physical arrival forecasts. Sources: NOAA NCEI and NTWC.
 
 ### 6.4. Sampling success coexists with predictive discrepancies
 
