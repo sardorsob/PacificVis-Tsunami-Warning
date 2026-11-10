@@ -21,3 +21,6 @@ config/arrival-recovery-ncei-sample-v1.toml -text whitespace=-blank-at-eof
 
 # Preserve the generated figure CSV bytes recorded in its checksum manifest.
 /artifacts/models/arrival-timing/full-development-figures-v1/plotted-quantiles.csv -text whitespace=cr-at-eol
+
+# Keep the official conference template byte-identical, including upstream whitespace.
+/paper/template/** -text -whitespace

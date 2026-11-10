@@ -1,0 +1,40 @@
+{
+  "acknowledgments_and_reference_pages": 1,
+  "all_fonts_embedded": true,
+  "build_command": "python3 paper/build.py --output-directory <scratch-directory>",
+  "content_pages": 7,
+  "generated_utc": "2026-11-10T02:20:57.180195+00:00",
+  "inputs": {
+    "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/curvature-score-and-calibration.png": "c341e498f2dd2f08684b3aa819886d9d8bf607d9d0adf4ceac11aea44fde16c6",
+    "artifacts/models/arrival-timing/distance-scale-fit-report-v1/distance-spread-and-event-attribution.png": "0056a582a679ba97e18c88ecd006fae8fd030733c2dae725fef2392509ac30b3",
+    "artifacts/models/arrival-timing/full-development-figures-v1/selected-model-distance-curves-and-predictive-intervals.png": "89e010273a25e596e1bf8dbe2f2e2832ce2464cbca0cbcee39b03a6b32d86e51",
+    "paper/build.py": "98702692f38119b6c9998d6f18314bc9ce5a929a429b8189d3b84bdde5c09e6a",
+    "paper/evidence-index.md": "e9674985668684163fc14608d090b24f95ed9fdf3c58fbfbb9888c3039168744",
+    "paper/main.tex": "0c1edf1da8eb85c75c30b81fdb2edbc062282a02bceaee3c018caa87341db55f",
+    "paper/manuscript.md": "e23a6482890e4b66df11105cde6b267195b7a249800f13e4cfcf99ae647c3d3c",
+    "paper/references.bib": "411f0056d3cba7e1546833dc8162750ead971fcc4f532fe9f83509efc7e6d5d4",
+    "paper/template/abbrv-doi.bst": "7c706a2b101fb00316c863ae1ff1a7e450320b769e7555c59460a9b4000da8a4",
+    "paper/template/vgtc.cls": "dca0faf2ae5621229a95ade5575b1089d4a562dc6956d3a8f3f3b38b386222e1"
+  },
+  "new_scientific_analysis": false,
+  "outputs": {
+    "paper/manuscript.pdf": "5a3e62028702758c9f442a8f14058c96add6e12f935c4e9ad2a9fee2aac76d7c"
+  },
+  "pages": 8,
+  "pandoc_version": "pandoc 3.8",
+  "pdf_tagged": false,
+  "remaining_author_checks": [
+    "Scientific interpretation and venue contribution",
+    "Review identity and stable anonymized replication materials",
+    "AI-use disclosure accuracy",
+    "PDF accessibility and reading order",
+    "Figure 3 source-note legibility at print size"
+  ],
+  "reserved_outcomes_read": false,
+  "schema_version": "tsunami_paper_author_review_build_v1",
+  "scientific_source_commit": "46831fb9380a73dbe135cf2a65dda6b59fdc609e",
+  "source_figures_modified": false,
+  "status": "author_review_draft",
+  "tectonic_version": "Tectonic 0.17.0",
+  "title": "Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences"
+}
