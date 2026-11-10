@@ -9,9 +9,10 @@ the model equations and priors, sequence-based comparisons, parameter estimates,
 three compact vector figures drawn from the saved tables, predictive discrepancies and limitations.
 The [evidence index](evidence-index.md) identifies the tables, denominators and
 checksums behind its numerical claims. The [bibliography](references.bib) contains
-ten selected scholarly and institutional sources; the manuscript makes no
-first-use claim for Bayesian hierarchical tsunami modeling. Source details appear in footnotes at the bottom
-of the relevant page. The complete bibliography remains at the end.
+fourteen selected scholarly and institutional sources. These credit the data
+sources, hierarchical modeling, sampling, predictive checks and model comparison.
+Source details appear in footnotes at the bottom of the relevant page. The
+complete bibliography remains at the end.
 
 This is a **working draft** by Sardor Sobirov, an independent researcher.
 The title block includes the research category and an underlined
@@ -23,13 +24,13 @@ The 18 reserved outcomes remain sealed. The visualization contribution is a
 static modeling case study; its novelty and fit for PacificVis require an author
 decision. No user study or evaluated interactive system is claimed.
 
-Before submission, the authors need to review and approve the actual claims,
+Before submission, the author needs to review and approve the actual claims,
 confirm the departure from the prospective abstract's uncertain physical picks
 and site hierarchy, confirm the final venue formatting, and
 provide stable replication materials for the submitted version.
 The PDF also needs a manual accessibility and reading-order check; it is not
 tagged. The acknowledgments disclose the role of ChatGPT/Codex and must accurately
-describe the authors' use of those tools.
+describe the author's use of those tools.
 
 The official [conference call](https://pacificvis2027.github.io/contribute/conference-papers/)
 sets a maximum of nine content pages plus two pages containing only
