@@ -1,6 +1,6 @@
 # Paper draft
 
-[Read the PDF](manuscript.pdf) or edit the [Markdown manuscript](manuscript.md).
+[Read the PDF](Sobirov_S_Probabilistic_Hierarchical_Modeling_of_Tsunami_Arrival-Time_Differences.pdf) or edit the [Markdown manuscript](manuscript.md).
 The title matches the registered PacificVis 2027 conference-paper abstract:
 **Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences**.
 
@@ -84,7 +84,7 @@ shorter columns, and source footnotes stay at the page bottom.
 Tectonic may fetch public TeX resources into its cache
 on the first build. No statistical analysis or model fitting is performed.
 
-The tracked `manuscript.pdf` is a reviewed build; rebuilding does not overwrite it.
+The linked PDF is a reviewed build. Rebuilding does not overwrite it.
 Inspect a rebuilt PDF before replacing that file. Build logs and intermediate
 files remain in the requested output directory.
 
