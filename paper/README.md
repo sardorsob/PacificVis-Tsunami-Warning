@@ -13,9 +13,9 @@ ten selected scholarly and institutional sources; the manuscript makes no
 first-use claim for Bayesian hierarchical tsunami modeling. Source details appear in footnotes at the bottom
 of the relevant page. The complete bibliography remains at the end.
 
-This is a **working draft** by Sardor Sobirov, Halıcıoğlu Data Science Institute,
-University of California San Diego. The title block includes the research
-category and a clickable link to the project repository.
+This is a **working draft** by Sardor Sobirov, an independent researcher.
+The title block includes the research category and an underlined
+“GitHub repository” link to the project repository.
 Its main scientific limitation is substantial conditional predictive mismatch
 despite satisfactory reported sampling checks. It reports neither an untouched
 test result nor validated physical first-arrival or operational forecast accuracy.
@@ -76,8 +76,11 @@ The command creates an editable TeX bundle and `main.pdf` in the specified
 directory. It converts the current Markdown, places source details in
 page footnotes, retains numbered BibTeX references at the end,
 embeds the three vector paper figures without changing their data, and compiles using
-the official conference class. The standard Times-compatible fonts, margins and
-type sizes are retained. Tectonic may fetch public TeX resources into its cache
+the official conference class. Headings use bold Times-compatible serif type
+with normal capitalization through the class's font setting. The template's
+margins and type sizes are retained. Paragraph spacing does not stretch to fill
+shorter columns, and source footnotes stay at the page bottom.
+Tectonic may fetch public TeX resources into its cache
 on the first build. No statistical analysis or model fitting is performed.
 
 The tracked `manuscript.pdf` is a reviewed build; rebuilding does not overwrite it.

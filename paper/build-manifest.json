@@ -1,17 +1,18 @@
 {
   "acknowledgments_and_reference_pages": 1,
-  "affiliation": "Hal\u0131c\u0131o\u011flu Data Science Institute, University of California San Diego",
+  "affiliation": "Independent researcher",
   "all_fonts_embedded": true,
   "author": "Sardor Sobirov",
   "bibliography_entries": 10,
   "build_command": "python3 paper/build.py --output-directory <scratch-directory>",
   "citation_style": "concise_page_bottom_source_footnotes_with_numbered_end_bibliography",
+  "column_spacing": "natural_paragraph_spacing_with_page_bottom_footnotes",
   "content_pages": 6,
   "figure_data_values_changed": false,
   "figure_visual_review_rounds": 2,
-  "generated_utc": "2026-11-10T04:07:25.266919+00:00",
+  "generated_utc": "2026-11-10T04:31:56.168586+00:00",
+  "heading_style": "bold_serif_normal_capitalization_at_template_type_sizes",
   "independent_editorial_review": "accepted_after_pooled_response_scale_and_local_storage_clarifications",
-  "independent_rendered_pdf_review": "accepted_all_seven_pages_and_final_header_conclusion_repair",
   "inputs": {
     "paper/build.py": "18787a8c14a5da10497d13bbe33b76550d7ff5ac36b037ce4fd2edfeca496fdd",
     "paper/evidence-index.md": "a536528b5d17062d1baca123b1b3bcdcef3c4a008da1b178ed57cbd92f972f4c",
@@ -20,7 +21,7 @@
     "paper/figures/output-checksums.json": "a638fff7a1edecc6c9d54991292e8f5b36ee10ba178c7cd92a599513a09ecf26",
     "paper/figures/residual-spread-and-event-variation.pdf": "ede75564888c95e4f4894c475d9a2ba822aea14a59302e0e663ea8870c9f4c39",
     "paper/figures/sequence-prediction-and-probability-check.pdf": "136d4c27417d5ae596338299f0f3980d88fa68ed96f5d4987aed07c6e96f667a",
-    "paper/main.tex": "6dff0cd3b6c58b382519fceeedcced3bb46a305c768a347235734f0524786cc9",
+    "paper/main.tex": "d4d6863de17c24f04334f0f76f91286d167a4465f4d8eb8b41a177b434c2ea10",
     "paper/manuscript.md": "c32a1395d7c2fac794c3cb7a79d8fd88404d6bdf84a70e8dc4d7a83f6f43a35e",
     "paper/plot_figures.py": "2c490f2e2e1bfe04331bf09af2e81ad3dcc688015b083862b8bb723bad285743",
     "paper/references.bib": "141fd9e8b2cb5d08c6ab0506820fea5b949d93b403b2970e765a985fad2db41d",
@@ -29,12 +30,13 @@
   },
   "new_scientific_analysis": false,
   "outputs": {
-    "paper/manuscript.pdf": "162abc6425e18b351ab7b90027e3e22e9ba121a7aa27847a590469945260fd5b"
+    "paper/manuscript.pdf": "7a9af48cf464a6bccad9fe1e0918ba3546d7c37f5c53150d75f722f5fd45a2f4"
   },
   "pages": 7,
   "pandoc_version": "pandoc 3.8",
   "paper_figures_redrawn_from_saved_tables": true,
   "pdf_tagged": false,
+  "prior_independent_rendered_pdf_review": "accepted_all_seven_pages_and_final_header_conclusion_repair",
   "prose_revision": "plain_language_with_explicit_code_and_data_access",
   "remaining_author_checks": [
     "Scientific interpretation and venue contribution",
@@ -43,8 +45,10 @@
     "PDF accessibility and reading order",
     "Physical print-size review"
   ],
+  "rendered_pdf_review": "all_seven_pages_checked_after_typography_and_affiliation_changes",
   "rendered_semicolons": 0,
   "repository_link_clickable": true,
+  "repository_link_label": "GitHub repository",
   "repository_url": "https://github.com/sardorsob/PacificVis-Tsunami-Warning",
   "reserved_outcomes_read": false,
   "review_identity": "named_working_draft",
@@ -54,8 +58,6 @@
   "source_footnotes": 10,
   "status": "author_review_draft",
   "tectonic_version": "Tectonic 0.17.0",
-  "tex_warnings": [
-    "One underfull vbox (badness 1337); no clipping, overflow, undefined citations or bibliography warnings."
-  ],
+  "tex_warnings": [],
   "title": "Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences"
 }
