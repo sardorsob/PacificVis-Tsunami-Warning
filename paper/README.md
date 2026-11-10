@@ -9,8 +9,11 @@ the model equations and priors, sequence-based comparisons, parameter estimates,
 three compact vector figures drawn from the saved tables, predictive discrepancies and limitations.
 The [evidence index](evidence-index.md) identifies the tables, denominators and
 checksums behind its numerical claims. The [bibliography](references.bib) contains
-nine primary sources; the manuscript makes no first-use claim for Bayesian
-hierarchical tsunami modeling.
+ten selected scholarly and institutional sources; the manuscript makes no
+first-use claim for Bayesian hierarchical tsunami modeling. Source details appear in footnotes at the bottom
+of the relevant page, as requested for this author-review version; the complete
+bibliography remains at the end. Final venue-format approval remains an author
+check.
 
 This is an anonymous **author-review draft**, rather than an approved submission.
 Its main scientific limitation is substantial conditional predictive mismatch
@@ -30,7 +33,7 @@ describe the authors' use of those tools.
 
 The official [conference call](https://pacificvis2027.github.io/contribute/conference-papers/)
 sets a maximum of nine content pages plus two pages containing only
-acknowledgments and references. The draft has seven pages: six content pages,
+acknowledgments and references. The draft has six pages: five content pages,
 including the figures, followed by one acknowledgments/reference page.
 [Submission requirements](https://pacificvis2027.github.io/contribute/paper-submission-guidelines/)
 were checked on November 9, 2026. The paper deadline is November 9 at 23:59 AoE
@@ -70,7 +73,8 @@ python3 paper/build.py --output-directory /private/tmp/tsunami-paper-build
 ```
 
 The command creates an editable TeX bundle and `main.pdf` in the specified
-directory. It converts the current Markdown, uses numeric BibTeX citations,
+directory. It converts the current Markdown, places concise source details in
+page footnotes, retains numbered BibTeX references at the end,
 embeds the three vector paper figures without changing their data, and compiles using
 the official conference class. The standard Times-compatible fonts, margins and
 type sizes are retained. Tectonic may fetch public TeX resources into its cache

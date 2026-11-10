@@ -1,34 +1,39 @@
 {
   "acknowledgments_and_reference_pages": 1,
   "all_fonts_embedded": true,
+  "bibliography_entries": 10,
   "build_command": "python3 paper/build.py --output-directory <scratch-directory>",
-  "content_pages": 6,
+  "citation_style": "concise_page_bottom_source_footnotes_with_numbered_end_bibliography",
+  "content_pages": 5,
   "figure_data_values_changed": false,
   "figure_visual_review_rounds": 2,
-  "generated_utc": "2026-11-10T03:26:08.957045+00:00",
+  "generated_utc": "2026-11-10T03:50:26.815636+00:00",
+  "independent_editorial_review": "accepted_with_one_probability_panel_explanation_repair",
+  "independent_rendered_pdf_review": "accepted_all_six_pages",
   "inputs": {
     "paper/build.py": "a78f8ea61dc73f2a25e1a3fb09c00e33650b41de1bf75173a7c84752371a3058",
-    "paper/evidence-index.md": "4bac6035655d824558518d982c097d8419ca5addf7083f2ae10c12f02c4b733e",
+    "paper/evidence-index.md": "a536528b5d17062d1baca123b1b3bcdcef3c4a008da1b178ed57cbd92f972f4c",
     "paper/figures/inputs.json": "23ef69e6cefd3281e48dcdc093b60c33c96864dc7ced691694598ac03ee762ac",
     "paper/figures/median-and-new-report-intervals.pdf": "d0f3cc58d3c052f848dbf2d57f7c55cbb5db3c6bd490f56b4619bd91c5f018e9",
     "paper/figures/output-checksums.json": "a638fff7a1edecc6c9d54991292e8f5b36ee10ba178c7cd92a599513a09ecf26",
     "paper/figures/residual-spread-and-event-variation.pdf": "ede75564888c95e4f4894c475d9a2ba822aea14a59302e0e663ea8870c9f4c39",
     "paper/figures/sequence-prediction-and-probability-check.pdf": "136d4c27417d5ae596338299f0f3980d88fa68ed96f5d4987aed07c6e96f667a",
-    "paper/main.tex": "0c1edf1da8eb85c75c30b81fdb2edbc062282a02bceaee3c018caa87341db55f",
-    "paper/manuscript.md": "1676a9746a8c706980ccaee13be4e39cf3e3e33cde5ed0f466643b0d11a8e9fb",
+    "paper/main.tex": "071ec59535c4cadbcc323b899b29f32c3cc60cab5d41aa68082246b0f3446f59",
+    "paper/manuscript.md": "a2e15406eddcc548a324becb30a904b97dbe5369975ef188c098b487db7290d8",
     "paper/plot_figures.py": "2c490f2e2e1bfe04331bf09af2e81ad3dcc688015b083862b8bb723bad285743",
-    "paper/references.bib": "411f0056d3cba7e1546833dc8162750ead971fcc4f532fe9f83509efc7e6d5d4",
+    "paper/references.bib": "141fd9e8b2cb5d08c6ab0506820fea5b949d93b403b2970e765a985fad2db41d",
     "paper/template/abbrv-doi.bst": "7c706a2b101fb00316c863ae1ff1a7e450320b769e7555c59460a9b4000da8a4",
     "paper/template/vgtc.cls": "dca0faf2ae5621229a95ade5575b1089d4a562dc6956d3a8f3f3b38b386222e1"
   },
   "new_scientific_analysis": false,
   "outputs": {
-    "paper/manuscript.pdf": "3c375fb0858e8382d30aadf5f32a511f91d0cebf65d7ee4b34c9119c9ac41e0f"
+    "paper/manuscript.pdf": "799ab8dc85da766dba131b92a335b342076062bc93b260584a0cf3a777f28b3e"
   },
-  "pages": 7,
+  "pages": 6,
   "pandoc_version": "pandoc 3.8",
   "paper_figures_redrawn_from_saved_tables": true,
   "pdf_tagged": false,
+  "prose_revision": "concepts_before_equations_and_explicit_figure_decisions",
   "remaining_author_checks": [
     "Scientific interpretation and venue contribution",
     "Review identity and stable anonymized replication materials",
@@ -40,7 +45,11 @@
   "schema_version": "tsunami_paper_author_review_build_v1",
   "scientific_source_commit": "46831fb9380a73dbe135cf2a65dda6b59fdc609e",
   "source_figures_modified": false,
+  "source_footnotes": 10,
   "status": "author_review_draft",
   "tectonic_version": "Tectonic 0.17.0",
+  "tex_warnings": [
+    "One underfull hbox paragraph (badness 1983); no clipping, overflow, undefined citations or bibliography warnings."
+  ],
   "title": "Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences"
 }

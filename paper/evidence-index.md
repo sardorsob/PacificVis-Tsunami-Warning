@@ -57,8 +57,9 @@ The paper figures in `figures/` are presentation derivatives of the same frozen
 tables. [Figure inputs](figures/inputs.json) bind six scientific files and the
 plotter; [output checksums](figures/output-checksums.json) bind the PNG, vector PDF,
 editable SVG, previews and six exact plotted-data CSVs. The original analysis
-figures remain unchanged at the source locations above. Only the paper's figure
-links and captions changed; research prose and statistical results are unchanged.
+figures remain unchanged at the source locations above. The paper's prose and
+captions explain these saved results; the statistical results and original
+figures remain unchanged.
 
 - Figure1: [spread curves](figures/spread-curves.csv) and [event SDs](figures/event-spread.csv).
 - Figure2: [paired scores](figures/paired-scores.csv), [probability curves](figures/pit-curves.csv)
