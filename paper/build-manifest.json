@@ -10,9 +10,15 @@
   "content_pages": 6,
   "figure_data_values_changed": false,
   "figure_visual_review_rounds": 2,
-  "generated_utc": "2026-11-10T04:31:56.168586+00:00",
+  "generated_utc": "2026-11-10T04:35:41.033368+00:00",
   "heading_style": "bold_serif_normal_capitalization_at_template_type_sizes",
   "independent_editorial_review": "accepted_after_pooled_response_scale_and_local_storage_clarifications",
+  "index_term_spacing": "single_label_space_and_ragged_right_paragraph",
+  "index_terms": [
+    "Bayesian modeling",
+    "hierarchical models",
+    "uncertainty modeling"
+  ],
   "inputs": {
     "paper/build.py": "18787a8c14a5da10497d13bbe33b76550d7ff5ac36b037ce4fd2edfeca496fdd",
     "paper/evidence-index.md": "a536528b5d17062d1baca123b1b3bcdcef3c4a008da1b178ed57cbd92f972f4c",
@@ -21,8 +27,8 @@
     "paper/figures/output-checksums.json": "a638fff7a1edecc6c9d54991292e8f5b36ee10ba178c7cd92a599513a09ecf26",
     "paper/figures/residual-spread-and-event-variation.pdf": "ede75564888c95e4f4894c475d9a2ba822aea14a59302e0e663ea8870c9f4c39",
     "paper/figures/sequence-prediction-and-probability-check.pdf": "136d4c27417d5ae596338299f0f3980d88fa68ed96f5d4987aed07c6e96f667a",
-    "paper/main.tex": "d4d6863de17c24f04334f0f76f91286d167a4465f4d8eb8b41a177b434c2ea10",
-    "paper/manuscript.md": "c32a1395d7c2fac794c3cb7a79d8fd88404d6bdf84a70e8dc4d7a83f6f43a35e",
+    "paper/main.tex": "ee65451b4edaf103997cfe36b5f5f785b7bb0b338a2f6754bb9b79fe5329a157",
+    "paper/manuscript.md": "0b3598c59003e1839ef0ab39959bf7266bf637c49405e7aa1c347c9eba3d051d",
     "paper/plot_figures.py": "2c490f2e2e1bfe04331bf09af2e81ad3dcc688015b083862b8bb723bad285743",
     "paper/references.bib": "141fd9e8b2cb5d08c6ab0506820fea5b949d93b403b2970e765a985fad2db41d",
     "paper/template/abbrv-doi.bst": "7c706a2b101fb00316c863ae1ff1a7e450320b769e7555c59460a9b4000da8a4",
@@ -30,7 +36,7 @@
   },
   "new_scientific_analysis": false,
   "outputs": {
-    "paper/manuscript.pdf": "7a9af48cf464a6bccad9fe1e0918ba3546d7c37f5c53150d75f722f5fd45a2f4"
+    "paper/manuscript.pdf": "a1736c129dc54b803f2957ce6443f1adc2c91f69736645db91cf7a05163b13f9"
   },
   "pages": 7,
   "pandoc_version": "pandoc 3.8",
@@ -45,7 +51,7 @@
     "PDF accessibility and reading order",
     "Physical print-size review"
   ],
-  "rendered_pdf_review": "all_seven_pages_checked_after_typography_and_affiliation_changes",
+  "rendered_pdf_review": "all_seven_pages_checked_after_index_term_and_spacing_revision",
   "rendered_semicolons": 0,
   "repository_link_clickable": true,
   "repository_link_label": "GitHub repository",
@@ -54,6 +60,7 @@
   "review_identity": "named_working_draft",
   "schema_version": "tsunami_paper_author_review_build_v1",
   "scientific_source_commit": "46831fb9380a73dbe135cf2a65dda6b59fdc609e",
+  "sentence_spacing": "single_word_space",
   "source_figures_modified": false,
   "source_footnotes": 10,
   "status": "author_review_draft",

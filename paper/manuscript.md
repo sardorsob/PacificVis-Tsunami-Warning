@@ -7,7 +7,7 @@ lang: en-US
 
 Historical tsunami records do not always describe arrival in the same way. Some give a travel duration, while others give an estimated or observed clock time. We examine three quantities separately: travel durations reported by the National Centers for Environmental Information, durations from earthquake origin to observations reported by the National Tsunami Warning Center, and the differences between that center's estimated and observed times. The fitted datasets contain 1,215 reports from 47 events, 258 from 20 events, and 169 from 18 events, respectively. We compare Bayesian models by predicting reports from groups of events left out of fitting and by plotting simulated reports against the observations. On the same exploration dataset, allowing residual spread to vary with distance changes the estimated between-event standard deviation from 0.352 to 0.046 log units. Adding curvature to the mean gives an estimated prediction-score gain of 0.084 nats per report, with a descriptive 95% interval of [-0.049, 0.217]. This interval leaves the benefit of curvature uncertain. All three final fits pass the reported sampling checks but still miss features of the observed distributions. The figures show how these results depend on the residual model and distinguish uncertainty in the fitted center from the wider range of a new report. The findings apply to the selected historical reports. Physical first-arrival accuracy and operational forecast performance remain unvalidated.
 
-**Keywords:** Bayesian modeling, tsunami arrival times, hierarchical models, uncertainty visualization, posterior predictive checks.
+**Keywords:** Bayesian modeling, hierarchical models, uncertainty modeling.
 
 ## 1. Introduction
 

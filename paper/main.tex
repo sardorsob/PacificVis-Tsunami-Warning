@@ -6,8 +6,15 @@
 \usepackage[numbers]{natbib}
 \usepackage{amsmath,amssymb}
 \usepackage[bottom]{footmisc}
-\usepackage[hidelinks]{hyperref}
 \sectionfont{\upshape\rmfamily}
+\makeatletter
+\patchcmd{\maketitle}
+  {\par\noindent \textbf{Index Terms: } \vgtc@keywords}
+  {\par\noindent\raggedright\textbf{Index Terms:}\space\vgtc@keywords\par}
+  {}
+  {\PackageError{paper}{Cannot adjust index-term spacing}{Check the VGTC keyword block.}}
+\makeatother
+\usepackage[hidelinks]{hyperref}
 \preprinttext{}
 \vgtccategory{Research}
 \title{Probabilistic Hierarchical Modeling of Tsunami Arrival-Time Differences}
@@ -22,8 +29,9 @@ Independent researcher\\[0.4em]
 Category: Research\\[0.4em]
 Code and data: \href{https://github.com/sardorsob/PacificVis-Tsunami-Warning}{\underline{GitHub repository}}}
 \abstract{\input{abstract.tex}}
-\keywords{Bayesian modeling, tsunami arrival times, hierarchical models, uncertainty visualization, posterior predictive checks.}
+\keywords{Bayesian modeling, hierarchical models, uncertainty modeling.}
 \begin{document}
+\frenchspacing
 \raggedbottom
 \maketitle
 \input{body.tex}
