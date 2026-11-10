@@ -10,7 +10,7 @@
   "content_pages": 6,
   "figure_data_values_changed": false,
   "figure_visual_review_rounds": 2,
-  "generated_utc": "2026-11-10T04:46:47.420920+00:00",
+  "generated_utc": "2026-11-10T04:50:14.562309+00:00",
   "heading_style": "bold_serif_normal_capitalization_at_template_type_sizes",
   "independent_editorial_review": "accepted_solo_author_voice_method_citations_and_preserved_scientific_meaning",
   "index_term_spacing": "single_label_space_and_ragged_right_paragraph",
@@ -28,7 +28,7 @@
     "paper/figures/residual-spread-and-event-variation.pdf": "ede75564888c95e4f4894c475d9a2ba822aea14a59302e0e663ea8870c9f4c39",
     "paper/figures/sequence-prediction-and-probability-check.pdf": "136d4c27417d5ae596338299f0f3980d88fa68ed96f5d4987aed07c6e96f667a",
     "paper/main.tex": "ee65451b4edaf103997cfe36b5f5f785b7bb0b338a2f6754bb9b79fe5329a157",
-    "paper/manuscript.md": "617ecad66b2451a351a0c32d8477355ebb9315fa30e0e9535cbfac369384e57e",
+    "paper/manuscript.md": "fa2f8b2b65610d3880a6619c65cc52c0c1afc391f081b770525e064f0d8bbdc8",
     "paper/plot_figures.py": "2c490f2e2e1bfe04331bf09af2e81ad3dcc688015b083862b8bb723bad285743",
     "paper/references.bib": "f4369c755ea74406a2ce0b16ae5ae8db3ddb703f25c51501cd091348dc591a9b",
     "paper/template/abbrv-doi.bst": "7c706a2b101fb00316c863ae1ff1a7e450320b769e7555c59460a9b4000da8a4",
@@ -36,7 +36,7 @@
   },
   "new_scientific_analysis": false,
   "outputs": {
-    "paper/manuscript.pdf": "a38fda3f84ba807602669757d6062173675131bcd2a01ea912c2bd231bd225cb"
+    "paper/manuscript.pdf": "2529f49457c85a944aa3c8db8a66b1e2fd1f04f95b9bb706f38a0647e311057f"
   },
   "pages": 7,
   "pandoc_version": "pandoc 3.8",
@@ -51,7 +51,7 @@
     "PDF accessibility and reading order",
     "Physical print-size review"
   ],
-  "rendered_pdf_review": "all_seven_pages_checked_after_solo_author_voice_and_method_citation_revision",
+  "rendered_pdf_review": "final_acknowledgment_page_checked_first_six_page_content_streams_unchanged",
   "rendered_semicolons": 0,
   "repository_link_clickable": true,
   "repository_link_label": "GitHub repository",

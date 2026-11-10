@@ -236,6 +236,6 @@ The analysis shows why the observation model matters when interpreting a tsunami
 
 ## Acknowledgments
 
-I acknowledge NOAA's National Tsunami Warning Center and National Centers for Environmental Information, the USGS, and the original observing and reporting organizations. OpenAI ChatGPT/Codex assisted with analysis-code development, numerical verification, figure-generation code, and drafting and editing this manuscript. I am responsible for the final scientific content and submission.
+I acknowledge NOAA's National Tsunami Warning Center and National Centers for Environmental Information, the USGS, and the original observing and reporting organizations. OpenAI ChatGPT/Codex assisted with analysis-code development, numerical verification, figure-generation code, and editing this manuscript. I am responsible for the final scientific content and submission.
 
 ## References
