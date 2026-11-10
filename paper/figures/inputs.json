@@ -1,0 +1,9 @@
+{
+  "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/event-weighted-pit.csv": "b1dba716e7677acc6fff6a7d2de797dbd07a4774894b8097350b3c20c51eb32f",
+  "artifacts/models/arrival-timing/curvature-sequence-predictive-comparison-v1/paired-score-differences.csv": "30d0a6c28481ceb61f06c3fec7bdc780b0eb9b1b143d2a27adf5164f06ab7e85",
+  "artifacts/models/arrival-timing/distance-scale-fit-report-v1/between-event-spread-by-model.csv": "68345a8d8966e7d80dd5f55ee1c08a5e7419cfe0ccc8ffadec8b980cbee676d8",
+  "artifacts/models/arrival-timing/distance-scale-fit-report-v1/population-mean-and-residual-spread-curves.csv": "7cb3ca0ee5154bc5479ae037e4006ba3b20748fd1f75a5e7c480c4455598b955",
+  "artifacts/models/arrival-timing/full-development-analysis-v1/summary.json": "7e55ca05a7b7d85df9faff99e4d6567c67285f41d668d0c9110dd694b1714f72",
+  "artifacts/models/arrival-timing/full-development-figures-v1/plotted-quantiles.csv": "38b614230a6cc0933d1ec3ce2b573816317c78fc03ccaf115c84513410db85f7",
+  "paper/plot_figures.py": "2c490f2e2e1bfe04331bf09af2e81ad3dcc688015b083862b8bb723bad285743"
+}

@@ -24,3 +24,7 @@ config/arrival-recovery-ncei-sample-v1.toml -text whitespace=-blank-at-eof
 
 # Keep the official conference template byte-identical, including upstream whitespace.
 /paper/template/** -text -whitespace
+
+# Preserve checksummed chart exports and source-native CSV line endings.
+/paper/figures/** -text
+/paper/figures/*.csv whitespace=cr-at-eol
