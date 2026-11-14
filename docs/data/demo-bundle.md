@@ -256,10 +256,22 @@ its own structure:
   sum over stations).
 
 It no longer compares a manifest with fixed Tōhoku values, because the index
-pins the exact manifest bytes. A station's type comes from the pinned manifest;
-there is no fixed list. These stay literal checks in the browser for every
-records bundle: schema and exporter version, `evidence_state`, the three
-release restrictions and the two exact use lists.
+pins the exact manifest bytes. Station types, window IDs and window bounds come
+from the pinned manifest; there is no fixed list. These stay literal checks in
+the browser for every records bundle:
+
+- `schema_version` and `exporter_version` `"1"`, `evidence_state`
+  `"internal_descriptive_only"`;
+- `release.arrival_comparison_allowed` `false`,
+  `release.physical_arrival_records_released` `0`,
+  `release.continuous_nctr_field` `"blocked_no_proxy"`;
+- `release.allowed_uses` exactly
+  `["descriptive_data_quality","preliminary_story_diagnostics"]`;
+- `release.prohibited_uses` exactly
+  `["physical_arrival_comparison","modeled_minus_observed_residual","community_timing_selection","actionable_warning_time","operational_warning","public_story_scene_promotion"]`.
+
+`release.release_id` is a nonempty string, so each event can have its own
+descriptive release.
 
 For a layers manifest the browser also requires `contour_source_id` to match
 `ncei-ttt-[a-z0-9-]+` and `coastline_source_id` to be
@@ -275,7 +287,7 @@ tests pin the whole Tōhoku index by SHA-256.
 Build the index after the bundles it lists:
 
 ```sh
-.venv/bin/python scripts/story/build_events_index.py \
+uv run python scripts/story/build_events_index.py \
   --bundles-root /absolute/path/to/this-checkout/app/demo-public/data \
   --config config/story-events.toml
 ```

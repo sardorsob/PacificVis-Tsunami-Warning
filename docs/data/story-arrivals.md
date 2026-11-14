@@ -2,8 +2,10 @@
 
 `<arrivals_bundle_id>/<event_id>.json` holds, for one event, the published
 estimates and source-reported arrival times that the app may display, with
-their plain differences. The first bundle ID is `story-arrivals-v1`; a corrected
-rebuild gets a new bundle ID rather than overwriting a file. It sits beside the
+their plain differences. One arrivals bundle holds the files of all exported
+events and is published with one rename. The first bundle ID is
+`story-arrivals-v1`; adding or correcting any event means a new bundle ID and a
+rebuilt index, never an overwritten file. It sits beside the
 records and map-layers bundles ([demo-bundle.md](demo-bundle.md),
 [story-map-layers.md](story-map-layers.md)) and is pinned by the events index.
 Like them it is generated, local-only and ignored by Git under
@@ -123,7 +125,8 @@ neither are counted in `accounting`, not listed.
 | `source_flags` | string[]; source qualifiers, currently only `"doubtful"` when NCEI marks a record doubtful. Usually empty |
 | `source_id`, `source_sha256` | strings; the source snapshot and its 64-hex SHA-256, from `source_records` |
 
-Raw text is never an empty string: an empty cell is null.
+Raw text is never an empty string: an empty cell is null. Every UTC string in
+the file uses the UTC time format of the events index.
 
 Definitions against the released tables:
 
@@ -187,14 +190,17 @@ exporter fails otherwise.
 
 ## Inputs and fences
 
-The exporter reads only these files, and `input_fingerprints` lists exactly
-the ones it read:
+The exporter reads only these files. `input_fingerprints` lists the data
+inputs (the first three items); the exporter's own config is pinned by
+`config_sha256`:
 
 - under `data/processed/arrival-evidence/foundation-v1/`: `manifest.json`,
   `source_records.csv.gz`, `observations.csv.gz`, `forecast_instances.csv.gz`,
   `pair_members.csv.gz`, `sites.csv.gz`, `site_links.csv.gz`;
 - `artifacts/releases/story-reported-times-v1.json`;
-- the event's records manifest, for the `record` links.
+- the event's records manifest, `app/demo-public/data/<bundle_id>/manifest.json`
+  (or the same path under the given bundles root), for the `record` links;
+- its own config, `config/story-arrivals.toml`.
 
 Paths are repository-relative, with no leading `/` and no `..`. The paper's
 target views (`T-OBS`, `T-CAL`, `NCEI-native-duration`), any model output and
@@ -207,12 +213,17 @@ The lane fence is tested two ways:
    or any module whose name contains `models`;
 2. a runtime test runs a full export with `builtins.open`, `io.open`,
    `gzip.open` and `pathlib.Path.open` wrapped by a recorder, and fails when any
-   opened path has a component named `models` or is not on the allowlist above.
+   path opened for reading has a component named `models` or is not on the
+   allowlist above. Writes into the output and temporary directories are not
+   reads and are ignored. The recorder cannot see native readers; the exporter
+   uses only the standard library and pyproj for its inputs.
 
-An event ID that does not occur in the released `source_records` table (which
-holds development events only) is refused, and so is an event ID that is not a
-development entry of `config/ntwc-archive-batch-v2.toml`; a mutation test covers
-both. A test also checks that no `reported_minus_*` field ever combines an NTWC
+At run time the exporter refuses an event ID that does not occur in the
+released `source_records` table, which holds development events only. It reads
+no selection or role file. A test, not the exporter, checks that every event ID
+in `config/story-arrivals.toml` is a development entry of
+`config/ntwc-archive-batch-v2.toml`, with a mutation case that must fail; the
+test never prints the other entries. A test also checks that no `reported_minus_*` field ever combines an NTWC
 value with an NCEI value.
 
 ## Files, validators and the shared example
@@ -228,8 +239,8 @@ equivalent and also checks the cross-field rules above.
 [`examples/story-arrivals.example.json`](examples/story-arrivals.example.json)
 is a synthetic, test-only file, pretty-printed for reading. Tests on both sides
 parse it and pass the value through their validator; nobody compares its bytes.
-Its distances and projected coordinates were computed once with pyproj and are
-not recomputed by tests.
+Its distances and projected coordinates were computed once with pyproj (already a
+project dependency) and are not recomputed by tests.
 
 Source credit: NOAA National Tsunami Warning Center event archive; NOAA
 National Centers for Environmental Information / World Data Service tsunami
