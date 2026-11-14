@@ -284,7 +284,7 @@ the browser for every records bundle:
 descriptive release.
 
 For a layers manifest the browser also requires `contour_source_id` to match
-`ncei-ttt-[a-z0-9-]+` and `coastline_source_id` to be
+`ncei-ttt-[a-z0-9_-]+` (event IDs can hold an underscore) and `coastline_source_id` to be
 `natural-earth-50m-coastline`, so that nothing else can be drawn as published
 contours.
 
@@ -366,15 +366,24 @@ Schema 1 plus three things:
   ⌊m/60⌋). An event without a reported-times file has zeros.
 
 The `arrivals` file name rule is unchanged. `counts` must equal what the builder
-reads from the listed files; the builder recomputes them.
+reads from the listed files; the builder recomputes them. `reported_per_hour`
+counts only times on the clock, so its sum can be smaller than `ntwc_reported`
+or `ncei_reported` (for example Illapel's report before the origin). `x` and `y`
+use Python's `round` on the projected metres. The builder's tests re-pin the
+real index by SHA-256.
 
 ### Which events are listed
 
 A development event is listed when it has a records bundle, or a reported-times
 file with at least one reported time that can be drawn (0 ≤ minutes < 1800 and a
-listed place). `default_event_id` stays Tōhoku. The builder writes the excluded
-development events and the reason for each to a separate report next to the
-index, `events-excluded.json`; that report never names any other archive entry.
+listed place). `default_event_id` stays Tōhoku. The builder writes a report to the path given by `--report`, which
+must be outside the bundles root, so it is never served:
+`{schema_version:"1", excluded:[{event_id, reason}], files:[{path, bytes}], totals}`
+with `reason` `"no_records_and_no_drawable_reported_time"`, `excluded` sorted by
+`event_id`, every listed path with its raw byte count, and `totals`
+`{listed_events, excluded_events, bytes}` as JSON integers. Excluded IDs come
+from the released `source_records` table, so the report never names any other
+archive entry.
 
 Labels come from a reviewed table, `config/story-event-names.csv`
 (`event_id,label`), one row per listed event, written in the form
@@ -401,6 +410,11 @@ input_fingerprints, config_sha256, accounting}`
 - `window`: `{id:"display", label:"6 hours before to 30 hours after the origin",
   start_utc, end_utc_exclusive}`, the origin minus 6 h and plus 30 h, in the UTC
   time format, with the origin's fraction digits.
+- `default_station_id`: the listed station nearest to the epicentre (WGS84
+  geodesic), ties broken by the lower `station_id`; the app opens on it.
+- Deliberately absent from schema 2: the schema-1 `windows` array,
+  `default_state`, `products`, `station_type`, `time_basis` and
+  `coordinate_order`. There is one window and one raw product.
 - `stations`: sorted by `station_id` in code-point order. Each station:
 
 | Field | JSON type and meaning |
@@ -408,16 +422,21 @@ input_fingerprints, config_sha256, accounting}`
 | `station_id` | the provider station ID, for example `1612340`; matches `[a-zA-Z0-9_-]+` |
 | `display_station_key` | `coops:<station_id>` as in the viewer export |
 | `name` | the export's `station_name` |
-| `product` | `one_minute_water_level`, `water_level` (six-minute) or `archive_window` (an archived NTWC day file) |
-| `latitude`, `longitude` | finite numbers from the export, datum unknown |
-| `units`, `vertical_datum` | strings from the export (`m`, `STND`, or `unknown`) |
+| `product` | from the file name in the export's `path`, tested in this order: contains `one_minute_water_level` → `one_minute_water_level`; else contains `water_level` → `water_level` (six-minute); else starts with `ia-window-` → `archive_window` (an archived NTWC day file) |
+| `latitude`, `longitude` | the export's value parsed as a number with no rounding (the export stores some as strings); finite, within ±90 and ±180; datum unknown |
+| `units`, `vertical_datum` | from the export: `units` is `m`; `vertical_datum` is `STND`, `MLLW` or `unknown` (the export's `Unknown` is written as `unknown`) |
 | `source` | `{source_id, sha256, url}`: the export's `source_id`, `source_sha256` and `source_url` (null unless it passes the schema-1 URL rule) |
 | `coverage_fraction`, `longest_supported_minutes`, `coverage_rule_id` | as in the export; describe the display slice only |
-| `rows` | the export's row count |
+| `rows` | the number of data rows in the file, which is the export's `rows` |
 
-- One product per station: one-minute if the export has it, else six-minute,
-  else the archive window. The others are not copied.
-- `assets`: `geometry.json` and one `stations/<station_id>.csv.gz` per station,
+- One product per station: one-minute if the export has it, even when another
+  product covers more; else six-minute; else the archive window. Among files of
+  the chosen product the highest `coverage_fraction` wins, then the highest
+  `longest_supported_minutes`, then the smaller `source_id` in code-point order.
+  The others are not copied.
+- `assets`, `geometry.json` first, then stations by path: `geometry.json` and
+  one `stations/<station_id>.csv.gz` per station (the bytes are the export's;
+  only the name changes),
   each `{path, sha256, bytes, content_encoding}` with `content_encoding`
   `"gzip"` for station files and `"identity"` for geometry. `sha256` and `bytes`
   describe the stored bytes, which are the export's file unchanged.
@@ -425,15 +444,29 @@ input_fingerprints, config_sha256, accounting}`
   `event_id, source_id, station_key, sensor, timestamp_utc, numeric_value,
   value_state, timestamp_state, duplicate_timestamp, units, vertical_datum,
   qc_state, qc_json`. The browser decompresses it with the native
-  `DecompressionStream` after the hash check. Rows outside the display slice or
-  with an invalid time are not drawn; duplicate timestamps keep the first row in
-  file order for drawing; blanks are never joined across.
+  `DecompressionStream` after the hash check and after checking the gzip magic
+  bytes `1f 8b`. Serve the files as plain bytes (`application/octet-stream`,
+  no `Content-Encoding` header); a server that decompresses them breaks the
+  hash check, which is the intended failure.
+- Columns and values: `numeric_value` is the raw water level in the station's
+  `units` and `vertical_datum` (no residual or fitted product); `value_state`
+  is `finite_numeric` or `blank` (blank has an empty `numeric_value`);
+  `timestamp_state` is one of `reported_utc`, `epoch_calendar_agree`,
+  `epoch_calendar_minute_agree`, `header_day_end_boundary`, all drawable;
+  `duplicate_timestamp` is `True` or `False`; `qc_state` is `provided` or
+  `not_provided` with `qc_json` an object. Drawing: a `blank` row is a gap and
+  lines never join across it; a row whose `duplicate_timestamp` is `True` is
+  drawn only if no earlier row in the file has the same timestamp; a row outside
+  the display window is not drawn (none are expected). QC is shown, never used to
+  filter, and a flagged zero stays zero.
 - `geometry.json`: the schema-1 format (Natural Earth 1:110m, event and station
   points), built with the existing helper.
 - `accounting`: `{station_count, rows}`, which must equal the station list and
   the sum of station rows.
 
-The browser applies the schema-1 literal release checks to schema 2 as well.
+The browser applies the schema-1 literal release checks to schema 2 as well,
+field by field. The release manifest `multi-event-descriptive-v1` gets a wording
+review before its first bundle is accepted.
 
 ### Map layers for other events
 
@@ -441,9 +474,13 @@ Each event with a published NCEI layer gets `layers-<event_id>-v1`, built with
 the existing map-layers exporter from the raw layer listed in
 `data/processed/arrival-contours/foundation-v2/manifest.json` (raw path and raw
 SHA-256), with `contour_source_id` taken from that manifest. Tōhoku keeps
-`tohoku-story-layers-v1`.
+`tohoku-story-layers-v1`. These bundles keep the exporter's 1:50m coastline;
+the app draws the layers coastline when an event has one and the basemap
+otherwise.
 
 ### Sizes
+
+Sizes are raw, uncompressed bytes.
 
 - First screen (index and basemap): at most 300 KB.
 - Opening an event, before any station record: at most 3 MB.
