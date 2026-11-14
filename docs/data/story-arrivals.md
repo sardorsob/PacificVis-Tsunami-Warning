@@ -57,7 +57,9 @@ places, reports, accounting, input_fingerprints, config_sha256}`
   "estimate_difference_display_allowed": true,
   "physical_arrival_records_released": 0,
   "prohibited_uses": ["physical_arrival_validation", "modeled_minus_observed_residual", "model_output_display",
-                      "actionable_warning_time", "operational_warning", "public_release_before_release_gate"],
+                      "actionable_warning_time", "operational_warning", "public_release_before_release_gate",
+                      "selection_or_reserved_event_display", "fitted_or_predicted_value_display",
+                      "paper_figure_or_model_code_use", "cross_source_difference"],
   "release_id": "story-reported-times-v1",
   "reported_arrival_display_allowed": true
 }
@@ -120,8 +122,8 @@ neither are counted in `accounting`, not listed.
 | `origin_offset_seconds` | NTWC: always null. NCEI: NCEI's origin minus the reviewed USGS origin, when the source states it, else null. The duration is never shifted by it |
 | `estimate_minutes`, `estimate_utc` | NTWC: the exact estimated UTC time, and that time minus the reviewed USGS origin in minutes rounded to 0.001; both null when the estimate is not exact. NCEI: always null. The origin NTWC used is unknown |
 | `estimate_text` | NTWC: the raw estimate cell text, or null when the cell is empty. NCEI: always null |
-| `reported_minus_estimate_minutes` | number or null; non-null exactly when the row is in the released pair table. Reported minus estimate: positive means the report is later than the estimate |
-| `reported_minus_ruler_minutes` | number or null; `round(reported_minutes − ruler_minutes, 1)` using the stored values; null when either is null |
+| `reported_minus_estimate_minutes` | number or null; non-null exactly when the row is in the released pair table and neither of its two times is before the origin. Reported minus estimate: positive means the report is later than the estimate |
+| `reported_minus_ruler_minutes` | number or null; `round(reported_minutes − ruler_minutes, 1)` using the stored values; null when either is null or `reported_minutes` is negative |
 | `source_flags` | string[]; source qualifiers, currently only `"doubtful"` when NCEI marks a record doubtful. Usually empty |
 | `source_id`, `source_sha256` | strings; the source snapshot and its 64-hex SHA-256, from `source_records` |
 
@@ -143,6 +145,21 @@ Definitions against the released tables:
   `duration_state = "complete_positive"`.
 - A **resolved site** is a `site_links` row with `decision` `accepted` (NTWC)
   or `source_native_position` (NCEI). Anything else gives `site_id: null`.
+
+## Listed but not drawn
+
+Some source values cannot sit on the app's clock. They stay in the file as the
+source gives them and appear in the ladder's table and in Rows & sources, but
+never as marks on the map, the strip or the ladder:
+
+- a reported or estimated time with negative minutes (before the origin). The
+  app says: "The source gives a time before the earthquake origin. The project
+  does not correct dates." The exporter writes no difference for such a time;
+- a reported time beyond the 30-hour clock. The app says: "Reported after the
+  30-hour clock ends."
+
+No date is inferred and no value is changed. `accounting` counts listed rows,
+not drawn ones; the app states how many listed rows are not drawn, and why.
 
 ## Numbers
 
@@ -220,6 +237,10 @@ The lane fence is tested two ways:
    allowlist above. Writes into the output and temporary directories are not
    reads and are ignored. The recorder cannot see native readers; the exporter
    uses only the standard library and pyproj for its inputs.
+
+The release list names the D-032 bars that a display could break. The other
+fences are tested: the lane fence above, no difference across sources, and no
+listing of an entry outside the released development tables.
 
 At run time the exporter refuses an event ID that does not occur in the
 released `source_records` table, which holds development events only. It reads

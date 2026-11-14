@@ -128,7 +128,11 @@
       "model_output_display",
       "actionable_warning_time",
       "operational_warning",
-      "public_release_before_release_gate"
+      "public_release_before_release_gate",
+      "selection_or_reserved_event_display",
+      "fitted_or_predicted_value_display",
+      "paper_figure_or_model_code_use",
+      "cross_source_difference"
     ],
     "release_id": "story-reported-times-v1",
     "reported_arrival_display_allowed": true
