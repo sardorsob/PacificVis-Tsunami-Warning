@@ -1,0 +1,6 @@
+# Shared basemap for the events index (docs/data/demo-bundle.md, index schema 2): Natural Earth
+# 1:110m in the layers coastline format. Paths are relative to --source-root.
+bundle_id = "basemap-v1"
+coastline = "data/raw/natural-earth/ne_110m_coastline_v4.1.0.zip"
+coastline_sha256 = "664449b39070027e882abb295974d182afec18ca21107273d17e9e8bf6f64817"
+coastline_source_id = "natural-earth-110m-coastline"

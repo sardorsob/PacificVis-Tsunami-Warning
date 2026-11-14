@@ -1,0 +1,11 @@
+# Published NCEI layer for usp000exfn (docs/data/story-map-layers.md); raw path, raw SHA-256 and
+# source id from data/processed/arrival-contours/foundation-v2/manifest.json.
+schema_version = "1"
+bundle_id = "layers-usp000exfn-v1"
+origin_time_utc = "2006-11-15T11:14:13.570Z"
+contours = "data/raw/ncei/contours-v1/usp000exfn.geojson.json"
+contours_sha256 = "eb96176e9185dd83ba9e4f8ad5cdc941375572fac0067de441f686e051af11cb"
+contour_source_id = "ncei-ttt-usp000exfn-layer10-geojson"
+coastline = "data/raw/natural-earth/ne_50m_coastline_v4.1.0.zip"
+coastline_sha256 = "640f805509b822f57f4840a2e18d9ff2412cf1cf6976124701c2789436166fde"
+coastline_source_id = "natural-earth-50m-coastline"

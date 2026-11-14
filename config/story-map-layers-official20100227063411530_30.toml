@@ -1,0 +1,11 @@
+# Published NCEI layer for official20100227063411530_30 (docs/data/story-map-layers.md); raw path, raw SHA-256 and
+# source id from data/processed/arrival-contours/foundation-v2/manifest.json.
+schema_version = "1"
+bundle_id = "layers-official20100227063411530_30-v1"
+origin_time_utc = "2010-02-27T06:34:11.530Z"
+contours = "data/raw/ncei/contours-v1/official20100227063411530_30.geojson.json"
+contours_sha256 = "e750d84a3ab42207405739bb6f819727613fb35dda4087d327be2635206248a2"
+contour_source_id = "ncei-ttt-official20100227063411530_30-layer16-geojson"
+coastline = "data/raw/natural-earth/ne_50m_coastline_v4.1.0.zip"
+coastline_sha256 = "640f805509b822f57f4840a2e18d9ff2412cf1cf6976124701c2789436166fde"
+coastline_source_id = "natural-earth-50m-coastline"

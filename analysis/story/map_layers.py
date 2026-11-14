@@ -75,6 +75,51 @@ def _contours(path: Path) -> list[dict[str, Any]]:
     return out
 
 
+def _coastline(path: Path, source_id: str) -> dict[str, Any]:
+    parts = _round(
+        project_line_parts(
+            tuple(
+                part for line in _load_coastline_parts(path) for part in split_at_display_seam(line)
+            ),
+            DISPLAY_CRS,
+        )
+    )
+    return {
+        "schema_version": "1",
+        "source_id": source_id,
+        "parts": parts,
+        "closed": [len(part) > 3 and part[0] == part[-1] for part in parts],
+    }
+
+
+def export_basemap(*, source_root: Path, output_root: Path, config_path: Path) -> Path:
+    """Write `<bundle_id>/coastline.json`, the shared basemap, in the layers coastline format.
+
+    Never overwrites. Raises ValueError for unsafe or changed input and FileExistsError for an
+    existing bundle. Returns the coastline path; linear in the number of vertices.
+    """
+    if not source_root.is_absolute() or not source_root.is_dir():
+        raise ValueError("explicit absolute source root is required")
+    source_root = source_root.resolve()
+    settings = tomllib.loads(config_path.read_text(encoding="utf-8"))
+    if not re.fullmatch(r"[a-zA-Z0-9_-]+", settings["bundle_id"]):
+        raise ValueError("unsafe bundle ID")
+    path = _input(source_root, settings["coastline"], settings["coastline_sha256"])
+    output_root = output_root.resolve()
+    destination = output_root / settings["bundle_id"]
+    if destination.exists() or destination.is_symlink():
+        raise FileExistsError(destination)
+    coastline = _coastline(path, settings["coastline_source_id"])
+    output_root.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=f".{settings['bundle_id']}-", dir=output_root) as tmp:
+        _write_json(Path(tmp) / "coastline.json", coastline)
+        _input(source_root, settings["coastline"], settings["coastline_sha256"])
+        if destination.exists() or destination.is_symlink():
+            raise FileExistsError(destination)
+        Path(tmp).rename(destination)
+    return destination / "coastline.json"
+
+
 def export_map_layers(*, source_root: Path, output_root: Path, config_path: Path) -> Path:
     """Verify inputs and atomically write a new layers bundle; never overwrite one.
 
@@ -97,27 +142,12 @@ def export_map_layers(*, source_root: Path, output_root: Path, config_path: Path
     if destination.exists() or destination.is_symlink():
         raise FileExistsError(destination)
     features = _contours(contour_path)
-    coast_parts = _round(
-        project_line_parts(
-            tuple(
-                part
-                for line in _load_coastline_parts(coast_path)
-                for part in split_at_display_seam(line)
-            ),
-            DISPLAY_CRS,
-        )
-    )
     contours = {
         "schema_version": "1",
         "source_id": settings["contour_source_id"],
         "features": features,
     }
-    coastline = {
-        "schema_version": "1",
-        "source_id": settings["coastline_source_id"],
-        "parts": coast_parts,
-        "closed": [len(part) > 3 and part[0] == part[-1] for part in coast_parts],
-    }
+    coastline = _coastline(coast_path, settings["coastline_source_id"])
     output_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(
         prefix=f".{settings['bundle_id']}-", dir=output_root
@@ -156,7 +186,7 @@ def export_map_layers(*, source_root: Path, output_root: Path, config_path: Path
                     "contour_parts": sum(len(f["parts"]) for f in features),
                     "contour_vertices": sum(len(part) for f in features for part in f["parts"]),
                     "hours": sorted({f["hours"] for f in features}),
-                    "coastline_parts": len(coast_parts),
+                    "coastline_parts": len(coastline["parts"]),
                 },
             },
         )

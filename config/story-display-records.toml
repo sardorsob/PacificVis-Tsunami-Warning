@@ -1,0 +1,23 @@
+# Records schema 2 (display slices), docs/data/demo-bundle.md. Paths are relative to --source-root.
+# One bundle `records-<event_id>-v1` per event. The event identity (USGS origin and epicentre) is the
+# catalog's; the events index refuses a records manifest whose event differs from its reviewed entry.
+catalog = "data/processed/multi-event/foundation-v2/viewer/catalog.json"
+catalog_sha256 = "6183acf778735d4edc92c4fd637d1e481424c619192ce0cf457a9133fa68b0a5"
+release_manifest = "artifacts/releases/multi-event-descriptive-v1.json"
+coastline = "data/raw/natural-earth/ne_110m_coastline_v4.1.0.zip"
+coastline_sha256 = "664449b39070027e882abb295974d182afec18ca21107273d17e9e8bf6f64817"
+event_ids = [
+    "usp000exfn",
+    "usp000f2ab",
+    "usp000fjta",
+    "usp000fshy",
+    "usp000gv5p",
+    "usp000h1ys",
+    "official20100227063411530_30",
+    "usp000j3mq",
+    "usp000j48h",
+    "usp000juhz",
+    "usc000f1s0",
+    "us20003k7a",
+    "us20007z80",
+]

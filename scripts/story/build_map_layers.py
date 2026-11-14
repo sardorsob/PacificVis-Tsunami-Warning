@@ -1,4 +1,4 @@
-"""Build the ignored, local-only story map-layers bundle (contours + coastline)."""
+"""Build the ignored, local-only story map-layers bundle (contours + coastline) or the basemap."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from analysis.story.map_layers import export_map_layers  # noqa: E402
+from analysis.story.map_layers import export_basemap, export_map_layers  # noqa: E402
 
 
 def main() -> None:
@@ -18,11 +18,11 @@ def main() -> None:
     parser.add_argument("--source-root", required=True, type=Path)
     parser.add_argument("--output-root", required=True, type=Path)
     parser.add_argument("--config", required=True, type=Path)
+    parser.add_argument("--basemap", action="store_true", help="the config names the basemap")
     args = parser.parse_args()
+    export = export_basemap if args.basemap else export_map_layers
     print(
-        export_map_layers(
-            source_root=args.source_root, output_root=args.output_root, config_path=args.config
-        )
+        export(source_root=args.source_root, output_root=args.output_root, config_path=args.config)
     )
 
 

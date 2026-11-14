@@ -1,11 +1,205 @@
 # Story reported-times export (docs/data/story-arrivals.md). Paths are relative to --source-root.
+# Every development event with at least one NTWC reported time or NCEI reported duration.
 # Event identities are the reviewed USGS origins and epicentres, copied once: origin from
 # config/ntwc-archive-batch-v2.toml (usgs_time); epicentre from the pinned USGS event detail
-# (detail_path and detail_sha256 in config/ntwc-event-annotations-v2.csv); for Tōhoku also the
-# records manifest event. A test checks the copy; the exporter reads neither source.
-arrivals_bundle_id = "story-arrivals-v1"
+# (detail_path and detail_sha256 in config/ntwc-event-annotations-v2.csv); for an event with
+# records also the records manifest event. A test checks the copy; the exporter reads neither source.
+arrivals_bundle_id = "story-arrivals-v2"
 release_manifest = "artifacts/releases/story-reported-times-v1.json"
 bundles_root = "app/demo-public/data"
+
+[[events]]
+event_id = "usp0007jcu"
+origin_time_utc = "1996-06-10T04:03:35.480Z"
+latitude = 51.564
+longitude = -177.632
+
+[[events]]
+event_id = "usp0008mdk"
+origin_time_utc = "1998-05-03T23:30:21.910Z"
+latitude = 22.306
+longitude = 125.308
+
+[[events]]
+event_id = "usp0008rpa"
+origin_time_utc = "1998-07-17T08:49:13.280Z"
+latitude = -2.961
+longitude = 141.926
+
+[[events]]
+event_id = "usp0009j4n"
+origin_time_utc = "1999-11-26T13:21:15.570Z"
+latitude = -16.423
+longitude = 168.214
+
+[[events]]
+event_id = "official20010623203314130_33"
+origin_time_utc = "2001-06-23T20:33:14.130Z"
+latitude = -16.265
+longitude = -73.641
+
+[[events]]
+event_id = "usp000bbpf"
+origin_time_utc = "2002-09-08T18:44:23.710Z"
+latitude = -3.302
+longitude = 142.945
+
+[[events]]
+event_id = "usp000bnvq"
+origin_time_utc = "2003-01-20T08:43:06.070Z"
+latitude = -10.491
+longitude = 160.77
+
+[[events]]
+event_id = "usp000bnyr"
+origin_time_utc = "2003-01-22T02:06:34.610Z"
+latitude = 18.77
+longitude = -104.104
+
+[[events]]
+event_id = "official20030925195006360_27"
+origin_time_utc = "2003-09-25T19:50:06.360Z"
+latitude = 41.815
+longitude = 143.91
+
+[[events]]
+event_id = "usp000cd1n"
+origin_time_utc = "2003-11-17T06:43:06.800Z"
+latitude = 51.146
+longitude = 178.65
+
+[[events]]
+event_id = "usp000d3ka"
+origin_time_utc = "2004-09-05T10:07:07.820Z"
+latitude = 33.07
+longitude = 136.618
+
+[[events]]
+event_id = "usp000d3mb"
+origin_time_utc = "2004-09-05T14:57:18.610Z"
+latitude = 33.184
+longitude = 137.071
+
+[[events]]
+event_id = "usp000d9h1"
+origin_time_utc = "2004-11-28T18:32:14.130Z"
+latitude = 43.006
+longitude = 145.119
+
+[[events]]
+event_id = "usp000db93"
+origin_time_utc = "2004-12-23T14:59:04.410Z"
+latitude = -49.312
+longitude = 161.345
+
+[[events]]
+event_id = "usp000dt25"
+origin_time_utc = "2005-06-15T02:50:54.190Z"
+latitude = 41.292
+longitude = -125.953
+
+[[events]]
+event_id = "usp000eg5g"
+origin_time_utc = "2006-05-03T15:26:40.290Z"
+latitude = -20.187
+longitude = -174.123
+
+[[events]]
+event_id = "usp000exfn"
+origin_time_utc = "2006-11-15T11:14:13.570Z"
+latitude = 46.592
+longitude = 153.266
+records_bundle = "records-usp000exfn-v1"
+
+[[events]]
+event_id = "usp000f2ab"
+origin_time_utc = "2007-01-13T04:23:21.160Z"
+latitude = 46.243
+longitude = 154.524
+records_bundle = "records-usp000f2ab-v1"
+
+[[events]]
+event_id = "usp000fjta"
+origin_time_utc = "2007-08-15T23:40:57.890Z"
+latitude = -13.386
+longitude = -76.603
+records_bundle = "records-usp000fjta-v1"
+
+[[events]]
+event_id = "usp000fshy"
+origin_time_utc = "2007-11-14T15:40:50.530Z"
+latitude = -22.247
+longitude = -69.89
+records_bundle = "records-usp000fshy-v1"
+
+[[events]]
+event_id = "usp000g3eq"
+origin_time_utc = "2008-04-09T12:46:12.720Z"
+latitude = -20.071
+longitude = 168.892
+
+[[events]]
+event_id = "usp000gs2d"
+origin_time_utc = "2009-01-03T19:43:50.650Z"
+latitude = -0.414
+longitude = 132.885
+
+[[events]]
+event_id = "usp000gsmz"
+origin_time_utc = "2009-01-15T17:49:39.070Z"
+latitude = 46.857
+longitude = 155.154
+
+[[events]]
+event_id = "usp000gtnc"
+origin_time_utc = "2009-02-11T17:34:50.490Z"
+latitude = 3.886
+longitude = 126.387
+
+[[events]]
+event_id = "usp000gv5p"
+origin_time_utc = "2009-03-19T18:17:40.470Z"
+latitude = -23.043
+longitude = -174.66
+records_bundle = "records-usp000gv5p-v1"
+
+[[events]]
+event_id = "usp000h1ys"
+origin_time_utc = "2009-09-29T17:48:10.990Z"
+latitude = -15.489
+longitude = -172.095
+records_bundle = "records-usp000h1ys-v1"
+
+[[events]]
+event_id = "usp000h2g9"
+origin_time_utc = "2009-10-07T22:03:14.470Z"
+latitude = -13.006
+longitude = 166.51
+
+[[events]]
+event_id = "usp000h5np"
+origin_time_utc = "2010-01-03T22:36:25.640Z"
+latitude = -8.783
+longitude = 157.354
+
+[[events]]
+event_id = "official20100227063411530_30"
+origin_time_utc = "2010-02-27T06:34:11.530Z"
+latitude = -36.122
+longitude = -72.898
+records_bundle = "records-official20100227063411530_30-v1"
+
+[[events]]
+event_id = "usp000hr97"
+origin_time_utc = "2010-12-21T17:19:40.660Z"
+latitude = 26.901
+longitude = 143.698
+
+[[events]]
+event_id = "usp000hrw0"
+origin_time_utc = "2010-12-25T13:16:37.000Z"
+latitude = -19.702
+longitude = 167.947
 
 [[events]]
 event_id = "official20110311054624120_30"
@@ -15,7 +209,139 @@ longitude = 142.373
 records_bundle = "tohoku-descriptive-demo-v2"
 
 [[events]]
+event_id = "usp000j3mq"
+origin_time_utc = "2011-06-24T03:09:39.470Z"
+latitude = 52.05
+longitude = -171.836
+records_bundle = "records-usp000j3mq-v1"
+
+[[events]]
+event_id = "usp000j48h"
+origin_time_utc = "2011-07-06T19:03:18.260Z"
+latitude = -29.539
+longitude = -176.34
+records_bundle = "records-usp000j48h-v1"
+
+[[events]]
+event_id = "usp000j9nm"
+origin_time_utc = "2011-10-21T17:57:16.100Z"
+latitude = -28.993
+longitude = -176.238
+
+[[events]]
+event_id = "usp000jeag"
+origin_time_utc = "2012-02-02T13:34:40.650Z"
+latitude = -17.827
+longitude = 167.133
+
+[[events]]
+event_id = "usp000jqvm"
+origin_time_utc = "2012-08-27T04:37:19.430Z"
+latitude = 12.139
+longitude = -88.59
+
+[[events]]
+event_id = "usp000jr83"
+origin_time_utc = "2012-08-31T12:47:33.380Z"
+latitude = 10.811
+longitude = 126.638
+
+[[events]]
+event_id = "usp000jrsw"
+origin_time_utc = "2012-09-05T14:42:07.800Z"
+latitude = 10.085
+longitude = -85.315
+
+[[events]]
+event_id = "usp000juhz"
+origin_time_utc = "2012-10-28T03:04:08.820Z"
+latitude = 52.788
+longitude = -132.101
+records_bundle = "records-usp000juhz-v1"
+
+[[events]]
+event_id = "usc000f1s0"
+origin_time_utc = "2013-02-06T01:12:25.830Z"
+latitude = -10.799
+longitude = 165.114
+records_bundle = "records-usc000f1s0-v1"
+
+[[events]]
+event_id = "usc000f40j"
+origin_time_utc = "2013-02-08T15:26:38.470Z"
+latitude = -10.928
+longitude = 166.018
+
+[[events]]
+event_id = "usc000phx5"
+origin_time_utc = "2014-04-12T20:14:39.300Z"
+latitude = -11.2701
+longitude = 162.1481
+
+[[events]]
+event_id = "usc000piqj"
+origin_time_utc = "2014-04-13T12:36:19.230Z"
+latitude = -11.4633
+longitude = 162.0511
+
+[[events]]
+event_id = "usb000pq41"
+origin_time_utc = "2014-04-18T14:27:24.920Z"
+latitude = 17.397
+longitude = -100.9723
+
+[[events]]
+event_id = "usb000pr89"
+origin_time_utc = "2014-04-19T13:28:00.810Z"
+latitude = -6.7547
+longitude = 155.0241
+
+[[events]]
+event_id = "usb000sk6k"
+origin_time_utc = "2014-10-09T02:14:31.440Z"
+latitude = -32.1082
+longitude = -110.8112
+
+[[events]]
+event_id = "us20002yaw"
+origin_time_utc = "2015-07-18T02:27:33.820Z"
+latitude = -10.4012
+longitude = 165.1409
+
+[[events]]
 event_id = "us20003k7a"
 origin_time_utc = "2015-09-16T22:54:32.860Z"
 latitude = -31.5729
 longitude = -71.6744
+records_bundle = "records-us20003k7a-v1"
+
+[[events]]
+event_id = "us10006jbi"
+origin_time_utc = "2016-09-01T16:37:57.300Z"
+latitude = -37.3586
+longitude = 179.1461
+
+[[events]]
+event_id = "us20007z80"
+origin_time_utc = "2016-12-08T17:38:46.280Z"
+latitude = -10.6812
+longitude = 161.3273
+records_bundle = "records-us20007z80-v1"
+
+[[events]]
+event_id = "us20009x42"
+origin_time_utc = "2017-07-17T23:34:13.740Z"
+latitude = 54.4434
+longitude = 168.857
+
+[[events]]
+event_id = "us2000cmy3"
+origin_time_utc = "2018-01-23T09:31:40.890Z"
+latitude = 56.0039
+longitude = -149.1658
+
+[[events]]
+event_id = "us1000gjaz"
+origin_time_utc = "2018-08-29T03:51:56.100Z"
+latitude = -22.0295
+longitude = 170.1262

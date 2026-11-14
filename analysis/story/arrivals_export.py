@@ -524,8 +524,10 @@ def _record(
 ) -> dict[str, str] | None:
     """Provider-ID match first, else the nearest records station within 1 km, then lowest ID."""
     for station in stations:
-        same_provider = station["source_id"].startswith("coops-")
-        if same_provider and site_id == f"coops:{station['station_id']}":
+        key = station.get("display_station_key")  # records schema 2 names its provider key
+        if key is None and station["source_id"].startswith("coops-"):
+            key = f"coops:{station['station_id']}"
+        if site_id == key:
             return {"station_id": station["station_id"], "link": "same_provider_id"}
     near = sorted(
         (geod.inv(longitude, latitude, s["longitude"], s["latitude"])[2], s["station_id"])

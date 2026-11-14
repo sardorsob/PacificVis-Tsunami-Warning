@@ -1,0 +1,26 @@
+{
+  "allowed_uses": [
+    "descriptive_data_quality",
+    "preliminary_story_diagnostics"
+  ],
+  "arrival_comparison_allowed": false,
+  "continuous_nctr_field": "blocked_no_proxy",
+  "decision": "D-032",
+  "next_gate": "T-SV-06 release gate; nothing public before it",
+  "physical_arrival_records_released": 0,
+  "prohibited_uses": [
+    "physical_arrival_comparison",
+    "modeled_minus_observed_residual",
+    "community_timing_selection",
+    "actionable_warning_time",
+    "operational_warning",
+    "public_story_scene_promotion"
+  ],
+  "release_id": "multi-event-descriptive-v1",
+  "schema_version": 1,
+  "source_package": {
+    "path": "data/processed/multi-event/foundation-v2/viewer/catalog.json",
+    "sha256": "6183acf778735d4edc92c4fd637d1e481424c619192ce0cf457a9133fa68b0a5"
+  },
+  "statement": "These are descriptive source records: display slices of each provider's raw water level, in the provider's units and vertical datum. They are not validated arrivals, warning times or model outputs."
+}

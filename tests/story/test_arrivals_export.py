@@ -39,6 +39,7 @@ TABLES = (
     "site_links",
 )
 MAX_BYTES = 2_097_152
+BUNDLE_ID = "story-arrivals-v2"
 
 
 def _settings() -> dict[str, Any]:
@@ -331,7 +332,7 @@ def test_files_are_valid_canonical_and_cover_every_configured_event(
     bundle: Path, files: dict[str, dict[str, Any]]
 ) -> None:
     events = _settings()["events"]
-    assert bundle.name == "story-arrivals-v1"
+    assert bundle.name == BUNDLE_ID
     assert sorted(files) == sorted(event["event_id"] for event in events)
     config_sha256 = hashlib.sha256(CONFIG.read_bytes()).hexdigest()
     for event in events:
@@ -527,7 +528,7 @@ def test_refuses_an_event_absent_from_source_records(tmp_path: Path) -> None:
     config.write_text(text.replace('"us20003k7a"', '"not-a-released-event"'), encoding="utf-8")
     with pytest.raises(ValueError, match="source_records"):
         export_arrivals(source_root=ROOT, output_root=tmp_path / "out", config_path=config)
-    assert not (tmp_path / "out/story-arrivals-v1").exists()
+    assert not (tmp_path / "out" / BUNDLE_ID).exists()
 
 
 def _batch_entries() -> dict[str, dict[str, Any]]:
@@ -611,31 +612,50 @@ def test_rerun_is_byte_identical_bounded_and_never_overwrites(bundle: Path, tmp_
         assert (again / name).stat().st_size <= MAX_BYTES
     with pytest.raises(FileExistsError):
         export_arrivals(source_root=ROOT, output_root=tmp_path, config_path=CONFIG)
-    assert [path.name for path in tmp_path.iterdir()] == ["story-arrivals-v1"]
+    assert [path.name for path in tmp_path.iterdir()] == [BUNDLE_ID]
 
 
 # 9. The events index accepts the real file and refuses a broken record link.
 
 
 def _bundles_with_arrivals(root: Path, arrivals: Path) -> Path:
-    for name in (RECORDS, "tohoku-story-layers-v1"):
+    for name in (RECORDS, "tohoku-story-layers-v1", "basemap-v1"):
         shutil.copytree(BUNDLES / name, root / name)
     shutil.copytree(arrivals, root / arrivals.name)
     return root / arrivals.name / f"{TOHOKU}.json"
 
 
+def _tohoku_index_config(tmp_path: Path) -> Path:
+    """The real index config cut down to its Tōhoku entry, labelled as in the names table."""
+    settings = tomllib.loads(EVENTS_CONFIG.read_text(encoding="utf-8"))
+    entry = next(event for event in settings["events"] if event["event_id"] == TOHOKU)
+    (tmp_path / "names.csv").write_text(
+        f'event_id,label\n{TOHOKU},"Tōhoku, Japan"\n', encoding="utf-8"
+    )
+    lines = [f'default_event_id = "{TOHOKU}"', 'names = "names.csv"']
+    lines += [f"basemap = {json.dumps(settings['basemap'])}", "[[events]]"]
+    lines += [f"{key} = {json.dumps(value, ensure_ascii=False)}" for key, value in entry.items()]
+    config = tmp_path / "events.toml"
+    config.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return config
+
+
 def test_index_accepts_tohoku_arrivals_and_refuses_a_broken_record_link(
     bundle: Path, tmp_path: Path
 ) -> None:
-    if not (BUNDLES / "tohoku-story-layers-v1").is_dir():
-        pytest.skip("local Tōhoku layers bundle unavailable")
+    if not all((BUNDLES / name).is_dir() for name in ("tohoku-story-layers-v1", "basemap-v1")):
+        pytest.skip("local Tōhoku layers bundle or basemap unavailable")
+    config = _tohoku_index_config(tmp_path)
+    report = tmp_path / "report.json"
     good = _bundles_with_arrivals(tmp_path / "good", bundle)
     index = json.loads(
-        build_events_index(bundles_root=good.parents[1], config_path=EVENTS_CONFIG).read_bytes()
+        build_events_index(
+            bundles_root=good.parents[1], config_path=config, report_path=report
+        ).read_bytes()
     )
     data = good.read_bytes()
     assert index["events"][0]["arrivals"] == {
-        "path": f"story-arrivals-v1/{TOHOKU}.json",
+        "path": f"{BUNDLE_ID}/{TOHOKU}.json",
         "sha256": hashlib.sha256(data).hexdigest(),
         "bytes": len(data),
     }
@@ -647,5 +667,38 @@ def test_index_accepts_tohoku_arrivals_and_refuses_a_broken_record_link(
     text = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     broken.write_text(text + "\n", encoding="utf-8")
     with pytest.raises(ValueError, match="record"):
-        build_events_index(bundles_root=broken.parents[1], config_path=EVENTS_CONFIG)
+        build_events_index(bundles_root=broken.parents[1], config_path=config, report_path=report)
     assert not (broken.parents[1] / "events.json").exists()
+
+
+# 10. Record links read both records schemas.
+
+
+def test_record_links_read_a_schema_2_station() -> None:
+    from pyproj import Geod
+
+    from analysis.story.arrivals_export import _record  # pyright: ignore[reportPrivateUsage]
+
+    station = {  # schema 2: provider key, no top-level source_id
+        "station_id": "1612340",
+        "display_station_key": "coops:1612340",
+        "latitude": 21.3033,
+        "longitude": -157.8645,
+        "source": {"source_id": "ia-window-aa2758f15ce24d78c9ce", "sha256": "0" * 64, "url": None},
+    }
+    geod = Geod(ellps="WGS84")
+    link = _record("coops:1612340", 21.0, -157.0, [station], geod)
+    assert link == {"station_id": "1612340", "link": "same_provider_id"}
+    assert _record("ncei-native:x", 21.3033, -157.8645, [station], geod) == {
+        "station_id": "1612340",
+        "link": "within_1km",
+    }
+
+
+def test_export_matches_the_published_bundle(bundle: Path) -> None:
+    published = BUNDLES / bundle.name
+    if not published.is_dir():
+        pytest.skip("published arrivals bundle unavailable")
+    names = sorted(path.name for path in bundle.iterdir())
+    assert names == sorted(path.name for path in published.iterdir())
+    assert all((bundle / name).read_bytes() == (published / name).read_bytes() for name in names)

@@ -13,15 +13,22 @@ from analysis.story.events_index import build_events_index  # noqa: E402
 
 
 def main() -> None:
-    """Require explicit paths; a different existing index needs --replace."""
+    """Require explicit paths; a different existing index needs --replace.
+
+    The report (excluded events, file sizes, totals) is written outside the bundles root.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bundles-root", required=True, type=Path)
     parser.add_argument("--config", required=True, type=Path)
+    parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--replace", action="store_true")
     args = parser.parse_args()
     print(
         build_events_index(
-            bundles_root=args.bundles_root, config_path=args.config, replace=args.replace
+            bundles_root=args.bundles_root,
+            config_path=args.config,
+            report_path=args.report,
+            replace=args.replace,
         )
     )
 

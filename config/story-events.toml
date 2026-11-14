@@ -1,8 +1,322 @@
+# Events index, schema 2 (docs/data/demo-bundle.md). Bundle names are relative to --bundles-root;
+# `names` is relative to this file's directory. Every development event of the released
+# source_records table is configured; the builder lists those that pass the listing rule.
+# Identities and magnitudes are the reviewed USGS values, copied once: origin, magnitude and
+# magnitude type from config/ntwc-archive-batch-v2.toml (usgs_time, usgs_mag, usgs_magType);
+# epicentre from the pinned USGS event detail. A test checks the copy; the builder reads neither.
 default_event_id = "official20110311054624120_30"
+names = "story-event-names.csv"
+basemap = "basemap-v1/coastline.json"
+
+[[events]]
+event_id = "usp0007jcu"
+origin_time_utc = "1996-06-10T04:03:35.480Z"
+latitude = 51.564
+longitude = -177.632
+magnitude = 7.9
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp0007jcu.json"
+
+[[events]]
+event_id = "usp0007swp"
+origin_time_utc = "1996-11-12T16:59:44.030Z"
+latitude = -14.993
+longitude = -75.675
+magnitude = 7.7
+magnitude_type = "mwc"
+
+[[events]]
+event_id = "usp0008btk"
+origin_time_utc = "1997-12-05T11:26:54.690Z"
+latitude = 54.841
+longitude = 162.035
+magnitude = 7.8
+magnitude_type = "mwc"
+
+[[events]]
+event_id = "usp0008mdk"
+origin_time_utc = "1998-05-03T23:30:21.910Z"
+latitude = 22.306
+longitude = 125.308
+magnitude = 7.5
+magnitude_type = "mwb"
+arrivals = "story-arrivals-v2/usp0008mdk.json"
+
+[[events]]
+event_id = "usp0008rpa"
+origin_time_utc = "1998-07-17T08:49:13.280Z"
+latitude = -2.961
+longitude = 141.926
+magnitude = 7.0
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp0008rpa.json"
+
+[[events]]
+event_id = "usp0009j4n"
+origin_time_utc = "1999-11-26T13:21:15.570Z"
+latitude = -16.423
+longitude = 168.214
+magnitude = 7.5
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp0009j4n.json"
+
+[[events]]
+event_id = "official20010623203314130_33"
+origin_time_utc = "2001-06-23T20:33:14.130Z"
+latitude = -16.265
+longitude = -73.641
+magnitude = 8.4
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/official20010623203314130_33.json"
+
+[[events]]
+event_id = "usp000bbpf"
+origin_time_utc = "2002-09-08T18:44:23.710Z"
+latitude = -3.302
+longitude = 142.945
+magnitude = 7.6
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000bbpf.json"
+
+[[events]]
+event_id = "usp000bnvq"
+origin_time_utc = "2003-01-20T08:43:06.070Z"
+latitude = -10.491
+longitude = 160.77
+magnitude = 7.3
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000bnvq.json"
+
+[[events]]
+event_id = "usp000bnyr"
+origin_time_utc = "2003-01-22T02:06:34.610Z"
+latitude = 18.77
+longitude = -104.104
+magnitude = 7.6
+magnitude_type = "mwb"
+arrivals = "story-arrivals-v2/usp000bnyr.json"
+
+[[events]]
+event_id = "official20030925195006360_27"
+origin_time_utc = "2003-09-25T19:50:06.360Z"
+latitude = 41.815
+longitude = 143.91
+magnitude = 8.16
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/official20030925195006360_27.json"
+
+[[events]]
+event_id = "usp000cd1n"
+origin_time_utc = "2003-11-17T06:43:06.800Z"
+latitude = 51.146
+longitude = 178.65
+magnitude = 7.8
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000cd1n.json"
+
+[[events]]
+event_id = "usp000d3ka"
+origin_time_utc = "2004-09-05T10:07:07.820Z"
+latitude = 33.07
+longitude = 136.618
+magnitude = 7.2
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000d3ka.json"
+
+[[events]]
+event_id = "usp000d3mb"
+origin_time_utc = "2004-09-05T14:57:18.610Z"
+latitude = 33.184
+longitude = 137.071
+magnitude = 7.4
+magnitude_type = "mwb"
+arrivals = "story-arrivals-v2/usp000d3mb.json"
+
+[[events]]
+event_id = "usp000d9h1"
+origin_time_utc = "2004-11-28T18:32:14.130Z"
+latitude = 43.006
+longitude = 145.119
+magnitude = 7.0
+magnitude_type = "mwb"
+arrivals = "story-arrivals-v2/usp000d9h1.json"
+
+[[events]]
+event_id = "usp000db93"
+origin_time_utc = "2004-12-23T14:59:04.410Z"
+latitude = -49.312
+longitude = 161.345
+magnitude = 8.1
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000db93.json"
+
+[[events]]
+event_id = "usp000dt25"
+origin_time_utc = "2005-06-15T02:50:54.190Z"
+latitude = 41.292
+longitude = -125.953
+magnitude = 7.2
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000dt25.json"
+
+[[events]]
+event_id = "usp000eg5g"
+origin_time_utc = "2006-05-03T15:26:40.290Z"
+latitude = -20.187
+longitude = -174.123
+magnitude = 8.0
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000eg5g.json"
+
+[[events]]
+event_id = "usp000exfn"
+origin_time_utc = "2006-11-15T11:14:13.570Z"
+latitude = 46.592
+longitude = 153.266
+magnitude = 8.3
+magnitude_type = "mwc"
+records_bundle = "records-usp000exfn-v1"
+layers_bundle = "layers-usp000exfn-v1"
+arrivals = "story-arrivals-v2/usp000exfn.json"
+
+[[events]]
+event_id = "usp000f2ab"
+origin_time_utc = "2007-01-13T04:23:21.160Z"
+latitude = 46.243
+longitude = 154.524
+magnitude = 8.1
+magnitude_type = "mwc"
+records_bundle = "records-usp000f2ab-v1"
+layers_bundle = "layers-usp000f2ab-v1"
+arrivals = "story-arrivals-v2/usp000f2ab.json"
+
+[[events]]
+event_id = "usp000fjta"
+origin_time_utc = "2007-08-15T23:40:57.890Z"
+latitude = -13.386
+longitude = -76.603
+magnitude = 8.0
+magnitude_type = "mwc"
+records_bundle = "records-usp000fjta-v1"
+layers_bundle = "layers-usp000fjta-v1"
+arrivals = "story-arrivals-v2/usp000fjta.json"
+
+[[events]]
+event_id = "usp000fshy"
+origin_time_utc = "2007-11-14T15:40:50.530Z"
+latitude = -22.247
+longitude = -69.89
+magnitude = 7.7
+magnitude_type = "mwc"
+records_bundle = "records-usp000fshy-v1"
+arrivals = "story-arrivals-v2/usp000fshy.json"
+
+[[events]]
+event_id = "usp000g3eq"
+origin_time_utc = "2008-04-09T12:46:12.720Z"
+latitude = -20.071
+longitude = 168.892
+magnitude = 7.3
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000g3eq.json"
+
+[[events]]
+event_id = "usp000gs2d"
+origin_time_utc = "2009-01-03T19:43:50.650Z"
+latitude = -0.414
+longitude = 132.885
+magnitude = 7.7
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000gs2d.json"
+
+[[events]]
+event_id = "usp000gsmz"
+origin_time_utc = "2009-01-15T17:49:39.070Z"
+latitude = 46.857
+longitude = 155.154
+magnitude = 7.4
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000gsmz.json"
+
+[[events]]
+event_id = "usp000gtnc"
+origin_time_utc = "2009-02-11T17:34:50.490Z"
+latitude = 3.886
+longitude = 126.387
+magnitude = 7.2
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000gtnc.json"
+
+[[events]]
+event_id = "usp000gv5p"
+origin_time_utc = "2009-03-19T18:17:40.470Z"
+latitude = -23.043
+longitude = -174.66
+magnitude = 7.6
+magnitude_type = "mwc"
+records_bundle = "records-usp000gv5p-v1"
+arrivals = "story-arrivals-v2/usp000gv5p.json"
+
+[[events]]
+event_id = "usp000h1ys"
+origin_time_utc = "2009-09-29T17:48:10.990Z"
+latitude = -15.489
+longitude = -172.095
+magnitude = 8.1
+magnitude_type = "mwc"
+records_bundle = "records-usp000h1ys-v1"
+layers_bundle = "layers-usp000h1ys-v1"
+arrivals = "story-arrivals-v2/usp000h1ys.json"
+
+[[events]]
+event_id = "usp000h2g9"
+origin_time_utc = "2009-10-07T22:03:14.470Z"
+latitude = -13.006
+longitude = 166.51
+magnitude = 7.7
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000h2g9.json"
+
+[[events]]
+event_id = "usp000h5np"
+origin_time_utc = "2010-01-03T22:36:25.640Z"
+latitude = -8.783
+longitude = 157.354
+magnitude = 7.1
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000h5np.json"
+
+[[events]]
+event_id = "official20100227063411530_30"
+origin_time_utc = "2010-02-27T06:34:11.530Z"
+latitude = -36.122
+longitude = -72.898
+magnitude = 8.8
+magnitude_type = "mww"
+records_bundle = "records-official20100227063411530_30-v1"
+layers_bundle = "layers-official20100227063411530_30-v1"
+arrivals = "story-arrivals-v2/official20100227063411530_30.json"
+
+[[events]]
+event_id = "usp000hr97"
+origin_time_utc = "2010-12-21T17:19:40.660Z"
+latitude = 26.901
+longitude = 143.698
+magnitude = 7.4
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000hr97.json"
+
+[[events]]
+event_id = "usp000hrw0"
+origin_time_utc = "2010-12-25T13:16:37.000Z"
+latitude = -19.702
+longitude = 167.947
+magnitude = 7.3
+magnitude_type = "mwc"
+arrivals = "story-arrivals-v2/usp000hrw0.json"
 
 [[events]]
 event_id = "official20110311054624120_30"
-label = "Tōhoku, Japan"
 origin_time_utc = "2011-03-11T05:46:24.120Z"
 latitude = 38.297
 longitude = 142.373
@@ -10,4 +324,210 @@ magnitude = 9.1
 magnitude_type = "mww"
 records_bundle = "tohoku-descriptive-demo-v2"
 layers_bundle = "tohoku-story-layers-v1"
-arrivals = "story-arrivals-v1/official20110311054624120_30.json"
+arrivals = "story-arrivals-v2/official20110311054624120_30.json"
+
+[[events]]
+event_id = "usp000j3mq"
+origin_time_utc = "2011-06-24T03:09:39.470Z"
+latitude = 52.05
+longitude = -171.836
+magnitude = 7.3
+magnitude_type = "mww"
+records_bundle = "records-usp000j3mq-v1"
+arrivals = "story-arrivals-v2/usp000j3mq.json"
+
+[[events]]
+event_id = "usp000j48h"
+origin_time_utc = "2011-07-06T19:03:18.260Z"
+latitude = -29.539
+longitude = -176.34
+magnitude = 7.6
+magnitude_type = "mww"
+records_bundle = "records-usp000j48h-v1"
+arrivals = "story-arrivals-v2/usp000j48h.json"
+
+[[events]]
+event_id = "usp000j9nm"
+origin_time_utc = "2011-10-21T17:57:16.100Z"
+latitude = -28.993
+longitude = -176.238
+magnitude = 7.4
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000j9nm.json"
+
+[[events]]
+event_id = "usp000jeag"
+origin_time_utc = "2012-02-02T13:34:40.650Z"
+latitude = -17.827
+longitude = 167.133
+magnitude = 7.1
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000jeag.json"
+
+[[events]]
+event_id = "usp000jqvm"
+origin_time_utc = "2012-08-27T04:37:19.430Z"
+latitude = 12.139
+longitude = -88.59
+magnitude = 7.3
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000jqvm.json"
+
+[[events]]
+event_id = "usp000jr83"
+origin_time_utc = "2012-08-31T12:47:33.380Z"
+latitude = 10.811
+longitude = 126.638
+magnitude = 7.6
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000jr83.json"
+
+[[events]]
+event_id = "usp000jrsw"
+origin_time_utc = "2012-09-05T14:42:07.800Z"
+latitude = 10.085
+longitude = -85.315
+magnitude = 7.6
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usp000jrsw.json"
+
+[[events]]
+event_id = "usp000juhz"
+origin_time_utc = "2012-10-28T03:04:08.820Z"
+latitude = 52.788
+longitude = -132.101
+magnitude = 7.8
+magnitude_type = "mww"
+records_bundle = "records-usp000juhz-v1"
+arrivals = "story-arrivals-v2/usp000juhz.json"
+
+[[events]]
+event_id = "usc000f1s0"
+origin_time_utc = "2013-02-06T01:12:25.830Z"
+latitude = -10.799
+longitude = 165.114
+magnitude = 8.0
+magnitude_type = "mww"
+records_bundle = "records-usc000f1s0-v1"
+layers_bundle = "layers-usc000f1s0-v1"
+arrivals = "story-arrivals-v2/usc000f1s0.json"
+
+[[events]]
+event_id = "usc000f40j"
+origin_time_utc = "2013-02-08T15:26:38.470Z"
+latitude = -10.928
+longitude = 166.018
+magnitude = 7.1
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usc000f40j.json"
+
+[[events]]
+event_id = "usc000phx5"
+origin_time_utc = "2014-04-12T20:14:39.300Z"
+latitude = -11.2701
+longitude = 162.1481
+magnitude = 7.6
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usc000phx5.json"
+
+[[events]]
+event_id = "usc000piqj"
+origin_time_utc = "2014-04-13T12:36:19.230Z"
+latitude = -11.4633
+longitude = 162.0511
+magnitude = 7.4
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usc000piqj.json"
+
+[[events]]
+event_id = "usb000pq41"
+origin_time_utc = "2014-04-18T14:27:24.920Z"
+latitude = 17.397
+longitude = -100.9723
+magnitude = 7.2
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usb000pq41.json"
+
+[[events]]
+event_id = "usb000pr89"
+origin_time_utc = "2014-04-19T13:28:00.810Z"
+latitude = -6.7547
+longitude = 155.0241
+magnitude = 7.5
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usb000pr89.json"
+
+[[events]]
+event_id = "usb000sk6k"
+origin_time_utc = "2014-10-09T02:14:31.440Z"
+latitude = -32.1082
+longitude = -110.8112
+magnitude = 7.0
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/usb000sk6k.json"
+
+[[events]]
+event_id = "us20002yaw"
+origin_time_utc = "2015-07-18T02:27:33.820Z"
+latitude = -10.4012
+longitude = 165.1409
+magnitude = 7.0
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/us20002yaw.json"
+
+[[events]]
+event_id = "us20003k7a"
+origin_time_utc = "2015-09-16T22:54:32.860Z"
+latitude = -31.5729
+longitude = -71.6744
+magnitude = 8.3
+magnitude_type = "mww"
+records_bundle = "records-us20003k7a-v1"
+layers_bundle = "layers-us20003k7a-v1"
+arrivals = "story-arrivals-v2/us20003k7a.json"
+
+[[events]]
+event_id = "us10006jbi"
+origin_time_utc = "2016-09-01T16:37:57.300Z"
+latitude = -37.3586
+longitude = 179.1461
+magnitude = 7.0
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/us10006jbi.json"
+
+[[events]]
+event_id = "us20007z80"
+origin_time_utc = "2016-12-08T17:38:46.280Z"
+latitude = -10.6812
+longitude = 161.3273
+magnitude = 7.8
+magnitude_type = "mww"
+records_bundle = "records-us20007z80-v1"
+arrivals = "story-arrivals-v2/us20007z80.json"
+
+[[events]]
+event_id = "us20009x42"
+origin_time_utc = "2017-07-17T23:34:13.740Z"
+latitude = 54.4434
+longitude = 168.857
+magnitude = 7.7
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/us20009x42.json"
+
+[[events]]
+event_id = "us2000cmy3"
+origin_time_utc = "2018-01-23T09:31:40.890Z"
+latitude = 56.0039
+longitude = -149.1658
+magnitude = 7.9
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/us2000cmy3.json"
+
+[[events]]
+event_id = "us1000gjaz"
+origin_time_utc = "2018-08-29T03:51:56.100Z"
+latitude = -22.0295
+longitude = 170.1262
+magnitude = 7.1
+magnitude_type = "mww"
+arrivals = "story-arrivals-v2/us1000gjaz.json"

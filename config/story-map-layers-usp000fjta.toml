@@ -1,0 +1,11 @@
+# Published NCEI layer for usp000fjta (docs/data/story-map-layers.md); raw path, raw SHA-256 and
+# source id from data/processed/arrival-contours/foundation-v2/manifest.json.
+schema_version = "1"
+bundle_id = "layers-usp000fjta-v1"
+origin_time_utc = "2007-08-15T23:40:57.890Z"
+contours = "data/raw/ncei/contours-v1/usp000fjta.geojson.json"
+contours_sha256 = "70b18697f2951d79188e118ce8d78f839ac396f34590965c79da26cda212ce48"
+contour_source_id = "ncei-ttt-usp000fjta-layer13-geojson"
+coastline = "data/raw/natural-earth/ne_50m_coastline_v4.1.0.zip"
+coastline_sha256 = "640f805509b822f57f4840a2e18d9ff2412cf1cf6976124701c2789436166fde"
+coastline_source_id = "natural-earth-50m-coastline"
