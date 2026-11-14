@@ -1,11 +1,13 @@
 # Story reported-times file, schema 1
 
-`arrivals/<event_id>.json` holds, for one event, the published estimates and
-source-reported arrival times that the app may display, with their plain
-differences. It sits beside the records and map-layers bundles
-([demo-bundle.md](demo-bundle.md), [story-map-layers.md](story-map-layers.md))
-and is pinned by the events index. Like them it is generated, local-only and
-ignored by Git under `app/demo-public/data/`.
+`<arrivals_bundle_id>/<event_id>.json` holds, for one event, the published
+estimates and source-reported arrival times that the app may display, with
+their plain differences. The first bundle ID is `story-arrivals-v1`; a corrected
+rebuild gets a new bundle ID rather than overwriting a file. It sits beside the
+records and map-layers bundles ([demo-bundle.md](demo-bundle.md),
+[story-map-layers.md](story-map-layers.md)) and is pinned by the events index.
+Like them it is generated, local-only and ignored by Git under
+`app/demo-public/data/`.
 
 ## What the values are, and are not
 
@@ -32,22 +34,38 @@ places, reports, accounting, input_fingerprints, config_sha256}`
 
 | Field | JSON type and meaning |
 | --- | --- |
-| `event_id`, `origin_time_utc` | strings; equal to the event's entry in the events index. The origin is the reviewed USGS origin |
-| `release` | the display permission, copied from the reviewed release manifest (below) |
-| `display_crs` | string; the display projection of `geometry.json` (`+proj=eqearth +lon_0=-160 …`) |
-| `ruler` | `{speed_km_per_h:number, statement:string}`; see Ruler |
-| `places` | `Place[]`, sorted by `site_id` |
-| `reports` | `Report[]`, in the order of the source tables |
+| `event_id`, `origin_time_utc` | strings; equal to the event's entry in the events index. The origin is the reviewed USGS origin, in the UTC time format of [demo-bundle.md](demo-bundle.md#events-index-eventsjson-schema-1) |
+| `release` | the display permission (below) |
+| `display_crs` | `"+proj=eqearth +lon_0=-160 +datum=WGS84 +units=m +no_defs +type=crs"`, the display projection of `geometry.json` |
+| `ruler` | exactly `{"speed_km_per_h":713, "statement":"Constant long-wave speed over a 4 km deep ocean. A ruler, not a prediction."}` |
+| `places` | `Place[]`, sorted by `site_id` in code-point order |
+| `reports` | `Report[]`, in the order given under Reports |
 | `accounting` | counts that must reconcile with the source tables (below) |
-| `input_fingerprints` | `{path:string, sha256:string}[]`; every released table and manifest read |
+| `input_fingerprints` | `{path:string, sha256:string}[]`, sorted by path; only the allowlisted inputs below |
 | `config_sha256` | SHA-256 of the exact config bytes used |
 
-`release` is `{release_id:string, reported_arrival_display_allowed:true,
-estimate_difference_display_allowed:true, physical_arrival_records_released:0,
-arrival_comparison_allowed:false, allowed_uses:string[], prohibited_uses:string[]}`.
-The browser draws a reported time only when `reported_arrival_display_allowed`
-is `true`, and an estimate or a difference only when
-`estimate_difference_display_allowed` is `true`.
+## Release
+
+`release` must be exactly:
+
+```json
+{
+  "allowed_uses": ["display_source_reported_times", "display_published_estimates", "display_plain_differences"],
+  "arrival_comparison_allowed": false,
+  "estimate_difference_display_allowed": true,
+  "physical_arrival_records_released": 0,
+  "prohibited_uses": ["physical_arrival_validation", "modeled_minus_observed_residual", "model_output_display",
+                      "actionable_warning_time", "operational_warning", "public_release_before_release_gate"],
+  "release_id": "story-reported-times-v1",
+  "reported_arrival_display_allowed": true
+}
+```
+
+The arrays are compared in this order. The exporter copies these values from
+the reviewed manifest `artifacts/releases/story-reported-times-v1.json` and
+fails when they differ from the literal above. A file whose `release` differs
+in any way is invalid: the browser shows the event without reported times or
+estimates and says that its reported-times file was rejected.
 
 ## `Place`
 
@@ -57,94 +75,161 @@ position does not establish which instrument was deployed there.
 | Field | JSON type and meaning |
 | --- | --- |
 | `site_id` | nonempty string; the released site identity, unique in the file |
-| `label` | nonempty string; the source's own place text from the first report at this site. Never geocoded |
-| `position_status` | `"reviewed"` (an accepted site identity) or `"source_position"` (the position the source itself reports) |
-| `latitude`, `longitude` | finite numbers as recorded, EPSG:4326 order, datum unknown |
-| `x`, `y` | integers; the display projection, whole metres |
-| `distance_km` | number ≥ 0; WGS84 geodesic distance from the index epicentre, rounded to 0.1 km. A straight path over the globe, not an ocean path |
-| `ruler_minutes` | number; `distance_km / ruler.speed_km_per_h × 60`, rounded to 0.1 |
-| `record` | null, or `{station_id:string, link:"same_provider_id" or "within_1km"}` |
+| `label` | nonempty string; the `place_text` of the first report at this site, in `reports` order. Never geocoded |
+| `position_status` | `"reviewed"` for an NTWC site (identity accepted by independent review), `"source_position"` for an NCEI site (the position NCEI reports). A place used by both sources keeps `"reviewed"` |
+| `latitude`, `longitude` | finite numbers as recorded, within ±90 and ±180, datum unknown |
+| `x`, `y` | JSON integers; the display projection, whole metres |
+| `distance_km` | number ≥ 0; WGS84 geodesic distance from the index epicentre (pyproj `Geod(ellps="WGS84")`), rounded to 0.1 km. A straight path over the globe, not an ocean path |
+| `ruler_minutes` | number; `round(distance_km / 713 × 60, 1)` |
+| `record` | null, or `{station_id:string, link:"same_provider_id"}` or `{station_id:string, link:"within_1km"}` |
 
-`record` links a place to a station in the event's records bundle.
-`same_provider_id` means the site identity carries that station's provider ID.
-`within_1km` means a records station lies within 1 km; it is not verified to be
-the same instrument, and the app must say so. A provider-ID match wins over
-proximity. No other matching is allowed.
+Only places used by at least one report are listed.
 
-## `Report`
+`record` links a place to a station in the event's records bundle and is null
+when the event has none. `same_provider_id` means the site identity carries that
+station's provider ID. `within_1km` means a records station lies within 1 km
+(the same geodesic distance); it is not verified to be the same instrument, and
+the app must say so. A provider-ID match wins over proximity; among several
+stations within 1 km the nearest wins, then the lowest station ID. No other
+matching is allowed.
+
+## Reports
 
 One report is one source record: one row of the event's NTWC table, or one NCEI
-gauge record.
+gauge record. `reports` lists:
+
+- every NTWC row with an exact reported time or an exact estimate, then
+- every NCEI record with a positive reported duration,
+
+each part in the row order of the released `source_records` table. Rows with
+neither are counted in `accounting`, not listed.
 
 | Field | JSON type and meaning |
 | --- | --- |
-| `report_id` | nonempty string; the released source record ID, unique in the file |
+| `report_id` | nonempty string; the released `source_record_id`, unique in the file |
 | `source` | `"ntwc"` or `"ncei"` |
-| `site_id` | string naming a listed place, or null when the record has no usable position. A report without a place is listed but never drawn on the map |
-| `place_text` | string; the source's own place text for this record |
-| `gauge_kind` | `"tide_gauge"`, `"deep_ocean_gauge"` or `"unknown"`, as the source states |
-| `reported_minutes` | number or null; minutes after `reported_origin`, rounded to 0.001 |
-| `reported_origin` | `"usgs_reviewed"` for NTWC (reported UTC time minus the reviewed USGS origin), `"ncei_native"` for NCEI (the duration NCEI reports from its own origin), or null |
-| `reported_utc` | string or null. NTWC only. NCEI records carry no arrival date and none is inferred |
-| `reported_text` | string or null; the raw source text of the reported time |
-| `origin_offset_seconds` | number or null. NCEI only: NCEI's origin minus the reviewed USGS origin, when the source states it. The duration is never shifted by it |
-| `estimate_minutes` | number or null. NTWC only: estimated UTC time minus the reviewed USGS origin, rounded to 0.001. This places the estimate on the app's clock; the origin NTWC used is unknown |
-| `estimate_utc`, `estimate_text` | strings or null. NTWC only |
-| `reported_minus_estimate_minutes` | number or null; present only when one NTWC row has both exact times. Reported minus estimate: positive means the report is later than the estimate |
-| `reported_minus_ruler_minutes` | number or null; `reported_minutes` minus the place's `ruler_minutes`, rounded to 0.1 |
-| `source_flags` | string[]; source qualifiers kept verbatim in meaning, for example `"doubtful"`. Usually empty |
-| `source_id`, `source_sha256` | strings; the source page or record snapshot and its hash |
+| `site_id` | string naming a listed place, or null when the record's site identity is unresolved. A report without a place is listed but never drawn on the map |
+| `place_text` | nonempty string; the source's own place text for this record |
+| `gauge_kind` | `"unknown"` for NTWC (the table does not say); `"tide_gauge"` or `"deep_ocean_gauge"` for NCEI, as NCEI states |
+| `reported_minutes` | number or null; minutes after the origin named by `reported_origin`, rounded to 0.001 |
+| `reported_origin` | `"usgs_reviewed"` for NTWC, `"ncei_native"` for NCEI; null exactly when `reported_minutes` is null |
+| `reported_utc` | NTWC: the reported UTC time when exact, else null. NCEI: always null; no arrival date is inferred |
+| `reported_text` | NTWC: the raw source cell text, or null when the cell is empty. NCEI: always null (the app formats the minutes) |
+| `origin_offset_seconds` | NTWC: always null. NCEI: NCEI's origin minus the reviewed USGS origin, when the source states it, else null. The duration is never shifted by it |
+| `estimate_minutes`, `estimate_utc` | NTWC: the exact estimated UTC time, and that time minus the reviewed USGS origin in minutes rounded to 0.001; both null when the estimate is not exact. NCEI: always null. The origin NTWC used is unknown |
+| `estimate_text` | NTWC: the raw estimate cell text, or null when the cell is empty. NCEI: always null |
+| `reported_minus_estimate_minutes` | number or null; non-null exactly when the row is in the released pair table. Reported minus estimate: positive means the report is later than the estimate |
+| `reported_minus_ruler_minutes` | number or null; `round(reported_minutes − ruler_minutes, 1)` using the stored values; null when either is null |
+| `source_flags` | string[]; source qualifiers, currently only `"doubtful"` when NCEI marks a record doubtful. Usually empty |
+| `source_id`, `source_sha256` | strings; the source snapshot and its 64-hex SHA-256, from `source_records` |
 
-The released pair table stores estimated minus observed, in seconds. The
-exporter reverses the sign once, and a test fixes that rule. One-minute source
-resolution is not one-minute accuracy.
+Raw text is never an empty string: an empty cell is null.
+
+Definitions against the released tables:
+
+- An **exact reported time** is an NTWC `observations` row with
+  `duration_state = "exact_reported_timestamp"`.
+- An **exact estimate** is a `forecast_instances` row with
+  `estimate_state = "exact_reported_timestamp"`.
+- A **pair** is a `pair_members` row. On the current release the 388 pairs are
+  exactly the NTWC rows with both an exact reported time and an exact estimate.
+- A **positive reported duration** is an NCEI `observations` row with
+  `duration_state = "complete_positive"`.
+- A **resolved site** is a `site_links` row with `decision` `accepted` (NTWC)
+  or `source_native_position` (NCEI). Anything else gives `site_id: null`.
+
+## Numbers
+
+All rounding is done once, by the exporter, with Python's built-in `round`
+on the value computed in full precision. The browser and other consumers never
+recompute a stored value.
+
+- `reported_minutes` (NTWC) and `estimate_minutes` come from exact UTC seconds:
+  (time − origin) in seconds ÷ 60.
+- `reported_minutes` (NCEI) is NCEI's duration in minutes as released.
+- `reported_minus_estimate_minutes` is −`estimated_minus_observed_seconds` ÷ 60
+  from the pair table, rounded to 0.001. The pair table stores estimated minus
+  observed; the exporter reverses the sign here and nowhere else, and a test
+  fixes that rule.
+- `x`, `y`, `speed_km_per_h` and every count are JSON integers. Other numbers
+  are written as Python writes a float (for example `135.0`).
+
+One-minute source resolution is not one-minute accuracy.
 
 ## Ruler
 
-`ruler.speed_km_per_h` is 713: the long-wave speed over a constant 4 km depth.
-It is a ruler for reading the ladder, not a prediction and not a model. It
-ignores the real sea floor and the real path. The Bayesian paper uses the same
-speed as its reference scale; the app shows no fitted curve around it.
+713 km/h is the long-wave speed over a constant 4 km depth (√(9.80665 × 4000)
+m/s ≈ 712.98 km/h, rounded). It is a ruler for reading the ladder, not a
+prediction and not a model. It ignores the real sea floor and the real path.
+The Bayesian paper uses the same speed as its reference scale; whether the app
+keeps the ruler is an owner decision at the design pick (T-SV-01C).
 
 ## Accounting
 
-`accounting` is an object of nonnegative integers:
+`accounting` is an object of JSON integers:
 
 | Field | Meaning |
 | --- | --- |
-| `ntwc_table_rows` | all rows of the event's NTWC table or tables |
+| `ntwc_table_rows` | all NTWC rows of the event in `source_records` |
 | `ntwc_rows_with_reported_time` | rows with an exact reported time |
 | `ntwc_rows_with_estimate` | rows with an exact estimate |
-| `ntwc_rows_with_both_times` | rows with both; equals the event's rows in the released pair table |
-| `ntwc_pairs_with_position` | of those, rows at a listed place |
-| `ntwc_reported_with_position` | rows with a reported time at a listed place |
-| `ncei_records` | all NCEI gauge records for the event |
+| `ntwc_rows_with_both_times` | the event's rows in the pair table |
+| `ntwc_pairs_with_position` | of those, rows with a resolved site; NTWC places are always reviewed, so this is the count of pairs with a reviewed position |
+| `ntwc_reported_with_position` | rows with an exact reported time and a resolved site |
+| `ncei_records` | all NCEI records of the event in `source_records` |
 | `ncei_reported_durations` | NCEI records with a positive reported duration |
-| `ncei_durations_with_position` | of those, records at a listed place |
+| `ncei_durations_with_position` | of those, records with a resolved site |
 | `reports` | length of `reports` |
 | `places` | length of `places` |
 
-`reports` contains every NTWC row with at least one exact time and every NCEI
-record with a positive reported duration. Rows with neither are counted, not
-listed. Every count must equal the same count taken from the released tables;
-the exporter fails otherwise.
+Every count must equal the same count taken from the released tables; the
+exporter fails otherwise.
 
-## Sources
+## Inputs and fences
 
-The exporter reads only the reviewed release
-`data/processed/arrival-evidence/foundation-v1/` and the reviewed display
-release manifest under `artifacts/releases/`. It lives in `analysis/story/`,
-imports nothing from `analysis/arrival/` and reads nothing under any `models/`
-directory. Tests enforce both. Event IDs come from the exporter's config; an ID
-that is not a development event in the release is refused.
+The exporter reads only these files, and `input_fingerprints` lists exactly
+the ones it read:
+
+- under `data/processed/arrival-evidence/foundation-v1/`: `manifest.json`,
+  `source_records.csv.gz`, `observations.csv.gz`, `forecast_instances.csv.gz`,
+  `pair_members.csv.gz`, `sites.csv.gz`, `site_links.csv.gz`;
+- `artifacts/releases/story-reported-times-v1.json`;
+- the event's records manifest, for the `record` links.
+
+Paths are repository-relative, with no leading `/` and no `..`. The paper's
+target views (`T-OBS`, `T-CAL`, `NCEI-native-duration`), any model output and
+any selection file are not inputs.
+
+The lane fence is tested two ways:
+
+1. a static test parses every module under `analysis/story/` and
+   `scripts/story/` with `ast` and fails on any import from `analysis.arrival`
+   or any module whose name contains `models`;
+2. a runtime test runs a full export with `builtins.open`, `io.open`,
+   `gzip.open` and `pathlib.Path.open` wrapped by a recorder, and fails when any
+   opened path has a component named `models` or is not on the allowlist above.
+
+An event ID that does not occur in the released `source_records` table (which
+holds development events only) is refused, and so is an event ID that is not a
+development entry of `config/ntwc-archive-batch-v2.toml`; a mutation test covers
+both. A test also checks that no `reported_minus_*` field ever combines an NTWC
+value with an NCEI value.
+
+## Files, validators and the shared example
 
 JSON rules are those of the other bundles: UTF-8, compact, sorted keys, one
-final newline, finite numbers only, no wall clock or machine path. An existing
-output is never overwritten. Every file is at most 2 MB.
+final newline, finite numbers only, no wall clock or machine path. Every file
+is at most 2,097,152 bytes. Files are written to a temporary directory and
+published with one rename; an existing output bundle is never overwritten.
 
+`analysis/story/arrivals_export.py` exposes a pure `validate_arrivals(value)`
+that takes the parsed JSON value and touches no file; the browser loader has the
+equivalent and also checks the cross-field rules above.
 [`examples/story-arrivals.example.json`](examples/story-arrivals.example.json)
-is a synthetic, test-only file. The exporter's tests and the browser loader's
-tests must both accept it.
+is a synthetic, test-only file, pretty-printed for reading. Tests on both sides
+parse it and pass the value through their validator; nobody compares its bytes.
+Its distances and projected coordinates were computed once with pyproj and are
+not recomputed by tests.
 
 Source credit: NOAA National Tsunami Warning Center event archive; NOAA
 National Centers for Environmental Information / World Data Service tsunami

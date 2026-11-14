@@ -20,15 +20,47 @@
   "exporter_version": "1",
   "input_fingerprints": [
     {
-      "path": "example/input-table.csv.gz",
+      "path": "app/demo-public/data/example-records-a/manifest.json",
+      "sha256": "9999999999999999999999999999999999999999999999999999999999999999"
+    },
+    {
+      "path": "artifacts/releases/story-reported-times-v1.json",
+      "sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/forecast_instances.csv.gz",
+      "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/manifest.json",
       "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/observations.csv.gz",
+      "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/pair_members.csv.gz",
+      "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/site_links.csv.gz",
+      "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/sites.csv.gz",
+      "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+    },
+    {
+      "path": "data/processed/arrival-evidence/foundation-v1/source_records.csv.gz",
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
     }
   ],
   "origin_time_utc": "2001-01-01T00:00:00Z",
   "places": [
     {
       "distance_km": 1113.2,
-      "label": "Example Harbor (test only)",
+      "label": "Example Harbor",
       "latitude": 0.0,
       "longitude": -150.0,
       "position_status": "reviewed",
@@ -43,7 +75,7 @@
     },
     {
       "distance_km": 1565.1,
-      "label": "Example Bay (test only)",
+      "label": "Example Bay",
       "latitude": 10.0,
       "longitude": -150.0,
       "position_status": "source_position",
@@ -58,7 +90,7 @@
     },
     {
       "distance_km": 784.0,
-      "label": "Example deep-ocean gauge (test only)",
+      "label": "Example deep-ocean gauge",
       "latitude": -5.0,
       "longitude": -155.0,
       "position_status": "source_position",
@@ -70,7 +102,7 @@
     },
     {
       "distance_km": 2291.3,
-      "label": "Example Point (test only)",
+      "label": "Example Point",
       "latitude": 5.0,
       "longitude": -140.0,
       "position_status": "reviewed",
@@ -98,7 +130,7 @@
       "operational_warning",
       "public_release_before_release_gate"
     ],
-    "release_id": "example-reported-times-release",
+    "release_id": "story-reported-times-v1",
     "reported_arrival_display_allowed": true
   },
   "reports": [
@@ -174,7 +206,7 @@
       "reported_minus_ruler_minutes": 58.3,
       "reported_minutes": 190.0,
       "reported_origin": "ncei_native",
-      "reported_text": "3 h 10 min",
+      "reported_text": null,
       "reported_utc": null,
       "site_id": "ncei-native:aaaaaaaaaaaaaaaaaaaa",
       "source": "ncei",
@@ -194,7 +226,7 @@
       "reported_minus_ruler_minutes": -4.0,
       "reported_minutes": 62.0,
       "reported_origin": "ncei_native",
-      "reported_text": "1 h 2 min",
+      "reported_text": null,
       "reported_utc": null,
       "site_id": "ncei-native:bbbbbbbbbbbbbbbbbbbb",
       "source": "ncei",

@@ -4,7 +4,7 @@
     {
       "arrivals": {
         "bytes": 2048,
-        "path": "arrivals/example-event-a.json",
+        "path": "story-arrivals-v1/example-event-a.json",
         "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
       },
       "event_id": "example-event-a",
@@ -28,7 +28,7 @@
     {
       "arrivals": {
         "bytes": 4096,
-        "path": "arrivals/example-event-b.json",
+        "path": "story-arrivals-v1/example-event-b.json",
         "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
       },
       "event_id": "example-event-b",
