@@ -19,6 +19,16 @@ python scripts/story/build_demo_data.py \
   --config config/story-demo.toml
 ```
 
+Replay note (2026-11-13): `config/story-demo.toml` pins the provenance manifest
+as it was when v2 was exported (commit `9c2d7af`, SHA-256 `e7af2086…eb98`).
+Commit `8e52568` later added the Natural Earth 1:50m record to
+`artifacts/provenance/source-manifest.csv`, so a replay from a newer checkout
+refuses with a checksum mismatch. To reproduce v2 byte for byte, give
+`--source-root` a copy of the inputs in which that one file is replaced by
+`git show 9c2d7af:artifacts/provenance/source-manifest.csv`. A rebuild done
+this way on 2026-11-13 matched all 12 files of the v2 bundle. The bundle and its
+pins are unchanged.
+
 All three arguments are required. `source-root` must be absolute and contains
 the real accepted cache, release, provenance manifest and historical receipts;
 no cache is copied into the code checkout. Configuration has repository-relative
