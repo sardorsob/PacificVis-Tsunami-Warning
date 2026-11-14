@@ -4,9 +4,11 @@ import { describe, expect, it } from "vitest";
 import { loadIndex, loadManifest, validateGeometry, validateIndex, validateManifest } from "./loader";
 import type { EventEntry } from "./types";
 
-// The contract's synthetic, test-only index (docs/data/examples); the builder's tests must accept it too.
-const example = () => JSON.parse(readFileSync(new URL("../../../docs/data/examples/story-events.example.json", import.meta.url), "utf8")) as {
-  default_event_id: string; events: Record<string, unknown>[] };
+// The contract's synthetic, test-only index (docs/data/examples, schema 2); the builder's tests must accept it too.
+type IndexInput = { schema_version: string; basemap?: Record<string, unknown>; default_event_id: string; events: Record<string, unknown>[] };
+const example2 = () => JSON.parse(readFileSync(new URL("../../../docs/data/examples/story-events.example.json", import.meta.url), "utf8")) as IndexInput;
+/** The same index in schema 1: the schema-2 additions (basemap; per event x, y, counts) removed. */
+const example = () => { const x = example2(); x.schema_version = "1"; delete x.basemap; for (const e of x.events) for (const k of ["x", "y", "counts"]) delete e[k]; return x; };
 const withEvent = (i: number, patch: Record<string, unknown>) => { const x = example(); x.events[i] = { ...x.events[i], ...patch }; return x; };
 
 describe("events index (schema 1)", () => {
@@ -53,6 +55,42 @@ describe("events index (schema 1)", () => {
     let url = "";
     const index = await loadIndex(undefined, async u => { url = String(u); return new Response(JSON.stringify(example())); });
     expect(url).toBe("/data/events.json"); expect(index.default_event_id).toBe("example-event-a");
+  });
+});
+
+describe("events index (schema 2)", () => {
+  type Counts = { reported_per_hour: Record<string, unknown[]> } & Record<string, unknown>;
+  const changed = (change: (x: IndexInput) => void) => { const x = example2(); change(x); return x; };
+  const counts = (x: IndexInput, i = 0) => x.events[i].counts as Counts;
+  it("accepts the contract's example: a shared basemap and, per event, the projected epicentre and display counts", () => {
+    const index = validateIndex(example2());
+    expect(index.basemap).toEqual({ bytes: 180000, path: "basemap-v1/coastline.json", sha256: "e".repeat(64) });
+    expect(index.events.map(e => [e.x, e.y, e.counts?.stations])).toEqual([[0, 0, 2], [8338834, -2605574, 0]]);
+  });
+  it("requires the basemap as a safe asset reference", () => {
+    expect(() => validateIndex(changed(x => { delete x.basemap; }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { x.basemap!.path = "basemap-v1/other.json"; }))).toThrow(/basemap/);
+    expect(() => validateIndex(changed(x => { x.basemap!.path = "../coastline.json"; }))).toThrow(/basemap/);
+    expect(() => validateIndex(changed(x => { x.basemap!.bytes = 2_097_153; }))).toThrow(/basemap/);
+    expect(() => validateIndex(changed(x => { x.basemap!.bytes = 0; }))).toThrow(/basemap/);
+    expect(() => validateIndex(changed(x => { x.basemap!.sha256 = "E".repeat(64); }))).toThrow(/SHA256/);
+  });
+  it("requires whole-metre x and y and exactly the display counts", () => {
+    expect(() => validateIndex(changed(x => { x.events[1].x = 8338834.5; }))).toThrow(/whole metres/);
+    expect(() => validateIndex(changed(x => { delete x.events[0].y; }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { counts(x).reported_per_hour.ntwc.pop(); }))).toThrow(/30 hours/);
+    expect(() => validateIndex(changed(x => { counts(x).reported_per_hour.ncei.push(0); }))).toThrow(/30 hours/);
+    expect(() => validateIndex(changed(x => { counts(x).reported_per_hour.ncei[0] = 0.5; }))).toThrow(/count/);
+    expect(() => validateIndex(changed(x => { counts(x).reported_per_hour.extra = []; }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { counts(x).extra = 0; }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { delete counts(x).stations; }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { counts(x, 1).ncei_reported = -1; }))).toThrow(/count/);
+  });
+  it("keeps the two schemas apart: schema 1 refuses the schema-2 fields", () => {
+    expect(() => validateIndex(changed(x => { x.schema_version = "1"; }))).toThrow(/fields/);
+    expect(() => validateIndex({ ...example(), basemap: example2().basemap })).toThrow(/fields/);
+    expect(() => validateIndex(withEvent(0, { x: 0, y: 0 }))).toThrow(/fields/);
+    expect(() => validateIndex(changed(x => { x.schema_version = "3"; }))).toThrow();
   });
 });
 

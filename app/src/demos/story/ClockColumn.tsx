@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import type { StationRecords } from "../types";
+import type { ArrivalDisplay } from "./arrivals";
 import { clockLabel, T_MAX, utcAt, utcDayAt } from "./clock";
 import { contourColour } from "./palette";
+import { ReportMark } from "./StoryMap";
 
 /** Samples with a raw value in each hour after origin; null where the loaded window does not cover the whole hour. */
 // ponytail: one station's strip, from the record already loaded; an all-station strip would load every record (~33 MB).
@@ -29,13 +31,32 @@ function Strip({ counts, t, label }: { counts: (number | null)[] | null; t: numb
 type ClockColumnProps = {
   t: number; originUtc: string; stationName: string | null; counts: (number | null)[] | null;
   lead?: ReactNode; children: ReactNode; alert: ReactNode; className?: string; title?: string; label?: string; head: boolean;
+  /** The reported-times file's marks and counts, "rejected", or null while it loads (or when the event has none). */
+  reported?: ArrivalDisplay | "rejected" | null;
 };
+const KEY = [["estimate", "NTWC published estimate"], ["ntwc", "NTWC reported time"], ["tide", "NCEI reported time (timed from NCEI's own origin)"],
+  ["deep", "NCEI deep-ocean reported time"]] as const;
+/** The reported-times key: the four marks, the source tables' counts, what reported times are not, and what is listed but not drawn. */
+function ReportedKey({ d }: { d: ArrivalDisplay }) {
+  const a = d.accounting, hidden = [d.unplaced && `${d.unplaced} without a place`,
+    d.beforeOrigin && `${d.beforeOrigin} before the earthquake origin (the project does not correct dates)`,
+    d.afterClock && `${d.afterClock} after the 30-hour clock ends`];
+  return <div className="story-legend story-key">
+    <p><b>Reported times and published estimates</b> light up when the clock reaches them; a filled mark takes its reported hour's colour.</p>
+    <ul>{KEY.map(([kind, label]) => <li key={kind}>
+      <svg width="14" height="14" aria-hidden="true"><ReportMark kind={kind} minutes={360} x={7} y={7} on/></svg>{label}</li>)}</ul>
+    <p>{`${a.ntwc_rows_with_both_times} estimate–reported pairs in the NTWC table · ${a.ntwc_pairs_with_position} with a reviewed position · `
+      + `${a.ncei_reported_durations} NCEI reported times`}</p>
+    <p>Reported times are what the sources reported, not validated arrivals; a difference does not say which side is off.</p>
+    {hidden.some(Boolean) && <p>{`Listed reports not drawn on the map: ${hidden.filter(Boolean).join(" · ")}.`}</p>}
+  </div>;
+}
 /** The page kicker and title: top of the column when wide, top of the sheet otherwise. */
 export const ColumnHead = ({ title = "How the published tsunami clock spread" }: { title?: string }) => <>
   <p className="story-kicker">Pacific · 11 March 2011</p><h1 className="story-title">{title}</h1></>;
 /** Editorial column: what this is, the clock, a strip tied to the lens, the legend, then step or station controls. */
 export function ClockColumn({ t, originUtc, stationName, counts, lead, children, alert, className = "", title, label = "Story",
-  head }: ClockColumnProps) {
+  head, reported }: ClockColumnProps) {
   const max = counts ? Math.max(0, ...counts.map(c => c ?? 0)) : 0;
   return <aside className={`story-column ${className}`} aria-label={label}>
     {head && <ColumnHead title={title}/>}
@@ -50,6 +71,9 @@ export function ClockColumn({ t, originUtc, stationName, counts, lead, children,
       ? `Samples per hour after the earthquake in ${stationName}'s record; dashed where no record is loaded`
       : "Published contour hours lit up to the clock"}/>
     <p className="story-legend"><b>Colour shows the published hour.</b> Not wave height, not an arrival, not warning time.</p>
+    {reported === "rejected"
+      ? <p className="story-legend">The reported-times file was rejected, so no published estimates or reported times are shown.</p>
+      : reported && <ReportedKey d={reported}/>}
     {children}
     <p className="story-credits">NOAA/NCEI travel-time layer 17: hours after the earthquake, computed by NCEI from a point at the epicentre (not the full rupture), first arrival only, no wave height. Records: NOAA CO-OPS, NCEI DART, UHSLC/NTWC, IOC. Natural Earth 1:50m · Equal Earth, 160° W. Internal descriptive evidence only.</p>
   </aside>;

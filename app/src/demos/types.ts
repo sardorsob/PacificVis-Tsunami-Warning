@@ -10,8 +10,19 @@ export type BundleRef = { bundle_id: string; manifest_sha256: string; manifest_b
 export type EventEntry = {
   event_id: string; label: string; origin_time_utc: string; latitude: number; longitude: number; magnitude: number; magnitude_type: string;
   records: BundleRef | null; layers: BundleRef | null; arrivals: Asset | null;
+  /** Index schema 2 only: the epicentre in the display projection (whole metres) and counts copied from the event's files. */
+  x?: number; y?: number; counts?: EventCounts;
 };
-export type EventsIndex = { schema_version: "1"; evidence_state: "internal_descriptive_only"; default_event_id: string; events: EventEntry[] };
+/** Index schema 2 ("Index schema 2"): reported_per_hour counts listed reported times with 0 ≤ minutes < 1800 by clock hour (30 hours). */
+export type EventCounts = {
+  ntwc_pairs: number; ntwc_pairs_with_position: number; ntwc_reported: number; ncei_reported: number; stations: number;
+  reported_per_hour: { ntwc: number[]; ncei: number[] };
+};
+export type EventsIndex = {
+  schema_version: "1" | "2"; evidence_state: "internal_descriptive_only"; default_event_id: string; events: EventEntry[];
+  /** Index schema 2 only: the one shared coastline file. */
+  basemap?: Asset;
+};
 export type DemoManifest = {
   schema_version: "1"; exporter_version: "1"; bundle_id: string; evidence_state: "internal_descriptive_only";
   event: { event_id: string; origin_time_utc: string; latitude: number; longitude: number };

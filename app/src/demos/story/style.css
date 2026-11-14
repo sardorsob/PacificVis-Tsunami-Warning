@@ -26,6 +26,10 @@ button,select,summary{font:inherit}
 .story-marker{fill:var(--story-ocean);stroke-width:1.6}
 .story-marker--dart{stroke:var(--story-dart)}.story-marker--coastal{stroke:var(--story-coastal)}
 .story-marker--dart.story-marker--filled{fill:var(--story-dart)}.story-marker--coastal.story-marker--filled{fill:var(--story-coastal)}
+/* Reported-times marks: faint outlines ahead of the clock; lit dots are filled (fill attribute) with a dark edge, a lit ring is ink. */
+.story-report{stroke:var(--story-muted);stroke-width:1.2;stroke-opacity:.45}
+.story-report--on{stroke:var(--story-ocean);stroke-opacity:1}
+.story-report--estimate.story-report--on{stroke:var(--story-ink);stroke-width:1.6}
 .story-lens__bg{fill:var(--story-ocean2)}
 .story-lens__ring{fill:none;stroke:var(--story-ink);stroke-width:2;stroke-opacity:.9}
 .story-lens--b .story-lens__ring{stroke:var(--story-b)}
@@ -126,6 +130,8 @@ button,select,summary{font:inherit}
 .story-bigclock{font:400 calc(40px*var(--ui,1))/1 "Iowan Old Style","Palatino Linotype",Georgia,serif;margin-top:10px!important;font-variant-numeric:tabular-nums}
 .story-utc{font-size:calc(13px*var(--ui,1));margin-top:2px!important}
 .story-legend{font-size:calc(11.5px*var(--ui,1));color:var(--story-muted);margin-top:6px!important}.story-legend b{color:var(--story-ink)}
+.story-key ul{list-style:none;margin:4px 0;padding:0}.story-key li{display:flex;align-items:center;gap:6px}.story-key svg{flex:none}
+.story-key p+p{margin-top:4px}
 .story-strip{display:block;margin-top:4px}.story-strip__none{fill:none;stroke:var(--story-line);stroke-dasharray:2 2}
 .story-strip__now{stroke:var(--story-ink);stroke-width:1.5}.story-strip__tick{font-size:calc(10px*var(--ui,1));fill:var(--story-muted)}
 .story-panel{z-index:2}

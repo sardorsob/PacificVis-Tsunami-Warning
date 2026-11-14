@@ -1,7 +1,9 @@
+import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { NoReference, StationCard } from "../StationCard";
 import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
+import type { StoryArrivals } from "./arrivals";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
 import { PairedView } from "./PairedView";
@@ -294,6 +296,27 @@ describe("Station lens — the story stage around one station", () => {
   });
   it("never words a contour as an arrival", () => {
     expect(renderToStaticMarkup(<StoryView {...lens()}/>)).not.toMatch(/arrival time:|arrived at|warning time:/i);
+  });
+});
+
+describe("story view — reported times", () => {
+  // The contract's synthetic example, unvalidated here: these tests check the wiring, arrivals.test.tsx the file.
+  const arrivals = JSON.parse(readFileSync(new URL("../../../../docs/data/examples/story-arrivals.example.json", import.meta.url), "utf8")) as StoryArrivals;
+  it("draws the reported-times marks on the map and their key in the column, in the story and the Station lens", () => {
+    for (const view of ["story", "radial"] as const) {
+      const html = renderToStaticMarkup(<StoryView {...input({ view })} arrivals={arrivals}/>), map = html.slice(html.indexOf('class="story-reports"'));
+      expect(map.slice(0, map.indexOf("</g>")).match(/class="story-report /g), view).toHaveLength(5);   // the key's glyphs are not map marks
+      expect(html).toContain("NTWC published estimate");
+    }
+  });
+  it("shows the event without marks and says the reported-times file was rejected", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()} arrivals="rejected"/>);
+    expect(html).toContain("The reported-times file was rejected");
+    expect(html).toContain("Test station 1617760");
+    expect(html).not.toContain("story-report");
+  });
+  it("adds nothing about reported times while the file loads", () => {
+    expect(renderToStaticMarkup(<StoryView {...input()} arrivals={null}/>)).not.toMatch(/story-report|story-key|reported-times/);
   });
 });
 

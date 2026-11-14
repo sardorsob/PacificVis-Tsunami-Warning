@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { localFetch, readDemoJson, readLayersBytes, readLayersJson, tohokuEntry } from "../integration-data";
 import { decodeStation, validateGeometry, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
+import { loadArrivals } from "./arrivals";
 import { loadLayers, nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 import { validateSteps } from "./steps";
 import { StoryView } from "./StoryView";
@@ -51,6 +52,39 @@ describe("story view against the accepted local bundles", () => {
         onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} initialSize={initialSize}/>);
       expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
     }
+  });
+  it("loads the reported-times file the index pins and draws only what its rules allow, faint at 0 h and lit at 30 h", async () => {
+    const arrivals = (await loadArrivals(tohokuEntry, undefined, localFetch))!, a = arrivals.accounting;
+    expect([arrivals.reports.length, arrivals.places.length, a.ntwc_rows_with_both_times, a.ntwc_pairs_with_position, a.ncei_reported_durations])
+      .toEqual([411, 280, 92, 8, 273]);
+    await expect(loadArrivals({ ...tohokuEntry, arrivals: { ...tohokuEntry.arrivals!, sha256: "0".repeat(64) } }, undefined, localFetch)).rejects.toThrow(/hash/);
+    // Expected from the file's own rules: a listed place and 0 ≤ minutes < 30 h; a ring per published estimate, a dot per reported time.
+    const placed = arrivals.reports.filter(r => r.site_id !== null), drawn = (m: number | null) => m !== null && m >= 0 && m < 1800;
+    const expected = (lit: (m: number) => boolean) => { const ok = (m: number | null) => drawn(m) && lit(m!);
+      return { estimate: placed.filter(r => ok(r.estimate_minutes)).length, ntwc: placed.filter(r => r.source === "ntwc" && ok(r.reported_minutes)).length,
+        tide: placed.filter(r => r.gauge_kind === "tide_gauge" && ok(r.reported_minutes)).length,
+        deep: placed.filter(r => r.gauge_kind === "deep_ocean_gauge" && ok(r.reported_minutes)).length }; };
+    const geometry = validateGeometry(readDemoJson("geometry.json"), manifest), noop = () => undefined;
+    const station = manifest.stations.find(s => s.station_id === manifest.default_state.selectedStationId)!;
+    const html = (t: number) => renderToStaticMarkup(<StoryView manifest={manifest} geometry={geometry} geometryError={null} layers={null} layersError={null}
+      layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }} selected={{ station, status: "loading", records: null, error: null }}
+      pinned={null} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop} params={{ t, compare: false, step: "explore", at: null, z: 1, from: null }}
+      onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} initialSize={{ w: 390, h: 844 }} arrivals={arrivals}/>);
+    // Map marks only: the column key draws the same glyphs.
+    const tally = (s: string, litOnly: boolean) => { const out = { estimate: 0, ntwc: 0, tide: 0, deep: 0 }, map = s.slice(s.indexOf('class="story-reports"'));
+      for (const m of map.slice(0, map.indexOf("</g>")).matchAll(/class="story-report story-report--(\w+)( story-report--on)?"/g))
+        if (!litOnly || m[2]) out[m[1] as keyof typeof out]++;
+      return out; };
+    const start = html(0), end = html(30);
+    expect(tally(start, false)).toEqual(expected(() => true));
+    expect(tally(start, true)).toEqual(expected(m => m <= 0));
+    expect(tally(end, true)).toEqual(expected(() => true));
+    expect(end).toContain(`${a.ntwc_rows_with_both_times} estimate–reported pairs in the NTWC table · ${a.ntwc_pairs_with_position} with a reviewed position · `
+      + `${a.ncei_reported_durations} NCEI reported times`);
+    const times = (r: (typeof placed)[number]) => [r.reported_minutes, r.estimate_minutes].filter(m => m !== null);
+    expect(placed.filter(r => times(r).some(m => m < 0))).toHaveLength(0);
+    expect(end).toContain(`Listed reports not drawn on the map: ${arrivals.reports.length - placed.length} without a place · `
+      + `${placed.filter(r => times(r).some(m => m >= 1800)).length} after the 30-hour clock ends.`);
   });
   it("authors every guided step against real station ids", () => {
     expect(() => validateSteps(manifest.stations.map(s => s.station_id))).not.toThrow();

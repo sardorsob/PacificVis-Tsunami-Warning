@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
 import type { DemoGeometry, DemoManifest } from "../types";
+import type { ArrivalMark, MarkKind } from "./arrivals";
 import { hourPaths, labelAnchors, linePath, toSvg, type StoryLayers, type Coastline, type ContourFeature, type Pt } from "./layers";
 import { contourColour } from "./palette";
 import { contourStyle, nextHaloOpacity, pulseWidth } from "./reveal";
@@ -108,6 +109,14 @@ export function Marker({ s, x, y, size, filled, ring }: { s: MapStation; x: numb
       : <circle className={cls} cx={x} cy={y} r={size}/>}
   </g>;
 }
+/** A reported-times mark: an open ring (NTWC published estimate) or a dot, square or triangle (reported time). Until the clock
+ * reaches its minutes it is a faint outline; then it lights, a dot filled with its reported hour on the contour ramp. */
+export function ReportMark({ kind, minutes, x, y, on }: { kind: MarkKind; minutes: number; x: number; y: number; on: boolean }) {
+  const cls = `story-report story-report--${kind}${on ? " story-report--on" : ""}`, fill = on && kind !== "estimate" ? contourColour(minutes / 60) : "none";
+  return kind === "estimate" || kind === "ntwc" ? <circle className={cls} cx={x} cy={y} r={kind === "estimate" ? 6 : 3} fill={fill}/>
+    : kind === "tide" ? <rect className={cls} x={x - 3} y={y - 3} width={6} height={6} fill={fill}/>
+    : <path className={cls} d={`M${x} ${y - 4}L${x + 4} ${y + 3}L${x - 4} ${y + 3}Z`} fill={fill}/>;
+}
 type Circle = { cx: number; cy: number; r: number };
 type Rect = { left: number; top: number; right: number; bottom: number };
 /**
@@ -136,10 +145,12 @@ type OverlayProps = {
   view: View; stations: MapStation[]; epicentre: Pt; anchors: Map<number, Pt>; t: number; aId: string | null; bId: string | null;
   /** Lenses and boxes drawn over the map (screen px) and the screen width, so labels avoid them. */
   lenses?: Circle[]; avoid?: Rect[]; width: number; labelA?: boolean;
+  /** Reported-times marks (arrivalDisplay), over the station markers; reports sharing a place sit side by side, 12 px apart. */
+  marks?: ArrivalMark[];
 };
 /** Screen-space marks: constant size at any zoom. */
 export function Overlay(props: OverlayProps) {
-  const { view, stations, epicentre, anchors, t, aId, bId, lenses = [], avoid = [], width, labelA = false } = props;
+  const { view, stations, epicentre, anchors, t, aId, bId, lenses = [], avoid = [], width, labelA = false, marks = [] } = props;
   const [ex, ey] = toScreen(view, epicentre);
   const label = (x: number, y: number, text: string, strong: boolean, align: "side" | "middle" = "side") => {
     const p = placeLabel(x, y, text, width, lenses, align, avoid);
@@ -153,5 +164,7 @@ export function Overlay(props: OverlayProps) {
     {stations.map(s => { const [x, y] = toScreen(view, s.xy), isA = s.id === aId, isB = s.id === bId;
       return <g key={s.id}><Marker s={s} x={x} y={y} size={isA || isB ? 5 : 4} filled={isA || isB} ring={isB ? "var(--story-b)" : undefined}/>
         {(isB || (labelA && isA)) && label(x, y + 4, `${isB ? "B" : "A"} · ${s.name}`, true)}</g>; })}
+    {marks.length > 0 && <g className="story-reports" aria-hidden="true">{marks.map(m => { const [x, y] = toScreen(view, m.xy);
+      return <ReportMark key={m.key} kind={m.kind} minutes={m.minutes} x={x + (m.slot - (m.of - 1) / 2) * 12} y={y} on={t * 60 >= m.minutes}/>; })}</g>}
   </g>;
 }

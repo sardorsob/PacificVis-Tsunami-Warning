@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEve
 import { centreArm, layoutFor } from "../layout";
 import type { DemoState, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
+import { arrivalDisplay, type StoryArrivals } from "./arrivals";
 import { Arms, CAVEAT, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, ColumnHead, hourlySamples } from "./ClockColumn";
@@ -21,6 +22,8 @@ import "./style.css";
 
 export type StoryViewProps = ViewProps & {
   layers: StoryLayers | null; layersError: string | null; layersPending: "loading" | "retrying" | null; onRetryLayers: () => void;
+  /** The verified reported-times file, "rejected" (the event shows without its marks), or null while loading or when the event has none. */
+  arrivals?: StoryArrivals | "rejected" | null;
   /** URL story fields; with state.selectedStationId (A) and state.pinnedStationId (B) they are the whole screen. */
   params: StoryParams;
   /** The single history writer (DemoApp). */
@@ -58,6 +61,7 @@ export function StoryView(props: StoryViewProps) {
   const L = layoutFor(size.w, size.h, lens ? 420 : 330), motionOK = !reducedMotion();
   const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
+  const reported = useMemo(() => props.arrivals && props.arrivals !== "rejected" ? arrivalDisplay(props.arrivals) : props.arrivals ?? null, [props.arrivals]);
   const stepsError = useMemo(() => {
     if (!guided) return null;
     try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
@@ -354,7 +358,7 @@ export function StoryView(props: StoryViewProps) {
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
     lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined} head={wide}
-    label={lens ? "Station lens" : "Story"}>{extra}</ClockColumn>;
+    label={lens ? "Station lens" : "Story"} reported={reported}>{extra}</ClockColumn>;
   const compare = lens ? <div className="story-panel story-compare"><ViewSwitch view="radial" onView={switchView}/></div>
     : <section className="story-panel story-compare" aria-label="Views and comparison">
     <ViewSwitch view="story" onView={switchView}/>
@@ -404,7 +408,7 @@ export function StoryView(props: StoryViewProps) {
       <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} width={size.w}
         lenses={[{ cx: L.cx, cy: L.cy, r: L.r }, ...(bStation ? [{ cx: bSlot[0], cy: bSlot[1], r: L.bR }] : [])]}
         avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 80 * L.ui, bottom: L.titleBottom }]}
-        bId={b?.station.station_id ?? null}/>
+        bId={b?.station.station_id ?? null} marks={reported && reported !== "rejected" ? reported.marks : undefined}/>
       <g className="story-leads" aria-hidden="true">
         {wide && <><line x1={L.cx - L.r} y1={L.cy} x2={L.record.left + L.aw} y2={lens ? L.cy - L.r + 6 : leadY(L.record, armH[0])}/>
           <line x1={L.cx + L.r} y1={L.cy} x2={L.support.left} y2={lens ? L.cy - L.r + 6 : leadY(L.support, armH[1])}/>

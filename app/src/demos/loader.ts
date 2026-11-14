@@ -14,7 +14,7 @@ export function count(value: unknown): asserts value is number { finite(value); 
 export function hash(value: unknown) { requireValue(typeof value === "string" && /^[a-f0-9]{64}$/.test(value),"invalid SHA256"); }
 export function array(value: unknown): unknown[] { requireValue(Array.isArray(value),"expected array"); return value; }
 function strings(value: unknown) { array(value).forEach(text); }
-function oneOf(value: unknown, values: readonly unknown[]) { requireValue(values.includes(value),"unsupported value"); }
+export function oneOf(value: unknown, values: readonly unknown[]) { requireValue(values.includes(value),"unsupported value"); }
 export function utcMicros(value: string): bigint {
   const match=/^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)(?:\.(\d{1,6}))?Z$/.exec(value);
   requireValue(match,"invalid UTC timestamp"); const ms=Date.parse(`${match[1]}Z`);
@@ -35,13 +35,20 @@ function bundleRef(value: unknown): BundleRef | null {
   if(value===null) return null; const b=object(value); keys(b,["bundle_id","manifest_sha256","manifest_bytes"]); text(b.bundle_id); hash(b.manifest_sha256); count(b.manifest_bytes);
   requireValue(SAFE_ID.test(b.bundle_id)&&b.manifest_bytes>0,"unsafe bundle reference"); return b as BundleRef;
 }
-/** events.json, schema 1: the browser's upstream anchor (itself not hash-checked); it pins every bundle manifest it lists. */
+const COUNTS=["ntwc_pairs","ntwc_pairs_with_position","ntwc_reported","ncei_reported","stations"];
+/** events.json, schema 1 or 2: the browser's upstream anchor (itself not hash-checked); it pins every bundle manifest it lists.
+ * Schema 2 ("Index schema 2") adds the shared basemap and, per event, the projected epicentre and display counts; schema 1 refuses them. */
 export function validateIndex(input: unknown): EventsIndex {
-  const x=object(input); keys(x,["schema_version","evidence_state","default_event_id","events"]);
-  requireValue(x.schema_version==="1"&&x.evidence_state==="internal_descriptive_only","unsupported events index");
+  const x=object(input),two=x.schema_version==="2"; keys(x,["schema_version","evidence_state","default_event_id","events",...(two?["basemap"]:[])]);
+  requireValue((x.schema_version==="1"||two)&&x.evidence_state==="internal_descriptive_only","unsupported events index");
+  if(two){const b=object(x.basemap); keys(b,["path","sha256","bytes"]); text(b.path); hash(b.sha256); count(b.bytes);
+    requireValue(b.bytes>0&&b.bytes<=2_097_152&&/^[a-zA-Z0-9_-]+\/coastline\.json$/.test(b.path),"unsafe basemap reference");}
   const events=array(x.events).map(object); requireValue(events.length>0,"empty events index"); const bundles=new Set<string>();
   events.forEach((e,i)=>{
-    keys(e,["event_id","label","origin_time_utc","latitude","longitude","magnitude","magnitude_type","records","layers","arrivals"]);
+    keys(e,["event_id","label","origin_time_utc","latitude","longitude","magnitude","magnitude_type","records","layers","arrivals",...(two?["x","y","counts"]:[])]);
+    if(two){finite(e.x); finite(e.y); requireValue(Number.isInteger(e.x)&&Number.isInteger(e.y),"epicentre must be whole metres");
+      const c=object(e.counts); keys(c,[...COUNTS,"reported_per_hour"]); COUNTS.forEach(k=>count(c[k])); const h=object(c.reported_per_hour); keys(h,["ntwc","ncei"]);
+      for(const k of ["ntwc","ncei"]){const hours=array(h[k]); requireValue(hours.length===30,"reported_per_hour needs 30 hours"); hours.forEach(count);}}
     text(e.event_id); requireValue(SAFE_ID.test(e.event_id),"unsafe event id"); text(e.label); time(e.origin_time_utc); finite(e.magnitude); text(e.magnitude_type);
     finite(e.latitude); finite(e.longitude); requireValue(Math.abs(e.latitude)<=90&&Math.abs(e.longitude)<=180,"invalid coordinates");
     for(const ref of [bundleRef(e.records),bundleRef(e.layers)]) if(ref){requireValue(!bundles.has(ref.bundle_id),"bundle listed twice"); bundles.add(ref.bundle_id);}

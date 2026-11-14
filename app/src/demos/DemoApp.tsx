@@ -2,6 +2,7 @@ import { useEffect,useRef,useState } from "react";
 import { EvidencePanel } from "./evidence/EvidencePanel";
 import { loadIndex,loadManifest,fetchVerifiedAsset,validateGeometry,decodeStation,LatestRequest } from "./loader";
 import { parseEvent,parseState,serializeState } from "./state";
+import { loadArrivals,type StoryArrivals } from "./story/arrivals";
 import { loadLayers,type StoryLayers } from "./story/layers";
 import { entryFor,keptPrev,type NavResult,type StoryNav } from "./story/nav";
 import { PairedView } from "./story/PairedView";
@@ -53,6 +54,11 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues}:Loaded) {
     void request.run(signal=>loadLayers(entry,signal)).then(l=>{if(l)setLayers(l);}).catch(error=>setLayersError(message(error)));
     return()=>request.cancel();},[entry,layersAttempt]);
   const layersPending=layers||layersError?null:layersAttempt?"retrying" as const:"loading" as const;
+  // The hash-verified reported-times file the index pins (none for some events); a file that fails any check leaves the event without its marks.
+  const [arrivals,setArrivals]=useState<StoryArrivals|"rejected"|null>(null);
+  useEffect(()=>{const request=new LatestRequest<StoryArrivals|null>();
+    void request.run(signal=>loadArrivals(entry,signal)).then(a=>{if(a!==undefined)setArrivals(a);}).catch(()=>setArrivals("rejected"));
+    return()=>request.cancel();},[entry]);
   useEffect(()=>{const request=new LatestRequest<DemoGeometry>();setGeometryError(null);
     void request.run(async signal=>validateGeometry(await fetchVerifiedAsset(manifest,manifest.geometry_path,signal),manifest))
       .then(g=>{if(g)setGeometry(g);}).catch(error=>setGeometryError(message(error)));return()=>request.cancel();},[manifest,geometryAttempt]);
@@ -102,7 +108,7 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues}:Loaded) {
   const inspected=evidenceId?selection(evidenceId):null;
   const props:StoryViewProps={manifest,geometry,geometryError,state,selected:selection(state.selectedStationId),
     pinned:state.pinnedStationId?selection(state.pinnedStationId):null,onOpenEvidence:openEvidence,onRetryStation:()=>setStationAttempt(v=>v+1),
-    onRetryGeometry:()=>setGeometryAttempt(v=>v+1),layers,layersError,layersPending,onRetryLayers:()=>setLayersAttempt(v=>v+1),params:story,onNav:writeNav,
+    onRetryGeometry:()=>setGeometryAttempt(v=>v+1),layers,layersError,layersPending,onRetryLayers:()=>setLayersAttempt(v=>v+1),arrivals,params:story,onNav:writeNav,
     restoreKey,evidenceOpen:evidenceId!==null,issues,onDismissIssues:()=>setIssues([]),onState};
   // Story and Station lens share the stage; Paired is records first. The key remounts the view so each one starts from the URL.
   return <>{state.view==="paired"?<PairedView key="paired" {...props}/>:<StoryView key={state.view} {...props}/>}
