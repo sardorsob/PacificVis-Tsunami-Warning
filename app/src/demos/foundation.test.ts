@@ -1,12 +1,13 @@
 import { describe,expect,it } from "vitest";
 import { localYDomain,pointPath,selectWindow } from "./chart";
-import { LatestRequest,STATION_IDS,utcMicros } from "./loader";
-import { parseState,serializeState } from "./state";
+import { LatestRequest,utcMicros } from "./loader";
+import { parseEvent,parseState,serializeState } from "./state";
 import { parseStoryParams,type StoryParams } from "./story/url";
-import type { DemoManifest,Observation,StationRecords } from "./types";
+import type { DemoManifest,EventEntry,EventsIndex,Observation,StationRecords } from "./types";
 import { plotDateContext } from "./layout";
 
 // Deliberate unit-test input, not an observation fixture or application fallback.
+const STATION_IDS=["1617760","1770000","21413","21418","32401","46411","9419750","9461380","saip","valp"];
 const manifest:DemoManifest={
   schema_version:"1",exporter_version:"1",bundle_id:"test-selection-only",evidence_state:"internal_descriptive_only",
   event:{event_id:"test",origin_time_utc:"2011-03-11T05:46:24.120Z",latitude:0,longitude:0},
@@ -76,5 +77,38 @@ describe("asset-independent shared URL and request ownership",()=>{
     const old=requests.run(async()=>new Promise<string>((_,reject)=>{rejectOld=reject;}));
     expect(await requests.run(async()=>"current")).toBe("current");rejectOld(new Error("late old failure"));expect(await old).toBe(undefined);
     await expect(requests.run(async()=>{throw new Error("current failure");})).rejects.toThrow("current failure");
+  });
+});
+describe("asset-independent event field in the URL",()=>{
+  const event=(event_id:string,label:string,origin_time_utc:string):EventEntry=>({event_id,label,origin_time_utc,latitude:0,longitude:0,magnitude:8,magnitude_type:"mww",records:null,layers:null,arrivals:null});
+  const index:EventsIndex={schema_version:"1",evidence_state:"internal_descriptive_only",default_event_id:"tohoku",
+    events:[event("tohoku","Tōhoku, Japan","2011-03-11T05:46:24.120Z"),event("other","Other place","2014-04-01T23:46:47.260Z")]};
+  const story:StoryParams={t:0,compare:false,step:1,at:null,z:1,from:null};
+  it("opens the index default when the URL names no event, and a listed event when it does",()=>{
+    expect(parseEvent("?view=paired",index)).toEqual({entry:index.events[0],issues:[]});
+    expect(parseEvent("?event=other&view=paired",index)).toEqual({entry:index.events[1],issues:[]});
+    expect(parseState("?event=other",manifest).issues).toEqual([]); // a known field, never "unknown"
+  });
+  it("repairs an unknown or repeated event visibly, naming the default event",()=>{
+    expect(parseEvent("?event=evil",index)).toEqual({entry:index.events[0],issues:["Unknown event: Tōhoku, Japan restored."]});
+    expect(parseEvent("?event=other&event=tohoku",index).issues).toEqual(["Repeated URL field “event”: first value used."]);
+  });
+  it("omits the default event from the URL, so every existing link stays byte-identical, and writes any other first",()=>{
+    const state=parseState("",manifest).state;
+    expect(serializeState(state,story)).toBe("?view=story&selected=1617760&pinned=saip&window=common_day&product=raw_value&t=0&cmp=0&step=1");
+    expect(serializeState(state,story,null)).toBe(serializeState(state,story));
+    expect(serializeState(state,story,"other")).toBe("?event=other&view=story&selected=1617760&pinned=saip&window=common_day&product=raw_value&t=0&cmp=0&step=1");
+  });
+  it("restores the right event for each entry when Back/Forward crosses an event change",()=>{
+    const state=parseState("",manifest).state;
+    const entries=[serializeState(state,story),serializeState(state,story,"other"),serializeState({...state,view:"paired"},story,"other")];
+    expect(entries.map(url=>parseEvent(url,index).entry.event_id)).toEqual(["tohoku","other","other"]);
+    expect(entries.map(url=>parseState(url,manifest).state)).toEqual([state,state,{...state,view:"paired"}]);
+  });
+  it("names the manifest's default stations when it repairs a station field",()=>{
+    const named={...manifest,stations:manifest.stations.map(s=>({...s,name:s.station_id==="1617760"?"Hilo":s.station_id==="saip"?"Saipan":s.name}))};
+    expect(parseState("?selected=evil&pinned=bad",named).issues).toEqual(["Invalid selected station: Hilo restored.","Invalid pinned station: Saipan restored."]);
+    const other={...named,default_state:{...named.default_state,selectedStationId:"21418",pinnedStationId:"valp"}};
+    expect(parseState("?selected=evil&pinned=bad",other).issues).toEqual(["Invalid selected station: 21418 restored.","Invalid pinned station: valp restored."]);
   });
 });

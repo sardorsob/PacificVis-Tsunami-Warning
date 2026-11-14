@@ -1,33 +1,36 @@
 import { readFileSync } from "node:fs";
+import { validateIndex } from "./loader";
+import type { EventEntry } from "./types";
 
 // Test-only actual-bundle reader; never imported by demo renderers or default tests.
-const root = new URL("../../demo-public/data/tohoku-descriptive-demo-v2/", import.meta.url);
-export function readDemoBytes(path: string): Buffer {
+// Everything is reached through the real events index, as the browser does: the index names (and pins) each bundle.
+const dataRoot = new URL("../../demo-public/data/", import.meta.url);
+/** Bytes under app/demo-public/data/, addressed by the path the browser fetches below /data/. */
+export function readDataBytes(path: string): Buffer {
   try {
-    return readFileSync(new URL(path, root));
+    return readFileSync(new URL(path, dataRoot));
   } catch (error) {
     if (error instanceof Error && "code" in error && error.code === "ENOENT") {
-      throw new Error("Real-data demo integration requires the accepted local v2 bundle at app/demo-public/data/tohoku-descriptive-demo-v2/. Build it using docs/data/demo-bundle.md before running npm --workspace app run test:demos. No fallback or automatic skip is provided.", { cause: error });
+      throw new Error(`Real-data demo integration requires app/demo-public/data/${path}. Build the bundles and then the events index using docs/data/demo-bundle.md before running npm --workspace app run test:demos. No fallback or automatic skip is provided.`, { cause: error });
     }
     throw error;
   }
+}
+export const eventsIndex = validateIndex(JSON.parse(readDataBytes("events.json").toString("utf8")) as unknown);
+/** The index's default event (Tōhoku); the real-data tests pin its identity. */
+export const tohokuEntry: EventEntry = eventsIndex.events.find(e => e.event_id === eventsIndex.default_event_id)!;
+export function readDemoBytes(path: string): Buffer {
+  return readDataBytes(`${tohokuEntry.records!.bundle_id}/${path}`);
 }
 export function readDemoJson(path: string): unknown {
   return JSON.parse(readDemoBytes(path).toString("utf8")) as unknown;
 }
-
-// Test-only reader for the accepted local story map-layers bundle (no fallback, no skip).
-const layersRoot = new URL("../../demo-public/data/tohoku-story-layers-v1/", import.meta.url);
+// Test-only reader for the local story map-layers bundle named by the index (no fallback, no skip).
 export function readLayersBytes(path: string): Buffer {
-  try {
-    return readFileSync(new URL(path, layersRoot));
-  } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") {
-      throw new Error("Story integration requires the local map-layers bundle at app/demo-public/data/tohoku-story-layers-v1/. Build it using docs/data/story-map-layers.md. No fallback or automatic skip is provided.", { cause: error });
-    }
-    throw error;
-  }
+  return readDataBytes(`${tohokuEntry.layers!.bundle_id}/${path}`);
 }
 export function readLayersJson(path: string): unknown {
   return JSON.parse(readLayersBytes(path).toString("utf8")) as unknown;
 }
+/** A fetch stand-in serving the real local files at the browser's /data/ URLs. */
+export const localFetch = async (url: string | URL | Request) => new Response(new Uint8Array(readDataBytes(String(url).replace(/^\/data\//, ""))));

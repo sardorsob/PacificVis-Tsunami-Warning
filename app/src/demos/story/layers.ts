@@ -1,13 +1,12 @@
 import { array, count, fetchHashed, finite, hash, keys, object, requireValue, text } from "../loader";
+import type { EventEntry } from "../types";
 
-const LAYERS_BUNDLE_ID = "tohoku-story-layers-v1";
-const LAYERS_MANIFEST_URL = `/data/${LAYERS_BUNDLE_ID}/manifest.json`;
 /** Display CRS (y up) to SVG space (y down). */
 export const toSvg = ([x, y]: readonly number[]): Pt => [x, -y];
 export type Pt = [number, number];
 type LayersAsset = { path: "contours.json" | "coastline.json"; bytes: number; sha256: string };
 type LayersManifest = {
-  schema_version: "1"; exporter_version: "1"; bundle_id: typeof LAYERS_BUNDLE_ID; evidence_state: "internal_descriptive_only";
+  schema_version: "1"; exporter_version: "1"; bundle_id: string; evidence_state: "internal_descriptive_only";
   display_crs: string; central_meridian: -160; coordinate_order: "x,y"; units: string; statement: string;
   contour_source_id: string; coastline_source_id: string; origin_time_utc: string; hours_semantics: string;
   assets: LayersAsset[]; input_fingerprints: { path: string; sha256: string }[]; config_sha256: string;
@@ -18,12 +17,14 @@ export type Coastline = { parts: Pt[][]; closed: boolean[] };
 export type StoryLayers = { manifest: LayersManifest; contours: ContourFeature[]; coastline: Coastline };
 
 const MANIFEST_KEYS = ["schema_version","exporter_version","bundle_id","evidence_state","display_crs","central_meridian","coordinate_order","units","statement","contour_source_id","coastline_source_id","origin_time_utc","hours_semantics","assets","input_fingerprints","config_sha256","accounting"];
-export function validateLayersManifest(input: unknown): LayersManifest {
+/** A layers manifest is the one its index entry pins, at the entry's origin; only reviewed NCEI travel-time contours may be drawn. */
+export function validateLayersManifest(input: unknown, entry: EventEntry): LayersManifest {
   const m=object(input);keys(m,MANIFEST_KEYS);
-  requireValue(m.schema_version==="1"&&m.exporter_version==="1"&&m.bundle_id===LAYERS_BUNDLE_ID&&m.evidence_state==="internal_descriptive_only","layers bundle identity mismatch");
+  requireValue(m.schema_version==="1"&&m.exporter_version==="1"&&m.bundle_id===entry.layers?.bundle_id&&m.evidence_state==="internal_descriptive_only","layers bundle identity mismatch");
   text(m.display_crs);requireValue(m.display_crs.includes("+proj=eqearth")&&m.display_crs.includes("+lon_0=-160")&&m.central_meridian===-160&&m.coordinate_order==="x,y","unreviewed layers projection");
   for(const key of ["units","statement","hours_semantics"])text(m[key]);
-  requireValue(m.contour_source_id==="ncei-ttt-tohoku-layer17-geojson"&&m.coastline_source_id==="natural-earth-50m-coastline"&&m.origin_time_utc==="2011-03-11T05:46:24.120Z","layers source identity mismatch");
+  requireValue(typeof m.contour_source_id==="string"&&/^ncei-ttt-[a-z0-9-]+$/.test(m.contour_source_id)&&m.coastline_source_id==="natural-earth-50m-coastline","layers source identity mismatch");
+  requireValue(m.origin_time_utc===entry.origin_time_utc,"layers origin identity mismatch");
   const assets=array(m.assets);requireValue(assets.length===2,"layers asset cohort mismatch");
   const paths=assets.map(v=>{const a=object(v);keys(a,["path","sha256","bytes"]);text(a.path);hash(a.sha256);count(a.bytes);requireValue(a.bytes>0,"empty layer asset");return a.path;});
   requireValue(JSON.stringify([...paths].sort())===JSON.stringify(["coastline.json","contours.json"]),"layers asset cohort mismatch");
@@ -54,10 +55,11 @@ export function validateCoastline(input: unknown, manifest: LayersManifest): Coa
   requireValue(parts.length===manifest.accounting.coastline_parts&&closed.length===parts.length&&closed.every(v=>typeof v==="boolean"),"coastline cohort mismatch");
   return {parts,closed:closed as boolean[]};
 }
-export async function loadLayers(signal?: AbortSignal): Promise<StoryLayers> {
-  const response=await fetch(LAYERS_MANIFEST_URL,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`layers manifest HTTP ${response.status}`);
-  const manifest=validateLayersManifest(await response.json());
-  const get=(path:LayersAsset["path"])=>{const a=manifest.assets.find(x=>x.path===path)!;return fetchHashed(`/data/${LAYERS_BUNDLE_ID}/${path}`,a.bytes,a.sha256,signal);};
+/** The entry's layers manifest, verified against the index pin before parsing; an event without contours fetches nothing. */
+export async function loadLayers(entry: EventEntry, signal?: AbortSignal, request: typeof fetch = fetch): Promise<StoryLayers> {
+  const ref=entry.layers;if(!ref)throw new Error("No published contours for this event.");
+  const manifest=validateLayersManifest(await fetchHashed(`/data/${ref.bundle_id}/manifest.json`,ref.manifest_bytes,ref.manifest_sha256,signal,request),entry);
+  const get=(path:LayersAsset["path"])=>{const a=manifest.assets.find(x=>x.path===path)!;return fetchHashed(`/data/${ref.bundle_id}/${path}`,a.bytes,a.sha256,signal,request);};
   const [contours,coastline]=await Promise.all([get("contours.json"),get("coastline.json")]);
   return {manifest,contours:validateContours(contours,manifest),coastline:validateCoastline(coastline,manifest)};
 }

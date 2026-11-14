@@ -1,28 +1,44 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import { validateManifest, decodeStation, validateGeometry, fetchVerifiedAsset } from "./loader";
+import { validateManifest, decodeStation, validateGeometry, fetchVerifiedAsset, loadManifest } from "./loader";
 import { selectWindow, localYDomain } from "./chart";
 import { RecordChart } from "./RecordChart";
 import { SupportView } from "./SupportView";
-import { readDemoJson as json, readDemoBytes } from "./integration-data";
+import { eventsIndex, localFetch, readDemoJson as json, readDemoBytes, tohokuEntry as entry } from "./integration-data";
+import { STORY_EVENT_ID } from "./story/steps";
 
-const manifest = () => validateManifest(json("manifest.json"));
+const manifest = () => validateManifest(json("manifest.json"), entry);
+
+describe("the real events index (the one unpinned file, so its Tōhoku entry is pinned here)", () => {
+  it("lists Tōhoku as the default event with its reviewed identity, the guided story's event", () => {
+    expect(eventsIndex.default_event_id).toBe("official20110311054624120_30");
+    expect(entry).toMatchObject({ event_id: "official20110311054624120_30", origin_time_utc: "2011-03-11T05:46:24.120Z", latitude: 38.297, longitude: 142.373 });
+    expect(STORY_EVENT_ID).toBe(entry.event_id);
+  });
+  it("loads the records manifest it pins, byte-verified, and refuses other bytes or another entry", async () => {
+    expect(await loadManifest(entry, undefined, localFetch)).toEqual(manifest());
+    await expect(loadManifest({ ...entry, records: { ...entry.records!, manifest_sha256: "0".repeat(64) } }, undefined, localFetch)).rejects.toThrow(/hash/);
+    await expect(loadManifest({ ...entry, records: { ...entry.records!, manifest_bytes: 1 } }, undefined, localFetch)).rejects.toThrow(/byte/);
+    for (const other of [{ latitude: 38.3 }, { origin_time_utc: "2011-03-11T05:46:24.12Z" }, { event_id: "other" }])
+      await expect(loadManifest({ ...entry, ...other }, undefined, localFetch)).rejects.toThrow(/event identity/);
+  });
+});
 
 describe("verified descriptive boundary", () => {
   it("accepts the exact ten station identities, and rejects schema/release/cohort drift", () => {
     const m = manifest();
     expect(m.stations.map(s => s.station_id)).toEqual(["1617760","1770000","21413","21418","32401","46411","9419750","9461380","saip","valp"]);
     const raw = json("manifest.json") as Record<string, unknown>;
-    expect(() => validateManifest({...raw, schema_version:"2"})).toThrow();
-    expect(() => validateManifest({...raw, stations:m.stations.slice(1)})).toThrow();
-    expect(() => validateManifest({...raw, release:{...m.release,arrival_comparison_allowed:true}})).toThrow();
-    expect(() => validateManifest({...raw, event:{...m.event,event_id:"other"}})).toThrow();
+    expect(() => validateManifest({...raw, schema_version:"2"}, entry)).toThrow();
+    expect(() => validateManifest({...raw, stations:m.stations.slice(1)}, entry)).toThrow();
+    expect(() => validateManifest({...raw, release:{...m.release,arrival_comparison_allowed:true}}, entry)).toThrow();
+    expect(() => validateManifest({...raw, event:{...m.event,event_id:"other"}}, entry)).toThrow();
   });
   it("rejects unsafe asset paths and credential-bearing source links", () => {
     const m = manifest();
-    expect(() => validateManifest({...m,assets:[...m.assets,{path:"../secret",bytes:1,sha256:"a".repeat(64)}]})).toThrow();
-    expect(() => validateManifest({...m,stations:m.stations.map((s,i)=>i ? s : {...s,source:{...s.source,url:"https://user:pass@example.org/x"}})})).toThrow();
-    expect(() => validateManifest({...m,stations:m.stations.map((s,i)=>i ? s : {...s,source_extra:{private:"secret"}})})).toThrow();
+    expect(() => validateManifest({...m,assets:[...m.assets,{path:"../secret",bytes:1,sha256:"a".repeat(64)}]}, entry)).toThrow();
+    expect(() => validateManifest({...m,stations:m.stations.map((s,i)=>i ? s : {...s,source:{...s.source,url:"https://user:pass@example.org/x"}})}, entry)).toThrow();
+    expect(() => validateManifest({...m,stations:m.stations.map((s,i)=>i ? s : {...s,source_extra:{private:"secret"}})}, entry)).toThrow();
   });
   it("verifies actual UTF8 bytes including Valparaíso; rejects bytes/hash/network failures", async () => {
     const m = manifest(); const asset = m.assets.find(a=>a.path==="stations/valp.json")!;

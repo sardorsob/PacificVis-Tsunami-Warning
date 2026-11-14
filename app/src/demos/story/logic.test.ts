@@ -7,8 +7,9 @@ import { pinchView, placeLabel, toMap, toScreen, type KLimits } from "./StoryMap
 import { STEPS, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
-import { STATION_IDS } from "../loader";
 import type { DemoManifest } from "../types";
+// The Tōhoku station ids, as typed test-only input.
+const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 
 describe("story clock", () => {
   it("advances at the play rate and reports crossed published hours", () => {

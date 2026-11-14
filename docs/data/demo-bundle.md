@@ -68,7 +68,7 @@ Required members:
 | `event` | `{event_id:string, origin_time_utc:string, latitude:number, longitude:number}`; source origin precision retained |
 | `release` | `{release_id:string, arrival_comparison_allowed:false, physical_arrival_records_released:0, continuous_nctr_field:"blocked_no_proxy", allowed_uses:string[], prohibited_uses:string[]}` |
 | `windows` | array of `{id,label,start_utc,end_utc_exclusive}` strings; final `source_full` entry has only `id,label`, because bounds are station-specific |
-| `default_state` | `{selectedStationId,pinnedStationId,windowId,productKey}` strings; Hilo / Saipan / common_day / raw_value |
+| `default_state` | `{selectedStationId,pinnedStationId,windowId,productKey}`; strings, except that `pinnedStationId` may be null (a one-station bundle). It names listed stations, never the same station twice, a listed window and a product key. Tōhoku: Hilo / Saipan / common_day / raw_value |
 | `stations` | `StationMetadata[]`, ordered by station ID |
 | `assets` | `{path:string,sha256:string,bytes:integer}[]`; all geometry/chunks, excluding manifest itself |
 | `geometry_path` | `"geometry.json"` |

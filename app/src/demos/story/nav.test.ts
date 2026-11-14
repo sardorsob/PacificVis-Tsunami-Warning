@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { STATION_IDS } from "../loader";
 import { entryFor, keptPrev, reduce, type NavContext, type StoryNav } from "./nav";
 import { parseStoryParams, storyQuery } from "./url";
+// The Tōhoku station ids, as typed test-only input.
+const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 
 const ctx: NavContext = { motionOK: true, stationIds: STATION_IDS };
 const at = (step: StoryNav["step"], extra: Partial<StoryNav> = {}): StoryNav =>

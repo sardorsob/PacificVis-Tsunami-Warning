@@ -1,10 +1,9 @@
-import type { Asset, DemoGeometry, DemoManifest, Observation, StationMetadata, StationRecords } from "./types";
+import type { Asset, BundleRef, DemoGeometry, DemoManifest, EventEntry, EventsIndex, Observation, StationMetadata, StationRecords } from "./types";
 
-export const MANIFEST_URL = "/data/tohoku-descriptive-demo-v2/manifest.json";
-export const STATION_IDS = ["1617760","1770000","21413","21418","32401","46411","9419750","9461380","saip","valp"] as const;
+export const INDEX_URL = "/data/events.json";
 export const PRODUCT_KEYS = ["raw_value","residual_value","fitted_value"] as const;
 export const COLUMNS = ["observation_id","source_id","station_id","source_time","observed_at_utc","raw_value","fitted_value","residual_value","units","vertical_reference","raw_status","residual_status","grid_status","qc_flags","source_qc_status"] as const;
-const WINDOW_IDS = ["common_day","event_minus4_to_0h","event_0_to_6h","event_6_to_12h","event_12_to_18h","source_full"];
+const SAFE_ID = /^[a-zA-Z0-9_-]+$/;
 export type Obj = Record<string,unknown>;
 export function requireValue(valid: unknown, message: string): asserts valid { if (!valid) throw new Error(`Demo data rejected: ${message}`); }
 export function object(value: unknown): Obj { requireValue(value !== null && typeof value === "object" && !Array.isArray(value),"expected object"); return value as Obj; }
@@ -32,23 +31,50 @@ function asset(value: unknown): Asset {
   const a=object(value); keys(a,["path","sha256","bytes"]); text(a.path); hash(a.sha256); count(a.bytes);
   requireValue(a.bytes>0 && /^(geometry\.json|stations\/[a-zA-Z0-9_-]+\.json)$/.test(a.path),"unsafe asset path"); return a as Asset;
 }
-export function validateManifest(input: unknown): DemoManifest {
+function bundleRef(value: unknown): BundleRef | null {
+  if(value===null) return null; const b=object(value); keys(b,["bundle_id","manifest_sha256","manifest_bytes"]); text(b.bundle_id); hash(b.manifest_sha256); count(b.manifest_bytes);
+  requireValue(SAFE_ID.test(b.bundle_id)&&b.manifest_bytes>0,"unsafe bundle reference"); return b as BundleRef;
+}
+/** events.json, schema 1: the browser's upstream anchor (itself not hash-checked); it pins every bundle manifest it lists. */
+export function validateIndex(input: unknown): EventsIndex {
+  const x=object(input); keys(x,["schema_version","evidence_state","default_event_id","events"]);
+  requireValue(x.schema_version==="1"&&x.evidence_state==="internal_descriptive_only","unsupported events index");
+  const events=array(x.events).map(object); requireValue(events.length>0,"empty events index"); const bundles=new Set<string>();
+  events.forEach((e,i)=>{
+    keys(e,["event_id","label","origin_time_utc","latitude","longitude","magnitude","magnitude_type","records","layers","arrivals"]);
+    text(e.event_id); requireValue(SAFE_ID.test(e.event_id),"unsafe event id"); text(e.label); time(e.origin_time_utc); finite(e.magnitude); text(e.magnitude_type);
+    finite(e.latitude); finite(e.longitude); requireValue(Math.abs(e.latitude)<=90&&Math.abs(e.longitude)<=180,"invalid coordinates");
+    for(const ref of [bundleRef(e.records),bundleRef(e.layers)]) if(ref){requireValue(!bundles.has(ref.bundle_id),"bundle listed twice"); bundles.add(ref.bundle_id);}
+    if(e.arrivals!==null){const a=object(e.arrivals); keys(a,["path","sha256","bytes"]); text(a.path); hash(a.sha256); count(a.bytes);
+      requireValue(a.bytes>0&&a.bytes<=2_097_152&&/^[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.json$/.test(a.path)&&a.path.endsWith(`/${e.event_id}.json`),"unsafe arrivals reference");}
+    requireValue(!events.slice(0,i).some(p=>p.event_id===e.event_id),"duplicate event id");
+    // By origin instant (".5Z" is after "Z", though it sorts before it as text), then event id in code-point order (ids are ASCII).
+    if(i){const p=events[i-1],a=utcMicros(p.origin_time_utc as string),b=utcMicros(e.origin_time_utc as string); requireValue(a<b||a===b&&(p.event_id as string)<e.event_id,"events out of order");}
+  });
+  requireValue(events.some(e=>e.event_id===x.default_event_id),"default event not listed");
+  return x as EventsIndex;
+}
+/** A records manifest is checked against its index entry and its own structure; the index pins its exact bytes, so no fixed event values. */
+export function validateManifest(input: unknown, entry: EventEntry): DemoManifest {
+  requireValue(entry.records,"event has no records bundle");
   const m=object(input); keys(m,["schema_version","exporter_version","bundle_id","evidence_state","event","release","windows","default_state","stations","assets","geometry_path","input_fingerprints","config_sha256","accounting"]);
-  requireValue(m.schema_version==="1"&&m.exporter_version==="1"&&m.bundle_id==="tohoku-descriptive-demo-v2"&&m.evidence_state==="internal_descriptive_only","unsupported schema or evidence release");
+  requireValue(m.schema_version==="1"&&m.exporter_version==="1"&&m.evidence_state==="internal_descriptive_only","unsupported schema or evidence release");
+  requireValue(m.bundle_id===entry.records.bundle_id,"bundle identity mismatch");
   const event=object(m.event); keys(event,["event_id","origin_time_utc","latitude","longitude"]);
-  requireValue(event.event_id==="official20110311054624120_30"&&event.origin_time_utc==="2011-03-11T05:46:24.120Z"&&event.latitude===38.297&&event.longitude===142.373,"event identity mismatch");
+  requireValue(event.event_id===entry.event_id&&event.origin_time_utc===entry.origin_time_utc&&event.latitude===entry.latitude&&event.longitude===entry.longitude,"event identity mismatch");
   const release=object(m.release); keys(release,["release_id","arrival_comparison_allowed","physical_arrival_records_released","continuous_nctr_field","allowed_uses","prohibited_uses"]);
-  requireValue(release.release_id==="tohoku-descriptive-v1"&&release.arrival_comparison_allowed===false&&release.physical_arrival_records_released===0&&release.continuous_nctr_field==="blocked_no_proxy","release restriction mismatch");
+  text(release.release_id); requireValue(release.arrival_comparison_allowed===false&&release.physical_arrival_records_released===0&&release.continuous_nctr_field==="blocked_no_proxy","release restriction mismatch");
   strings(release.allowed_uses); strings(release.prohibited_uses);
   requireValue(JSON.stringify(release.allowed_uses)===JSON.stringify(["descriptive_data_quality","preliminary_story_diagnostics"])&&JSON.stringify(release.prohibited_uses)===JSON.stringify(["physical_arrival_comparison","modeled_minus_observed_residual","community_timing_selection","actionable_warning_time","operational_warning","public_story_scene_promotion"]),"release uses mismatch");
-  const windows=array(m.windows); requireValue(windows.length===6,"window cohort mismatch");
-  const expectedBounds=[["2011-03-11T00:00:00Z","2011-03-12T00:00:00Z"],["2011-03-11T01:46:24.120Z","2011-03-11T05:46:24.120Z"],["2011-03-11T05:46:24.120Z","2011-03-11T11:46:24.120Z"],["2011-03-11T11:46:24.120Z","2011-03-11T17:46:24.120Z"],["2011-03-11T17:46:24.120Z","2011-03-11T23:46:24.120Z"]];
-  windows.forEach((v,i)=>{const w=object(v); keys(w,i===5?["id","label"]:["id","label","start_utc","end_utc_exclusive"]); requireValue(w.id===WINDOW_IDS[i],"window identity mismatch");text(w.label); if(i<5){interval(w); requireValue(w.start_utc===expectedBounds[i][0]&&w.end_utc_exclusive===expectedBounds[i][1],"window bounds mismatch");}});
-  const stations=array(m.stations); requireValue(stations.length===10,"station cohort mismatch");
+  // Comparison windows are half-open intervals; an optional final source_full has station-specific bounds, so only id and label.
+  const windows=array(m.windows).map(object); requireValue(windows.length>0,"window cohort mismatch");
+  windows.forEach((w,i)=>{const full=w.id==="source_full"; requireValue(!full||i===windows.length-1,"window identity mismatch"); keys(w,full?["id","label"]:["id","label","start_utc","end_utc_exclusive"]); text(w.id); text(w.label); if(!full) interval(w);});
+  requireValue(new Set(windows.map(w=>w.id)).size===windows.length,"duplicate window");
+  const stations=array(m.stations); requireValue(stations.length>0,"station cohort mismatch");
   stations.forEach((v,i)=>{
     const s=object(v); keys(s,["station_id","source_id","station_type","name","units","vertical_reference","horizontal_datum","coordinate_order","time_basis","latitude","longitude","observation_count","source","products"]);
-    requireValue(s.station_id===STATION_IDS[i],"station identity mismatch");oneOf(s.station_type,["coastal","dart"]);
-    requireValue(s.station_type===(["21413","21418","32401","46411"].includes(s.station_id as string)?"dart":"coastal"),"station type mismatch");
+    // Strictly ascending station ids (unique); the chunk paths below keep them ASCII, so string order is code-point order.
+    text(s.station_id); requireValue(i===0||String(object(stations[i-1]).station_id)<s.station_id,"station order or duplicate station"); oneOf(s.station_type,["coastal","dart"]);
     for(const key of ["source_id","name","units","vertical_reference","horizontal_datum","coordinate_order","time_basis"])text(s[key]);
     finite(s.latitude);finite(s.longitude);requireValue(Math.abs(s.latitude)<=90&&Math.abs(s.longitude)<=180,"invalid coordinates");count(s.observation_count);
     const source=object(s.source); keys(source,["source_id","title","publisher","accessed_on","version_or_date","license_or_terms","processing_level","sha256","url"]);
@@ -57,13 +83,16 @@ export function validateManifest(input: unknown): DemoManifest {
     requireValue(source.url===null || typeof source.url==="string"&&safeSourceUrl(source.url)!==null,"unsafe source URL");
     const products=array(s.products);requireValue(products.length===3,"product cohort mismatch");products.forEach((v,j)=>{const p=object(v);keys(p,["key","label","units","available"]);requireValue(p.key===PRODUCT_KEYS[j],"product identity mismatch");text(p.label);text(p.units);requireValue(typeof p.available==="boolean","product availability missing");});
   });
-  const defaults=object(m.default_state);keys(defaults,["selectedStationId","pinnedStationId","windowId","productKey"]);
-  requireValue(defaults.selectedStationId==="1617760"&&defaults.pinnedStationId==="saip"&&defaults.windowId==="common_day"&&defaults.productKey==="raw_value","default state mismatch");
-  const assets=array(m.assets).map(asset);requireValue(assets.length===11&&new Set(assets.map(a=>a.path)).size===11&&assets.some(a=>a.path==="geometry.json")&&STATION_IDS.every(id=>assets.some(a=>a.path===`stations/${id}.json`)),"asset cohort mismatch");
+  const ids=stations.map(s=>object(s).station_id);const defaults=object(m.default_state);keys(defaults,["selectedStationId","pinnedStationId","windowId","productKey"]);
+  // B is never A (the parseState rule); a null pin is allowed (one-station events).
+  requireValue(ids.includes(defaults.selectedStationId)&&(defaults.pinnedStationId===null||ids.includes(defaults.pinnedStationId)&&defaults.pinnedStationId!==defaults.selectedStationId)&&windows.some(w=>w.id===defaults.windowId)&&(PRODUCT_KEYS as readonly unknown[]).includes(defaults.productKey),"default state mismatch");
+  const assets=array(m.assets).map(asset);const paths=new Set(assets.map(a=>a.path));
+  requireValue(assets.length===ids.length+1&&paths.size===assets.length&&paths.has("geometry.json")&&ids.every(id=>paths.has(`stations/${id}.json`)),"asset cohort mismatch");
   requireValue(m.geometry_path==="geometry.json","geometry path mismatch");hash(m.config_sha256);
   array(m.input_fingerprints).forEach(v=>{const f=object(v);keys(f,["path","sha256"]);text(f.path);requireValue(!f.path.startsWith("/")&&!f.path.split("/").includes(".."),"unsafe fingerprint path");hash(f.sha256);});
   const accounting=object(m.accounting);keys(accounting,["source_observation_count","exported_observation_count","station_count","rejected_observation_count"]);Object.values(accounting).forEach(count);
-  requireValue(accounting.source_observation_count===143655&&accounting.exported_observation_count===143655&&accounting.station_count===10&&accounting.rejected_observation_count===0&&stations.reduce<number>((sum,s)=>sum+Number(object(s).observation_count),0)===143655,"accounting mismatch");
+  const total=stations.reduce<number>((sum,s)=>sum+Number(object(s).observation_count),0);
+  requireValue(accounting.station_count===ids.length&&accounting.exported_observation_count===total&&accounting.source_observation_count===accounting.exported_observation_count&&accounting.rejected_observation_count===0,"accounting mismatch");
   return m as DemoManifest;
 }
 
@@ -78,15 +107,21 @@ export async function fetchVerifiedAsset(manifest: DemoManifest,path: string,sig
   const descriptor=manifest.assets.find(a=>a.path===path);requireValue(descriptor,"asset not in manifest");asset(descriptor);
   return fetchHashed(`/data/${manifest.bundle_id}/${path}`,descriptor.bytes,descriptor.sha256,signal,request);
 }
-export async function loadManifest(signal?: AbortSignal): Promise<DemoManifest> {
-  const response=await fetch(MANIFEST_URL,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`manifest HTTP ${response.status}`);return validateManifest(await response.json());
+export async function loadIndex(signal?: AbortSignal,request: typeof fetch=fetch): Promise<EventsIndex> {
+  const response=await request(INDEX_URL,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`events index HTTP ${response.status}`);return validateIndex(await response.json());
+}
+/** The records manifest pinned by the index entry: byte count and SHA-256 are verified before it is parsed. */
+export async function loadManifest(entry: EventEntry,signal?: AbortSignal,request: typeof fetch=fetch): Promise<DemoManifest> {
+  // ponytail: a records-free event (allowed by the index) shows the load alert; its own screen is a later task.
+  if(!entry.records)throw new Error("No station records are published for this event.");
+  const ref=entry.records;return validateManifest(await fetchHashed(`/data/${ref.bundle_id}/manifest.json`,ref.manifest_bytes,ref.manifest_sha256,signal,request),entry);
 }
 export function validateGeometry(input: unknown,manifest: DemoManifest): DemoGeometry {
   const g=object(input);keys(g,["schema_version","source_crs","display_crs","coordinate_order","central_meridian","coastline","points","bounds"]);
   requireValue(g.schema_version==="1"&&g.source_crs==="EPSG:4326"&&g.coordinate_order==="x,y"&&g.central_meridian===-160,"geometry schema/projection mismatch");text(g.display_crs);requireValue(g.display_crs.includes("+proj=eqearth")&&g.display_crs.includes("+lon_0=-160"),"unreviewed projection");
   const bounds=array(g.bounds);requireValue(bounds.length===4,"bounds mismatch");bounds.forEach(finite); requireValue(Number(bounds[2])>Number(bounds[0])&&Number(bounds[3])>Number(bounds[1]),"invalid bounds");
   array(g.coastline).forEach(line=>{const points=array(line);requireValue(points.length>=2,"invalid coastline");points.forEach(point=>{const p=array(point);requireValue(p.length===2,"coordinate dimension");p.forEach(finite);});});
-  const ids=[manifest.event.event_id,...STATION_IDS];const points=array(g.points);requireValue(points.length===11,"geometry point cohort mismatch");
+  const ids=[manifest.event.event_id,...manifest.stations.map(s=>s.station_id)];const points=array(g.points);requireValue(points.length===ids.length,"geometry point cohort mismatch");
   const seen=new Set<string>();points.forEach(v=>{const p=object(v);keys(p,["id","x","y"]);text(p.id);oneOf(p.id,ids);requireValue(!seen.has(p.id),"duplicate geometry point");seen.add(p.id);finite(p.x);finite(p.y);});
   return g as DemoGeometry;
 }
@@ -112,10 +147,10 @@ export function decodeStation(input: unknown,station: StationMetadata,manifest: 
   });
   requireValue(rows.length===station.observation_count,"station observation count mismatch");
   for(const product of station.products)requireValue(product.available===rows.some(r=>r[product.key]!==null),"product availability mismatch");
-  const support=array(s.support);requireValue(support.length===6,"support window cohort mismatch");const supportWindows=new Set<string>();
+  const windowIds=manifest.windows.map(w=>w.id);const support=array(s.support);requireValue(support.length===windowIds.length,"support window cohort mismatch");const supportWindows=new Set<string>();
   support.forEach(value=>{
     const p=object(value);const coastal=station.station_type==="coastal";keys(p,[...BASE_SUPPORT,...(coastal?[...COASTAL_COUNTS,...COASTAL_TIMES,"sample_density_percent"]:["cadence_seconds_counts"])]);
-    requireValue(p.station_id===station.station_id,"support station mismatch");oneOf(p.window_id,WINDOW_IDS);text(p.window_id);requireValue(!supportWindows.has(p.window_id),"duplicate support window");supportWindows.add(p.window_id);interval(p);
+    requireValue(p.station_id===station.station_id,"support station mismatch");oneOf(p.window_id,windowIds);text(p.window_id);requireValue(!supportWindows.has(p.window_id),"duplicate support window");supportWindows.add(p.window_id);interval(p);
     requireValue(p.support_kind===(coastal?"coastal_exact_grid":"dart_actual_timestamps"),"support kind mismatch");
     for(const key of ["accepted_sample_n","valid_sample_n","source_blank_n"])count(p[key]);const products=object(p.product_valid_n);keys(products,PRODUCT_KEYS);Object.values(products).forEach(count);
     for(const key of ["strict_numerator_n","strict_denominator_n"])if(p[key]!==null)count(p[key]);if(p.strict_percent!==null){finite(p.strict_percent);requireValue(p.strict_percent>=0&&p.strict_percent<=100,"invalid strict percentage");}
@@ -129,7 +164,7 @@ export function decodeStation(input: unknown,station: StationMetadata,manifest: 
     for(const key of PRODUCT_KEYS)requireValue(intervalRows.filter(r=>r[key]!==null).length===products[key],"support product accounting mismatch");
     if(window.id==="source_full")requireValue(intervalRows.length===rows.length,"source_full does not contain all rows");
   });
-  for(const field of ["coverage_spans","gap_blocks"]){const spans=array(s[field]);if(station.station_type==="dart")requireValue(spans.length===0,"DART cannot have coastal grid spans");spans.forEach(value=>{const p=object(value);keys(p,[...SPAN_TEXT,...SPAN_COUNTS]);SPAN_TEXT.forEach(k=>text(p[k]));SPAN_COUNTS.forEach(k=>count(p[k]));requireValue(p.station_id===station.station_id,"span station mismatch");oneOf(p.window_id,WINDOW_IDS);oneOf(p.status,["observed","source_blank","absent_timestamp"]);interval(p);});}
+  for(const field of ["coverage_spans","gap_blocks"]){const spans=array(s[field]);if(station.station_type==="dart")requireValue(spans.length===0,"DART cannot have coastal grid spans");spans.forEach(value=>{const p=object(value);keys(p,[...SPAN_TEXT,...SPAN_COUNTS]);SPAN_TEXT.forEach(k=>text(p[k]));SPAN_COUNTS.forEach(k=>count(p[k]));requireValue(p.station_id===station.station_id,"span station mismatch");oneOf(p.window_id,windowIds);oneOf(p.status,["observed","source_blank","absent_timestamp"]);interval(p);});}
   return {schema_version:"1",station_id:station.station_id,rows,support:support as StationRecords["support"],coverage_spans:s.coverage_spans as StationRecords["coverage_spans"],gap_blocks:s.gap_blocks as StationRecords["gap_blocks"]};
 }
 

@@ -109,6 +109,21 @@ uv run python scripts/story/build_map_layers.py \
 Open [the story](http://127.0.0.1:4177/demos.html?view=story). The layers
 contract is in [story-map-layers.md](../../../docs/data/story-map-layers.md).
 
+### Events index
+
+The app loads `/data/events.json` first
+([contract](../../../docs/data/demo-bundle.md), "Events index"). Build it after
+both bundles, with `scripts/story/build_events_index.py`; the reference index
+lives next to them at `app/demo-public/data/events.json` (Git-ignored). The
+URL field `event` picks an event; without it the index default (Tōhoku) opens,
+and the default is never written, so existing links are unchanged. An unknown
+`event` is repaired to the default with a visible note. Each records and layers
+manifest is fetched from `<bundle_id>/manifest.json` and checked against the
+byte count and SHA-256 the index pins before it is parsed, then against the
+entry's event identity. The six guided steps belong to Tōhoku; any other event
+opens in free exploration. An event with `layers: null` shows the contour
+layer as unavailable; one with `records: null` cannot open yet.
+
 How to read it:
 
 - Contours are **published estimates**: hours after the earthquake, computed by
@@ -136,9 +151,11 @@ unavailable". Internal use only: the contour layer's terms are unconfirmed (G2).
 
 ## Verification boundaries and limitations
 
-Assets are validated against the fixed event/cohort, schema and release
-restrictions. Byte count and SHA-256 are checked before decoding each asset.
-This establishes integrity relative to the local manifest, not authenticity
+Manifests are validated against their index entry, their own structure, the
+schema and the literal release restrictions. Byte count and SHA-256 are checked
+before decoding each manifest (against the index) and each asset (against its
+manifest). The index itself is not hash-checked; `test:demos` pins its Tōhoku
+entry. This establishes integrity relative to the local index, not authenticity
 against malicious replacement of the entire bundle. Unknown datums remain
 unknown; an empty QC object does not certify a QC pass.
 

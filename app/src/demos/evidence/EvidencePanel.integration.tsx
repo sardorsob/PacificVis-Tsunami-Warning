@@ -2,12 +2,12 @@ import { expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { decodeStation, validateManifest } from "../loader";
 import { selectWindow } from "../chart";
-import { readDemoJson } from "../integration-data";
+import { readDemoJson, tohokuEntry } from "../integration-data";
 import { EvidencePanel } from "./EvidencePanel";
 import { evidencePage } from "./paging";
 
 // Opt-in accepted local bundle only; never imported by *.test.ts(x).
-const manifest = validateManifest(readDemoJson("manifest.json"));
+const manifest = validateManifest(readDemoJson("manifest.json"), tohokuEntry);
 function actual(stationId: string) {
   const station = manifest.stations.find(item => item.station_id === stationId)!;
   const records = decodeStation(readDemoJson(`stations/${stationId}.json`), station, manifest);

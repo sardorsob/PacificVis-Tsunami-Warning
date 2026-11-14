@@ -1,3 +1,5 @@
+/** The event the six steps are authored for (Tōhoku 2011); any other event opens in free exploration. */
+export const STORY_EVENT_ID = "official20110311054624120_30";
 /** The six guided steps, as data. Copy is subject to the G3 review. */
 export type StepId = 1 | 2 | 3 | 4 | 5 | 6;
 type LensTarget = { station: string } | { point: "epicentre" } | { point: "between-10-11" };

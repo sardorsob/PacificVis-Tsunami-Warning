@@ -1,36 +1,46 @@
 import { useEffect,useRef,useState } from "react";
 import { EvidencePanel } from "./evidence/EvidencePanel";
-import { loadManifest,fetchVerifiedAsset,validateGeometry,decodeStation,LatestRequest } from "./loader";
-import { parseState,serializeState } from "./state";
+import { loadIndex,loadManifest,fetchVerifiedAsset,validateGeometry,decodeStation,LatestRequest } from "./loader";
+import { parseEvent,parseState,serializeState } from "./state";
 import { loadLayers,type StoryLayers } from "./story/layers";
 import { entryFor,keptPrev,type NavResult,type StoryNav } from "./story/nav";
 import { PairedView } from "./story/PairedView";
+import { STORY_EVENT_ID } from "./story/steps";
 import { StoryView,type StoryViewProps } from "./story/StoryView";
 import { parseStoryParams,type StoryParams } from "./story/url";
-import type { DemoGeometry,DemoManifest,DemoState,StationRecords,StationSelection } from "./types";
+import type { DemoGeometry,DemoManifest,DemoState,EventEntry,EventsIndex,StationRecords,StationSelection } from "./types";
 
 const message=(error:unknown)=>error instanceof Error?error.message:"Unexpected data failure.";
+type Loaded={index:EventsIndex;entry:EventEntry;manifest:DemoManifest;issues:string[]};
 export function DemoApp() {
-  const [manifest,setManifest]=useState<DemoManifest|null>(null);const [manifestError,setManifestError]=useState<string|null>(null);
-  const [manifestAttempt,setManifestAttempt]=useState(0);
-  useEffect(()=>{const request=new LatestRequest<DemoManifest>();setManifestError(null);
-    void request.run(loadManifest).then(m=>{if(m)setManifest(m);}).catch(error=>setManifestError(message(error)));
-    return()=>request.cancel();},[manifestAttempt]);
-  if(!manifest)return <main className="story story--loading"><div><h1 className="story-title">Pacific station records</h1>
+  const [loaded,setLoaded]=useState<Loaded|null>(null);const [manifestError,setManifestError]=useState<string|null>(null);
+  const [manifestAttempt,setManifestAttempt]=useState(0);const [eventChange,setEventChange]=useState(0);
+  // The events index first, then the URL's event and the records manifest the index pins (verified before parsing).
+  useEffect(()=>{const request=new LatestRequest<Loaded>();setManifestError(null);
+    void request.run(async signal=>{const index=await loadIndex(signal);const {entry,issues}=parseEvent(window.location.search,index);
+      return {index,entry,issues,manifest:await loadManifest(entry,signal)};}).then(l=>{if(l)setLoaded(l);}).catch(error=>setManifestError(message(error)));
+    return()=>request.cancel();},[manifestAttempt,eventChange]);
+  // Back/Forward onto another event reloads that event's manifest and remounts the view; within one event LoadedDemo restores.
+  useEffect(()=>{if(!loaded)return;
+    const restore=()=>{if(parseEvent(window.location.search,loaded.index).entry!==loaded.entry){setLoaded(null);setEventChange(v=>v+1);}};
+    window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[loaded]);
+  if(!loaded)return <main className="story story--loading"><div><h1 className="story-title">Pacific station records</h1>
     <p className="story-small">Descriptive records, not validated arrivals or warning time.</p>
     {manifestError?<div role="alert" className="story-alert"><p>{manifestError}</p>
       <button type="button" onClick={()=>setManifestAttempt(v=>v+1)}>Retry verified bundle</button></div>
       :<p role="status" className="story-small">Loading descriptive station metadata…</p>}</div></main>;
-  return <LoadedDemo key={manifestAttempt} manifest={manifest}/>;
+  return <LoadedDemo key={`${manifestAttempt}:${eventChange}`} {...loaded}/>;
 }
-function LoadedDemo({manifest}:{manifest:DemoManifest}) {
+function LoadedDemo({index,entry,manifest,issues:eventIssues}:Loaded) {
   const [initial]=useState(()=>parseState(window.location.search,manifest));
-  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search).params);const storyRef=useRef(story);storyRef.current=story;
+  // The guided steps belong to one event; the URL omits the default event, so every existing link stays as it was.
+  const guided=entry.event_id===STORY_EVENT_ID,event=entry.event_id===index.default_event_id?null:entry.event_id;
+  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search,guided).params);const storyRef=useRef(story);storyRef.current=story;
   // Bumped on browser Back/Forward so the views restore the lens and clock without writing history.
   const [restoreKey,setRestoreKey]=useState(0);
-  const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next,s)}${window.location.hash}`;
+  const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next,s,event)}${window.location.hash}`;
   const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;
-  const [issues,setIssues]=useState(()=>[...initial.issues,...parseStoryParams(window.location.search).issues]);
+  const [issues,setIssues]=useState(()=>[...eventIssues,...initial.issues,...parseStoryParams(window.location.search,guided).issues]);
   const [geometry,setGeometry]=useState<DemoGeometry|null>(null),[geometryError,setGeometryError]=useState<string|null>(null);
   const [geometryAttempt,setGeometryAttempt]=useState(0);
   const [chunks,setChunks]=useState<Record<string,StationSelection>>({});const cache=useRef(new Map<string,StationRecords>());
@@ -40,7 +50,8 @@ function LoadedDemo({manifest}:{manifest:DemoManifest}) {
   const [layers,setLayers]=useState<StoryLayers|null>(null),[layersError,setLayersError]=useState<string|null>(null);
   const [layersAttempt,setLayersAttempt]=useState(0);
   useEffect(()=>{const request=new LatestRequest<StoryLayers>();setLayersError(null);
-    void request.run(loadLayers).then(l=>{if(l)setLayers(l);}).catch(error=>setLayersError(message(error)));return()=>request.cancel();},[layersAttempt]);
+    void request.run(signal=>loadLayers(entry,signal)).then(l=>{if(l)setLayers(l);}).catch(error=>setLayersError(message(error)));
+    return()=>request.cancel();},[entry,layersAttempt]);
   const layersPending=layers||layersError?null:layersAttempt?"retrying" as const:"loading" as const;
   useEffect(()=>{const request=new LatestRequest<DemoGeometry>();setGeometryError(null);
     void request.run(async signal=>validateGeometry(await fetchVerifiedAsset(manifest,manifest.geometry_path,signal),manifest))
@@ -58,8 +69,11 @@ function LoadedDemo({manifest}:{manifest:DemoManifest}) {
     }
     return()=>{active=false;controller.abort();};
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
-  useEffect(()=>{const restore=()=>{const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search);
-    setState(parsed.state);setStory(storyParsed.params);setIssues([...parsed.issues,...storyParsed.issues]);setEvidenceId(null);setRestoreKey(k=>k+1);};
+  useEffect(()=>{const restore=()=>{const {entry:next,issues:eventParsed}=parseEvent(window.location.search,index);
+    if(next!==entry)return; // another event: DemoApp reloads and remounts
+    const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search,guided);
+    setState(parsed.state);setStory(storyParsed.params);setIssues([...eventParsed,...parsed.issues,...storyParsed.issues]);
+    setEvidenceId(null);setRestoreKey(k=>k+1);};
     window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
   // A reload keeps history.state: keep the previous step it records so story Back can still go back, not duplicate.
   useEffect(()=>{window.history.replaceState({step:story.step,prev:keptPrev(window.history.state,story.step)},"",href(initial.state,story));},[initial]);

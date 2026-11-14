@@ -4,13 +4,14 @@ import { describe, expect, it, vi } from "vitest";
 import { RecordChart, type RecordChartProps } from "../RecordChart";
 import { NoReference, StationCard, type StationCardProps } from "../StationCard";
 import { SupportView, type SupportViewProps } from "../SupportView";
-import { STATION_IDS } from "../loader";
 import type { StationMetadata, StationRecords, StationSelection } from "../types";
 import type { Pt } from "./layers";
 import { Lens } from "./Lens";
 import { StationTools, type StationToolsProps } from "./StationTools";
 import type { MapStation } from "./StoryMap";
 import { ViewSwitch } from "./ViewSwitch";
+// The Tōhoku station ids, as typed test-only input.
+const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 
 // Typed test-only inputs (moved from the retired radial tests). Never imported by a runtime renderer or scientific bundle.
 const stations: StationMetadata[] = STATION_IDS.map(station_id => ({

@@ -5,6 +5,13 @@ export type Source = { source_id: string; title: string; publisher: string; acce
 export type StationMetadata = { station_id: string; source_id: string; station_type: "coastal" | "dart"; name: string; units: string; vertical_reference: string; horizontal_datum: string; coordinate_order: string; time_basis: string; latitude: number; longitude: number; observation_count: number; source: Source; products: Product[] };
 export type DemoWindow = { id: string; label: string; start_utc?: string; end_utc_exclusive?: string };
 export type Asset = { path: string; bytes: number; sha256: string };
+/** events.json (docs/data/demo-bundle.md, "Events index"): the one unpinned file; it pins every bundle manifest by bytes and SHA-256. */
+export type BundleRef = { bundle_id: string; manifest_sha256: string; manifest_bytes: number };
+export type EventEntry = {
+  event_id: string; label: string; origin_time_utc: string; latitude: number; longitude: number; magnitude: number; magnitude_type: string;
+  records: BundleRef | null; layers: BundleRef | null; arrivals: Asset | null;
+};
+export type EventsIndex = { schema_version: "1"; evidence_state: "internal_descriptive_only"; default_event_id: string; events: EventEntry[] };
 export type DemoManifest = {
   schema_version: "1"; exporter_version: "1"; bundle_id: string; evidence_state: "internal_descriptive_only";
   event: { event_id: string; origin_time_utc: string; latitude: number; longitude: number };

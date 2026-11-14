@@ -1,15 +1,16 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { STATION_IDS } from "../loader";
 import { NoReference, StationCard } from "../StationCard";
 import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
 import { PairedView } from "./PairedView";
 import { StoryView, type StoryViewProps } from "./StoryView";
-import type { StoryParams } from "./url";
+import { STORY_EVENT_ID } from "./steps";
+import { parseStoryParams, type StoryParams } from "./url";
 
 // Typed test-only inputs. Never imported by a runtime renderer or scientific bundle.
+const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 const stations: StationMetadata[] = STATION_IDS.map((station_id, i) => ({
   station_id, source_id: "test-only", station_type: i < 2 ? "dart" : "coastal", name: `Test station ${station_id}`, units: "m",
   vertical_reference: "unknown", horizontal_datum: "unknown", coordinate_order: "longitude,latitude", time_basis: "UTC", latitude: 0, longitude: 0, observation_count: 2,
@@ -22,7 +23,7 @@ const stations: StationMetadata[] = STATION_IDS.map((station_id, i) => ({
 }));
 const manifest = {
   schema_version: "1", exporter_version: "1", bundle_id: "test-only-story", evidence_state: "internal_descriptive_only",
-  event: { event_id: "event", origin_time_utc: "2011-03-11T05:46:24.120Z", latitude: 0, longitude: 0 },
+  event: { event_id: STORY_EVENT_ID, origin_time_utc: "2011-03-11T05:46:24.120Z", latitude: 0, longitude: 0 },
   release: { release_id: "test", arrival_comparison_allowed: false, physical_arrival_records_released: 0, continuous_nctr_field: "blocked_no_proxy", allowed_uses: [], prohibited_uses: [] },
   default_state: { selectedStationId: "1617760", pinnedStationId: "saip", windowId: "common_day", productKey: "raw_value" },
   windows: [{ id: "common_day", label: "Test day", start_utc: "2011-03-11T00:00:00Z", end_utc_exclusive: "2011-03-12T00:00:00Z" }],
@@ -32,7 +33,7 @@ const manifest = {
 // Stations spread 2,000 km apart on one line; the event sits west of them.
 const geometry: DemoGeometry = { schema_version: "1", source_crs: "EPSG:4326", display_crs: "+proj=eqearth +lon_0=-160", coordinate_order: "x,y", central_meridian: -160,
   coastline: [[[0, 0], [1, 1]]], bounds: [-1e7, -1e7, 1e7, 1e7],
-  points: [{ id: "event", x: -6e6, y: 0 }, ...STATION_IDS.map((id, i) => ({ id, x: i * 2e6, y: 0 }))] };
+  points: [{ id: STORY_EVENT_ID, x: -6e6, y: 0 }, ...STATION_IDS.map((id, i) => ({ id, x: i * 2e6, y: 0 }))] };
 const layers: StoryLayers = {
   manifest: {} as StoryLayers["manifest"],
   contours: [{ hours: 5, index: true, parts: [[[-1e6, -3e6], [-1e6, 3e6]]] }, { hours: 6, index: false, parts: [[[-5e5, -3e6], [-5e5, 3e6]]] }],
@@ -121,6 +122,21 @@ describe("story view — guided steps and narrow layout", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: "explore" })}/>);
     expect(html).toContain("Station records");
     expect(html).toContain("Back to the guided story");
+  });
+  it("guides only the story's own event: any other event opens in free exploration, without step checks", () => {
+    const base = input({ step: 4 }), other = { ...manifest, event: { ...manifest.event, event_id: "other-event" },
+      stations: stations.filter(s => s.station_id !== "21418") };
+    const props = { ...base, manifest: other, geometry: { ...geometry, points: geometry.points.map(p => p.id === STORY_EVENT_ID ? { ...p, id: "other-event" } : p) } };
+    const html = renderToStaticMarkup(<StoryView {...props}/>);
+    expect(html).not.toContain("4 of 6"); expect(html).not.toContain("Back to the guided story"); expect(html).not.toContain("unknown station");
+    expect(html).toContain("Station records");
+    expect(renderToStaticMarkup(<StoryView {...base}/>)).toContain("4 of 6");
+  });
+  it("parses a step link as free exploration for an unguided event", () => {
+    expect(parseStoryParams("?step=4&from=3", false)).toEqual({ params: { t: 0, compare: false, step: "explore", at: null, z: 1, from: null }, issues: [] });
+    expect(parseStoryParams("", false).params.step).toBe("explore");
+    expect(parseStoryParams("?step=explore&t=3&cmp=1", false).params).toMatchObject({ step: "explore", t: 3, compare: true });
+    expect(parseStoryParams("?step=4").params).toMatchObject({ step: 4, t: 7.5 });
   });
   it("ends the story with Explore instead of Next", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 6, t: 12, lensOverOcean: true })}/>);

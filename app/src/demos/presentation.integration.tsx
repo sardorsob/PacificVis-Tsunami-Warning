@@ -5,9 +5,9 @@ import { RecordChart } from "./RecordChart";
 import { PairedView } from "./story/PairedView";
 import type { StoryViewProps } from "./story/StoryView";
 import type { StationSelection } from "./types";
-import { readDemoJson as json } from "./integration-data";
+import { readDemoJson as json, tohokuEntry } from "./integration-data";
 
-const manifest=validateManifest(json("manifest.json"));
+const manifest=validateManifest(json("manifest.json"),tohokuEntry);
 const geometry=validateGeometry(json("geometry.json"),manifest);
 const pick=(id:string):StationSelection=>{const station=manifest.stations.find(s=>s.station_id===id)!;return {station,status:"ready",error:null,records:decodeStation(json(`stations/${id}.json`),station,manifest)};};
 const noop=()=>undefined;

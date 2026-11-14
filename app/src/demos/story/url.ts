@@ -17,11 +17,12 @@ export const STORY_FIELDS = ["t", "cmp", "step", "at", "z", "from"] as const;
 export const Z_MIN = 0.25, Z_MAX = 20;
 const stepId = (v: string): StepId | null => /^[1-6]$/.test(v) ? Number(v) as StepId : null;
 
-export function parseStoryParams(search: string): { params: StoryParams; issues: string[] } {
+/** `guided` is false for an event the steps are not authored for: it always opens in free exploration. */
+export function parseStoryParams(search: string, guided = true): { params: StoryParams; issues: string[] } {
   const q = new URLSearchParams(search), issues: string[] = [];
-  const params: StoryParams = { t: 0, compare: false, step: 1, at: null, z: 1, from: null };
+  const params: StoryParams = { t: 0, compare: false, step: guided ? 1 : "explore", at: null, z: 1, from: null };
   const step = q.get("step");
-  if (step !== null) {
+  if (step !== null && guided) {
     if (step === "explore") params.step = "explore";
     else if (stepId(step)) params.step = stepId(step)!;
     else issues.push("Invalid story step: step 1 restored.");
@@ -49,7 +50,7 @@ export function parseStoryParams(search: string): { params: StoryParams; issues:
     else { params.z = Math.max(Z_MIN, Math.min(Z_MAX, n)); if (n !== params.z) issues.push(`Zoom limited to ${Z_MIN}–${Z_MAX}.`); }
   }
   const from = q.get("from");
-  if (from !== null) { if (stepId(from)) params.from = stepId(from); else issues.push("Invalid resume step: step 1 will be used."); }
+  if (from !== null && guided) { if (stepId(from)) params.from = stepId(from); else issues.push("Invalid resume step: step 1 will be used."); }
   return { params, issues };
 }
 /** Defaults are left out so a plain story link stays short. */

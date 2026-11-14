@@ -10,7 +10,7 @@ import { nearestHours, pointBetween, type Pt, type StoryLayers } from "./layers"
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
-import { STEPS, validateSteps, type StoryStep } from "./steps";
+import { STEPS, STORY_EVENT_ID, validateSteps, type StoryStep } from "./steps";
 import { centreOn, clampK, fitView, Overlay, PACIFIC_CROP, pinchView, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
 import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
@@ -49,6 +49,8 @@ export function StoryView(props: StoryViewProps) {
   const { manifest, geometry, layers, state, selected, params } = props;
   /** Station lens (?view=radial): the same stage, the lens always on a station, full A/B cards and station tools, no guided steps. */
   const lens = state.view === "radial";
+  /** The guided steps are authored for one event; any other opens in free exploration (no steps, no step checks). */
+  const guided = manifest.event.event_id === STORY_EVENT_ID;
   const origin = manifest.event.origin_time_utc;
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState(() => props.initialSize
@@ -57,18 +59,19 @@ export function StoryView(props: StoryViewProps) {
   const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
   const stepsError = useMemo(() => {
+    if (!guided) return null;
     try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
-  }, [stationIds]);
+  }, [stationIds, guided]);
 
   // ---- navigation: one reducer, one writer ----
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
-  const stepNow = !lens && typeof params.step === "number" ? STEPS[params.step - 1] : null;
+  const stepNow = guided && !lens && typeof params.step === "number" ? STEPS[params.step - 1] : null;
   const fitK = fitView(PACIFIC_CROP, size.w, size.h).k;
   const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
     : lens.point === "epicentre" ? epicentre : between ?? epicentre;
   /** The step whose lens target applies: the current step, or in Explore the step it was entered from. */
-  const lensStep = (n: StoryNav) => lens ? null : typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
+  const lensStep = (n: StoryNav) => lens || !guided ? null : typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
   const targetOf = (n: StoryNav): Pt => {
     if (lens) return stations.find(s => s.id === n.a)?.xy ?? epicentre; // Station lens: always on A, whatever the story's lens point
     if (n.at) return [n.at[0] * 1000, n.at[1] * 1000];
@@ -344,8 +347,9 @@ export function StoryView(props: StoryViewProps) {
     onPin={id => dispatch(id ? { type: "pin", id } : { type: "unpin" })} onWindow={windowId => props.onState({ windowId }, live())}
     onProduct={productKey => props.onState({ productKey }, live())}/>;
   const extra = lens ? tools : stepNow ? null : <>
-    <p className="story-step__links"><button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
-      Back to the guided story (step {params.from ?? 1})</button></p>
+    {guided && <p className="story-step__links">
+      <button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
+      Back to the guided story (step {params.from ?? 1})</button></p>}
     <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
   </>;
   const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}

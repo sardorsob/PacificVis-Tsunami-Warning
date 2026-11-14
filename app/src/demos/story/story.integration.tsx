@@ -1,19 +1,25 @@
 import { createHash } from "node:crypto";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { readDemoJson, readLayersBytes, readLayersJson } from "../integration-data";
+import { localFetch, readDemoJson, readLayersBytes, readLayersJson, tohokuEntry } from "../integration-data";
 import { decodeStation, validateGeometry, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
-import { nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
+import { loadLayers, nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 import { validateSteps } from "./steps";
 import { StoryView } from "./StoryView";
 import { StationCard } from "../StationCard";
 import type { DemoGeometry, StationSelection } from "../types";
 
-const manifest = validateManifest(readDemoJson("manifest.json"));
-const layers = validateLayersManifest(readLayersJson("manifest.json"));
+const manifest = validateManifest(readDemoJson("manifest.json"), tohokuEntry);
+const layers = validateLayersManifest(readLayersJson("manifest.json"), tohokuEntry);
 
 describe("story view against the accepted local bundles", () => {
+  it("loads the layers bundle the index pins, through its verified manifest, and refuses other manifest bytes", async () => {
+    const loaded = await loadLayers(tohokuEntry, undefined, localFetch);
+    expect(loaded.manifest).toEqual(layers); expect(loaded.contours.length).toBe(72);
+    expect(loaded.manifest.contour_source_id).toBe("ncei-ttt-tohoku-layer17-geojson");
+    await expect(loadLayers({ ...tohokuEntry, layers: { ...tohokuEntry.layers!, manifest_sha256: "0".repeat(64) } }, undefined, localFetch)).rejects.toThrow(/hash/);
+  });
   it("verifies both layer assets byte-for-byte against their manifest", () => {
     for (const asset of layers.assets) {
       const bytes = readLayersBytes(asset.path);
