@@ -1,0 +1,12 @@
+default_event_id = "official20110311054624120_30"
+
+[[events]]
+event_id = "official20110311054624120_30"
+label = "Tōhoku, Japan"
+origin_time_utc = "2011-03-11T05:46:24.120Z"
+latitude = 38.297
+longitude = 142.373
+magnitude = 9.1
+magnitude_type = "mww"
+records_bundle = "tohoku-descriptive-demo-v2"
+layers_bundle = "tohoku-story-layers-v1"
