@@ -333,11 +333,124 @@ is a synthetic, test-only index, pretty-printed for reading (so not in the
 compact form). Tests on both sides parse it and pass the value through their
 validator; nobody compares its bytes.
 
-Planned, not in schema 1: per-event evidence counts for the all-events screen,
-and the rules for events exported from the multi-event foundation (one record
-product per station, one-minute preferred; display slice from 6 hours before to
-30 hours after the origin; every asset at most 2 MB). Their task plans fix
-those details. The Tōhoku records assets predate the 2 MB limit.
+The Tōhoku records assets predate the 2 MB limit.
+
+## Multi-event bundles (amendment, 2026-11-14)
+
+This amendment extends the app to every qualifying development event. It
+replaces the index schema above with schema `"2"` and adds a second records
+format. Both validators (Python and browser) move to schema 2 together; nothing
+is public before the release gate, so schema 1 is not kept.
+
+### Index schema 2
+
+Schema 1 plus three things:
+
+- a top-level `basemap`: an `AssetRef` to one shared coastline file,
+  `basemap-v1/coastline.json`, used by every event. It has the layers
+  coastline format of [story-map-layers.md](story-map-layers.md) (`parts`,
+  `closed`) built from Natural Earth 1:110m with the same seam split,
+  projection and whole-metre rounding, plus `source_id`
+  `natural-earth-110m-coastline` and `schema_version` `"1"`. Basemap paths match
+  `[a-zA-Z0-9_-]+/coastline\.json`;
+- per event, `x` and `y`: the epicentre in the display projection, JSON
+  integers (whole metres), so an event with no records bundle can still be
+  placed;
+- per event, `counts`, all JSON integers, copied from the event's files:
+  `ntwc_pairs` and `ntwc_pairs_with_position` (from the reported-times
+  accounting), `ntwc_reported` (`ntwc_rows_with_reported_time`),
+  `ncei_reported` (`ncei_reported_durations`), `stations` (records stations, 0
+  without a records bundle), and `reported_per_hour`, an object
+  `{ntwc:int[30], ncei:int[30]}` counting listed reported times with
+  0 ≤ `reported_minutes` < 1800 by clock hour (minute m falls in hour
+  ⌊m/60⌋). An event without a reported-times file has zeros.
+
+The `arrivals` file name rule is unchanged. `counts` must equal what the builder
+reads from the listed files; the builder recomputes them.
+
+### Which events are listed
+
+A development event is listed when it has a records bundle, or a reported-times
+file with at least one reported time that can be drawn (0 ≤ minutes < 1800 and a
+listed place). `default_event_id` stays Tōhoku. The builder writes the excluded
+development events and the reason for each to a separate report next to the
+index, `events-excluded.json`; that report never names any other archive entry.
+
+Labels come from a reviewed table, `config/story-event-names.csv`
+(`event_id,label`), one row per listed event, written in the form
+`Place, Country` or `Place region` and followed by the year in the app, not in
+the label. A test requires one label per listed event and no label for any
+other ID.
+
+### Records schema 2 (display slices)
+
+Events other than Tōhoku get records bundles built from the multi-event
+foundation's viewer export (`data/processed/multi-event/foundation-v2/viewer/`).
+Its station files are reused byte for byte.
+
+`<bundle_id>` is `records-<event_id>-v1`. `manifest.json`:
+
+`{schema_version:"2", exporter_version:"1", bundle_id, evidence_state:"internal_descriptive_only",
+event, release, window, stations, assets, geometry_path:"geometry.json",
+input_fingerprints, config_sha256, accounting}`
+
+- `event`: as in schema 1, equal to the index entry.
+- `release`: the schema-1 release object with `release_id`
+  `"multi-event-descriptive-v1"` and exactly the schema-1 restriction literals
+  and use lists. Its manifest is `artifacts/releases/multi-event-descriptive-v1.json`.
+- `window`: `{id:"display", label:"6 hours before to 30 hours after the origin",
+  start_utc, end_utc_exclusive}`, the origin minus 6 h and plus 30 h, in the UTC
+  time format, with the origin's fraction digits.
+- `stations`: sorted by `station_id` in code-point order. Each station:
+
+| Field | JSON type and meaning |
+| --- | --- |
+| `station_id` | the provider station ID, for example `1612340`; matches `[a-zA-Z0-9_-]+` |
+| `display_station_key` | `coops:<station_id>` as in the viewer export |
+| `name` | the export's `station_name` |
+| `product` | `one_minute_water_level`, `water_level` (six-minute) or `archive_window` (an archived NTWC day file) |
+| `latitude`, `longitude` | finite numbers from the export, datum unknown |
+| `units`, `vertical_datum` | strings from the export (`m`, `STND`, or `unknown`) |
+| `source` | `{source_id, sha256, url}`: the export's `source_id`, `source_sha256` and `source_url` (null unless it passes the schema-1 URL rule) |
+| `coverage_fraction`, `longest_supported_minutes`, `coverage_rule_id` | as in the export; describe the display slice only |
+| `rows` | the export's row count |
+
+- One product per station: one-minute if the export has it, else six-minute,
+  else the archive window. The others are not copied.
+- `assets`: `geometry.json` and one `stations/<station_id>.csv.gz` per station,
+  each `{path, sha256, bytes, content_encoding}` with `content_encoding`
+  `"gzip"` for station files and `"identity"` for geometry. `sha256` and `bytes`
+  describe the stored bytes, which are the export's file unchanged.
+- Each station file is the export's gzip CSV with its 13 columns
+  `event_id, source_id, station_key, sensor, timestamp_utc, numeric_value,
+  value_state, timestamp_state, duplicate_timestamp, units, vertical_datum,
+  qc_state, qc_json`. The browser decompresses it with the native
+  `DecompressionStream` after the hash check. Rows outside the display slice or
+  with an invalid time are not drawn; duplicate timestamps keep the first row in
+  file order for drawing; blanks are never joined across.
+- `geometry.json`: the schema-1 format (Natural Earth 1:110m, event and station
+  points), built with the existing helper.
+- `accounting`: `{station_count, rows}`, which must equal the station list and
+  the sum of station rows.
+
+The browser applies the schema-1 literal release checks to schema 2 as well.
+
+### Map layers for other events
+
+Each event with a published NCEI layer gets `layers-<event_id>-v1`, built with
+the existing map-layers exporter from the raw layer listed in
+`data/processed/arrival-contours/foundation-v2/manifest.json` (raw path and raw
+SHA-256), with `contour_source_id` taken from that manifest. Tōhoku keeps
+`tohoku-story-layers-v1`.
+
+### Sizes
+
+- First screen (index and basemap): at most 300 KB.
+- Opening an event, before any station record: at most 3 MB.
+- Every asset at most 2 MB. The Tōhoku schema-1 records bundle is exempt
+  (station `46411.json`, 24.7 MB, is fetched only when that station is chosen)
+  until T-SV-05 measures it.
+- The builder reports the bytes of every listed file and the totals.
 
 ## Verification and limitations
 
