@@ -302,10 +302,13 @@ uv run python scripts/story/build_events_index.py \
   --config config/story-events.toml
 ```
 
-`config/story-events.toml` gives `default_event_id` and, for each event,
-`event_id`, `label`, `origin_time_utc`, `latitude`, `longitude`, `magnitude`,
-`magnitude_type` and the optional `records_bundle`, `layers_bundle` and
-`arrivals` names. The builder:
+`config/story-events.toml` gives `default_event_id`, `names` (the reviewed
+label table, relative to the config's folder), `basemap` and, for each released
+development event, `event_id`, `origin_time_utc`, `latitude`, `longitude`,
+`magnitude`, `magnitude_type` and the optional `records_bundle`,
+`layers_bundle` and `arrivals` names. Labels come only from the names table.
+Since index schema 2 the CLI also requires `--report`, a path outside the
+bundles root. The builder:
 
 - checks every file of every listed bundle against that bundle's manifest
   (byte count and SHA-256), and refuses a path that leaves the bundles root;
@@ -400,7 +403,7 @@ Its station files are reused byte for byte.
 `<bundle_id>` is `records-<event_id>-v1`. `manifest.json`:
 
 `{schema_version:"2", exporter_version:"1", bundle_id, evidence_state:"internal_descriptive_only",
-event, release, window, stations, assets, geometry_path:"geometry.json",
+event, release, window, default_station_id, stations, assets, geometry_path:"geometry.json",
 input_fingerprints, config_sha256, accounting}`
 
 - `event`: as in schema 1, equal to the index entry.
@@ -450,7 +453,8 @@ input_fingerprints, config_sha256, accounting}`
   hash check, which is the intended failure.
 - Columns and values: `numeric_value` is the raw water level in the station's
   `units` and `vertical_datum` (no residual or fitted product); `value_state`
-  is `finite_numeric` or `blank` (blank has an empty `numeric_value`);
+  is `finite_numeric` or `blank` (a blank row's `numeric_value` holds the text
+  `unknown`; never parse it as a number);
   `timestamp_state` is one of `reported_utc`, `epoch_calendar_agree`,
   `epoch_calendar_minute_agree`, `header_day_end_boundary`, all drawable;
   `duplicate_timestamp` is `True` or `False`; `qc_state` is `provided` or
