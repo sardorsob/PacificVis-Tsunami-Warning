@@ -1,0 +1,47 @@
+{
+  "default_event_id": "example-event-a",
+  "events": [
+    {
+      "arrivals": {
+        "bytes": 2048,
+        "path": "arrivals/example-event-a.json",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "event_id": "example-event-a",
+      "label": "Example event A (test only)",
+      "latitude": 0.0,
+      "layers": {
+        "bundle_id": "example-layers-a",
+        "manifest_bytes": 512,
+        "manifest_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "longitude": -160.0,
+      "magnitude": 8.0,
+      "magnitude_type": "mww",
+      "origin_time_utc": "2001-01-01T00:00:00Z",
+      "records": {
+        "bundle_id": "example-records-a",
+        "manifest_bytes": 1024,
+        "manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "arrivals": {
+        "bytes": 4096,
+        "path": "arrivals/example-event-b.json",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "event_id": "example-event-b",
+      "label": "Example event B (test only)",
+      "latitude": -20.5,
+      "layers": null,
+      "longitude": -70.25,
+      "magnitude": 7.4,
+      "magnitude_type": "mwc",
+      "origin_time_utc": "2002-02-02T12:00:00.500Z",
+      "records": null
+    }
+  ],
+  "evidence_state": "internal_descriptive_only",
+  "schema_version": "1"
+}

@@ -1,0 +1,213 @@
+{
+  "accounting": {
+    "ncei_durations_with_position": 2,
+    "ncei_records": 3,
+    "ncei_reported_durations": 2,
+    "ntwc_pairs_with_position": 1,
+    "ntwc_reported_with_position": 2,
+    "ntwc_rows_with_both_times": 2,
+    "ntwc_rows_with_estimate": 2,
+    "ntwc_rows_with_reported_time": 3,
+    "ntwc_table_rows": 4,
+    "places": 4,
+    "reports": 5
+  },
+  "config_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+  "coordinate_order": "x,y",
+  "display_crs": "+proj=eqearth +lon_0=-160 +datum=WGS84 +units=m +no_defs +type=crs",
+  "event_id": "example-event-a",
+  "evidence_state": "internal_descriptive_only",
+  "exporter_version": "1",
+  "input_fingerprints": [
+    {
+      "path": "example/input-table.csv.gz",
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "origin_time_utc": "2001-01-01T00:00:00Z",
+  "places": [
+    {
+      "distance_km": 1113.2,
+      "label": "Example Harbor (test only)",
+      "latitude": 0.0,
+      "longitude": -150.0,
+      "position_status": "reviewed",
+      "record": {
+        "link": "same_provider_id",
+        "station_id": "0000001"
+      },
+      "ruler_minutes": 93.7,
+      "site_id": "coops:0000001",
+      "x": 957998,
+      "y": 0
+    },
+    {
+      "distance_km": 1565.1,
+      "label": "Example Bay (test only)",
+      "latitude": 10.0,
+      "longitude": -150.0,
+      "position_status": "source_position",
+      "record": {
+        "link": "within_1km",
+        "station_id": "0000002"
+      },
+      "ruler_minutes": 131.7,
+      "site_id": "ncei-native:aaaaaaaaaaaaaaaaaaaa",
+      "x": 951098,
+      "y": 1281606
+    },
+    {
+      "distance_km": 784.0,
+      "label": "Example deep-ocean gauge (test only)",
+      "latitude": -5.0,
+      "longitude": -155.0,
+      "position_status": "source_position",
+      "record": null,
+      "ruler_minutes": 66.0,
+      "site_id": "ncei-native:bbbbbbbbbbbbbbbbbbbb",
+      "x": 478136,
+      "y": -642030
+    },
+    {
+      "distance_km": 2291.3,
+      "label": "Example Point (test only)",
+      "latitude": 5.0,
+      "longitude": -140.0,
+      "position_status": "reviewed",
+      "record": null,
+      "ruler_minutes": 192.8,
+      "site_id": "ntwc-header-site:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "x": 1912543,
+      "y": 642030
+    }
+  ],
+  "release": {
+    "allowed_uses": [
+      "display_source_reported_times",
+      "display_published_estimates",
+      "display_plain_differences"
+    ],
+    "arrival_comparison_allowed": false,
+    "estimate_difference_display_allowed": true,
+    "physical_arrival_records_released": 0,
+    "prohibited_uses": [
+      "physical_arrival_validation",
+      "modeled_minus_observed_residual",
+      "model_output_display",
+      "actionable_warning_time",
+      "operational_warning",
+      "public_release_before_release_gate"
+    ],
+    "release_id": "example-reported-times-release",
+    "reported_arrival_display_allowed": true
+  },
+  "reports": [
+    {
+      "estimate_minutes": 120.0,
+      "estimate_text": "0200",
+      "estimate_utc": "2001-01-01T02:00:00Z",
+      "gauge_kind": "unknown",
+      "origin_offset_seconds": null,
+      "place_text": "Example Harbor",
+      "report_id": "example-event-a:1:1",
+      "reported_minus_estimate_minutes": 15.0,
+      "reported_minus_ruler_minutes": 41.3,
+      "reported_minutes": 135.0,
+      "reported_origin": "usgs_reviewed",
+      "reported_text": "0215",
+      "reported_utc": "2001-01-01T02:15:00Z",
+      "site_id": "coops:0000001",
+      "source": "ntwc",
+      "source_flags": [],
+      "source_id": "example-ntwc-source",
+      "source_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    {
+      "estimate_minutes": 180.0,
+      "estimate_text": "0300",
+      "estimate_utc": "2001-01-01T03:00:00Z",
+      "gauge_kind": "unknown",
+      "origin_offset_seconds": null,
+      "place_text": "Example Unplaced Town",
+      "report_id": "example-event-a:1:2",
+      "reported_minus_estimate_minutes": -10.0,
+      "reported_minus_ruler_minutes": null,
+      "reported_minutes": 170.0,
+      "reported_origin": "usgs_reviewed",
+      "reported_text": "0250",
+      "reported_utc": "2001-01-01T02:50:00Z",
+      "site_id": null,
+      "source": "ntwc",
+      "source_flags": [],
+      "source_id": "example-ntwc-source",
+      "source_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    {
+      "estimate_minutes": null,
+      "estimate_text": null,
+      "estimate_utc": null,
+      "gauge_kind": "unknown",
+      "origin_offset_seconds": null,
+      "place_text": "Example Point",
+      "report_id": "example-event-a:1:3",
+      "reported_minus_estimate_minutes": null,
+      "reported_minus_ruler_minutes": 67.2,
+      "reported_minutes": 260.0,
+      "reported_origin": "usgs_reviewed",
+      "reported_text": "0420",
+      "reported_utc": "2001-01-01T04:20:00Z",
+      "site_id": "ntwc-header-site:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source": "ntwc",
+      "source_flags": [],
+      "source_id": "example-ntwc-source",
+      "source_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    {
+      "estimate_minutes": null,
+      "estimate_text": null,
+      "estimate_utc": null,
+      "gauge_kind": "tide_gauge",
+      "origin_offset_seconds": 0.04,
+      "place_text": "Example Bay",
+      "report_id": "example-ncei-0001:1",
+      "reported_minus_estimate_minutes": null,
+      "reported_minus_ruler_minutes": 58.3,
+      "reported_minutes": 190.0,
+      "reported_origin": "ncei_native",
+      "reported_text": "3 h 10 min",
+      "reported_utc": null,
+      "site_id": "ncei-native:aaaaaaaaaaaaaaaaaaaa",
+      "source": "ncei",
+      "source_flags": [],
+      "source_id": "example-ncei-source",
+      "source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+      "estimate_minutes": null,
+      "estimate_text": null,
+      "estimate_utc": null,
+      "gauge_kind": "deep_ocean_gauge",
+      "origin_offset_seconds": 0.04,
+      "place_text": "Example deep-ocean gauge",
+      "report_id": "example-ncei-0001:2",
+      "reported_minus_estimate_minutes": null,
+      "reported_minus_ruler_minutes": -4.0,
+      "reported_minutes": 62.0,
+      "reported_origin": "ncei_native",
+      "reported_text": "1 h 2 min",
+      "reported_utc": null,
+      "site_id": "ncei-native:bbbbbbbbbbbbbbbbbbbb",
+      "source": "ncei",
+      "source_flags": [
+        "doubtful"
+      ],
+      "source_id": "example-ncei-source",
+      "source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ],
+  "ruler": {
+    "speed_km_per_h": 713,
+    "statement": "Constant long-wave speed over a 4 km deep ocean. A ruler, not a prediction."
+  },
+  "schema_version": "1"
+}

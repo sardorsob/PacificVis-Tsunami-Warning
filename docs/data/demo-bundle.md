@@ -191,6 +191,80 @@ are for display, not certified station datums or an arrival surface. Original
 station coordinates and unknown horizontal/vertical datum metadata remain in
 the manifest. No modeled field/contour substitute is supplied.
 
+## Events index (`events.json`), schema 1
+
+`<bundles-root>/events.json` lists the events the app may open and pins each
+event's bundles. The app loads it first. It is the browser's upstream anchor:
+every bundle manifest is fetched, checked against the byte count and SHA-256
+recorded here, and only then parsed. The index itself is not hash-checked.
+
+The index may list more than one event. It never lists a reserved or excluded
+archive entry, and it carries no selection role, model eligibility or model
+output.
+
+`{schema_version:"1", evidence_state:"internal_descriptive_only",
+default_event_id:string, events:Event[]}`
+
+| `Event` field | JSON type and meaning |
+| --- | --- |
+| `event_id` | string matching `[a-zA-Z0-9_-]+`; the reviewed USGS event ID; unique in the index |
+| `label` | nonempty string; the reviewed short display name, for example `Tōhoku, Japan` |
+| `origin_time_utc` | string; the reviewed USGS origin, source precision retained |
+| `latitude`, `longitude` | finite numbers, EPSG:4326; the reviewed USGS epicentre |
+| `magnitude`, `magnitude_type` | finite number and nonempty string; the USGS preferred magnitude and its subtype, for display only |
+| `records` | `BundleRef` or null; the descriptive records bundle described above |
+| `layers` | `BundleRef` or null; the map-layers bundle ([story-map-layers.md](story-map-layers.md)) |
+| `arrivals` | `AssetRef` or null; the reported-times file ([story-arrivals.md](story-arrivals.md)) |
+
+- `BundleRef` is `{bundle_id:string, manifest_sha256:string, manifest_bytes:integer}`.
+  The manifest is `<bundle_id>/manifest.json` under the bundles root.
+- `AssetRef` is `{path:string, sha256:string, bytes:integer}`. `path` is relative
+  to the bundles root and matches `arrivals/[a-zA-Z0-9_-]+\.json`.
+
+Rules:
+
+- Events sort by `origin_time_utc`, then `event_id`. `default_event_id` names a
+  listed event. A link with no `event` field opens the default event.
+- A records manifest's `event` must equal the entry's `event_id`,
+  `origin_time_utc`, `latitude` and `longitude` exactly. A layers manifest's
+  `origin_time_utc` must equal the entry's.
+- `records: null` means the event has no station records. `layers: null` means
+  it has no published contours. Neither is an error.
+- The JSON rules are the bundle rules above: UTF-8, compact, sorted keys, one
+  final newline, no wall clock or machine path.
+
+The browser validates a records manifest against its index entry and against
+its own structure: unique stations, windows and assets; defaults that name
+listed stations, windows and products; accounting that adds up. It no longer
+compares a manifest with fixed Tōhoku values, because the index pins the exact
+manifest bytes. The release restrictions stay literal checks in the browser.
+
+Build the index after the bundles it lists:
+
+```sh
+uv run python scripts/story/build_events_index.py \
+  --bundles-root /absolute/path/to/this-checkout/app/demo-public/data \
+  --config config/story-events.toml
+```
+
+`config/story-events.toml` gives `default_event_id` and, for each event,
+`event_id`, `label`, `origin_time_utc`, `latitude`, `longitude`, `magnitude`,
+`magnitude_type` and the optional `records_bundle`, `layers_bundle` and
+`arrivals` names. The builder checks every file of every listed bundle against
+that bundle's manifest (byte count and SHA-256), applies the rules above, and
+writes through a temporary file and one rename. An identical existing index is
+left alone; a different one is refused unless `--replace` is given.
+
+[`examples/story-events.example.json`](examples/story-events.example.json) is a
+synthetic, test-only index. The builder's tests and the browser loader's tests
+must both accept it.
+
+Planned, not in schema 1: per-event evidence counts for the all-events screen,
+and the rules for events exported from the multi-event foundation (one record
+product per station, one-minute preferred; display slice from 6 hours before to
+30 hours after the origin; every asset at most 2 MB). Their task plans fix
+those details.
+
 ## Verification and limitations
 
 The export checks all accepted follow-up input fingerprints and all 36 output
