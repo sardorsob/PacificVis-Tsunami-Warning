@@ -33,7 +33,7 @@ FIELDS = (
     "magnitude_type",
 )
 IDENTITY = ("event_id", "origin_time_utc", "latitude", "longitude")
-BUNDLE_OPTIONS = {"records_bundle", "layers_bundle"}
+BUNDLE_OPTIONS = {"records_bundle", "layers_bundle", "arrivals"}
 INDEX_KEYS = {"schema_version", "evidence_state", "default_event_id", "events"}
 EVENT_KEYS = {*FIELDS, "records", "layers", "arrivals"}
 BUNDLE_KEYS = {"bundle_id", "manifest_sha256", "manifest_bytes"}
@@ -138,6 +138,23 @@ def _pin(root: Path, bundle_id: object) -> tuple[dict[str, Any], dict[str, Any]]
     return ref, manifest
 
 
+def _arrivals(root: Path, entry: dict[str, Any], stations: set[str]) -> dict[str, Any]:
+    """Pin a reported-times file; check its rules, identity and record links."""
+    from analysis.story.arrivals_export import validate_arrivals  # it imports this module
+
+    path = _text(entry["arrivals"], rf"{SAFE_ID}/{SAFE_ID}\.json", "arrivals name")
+    data = _path(root, path).read_bytes()
+    value: dict[str, Any] = json.loads(data)
+    validate_arrivals(value)
+    identity = (entry["event_id"], entry["origin_time_utc"])
+    if (value["event_id"], value["origin_time_utc"]) != identity:
+        raise ValueError(f"arrivals event differs from config: {entry['event_id']}")
+    for place in value["places"]:
+        if place["record"] is not None and place["record"]["station_id"] not in stations:
+            raise ValueError(f"arrivals record names no station of the records bundle: {path}")
+    return {"path": path, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)}
+
+
 def build_events_index(*, bundles_root: Path, config_path: Path, replace: bool = False) -> Path:
     """Verify the listed bundles and publish `<bundles_root>/events.json` by one rename.
 
@@ -154,20 +171,22 @@ def build_events_index(*, bundles_root: Path, config_path: Path, replace: bool =
         raise ValueError("config must give exactly default_event_id and events")
     events: list[dict[str, Any]] = []
     for entry in settings["events"]:
-        if "arrivals" in entry:
-            raise ValueError("arrivals not supported until T-SV-01B")
         if not set(FIELDS) <= set(entry) <= set(FIELDS) | BUNDLE_OPTIONS:
             raise ValueError(f"config event needs {FIELDS} and only {sorted(BUNDLE_OPTIONS)}")
         event: dict[str, Any] = {key: entry[key] for key in FIELDS}
         event |= {"records": None, "layers": None, "arrivals": None}
+        stations: set[str] = set()
         if "records_bundle" in entry:
             event["records"], manifest = _pin(root, entry["records_bundle"])
             if manifest.get("event") != {key: entry[key] for key in IDENTITY}:
                 raise ValueError(f"records manifest event differs from config: {entry['event_id']}")
+            stations = {station["station_id"] for station in manifest.get("stations", [])}
         if "layers_bundle" in entry:
             event["layers"], manifest = _pin(root, entry["layers_bundle"])
             if manifest.get("origin_time_utc") != entry["origin_time_utc"]:
                 raise ValueError(f"layers manifest origin differs from config: {entry['event_id']}")
+        if "arrivals" in entry:
+            event["arrivals"] = _arrivals(root, entry, stations)
         events.append(event)
     index = {
         "schema_version": "1",

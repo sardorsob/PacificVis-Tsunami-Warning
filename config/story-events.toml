@@ -10,3 +10,4 @@ magnitude = 9.1
 magnitude_type = "mww"
 records_bundle = "tohoku-descriptive-demo-v2"
 layers_bundle = "tohoku-story-layers-v1"
+arrivals = "story-arrivals-v1/official20110311054624120_30.json"

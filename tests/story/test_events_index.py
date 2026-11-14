@@ -10,12 +10,14 @@ from typing import Any
 
 import pytest
 
+from analysis.story.arrivals_export import export_arrivals
 from analysis.story.events_index import build_events_index, validate_events_index
 
 ROOT = Path(__file__).resolve().parents[2]
 REAL_BUNDLES = ROOT / "app/demo-public/data"
 CONFIG = ROOT / "config/story-events.toml"
 EXAMPLE = ROOT / "docs/data/examples/story-events.example.json"
+ARRIVALS_EXAMPLE = ROOT / "docs/data/examples/story-arrivals.example.json"
 GOLDEN_SHA256 = "f824364ccb0528a913c3b8be9f8a8f9c21a8ed80104eb81269a4d509b987fa54"
 ORIGIN = "2011-03-11T05:46:24.120Z"
 EVENT: dict[str, Any] = {
@@ -38,16 +40,45 @@ def _b(value: dict[str, Any]) -> Any:
     return value["events"][1]
 
 
-def test_builds_the_pinned_tohoku_index(tmp_path: Path) -> None:
+def _copy_tohoku_bundles(root: Path) -> None:
     names = ("tohoku-descriptive-demo-v2", "tohoku-story-layers-v1")
     if not all((REAL_BUNDLES / name / "manifest.json").is_file() for name in names):
         pytest.skip("local Tōhoku demo bundles unavailable")
     for name in names:
-        shutil.copytree(REAL_BUNDLES / name, tmp_path / name)
-    out = build_events_index(bundles_root=tmp_path, config_path=CONFIG)
+        shutil.copytree(REAL_BUNDLES / name, root / name)
+
+
+def test_builds_the_pinned_tohoku_index_without_arrivals(tmp_path: Path) -> None:
+    _copy_tohoku_bundles(tmp_path)
+    lines = CONFIG.read_text(encoding="utf-8").splitlines()
+    config = tmp_path / "events.toml"
+    config.write_text(
+        "\n".join(line for line in lines if not line.startswith("arrivals = ")) + "\n",
+        encoding="utf-8",
+    )
+    out = build_events_index(bundles_root=tmp_path, config_path=config)
     data = out.read_bytes()
     assert out == tmp_path / "events.json"
     assert (len(data), hashlib.sha256(data).hexdigest()) == (652, GOLDEN_SHA256)
+
+
+def test_builds_the_tohoku_index_with_arrivals(tmp_path: Path) -> None:
+    if not (ROOT / "data/processed/arrival-evidence/foundation-v1/manifest.json").is_file():
+        pytest.skip("local released arrival-evidence tables unavailable")
+    _copy_tohoku_bundles(tmp_path)
+    arrivals = export_arrivals(
+        source_root=ROOT, output_root=tmp_path, config_path=ROOT / "config/story-arrivals.toml"
+    )
+    index = json.loads(build_events_index(bundles_root=tmp_path, config_path=CONFIG).read_bytes())
+    validate_events_index(index)
+    data = (arrivals / "official20110311054624120_30.json").read_bytes()
+    assert [event["arrivals"] for event in index["events"]] == [
+        {
+            "path": "story-arrivals-v1/official20110311054624120_30.json",
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "bytes": len(data),
+        }
+    ]
 
 
 def test_accepts_the_shared_example() -> None:
@@ -162,7 +193,7 @@ def _config(tmp_path: Path, **overrides: object) -> Path:
         "layers_bundle": "lay",
         **overrides,
     }
-    lines = ['default_event_id = "ev-1"', "[[events]]"]
+    lines = [f"default_event_id = {json.dumps(entry['event_id'])}", "[[events]]"]
     lines += [f"{key} = {json.dumps(value)}" for key, value in entry.items() if value is not None]
     path = tmp_path / "events.toml"
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -259,10 +290,91 @@ def test_refuses_a_bad_config_entry(
         _build(bundles, _config(tmp_path, **override))
 
 
-def test_refuses_arrivals_until_their_validator_exists(bundles: Path, tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="arrivals not supported until T-SV-01B"):
-        _build(bundles, _config(tmp_path, arrivals="story-arrivals-v1/ev-1.json"))
+EXAMPLE_ARRIVALS = "story-arrivals-v1/example-event-a.json"
+
+
+def _arrivals_config(bundles: Path, tmp_path: Path, **overrides: object) -> Path:
+    """The shared arrivals example, its records bundle and a config entry naming both."""
+    value = json.loads(ARRIVALS_EXAMPLE.read_text(encoding="utf-8"))
+    identity = {
+        "event_id": value["event_id"],
+        "origin_time_utc": value["origin_time_utc"],
+        "latitude": 0.0,
+        "longitude": -160.0,
+    }
+    stations = [{"station_id": "0000001"}, {"station_id": "0000002"}]
+    _write_bundle(bundles, "rec-a", {"event": identity, "stations": stations})
+    _write_arrivals(bundles, value)
+    settings: dict[str, object] = {
+        **identity,
+        "records_bundle": "rec-a",
+        "layers_bundle": None,
+        "arrivals": EXAMPLE_ARRIVALS,
+    }
+    return _config(tmp_path, **(settings | overrides))
+
+
+def _write_arrivals(bundles: Path, value: dict[str, Any]) -> None:
+    path = bundles / EXAMPLE_ARRIVALS
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    path.write_text(text + "\n", encoding="utf-8")
+
+
+def test_pins_and_accepts_a_valid_arrivals_file(bundles: Path, tmp_path: Path) -> None:
+    out = _build(bundles, _arrivals_config(bundles, tmp_path))
+    data = (bundles / EXAMPLE_ARRIVALS).read_bytes()
+    assert json.loads(out.read_bytes())["events"][0]["arrivals"] == {
+        "path": EXAMPLE_ARRIVALS,
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "bytes": len(data),
+    }
+
+
+def _mutated_arrivals(bundles: Path, mutate: Callable[[dict[str, Any]], object]) -> None:
+    value = json.loads((bundles / EXAMPLE_ARRIVALS).read_bytes())
+    mutate(value)
+    _write_arrivals(bundles, value)
+
+
+BAD_ARRIVALS: list[tuple[str, Callable[[dict[str, Any]], object], str]] = [
+    (
+        "record names an unknown station",
+        lambda v: v["places"][1]["record"].update(station_id="0000009"),  # a within_1km link
+        "record",
+    ),
+    ("another event", lambda v: v.update(event_id="example-event-b"), "arrivals event differs"),
+    ("invalid file", lambda v: v["release"].update(arrival_comparison_allowed=True), "release"),
+]
+
+
+@pytest.mark.parametrize(
+    ("mutate", "match"),
+    [(mutate, match) for _, mutate, match in BAD_ARRIVALS],
+    ids=[name for name, _, _ in BAD_ARRIVALS],
+)
+def test_refuses_a_bad_arrivals_file(
+    bundles: Path, tmp_path: Path, mutate: Callable[[dict[str, Any]], object], match: str
+) -> None:
+    config = _arrivals_config(bundles, tmp_path)
+    _mutated_arrivals(bundles, mutate)
+    with pytest.raises(ValueError, match=match):
+        _build(bundles, config)
     assert not (bundles / "events.json").exists()
+
+
+def test_refuses_record_links_without_a_records_bundle(bundles: Path, tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="record"):
+        _build(bundles, _arrivals_config(bundles, tmp_path, records_bundle=None))
+    assert not (bundles / "events.json").exists()
+
+
+def test_refuses_an_arrivals_name_outside_the_root(bundles: Path, tmp_path: Path) -> None:
+    config = _arrivals_config(
+        bundles, tmp_path, arrivals="../story-arrivals-v1/example-event-a.json"
+    )
+    with pytest.raises(ValueError):
+        _build(bundles, config)
 
 
 def test_leaves_an_identical_index_untouched(bundles: Path, tmp_path: Path) -> None:

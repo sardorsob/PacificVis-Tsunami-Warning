@@ -1,0 +1,21 @@
+# Story reported-times export (docs/data/story-arrivals.md). Paths are relative to --source-root.
+# Event identities are the reviewed USGS origins and epicentres, copied once: origin from
+# config/ntwc-archive-batch-v2.toml (usgs_time); epicentre from the pinned USGS event detail
+# (detail_path and detail_sha256 in config/ntwc-event-annotations-v2.csv); for Tōhoku also the
+# records manifest event. A test checks the copy; the exporter reads neither source.
+arrivals_bundle_id = "story-arrivals-v1"
+release_manifest = "artifacts/releases/story-reported-times-v1.json"
+bundles_root = "app/demo-public/data"
+
+[[events]]
+event_id = "official20110311054624120_30"
+origin_time_utc = "2011-03-11T05:46:24.120Z"
+latitude = 38.297
+longitude = 142.373
+records_bundle = "tohoku-descriptive-demo-v2"
+
+[[events]]
+event_id = "us20003k7a"
+origin_time_utc = "2015-09-16T22:54:32.860Z"
+latitude = -31.5729
+longitude = -71.6744

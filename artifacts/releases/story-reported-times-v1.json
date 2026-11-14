@@ -1,0 +1,32 @@
+{
+  "allowed_uses": [
+    "display_source_reported_times",
+    "display_published_estimates",
+    "display_plain_differences"
+  ],
+  "arrival_comparison_allowed": false,
+  "decision": "D-032",
+  "estimate_difference_display_allowed": true,
+  "next_gate": "T-SV-06 release gate; nothing public before it",
+  "physical_arrival_records_released": 0,
+  "prohibited_uses": [
+    "physical_arrival_validation",
+    "modeled_minus_observed_residual",
+    "model_output_display",
+    "actionable_warning_time",
+    "operational_warning",
+    "public_release_before_release_gate",
+    "selection_or_reserved_event_display",
+    "fitted_or_predicted_value_display",
+    "paper_figure_or_model_code_use",
+    "cross_source_difference"
+  ],
+  "release_id": "story-reported-times-v1",
+  "reported_arrival_display_allowed": true,
+  "schema_version": 1,
+  "source_package": {
+    "path": "data/processed/arrival-evidence/foundation-v1/manifest.json",
+    "sha256": "f3987d6744212bb3c11d2d72b7d82f0853c034b579268f7f7527b7d71fe4fc99"
+  },
+  "statement": "These are source-reported arrival times and published estimates with their plain differences. A difference does not say which side is off. They are not validated physical arrivals, warning times or model outputs."
+}
