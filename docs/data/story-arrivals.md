@@ -125,7 +125,10 @@ neither are counted in `accounting`, not listed.
 | `source_flags` | string[]; source qualifiers, currently only `"doubtful"` when NCEI marks a record doubtful. Usually empty |
 | `source_id`, `source_sha256` | strings; the source snapshot and its 64-hex SHA-256, from `source_records` |
 
-Raw text is never an empty string: an empty cell is null. Every UTC string in
+Raw text is the source cell text with leading and trailing whitespace removed
+and every internal run of whitespace replaced by one space, for example
+`1526 (70)` (time, then the source's Julian day). It is never an empty string:
+an empty cell is null. Every UTC string in
 the file uses the UTC time format of the events index.
 
 Definitions against the released tables:
