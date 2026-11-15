@@ -41,6 +41,8 @@ export type StoryViewProps = ViewProps & {
   entry: EventEntry; events: readonly EventEntry[];
   /** An event change from the live screen (DemoApp keeps this moment in the entry being left, then pushes the new event). */
   onEvent: (eventId: string, live: StoryNav) => void;
+  /** The All events button beside the event select: DemoApp keeps this moment in the entry being left, then pushes All events for this event. */
+  onAllEvents: (live: StoryNav) => void;
   /** Test seam: the first-render viewport (the browser measures window size). */
   initialSize?: { w: number; h: number };
 };
@@ -200,7 +202,7 @@ export function StoryView(props: StoryViewProps) {
   const handOver = () => { const g = pending.current; if (g) { cancelGlide(); land(g.target, g.settleAs); } if (settleTimer.current) settle(); };
   const switchView = (view: DemoState["view"]) => { handOver(); props.onState({ view }, live()); };
   const switchEvent = (id: string) => { handOver(); props.onEvent(id, live()); };
-  const events = <EventSelect events={props.events} value={props.entry.event_id} onEvent={switchEvent}/>;
+  const events = <EventSelect events={props.events} value={props.entry.event_id} onEvent={switchEvent} onAll={() => { handOver(); props.onAllEvents(live()); }}/>;
   const focusStation = (id: string, explicit = false) => {
     const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit);
   };
@@ -467,11 +469,14 @@ export function Notes({ layersPending, layersError, onRetryLayers, issues, onDis
     {layersPending && <p role="status" className="story-alert">{layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
     {layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {layersError}</p>
       <button type="button" onClick={onRetryLayers}>Retry contours</button></div>}
-    {issues.length > 0 && <div role="status" className="story-alert"><p>This link was repaired:</p>
-      <ul>{issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
-      <button type="button" onClick={onDismissIssues}>Dismiss</button></div>}
+    <RepairNote issues={issues} onDismissIssues={onDismissIssues}/>
   </>;
 }
+/** What a repaired link restored, dismissible (every view and All events). */
+export const RepairNote = ({ issues, onDismissIssues }: Pick<NotesProps, "issues" | "onDismissIssues">) => issues.length > 0 &&
+  <div role="status" className="story-alert"><p>This link was repaired:</p>
+    <ul>{issues.map((issue, i) => <li key={i}>{issue}</li>)}</ul>
+    <button type="button" onClick={onDismissIssues}>Dismiss</button></div>;
 
 type ChipsProps = { stations: MapStation[]; lensStation: string | null; onPick: (id: string) => void };
 /** Chips up to 12 stations; beyond that a native select, so the column keeps every control on screen. */

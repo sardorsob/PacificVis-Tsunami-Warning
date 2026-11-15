@@ -73,9 +73,13 @@ export function input({ lensOverOcean = false, t = 7.5, compare = false, step = 
     state: { view, selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
-    evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size, entry: tohoku, events: [tohoku, illapel], onEvent: noop,
+    evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size, entry: tohoku, events: [tohoku, illapel], onEvent: noop, onAllEvents: noop,
   };
 }
+// A hook-free page: walk its elements to press its buttons (no DOM needed).
+const tree = (node: ReactNode): ReactElement<{ children?: ReactNode; onClick?: () => void }>[] => Array.isArray(node) ? node.flatMap(tree)
+  : !isValidElement<{ children?: ReactNode; onClick?: () => void }>(node) ? [] : [node, ...(typeof node.type === "function"
+    ? tree((node.type as (p: unknown) => ReactNode)(node.props)) : []), ...tree(node.props.children)];
 
 describe("story view — stage, lens and arms", () => {
   it("renders the published-estimate caveat and an honest open-ocean state", () => {
@@ -451,6 +455,17 @@ describe("the event select — beside the view switch on the stage, in the page 
       expect(head).toContain('class="story-views"');
     }
   });
+  it("puts an All events button beside the event select in every view; it hands over the live screen", () => {
+    const row = /<div class="story-event-row"><label class="story-event"><span>Event<\/span><select aria-label="Event">.*?<\/select><\/label><button type="button">All events<\/button><\/div>/;
+    for (const view of ["story", "radial"] as const) for (const size of [{ w: 1440, h: 900 }, { w: 390, h: 844 }])
+      expect(renderToStaticMarkup(<StoryView {...input({ view, size })}/>), `${view} ${size.w}`).toMatch(row);
+    expect(renderToStaticMarkup(<PairedView {...input({ view: "paired" })}/>)).toMatch(row);
+    expect(renderToStaticMarkup(<ArrivalsView {...input({ view: "times" })} arrivals={arrivals}/>)).toMatch(row);
+    const onAllEvents = vi.fn(), props = { ...input({ view: "paired", t: 4 }), onAllEvents };
+    expect(renderToStaticMarkup(<NoRecordsPage {...props}/>)).toMatch(row);
+    tree(NoRecordsPage(props)).find(n => n.type === "button" && n.props.children === "All events")!.props.onClick!();
+    expect(onAllEvents.mock.calls.map(([live]) => [live.t, live.a, live.step])).toEqual([[4, "1617760", "explore"]]);
+  });
 });
 
 describe("copy from the index entry and the manifest — no Tōhoku literals outside its steps", () => {
@@ -554,10 +569,6 @@ describe("an event with no records bundle opens on the stage", () => {
     expect(html).toContain("internal descriptive evidence only");
     expect(html).not.toContain("null ·");
   });
-  // A hook-free page: walk its elements to press its buttons (no DOM needed).
-  const tree = (node: ReactNode): ReactElement<{ children?: ReactNode; onClick?: () => void }>[] => Array.isArray(node) ? node.flatMap(tree)
-    : !isValidElement<{ children?: ReactNode; onClick?: () => void }>(node) ? [] : [node, ...(typeof node.type === "function"
-      ? tree((node.type as (p: unknown) => ReactNode)(node.props)) : []), ...tree(node.props.children)];
   it("gives Paired and Station lens a plain note with a way to Story and to Reported times", () => {
     for (const view of ["paired", "radial"] as const) {
       const onState = vi.fn(), props = { ...stage({ view, t: 4 }), onState }, html = renderToStaticMarkup(<NoRecordsPage {...props}/>);

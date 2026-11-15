@@ -46,7 +46,7 @@ export function PairedView(props: StoryViewProps) {
         <p className="story-small">Two stations on one clock. Each keeps its own scale and datum; heights are not compared.{props.entry.layers && <> Contours are NOAA/NCEI
           published travel-time estimates, not arrivals.</>} The white line on each record is the shared clock, a time, not an arrival pick.</p></div>
       <div className="paired-head__tools"><ViewSwitch view="paired" onView={v => props.onState({ view: v }, live())}/>
-        <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}/></div>
+        <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())} onAll={() => props.onAllEvents(live())}/></div>
     </header>
     <Notes {...props}/>
     <section className="paired-band" aria-label="Station map" ref={band}>
@@ -127,7 +127,8 @@ export function NoRecordsPage(props: StoryViewProps) {
   return <main className="story story--paired" aria-label={name}>
     <header className="paired-head">
       <div><p className="story-kicker">{kicker(props.manifest.event.origin_time_utc)}</p><h1 className="story-title">{name}</h1></div>
-      <div className="paired-head__tools"><EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}/></div>
+      <div className="paired-head__tools"><EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}
+        onAll={() => props.onAllEvents(live())}/></div>
     </header>
     <Notes {...props}/>
     <div className="story-alert"><p>No station records are published for this event. {name} shows station records; Story and Reported times show

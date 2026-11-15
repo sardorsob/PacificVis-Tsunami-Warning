@@ -14,7 +14,7 @@ const noop=()=>undefined;
 const props:StoryViewProps={manifest,geometry,geometryError:null,layers:null,layersError:null,layersPending:null,onRetryLayers:noop,
   state:{view:"paired",...manifest.default_state,pinnedStationId:null},selected:pick("1617760"),pinned:null,onOpenEvidence:noop,onRetryStation:noop,
   onRetryGeometry:noop,params:{t:7.5,compare:false,step:1,at:null,z:1,from:null},onNav:noop,restoreKey:0,evidenceOpen:false,issues:[],onDismissIssues:noop,
-  onState:noop,initialSize:{w:1440,h:900},entry:tohokuEntry,events:eventsIndex.events,onEvent:noop};
+  onState:noop,initialSize:{w:1440,h:900},entry:tohokuEntry,events:eventsIndex.events,onEvent:noop,onAllEvents:noop};
 it("keeps every real station reachable on the map band and names A and B by role",()=>{
   const html=renderToStaticMarkup(<PairedView {...props} state={{...props.state,pinnedStationId:"saip"}} pinned={pick("saip")}/>);
   expect(html.match(/class="paired-station[^"]*"/g)).toHaveLength(10);

@@ -14,7 +14,9 @@ import { eventOption } from "./ViewSwitch";
 import { ThreeClocks } from "./ThreeClocks";
 import { StationCard } from "../StationCard";
 import { loadBasemap, loadGeometry, loadStation, loadViewManifest } from "../slices";
-import { parseState } from "../state";
+import { loadFirst } from "../DemoApp";
+import { parseEvent, parseState } from "../state";
+import { EventsView } from "./EventsView";
 import type { AnySelection, AnyStation, DemoGeometry, EventEntry, StationSelection } from "../types";
 
 const manifest = validateManifest(readDemoJson("manifest.json"), tohokuEntry);
@@ -55,7 +57,7 @@ describe("story view against the accepted local bundles", () => {
         layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }}
         selected={{ station, status: "loading", records: null, error: null }} pinned={null} onOpenEvidence={noop}
         onRetryStation={noop} onRetryGeometry={noop} params={{ t: 0, compare: false, step: 1, at: null, z: 1, from: null }}
-        onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} initialSize={initialSize}/>);
+        onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} onAllEvents={noop} initialSize={initialSize}/>);
       expect(html, `${initialSize.w}×${initialSize.h}`).toContain('story-lens-title__name">Tōhoku epicentre<');
     }
   });
@@ -75,7 +77,7 @@ describe("story view against the accepted local bundles", () => {
     const html = (t: number) => renderToStaticMarkup(<StoryView manifest={manifest} geometry={geometry} geometryError={null} layers={null} layersError={null}
       layersPending={null} onRetryLayers={noop} state={{ view: "story", ...manifest.default_state }} selected={{ station, status: "loading", records: null, error: null }}
       pinned={null} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop} params={{ t, compare: false, step: "explore", at: null, z: 1, from: null }}
-      onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} initialSize={{ w: 390, h: 844 }} arrivals={arrivals}/>);
+      onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} onAllEvents={noop} initialSize={{ w: 390, h: 844 }} arrivals={arrivals}/>);
     // Map marks only: the column key draws the same glyphs.
     const tally = (s: string, litOnly: boolean) => { const out = { estimate: 0, ntwc: 0, tide: 0, deep: 0 }, map = s.slice(s.indexOf('class="story-reports"'));
       for (const m of map.slice(0, map.indexOf("</g>")).matchAll(/class="story-report story-report--(\w+)( story-report--on)?"/g))
@@ -99,7 +101,7 @@ describe("story view against the accepted local bundles", () => {
       layersError={null} layersPending={null} onRetryLayers={noop} state={{ ...state, sort }} selected={{ station: manifest.stations[0], status: "loading",
         records: null, error: null }} pinned={null} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop}
       params={{ t: 0, compare: false, step: "explore", at: null, z: 1, from: null }} onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]}
-      onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} arrivals={arrivals}/>);
+      onDismissIssues={noop} onState={noop} entry={tohokuEntry} events={eventsIndex.events} onEvent={noop} onAllEvents={noop} arrivals={arrivals}/>);
     const ntwc = arrivals.reports.filter(r => r.source === "ntwc"), rows = (html: string) => (html.match(/class="ladder-row"/g) ?? []).length;
     for (const sort of ["time", "distance"] as const) {
       const html = page(sort), split = html.indexOf('aria-label="Reported by NCEI');
@@ -159,7 +161,7 @@ describe("story view against the accepted local bundles", () => {
       selected: pick(selectedStationId), pinned: pick(state.pinnedStationId!), onOpenEvidence: noop, onRetryStation: noop,
       onRetryGeometry: noop, params: { t: 7.5, compare: false, step: 1 as const, at: null, z: 1, from: null }, onNav: noop, restoreKey: 0,
       evidenceOpen: false, issues: [], onDismissIssues: noop, onState: noop, initialSize: { w: 1440, h: 900 }, entry: tohokuEntry, events: eventsIndex.events,
-      onEvent: noop };
+      onEvent: noop, onAllEvents: noop };
     const cursorMs = Date.parse(manifest.event.origin_time_utc) + 7.5 * 3_600_000;
     const card = (selection: StationSelection, role: "selected" | "pinned") => renderToStaticMarkup(<StationCard selection={selection} role={role}
       windowId={windowId} productKey={state.productKey} cursorMs={cursorMs} onOpenEvidence={noop} onRetryStation={noop}/>);
@@ -197,7 +199,7 @@ const stage = (entry: EventEntry, o: Awaited<ReturnType<typeof open>>, t = 30, v
   renderToStaticMarkup(<StoryView manifest={o.manifest} geometry={o.geometry}
   geometryError={null} basemap={o.basemap} layers={o.layers} layersError={null} layersPending={null} onRetryLayers={noop} state={{ ...o.state, view }} selected={o.selected}
   pinned={null} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop} params={{ t, compare: false, step: "explore", at: null, z: 1, from: null }}
-  onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={entry} events={eventsIndex.events} onEvent={noop}
+  onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]} onDismissIssues={noop} onState={noop} entry={entry} events={eventsIndex.events} onEvent={noop} onAllEvents={noop}
   initialSize={size} arrivals={o.arrivals}/>);
 const playOff = /<button[^>]*class="story-play"[^>]*disabled/;
 
@@ -280,5 +282,49 @@ describe("Checker round 1 on the real bundles", () => {
   });
   it("writes every listed magnitude with at least one decimal", () => {
     for (const e of eventsIndex.events) expect(eventOption(e), e.event_id).toMatch(/ · M\d+\.\d+$/);
+  });
+});
+
+describe("All events on the real index", () => {
+  const sum = (a: number[]) => a.reduce((n, v) => n + v, 0);
+  const screen = async (size = { w: 1440, h: 900 }) => renderToStaticMarkup(<EventsView events={eventsIndex.events} selected={parseEvent("?view=events", eventsIndex).entry}
+    order="date" has={null} basemap={await loadBasemap(eventsIndex, undefined, localFetch)} issues={[]} onDismissIssues={noop} restoreKey={0} onSelect={noop}
+    onOrder={noop} onHas={noop} onOpen={noop} initialSize={size}/>);
+  const rows = (html: string) => html.split('<li><button type="button" class="events-row"').slice(1);
+  it("fetches only the index and the basemap for its first screen, within the plan's 300 KB budget", async () => {
+    const asked: string[] = []; let bytes = 0;
+    const request = async (u: string | URL | Request) => { asked.push(String(u)); const b = await (await localFetch(u)).arrayBuffer(); bytes += b.byteLength; return new Response(b); };
+    const first = await loadFirst("?view=events", undefined, request);
+    console.info("All events first screen", { files: asked, bytes });
+    expect(asked).toEqual(["/data/events.json", `/data/${eventsIndex.basemap!.path}`]);
+    expect(bytes).toBeLessThanOrEqual(300_000);
+    expect([first.manifest, first.entry.event_id]).toEqual([null, tohokuEntry.event_id]);
+  });
+  it("lists all 49 events in date order, and every row's counts are the index's", async () => {
+    const html = await screen(), list = rows(html);
+    expect(list).toHaveLength(49);
+    expect(html.match(/class="story-epicentre events-star"/g)).toHaveLength(49);
+    list.forEach((row, i) => {
+      const e = eventsIndex.events[i], c = e.counts!;
+      expect(row, e.event_id).toContain(`<b>${e.label}</b>`);
+      const m = /class="events-row__counts">NTWC: (\d+) reported, (\d+) pairs? · NCEI: (\d+) reported · (\d+) station records?( · published contours)?</.exec(row)!;
+      expect(m.slice(1, 5).map(Number), e.event_id).toEqual([c.ntwc_reported, c.ntwc_pairs, c.ncei_reported, c.stations]);
+      expect(!!m[5], e.event_id).toBe(!!e.layers);
+    });
+  });
+  it("draws each row's hour strip from reported_per_hour: bar totals equal its sums, NTWC and NCEI in their own rows", async () => {
+    rows(await screen()).forEach((row, i) => {
+      const e = eventsIndex.events[i], [ntwc, ncei] = row.split('class="events-strip__row"').slice(1, 3);
+      const bars = (s: string) => sum([...s.matchAll(/<rect data-n="(\d+)"/g)].map(m => Number(m[1])));
+      expect([bars(ntwc), bars(ncei)], e.event_id).toEqual([sum(e.counts!.reported_per_hour.ntwc), sum(e.counts!.reported_per_hour.ncei)]);
+    });
+  });
+  it("opens on Tōhoku under the lens, on a desktop and on a phone", async () => {
+    for (const size of [{ w: 1440, h: 900 }, { w: 390, h: 844 }]) {
+      const html = await screen(size);
+      expect(html, `${size.w}`).toContain('<p class="story-lens-title__name">Tōhoku, Japan</p><p class="story-lens-title__sub">11 March 2011 · M9.1</p>');
+      expect(html).toContain('aria-current="true"><span class="events-row__name"><b>Tōhoku, Japan</b>');
+      expect(html).toContain("92 estimate–reported pairs in the NTWC table · 8 with a reviewed position · 130 NTWC reported times · 273 NCEI reported times · 10 station records");
+    }
   });
 });

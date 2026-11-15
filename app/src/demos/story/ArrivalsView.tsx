@@ -12,7 +12,7 @@ import "./style.css";
 
 type Sort = "time" | "distance";
 const NO_PATHS = new Map<number, string>();
-const many = (n: number, one: string) => `${n} ${one}${n === 1 ? "" : "s"}`;
+export const many = (n: number, one: string) => `${n} ${one}${n === 1 ? "" : "s"}`;
 const cell = (text: string | null) => text === null ? "empty" : `“${text}”`;
 
 function Row({ report: r, place }: LadderRow) {
@@ -72,7 +72,7 @@ export function ArrivalsView(props: StoryViewProps) {
           on their own. Reported times are what the sources reported, not validated onsets. A difference is plain subtraction and does not say which side
           is off; one-minute source resolution is not one-minute accuracy.</p></div>
       <div className="paired-head__tools"><ViewSwitch view="times" onView={v => props.onState({ view: v }, live())}/>
-        <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}/></div>
+        <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())} onAll={() => props.onAllEvents(live())}/></div>
     </header>
     <Notes {...props}/>
     {rows ? <div style={clockAt(clock.t)}>{rows}</div>

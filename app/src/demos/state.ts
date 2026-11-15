@@ -17,7 +17,8 @@ export function parseState(search: string, manifest: ViewManifest): {state:DemoS
   const products:readonly ProductKey[]=manifest.schema_version==="1"?PRODUCT_KEYS:["raw_value"];
   const name=(id:string|null)=>stations.find(s=>s.station_id===id)?.name??"none";
   const fields=["event","view","selected","pinned","window","product","sort",...STORY_FIELDS];
-  for(const key of params.keys()) if(!fields.includes(key))issues.push(`Unknown URL field “${key}” was ignored.`);
+  for(const key of params.keys()) if(EVENTS_FIELDS.includes(key))issues.push(`URL field “${key}” applies only to All events and was ignored.`);
+    else if(!fields.includes(key))issues.push(`Unknown URL field “${key}” was ignored.`);
   const get=(key:string)=>{if(params.getAll(key).length>1)issues.push(`Repeated URL field “${key}”: first value used.`);return params.get(key);};
   const view=get("view");if(view!==null){if(view==="paired"||view==="radial"||view==="story"||view==="times")state.view=view;else issues.push("Invalid view: story restored.");}
   // An event without a records bundle has no stations: any station field in its URL is left out, visibly.
@@ -45,3 +46,28 @@ export function eventSearch(state: DemoState, story: StoryParams, next: EventEnt
   const view=next.records||(state.view!=="paired"&&state.view!=="radial")?state.view:"story";
   return serializeState({...state,view},{t:story.t,compare:false,step:"explore",at:null,z:1,from:null},next.event_id===index.default_event_id?null:next.event_id,false);
 }
+/** "Open this event" from All events: the event change above, into the Story view at the clock's start. */
+export const openSearch=(next: EventEntry, index: EventsIndex)=>
+  eventSearch({view:"story",selectedStationId:"",pinnedStationId:null,windowId:"",productKey:"raw_value"},{t:0,compare:false,step:"explore",at:null,z:1,from:null},next,index);
+
+// All events (?view=events): the event under the lens (`event`), the list's order and one evidence filter. It shows no station, clock or step.
+export type EventsOrder = "date" | "magnitude" | "reports";
+export type EventsHas = "records" | "contours" | "pairs" | "ncei";
+export type EventsState = { order: EventsOrder; has: EventsHas | null };
+const ORDER_VALUES:readonly string[]=["date","magnitude","reports"],HAS_VALUES:readonly string[]=["records","contours","pairs","ncei"];
+const EVENTS_FIELDS=["order","has"],NOT_IN_EVENTS=["selected","pinned","window","product","sort",...STORY_FIELDS];
+/** The URL's first view is All events. */
+export const isEventsView=(search: string)=>new URLSearchParams(search).get("view")==="events";
+export function parseEventsState(search: string): {state:EventsState;issues:string[]} {
+  const params=new URLSearchParams(search),issues:string[]=[],state:EventsState={order:"date",has:null};
+  for(const key of new Set(params.keys())) if(NOT_IN_EVENTS.includes(key))issues.push(`URL field “${key}” does not apply to All events and was ignored.`);
+    else if(!["event","view",...EVENTS_FIELDS].includes(key))issues.push(`Unknown URL field “${key}” was ignored.`);
+  const get=(key:string)=>{if(params.getAll(key).length>1)issues.push(`Repeated URL field “${key}”: first value used.`);return params.get(key);};
+  get("view");
+  const order=get("order");if(order!==null){if(ORDER_VALUES.includes(order))state.order=order as EventsOrder;else issues.push("Invalid order: date order restored.");}
+  const has=get("has");if(has!==null){if(HAS_VALUES.includes(has))state.has=has as EventsHas;else issues.push("Invalid filter: all events shown.");}
+  return {state,issues};
+}
+/** All events as a URL: a non-default event first, then the order and the filter when they are not the defaults. */
+export const eventsSearch=(event: string | null, s: EventsState)=>
+  `?${new URLSearchParams({...(event===null?{}:{event}),view:"events",...(s.order==="date"?{}:{order:s.order}),...(s.has?{has:s.has}:{})})}`;

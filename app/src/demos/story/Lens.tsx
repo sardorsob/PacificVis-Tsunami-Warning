@@ -4,9 +4,11 @@ import { Marker, star, WORLD_ID, type MapStation, type View } from "./StoryMap";
 type LensProps = {
   id: string; view: View; cx: number; cy: number; centre: Pt; r: number; mag: number;
   stations: MapStation[]; epicentre: Pt; variant: "a" | "b"; caption?: string;
+  /** All events: the other epicentres, magnified as small unlabelled stars. */
+  others?: Pt[];
 };
 /** A magnifier over the shared world: same map, same contours, larger. Its size carries no quantity. */
-export function Lens({ id, view, cx, cy, centre, r, mag, stations, epicentre, variant, caption }: LensProps) {
+export function Lens({ id, view, cx, cy, centre, r, mag, stations, epicentre, variant, caption, others = [] }: LensProps) {
   const K = view.k * mag, at = (p: Pt): Pt => [cx + (p[0] - centre[0]) * K, cy + (p[1] - centre[1]) * K];
   const inside = stations.map(s => ({ s, p: at(s.xy) })).filter(({ p }) => Math.hypot(p[0] - cx, p[1] - cy) <= r + 10);
   const [ex, ey] = at(epicentre);
@@ -19,6 +21,8 @@ export function Lens({ id, view, cx, cy, centre, r, mag, stations, epicentre, va
           && Math.hypot(Math.abs(p[0] - cx) + half, Math.max(Math.abs(p[1] + 9 - cy), Math.abs(p[1] + 23 - cy))) < r - 4;
         return <g key={s.id}><Marker s={s} x={p[0]} y={p[1]} size={6} filled/>
           {fits && <text x={p[0]} y={p[1] + 20} textAnchor="middle" className="story-label story-label--strong">{s.name}</text>}</g>; })}
+      {others.map(at).filter(([x, y]) => Math.hypot(x - cx, y - cy) < r + 8).map(([x, y], i) =>
+        <path key={i} d={star(x, y, 6, 2.5)} className="story-epicentre story-epicentre--other"/>)}
       {Math.hypot(ex - cx, ey - cy) < r && <path d={star(ex, ey, 9, 4)} className="story-epicentre"/>}
       {variant === "a" && <path d={`M${cx - 7} ${cy}H${cx + 7}M${cx} ${cy - 7}V${cy + 7}`} className="story-lens__cross"/>}
     </g>

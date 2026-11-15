@@ -2,41 +2,68 @@ import { useEffect,useRef,useState } from "react";
 import { EvidencePanel,SliceEvidencePanel } from "./evidence/EvidencePanel";
 import { loadIndex,LatestRequest } from "./loader";
 import { isSlice,loadBasemap,loadGeometry,loadStation,loadViewManifest,type SliceRecords } from "./slices";
-import { eventSearch,parseEvent,parseState,serializeState } from "./state";
+import { eventSearch,eventsSearch,isEventsView,openSearch,parseEvent,parseEventsState,parseState,serializeState,type EventsState } from "./state";
 import { loadArrivals,type StoryArrivals } from "./story/arrivals";
 import { ArrivalsView } from "./story/ArrivalsView";
 import { loadLayers,type Coastline,type StoryLayers } from "./story/layers";
 import { entryFor,keptPrev,type NavResult,type StoryNav } from "./story/nav";
 import { NoRecordsPage,PairedView } from "./story/PairedView";
+import { EventsView } from "./story/EventsView";
 import { STORY_EVENT_ID } from "./story/steps";
 import { StoryView,type StoryViewProps } from "./story/StoryView";
 import { parseStoryParams,type StoryParams } from "./story/url";
 import type { AnySelection,AnyStation,DemoState,EventEntry,EventsIndex,StageGeometry,StationRecords,ViewManifest } from "./types";
 
 const message=(error:unknown)=>error instanceof Error?error.message:"Unexpected data failure.";
-type Loaded={index:EventsIndex;entry:EventEntry;manifest:ViewManifest;issues:string[]};
+type Loaded={index:EventsIndex;entry:EventEntry;issues:string[]}&({manifest:ViewManifest}|{manifest:null;basemap:Coastline});
+/** The first screen's files: the events index, then the URL's event and the records manifest the index pins (verified before parsing, then read by
+ * its schema; none for an event without records). All events (?view=events) loads only the index's shared basemap instead. */
+export async function loadFirst(search:string,signal?:AbortSignal,request:typeof fetch=fetch):Promise<Loaded> {
+  const index=await loadIndex(signal,request),{entry,issues}=parseEvent(search,index);
+  return isEventsView(search)?{index,entry,issues,manifest:null,basemap:await loadBasemap(index,signal,request)}
+    :{index,entry,issues,manifest:await loadViewManifest(entry,signal,request)};
+}
 export function DemoApp() {
   const [loaded,setLoaded]=useState<Loaded|null>(null);const [manifestError,setManifestError]=useState<string|null>(null);
   const [manifestAttempt,setManifestAttempt]=useState(0);const [eventChange,setEventChange]=useState(0);
-  // The events index first, then the URL's event and the records manifest the index pins (verified before parsing, then read by its schema);
-  // an event without records opens without stations.
   useEffect(()=>{const request=new LatestRequest<Loaded>();setManifestError(null);
-    void request.run(async signal=>{const index=await loadIndex(signal);const {entry,issues}=parseEvent(window.location.search,index);
-      return {index,entry,issues,manifest:await loadViewManifest(entry,signal)};}).then(l=>{if(l)setLoaded(l);}).catch(error=>setManifestError(message(error)));
+    void request.run(signal=>loadFirst(window.location.search,signal)).then(l=>{if(l)setLoaded(l);}).catch(error=>setManifestError(message(error)));
     return()=>request.cancel();},[manifestAttempt,eventChange]);
-  // Back/Forward onto another event reloads that event's manifest and remounts the view; within one event LoadedDemo restores.
+  // Back/Forward into or out of All events, or onto another event, reloads and remounts; within one event, or within All events, the screen restores.
   useEffect(()=>{if(!loaded)return;
-    const restore=()=>{if(parseEvent(window.location.search,loaded.index).entry!==loaded.entry){setLoaded(null);setEventChange(v=>v+1);}};
+    const restore=()=>{const search=window.location.search,events=isEventsView(search);
+      if(events!==(loaded.manifest===null)||!events&&parseEvent(search,loaded.index).entry!==loaded.entry){setLoaded(null);setEventChange(v=>v+1);}};
     window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[loaded]);
   if(!loaded)return <main className="story story--loading"><div><h1 className="story-title">Pacific station records</h1>
     <p className="story-small">Descriptive records, not validated arrivals or warning time.</p>
     {manifestError?<div role="alert" className="story-alert"><p>{manifestError}</p>
       <button type="button" onClick={()=>setManifestAttempt(v=>v+1)}>Retry verified bundle</button></div>
       :<p role="status" className="story-small">Loading descriptive station metadata…</p>}</div></main>;
-  // The event select pushes the new event's URL; this then loads it like Back/Forward onto another event does.
-  return <LoadedDemo key={`${manifestAttempt}:${eventChange}`} {...loaded} onEventChange={()=>{setLoaded(null);setEventChange(v=>v+1);}}/>;
+  // The event select, All events and Open this event push the new URL; this then loads it like Back/Forward onto another event does.
+  const reload=()=>{setLoaded(null);setEventChange(v=>v+1);},key=`${manifestAttempt}:${eventChange}`;
+  return loaded.manifest===null?<EventsDemo key={key} {...loaded} onLeave={reload}/>:<LoadedDemo key={key} {...loaded} manifest={loaded.manifest} onEventChange={reload}/>;
 }
-function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:Loaded&{onEventChange:()=>void}) {
+type EventsScreen={entry:EventEntry}&EventsState;
+/** All events: the selected event, order and filter are the URL (a pick, an order or a filter pushes; the lens settling replaces). Back/Forward within
+ * All events restores them without writing; leaving it is DemoApp's. Open this event pushes that event's Story view and hands over. */
+export function EventsDemo({index,entry,basemap,issues:eventIssues,onLeave}:{index:EventsIndex;entry:EventEntry;basemap:Coastline;issues:string[];onLeave:()=>void}) {
+  const [screen,setScreen]=useState<EventsScreen>(()=>({entry,...parseEventsState(window.location.search).state}));
+  const [issues,setIssues]=useState(()=>[...eventIssues,...parseEventsState(window.location.search).issues]);
+  const [restoreKey,setRestoreKey]=useState(0);
+  const href=(s:EventsScreen)=>`${window.location.pathname}${eventsSearch(s.entry.event_id===index.default_event_id?null:s.entry.event_id,s)}${window.location.hash}`;
+  const go=(history:"push"|"replace",url:string)=>window.history[history==="push"?"pushState":"replaceState"](entryFor(window.history.state,"explore",history),"",url);
+  // The link as read: a repaired one is rewritten in place.
+  useEffect(()=>go("replace",href(screen)),[]);
+  useEffect(()=>{const restore=()=>{const search=window.location.search;if(!isEventsView(search))return;
+    const e=parseEvent(search,index),s=parseEventsState(search);setScreen({entry:e.entry,...s.state});setIssues([...e.issues,...s.issues]);setRestoreKey(k=>k+1);};
+    window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[]);
+  const write=(next:EventsScreen,history:"push"|"replace")=>{setScreen(next);go(history,href(next));};
+  return <EventsView events={index.events} selected={screen.entry} order={screen.order} has={screen.has} basemap={basemap} issues={issues}
+    onDismissIssues={()=>setIssues([])} restoreKey={restoreKey} onSelect={(id,history)=>{const e=index.events.find(x=>x.event_id===id);if(e&&e!==screen.entry)write({...screen,entry:e},history);}}
+    onOrder={order=>write({...screen,order},"push")} onHas={has=>write({...screen,has},"push")}
+    onOpen={()=>{go("push",`${window.location.pathname}${openSearch(screen.entry,index)}${window.location.hash}`);onLeave();}}/>;
+}
+function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:{index:EventsIndex;entry:EventEntry;manifest:ViewManifest;issues:string[];onEventChange:()=>void}) {
   const [initial]=useState(()=>parseState(window.location.search,manifest));
   // The guided steps belong to one event; the URL omits the default event, so every existing link stays as it was.
   const guided=entry.event_id===STORY_EVENT_ID,event=entry.event_id===index.default_event_id?null:entry.event_id;
@@ -86,7 +113,7 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:Load
     return()=>{active=false;controller.abort();};
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
   useEffect(()=>{const restore=()=>{const {entry:next,issues:eventParsed}=parseEvent(window.location.search,index);
-    if(next!==entry)return; // another event: DemoApp reloads and remounts
+    if(next!==entry||isEventsView(window.location.search))return; // another event or All events: DemoApp reloads and remounts
     const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search,guided);
     setState(parsed.state);setStory(storyParsed.params);setIssues([...eventParsed,...parsed.issues,...storyParsed.issues]);
     setEvidenceId(null);setRestoreKey(k=>k+1);};
@@ -104,11 +131,13 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:Load
     setIssues([]);setEvidenceId(null);write({...here,...patch},params,"push");
     // The pressed switch button unmounts with the old view: keep keyboard focus on the switch in the new one.
     if(switching)window.setTimeout(()=>document.querySelector<HTMLElement>('.story-views [aria-pressed="true"]')?.focus({preventScroll:true}),0);};
-  /** Another event, from the live screen: the entry left keeps this moment (replace), then one push opens the new event on its defaults. */
-  const onEvent=(id:string,live:StoryNav)=>{const next=index.events.find(e=>e.event_id===id);if(!next||next===entry)return;
-    const {a,b,...params}=live;const here={...stateRef.current,selectedStationId:a,pinnedStationId:b};write(here,params,"replace");
-    window.history.pushState(entryFor(window.history.state,"explore","push"),"",`${window.location.pathname}${eventSearch(here,params,next,index)}${window.location.hash}`);
-    onEventChange();};
+  /** Leaving this event's views from the live screen: the entry left keeps this moment (replace), then one push opens `search`; DemoApp loads it. */
+  const leave=(search:string,live:StoryNav)=>{const {a,b,...params}=live;write({...stateRef.current,selectedStationId:a,pinnedStationId:b},params,"replace");
+    window.history.pushState(entryFor(window.history.state,"explore","push"),"",`${window.location.pathname}${search}${window.location.hash}`);onEventChange();};
+  /** Another event, on its own defaults. */
+  const onEvent=(id:string,live:StoryNav)=>{const next=index.events.find(e=>e.event_id===id);if(next&&next!==entry)leave(eventSearch(stateRef.current,live,next,index),live);};
+  /** All events, with this event under the lens, in date order, unfiltered. */
+  const onAllEvents=(live:StoryNav)=>leave(eventsSearch(event,{order:"date",has:null}),live);
   /** Applies a navigation result (push/replace/back/none) from story/nav.ts. */
   const writeNav=(r:NavResult)=>{
     if(r.history==="back"){window.history.back();return;}
@@ -124,7 +153,7 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:Load
   const props:StoryViewProps={manifest,geometry,geometryError,basemap,state,selected:selection(state.selectedStationId),
     pinned:state.pinnedStationId?selection(state.pinnedStationId):null,onOpenEvidence:openEvidence,onRetryStation:()=>setStationAttempt(v=>v+1),
     onRetryGeometry:()=>setGeometryAttempt(v=>v+1),layers,layersError,layersPending,onRetryLayers:()=>setLayersAttempt(v=>v+1),arrivals,params:story,onNav:writeNav,
-    restoreKey,evidenceOpen:evidenceId!==null,issues,onDismissIssues:()=>setIssues([]),onState,entry,events:index.events,onEvent};
+    restoreKey,evidenceOpen:evidenceId!==null,issues,onDismissIssues:()=>setIssues([]),onState,entry,events:index.events,onEvent,onAllEvents};
   // Story and Station lens share the stage; Paired and Reported times are pages. The key remounts the view so each one starts from the URL.
   // Paired and Station lens need a station: an event without records gets a plain note there.
   const recordsOnly=!stations.length&&(state.view==="paired"||state.view==="radial");
