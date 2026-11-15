@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 import { fetchHashed, fetchHashedBytes } from "./loader";
-import { decodeSliceStation, loadBasemap, loadSliceManifest, loadSliceStation, parseCsv, validateSliceManifest, type SliceStation } from "./slices";
+import { decodeSliceStation, loadBasemap, loadGeometry, loadSliceManifest, loadSliceStation, loadStation, loadViewManifest, noRecordsView, parseCsv, productsOf, recordProviders,
+  sliceView, validateSliceManifest, type SliceStation, type SliceView } from "./slices";
 import type { EventEntry, EventsIndex } from "./types";
 
 // A deliberate records-schema-2 unit-test bundle; never a fallback for the real bundles.
@@ -130,8 +131,9 @@ describe("records schema 2 station file", () => {
     expect(r.segments).toEqual([[{ t: ms(0), v: 1.5 }, { t: ms(1), v: -0.651 }, { t: ms(2), v: 0.00001 }]]);
     expect(r.counts).toEqual({ rows: 3, blank: 0, duplicates_dropped: 0, outside_window: 0, backward_steps: 0 });
   });
-  it("decodes a header-only file with rows 0 to an empty record", async () => {
-    expect(await decode([], b2)).toEqual({ station_id: "b2", rows: [], segments: [], counts: { rows: 0, blank: 0, duplicates_dropped: 0, outside_window: 0, backward_steps: 0 } });
+  it("decodes a header-only file with rows 0 to an empty record on the manifest's display window", async () => {
+    expect(await decode([], b2)).toEqual({ station_id: "b2", rows: [], segments: [], window: manifest.window,
+      counts: { rows: 0, blank: 0, duplicates_dropped: 0, outside_window: 0, backward_steps: 0 } });
   });
   it("ends a segment at a blank row and never parses its value", async () => {
     const r = await decode([{ timestamp_utc: at(0) }, { timestamp_utc: at(1), value_state: "blank", numeric_value: "unknown" }, { timestamp_utc: at(2) },
@@ -258,5 +260,73 @@ describe("loading a schema-2 bundle", () => {
     for (const bad of [coast("natural-earth-50m-coastline"), coast("natural-earth-110m-coastline", [])])
       await expect(loadBasemap(index(bad), undefined, async () => new Response(bad))).rejects.toThrow(/coastline/);
     await expect(loadBasemap({ ...index(good), basemap: undefined }, undefined, async () => new Response(good))).rejects.toThrow(/basemap/);
+  });
+});
+
+describe("the schema-2 manifest as the views read it", () => {
+  const view = sliceView(manifest);
+  it("adds only its one display window and the defaults that follow: A is the default station, B unset, the window, the raw product", () => {
+    expect(Object.keys(view).sort()).toEqual([...Object.keys(manifest), "default_state", "windows"].sort());
+    expect(view.windows).toEqual([manifest.window]);
+    expect(view.default_state).toEqual({ selectedStationId: "a1", pinnedStationId: null, windowId: "display", productKey: "raw_value" });
+    expect(view.stations).toBe(manifest.stations);
+  });
+  it("invents nothing: schema-1-only fields stay absent on the bundle and on every station", () => {
+    for (const k of ["products", "default_station", "support", "gap_blocks", "coverage_spans"]) expect(k in view, k).toBe(false);
+    for (const s of view.stations) {
+      expect(Object.keys(s).sort()).toEqual(Object.keys(m0.stations[0]).sort());
+      for (const k of ["station_type", "source_id", "vertical_reference", "horizontal_datum", "coordinate_order", "time_basis", "observation_count", "products"])
+        expect(k in s, k).toBe(false);
+      expect(Object.keys(s.source).sort()).toEqual(["sha256", "source_id", "url"]);
+    }
+  });
+  it("offers the station's one raw product under its own product's name", () => {
+    expect(productsOf(a1)).toEqual([{ key: "raw_value", label: "One-minute water level", units: "m", available: true }]);
+    expect(productsOf(b2)[0].label).toBe("Water level, archived NTWC day file");
+  });
+  it("opens an event without a records bundle with its index identity and no stations, window or bundle", () => {
+    expect(noRecordsView({ ...entry, records: null })).toEqual({ schema_version: null, bundle_id: null, event: m0.event, stations: [], windows: [],
+      default_state: { selectedStationId: "", pinnedStationId: null, windowId: "", productKey: "raw_value" } });
+  });
+});
+
+describe("opening an event the way the app does", () => {
+  const csv = new Uint8Array(gz(`${HEADER}\n${line()}\n`)), geo = new TextEncoder().encode(JSON.stringify({ schema_version: "1", source_crs: "EPSG:4326",
+    display_crs: "+proj=eqearth +lon_0=-160 +datum=WGS84", coordinate_order: "x,y", central_meridian: -160, coastline: [[[0, 0], [1, 1]]], bounds: [0, 0, 1, 1],
+    points: ["test-event", "a1"].map(id => ({ id, x: 1, y: 2 })) }));
+  const mBytes = new TextEncoder().encode(JSON.stringify({ ...manifestInput(), stations: [station("a1", "one_minute_water_level", "STND", 1)],
+    assets: [{ path: "geometry.json", sha256: sha(geo), bytes: geo.byteLength, content_encoding: "identity" },
+      { path: "stations/a1.csv.gz", sha256: sha(csv), bytes: csv.byteLength, content_encoding: "gzip" }], accounting: { station_count: 1, rows: 1 } }));
+  const pinned: EventEntry = { ...entry, records: { bundle_id: "records-test-event-v1", manifest_bytes: mBytes.byteLength, manifest_sha256: sha(mBytes) } };
+  const serve = (urls: string[] = []) => async (u: string | URL | Request) => { urls.push(String(u));
+    return new Response(String(u).endsWith(".csv.gz") ? csv : String(u).endsWith("geometry.json") ? geo : mBytes); };
+  it("reads the pinned manifest once and picks the schema-2 validator by its schema_version", async () => {
+    const urls: string[] = [], m = await loadViewManifest(pinned, undefined, serve(urls));
+    expect(urls).toEqual(["/data/records-test-event-v1/manifest.json"]);
+    expect(m.schema_version).toBe("2"); expect(m.windows.map(w => w.id)).toEqual(["display"]);
+    await expect(loadViewManifest({ ...pinned, records: { ...pinned.records!, manifest_sha256: "0".repeat(64) } }, undefined, serve())).rejects.toThrow(/hash/);
+  });
+  it("loads a schema-2 bundle's geometry and stations by their pinned assets", async () => {
+    const m = await loadViewManifest(pinned, undefined, serve()) as SliceView, urls: string[] = [];
+    expect((await loadGeometry(m, pinned, undefined, serve(urls))).points.map(p => p.id)).toEqual(["test-event", "a1"]);
+    expect((await loadStation(m, "a1", undefined, serve(urls))).station_id).toBe("a1");
+    expect(urls).toEqual(["/data/records-test-event-v1/geometry.json", "/data/records-test-event-v1/stations/a1.csv.gz"]);
+  });
+  it("opens an event without records without fetching, placed at the index's projected epicentre", async () => {
+    let called = false; const request = async () => { called = true; return new Response(mBytes); };
+    const none = { ...entry, records: null, x: -1376848, y: 6141947 }, m = await loadViewManifest(none, undefined, request);
+    expect(m).toEqual(noRecordsView(none));
+    expect(await loadGeometry(m, none, undefined, request)).toEqual({ points: [{ id: "test-event", x: -1376848, y: 6141947 }], coastline: [] });
+    expect(called).toBe(false);
+    await expect(loadGeometry(m, { ...none, x: undefined, y: undefined }, undefined, request)).rejects.toThrow(/position/);
+  });
+});
+
+describe("record providers, from the bundle itself", () => {
+  it("names CO-OPS for a CO-OPS product and archived NTWC day files for an archive window, once each, and nothing without records", () => {
+    expect(recordProviders(sliceView(manifest))).toEqual(["NOAA CO-OPS", "archived NTWC day files"]);
+    expect(recordProviders(sliceView({ ...manifest, stations: [a1, { ...a1, station_id: "a2" }] }))).toEqual(["NOAA CO-OPS"]);
+    expect(recordProviders(sliceView({ ...manifest, stations: [b2] }))).toEqual(["archived NTWC day files"]);
+    expect(recordProviders(noRecordsView({ ...entry, records: null }))).toEqual([]);
   });
 });

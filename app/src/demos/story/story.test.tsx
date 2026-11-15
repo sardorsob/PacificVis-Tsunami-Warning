@@ -2,12 +2,15 @@ import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { NoReference, StationCard } from "../StationCard";
-import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
+import type { DemoGeometry, DemoManifest, DemoState, EventEntry, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryArrivals } from "./arrivals";
 import { ArrivalsView } from "./ArrivalsView";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
-import { PairedView } from "./PairedView";
+import { NoRecordsPage, PairedView } from "./PairedView";
+import { useStage } from "./StoryMap";
+import { noRecordsView } from "../slices";
+import { isValidElement, type ReactElement, type ReactNode } from "react";
 import { StoryView, type StoryViewProps } from "./StoryView";
 import { STORY_EVENT_ID } from "./steps";
 import { parseStoryParams, type StoryParams } from "./url";
@@ -54,6 +57,12 @@ function records(station: StationMetadata): StationRecords {
       last_grid_utc: "2011-03-11T23:59:00Z", first_valid_raw_utc: "2011-03-11T03:00:00Z", last_valid_raw_utc: "2011-03-11T20:00:00Z", strict_numerator_n: 2, strict_denominator_n: 1440, strict_percent: 0.14 }],
     coverage_spans: [], gap_blocks: [] };
 }
+// The index entries the views get: the open event (its label, origin, magnitude and listed bundles) and the events the select offers.
+const ref = (bundle_id: string) => ({ bundle_id, manifest_sha256: "0".repeat(64), manifest_bytes: 1 });
+export const tohoku: EventEntry = { event_id: STORY_EVENT_ID, label: "Tōhoku, Japan", origin_time_utc: "2011-03-11T05:46:24.120Z", latitude: 0, longitude: 0,
+  magnitude: 9.1, magnitude_type: "mww", records: ref("test-only-story"), layers: ref("test-only-layers"), arrivals: null };
+const illapel: EventEntry = { event_id: "us20003k7a", label: "Illapel, Chile", origin_time_utc: "2015-09-16T22:54:32.860Z", latitude: 0, longitude: 0,
+  magnitude: 8.3, magnitude_type: "mww", records: ref("test-only-illapel"), layers: ref("test-only-illapel-layers"), arrivals: null };
 const ready = (id: string): StationSelection => { const station = stations.find(s => s.station_id === id)!; return { station, status: "ready", records: records(station), error: null }; };
 const noop = () => undefined;
 export function input({ lensOverOcean = false, t = 7.5, compare = false, step = "explore" as StoryParams["step"], size = undefined as { w: number; h: number } | undefined,
@@ -64,7 +73,7 @@ export function input({ lensOverOcean = false, t = 7.5, compare = false, step = 
     state: { view, selectedStationId: "1617760", pinnedStationId: pinned, windowId: "common_day", productKey: "raw_value" },
     selected: ready("1617760"), pinned: pinned ? ready(pinned) : null, onOpenEvidence: noop, onRetryStation: noop, onRetryGeometry: noop,
     params: { t, compare, step, at: at ?? (lensOverOcean ? [-3000, 9000] : null), z, from }, onNav: noop, restoreKey: 0,
-    evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size,
+    evidenceOpen: false, issues, onDismissIssues: noop, onState: noop, initialSize: size, entry: tohoku, events: [tohoku, illapel], onEvent: noop,
   };
 }
 
@@ -273,7 +282,7 @@ describe("Station lens — the story stage around one station", () => {
     onRetryStation: noop, cursorMs: Date.parse(props.manifest.event.origin_time_utc) + 7.5 * 3_600_000 });
   it("shows A's and B's full cards on the shared clock", () => {
     const props = lens(), html = renderToStaticMarkup(<StoryView {...props}/>);
-    expect(html).toContain(renderToStaticMarkup(<StationCard selection={props.selected} role="selected" {...common(props)}/>));
+    expect(html).toContain(renderToStaticMarkup(<StationCard selection={props.selected!} role="selected" {...common(props)}/>));
     expect(html).toContain(renderToStaticMarkup(<StationCard selection={props.pinned!} role="pinned" {...common(props)}/>));
   });
   it("clears B without substitution: one chart, one support, and the no-reference card", () => {
@@ -326,12 +335,12 @@ describe("story view — reported times", () => {
   it("puts A's three-clocks strip in the record arm above its record, also while the record loads or after it failed", () => {
     const html = renderToStaticMarkup(<StoryView {...input()} arrivals={linked}/>);
     expect(html).toContain(group("Test station 1617760"));
-    expect(html).toContain("NTWC: reported 15 min after the published estimate.");
+    expect(html).toContain("NTWC: reported 15 min after the published estimate · this station&#x27;s record.");
     expect(html.indexOf(group("Test station 1617760"))).toBeLessThan(html.indexOf('class="record-chart"'));
     expect(html).not.toContain(group("Test station saip"));
-    const station = input().selected.station;
+    const station = ready("1617760").station;
     for (const selected of [{ station, status: "loading" as const, records: null, error: null }, { station, status: "error" as const, records: null, error: "test" }])
-      expect(renderToStaticMarkup(<StoryView {...input()} selected={selected} arrivals={linked}/>)).toContain("NTWC: reported 15 min after the published estimate.");
+      expect(renderToStaticMarkup(<StoryView {...input()} selected={selected} arrivals={linked}/>)).toContain("NTWC: reported 15 min after the published estimate · this station&#x27;s record.");
     expect(renderToStaticMarkup(<StoryView {...input({ lensOverOcean: true })} arrivals={linked}/>)).not.toContain("Reported times linked to");
   });
   it("in Compare stacks B's strip under A's, above both records, each named with its straight-line distance", () => {
@@ -383,7 +392,7 @@ describe("Reported times (?view=times) — every listed report on the shared clo
 describe("Paired — records first, on the shared clock", () => {
   const paired = (extra: Parameters<typeof input>[0] = {}) => input({ view: "paired", t: 7.5, ...extra });
   const cardOf = (props: StoryViewProps, role: "selected" | "pinned") => renderToStaticMarkup(<StationCard selection={role === "selected"
-    ? props.selected : props.pinned!} role={role} windowId={props.state.windowId} productKey={props.state.productKey} onOpenEvidence={noop}
+    ? props.selected! : props.pinned!} role={role} windowId={props.state.windowId} productKey={props.state.productKey} onOpenEvidence={noop}
     onRetryStation={noop} cursorMs={Date.parse(props.manifest.event.origin_time_utc) + 7.5 * 3_600_000}/>);
   it("shows A's and B's full cards on the shared clock", () => {
     const props = paired(), html = renderToStaticMarkup(<PairedView {...props}/>);
@@ -420,5 +429,192 @@ describe("Paired — records first, on the shared clock", () => {
     const html = renderToStaticMarkup(<PairedView {...paired()}/>);
     expect(html).not.toMatch(/arrival time:|arrived at|warning time:/i);
     expect(html).toContain("The white line on each record is the shared clock");
+  });
+});
+
+describe("the event select — beside the view switch on the stage, in the page header elsewhere", () => {
+  const select = (html: string) => html.match(/<label class="story-event"><span>Event<\/span><select aria-label="Event">(.*?)<\/select><\/label>/)?.[1] ?? null;
+  it("sits in the top-right panel with the view switch, in the story and the Station lens, on the open event", () => {
+    for (const view of ["story", "radial"] as const) for (const size of [{ w: 1440, h: 900 }, { w: 390, h: 844 }]) {
+      const html = renderToStaticMarkup(<StoryView {...input({ view, size })}/>), panel = html.slice(html.indexOf("story-panel story-compare"));
+      expect(select(panel), `${view} ${size.w}`).toContain('<option value="official20110311054624120_30" selected="">Tōhoku, Japan · 11 March 2011 · M9.1</option>');
+      expect(panel.indexOf('class="story-event"')).toBeGreaterThan(panel.indexOf('class="story-views"'));
+    }
+  });
+  it("gives the wide panel the room the layout sets, so the four views keep one row", () => {
+    expect(renderToStaticMarkup(<StoryView {...input({ size: { w: 1440, h: 900 } })}/>)).toMatch(/class="story-panel story-compare"[^>]*style="width:348px"/);
+  });
+  it("sits in the page header beside the view switch in Paired and Reported times", () => {
+    for (const html of [renderToStaticMarkup(<PairedView {...input({ view: "paired" })}/>), renderToStaticMarkup(<ArrivalsView {...input({ view: "times" })} arrivals={arrivals}/>)]) {
+      const head = html.slice(html.indexOf('<header class="paired-head">'), html.indexOf("</header>"));
+      expect(select(head)).toContain("Illapel, Chile · 16 September 2015 · M8.3");
+      expect(head).toContain('class="story-views"');
+    }
+  });
+});
+
+describe("copy from the index entry and the manifest — no Tōhoku literals outside its steps", () => {
+  // The same test stations, opened as Illapel: its own origin and entry; nothing else changes.
+  const ILLAPEL_ORIGIN = "2015-09-16T22:54:32.860Z";
+  const asIllapel = (props: StoryViewProps): StoryViewProps => ({ ...props, entry: illapel,
+    manifest: { ...manifest, event: { ...manifest.event, event_id: illapel.event_id, origin_time_utc: ILLAPEL_ORIGIN } },
+    geometry: { ...geometry, points: geometry.points.map(p => p.id === STORY_EVENT_ID ? { ...p, id: illapel.event_id } : p) } });
+  const views = (props: StoryViewProps) => [renderToStaticMarkup(<StoryView {...props}/>), renderToStaticMarkup(<StoryView {...props} state={{ ...props.state, view: "radial" }}/>),
+    renderToStaticMarkup(<PairedView {...props}/>), renderToStaticMarkup(<ArrivalsView {...props} arrivals={arrivals}/>)];
+  const visible = (html: string) => html.replace(/<option[^>]*>[^<]*<\/option>/g, "").replace(/<[^>]*>/g, " ");
+  it("keeps Tōhoku's copy as it was", () => {
+    const wide = input({ size: { w: 1440, h: 900 } }), html = renderToStaticMarkup(<StoryView {...wide}/>);
+    expect(html).toContain("Tōhoku origin · 05:46 UTC");
+    expect(html).toContain("NOAA/NCEI travel-time contours, one line per hour after the 05:46 UTC Tōhoku origin.");
+    const origin = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, at: [-6000, 0] })}/>);
+    expect(origin).toContain('story-lens-title__name">Tōhoku epicentre<');
+    expect(origin).toContain("USGS origin 05:46:24 UTC · M9.1 · the published clock starts here");
+    for (const page of views(wide)) expect(page).toContain('<p class="story-kicker">Pacific · 11 March 2011</p>');
+  });
+  it("words Illapel from its own entry and origin, with no Tōhoku date, time or name", () => {
+    const wide = asIllapel(input({ size: { w: 1440, h: 900 } })), html = renderToStaticMarkup(<StoryView {...wide}/>);
+    expect(html).toContain("Illapel origin · 22:54 UTC");
+    expect(html).toContain("NOAA/NCEI travel-time contours, one line per hour after the 22:54 UTC Illapel origin.");
+    const origin = renderToStaticMarkup(<StoryView {...asIllapel(input({ at: [-6000, 0] }))}/>);
+    expect(origin).toContain('story-lens-title__name">Illapel epicentre<');
+    expect(origin).toContain("USGS origin 22:54:32 UTC · M8.3 · the published clock starts here");
+    for (const page of views(wide)) {
+      expect(page).toContain('<p class="story-kicker">Pacific · 16 September 2015</p>');
+      expect(visible(page)).not.toMatch(/Tōhoku|11 March|05:46|2011(?!-03-1[12])/);   // the test stations' records keep their own 2011 dates
+    }
+  });
+  it("counts the stations in the map's description instead of naming ten", () => {
+    expect(renderToStaticMarkup(<StoryView {...input()}/>)).toContain("with 10 station records.");
+  });
+});
+
+describe("an event with no published contours keeps the clock; a contour bundle that fails does not", () => {
+  const none = (extra: Parameters<typeof input>[0] = {}): StoryViewProps => ({ ...input(extra), entry: { ...tohoku, layers: null }, layers: null });
+  const playOff = /<button[^>]*class="story-play"[^>]*disabled/, sliderOff = /<input type="range"[^>]*disabled/;
+  const NOTE = "No published travel-time contours are listed for this event.";
+  it("plays and seeks with no contours listed, drops the contour source from the clock bar and says so calmly once", () => {
+    for (const html of [renderToStaticMarkup(<StoryView {...none()}/>), renderToStaticMarkup(<StoryView {...none({ view: "radial" })}/>),
+      renderToStaticMarkup(<PairedView {...none({ view: "paired" })}/>), renderToStaticMarkup(<ArrivalsView {...none({ view: "times" })} arrivals={arrivals}/>)]) {
+      expect(html).not.toMatch(playOff); expect(html).not.toMatch(sliderOff);
+      expect(html).toContain('aria-label="Play the clock"');
+      expect(html).not.toContain("NOAA/NCEI published contours");
+      expect(html.split(NOTE)).toHaveLength(2);
+      expect(html).not.toMatch(/Published contour layer unavailable|Retry contours|Loading the published contour layer/);
+    }
+  });
+  it("words the stage without contours: no published clock, contour line, legend or contour credit, and the 1:110m basemap", () => {
+    const html = renderToStaticMarkup(<StoryView {...none({ size: { w: 1440, h: 900 } })}/>);
+    for (const text of ["one line per hour", "Colour shows the published hour", "NOAA/NCEI travel-time contours:", "1:50m"]) expect(html).not.toContain(text);
+    expect(html).toContain("Natural Earth 1:110m");
+    const origin = renderToStaticMarkup(<StoryView {...none({ at: [-6000, 0] })}/>);
+    expect(origin).toContain("USGS origin 05:46:24 UTC · M9.1<"); expect(origin).not.toMatch(/published clock|NOAA\/NCEI/);
+    const ocean = renderToStaticMarkup(<StoryView {...none({ lensOverOcean: true })}/>);
+    expect(ocean).not.toMatch(/NOAA\/NCEI published travel-time estimates|nearest published contour|Published clock here/);
+    expect(ocean).toContain("no published contours for this event");
+  });
+  it("lights the reported marks as the clock passes them", () => {
+    const lit = (t: number) => (renderToStaticMarkup(<StoryView {...none({ t })} arrivals={arrivals}/>).match(/story-report--on/g) ?? []).length;
+    expect(lit(30)).toBeGreaterThan(lit(0));
+  });
+  it("keeps today's failed-layer state when a listed contour bundle fails: clock off, Retry contours", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()} layers={null} layersError="asset hash mismatch"/>);
+    expect(html).toMatch(playOff); expect(html).toMatch(sliderOff);
+    expect(html).toContain("Retry contours"); expect(html).not.toContain(NOTE);
+    expect(renderToStaticMarkup(<StoryView {...input()} layers={null} layersPending="loading"/>)).toMatch(playOff);
+  });
+});
+
+describe("an event with no records bundle opens on the stage", () => {
+  const adak: EventEntry = { event_id: "usp0007jcu", label: "Adak, Alaska", origin_time_utc: "1996-06-10T04:03:35.480Z", latitude: 51.564, longitude: -177.632,
+    magnitude: 7.9, magnitude_type: "mwc", records: null, layers: null, arrivals: null, x: -1376848, y: 6141947 };
+  const none = noRecordsView(adak);
+  const stage = (extra: Parameters<typeof input>[0] = {}): StoryViewProps => ({ ...input(extra), entry: adak, manifest: none, layers: null, selected: null, pinned: null,
+    geometry: { points: [{ id: adak.event_id, x: adak.x!, y: adak.y! }], coastline: [] }, basemap: { parts: [[[0, 0], [1000, 0], [0, 1000], [0, 0]]], closed: [true] },
+    state: { ...input(extra).state, ...none.default_state }, params: { ...input(extra).params, at: null }, arrivals, events: [adak, tohoku, illapel] });
+  const NOTE = "No station records are published for this event.";
+  it("shows the basemap, the epicentre under the lens, the reported marks, the clock and the key, and says it has no records", () => {
+    for (const size of [{ w: 1440, h: 900 }, { w: 390, h: 844 }]) {
+      const html = renderToStaticMarkup(<StoryView {...stage({ size, t: 30 })}/>), map = html.slice(html.indexOf('class="story-reports"'));
+      expect(html).toContain('story-lens-title__name">Adak epicentre<');
+      expect(html).toContain("USGS origin 04:03:35 UTC · M7.9<");
+      const [x, y] = html.match(/<path d="M([\d.-]+) ([\d.-]+)L[^"]*" class="story-epicentre"/)!.slice(1).map(Number);   // the map's star, on screen
+      expect(x).toBeGreaterThan(0); expect(x).toBeLessThan(size.w); expect(y).toBeGreaterThan(0); expect(y).toBeLessThan(size.h);
+      expect(html).toContain(NOTE);
+      expect(map.slice(0, map.indexOf("</g>")).match(/class="story-report [^"]*story-report--on"/g)).toHaveLength(5);
+      expect(html).toContain("2 estimate–reported pairs in the NTWC table");
+      expect(html).toContain('class="story-land" d="M0 0L1000 0L0 1000L0 0Z"');
+      expect(html).not.toMatch(/<button[^>]*class="story-play"[^>]*disabled/);
+      for (const text of ["⇄ Compare", "Choose B", "Station records", "Previous station", "Rows &amp; sources", "Back to the guided story"]) expect(html).not.toContain(text);
+      expect(html).toContain("with no station records.");
+    }
+  });
+  it("lists every report in Reported times, as for any event", () => {
+    const html = renderToStaticMarkup(<ArrivalsView {...stage({ view: "times" })}/>);
+    expect(html.match(/class="ladder-row"/g)).toHaveLength(5);
+    expect(html).toContain("internal descriptive evidence only");
+    expect(html).not.toContain("null ·");
+  });
+  // A hook-free page: walk its elements to press its buttons (no DOM needed).
+  const tree = (node: ReactNode): ReactElement<{ children?: ReactNode; onClick?: () => void }>[] => Array.isArray(node) ? node.flatMap(tree)
+    : !isValidElement<{ children?: ReactNode; onClick?: () => void }>(node) ? [] : [node, ...(typeof node.type === "function"
+      ? tree((node.type as (p: unknown) => ReactNode)(node.props)) : []), ...tree(node.props.children)];
+  it("gives Paired and Station lens a plain note with a way to Story and to Reported times", () => {
+    for (const view of ["paired", "radial"] as const) {
+      const onState = vi.fn(), props = { ...stage({ view, t: 4 }), onState }, html = renderToStaticMarkup(<NoRecordsPage {...props}/>);
+      expect(html).toContain(`${NOTE} ${view === "paired" ? "Paired records" : "Station lens"} shows station records; Story and Reported times show this event&#x27;s reported times.`);
+      expect(html).toContain("Adak, Alaska · 10 June 1996 · M7.9");
+      expect(html).toContain("Pacific · 10 June 1996");
+      const buttons = tree(NoRecordsPage(props)).filter(n => n.type === "button");
+      buttons.find(b => b.props.children === "Story")!.props.onClick!();
+      buttons.find(b => b.props.children === "Reported times")!.props.onClick!();
+      expect(onState.mock.calls.map(([patch, live]) => [patch, live.t, live.a])).toEqual([[{ view: "story" }, 4, ""], [{ view: "times" }, 4, ""]]);
+    }
+  });
+});
+
+describe("Station lens keeps every control in view: the reported-times key starts closed there", () => {
+  it("folds the key into a closed <details> in Station lens and leaves it open in the story, its marks and counts inside either way", () => {
+    const keyOf = (view: DemoState["view"], size = { w: 1440, h: 900 }) => {
+      const html = renderToStaticMarkup(<StoryView {...input({ view, size })} arrivals={arrivals}/>), at = html.indexOf('class="story-legend story-key"');
+      return html.slice(html.lastIndexOf("<details", at), html.indexOf("</details>", at));
+    };
+    for (const size of [{ w: 1440, h: 900 }, { w: 390, h: 844 }]) {
+      expect(keyOf("radial", size)).toMatch(/^<details class="story-legend story-key"><summary>Reported times and published estimates<\/summary>/);
+      expect(keyOf("story", size)).toMatch(/^<details class="story-legend story-key" open=""><summary>/);
+    }
+    for (const text of ["NTWC published estimate", "2 estimate–reported pairs in the NTWC table"]) expect(keyOf("radial")).toContain(text);
+  });
+});
+
+describe("Checker round 1 — station picker, epicentre aim, provider credit", () => {
+  // Thirteen stations: one more than the chips are kept for.
+  const ids = Array.from({ length: 13 }, (_, i) => `s${String(i + 1).padStart(2, "0")}`);
+  const many: DemoManifest = { ...manifest, stations: ids.map(station_id => ({ ...stations[0], station_id, name: `Many ${station_id}` })),
+    default_state: { ...manifest.default_state, selectedStationId: "s01", pinnedStationId: "s02" } };
+  const manyProps = (extra: Parameters<typeof input>[0] = {}): StoryViewProps => ({ ...input(extra), manifest: many,
+    geometry: { ...geometry, points: [geometry.points[0], ...ids.map((id, i) => ({ id, x: i * 2e6, y: 0 }))] },
+    state: { ...input(extra).state, selectedStationId: "s01", pinnedStationId: "s02" },
+    selected: { station: many.stations[0], status: "ready", records: records(many.stations[0]), error: null }, pinned: null });
+  it("picks a station from a native select labelled Station when an event has more than 12, and keeps the chips up to 12", () => {
+    const html = renderToStaticMarkup(<StoryView {...manyProps({ size: { w: 1440, h: 900 } })}/>);
+    expect(html).not.toContain("story-chip");
+    const select = html.match(/<label class="story-event"><span>Station<\/span><select aria-label="Station">(.*?)<\/select><\/label>/)?.[1] ?? "";
+    expect(select.match(/<option /g)).toHaveLength(13);
+    expect(select).toContain('<option value="s01" selected="">Many s01</option>');
+    const ocean = renderToStaticMarkup(<StoryView {...manyProps({ at: [1000, 9000] })}/>);
+    expect(ocean).toContain('<option value="" selected="">No station under the lens</option>');
+    expect(renderToStaticMarkup(<StoryView {...input({ step: "explore" })}/>).match(/class="story-chip/g)).toHaveLength(10);   // Tōhoku as built
+  });
+  it("knows an event's epicentre from the index before its map loads, so the lens aims there from the first render", () => {
+    const Probe = ({ entry }: { entry: EventEntry }) => { const { epicentre } = useStage(noRecordsView(entry), null, null, null, entry); return <p>{epicentre.join(",")}</p>; };
+    const adak = { ...tohoku, event_id: "usp0007jcu", records: null, layers: null, x: -1376848, y: 6141947 };
+    expect(renderToStaticMarkup(<Probe entry={adak}/>)).toBe("<p>-1376848,-6141947</p>");
+  });
+  it("credits the record providers the bundle names, and the reported-times sources when the event has a file", () => {
+    const credits = (props: StoryViewProps) => { const html = renderToStaticMarkup(<StoryView {...props}/>); return html.slice(html.indexOf('class="story-credits"')); };
+    expect(credits(input())).toContain("Records: Test publisher.");
+    expect(credits(input())).not.toContain("Reported times:");
+    const withFile = { ...input(), entry: { ...tohoku, arrivals: { path: "story-arrivals-v2/x.json", sha256: "0".repeat(64), bytes: 1 } } };
+    expect(credits(withFile)).toContain("Reported times: NTWC and NCEI source records.");
   });
 });

@@ -46,6 +46,9 @@ describe("story layout tiers", () => {
       expect(L.read.left + L.read.width / 2).toBeCloseTo(L.cx);
       // clear of the top-right panel: its bottom is at 172 px with Compare on (measured at 1280×800 and 1440×900), + 8 px
       expect(L.record.top).toBeGreaterThanOrEqual(180 * L.ui);
+      // The top-right panel (views and the event select) stays clear of the lens title (8 px), and at 1440 is wide enough for the four views on one row.
+      expect(w - 14 - L.panel!).toBeGreaterThanOrEqual(L.cx + L.titleW / 2 + 8);
+      if (w >= 1440) expect(L.panel).toBeGreaterThanOrEqual(330 * L.ui);
       // Arms (and Station lens's wider cards) end above the clock bar, and above the zoom buttons (bottom-right, 54 × 144 px)
       // whenever the right arm reaches over them.
       for (const A of [L, layoutFor(w, h, 420)]) {

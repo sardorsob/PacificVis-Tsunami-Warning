@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
-import type { DemoGeometry, DemoManifest } from "../types";
+import { isSliceStation } from "../slices";
+import type { AnyStation, EventEntry, StageGeometry, ViewManifest } from "../types";
 import type { ArrivalMark, MarkKind } from "./arrivals";
 import { hourPaths, labelAnchors, linePath, toSvg, type StoryLayers, type Coastline, type ContourFeature, type Pt } from "./layers";
 import { contourColour } from "./palette";
@@ -70,23 +71,29 @@ export function paintContours(root: ParentNode, t: number, pulses: Map<number, n
   n?.setAttribute("d", paths.get(next) ?? ""); n?.setAttribute("stroke", contourColour(next)); n?.setAttribute("stroke-opacity", nextHaloOpacity(t).toFixed(3));
 }
 
-export type MapStation = { id: string; name: string; type: "coastal" | "dart"; xy: Pt };
-/** The shared stage every view draws: stations and epicentre in SVG space, coastline (the verified v2 one until the 1:50m
- * layer loads, or if it fails), published contours with their hour paths and label anchors. */
-export function useStage(manifest: DemoManifest, geometry: DemoGeometry | null, layers: StoryLayers | null) {
-  const stationIds = useMemo(() => manifest.stations.map(s => s.station_id), [manifest]);
-  const stations = useMemo<MapStation[]>(() => geometry ? manifest.stations.map(s => {
+/** "record": a records-schema-2 station, which has no station type. */
+export type MapStation = { id: string; name: string; type: "coastal" | "dart" | "record"; xy: Pt };
+/** The shared stage every view draws: stations and epicentre in SVG space, coastline (the layers bundle's 1:50m one when it has loaded,
+ * else the index's 1:110m basemap, else the records bundle's own), published contours with their hour paths and label anchors. */
+export function useStage(manifest: ViewManifest, geometry: StageGeometry | null, layers: StoryLayers | null, basemap: Coastline | null = null,
+  entry?: Pick<EventEntry, "x" | "y">) {
+  const list: readonly AnyStation[] = manifest.stations;
+  const stationIds = useMemo(() => list.map(s => s.station_id), [manifest]);
+  const stations = useMemo<MapStation[]>(() => geometry ? list.map(s => {
     const p = geometry.points.find(q => q.id === s.station_id)!;
-    return { id: s.station_id, name: s.name, type: s.station_type, xy: toSvg([p.x, p.y]) };
+    return { id: s.station_id, name: s.name, type: isSliceStation(s) ? "record" : s.station_type, xy: toSvg([p.x, p.y]) };
   }) : [], [geometry, manifest]);
+  // Until the map loads, the index's projected epicentre (index schema 2): the first view aims there, even for an event with no stations to re-aim to.
   const epicentre = useMemo<Pt>(() => {
-    const p = geometry?.points.find(q => q.id === manifest.event.event_id); return p ? toSvg([p.x, p.y]) : [0, 0];
-  }, [geometry, manifest]);
+    const p = geometry?.points.find(q => q.id === manifest.event.event_id) ?? (entry?.x !== undefined && entry.y !== undefined ? entry : null);
+    return p ? toSvg([p.x!, p.y!]) : [0, 0];
+  }, [geometry, manifest, entry?.x, entry?.y]);
   const coastline = useMemo<Coastline>(() => {
     if (layers) return layers.coastline;
+    if (basemap) return basemap;
     const parts = geometry ? geometry.coastline.map(part => part.map(toSvg)) : [];
     return { parts, closed: parts.map(q => q.length > 3 && q[0][0] === q.at(-1)![0] && q[0][1] === q.at(-1)![1]) };
-  }, [layers, geometry]);
+  }, [layers, basemap, geometry]);
   const contours = useMemo(() => layers?.contours ?? [], [layers]);
   const paths = useMemo(() => hourPaths(contours), [contours]);
   const anchors = useMemo(() => labelAnchors(contours, epicentre), [contours, epicentre]);
@@ -125,14 +132,15 @@ type Rect = { left: number; top: number; right: number; bottom: number };
  * `avoid` box such as the lens title. `middle` centres it on the point.
  */
 export function placeLabel(x: number, y: number, text: string, width: number, lenses: Circle[], align: "side" | "middle" = "side",
-  avoid: Rect[] = []) {
-  // ponytail: width from character count (11 px labels); measure with getComputedTextLength if labels change font.
-  const w = text.length * 6.2 + 4, h = 12, gap = 10;
-  if (x < -gap || x > width + gap || y < -gap) return null;  // off screen: its marker is gone, so is its label
-  y = Math.max(y, h + 2); // a point on the top edge keeps its label on screen, just below the edge
+  avoid: Rect[] = [], height = Infinity, strong = false) {
+  // ponytail: width from character count (11 px labels, bold ones wider); measure with getComputedTextLength if labels change font.
+  const w = text.length * (strong ? 7.2 : 6.2) + 4, h = 12, gap = 10;
+  if (x < -gap || x > width + gap || y < -gap || y > height + gap) return null;  // off screen: its marker is gone, so is its label
+  y = Math.min(Math.max(y, h + 2), height - 4); // a point on the top or bottom edge keeps its label on screen
   let anchor: "start" | "end" | "middle" = align === "middle" ? "middle" : "start", lx = align === "middle" ? x : x + gap;
   if (anchor === "start" && lx + w > width - 4) { anchor = "end"; lx = x - gap; }
   if (anchor === "start") lx = Math.max(4, lx);
+  if (anchor === "end") lx = Math.max(4 + w, lx);
   if (anchor === "middle") lx = Math.max(4 + w / 2, Math.min(width - 4 - w / 2, lx));
   const left = anchor === "start" ? lx : anchor === "end" ? lx - w : lx - w / 2, top = y - h + 2;
   const under = lenses.some(c => {
@@ -144,22 +152,28 @@ export function placeLabel(x: number, y: number, text: string, width: number, le
 }
 type OverlayProps = {
   view: View; stations: MapStation[]; epicentre: Pt; anchors: Map<number, Pt>; t: number; aId: string | null; bId: string | null;
-  /** Lenses and boxes drawn over the map (screen px) and the screen width, so labels avoid them. */
-  lenses?: Circle[]; avoid?: Rect[]; width: number; labelA?: boolean;
+  /** Lenses and boxes drawn over the map (screen px) and the screen size, so labels avoid them and stay on screen. */
+  lenses?: Circle[]; avoid?: Rect[]; width: number; height?: number; labelA?: boolean;
   /** Reported-times marks (arrivalDisplay), over the station markers; reports sharing a place sit side by side, 12 px apart. */
   marks?: ArrivalMark[];
+  /** The epicentre's label, e.g. "Illapel origin · 22:54 UTC" (originLabel). */
+  origin?: string;
 };
+/** An event's place: its label's text before the first comma ("Illapel, Chile" → "Illapel"). */
+export const placeName = (label: string) => label.split(",")[0];
+/** "{place} origin · HH:MM UTC", at the USGS origin time. */
+export const originLabel = (label: string, originUtc: string) => `${placeName(label)} origin · ${originUtc.slice(11, 16)} UTC`;
 /** Screen-space marks: constant size at any zoom. */
 export function Overlay(props: OverlayProps) {
-  const { view, stations, epicentre, anchors, t, aId, bId, lenses = [], avoid = [], width, labelA = false, marks = [] } = props;
+  const { view, stations, epicentre, anchors, t, aId, bId, lenses = [], avoid = [], width, height, labelA = false, marks = [], origin } = props;
   const [ex, ey] = toScreen(view, epicentre);
   const label = (x: number, y: number, text: string, strong: boolean, align: "side" | "middle" = "side") => {
-    const p = placeLabel(x, y, text, width, lenses, align, avoid);
+    const p = placeLabel(x, y, text, width, lenses, align, avoid, height, strong);
     return p && <text x={p.x} y={p.y} textAnchor={p.anchor} className={`story-label${strong ? " story-label--strong" : ""}`}>{text}</text>;
   };
   return <g className="story-overlay">
     <path d={star(ex, ey, 7, 3)} className="story-epicentre"/>
-    {label(ex, ey - 8, "Tōhoku origin · 05:46 UTC", true)}
+    {origin && label(ex, ey - 8, origin, true)}
     {[...anchors].filter(([h]) => h <= t).map(([h, p]) => {
       const [x, y] = toScreen(view, p); return <g key={h}>{label(x, y, `${h} h`, false, "middle")}</g>; })}
     {stations.map(s => { const [x, y] = toScreen(view, s.xy), isA = s.id === aId, isB = s.id === bId;

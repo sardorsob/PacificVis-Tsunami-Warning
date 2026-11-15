@@ -120,9 +120,14 @@ and the default is never written, so existing links are unchanged. An unknown
 `event` is repaired to the default with a visible note. Each records and layers
 manifest is fetched from `<bundle_id>/manifest.json` and checked against the
 byte count and SHA-256 the index pins before it is parsed, then against the
-entry's event identity. The six guided steps belong to Tōhoku; any other event
-opens in free exploration. An event with `layers: null` shows the contour
-layer as unavailable; one with `records: null` cannot open yet.
+entry's event identity, and read by its own `schema_version` (records schema 1
+or 2). The six guided steps belong to Tōhoku; any other event opens in free
+exploration. The Event select (top-right panel on the stage, page header in
+Paired and Reported times) pushes one history entry and opens the new event on
+its own defaults, keeping the view where it can and the clock. An event with
+`layers: null` keeps the clock and says no contours are listed; one with
+`records: null` opens on the stage at its epicentre with its reported times,
+and Paired and Station lens say it has no station records.
 
 How to read it:
 

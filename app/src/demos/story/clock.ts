@@ -1,4 +1,4 @@
-/** The one owner of story time: hours after the 05:46:24 UTC origin. */
+/** The one owner of story time: hours after the event's USGS origin. */
 export const T_MAX = 30;
 /** Published hours per second of playback (0–30 h in 12.5 s). */
 const PLAY_RATE = 2.4;
@@ -34,8 +34,10 @@ export function utcAt(originUtc: string, t: number): string {
 }
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-/** UTC calendar day at the clock time, e.g. "Friday 11 March 2011" (fixed format, no locale dependence). */
-export function utcDayAt(originUtc: string, t: number): string {
+/** UTC calendar date at the clock time, e.g. "16 September 2015" (fixed format, no locale dependence). */
+export function utcDate(originUtc: string, t = 0): string {
   const d = new Date(Date.parse(originUtc) + t * 3_600_000);
-  return `${DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
+/** UTC calendar day at the clock time, e.g. "Wednesday 16 September 2015". */
+export const utcDayAt = (originUtc: string, t: number) => `${DAYS[new Date(Date.parse(originUtc) + t * 3_600_000).getUTCDay()]} ${utcDate(originUtc, t)}`;

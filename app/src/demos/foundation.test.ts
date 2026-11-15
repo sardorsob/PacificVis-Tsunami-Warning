@@ -1,7 +1,8 @@
 import { describe,expect,it } from "vitest";
 import { localYDomain,pointPath,selectWindow } from "./chart";
 import { LatestRequest,utcMicros } from "./loader";
-import { parseEvent,parseState,serializeState } from "./state";
+import { eventSearch,parseEvent,parseState,serializeState } from "./state";
+import { noRecordsView,sliceView } from "./slices";
 import { parseStoryParams,type StoryParams } from "./story/url";
 import type { DemoManifest,EventEntry,EventsIndex,Observation,StationRecords } from "./types";
 import { plotDateContext } from "./layout";
@@ -124,4 +125,52 @@ describe("asset-independent event field in the URL",()=>{
     const other={...named,default_state:{...named.default_state,selectedStationId:"21418",pinnedStationId:"valp"}};
     expect(parseState("?selected=evil&pinned=bad",other).issues).toEqual(["Invalid selected station: 21418 restored.","Invalid pinned station: valp restored."]);
   });
+  it("an event change pushes one link: that event, its own defaults (no station fields), the same view, the live clock, free exploration",()=>{
+    const here={...parseState("",manifest).state,view:"times" as const,sort:"distance" as const,selectedStationId:"21418",windowId:"source_full"};
+    const live:StoryParams={t:7.25,compare:true,step:4,at:[10,20],z:3,from:null};
+    const other=index.events[1],url=eventSearch(here,live,other,index);
+    expect(url).toBe("?event=other&view=times&sort=distance&t=7.25&cmp=0&step=explore");
+    expect(parseEvent(url,index)).toEqual({entry:other,issues:[]});
+    // The new event's own defaults, with nothing to repair
+    expect(parseState(url,manifest)).toEqual({state:{...parseState("",manifest).state,view:"times",sort:"distance"},issues:[]});
+    expect(parseStoryParams(url,false).params).toEqual({t:7.25,compare:false,step:"explore",at:null,z:1,from:null});
+    // Back to the default event drops the event field; a guided event opens in Explore too
+    expect(eventSearch({...here,view:"story"},live,index.events[0],index)).toBe("?view=story&sort=distance&t=7.25&cmp=0&step=explore");
+    expect(parseStoryParams(eventSearch(here,live,index.events[0],index)).params.step).toBe("explore");
+  });
+  it("keeps the view only when it can show the new event: Paired and Station lens need records",()=>{
+    const here=parseState("",manifest).state,live:StoryParams={t:2,compare:false,step:"explore",at:null,z:1,from:null};
+    const withRecords={...index.events[1],records:{bundle_id:"r",manifest_sha256:"0".repeat(64),manifest_bytes:1}};
+    for(const view of ["paired","radial"] as const){
+      expect(eventSearch({...here,view},live,index.events[1],index)).toBe("?event=other&view=story&t=2&cmp=0&step=explore");
+      expect(eventSearch({...here,view},live,withRecords,index)).toBe(`?event=other&view=${view}&t=2&cmp=0&step=explore`);
+    }
+  });
+  it("Back restores the entry left: its event and its screen, written before the push",()=>{
+    const left=serializeState({...parseState("",manifest).state,selectedStationId:"21418"},story,"other");
+    expect(parseEvent(left,index).entry.event_id).toBe("other");
+    expect(parseState(left,manifest).state.selectedStationId).toBe("21418");
+  });
+  it("writes no station, pin, window or product for an event without stations",()=>{
+    const none=noRecordsView(index.events[1]),state=parseState("",none).state;
+    expect(serializeState(state,story,"other",false)).toBe("?event=other&view=story&t=0&cmp=0&step=1");
+  });
+  it("repairs a window or product in general words, and allows a schema-2 bundle only its display window and raw product",()=>{
+    expect(parseState("?window=missing&product=no",manifest).issues).toEqual(["Invalid window: the default window restored.","Invalid product: the default product restored."]);
+    const two=sliceView({schema_version:"2",exporter_version:"1",bundle_id:"records-other-v1",evidence_state:"internal_descriptive_only",
+      event:{event_id:"other",origin_time_utc:"2014-04-01T23:46:47.260Z",latitude:0,longitude:0},release:manifest.release,
+      window:{id:"display",label:"6 hours before to 30 hours after the origin",start_utc:"2014-04-01T17:46:47.260Z",end_utc_exclusive:"2014-04-03T05:46:47.260Z"},
+      default_station_id:"b",stations:[{station_id:"b",display_station_key:"coops:b",name:"B",product:"water_level",latitude:0,longitude:0,units:"m",vertical_datum:"MLLW",
+        source:{source_id:"s",sha256:"0".repeat(64),url:null},coverage_fraction:1,longest_supported_minutes:2160,coverage_rule_id:"r",rows:1}],assets:[],geometry_path:"geometry.json",
+      input_fingerprints:[],config_sha256:"0".repeat(64),accounting:{station_count:1,rows:1}});
+    expect(parseState("?window=display&product=raw_value",two)).toEqual({state:{view:"story",sort:"time",...two.default_state},issues:[]});
+    expect(parseState("?window=common_day&product=residual_value",two).issues).toEqual(["Invalid window: the default window restored.","Invalid product: the default product restored."]);
+  });
+  it("an event without stations repairs any station, pin, window or product in its URL with a note, and parses the rest",()=>{
+    const none=noRecordsView(index.events[1]);
+    expect(parseState("?event=other&view=times&sort=distance&t=3",none)).toEqual({state:{view:"times",sort:"distance",...none.default_state},issues:[]});
+    expect(parseState("?event=other&selected=1617760&pinned=saip&window=common_day&product=raw_value",none).issues).toEqual(["selected","pinned","window","product"]
+      .map(k=>`No station records are published for this event: URL field “${k}” was ignored.`));
+  });
 });
+

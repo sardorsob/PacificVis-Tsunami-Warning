@@ -1,14 +1,15 @@
-import type { DemoManifest, ProductKey, StationMetadata } from "../types";
+import { productsOf } from "../slices";
+import type { AnyStation, DemoWindow, ProductKey } from "../types";
 
 export type StationToolsProps = {
-  stations: StationMetadata[]; windows: DemoManifest["windows"];
+  stations: readonly AnyStation[]; windows: readonly DemoWindow[];
   selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey;
   onSelect: (id: string) => void; onPin: (id: string | null) => void; onWindow: (id: string) => void; onProduct: (key: ProductKey) => void;
 };
 /** Station A (with named neighbours in source order), B (never A), UTC window and product. Hook-free, so tests can walk it. */
 export function StationTools(p: StationToolsProps) {
   const i = p.stations.findIndex(s => s.station_id === p.selectedStationId), prev = p.stations[i - 1], next = p.stations[i + 1];
-  const products = p.stations[i]?.products ?? [];
+  const products = p.stations[i] ? productsOf(p.stations[i]) : [];
   return <section className="story-tools" aria-label="Stations and record controls">
     <label>Station A<select value={p.selectedStationId} onChange={e => p.onSelect(e.target.value)}>
       {p.stations.map(s => <option key={s.station_id} value={s.station_id}>{s.name} · {s.station_id}</option>)}</select></label>

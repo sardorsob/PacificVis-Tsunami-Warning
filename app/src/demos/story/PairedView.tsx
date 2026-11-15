@@ -4,17 +4,19 @@ import { ClockBar } from "./ClockBar";
 import { clockLabel } from "./clock";
 import { reduce, type NavEvent, type StoryNav } from "./nav";
 import { StationTools } from "./StationTools";
-import { fitView, Overlay, PACIFIC_CROP, toScreen, useStage, WorldDefs } from "./StoryMap";
+import { fitView, originLabel, Overlay, PACIFIC_CROP, toScreen, useStage, WorldDefs } from "./StoryMap";
+import { kicker } from "./ClockColumn";
 import { Notes, type StoryViewProps } from "./StoryView";
 import { reducedMotion, useStoryClock } from "./useStoryClock";
-import { ViewSwitch } from "./ViewSwitch";
+import { EventSelect, ViewSwitch } from "./ViewSwitch";
+import type { DemoState } from "../types";
 import "./style.css";
 
 /** Paired: two stations' full records, side by side on the shared clock, under a Pacific band that names A and B. */
 export function PairedView(props: StoryViewProps) {
   const { manifest, geometry, layers, state, selected, pinned } = props;
   const origin = manifest.event.origin_time_utc;
-  const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
+  const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers, props.basemap, props.entry);
   const band = useRef<HTMLDivElement>(null), svgRef = useRef<SVGSVGElement>(null);
   // ponytail: a fitted, fixed Pacific band (no pan or zoom); Station lens is the place to explore the map.
   const [size, setSize] = useState({ w: 960, h: 260 });
@@ -29,7 +31,7 @@ export function PairedView(props: StoryViewProps) {
   }, []);
   const view = fitView(PACIFIC_CROP, size.w, size.h);
 
-  const { clock, navRef, live, dispatch, toggle, said, motionOK } = usePageClock(props, svgRef, paths, stationIds);
+  const { clock, navRef, live, dispatch, toggle, said, motionOK, clockOff } = usePageClock(props, svgRef, paths, stationIds);
   const pick = (id: string) => {
     if (id === state.selectedStationId) return;
     const s = stations.find(x => x.id === id);
@@ -40,10 +42,11 @@ export function PairedView(props: StoryViewProps) {
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
   return <main className="story story--paired" aria-label="Paired station records">
     <header className="paired-head">
-      <div><p className="story-kicker">Pacific · 11 March 2011</p><h1 className="story-title">Paired records</h1>
-        <p className="story-small">Two stations on one clock. Each keeps its own scale and datum; heights are not compared. Contours are NOAA/NCEI
-          published travel-time estimates, not arrivals. The white line on each record is the shared clock, a time, not an arrival pick.</p></div>
-      <ViewSwitch view="paired" onView={v => props.onState({ view: v }, live())}/>
+      <div><p className="story-kicker">{kicker(origin)}</p><h1 className="story-title">Paired records</h1>
+        <p className="story-small">Two stations on one clock. Each keeps its own scale and datum; heights are not compared.{props.entry.layers && <> Contours are NOAA/NCEI
+          published travel-time estimates, not arrivals.</>} The white line on each record is the shared clock, a time, not an arrival pick.</p></div>
+      <div className="paired-head__tools"><ViewSwitch view="paired" onView={v => props.onState({ view: v }, live())}/>
+        <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}/></div>
     </header>
     <Notes {...props}/>
     <section className="paired-band" aria-label="Station map" ref={band}>
@@ -51,7 +54,8 @@ export function PairedView(props: StoryViewProps) {
         <svg ref={svgRef} width={size.w} height={size.h} aria-hidden="true">
           <WorldDefs coastline={coastline} contours={contours} paths={paths} initialT={t}/>
           <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
-          <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={A} bId={B} width={size.w} labelA/>
+          <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={A} bId={B} width={size.w} height={size.h} labelA
+            origin={originLabel(props.entry.label, origin)}/>
         </svg>
         {stations.map(s => {
           const [x, y] = toScreen(view, s.xy), isA = s.id === A, isB = s.id === B, name = `${s.name} (${s.id})`;
@@ -63,16 +67,18 @@ export function PairedView(props: StoryViewProps) {
         <button type="button" onClick={props.onRetryGeometry}>Retry map</button><p className="story-small">The records below stay available.</p></div>
         : <p role="status" className="story-small">Loading the verified map…</p>}
     </section>
-    <p className="story-small paired-band__caption">Pacific locator · Equal Earth, 160° W · published hourly contours lit up to the clock. Tap a station
-      to make it A; where marks crowd, use Station A below.</p>
+    <p className="story-small paired-band__caption">Pacific locator · Equal Earth, 160° W{props.entry.layers && " · published hourly contours lit up to the clock"}.
+      Tap a station to make it A; where marks crowd, use Station A below.</p>
     <StationTools stations={manifest.stations} windows={manifest.windows} selectedStationId={A} pinnedStationId={B} windowId={state.windowId}
       productKey={state.productKey} onSelect={pick} onPin={id => dispatch(id ? { type: "pin", id } : { type: "unpin" })}
       onWindow={windowId => props.onState({ windowId }, live())} onProduct={productKey => props.onState({ productKey }, live())}/>
     <div className="paired-cards">
-      <StationCard selection={selected} role="selected" {...card}/>
+      {/* DemoApp opens Paired only for an event with records, so A exists */}
+      <StationCard selection={selected!} role="selected" {...card}/>
       {pinned ? <StationCard selection={pinned} role="pinned" {...card}/> : <NoReference/>}
     </div>
-    <ClockBar t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK} onToggle={toggle} onSeek={clock.seek}/>
+    <ClockBar t={t} playing={clock.playing} disabled={clockOff} contours={!!props.entry.layers} originUtc={origin} reduced={!motionOK} onToggle={toggle}
+      onSeek={clock.seek}/>
     <footer className="paired-foot"><p>{manifest.bundle_id} · internal descriptive evidence only. No validated arrivals, warning time or continuous
       ocean field.</p><p>Integrity is checked against this local manifest, not a signature against replacement of the whole bundle. Source terms and
       unknown datums remain in force.</p></footer>
@@ -83,7 +89,7 @@ export function PairedView(props: StoryViewProps) {
 /** The page views' clock (Paired, Reported times). Same contract as the story: one reducer, DemoApp's single writer, every action from
  * the live clock. Space plays or pauses, Escape pauses, and browser Back/Forward brings the clock to the restored URL without writing history. */
 export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElement | null>, paths: Map<number, string>, stationIds: readonly string[]) {
-  const { layers, state, params } = props, motionOK = !reducedMotion();
+  const { layers, state, params } = props, motionOK = !reducedMotion(), clockOff = !!props.entry.layers && !layers;
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
   const [said, setSaid] = useState("");
@@ -91,11 +97,11 @@ export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElem
     onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
   const live = (): StoryNav => ({ ...navRef.current, t: clock.tRef.current });
   const dispatch = (ev: NavEvent) => {
-    const r = reduce(live(), ev, { motionOK: motionOK && !!layers, stationIds, evidenceOpen: props.evidenceOpen, playing: clock.playing });
+    const r = reduce(live(), ev, { motionOK: motionOK && !clockOff, stationIds, evidenceOpen: props.evidenceOpen, playing: clock.playing });
     if (r.effects.some(e => e.kind === "stopPlay")) clock.stop(false);
     props.onNav(r);
   };
-  const toggle = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
+  const toggle = () => { if (clockOff) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
   const keyActions = { toggle, escape: () => dispatch({ type: "escape" }) }, keys = useRef(keyActions); keys.current = keyActions;
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
@@ -111,5 +117,22 @@ export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElem
     if (props.restoreKey === restoreSeen.current) return;
     restoreSeen.current = props.restoreKey; clock.stop(false); clock.set(params.t);
   }, [props.restoreKey]);
-  return { clock, navRef, live, dispatch, toggle, said, motionOK };
+  return { clock, navRef, live, dispatch, toggle, said, motionOK, clockOff };
+}
+
+/** Paired and Station lens for an event without a records bundle: a plain note, with a way to the views that can show it. Hook-free. */
+export function NoRecordsPage(props: StoryViewProps) {
+  const { state, params } = props, live = (): StoryNav => ({ ...params, a: state.selectedStationId, b: state.pinnedStationId });
+  const go = (view: DemoState["view"]) => props.onState({ view }, live()), name = state.view === "paired" ? "Paired records" : "Station lens";
+  return <main className="story story--paired" aria-label={name}>
+    <header className="paired-head">
+      <div><p className="story-kicker">{kicker(props.manifest.event.origin_time_utc)}</p><h1 className="story-title">{name}</h1></div>
+      <div className="paired-head__tools"><EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())}/></div>
+    </header>
+    <Notes {...props}/>
+    <div className="story-alert"><p>No station records are published for this event. {name} shows station records; Story and Reported times show
+      this event's reported times.</p>
+      <p className="story-step__links"><button type="button" onClick={() => go("story")}>Story</button>
+        <button type="button" onClick={() => go("times")}>Reported times</button></p></div>
+  </main>;
 }

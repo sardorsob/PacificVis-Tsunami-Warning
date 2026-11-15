@@ -1,4 +1,4 @@
-import { differenceWords, linkedReports, markKind, notDrawn, onClock, WITHIN_1KM, type Report, type StoryArrivals } from "./arrivals";
+import { differenceWords, LINK_CLAUSE, linkedReports, markKind, notDrawn, onClock, type Report, type StoryArrivals } from "./arrivals";
 import { HOUR_TICKS } from "./ClockBar";
 import { T_MAX } from "./clock";
 import { ReportMark } from "./StoryMap";
@@ -47,7 +47,7 @@ export function ThreeClocks({ arrivals, t, stations }: { arrivals: StoryArrivals
         {(s.tag || at) && <p className="story-clocks__who">{s.tag && <><span className={`story-tag story-tag--${s.tag.toLowerCase()}`}>{s.tag}</span>
           <b>{s.name}</b></>}{at && `${s.tag ? " · " : ""}${distance(at.distance_km)}`}</p>}
         {linked[i].length ? linked[i].map(({ report, place }) => <div key={report.report_id}><Lane r={report}/>
-          <p>{`${[words(report), place.record?.link === "within_1km" && WITHIN_1KM].filter(Boolean).join(" · ")}.`
+          <p>{`${[words(report), place.record && LINK_CLAUSE[place.record.link]].filter(Boolean).join(" · ")}.`
             + notDrawn(report).map(n => ` ${n}`).join("")}</p>
         </div>) : <p>No reported times are linked to this station.</p>}
       </div>; })}

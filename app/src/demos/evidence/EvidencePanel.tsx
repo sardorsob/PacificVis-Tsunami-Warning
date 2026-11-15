@@ -1,6 +1,8 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { selectWindow } from "../chart";
 import { safeSourceUrl } from "../loader";
+import { SLICE_PRODUCT_LABEL, type SliceRecords, type SliceStation, type SliceView } from "../slices";
+import { sliceCounts } from "../SupportView";
 import type { CoverageSpan, EvidenceProps, Support } from "../types";
 import { evidencePage, EVIDENCE_PAGE_SIZE } from "./paging";
 import "./style.css";
@@ -60,9 +62,21 @@ function SupportDetails({ support, productKey }: { support: Support; productKey:
   </>;
 }
 
+/** The native modal: inert background, focus containment and Escape/cancel; Close takes focus on open. */
+function useModal() {
+  const dialog = useRef<HTMLDialogElement>(null), close = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const element = dialog.current;
+    if (!element) return;
+    element.showModal();
+    close.current?.focus({ preventScroll: true });
+    return () => { if (element.open) element.close(); };
+  }, []);
+  return { dialog, close };
+}
+
 export function EvidencePanel({ manifest, station, records, windowId, productKey, onClose }: EvidenceProps) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const close = useRef<HTMLButtonElement>(null);
+  const { dialog, close } = useModal();
   const titleId = useId(), descriptionId = useId();
   const identity = `${station.station_id}|${windowId}|${productKey}`;
   const [position, setPosition] = useState({ identity, page: 1 });
@@ -72,14 +86,6 @@ export function EvidencePanel({ manifest, station, records, windowId, productKey
   const productLabel = `${product?.label ?? productKey} (${product?.units ?? "unknown"})`;
   const publisherUrl = safeSourceUrl(station.source.url);
   useEffect(() => setPosition({ identity, page: 1 }), [identity]);
-  useEffect(() => {
-    const element = dialog.current;
-    if (!element) return;
-    // Native modal supplies inert background, focus containment and Escape/cancel.
-    element.showModal();
-    close.current?.focus({ preventScroll: true });
-    return () => { if (element.open) element.close(); };
-  }, []);
 
   return <dialog ref={dialog} className="evidence-panel" aria-labelledby={titleId} aria-describedby={descriptionId} onCancel={event => { event.preventDefault(); onClose(); }}>
     <header className="evidence__header"><h2 id={titleId}>Rows &amp; sources · {station.name} <span>({station.station_id})</span></h2><button ref={close} type="button" onClick={onClose}>Close</button></header>
@@ -114,6 +120,52 @@ export function EvidencePanel({ manifest, station, records, windowId, productKey
           ["Publisher", station.source.publisher], ["Source product", station.source.title], ["Source ID", station.source.source_id], ["Retrieved on", station.source.accessed_on], ["Version or date", station.source.version_or_date], ["Terms", station.source.license_or_terms], ["Processing level", station.source.processing_level], ["Current product", productLabel], ["Source units", station.units], ["Source time basis", station.time_basis], ["Normalized observation time", "UTC"], ["Vertical reference", station.vertical_reference], ["Horizontal datum", station.horizontal_datum], ["Coordinate order", station.coordinate_order], ["Source SHA256", station.source.sha256], ["Bundle", manifest.bundle_id], ["Evidence state", manifest.evidence_state],
         ]} />
         <p>{publisherUrl ? <a href={publisherUrl} target="_blank" rel="noopener noreferrer">Open publisher source (new tab)</a> : "Publisher link unavailable"}.</p>
+        <p>The source hash is a provenance fingerprint, not proof of scientific validity. Bundle integrity is relative to its local manifest, not a signature against whole-manifest replacement.</p>
+      </section>
+    </div>
+  </dialog>;
+}
+
+type SliceEvidenceProps = { manifest: SliceView; station: SliceStation; records: SliceRecords; onClose: () => void };
+/** Rows & sources for a records-schema-2 station: every row of its file in file order, QC shown and never used to filter, and only the fields the
+ * bundle has (no publisher, terms, time basis or horizontal datum exist in schema 2). */
+export function SliceEvidencePanel({ manifest, station, records, onClose }: SliceEvidenceProps) {
+  const { dialog, close } = useModal();
+  const titleId = useId(), descriptionId = useId(), identity = station.station_id, w = manifest.window;
+  const [position, setPosition] = useState({ identity, page: 1 });
+  const page = evidencePage(records.rows, position.page, position.identity, identity), url = safeSourceUrl(station.source.url);
+  const label = `${SLICE_PRODUCT_LABEL[station.product]} (${station.units})`, offset = page.start + 1;
+  useEffect(() => setPosition({ identity, page: 1 }), [identity]);
+  return <dialog ref={dialog} className="evidence-panel" aria-labelledby={titleId} aria-describedby={descriptionId} onCancel={event => { event.preventDefault(); onClose(); }}>
+    <header className="evidence__header"><h2 id={titleId}>Rows &amp; sources · {station.name} <span>({station.station_id})</span></h2><button ref={close} type="button" onClick={onClose}>Close</button></header>
+    <div className="evidence__body">
+      <p id={descriptionId}>Raw water-level rows as the station file gives them; not validated onsets.</p>
+      <section aria-label="Display window" className="evidence__section">
+        <h3>{w.label}</h3>
+        <p className="evidence__bounds">[{w.start_utc}, {w.end_utc_exclusive})</p>
+        <p>{label} · vertical datum {station.vertical_datum}.</p>
+      </section>
+      <section aria-label="Station file rows" className="evidence__section">
+        <h3>Station file rows</h3>
+        <p>Every row of the station file, in file order, blank rows included. Values are as published; QC is shown, never used to filter, and a flagged zero stays zero. {sliceCounts(records.counts)}.</p>
+        <PageControls {...page} count={records.rows.length} label="Station file rows" onPage={next => setPosition({ identity, page: next })} />
+        <p>Scroll sideways to inspect all columns.</p>
+        <div className="evidence__table-region" role="region" aria-label="Station file rows — horizontally scrollable" tabIndex={0}>
+          <table><caption>{station.name} · {label} · station file rows, page {page.page}</caption>
+            <thead><tr>{["Row", "Timestamp UTC", label, "Value state", "Timestamp state", "Duplicate timestamp", "Sensor", "Station key", "Row units", "Row vertical datum", "QC state", "QC (verbatim)", "Source ID"].map(text => <th scope="col" key={text}>{text}</th>)}</tr></thead>
+            <tbody>{page.rows.map((row, i) => <tr key={offset + i}><th scope="row">{offset + i}</th><td>{row.timestamp_utc}</td><td>{row.numeric_value === null ? "blank" : String(row.numeric_value)}</td><td>{row.value_state}</td><td>{row.timestamp_state}</td><td>{String(row.duplicate_timestamp)}</td><td>{row.sensor}</td><td>{row.station_key}</td><td>{row.units}</td><td>{row.vertical_datum}</td><td>{row.qc_state}</td><td><code>{JSON.stringify(row.qc_json)}</code></td><td>{row.source_id}</td></tr>)}</tbody>
+          </table>
+        </div>
+        {records.rows.length === 0 && <p>This record has no rows in the display window.</p>}
+      </section>
+      <section aria-label="Source provenance" className="evidence__section"><h3>Source &amp; provenance</h3>
+        <Metadata entries={[
+          ["Product", SLICE_PRODUCT_LABEL[station.product]], ["Units", station.units], ["Vertical datum", station.vertical_datum],
+          ["Coverage of the display window", `${(station.coverage_fraction * 100).toFixed(1)}% (fraction ${station.coverage_fraction})`], ["Coverage rule", station.coverage_rule_id],
+          ["Longest supported stretch (minutes)", station.longest_supported_minutes.toLocaleString("en-US")], ["Rows", station.rows.toLocaleString("en-US")],
+          ["Source ID", station.source.source_id], ["Source SHA256", station.source.sha256], ["Bundle", manifest.bundle_id], ["Evidence state", manifest.evidence_state],
+        ]} />
+        <p>{url ? <a href={url} target="_blank" rel="noopener noreferrer">Open the source file (new tab)</a> : "Source link unavailable"}.</p>
         <p>The source hash is a provenance fingerprint, not proof of scientific validity. Bundle integrity is relative to its local manifest, not a signature against whole-manifest replacement.</p>
       </section>
     </div>

@@ -1,7 +1,10 @@
+import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { eventsIndex, localFetch, readDataBytes, tohokuEntry } from "./integration-data";
 import { loadManifest } from "./loader";
-import { loadBasemap, loadSliceManifest, loadSliceStation } from "./slices";
+import { loadBasemap, loadGeometry, loadSliceManifest, loadSliceStation, loadStation, loadViewManifest, type SliceRecords, type SliceView } from "./slices";
+import { StationCard } from "./StationCard";
+import { loadLayers } from "./story/layers";
 
 // Records schema 2 on the real local bundles, reached through the index and the browser's own loaders (no fallback, no skip).
 const schema2 = eventsIndex.events.filter(e => e.records &&
@@ -39,5 +42,26 @@ describe("records schema 2 against the local multi-event bundles", () => {
     expect(schema2.some(e => e.event_id === tohokuEntry.event_id)).toBe(false);
     expect((await loadManifest(tohokuEntry, undefined, localFetch)).schema_version).toBe("1");
     await expect(loadSliceManifest(tohokuEntry, undefined, localFetch)).rejects.toThrow(/fields/); // schema-1 keys, refused before the version
+  });
+});
+
+const byId = (id: string) => eventsIndex.events.find(e => e.event_id === id)!;
+describe("the app's records path on the pilot event and the empty record", () => {
+  it("opens Illapel through the schema dispatch and the real validators: default station La Jolla, its record, geometry and layers", async () => {
+    const illapel = byId("us20003k7a"), m = await loadViewManifest(illapel, undefined, localFetch) as SliceView;
+    expect([m.schema_version, m.default_state]).toEqual(["2", { selectedStationId: "9410230", pinnedStationId: null, windowId: "display", productKey: "raw_value" }]);
+    expect(m.stations.find(s => s.station_id === "9410230")!.name).toBe("La Jolla");
+    const r = await loadStation(m, "9410230", undefined, localFetch) as SliceRecords;
+    expect(r.counts.rows).toBe(m.stations.find(s => s.station_id === "9410230")!.rows); expect(r.segments.length).toBeGreaterThan(0);
+    expect((await loadGeometry(m, illapel, undefined, localFetch)).points).toHaveLength(m.stations.length + 1);
+    expect((await loadLayers(illapel, undefined, localFetch)).manifest.contour_source_id).toBe("ncei-ttt-us20003k7a-layer19-geojson");
+  });
+  it("shows Maule station 9413450's header-only file as a record with no rows in the display window", async () => {
+    const m = await loadViewManifest(byId("official20100227063411530_30"), undefined, localFetch) as SliceView;
+    const station = m.stations.find(s => s.station_id === "9413450")!, records = await loadStation(m, "9413450", undefined, localFetch) as SliceRecords;
+    expect([station.rows, records.rows.length]).toEqual([0, 0]);
+    const html = renderToStaticMarkup(<StationCard selection={{ station, status: "ready", records, error: null }} role="selected" windowId="display"
+      productKey="raw_value" onOpenEvidence={() => undefined} onRetryStation={() => undefined}/>);
+    expect(html).toContain("This record has no rows in the display window.");
   });
 });

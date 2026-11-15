@@ -128,11 +128,12 @@ export async function loadIndex(signal?: AbortSignal,request: typeof fetch=fetch
 }
 /** The records manifest pinned by the index entry: byte count and SHA-256 are verified before it is parsed. */
 export async function loadManifest(entry: EventEntry,signal?: AbortSignal,request: typeof fetch=fetch): Promise<DemoManifest> {
-  // ponytail: a records-free event (allowed by the index) shows the load alert; its own screen is a later task.
+  // The schema-1 path only; the app opens every event through slices.ts loadViewManifest.
   if(!entry.records)throw new Error("No station records are published for this event.");
   const ref=entry.records;return validateManifest(await fetchHashed(`/data/${ref.bundle_id}/manifest.json`,ref.manifest_bytes,ref.manifest_sha256,signal,request),entry);
 }
-export function validateGeometry(input: unknown,manifest: DemoManifest): DemoGeometry {
+/** Point ids come from the manifest (either records schema): the event and each station. */
+export function validateGeometry(input: unknown,manifest: {event:{event_id:string};stations:readonly {station_id:string}[]}): DemoGeometry {
   const g=object(input);keys(g,["schema_version","source_crs","display_crs","coordinate_order","central_meridian","coastline","points","bounds"]);
   requireValue(g.schema_version==="1"&&g.source_crs==="EPSG:4326"&&g.coordinate_order==="x,y"&&g.central_meridian===-160,"geometry schema/projection mismatch");text(g.display_crs);requireValue(g.display_crs.includes("+proj=eqearth")&&g.display_crs.includes("+lon_0=-160"),"unreviewed projection");
   const bounds=array(g.bounds);requireValue(bounds.length===4,"bounds mismatch");bounds.forEach(finite); requireValue(Number(bounds[2])>Number(bounds[0])&&Number(bounds[3])>Number(bounds[1]),"invalid bounds");

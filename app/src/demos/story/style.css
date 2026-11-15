@@ -26,6 +26,7 @@ button,select,summary{font:inherit}
 .story-marker{fill:var(--story-ocean);stroke-width:1.6}
 .story-marker--dart{stroke:var(--story-dart)}.story-marker--coastal{stroke:var(--story-coastal)}
 .story-marker--dart.story-marker--filled{fill:var(--story-dart)}.story-marker--coastal.story-marker--filled{fill:var(--story-coastal)}
+.story-marker--record{stroke:var(--story-ink)}.story-marker--record.story-marker--filled{fill:var(--story-ink)} /* schema 2: no station type */
 /* Reported-times marks: faint outlines ahead of the clock; lit dots are filled (fill attribute) with a dark edge, a lit ring is ink. */
 .story-report{stroke:var(--story-muted);stroke-width:1.2;stroke-opacity:.45}
 .story-report--on{stroke:var(--story-ocean);stroke-opacity:1}
@@ -150,12 +151,18 @@ button,select,summary{font:inherit}
 .story-utc{font-size:calc(13px*var(--ui,1));margin-top:2px!important}
 .story-legend{font-size:calc(11.5px*var(--ui,1));color:var(--story-muted);margin-top:6px!important}.story-legend b{color:var(--story-ink)}
 .story-key ul{list-style:none;margin:4px 0;padding:0}.story-key li{display:flex;align-items:center;gap:6px}.story-key svg{flex:none}
-.story-key p+p{margin-top:4px}
+.story-key p+p{margin-top:4px}.story-key summary{cursor:pointer;color:var(--story-ink);font-weight:600}.story-key[open] summary{margin-bottom:4px}
 .story-strip{display:block;margin-top:4px}.story-strip__none{fill:none;stroke:var(--story-line);stroke-dasharray:2 2}
 .story-strip__now{stroke:var(--story-ink);stroke-width:1.5}.story-strip__tick{font-size:calc(10px*var(--ui,1));fill:var(--story-muted)}
 .story-panel{z-index:2}
 .story-compare{right:14px;top:14px;width:calc(250px*var(--ui,1));display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 8px;align-items:center}
-.story-compare>.story-views,.story-compare>.story-small{grid-column:1/-1}
+.story-compare>.story-views,.story-compare>.story-small,.story-compare>.story-event{grid-column:1/-1}
+/* The four views on one row (the wide panel's width comes from layoutFor); a label never breaks inside its pill. */
+.story-views{display:flex;flex-wrap:wrap;gap:4px}.story-views button{white-space:nowrap}
+.story-compare .story-views button{flex:1 1 auto;padding:4px 9px;font-size:calc(12px*var(--ui,1))}
+.story-event{display:flex;align-items:center;gap:6px;margin:0;min-width:0;font-size:calc(12px*var(--ui,1));color:var(--story-muted)}
+.story-event select{flex:1;min-width:0;width:100%}
+.paired-head__tools{display:flex;flex-direction:column;gap:6px;width:min(100%,360px)}
 .story-compare>button{white-space:nowrap}
 .story-compare__pick select{flex:1;min-width:0;width:100%}
 .story-compare__pick{display:flex;align-items:center;gap:4px;margin:0;min-width:0;font-size:calc(12px*var(--ui,1))}

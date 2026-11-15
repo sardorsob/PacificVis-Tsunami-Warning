@@ -23,7 +23,7 @@ export function validateLayersManifest(input: unknown, entry: EventEntry): Layer
   requireValue(m.schema_version==="1"&&m.exporter_version==="1"&&m.bundle_id===entry.layers?.bundle_id&&m.evidence_state==="internal_descriptive_only","layers bundle identity mismatch");
   text(m.display_crs);requireValue(m.display_crs.includes("+proj=eqearth")&&m.display_crs.includes("+lon_0=-160")&&m.central_meridian===-160&&m.coordinate_order==="x,y","unreviewed layers projection");
   for(const key of ["units","statement","hours_semantics"])text(m[key]);
-  requireValue(typeof m.contour_source_id==="string"&&/^ncei-ttt-[a-z0-9-]+$/.test(m.contour_source_id)&&m.coastline_source_id==="natural-earth-50m-coastline","layers source identity mismatch");
+  requireValue(typeof m.contour_source_id==="string"&&/^ncei-ttt-[a-z0-9_-]+$/.test(m.contour_source_id)&&m.coastline_source_id==="natural-earth-50m-coastline","layers source identity mismatch");
   requireValue(m.origin_time_utc===entry.origin_time_utc,"layers origin identity mismatch");
   const assets=array(m.assets);requireValue(assets.length===2,"layers asset cohort mismatch");
   const paths=assets.map(v=>{const a=object(v);keys(a,["path","sha256","bytes"]);text(a.path);hash(a.sha256);count(a.bytes);requireValue(a.bytes>0,"empty layer asset");return a.path;});

@@ -126,6 +126,8 @@ export function differenceWords(d: number): string {
   return d === 0 ? "reported in the same minute as the published estimate" : `reported ${Math.abs(d)} min ${d > 0 ? "after" : "before"} the published estimate`;
 }
 export const WITHIN_1KM = "record from a station within 1 km, not verified as the same instrument";
+/** The record-link rule's fixed clauses, by `place.record.link`. */
+export const LINK_CLAUSE = { same_provider_id: "this station's record", within_1km: WITHIN_1KM } as const;
 /** The reports at places linked to a records station (`place.record`), in file order, each with its place. */
 export function linkedReports(a: StoryArrivals, stationId: string): { report: Report; place: Place }[] {
   const at = new Map(a.places.filter(p => p.record?.station_id === stationId).map(p => [p.site_id, p]));

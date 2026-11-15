@@ -127,7 +127,8 @@ describe("reported-times marks", () => {
 });
 
 describe("reported-times key in the clock column", () => {
-  const column = (reported: Parameters<typeof ClockColumn>[0]["reported"]) => renderToStaticMarkup(<ClockColumn t={0} originUtc="2001-01-01T00:00:00Z"
+  const column = (reported: Parameters<typeof ClockColumn>[0]["reported"]) => renderToStaticMarkup(<ClockColumn t={0} entry={{ event_id: "e", label: "Example Bay, Example", origin_time_utc: "2001-01-01T00:00:00Z",
+    latitude: 0, longitude: 0, magnitude: 8, magnitude_type: "mww", records: null, layers: { bundle_id: "l", manifest_sha256: "0".repeat(64), manifest_bytes: 1 }, arrivals: null }}
     stationName={null} counts={null} alert={null} head={false} reported={reported}>{null}</ClockColumn>);
   const key = (html: string) => { const at = html.indexOf("story-key"); return at < 0 ? "" : html.slice(at, html.indexOf("story-credits")); };
   it("names the four marks, gives the honest counts and says what reported times are not", () => {
@@ -174,7 +175,7 @@ describe("three-clocks strip (record arm)", () => {
     const html = clocks(ex, [harbor]);
     expect(html).toContain('aria-label="Reported times linked to Test harbor"');
     expect(html).toContain("1,113.2 km in a straight line from the epicentre");
-    expect(html).toContain("NTWC: reported 15 min after the published estimate.");
+    expect(html).toContain("NTWC: reported 15 min after the published estimate · this station&#x27;s record.");   // Example Harbor's record link is same_provider_id
     expect(html).toContain('style="--clock:10%"');                                   // t = 3 h on the 0–30 h scale
     expect(html).toMatch(/<svg x="6.666[0-9]*%" y="7" overflow="visible"><path class="story-report story-report--estimate story-report--on" d="M-5 -4H5L0 4Z"/);
     expect(html).toMatch(/<svg x="7.5%" y="7" overflow="visible"><circle class="story-report story-report--ntwc story-report--on"/);
@@ -182,14 +183,15 @@ describe("three-clocks strip (record arm)", () => {
     expect(html.replace(/story-[a-z_-]+/g, "")).not.toMatch(BANNED);
   });
   it("words a report in the same minute, and one before the published estimate", () => {
-    expect(clocks(harborAt(120, 120, 0), [harbor])).toContain("NTWC: reported in the same minute as the published estimate.");
-    expect(clocks(harborAt(113, 120, -7), [harbor])).toContain("NTWC: reported 7 min before the published estimate.");
-    expect(clocks(harborAt(null, 120, null), [harbor])).toContain("NTWC: published estimate 02:00 UTC.");
+    expect(clocks(harborAt(120, 120, 0), [harbor])).toContain("NTWC: reported in the same minute as the published estimate · this station&#x27;s record.");
+    expect(clocks(harborAt(113, 120, -7), [harbor])).toContain("NTWC: reported 7 min before the published estimate · this station&#x27;s record.");
+    expect(clocks(harborAt(null, 120, null), [harbor])).toContain("NTWC: published estimate 02:00 UTC · this station&#x27;s record.");
   });
-  it("prints the fixed clause for a record link within 1 km, and only for that report", () => {
+  it("prints the fixed clause for each record link: within 1 km, and the same provider ID, each only for its own report", () => {
     expect(clocks(ex, [bay])).toContain("Reported by NCEI: 3 h 10 min after NCEI&#x27;s origin · "
       + "record from a station within 1 km, not verified as the same instrument.");
     expect(clocks(ex, [harbor])).not.toContain("within 1 km");
+    expect(clocks(ex, [bay])).not.toContain("this station&#x27;s record");
   });
   it("says in one quiet line that no reported times are linked, with no axis", () => {
     const html = clocks(ex, [unlinked]);
@@ -204,7 +206,7 @@ describe("three-clocks strip (record arm)", () => {
       count(late, "story-lane__join")]).toEqual([1, 0, 0]);
     const early = clocks(harborAt(135, -5, null), [harbor]);
     expect(early).toContain("The source gives a time before the earthquake origin. The project does not correct dates.");
-    expect(early).toContain("NTWC: published estimate 23:55 UTC · reported 02:15 UTC.");
+    expect(early).toContain("NTWC: published estimate 23:55 UTC · reported 02:15 UTC · this station&#x27;s record.");
     expect([count(early, "story-report story-report--estimate story-report--on"), count(early, "story-lane__join")]).toEqual([0, 0]);
   });
   it("stacks B under A on one axis in Compare, each named with its distance (omitted when nothing is linked)", () => {

@@ -1,9 +1,11 @@
-import { array, count, fetchHashed, fetchHashedBytes, finite, hash, keys, object, oneOf, requireValue, safeSourceUrl, text, utcMicros, validateRelease } from "./loader";
+import { array, count, decodeStation, fetchHashed, fetchHashedBytes, fetchVerifiedAsset, finite, hash, keys, object, oneOf, requireValue, safeSourceUrl, text, utcMicros,
+  validateGeometry, validateManifest, validateRelease } from "./loader";
 import { validateCoastline, type Coastline } from "./story/layers";
-import type { Asset, DemoManifest, EventEntry, EventsIndex } from "./types";
+import type { AnySelection, AnyStation, Asset, DemoManifest, DemoState, EventEntry, EventsIndex, Product, SliceSelection, StageGeometry, StationRecords,
+  ViewManifest } from "./types";
 
 // Records schema 2 (docs/data/demo-bundle.md, "Records schema 2 (display slices)"): one display window, one raw product per station,
-// each station a gzip CSV. Tōhoku stays on schema 1 (loader.ts).
+// each station a gzip CSV. The guided story's event stays on schema 1 (loader.ts).
 export const SLICE_PRODUCTS = ["one_minute_water_level","water_level","archive_window"] as const;
 export const SLICE_COLUMNS = ["event_id","source_id","station_key","sensor","timestamp_utc","numeric_value","value_state","timestamp_state","duplicate_timestamp","units","vertical_datum","qc_state","qc_json"] as const;
 const TIMESTAMP_STATES = ["reported_utc","epoch_calendar_agree","epoch_calendar_minute_agree","header_day_end_boundary"] as const;
@@ -32,6 +34,8 @@ export type SliceRow = {
 export type SlicePoint = { t: number; v: number };
 export type SliceRecords = {
   station_id: string; rows: SliceRow[]; segments: SlicePoint[][];
+  /** The manifest's display window: the record's time axis. */
+  window: SliceManifest["window"];
   counts: { rows: number; blank: number; duplicates_dropped: number; outside_window: number; backward_steps: number };
 };
 
@@ -124,7 +128,7 @@ export async function decodeSliceStation(bytes: ArrayBuffer, station: SliceStati
     }
     return {event_id,source_id,station_key,sensor,timestamp_utc,numeric_value,value_state,timestamp_state,duplicate_timestamp:duplicate==="True",units,vertical_datum,qc_state,qc_json} as SliceRow;
   });
-  return {station_id:station.station_id,rows,segments,counts};
+  return {station_id:station.station_id,rows,segments,window:manifest.window,counts};
 }
 
 /** The entry's schema-2 records manifest, verified against the index pin before parsing. */
@@ -144,4 +148,58 @@ export async function loadBasemap(index: EventsIndex, signal?: AbortSignal, requ
   const c=object(await fetchHashed(`/data/${ref.path}`,ref.bytes,ref.sha256,signal,request));
   // No manifest counts the basemap's parts, so its own count is the cohort; closed[] must still match it.
   return validateCoastline(c,{coastline_source_id:"natural-earth-110m-coastline",accounting:{coastline_parts:array(c.parts).length}});
+}
+
+/** Display names for the three product ids ("Records schema 2"). */
+export const SLICE_PRODUCT_LABEL: Record<SliceStation["product"], string> = { one_minute_water_level: "One-minute water level",
+  water_level: "Six-minute water level", archive_window: "Water level, archived NTWC day file" };
+export const isSliceStation = (s: AnyStation): s is SliceStation => "coverage_rule_id" in s;
+export const isSlice = (s: AnySelection): s is SliceSelection => isSliceStation(s.station);
+/** A station's products: schema 1 lists its own; a schema-2 station has exactly its one raw product. */
+export const productsOf = (s: AnyStation): Product[] => isSliceStation(s)
+  ? [{ key: "raw_value", label: SLICE_PRODUCT_LABEL[s.product], units: s.units, available: true }] : s.products;
+
+/** A schema-2 manifest as the views read it: its own fields, plus its one display window as the window list and the defaults that follow
+ * (A = default_station_id, B unset, that window, the one raw product). Nothing else is added: schema-1-only fields stay absent. */
+export type SliceView = SliceManifest & { windows: [SliceManifest["window"]]; default_state: Omit<DemoState, "view" | "sort"> };
+export const sliceView = (m: SliceManifest): SliceView => ({ ...m, windows: [m.window],
+  default_state: { selectedStationId: m.default_station_id, pinnedStationId: null, windowId: m.window.id, productKey: "raw_value" } });
+/** An event without a records bundle (`records: null`): its index identity and no bundle, stations or windows. */
+export type NoRecordsView = { schema_version: null; bundle_id: null; event: DemoManifest["event"]; stations: []; windows: [];
+  default_state: Omit<DemoState, "view" | "sort"> };
+export const noRecordsView = (e: EventEntry): NoRecordsView => ({ schema_version: null, bundle_id: null,
+  event: { event_id: e.event_id, origin_time_utc: e.origin_time_utc, latitude: e.latitude, longitude: e.longitude }, stations: [], windows: [],
+  // ponytail: "" stands for "no station A"; serializeState writes no station fields for an event without stations, so no URL carries it.
+  default_state: { selectedStationId: "", pinnedStationId: null, windowId: "", productKey: "raw_value" } });
+
+/** The app's records path: the manifest the index pins, fetched and verified once, then validated by its own schema_version (records schema 1 or
+ * 2). An event without a records bundle fetches nothing and opens without stations. */
+export async function loadViewManifest(entry: EventEntry, signal?: AbortSignal, request: typeof fetch = fetch): Promise<ViewManifest> {
+  const ref=entry.records; if(!ref) return noRecordsView(entry);
+  const value=await fetchHashed(`/data/${ref.bundle_id}/manifest.json`,ref.manifest_bytes,ref.manifest_sha256,signal,request);
+  return object(value).schema_version==="2"?sliceView(validateSliceManifest(value,entry)):validateManifest(value,entry);
+}
+/** The stage's points: the bundle's geometry.json, verified against its manifest asset; without records, the index's projected epicentre alone
+ * (index schema 2), drawn on the basemap. */
+export async function loadGeometry(manifest: ViewManifest, entry: EventEntry, signal?: AbortSignal, request: typeof fetch = fetch): Promise<StageGeometry> {
+  if(manifest.schema_version===null){ const {x,y}=entry; requireValue(x!==undefined&&y!==undefined,"the events index gives no map position for this event");
+    return {points:[{id:entry.event_id,x,y}],coastline:[]}; }
+  if(manifest.schema_version==="1") return validateGeometry(await fetchVerifiedAsset(manifest,manifest.geometry_path,signal,request),manifest);
+  const a=manifest.assets[0]; // geometry.json, first by validateSliceManifest
+  return validateGeometry(await fetchHashed(`/data/${manifest.bundle_id}/${a.path}`,a.bytes,a.sha256,signal,request),manifest);
+}
+/** One station's records by its bundle's schema. */
+export async function loadStation(manifest: DemoManifest | SliceView, stationId: string, signal?: AbortSignal, request: typeof fetch = fetch): Promise<StationRecords | SliceRecords> {
+  if(manifest.schema_version==="2") return loadSliceStation(manifest,stationId,signal,request);
+  const station=manifest.stations.find(s=>s.station_id===stationId); requireValue(station,"station not in manifest");
+  return decodeStation(await fetchVerifiedAsset(manifest,`stations/${stationId}.json`,signal,request),station,manifest);
+}
+
+/** Who supplied the records, read from the bundle itself: schema 1, its stations' distinct publishers; schema 2, NOAA CO-OPS for a CO-OPS product
+ * and archived NTWC day files for an archive window; none without records. */
+export function recordProviders(m: ViewManifest): string[] {
+  if (m.schema_version === "1") return [...new Set(m.stations.map(s => s.source.publisher))];
+  if (m.schema_version === null) return [];
+  return [m.stations.some(s => s.product !== "archive_window") && "NOAA CO-OPS", m.stations.some(s => s.product === "archive_window") && "archived NTWC day files"]
+    .filter((p): p is string => p !== false);
 }

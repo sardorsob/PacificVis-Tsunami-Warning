@@ -29,6 +29,8 @@ describe("story map layers", () => {
     expect(() => validateLayersManifest(manifestInput(), { ...entry, layers: { ...entry.layers!, bundle_id: "other" } })).toThrow(/identity/);
     expect(() => validateLayersManifest({ ...manifestInput(), origin_time_utc: "2011-03-11T05:46:24.12Z" }, entry)).toThrow(/identity/);
     expect(() => validateLayersManifest({ ...manifestInput(), contour_source_id: "ncei-ttt-chile-2010" }, entry)).not.toThrow();
+    // The contract allows an underscore: event ids can hold one (Maule's is official20100227063411530_30).
+    expect(() => validateLayersManifest({ ...manifestInput(), contour_source_id: "ncei-ttt-official20100227063411530_30-layer16-geojson" }, entry)).not.toThrow();
     for (const contour_source_id of ["", "my-contours", "ncei-ttt-", "ncei-ttt-Tohoku", "ncei-ttt-a/b"])
       expect(() => validateLayersManifest({ ...manifestInput(), contour_source_id }, entry)).toThrow(/source/);
     expect(() => validateLayersManifest({ ...manifestInput(), coastline_source_id: "natural-earth-110m-coastline" }, entry)).toThrow(/source/);

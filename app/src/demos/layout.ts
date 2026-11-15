@@ -22,6 +22,8 @@ export type StoryLayout = {
   /** Lens title: bottom edge (it grows upward when the subtitle wraps) and maximum width. */
   titleBottom: number; titleW: number;
   bSlot: [number, number]; bR: number; bar: { left: number; width: number } | null; sheet: { width: number } | null;
+  /** Top-right panel width (wide; sheets size it themselves): room for the four views on one row, kept 8 px clear of the lens title. */
+  panel?: number;
 };
 /**
  * Story view tiers. wide (≥ 1280 × ≥ 700): lens centred right of the column with three arms; narrow (< 768 portrait):
@@ -55,11 +57,13 @@ export function layoutFor(w: number, h: number, armMax = 330): StoryLayout {
   const aw = Math.min(armMax * ui, (w - col) / 2 - r - gap - 16);
   // The zoom buttons (style.css: 54 × 144 px, 16 px from the bottom-right corner) sit under the right arm's reach on narrower screens.
   const armBottom = cx + r + gap + aw > w - 16 - 54 ? Math.min(h - bar - 16, h - 16 - 144 - 8) : h - bar - 16;
+  const titleW = Math.min(400 * ui, w - col - 32);
   return { mode, cx, cy, r, aw, ui, armBottom,
     record: { left: cx - r - gap - aw, top: cy - r - 30, width: aw },
     support: { left: cx + r + gap, top: cy - r - 30, width: aw },
     // The read arm stops above the clock bar and scrolls past that (short wide screens, 700–760 px).
     read: { left: cx - r - gap + 12, top: cy + r + 30, width: 2 * (r + gap) - 24, maxHeight: h - bar - (cy + r + 30) },
-    titleBottom: cy - r - 30, titleW: Math.min(400 * ui, w - col - 32), bSlot: slot(cx, cy, r, gap, aw, h, ui), bR: B_LENS_RADIUS * ui,
-    bar: { left: cx, width: Math.min(720 * ui, w - col - 32) }, sheet: null };
+    titleBottom: cy - r - 30, titleW, bSlot: slot(cx, cy, r, gap, aw, h, ui), bR: B_LENS_RADIUS * ui,
+    bar: { left: cx, width: Math.min(720 * ui, w - col - 32) }, sheet: null,
+    panel: Math.min(352 * ui, w - 22 - (cx + titleW / 2)) };
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import { EvidencePanel } from "./EvidencePanel";
+import { EvidencePanel, SliceEvidencePanel } from "./EvidencePanel";
+import { sliceView, type SliceManifest, type SliceRow, type SliceStation } from "../slices";
 import { evidencePage } from "./paging";
 import type { CoastalSupport, DemoManifest, EvidenceProps, Observation, StationMetadata, StationRecords } from "../types";
 
@@ -133,5 +134,42 @@ describe("evidence paging bounds and selection identity", () => {
   });
   it.each(["station-b|common_day|raw_value", "station-a|source_full|raw_value", "station-a|common_day|residual_value"])("resets to first page when station/window/product changes: %s", identity => {
     expect(evidencePage(Array.from({ length: 101 }, (_, i) => i), 3, "station-a|common_day|raw_value", identity).rows[0]).toBe(0);
+  });
+});
+
+describe("Rows & sources for a schema-2 bundle", () => {
+  const slice: SliceStation = { station_id: "9413450", display_station_key: "coops:9413450", name: "Test Monterey", product: "archive_window", latitude: 36.6,
+    longitude: -121.9, units: "m", vertical_datum: "MLLW", source: { source_id: "ia-window-test", sha256: "d".repeat(64), url: "https://example.org/day" },
+    coverage_fraction: 0.9990740740740741, longest_supported_minutes: 1067, coverage_rule_id: "test-rule", rows: 3 };
+  const W = { id: "display" as const, label: "6 hours before to 30 hours after the origin", start_utc: "2010-02-27T00:34:11.530Z", end_utc_exclusive: "2010-02-28T12:34:11.530Z" };
+  const r = (timestamp_utc: string, numeric_value: number | null, extra: Partial<SliceRow> = {}): SliceRow => ({ event_id: "e", source_id: "ia-window-test",
+    station_key: "ntwc-mont", sensor: "prs", timestamp_utc, numeric_value, value_state: numeric_value === null ? "blank" : "finite_numeric",
+    timestamp_state: "reported_utc", duplicate_timestamp: false, units: "m", vertical_datum: "MLLW", qc_state: "not_provided", qc_json: {}, ...extra });
+  const rows = [r("2010-02-27T07:00:00Z", 0, { qc_state: "provided", qc_json: { q: "flagged" } }), r("2010-02-27T07:01:00Z", null), r("2010-02-27T07:01:00Z", 1.25, { duplicate_timestamp: true })];
+  const view = sliceView({ schema_version: "2", exporter_version: "1", bundle_id: "records-e-v1", evidence_state: "internal_descriptive_only",
+    event: { event_id: "e", origin_time_utc: "2010-02-27T06:34:11.530Z", latitude: 0, longitude: 0 }, release: manifest.release, window: W,
+    default_station_id: "9413450", stations: [slice], assets: [], geometry_path: "geometry.json", input_fingerprints: [], config_sha256: "c".repeat(64),
+    accounting: { station_count: 1, rows: 3 } } as SliceManifest);
+  const records = { station_id: "9413450", rows, segments: [[{ t: Date.parse(rows[0].timestamp_utc), v: 0 }]], window: W,
+    counts: { rows: 3, blank: 1, duplicates_dropped: 1, outside_window: 0, backward_steps: 0 } };
+  const html = (s = slice, rs = records) => renderToStaticMarkup(<SliceEvidencePanel manifest={view} station={s} records={rs} onClose={() => {}}/>);
+  it("lists every station-file row in file order with QC shown, a flagged zero kept and a blank kept blank", () => {
+    const out = html();
+    for (const text of ["<td>0</td>", "<td>blank</td>", "<td>1.25</td>", "{&quot;q&quot;:&quot;flagged&quot;}", "ntwc-mont", "2010-02-27T07:01:00Z", "Rows 1–3 of 3"])
+      expect(out).toContain(text);
+    expect(out).toContain("1 blank row");
+    expect(out).toContain("1 repeated timestamp");
+    expect(out).toContain("QC is shown, never used to filter");
+  });
+  it("shows what the bundle has: product, units, datum, coverage of the display window with its rule, longest stretch, rows, source id and hash", () => {
+    const out = html();
+    for (const text of ["Water level, archived NTWC day file", "MLLW", "99.9%", "0.9990740740740741", "test-rule", "1,067", "ia-window-test", "d".repeat(64),
+      "records-e-v1", "6 hours before to 30 hours after the origin", 'href="https://example.org/day"']) expect(out).toContain(text);
+    for (const text of ["undefined", "Publisher", "Retrieved on", "Terms", "Processing level", "Source time basis", "Horizontal datum", "Coordinate order"])
+      expect(out).not.toContain(text);
+  });
+  it("links the source only when its URL is safe, and says when a file has no rows", () => {
+    expect(html({ ...slice, source: { ...slice.source, url: null } })).not.toContain("href=");
+    expect(html({ ...slice, rows: 0 }, { ...records, rows: [], segments: [] })).toContain("This record has no rows in the display window.");
   });
 });

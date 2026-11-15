@@ -1,28 +1,31 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { centreArm, layoutFor } from "../layout";
-import type { DemoState, ViewProps } from "../types";
+import type { AnySelection, AnyStation, DemoState, EventEntry, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
+import { recordProviders } from "../slices";
 import { arrivalDisplay, shownArrivals, type StoryArrivals } from "./arrivals";
-import { Arms, CAVEAT, typeLabel } from "./Arms";
+import { Arms, CAVEAT, kindLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, ColumnHead, hourlySamples } from "./ClockColumn";
 import { clockLabel, utcAt } from "./clock";
-import { nearestHours, pointBetween, type Pt, type StoryLayers } from "./layers";
+import { nearestHours, pointBetween, type Coastline, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
 import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
 import { STEPS, STORY_EVENT_ID, validateSteps, type StoryStep } from "./steps";
-import { centreOn, clampK, fitView, Overlay, PACIFIC_CROP, pinchView, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
+import { centreOn, clampK, fitView, originLabel, Overlay, PACIFIC_CROP, pinchView, placeName, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
 import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
 import { reducedMotion, useStoryClock } from "./useStoryClock";
 import { StationTools } from "./StationTools";
 import { ThreeClocks } from "./ThreeClocks";
-import { ViewSwitch } from "./ViewSwitch";
+import { EventSelect, magnitudeText, ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
 export type StoryViewProps = ViewProps & {
   layers: StoryLayers | null; layersError: string | null; layersPending: "loading" | "retrying" | null; onRetryLayers: () => void;
+  /** The index's verified 1:110m basemap: the coastline when no layers bundle has loaded. */
+  basemap?: Coastline | null;
   /** The verified reported-times file, "rejected" (the event shows without its marks), undefined while it loads, or null when the event has none. */
   arrivals?: StoryArrivals | "rejected" | null;
   /** URL story fields; with state.selectedStationId (A) and state.pinnedStationId (B) they are the whole screen. */
@@ -34,6 +37,10 @@ export type StoryViewProps = ViewProps & {
   evidenceOpen: boolean; issues: string[]; onDismissIssues: () => void;
   /** A view-level change from the live screen (view switch); DemoApp keeps this moment in the entry being left. */
   onState: (patch: Partial<DemoState>, live: StoryNav) => void;
+  /** The open event's index entry (label, origin, magnitude, listed bundles) and every listed event, for the event select. */
+  entry: EventEntry; events: readonly EventEntry[];
+  /** An event change from the live screen (DemoApp keeps this moment in the entry being left, then pushes the new event). */
+  onEvent: (eventId: string, live: StoryNav) => void;
   /** Test seam: the first-render viewport (the browser measures window size). */
   initialSize?: { w: number; h: number };
 };
@@ -55,12 +62,14 @@ export function StoryView(props: StoryViewProps) {
   const lens = state.view === "radial";
   /** The guided steps are authored for one event; any other opens in free exploration (no steps, no step checks). */
   const guided = manifest.event.event_id === STORY_EVENT_ID;
-  const origin = manifest.event.origin_time_utc;
+  const origin = manifest.event.origin_time_utc, { entry } = props;
+  /** Contours listed for the event; the clock waits for them only then (loading or failed: off, with Retry). */
+  const listed = !!entry.layers, clockOff = listed && !layers;
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState(() => props.initialSize
     ?? (typeof window === "undefined" ? { w: 1440, h: 848 } : { w: window.innerWidth, h: window.innerHeight }));
   const L = layoutFor(size.w, size.h, lens ? 420 : 330), motionOK = !reducedMotion();
-  const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
+  const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers, props.basemap, props.entry);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
   const reported = useMemo(() => props.arrivals && props.arrivals !== "rejected" ? arrivalDisplay(props.arrivals) : props.arrivals ?? null, [props.arrivals]);
   const stepsError = useMemo(() => {
@@ -135,7 +144,7 @@ export function StoryView(props: StoryViewProps) {
     }
     if (r.history !== "back" && !r.effects.some(e => e.kind === "play") && r.nav.t !== clock.tRef.current) clock.set(r.nav.t);
   };
-  const ctx = () => ({ motionOK: motionOK && !!layers, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
+  const ctx = () => ({ motionOK: motionOK && !clockOff, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing,
     sheetExpanded });
   // The URL's t is written only when play ends or pauses, so every action starts from the live clock: otherwise a no-op
   // (Escape over the evidence dialog) or Compare during play would rewind the clock to the last committed time.
@@ -188,15 +197,15 @@ export function StoryView(props: StoryViewProps) {
     dropSettle(); settleTimer.current = window.setTimeout(() => { settleTimer.current = 0; settleRef.current(); }, SETTLE_MS);
   };
   /** Leave for another view from exactly what is on screen: land a glide, settle a pending move, then hand over the live moment. */
-  const switchView = (view: DemoState["view"]) => {
-    const g = pending.current; if (g) { cancelGlide(); land(g.target, g.settleAs); }
-    if (settleTimer.current) settle();
-    props.onState({ view }, live());
-  };
+  const handOver = () => { const g = pending.current; if (g) { cancelGlide(); land(g.target, g.settleAs); } if (settleTimer.current) settle(); };
+  const switchView = (view: DemoState["view"]) => { handOver(); props.onState({ view }, live()); };
+  const switchEvent = (id: string) => { handOver(); props.onEvent(id, live()); };
+  const events = <EventSelect events={props.events} value={props.entry.event_id} onEvent={switchEvent}/>;
   const focusStation = (id: string, explicit = false) => {
     const s = stations.find(x => x.id === id); if (s) glide(centreOn(viewRef.current, s.xy, L.cx, L.cy), explicit);
   };
   const cycle = (d: 1 | -1) => {
+    if (!stations.length) return;
     const i = Math.max(0, stations.findIndex(s => s.id === (lensStation ?? state.selectedStationId)));
     focusStation(stations[(i + d + stations.length) % stations.length].id);
   };
@@ -251,7 +260,7 @@ export function StoryView(props: StoryViewProps) {
     else if (e.key === "+" || e.key === "=" || e.key === "-") { e.preventDefault(); zoom(e.key === "-" ? 1 / 1.25 : 1.25); }
   };
   const toggleRef = useRef(() => {}), escapeRef = useRef(() => {});
-  toggleRef.current = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
+  toggleRef.current = () => { if (clockOff) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
   escapeRef.current = () => dispatch({ type: "escape" });
   useEffect(() => {
     const key = (e: globalThis.KeyboardEvent) => {
@@ -307,14 +316,17 @@ export function StoryView(props: StoryViewProps) {
 
   // ---- derived display ----
   const t = clock.t, ocean = lensStation === null;
-  const lensMeta = manifest.stations.find(s => s.station_id === lensStation) ?? selected.station;
-  const aSel = selected.station.station_id === lensMeta.station_id ? selected
-    : { station: lensMeta, status: "loading" as const, records: null, error: null };
-  const counts = useMemo(() => !ocean && aSel.records ? hourlySamples(aSel.records, state.windowId, origin) : null,
-    [ocean, aSel.records, state.windowId, origin]);
-  const title = atOrigin ? { name: "Tōhoku epicentre", sub: "USGS origin 05:46:24 UTC · M9.1 · the published clock starts here" }
-    : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h` : "no published contour nearby" }
-    : { name: lensMeta.name, sub: `${typeLabel(lensMeta.station_type)} · clock ${clockLabel(t)} · ${utcAt(origin, t)}` };
+  const list: readonly AnyStation[] = manifest.stations;
+  // No station at all only for an event without a records bundle: the lens is then always over open water.
+  const lensMeta = list.find(s => s.station_id === lensStation) ?? selected?.station ?? null;
+  const aSel: AnySelection | null = !lensMeta ? null : selected?.station.station_id === lensMeta.station_id ? selected
+    : { station: lensMeta, status: "loading", records: null, error: null } as AnySelection;
+  const counts = useMemo(() => !ocean && aSel?.records ? hourlySamples(aSel.records, state.windowId, origin) : null,
+    [ocean, aSel?.records, state.windowId, origin]);
+  const title = atOrigin ? { name: `${placeName(entry.label)} epicentre`, sub: `USGS origin ${origin.slice(11, 19)} UTC · M${magnitudeText(entry.magnitude)}${listed ? " · the published clock starts here" : ""}` }
+    : ocean ? { name: "Open Pacific", sub: reading ? `nearest published contours: ${reading.a} h and ${reading.b} h`
+      : listed ? "no published contour nearby" : "no published contours for this event" }
+    : { name: lensMeta!.name, sub: `${kindLabel(lensMeta!)} · clock ${clockLabel(t)} · ${utcAt(origin, t)}` };
   const b = lens || params.compare ? props.pinned : null;
   // The B mini-lens is the story's Compare; Station lens shows B's full card instead (B stays marked on the map).
   const bStation = !lens && b ? stations.find(s => s.id === b.station.station_id) ?? null : null;
@@ -326,11 +338,11 @@ export function StoryView(props: StoryViewProps) {
 
   if (!geometry) return <main className="story story--loading" ref={root}>{props.geometryError
     ? <div role="alert"><p>{props.geometryError}</p><button type="button" onClick={props.onRetryGeometry}>Retry map</button>
-      <p className="story-small">The Paired view shows the records without the map.</p><ViewSwitch view={state.view} onView={switchView}/></div>
+      <p className="story-small">The Paired view shows the records without the map.</p><ViewSwitch view={state.view} onView={switchView}/>{events}</div>
     : <p role="status">Loading the verified map…</p>}</main>;
   const alert = <><Notes {...props}/>{stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}</>;
   // Reduced motion: the step's play becomes a jump to its end, so a link that opens at the start still has a way there.
-  const canPlayStep = !!stepNow?.play && !!layers && !clock.playing && t < stepNow.play[1];
+  const canPlayStep = !!stepNow?.play && !clockOff && !clock.playing && t < stepNow.play[1];
   const lead = stepNow && !stepsError ? <section className="story-step" aria-label={`Story step ${stepNow.id} of ${STEPS.length}`}>
     <p className="story-kicker">{stepNow.id} of {STEPS.length}</p>
     <h2 className="story-step__title" id="story-step-title" tabIndex={-1}>{stepNow.title}</h2>
@@ -355,38 +367,40 @@ export function StoryView(props: StoryViewProps) {
     {guided && <p className="story-step__links">
       <button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
       Back to the guided story (step {params.from ?? 1})</button></p>}
-    <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>
+    {stations.length > 0 && <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>}
   </>;
-  const column = <ClockColumn t={t} originUtc={origin} stationName={ocean ? null : lensMeta.name} counts={counts} alert={alert}
+  const column = <ClockColumn t={t} entry={entry} stationName={ocean ? null : lensMeta!.name} counts={counts} alert={alert}
     lead={wide ? lead : null} className={wide ? "" : "story-column--sheet"} title={lens ? "Station lens" : undefined} head={wide}
-    label={lens ? "Station lens" : "Story"} reported={reported}>{extra}</ClockColumn>;
-  const compare = lens ? <div className="story-panel story-compare"><ViewSwitch view="radial" onView={switchView}/></div>
-    : <section className="story-panel story-compare" aria-label="Views and comparison">
-    <ViewSwitch view="story" onView={switchView}/>
-    <button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
+    label={lens ? "Station lens" : "Story"} reported={reported} keyOpen={!lens} providers={recordProviders(manifest)}>{extra}</ClockColumn>;
+  const panelWidth = wide ? { width: L.panel } : undefined;
+  const compare = lens ? <div className="story-panel story-compare" style={panelWidth}><ViewSwitch view="radial" onView={switchView}/>{events}</div>
+    : <section className="story-panel story-compare" style={panelWidth} aria-label="Views and comparison">
+    <ViewSwitch view="story" onView={switchView}/>{events}
+    {list.length > 0 && <><button type="button" aria-pressed={params.compare} onClick={() => dispatch({ type: params.compare ? "compareOff" : "compareOn" })}>
       {params.compare ? "Close compare ✕" : "⇄ Compare"}</button>
     <label className="story-compare__pick"><span className="story-tag story-tag--b">B</span><span className="story-sr">Pinned station B</span>
       <select value={state.pinnedStationId ?? ""} onChange={e => dispatch({ type: "pin", id: e.target.value })}>
         {state.pinnedStationId === null && <option value="">Choose B…</option>}
-        {manifest.stations.filter(s => s.station_id !== state.selectedStationId || s.station_id === state.pinnedStationId)
+        {list.filter(s => s.station_id !== state.selectedStationId || s.station_id === state.pinnedStationId)
           .map(s => <option key={s.station_id} value={s.station_id}>{s.name}</option>)}
       </select></label>
-    <p className="story-small">B is pinned while A follows the lens. Both share the UTC axis and the clock; heights stay station-local.</p>
+    <p className="story-small">B is pinned while A follows the lens. Both share the UTC axis and the clock; heights stay station-local.</p></>}
   </section>;
-  const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={!layers} originUtc={origin} reduced={!motionOK}
+  const bar = <ClockBar style={L.bar ?? undefined} t={t} playing={clock.playing} disabled={clockOff} contours={listed} originUtc={origin} reduced={!motionOK}
     onToggle={() => toggleRef.current()} onSeek={clock.seek}/>;
   // Station lens: A's and B's full cards in the side arms (scrolling inside the arm above the clock bar when wide), the caveat below.
   const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: number) => wide ? { maxHeight: L.armBottom - top } : {};
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
   const file = shownArrivals(props.arrivals);
-  const clocks = (s: typeof selected) => file && <ThreeClocks arrivals={file} t={t} stations={[{ id: s.station.station_id, name: s.station.name }]}/>;
-  const cards = <>
+  const clocks = (s: AnySelection) => file && <ThreeClocks arrivals={file} t={t} stations={[{ id: s.station.station_id, name: s.station.name }]}/>;
+  const cards = lens && <>
     <div className="story-arm story-arm--card" style={{ ...L.record, ...armMax(L.record.top) }}>
-      <StationCard selection={selected} role="selected" {...card} clocks={clocks(selected)}/></div>
+      {/* DemoApp opens Station lens only for an event with records, so A exists */}
+      <StationCard selection={selected!} role="selected" {...card} clocks={clocks(selected!)}/></div>
     <div className="story-arm story-arm--card" style={{ ...L.support, ...armMax(L.support.top) }}>
       {props.pinned ? <StationCard selection={props.pinned} role="pinned" {...card} clocks={clocks(props.pinned)}/> : <NoReference/>}</div>
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
-      <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
+      <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick.{listed && <> {CAVEAT}</>}</p></section>
   </>;
   // Side arms centred on the lens (wide story): never above the title line, never into the clock bar or the zoom buttons;
   // a taller arm keeps its top and scrolls.
@@ -396,22 +410,22 @@ export function StoryView(props: StoryViewProps) {
     return { ...box, top, maxHeight: L.armBottom - top };
   };
   const leadY = (box: typeof L.record, h: number) => { const b = armBox(box, h); return Math.min(Math.max(L.cy, b.top + 14), b.top + Math.max(h, 28) - 14); };
-  const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
+  const arms = lens ? cards : <Arms listed={listed} ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? null} reading={reading} t={t} originUtc={origin}
     a={aSel} b={b} arrivals={file}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
     styles={{ record: armBox(L.record, armH[0]), support: armBox(L.support, armH[1]), read: L.read }}/>;
   return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}
     style={{ ["--ui" as string]: L.ui }}>
     <svg ref={svgRef} className="story-map" width={size.w} height={size.h} tabIndex={0} role="img"
-      aria-label={"Pacific map of NOAA/NCEI published hourly travel-time contours with ten station records. "
+      aria-label={`Pacific map${listed ? " of NOAA/NCEI published hourly travel-time contours" : ""} with ${stations.length ? `${stations.length} station` : "no station"} records. `
         + "Drag or use arrow keys to move the map under the lens; pinch, + and − zoom; [ and ] change station; Space plays the clock."}
       onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} onKeyDown={onKeyDown}>
       <WorldDefs coastline={coastline} contours={contours} paths={paths} initialT={t}/>
       <g transform={`translate(${view.tx},${view.ty}) scale(${view.k})`}><use href="#story-world"/></g>
-      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} width={size.w}
+      <Overlay view={view} stations={stations} epicentre={epicentre} anchors={anchors} t={t} aId={lensStation} width={size.w} height={size.h}
         lenses={[{ cx: L.cx, cy: L.cy, r: L.r }, ...(bStation ? [{ cx: bSlot[0], cy: bSlot[1], r: L.bR }] : [])]}
         avoid={[{ left: L.cx - L.titleW / 2, right: L.cx + L.titleW / 2, top: L.titleBottom - 80 * L.ui, bottom: L.titleBottom }]}
-        bId={b?.station.station_id ?? null} marks={reported && reported !== "rejected" ? reported.marks : undefined}/>
+        bId={b?.station.station_id ?? null} marks={reported && reported !== "rejected" ? reported.marks : undefined} origin={originLabel(entry.label, origin)}/>
       <g className="story-leads" aria-hidden="true">
         {wide && <><line x1={L.cx - L.r} y1={L.cy} x2={L.record.left + L.aw} y2={lens ? L.cy - L.r + 6 : leadY(L.record, armH[0])}/>
           <line x1={L.cx + L.r} y1={L.cy} x2={L.support.left} y2={lens ? L.cy - L.r + 6 : leadY(L.support, armH[1])}/>
@@ -433,11 +447,11 @@ export function StoryView(props: StoryViewProps) {
       <p className="story-lens-title__name">{title.name}</p><p className="story-lens-title__sub">{title.sub}</p></div>
     {wide ? <>{arms}{column}{compare}{bar}</>
       : <div className={`story-sheet story-sheet--${L.mode}${sheetExpanded ? " story-sheet--expanded" : ""}`} style={L.sheet ?? undefined}>
-        <div className="story-sheet__top"><div className="story-sheet__head"><ColumnHead title={lens ? "Station lens" : undefined}/></div>
+        <div className="story-sheet__top"><div className="story-sheet__head"><ColumnHead originUtc={origin} title={lens ? "Station lens" : undefined}/></div>
           <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
             {sheetExpanded ? "Collapse panel" : "Expand panel"}</button></div>
         {lead}
-        {!lens && <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
+        {!lens && stations.length > 0 && <div className="story-sheet__nav"><button type="button" onClick={() => cycle(-1)}>‹ Previous station</button>
           <button type="button" onClick={() => cycle(1)}>Next station ›</button></div>}
         {lens ? <>{bar}{column}{arms}{compare}</> : <>{bar}{arms}{compare}{column}</>}
       </div>}
@@ -445,10 +459,11 @@ export function StoryView(props: StoryViewProps) {
   </main>;
 }
 
-type NotesProps = Pick<StoryViewProps, "layersPending" | "layersError" | "onRetryLayers" | "issues" | "onDismissIssues">;
-/** Layer loading/failure and URL repair notes, shared by every view. */
-export function Notes({ layersPending, layersError, onRetryLayers, issues, onDismissIssues }: NotesProps) {
+type NotesProps = Pick<StoryViewProps, "layersPending" | "layersError" | "onRetryLayers" | "issues" | "onDismissIssues" | "entry">;
+/** Layer loading/failure (or, calmly, no contours listed) and URL repair notes, shared by every view. */
+export function Notes({ layersPending, layersError, onRetryLayers, issues, onDismissIssues, entry }: NotesProps) {
   return <>
+    {!entry.layers && <p className="story-small">No published travel-time contours are listed for this event.</p>}
     {layersPending && <p role="status" className="story-alert">{layersPending === "retrying" ? "Retrying" : "Loading"} the published contour layer…</p>}
     {layersError && <div role="alert" className="story-alert"><p>Published contour layer unavailable: {layersError}</p>
       <button type="button" onClick={onRetryLayers}>Retry contours</button></div>}
@@ -459,11 +474,17 @@ export function Notes({ layersPending, layersError, onRetryLayers, issues, onDis
 }
 
 type ChipsProps = { stations: MapStation[]; lensStation: string | null; onPick: (id: string) => void };
+/** Chips up to 12 stations; beyond that a native select, so the column keeps every control on screen. */
 function StationChips({ stations, lensStation, onPick }: ChipsProps) {
+  if (stations.length > 12) return <><h2 className="story-h">Station records</h2>
+    <label className="story-event"><span>Station</span><select aria-label="Station" value={lensStation ?? ""} onChange={e => { if (e.target.value) onPick(e.target.value); }}>
+      {lensStation === null && <option value="">No station under the lens</option>}
+      {stations.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label></>;
   return <>
     <h2 className="story-h">Station records</h2>
-    {(["dart", "coastal"] as const).map(kind => <div key={kind}>
-      <p className="story-small">{kind === "dart" ? "◆ Deep-ocean DART" : "● Coastal gauges"}</p>
+    {/* Records schema 2 gives no station type: one unheaded list */}
+    {(stations.some(s => s.type === "record") ? ["record"] as const : ["dart", "coastal"] as const).map(kind => <div key={kind}>
+      {kind !== "record" && <p className="story-small">{kind === "dart" ? "◆ Deep-ocean DART" : "● Coastal gauges"}</p>}
       {stations.filter(s => s.type === kind).map(s => <button key={s.id} type="button"
         className={`story-chip${s.id === lensStation ? " story-chip--on" : ""}`} aria-pressed={s.id === lensStation} onClick={() => onPick(s.id)}>
         {s.name}</button>)}</div>)}

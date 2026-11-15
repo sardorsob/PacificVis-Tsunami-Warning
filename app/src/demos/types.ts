@@ -1,3 +1,5 @@
+import type { NoRecordsView, SliceRecords, SliceStation, SliceView } from "./slices";
+
 export type ProductKey = "raw_value" | "residual_value" | "fitted_value";
 export type DemoState = {
   view: "paired" | "radial" | "story" | "times"; selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey;
@@ -55,10 +57,18 @@ export type CoverageSpan = { station_id: string; window_id: string; start_utc: s
 export type StationRecords = { schema_version: "1"; station_id: string; rows: Observation[]; support: Support[]; coverage_spans: CoverageSpan[]; gap_blocks: CoverageSpan[] };
 export type DemoGeometry = { schema_version: "1"; source_crs: "EPSG:4326"; display_crs: string; coordinate_order: "x,y"; central_meridian: -160; coastline: number[][][]; points: {id:string;x:number;y:number}[]; bounds: [number,number,number,number] };
 export type StationSelection = { station: StationMetadata; status: "loading" | "ready" | "error"; records: StationRecords | null; error: string | null };
-/** What every view gets from DemoApp: the bundle, the map geometry, the URL state and the two station records. */
+/** A records-schema-2 station and its display-slice records (slices.ts). */
+export type SliceSelection = { station: SliceStation; status: StationSelection["status"]; records: SliceRecords | null; error: string | null };
+export type AnyStation = StationMetadata | SliceStation;
+export type AnySelection = StationSelection | SliceSelection;
+/** The records bundle as the views read it: schema 1, schema 2, or none (an event without a records bundle has no stations). */
+export type ViewManifest = DemoManifest | SliceView | NoRecordsView;
+/** What the stage places: the epicentre and stations (display CRS, y up) and the records bundle's own coastline (none without records). */
+export type StageGeometry = Pick<DemoGeometry, "points" | "coastline">;
+/** What every view gets from DemoApp: the bundle, the map geometry, the URL state and the two station records (none without records). */
 export type ViewProps = {
-  manifest: DemoManifest; geometry: DemoGeometry | null; geometryError: string | null; state: DemoState;
-  selected: StationSelection; pinned: StationSelection | null;
+  manifest: ViewManifest; geometry: StageGeometry | null; geometryError: string | null; state: DemoState;
+  selected: AnySelection | null; pinned: AnySelection | null;
   onOpenEvidence: (stationId:string)=>void; onRetryStation: (stationId:string)=>void; onRetryGeometry: ()=>void;
 };
 export type EvidenceProps = { manifest: DemoManifest; station: StationMetadata; records: StationRecords; windowId: string; productKey: ProductKey; onClose: ()=>void };

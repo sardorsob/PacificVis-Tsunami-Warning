@@ -1,15 +1,18 @@
 import { isValidElement, type ReactElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
-import { RecordChart, type RecordChartProps } from "../RecordChart";
+import { RecordChart, SliceChart, type RecordChartProps } from "../RecordChart";
+import type { SliceRecords, SliceRow, SliceStation } from "../slices";
 import { NoReference, StationCard, type StationCardProps } from "../StationCard";
-import { SupportView, type SupportViewProps } from "../SupportView";
-import type { StationMetadata, StationRecords, StationSelection } from "../types";
+import { SliceSupport, SupportView, type SupportViewProps } from "../SupportView";
+import type { AnySelection, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { Pt } from "./layers";
 import { Lens } from "./Lens";
 import { StationTools, type StationToolsProps } from "./StationTools";
 import type { MapStation } from "./StoryMap";
-import { ViewSwitch } from "./ViewSwitch";
+import { EventSelect, eventOption, magnitudeText, ViewSwitch } from "./ViewSwitch";
+import { placeLabel } from "./StoryMap";
+import type { EventEntry } from "../types";
 // The Tōhoku station ids, as typed test-only input.
 const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 
@@ -38,7 +41,7 @@ function records(station: StationMetadata): StationRecords {
   coverage_spans: [], gap_blocks: [] };
 }
 const ready = (s: StationMetadata): StationSelection => ({ station: s, status: "ready", records: records(s), error: null });
-const card = (selection: StationSelection, extra: Partial<StationCardProps> = {}): StationCardProps => ({
+const card = (selection: AnySelection, extra: Partial<StationCardProps> = {}): StationCardProps => ({
   selection, role: "selected", windowId: "common_day", productKey: "raw_value", cursorMs: Date.parse("2011-03-11T12:00:00Z"),
   onOpenEvidence: vi.fn(), onRetryStation: vi.fn(), ...extra });
 
@@ -161,5 +164,106 @@ describe("ViewSwitch", () => {
     expect(labels("times")).toEqual(["Story", "Paired", "Station lens", "Reported times (on)"]);
     nodes(ViewSwitch({ view: "story", onView })).find(n => n.props.children === "Reported times")!.props.onClick!();
     expect(onView).toHaveBeenCalledExactlyOnceWith("times");
+  });
+});
+
+// A typed schema-2 test-only station and record (records schema 2: one display window, one raw product, drawn as segments).
+export const sliceStation: SliceStation = { station_id: "9410230", display_station_key: "coops:9410230", name: "Test La Jolla", product: "one_minute_water_level",
+  latitude: 32.867, longitude: -117.257, units: "m", vertical_datum: "STND", source: { source_id: "test-src", sha256: "a".repeat(64), url: null },
+  coverage_fraction: 0.8032407407407407, longest_supported_minutes: 1067, coverage_rule_id: "test-rule", rows: 4 };
+const DISPLAY = { id: "display" as const, label: "6 hours before to 30 hours after the origin", start_utc: "2015-09-16T16:54:32.860Z",
+  end_utc_exclusive: "2015-09-18T04:54:32.860Z" };
+const at = (h: number) => Date.parse("2015-09-16T22:54:32.860Z") + h * 3_600_000;
+const sliceRow = (h: number, v: number | null): SliceRow => ({ event_id: "test", source_id: "test-src", station_key: "coops-9410230", sensor: "unknown",
+  timestamp_utc: new Date(at(h)).toISOString(), numeric_value: v, value_state: v === null ? "blank" : "finite_numeric", timestamp_state: "reported_utc",
+  duplicate_timestamp: false, units: "m", vertical_datum: "STND", qc_state: "not_provided", qc_json: {} });
+export const sliceRecords: SliceRecords = { station_id: "9410230", window: DISPLAY,
+  rows: [sliceRow(1, 1), sliceRow(2, 2), sliceRow(2.5, null), sliceRow(3, 1.5)],
+  segments: [[{ t: at(1), v: 1 }, { t: at(2), v: 2 }], [{ t: at(3), v: 1.5 }]],
+  counts: { rows: 4, blank: 1, duplicates_dropped: 1, outside_window: 0, backward_steps: 0 } };
+const paths = (html: string) => [...html.matchAll(/<path d="([^"]*)" class="record-points[^"]*"/g)].map(m => m[1]);
+
+describe("SliceChart — a schema-2 record, one line per segment", () => {
+  it("never joins a line across a segment boundary: one move per segment, no sorting or filling", () => {
+    const [d] = paths(renderToStaticMarkup(<SliceChart station={sliceStation} records={sliceRecords} role="selected"/>));
+    expect(d.match(/M/g)).toHaveLength(2);
+    expect(d.match(/L/g)).toHaveLength(1);
+    expect(d.match(/h0\.01/g)).toHaveLength(1);   // the one-point segment is a dot
+  });
+  it("keeps every point when the clock line splits a segment, dimming only what follows it", () => {
+    const html = renderToStaticMarkup(<SliceChart station={sliceStation} records={sliceRecords} role="selected" cursorMs={at(1.5)}/>), [before, after] = paths(html);
+    expect(html).toContain('class="clock-cursor"');
+    expect(html).toContain("record-points--after");
+    expect(before.match(/M/g)).toHaveLength(1);                      // only the first point is at or before the clock
+    expect(after.match(/M/g)).toHaveLength(2); expect(after.match(/L/g)).toHaveLength(1);   // the dimmed line starts at that point
+  });
+  it("names its product, units and datum, and says so plainly when the file has no rows", () => {
+    const html = renderToStaticMarkup(<SliceChart station={sliceStation} records={sliceRecords} role="selected"/>);
+    for (const text of ["One-minute water level", "(m)", "Datum: STND"]) expect(html).toContain(text);
+    const empty = renderToStaticMarkup(<SliceChart station={{ ...sliceStation, rows: 0 }} records={{ ...sliceRecords, rows: [], segments: [],
+      counts: { rows: 0, blank: 0, duplicates_dropped: 0, outside_window: 0, backward_steps: 0 } }} role="selected"/>);
+    expect(empty).toContain("This record has no rows in the display window.");
+    expect(empty).not.toContain("record-points");
+  });
+});
+
+describe("SliceSupport and StationCard — what a schema-2 bundle has, and nothing it lacks", () => {
+  it("states the coverage of the display window with its rule, the longest supported stretch, the rows and the decoder's counts", () => {
+    const html = renderToStaticMarkup(<SliceSupport station={sliceStation} records={sliceRecords}/>);
+    for (const text of ["80.3% of the display window", "rule test-rule", "1,067 min", "4 rows", "1 blank row", "1 repeated timestamp", "0 backward time steps"])
+      expect(html).toContain(text);
+  });
+  it("heads the card with the product and hides the schema-1-only source fields", () => {
+    const html = renderToStaticMarkup(<StationCard {...card({ station: sliceStation, status: "ready", records: sliceRecords, error: null })}/>);
+    for (const text of ["Test La Jolla", "One-minute water level", "vertical datum STND", "test-src", "Rows &amp; sources", "80.3%"]) expect(html).toContain(text);
+    for (const text of ["undefined", "time basis", "horizontal datum", "Coastal tide gauge", "Deep-ocean DART", "Source: "]) expect(html).not.toContain(text);
+  });
+});
+
+describe("EventSelect — every listed event, by origin time", () => {
+  const event = (event_id: string, label: string, origin_time_utc: string, magnitude: number): EventEntry => ({ event_id, label, origin_time_utc,
+    latitude: 0, longitude: 0, magnitude, magnitude_type: "mww", records: null, layers: null, arrivals: null });
+  // The index lists events by origin instant (validateIndex); two share a label within a year, so the date is always the full UTC date.
+  const events = [event("a", "Shingū, Japan", "2004-09-05T10:07:07.820Z", 7.2), event("b", "Shingū, Japan", "2004-09-05T14:57:18.610Z", 7.4),
+    event("c", "Illapel, Chile", "2015-09-16T22:54:32.860Z", 8.3), event("d", "Tokachi-Oki, Japan", "2003-12-31T23:59:59.5Z", 8.16)];
+  it("writes each option as label · full UTC date · magnitude", () => {
+    expect(eventOption(events[2])).toBe("Illapel, Chile · 16 September 2015 · M8.3");
+    expect(eventOption(events[3])).toBe("Tokachi-Oki, Japan · 31 December 2003 · M8.16");
+  });
+  it("is a native select labelled Event, in the index's origin order, on the open event, and changes only to another event", () => {
+    const onEvent = vi.fn(), tree = nodes(EventSelect({ events: events.slice(0, 3), value: "b", onEvent }));
+    const select = tree.find(n => n.type === "select")!;
+    expect(tree.find(n => n.type === "label")).toBeDefined();
+    // Its accessible name is "Event", not the selected option's text.
+    expect(renderToStaticMarkup(<EventSelect events={events.slice(0, 3)} value="b" onEvent={onEvent}/>)).toMatch(/<label[^>]*><span>Event<\/span><select aria-label="Event"/);
+    expect(nodes(select.props.children).filter(n => n.type === "option").map(n => n.props.value)).toEqual(["a", "b", "c"]);
+    expect(select.props.value).toBe("b");
+    select.props.onChange!({ target: { value: "b" } }); expect(onEvent).not.toHaveBeenCalled();
+    select.props.onChange!({ target: { value: "c" } }); expect(onEvent).toHaveBeenCalledExactlyOnceWith("c");
+  });
+});
+
+describe("magnitude text — at least one decimal, the source value never rounded", () => {
+  it("writes 7 as M7.0 and keeps 8.16 and 8.3 as given", () => {
+    expect([7, 8.16, 8.3, 9.1, 8].map(magnitudeText)).toEqual(["7.0", "8.16", "8.3", "9.1", "8.0"]);
+    expect(eventOption({ event_id: "x", label: "Gisborne, New Zealand", origin_time_utc: "2016-09-01T16:37:57.300Z", latitude: 0, longitude: 0, magnitude: 7,
+      magnitude_type: "mww", records: null, layers: null, arrivals: null })).toBe("Gisborne, New Zealand · 1 September 2016 · M7.0");
+  });
+});
+
+describe("map labels stay inside the screen", () => {
+  const ORIGIN = "Illapel origin · 22:54 UTC";
+  it("leaves out a label whose point is below the bottom edge, as it does past the other edges", () => {
+    expect(placeLabel(1207, 1017, ORIGIN, 1440, [], "side", [], 900)).toBeNull();
+    expect(placeLabel(1207, 600, ORIGIN, 1440, [], "side", [], 900)).not.toBeNull();
+  });
+  it("keeps a label whose point is just on screen above the bottom edge", () => {
+    expect(placeLabel(600, 905, ORIGIN, 1440, [], "side", [], 900)!.y).toBeLessThanOrEqual(896);
+  });
+  it("flips a bold label near the right edge before it runs past it, and never pushes one past the left edge", () => {
+    expect(placeLabel(1250, 400, ORIGIN, 1440, [], "side", [], 900, true)!.anchor).toBe("end");
+    expect(placeLabel(1250, 400, ORIGIN, 1440, [], "side", [], 900)!.anchor).toBe("start");   // the plain estimate still fits
+    const flipped = placeLabel(170, 400, "x".repeat(40), 200, [], "side", [], 900, true)!;
+    expect(flipped.anchor).toBe("end"); expect(flipped.x - (40 * 7.2 + 4)).toBeGreaterThanOrEqual(-200);
   });
 });

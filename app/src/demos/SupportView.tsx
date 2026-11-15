@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { selectWindow, formatUtc } from "./chart";
 import type { ProductKey, StationMetadata, StationRecords } from "./types";
+import type { SliceRecords, SliceStation } from "./slices";
 
 export type SupportViewProps={station:StationMetadata;records:StationRecords;windowId:string;productKey:ProductKey;cursorMs?:number;compact?:boolean};
 /** compact: the strip and one counts line for the story arm. cursorMs: the story clock, a time not an arrival. */
@@ -37,5 +38,19 @@ export function SupportView({station,records,windowId,productKey,cursorMs,compac
       <p>Actual successive deltas: {support.cadence_seconds_counts.map(c=>`${c.seconds}s × ${c.count}`).join("; ")}. These do not establish expected completeness or outage causes.</p>
     </>}
     <p>{support.product_valid_n[productKey]} non-null selected-product values / {support.accepted_sample_n} source rows. Zero is a value; blanks and absent timestamps are not zero. Source QC is retained, not filtered.</p>
+  </section>;
+}
+
+const many=(n:number,one:string)=>`${n.toLocaleString("en-US")} ${one}${n===1?"":"s"}`;
+/** A schema-2 station's coverage fields, as the export gives them; they describe the display window only. */
+export const sliceCoverage=(s:SliceStation)=>`Covers ${(s.coverage_fraction*100).toFixed(1)}% of the display window (rule ${s.coverage_rule_id}) · longest supported stretch ${s.longest_supported_minutes.toLocaleString("en-US")} min · ${many(s.rows,"row")}`;
+/** What the decoder left out of the drawing, in plain words (slices.ts decodeSliceStation). */
+export const sliceCounts=(c:SliceRecords["counts"])=>`${many(c.blank,"blank row")} drawn as gaps · ${many(c.duplicates_dropped,"repeated timestamp")} not drawn twice · ${many(c.backward_steps,"backward time step")}, where the line breaks`;
+/** What supports a schema-2 record: the coverage fields and the decoder's counts. No grid or gap blocks exist in schema 2. */
+export function SliceSupport({station,records,compact=false}:{station:SliceStation;records:SliceRecords;compact?:boolean}) {
+  return <section className={`support-view${compact?" support-view--compact":""}`} aria-label={`${station.name} source support`}>
+    {!compact&&<h3>What supports this record</h3>}
+    <p>{sliceCoverage(station)}</p><p>{sliceCounts(records.counts)}</p>
+    <p>Gaps are missing samples, not zeros. Nothing is interpolated; source QC is shown in Rows &amp; sources and never used to filter.</p>
   </section>;
 }

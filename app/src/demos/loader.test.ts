@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { loadIndex, loadManifest, validateGeometry, validateIndex, validateManifest } from "./loader";
+import { loadViewManifest, recordProviders } from "./slices";
 import type { EventEntry } from "./types";
 
 // The contract's synthetic, test-only index (docs/data/examples, schema 2); the builder's tests must accept it too.
@@ -191,5 +192,19 @@ describe("manifest pinned by the index", () => {
     let called = false;
     await expect(loadManifest({ ...entry, records: null }, undefined, async () => { called = true; return new Response(bytes); })).rejects.toThrow(/records/);
     expect(called).toBe(false);
+  });
+  it("credits a schema-1 bundle's providers as its stations' distinct publishers, in station order", () => {
+    const m = validateManifest(patched({ stations: [station("a", 3), { ...station("b", 4, "dart"), source: { ...station("b", 4).source, publisher: "q" } }] }), entry);
+    expect(recordProviders(m)).toEqual(["p", "q"]);
+    expect(recordProviders(validateManifest(manifestInput(), entry))).toEqual(["p"]);
+  });
+  it("the app's loader reads the same bytes once and sends a schema-1 manifest to the schema-1 validator", async () => {
+    let calls = 0;
+    const m = await loadViewManifest(pinned, undefined, async () => { calls++; return new Response(bytes); });
+    expect(calls).toBe(1); expect(m).toEqual(validateManifest(manifestInput(), pinned));
+    const two = new TextEncoder().encode(JSON.stringify({ ...manifestInput(), schema_version: "2" })), sha = createHash("sha256").update(two).digest("hex");
+    // schema "2" goes to the schema-2 validator, which refuses schema-1 fields
+    await expect(loadViewManifest({ ...pinned, records: { ...pinned.records!, manifest_bytes: two.byteLength, manifest_sha256: sha } }, undefined,
+      async () => new Response(two))).rejects.toThrow(/fields/);
   });
 });
