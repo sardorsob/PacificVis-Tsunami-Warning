@@ -5,8 +5,10 @@ import { ClockBar } from "./ClockBar";
 import { kicker } from "./ClockColumn";
 import { usePageClock } from "./PairedView";
 import type { AnyStation } from "../types";
-import { Notes, type StoryViewProps } from "./StoryView";
-import { clockAt, distance, HourTicks, Lane, nceiTime, ntwcTimes } from "./ThreeClocks";
+import { stepBody, stepOn } from "./steps";
+import { Notes, ResumeLink, StepPanel, type StoryViewProps } from "./StoryView";
+import { nceiTime } from "./clock";
+import { clockAt, distance, HourTicks, Lane, ntwcTimes } from "./ThreeClocks";
 import { EventSelect, ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
@@ -61,10 +63,14 @@ export function Ladder({ arrivals: a, sort, onSort }: LadderProps) {
 export function ArrivalsView(props: StoryViewProps) {
   const { manifest, state } = props, origin = manifest.event.origin_time_utc;
   const stationIds = useMemo(() => (manifest.stations as readonly AnyStation[]).map(s => s.station_id), [manifest]), svgRef = useRef<SVGSVGElement>(null);
-  const { clock, live, toggle, said, motionOK, clockOff } = usePageClock(props, svgRef, NO_PATHS, stationIds);
-  const file = shownArrivals(props.arrivals), sort = state.sort ?? "time";
+  const { clock, live, dispatch, toggle, said, motionOK, clockOff } = usePageClock(props, svgRef, NO_PATHS, stationIds);
+  const file = shownArrivals(props.arrivals), sort = state.sort ?? "time", { params, entry } = props;
   // The rows never read the clock (its line is the CSS variable set below), so a playing clock re-renders none of the 400-odd rows.
   const rows = useMemo(() => file && <Ladder arrivals={file} sort={sort} onSort={s => props.onState({ sort: s }, live())}/>, [file, sort]);
+  // Step 7 is this page's (Tōhoku); after Skip the way back. A step carried in from Story stays in the URL only, as before.
+  const stepNow = stepOn(params.step, entry.event_id, "times");
+  const lead = stepNow ? <StepPanel step={stepNow} body={stepBody(stepNow, { events: props.events, entry, arrivals: file })} onNav={type => dispatch({ type })}/>
+    : params.step === "explore" && params.from !== null && <ResumeLink step={params.from} onResume={() => dispatch({ type: "resumeStory" })}/>;
   return <main className="story story--paired story--ladder" aria-label="Reported times">
     <header className="paired-head">
       <div><p className="story-kicker">{kicker(origin)}</p><h1 className="story-title">Reported times</h1>
@@ -74,6 +80,7 @@ export function ArrivalsView(props: StoryViewProps) {
       <div className="paired-head__tools"><ViewSwitch view="times" onView={v => props.onState({ view: v }, live())}/>
         <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())} onAll={() => props.onAllEvents(live())}/></div>
     </header>
+    {lead}
     <Notes {...props}/>
     {rows ? <div style={clockAt(clock.t)}>{rows}</div>
       : props.arrivals === undefined ? <p role="status" className="story-alert">Loading the reported-times file…</p>

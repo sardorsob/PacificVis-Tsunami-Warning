@@ -16,9 +16,11 @@ describe("navigation contract — explicit actions push", () => {
     expect(r.nav).toMatchObject({ step: 4, t: 7.5, compare: false, a: "1617760", at: null, z: 1 });
     expect(kinds(r)).toEqual(["stopPlay", "aim", "focus"]);
   });
-  it("Next on the last step opens Explore and remembers where it came from", () => {
-    const r = reduce(at(6, { t: 12 }), { type: "next" }, ctx);
-    expect(r).toMatchObject({ history: "push", nav: { step: "explore", from: 6, t: 12 } });
+  it("Next runs on 6 → 7 → 8 → 9, each at its authored clock and lens, and does nothing on step 9", () => {
+    expect(reduce(at(6, { t: 12 }), { type: "next" }, ctx)).toMatchObject({ history: "push", entered: true, nav: { step: 7, t: 30, compare: false } });
+    expect(reduce(at(7, { t: 3, a: "21418" }), { type: "next" }, ctx)).toMatchObject({ history: "push", nav: { step: 8, t: 14.5, compare: false, a: "1617760" } });
+    expect(reduce(at(8), { type: "next" }, ctx)).toMatchObject({ history: "push", entered: true, nav: { step: 9 } });
+    expect(reduce(at(9), { type: "next" }, ctx)).toMatchObject({ history: "none", effects: [] });
   });
   it("step 2 plays 0 → 8 h, or jumps to 8 h under reduced motion", () => {
     const played = reduce(at(1), { type: "next" }, ctx);
@@ -68,8 +70,14 @@ describe("navigation contract — story Back never fights browser Back", () => {
   it("replaces when the reader did not arrive from that step (deep link)", () => {
     expect(reduce(at(4), { type: "back" }, { ...ctx, prevEntryStep: null })).toMatchObject({ history: "replace", nav: { step: 3, t: 1 } });
   });
-  it("is inert on step 1", () => {
-    expect(reduce(at(1, { t: 0 }), { type: "back" }, ctx)).toMatchObject({ history: "none", effects: [] });
+  it("goes from step 1 to step 0, and is inert on step 0", () => {
+    expect(reduce(at(1, { t: 0 }), { type: "back" }, { ...ctx, prevEntryStep: 0 }).history).toBe("back");
+    expect(reduce(at(1, { t: 0 }), { type: "back" }, ctx)).toMatchObject({ history: "replace", entered: true, nav: { step: 0 } });
+    expect(reduce(at(0), { type: "back" }, { ...ctx, prevEntryStep: 9 })).toMatchObject({ history: "none", effects: [] });
+  });
+  it("resumes a step carried into another view (Story showing step 7) or the step Explore was entered from", () => {
+    expect(reduce(at(7), { type: "resumeStory" }, ctx)).toMatchObject({ history: "push", entered: true, nav: { step: 7, t: 30 } });
+    expect(reduce(at("explore", { from: 0 }), { type: "resumeStory" }, ctx).nav.step).toBe(0);
   });
 });
 

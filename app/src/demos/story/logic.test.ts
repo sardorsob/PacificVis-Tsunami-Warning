@@ -4,10 +4,10 @@ import { contourStyle, pulseWidth } from "./reveal";
 import { capture, slot } from "./lensMath";
 import type { Pt } from "./layers";
 import { pinchView, placeLabel, toMap, toScreen, type KLimits } from "./StoryMap";
-import { STEPS, validateSteps } from "./steps";
+import { STEPS, stepBody, validateSteps } from "./steps";
 import { parseStoryParams, storyQuery } from "./url";
 import { parseState } from "../state";
-import type { DemoManifest } from "../types";
+import type { DemoManifest, EventEntry } from "../types";
 // The Tōhoku station ids, as typed test-only input.
 const STATION_IDS = ["1617760", "1770000", "21413", "21418", "32401", "46411", "9419750", "9461380", "saip", "valp"];
 
@@ -116,14 +116,16 @@ describe("pinch", () => {
 });
 
 describe("guided steps", () => {
-  it("authors six steps that all name real stations", () => {
-    expect(STEPS.map(s => s.id)).toEqual([1, 2, 3, 4, 5, 6]);
+  it("authors ten steps whose Tōhoku steps name real stations", () => {
+    expect(STEPS.map(s => s.id)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     expect(() => validateSteps(STATION_IDS)).not.toThrow();
     expect(() => validateSteps(["1617760"])).toThrow(/unknown station/);
   });
   it("never claims an arrival or warning time in step copy", () => {
-    for (const step of STEPS) expect(`${step.title} ${step.body}`).not.toMatch(/arrived|arrival time is|warning time is|minutes of warning/i);
-    expect(STEPS[4]).toMatchObject({ compare: true, lens: { station: "1617760" }, b: "saip" });
+    const entry = { event_id: "e", label: "Test", origin_time_utc: "2011-03-11T05:46:24.120Z", counts: { ntwc_pairs: 1, ntwc_pairs_with_position: 1 } } as EventEntry;
+    for (const step of STEPS) expect(`${step.title} ${stepBody(step, { events: [entry], entry, arrivals: null })}`)
+      .not.toMatch(/arrived|arrival time is|warning time is|minutes of warning/i);
+    expect(STEPS[5]).toMatchObject({ id: 5, compare: true, lens: { station: "1617760" }, b: "saip" });
   });
 });
 
@@ -143,10 +145,10 @@ describe("story URL", () => {
   it("round-trips story params and repairs bad values", () => {
     expect(parseStoryParams("?" + storyQuery({ t: 7.5, compare: true, step: 5, at: null, z: 1, from: null })).params).toEqual({ t: 7.5, compare: true, step: 5, at: null, z: 1, from: null });
     expect(parseStoryParams("?step=explore").params.step).toBe("explore");
-    const bad = parseStoryParams("?t=99&step=9");
+    const bad = parseStoryParams("?t=99&step=12");
     expect(bad.params.t).toBe(T_MAX);
     expect(bad.params.step).toBe(1);
-    expect(bad.issues.length).toBe(2);
+    expect(bad.issues).toEqual(["Invalid story step: step 2 restored.", "Story clock limited to 0–30 h."]);   // step 1 is the second of ten
   });
   it("lets the shared demo state accept the story view and its fields", () => {
     const manifest = { stations: STATION_IDS.map(station_id => ({ station_id })), windows: [{ id: "common_day" }],

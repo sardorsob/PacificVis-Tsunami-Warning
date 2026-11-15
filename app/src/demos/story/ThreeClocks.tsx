@@ -1,6 +1,6 @@
 import { differenceWords, LINK_CLAUSE, linkedReports, markKind, notDrawn, onClock, type Report, type StoryArrivals } from "./arrivals";
 import { HOUR_TICKS } from "./ClockBar";
-import { T_MAX } from "./clock";
+import { nceiTime, T_MAX } from "./clock";
 import { ReportMark } from "./StoryMap";
 
 const pct = (minutes: number) => `${(minutes / (T_MAX * 60)) * 100}%`;
@@ -11,11 +11,6 @@ const utc = (iso: string) => `${iso.slice(11, 16)} UTC`;
 /** An NTWC row's times in words, whichever it has: "published estimate 10:10 UTC · reported 10:18 UTC". */
 export const ntwcTimes = (r: Report) => [r.estimate_utc && `published estimate ${utc(r.estimate_utc)}`, r.reported_utc && `reported ${utc(r.reported_utc)}`]
   .filter(Boolean).join(" · ");
-/** An NCEI duration, counted from NCEI's origin: "7 h 56 min after NCEI's origin". */
-export function nceiTime(minutes: number): string {
-  const h = Math.floor(minutes / 60), m = Math.round((minutes - h * 60) * 1000) / 1000;
-  return `${h ? `${h} h ` : ""}${m} min after NCEI's origin`;
-}
 
 /** One report on the clock bar's 0–30 h scale: ▽ published estimate joined to the reported mark (NTWC dot; NCEI square, deep-ocean
  * triangle). A time before the origin or after 30 h is not drawn ("Listed but not drawn"). The clock line is the lane's ::before. */

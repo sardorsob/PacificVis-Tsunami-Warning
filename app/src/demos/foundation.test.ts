@@ -133,7 +133,7 @@ describe("asset-independent event field in the URL",()=>{
     expect(parseEvent(url,index)).toEqual({entry:other,issues:[]});
     // The new event's own defaults, with nothing to repair
     expect(parseState(url,manifest)).toEqual({state:{...parseState("",manifest).state,view:"times",sort:"distance"},issues:[]});
-    expect(parseStoryParams(url,false).params).toEqual({t:7.25,compare:false,step:"explore",at:null,z:1,from:null});
+    expect(parseStoryParams(url,other.event_id).params).toEqual({t:7.25,compare:false,step:"explore",at:null,z:1,from:null});
     // Back to the default event drops the event field; a guided event opens in Explore too
     expect(eventSearch({...here,view:"story"},live,index.events[0],index)).toBe("?view=story&sort=distance&t=7.25&cmp=0&step=explore");
     expect(parseStoryParams(eventSearch(here,live,index.events[0],index)).params.step).toBe("explore");

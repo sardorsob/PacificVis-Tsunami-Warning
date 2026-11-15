@@ -1,23 +1,33 @@
 import { createHash } from "node:crypto";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { eventsIndex, localFetch, readDemoJson, readLayersBytes, readLayersJson, tohokuEntry } from "../integration-data";
 import { decodeStation, validateGeometry, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
 import { linkedReports, loadArrivals } from "./arrivals";
 import { ArrivalsView } from "./ArrivalsView";
 import { loadLayers, nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
-import { validateSteps } from "./steps";
-import { StoryView } from "./StoryView";
+import { reduce } from "./nav";
+import { STEPS, stepBody, validateSteps } from "./steps";
+import { StoryView, type StoryViewProps } from "./StoryView";
 import { kicker } from "./ClockColumn";
 import { eventOption } from "./ViewSwitch";
 import { ThreeClocks } from "./ThreeClocks";
 import { StationCard } from "../StationCard";
 import { loadBasemap, loadGeometry, loadStation, loadViewManifest } from "../slices";
-import { loadFirst } from "../DemoApp";
+import { EventsDemo, loadFirst, LoadedDemo } from "../DemoApp";
 import { parseEvent, parseState } from "../state";
-import { EventsView } from "./EventsView";
+import { EventsView, type EventsViewProps } from "./EventsView";
 import type { AnySelection, AnyStation, DemoGeometry, EventEntry, StationSelection } from "../types";
+
+// The guided-story walk records the props DemoApp's writers hand the views; every view still renders for real.
+const seen = vi.hoisted(() => ({ props: null as unknown }));
+vi.mock("./StoryView", async importOriginal => { const m = await importOriginal<typeof import("./StoryView")>();
+  return { ...m, StoryView: (p: StoryViewProps) => { seen.props = p; return m.StoryView(p); } }; });
+vi.mock("./ArrivalsView", async importOriginal => { const m = await importOriginal<typeof import("./ArrivalsView")>();
+  return { ...m, ArrivalsView: (p: StoryViewProps) => { seen.props = p; return m.ArrivalsView(p); } }; });
+vi.mock("./EventsView", async importOriginal => { const m = await importOriginal<typeof import("./EventsView")>();
+  return { ...m, EventsView: (p: EventsViewProps) => { seen.props = p; return m.EventsView(p); } }; });
 
 const manifest = validateManifest(readDemoJson("manifest.json"), tohokuEntry);
 const layers = validateLayersManifest(readLayersJson("manifest.json"), tohokuEntry);
@@ -127,6 +137,12 @@ describe("story view against the accepted local bundles", () => {
       expect(html.includes("No reported times are linked to this station."), s.station_id).toBe(!linked.has(s.station_id));
     }
     expect(manifest.stations.filter(s => linked.has(s.station_id)).length).toBeGreaterThan(0);
+  });
+  it("words the added step 4 and 5 lines from Tōhoku's reported-times file", async () => {
+    const d = { events: eventsIndex.events, entry: tohokuEntry, arrivals: (await loadArrivals(tohokuEntry, undefined, localFetch))! };
+    const step = (id: number) => STEPS.find(s => s.id === id)!;
+    expect(stepBody(step(4), d)).toMatch(/ NCEI reports a time for Hilo of 7 h 56 min after NCEI's origin\. The clock has not reached it yet\.$/);
+    expect(stepBody(step(5), d)).toMatch(/ Each strip carries its own place's NCEI reported time: Saipan, 2,578 km in a straight line from the epicentre, at 3 h 17 min after NCEI's origin; Hilo, 6,310 km, at 7 h 56 min after NCEI's origin\.$/);
   });
   it("authors every guided step against real station ids", () => {
     expect(() => validateSteps(manifest.stations.map(s => s.station_id))).not.toThrow();
@@ -288,7 +304,7 @@ describe("Checker round 1 on the real bundles", () => {
 describe("All events on the real index", () => {
   const sum = (a: number[]) => a.reduce((n, v) => n + v, 0);
   const screen = async (size = { w: 1440, h: 900 }) => renderToStaticMarkup(<EventsView events={eventsIndex.events} selected={parseEvent("?view=events", eventsIndex).entry}
-    order="date" has={null} basemap={await loadBasemap(eventsIndex, undefined, localFetch)} issues={[]} onDismissIssues={noop} restoreKey={0} onSelect={noop}
+    order="date" has={null} basemap={await loadBasemap(eventsIndex, undefined, localFetch)} issues={[]} onDismissIssues={noop} restoreKey={0} onSelect={noop} onStep={noop}
     onOrder={noop} onHas={noop} onOpen={noop} initialSize={size}/>);
   const rows = (html: string) => html.split('<li><button type="button" class="events-row"').slice(1);
   it("fetches only the index and the basemap for its first screen, within the plan's 300 KB budget", async () => {
@@ -327,4 +343,76 @@ describe("All events on the real index", () => {
       expect(html).toContain("92 estimate–reported pairs in the NTWC table · 8 with a reviewed position · 130 NTWC reported times · 273 NCEI reported times · 10 station records");
     }
   });
+});
+
+describe("the guided story on the real bundles: a plain link, then Next from step 0 to step 9", () => {
+  const text = (html: string) => html.replace(/<[^>]*>/g, "").replace(/&#x27;/g, "'");
+  const lensTitle = (html: string) => html.match(/story-lens-title__name">([^<]*)</)?.[1] ?? null;
+  // The copy read from the bundles, with the values the storyboard's parentheses give.
+  const READ: Record<number, string> = {
+    0: "Each star is one of 49 Pacific earthquakes from 1996 to 2018. For each, the archives list an NTWC published estimate of a time at a coastal place, a "
+      + "reported time there, or both. Across these earthquakes, 383 NTWC table rows have both times, and 169 of them have a reviewed position and are drawn. "
+      + "Where both exist, the app shows how many minutes they differ by. The story starts with one earthquake.",
+    4: "NCEI reports a time for Hilo of 7 h 56 min after NCEI's origin. The clock has not reached it yet.",
+    5: "Each strip carries its own place's NCEI reported time: Saipan, 2,578 km in a straight line from the epicentre, at 3 h 17 min after NCEI's origin; Hilo, 6,310 km, at 7 h 56 min after NCEI's origin.",
+    7: "One row for each report. 92 NTWC table rows have both a published estimate and a reported time, and the row says how many minutes they differ by, not "
+      + "which one is off; 8 have a reviewed position and appear on the map. NCEI's 273 reported times are a separate source, listed with no estimate and never "
+      + "compared with NTWC's.",
+    8: "Illapel, Chile earthquake of 16 September 2015 (UTC). At Hilo, NTWC's published estimate was 13:09 UTC on 17 September and its reported time 13:20 UTC: "
+      + "they differ by 11 minutes. NCEI's reported time for Hilo is a separate source and is not combined with them.",
+  };
+  it("routes, loads and renders each step: its event, view, clock, lens subject and copy, through the app's own writers", async () => {
+    const write = (s: unknown, _title: string, _url: string) => { history.state = s; };
+    const history = { state: null as unknown, pushState: vi.fn(write), replaceState: vi.fn(write), back: vi.fn() };
+    const got: unknown[][] = [];
+    let search = "";   // a plain link
+    try {
+      for (let id = 0; id < 10; id++) {
+        const l = await loadFirst(search, undefined, localFetch);
+        if (id === 0) expect([l.search, l.issues]).toEqual(["?view=events&step=0", []]);
+        else expect(l.search).toBe(search);   // the app's own links need no routing
+        search = l.search;
+        vi.stubGlobal("window", { location: { search, pathname: "/demos.html", hash: "" }, history, innerWidth: 1440, innerHeight: 900, setTimeout: () => 0 });
+        history.pushState.mockClear();
+        let html: string, next: () => void;
+        if (l.manifest === null) {
+          html = renderToStaticMarkup(<EventsDemo index={eventsIndex} entry={l.entry} basemap={l.basemap} issues={l.issues} onLeave={noop}/>);
+          const p = seen.props as EventsViewProps;
+          got.push([id, p.step, l.entry.label, "events", null, lensTitle(html), null]);
+          next = () => p.onStep("next");
+        } else {
+          renderToStaticMarkup(<LoadedDemo index={eventsIndex} entry={l.entry} manifest={l.manifest} issues={l.issues} onEventChange={noop}/>);
+          const p = seen.props as StoryViewProps, o = await open(l.entry), stations = l.manifest.stations as readonly AnyStation[];
+          const loading = (sid: string | null) => { const station = stations.find(s => s.station_id === sid); return station ? { station, status: "loading", records: null, error: null } as AnySelection : null; };
+          const props: StoryViewProps = { ...p, geometry: o.geometry, basemap: o.basemap, layers: o.layers, arrivals: o.arrivals, selected: loading(p.state.selectedStationId),
+            pinned: loading(p.state.pinnedStationId), initialSize: { w: 1440, h: 900 } };
+          html = renderToStaticMarkup(p.state.view === "times" ? <ArrivalsView {...props}/> : <StoryView {...props}/>);
+          got.push([id, p.params.step, l.entry.label, p.state.view, p.params.t, lensTitle(html),
+            p.state.view === "times" ? `sort ${p.state.sort}` : p.params.compare ? `compare, B ${p.state.pinnedStationId}` : null]);
+          // Reduced motion: step 2 opens at its end (8 h) instead of playing.
+          next = () => p.onNav(reduce({ ...p.params, a: p.state.selectedStationId, b: p.state.pinnedStationId }, { type: "next" },
+            { motionOK: false, stationIds: stations.map(s => s.station_id) }));
+        }
+        const shown = text(html);
+        expect(shown, `step ${id}`).toContain(`${id + 1} of 10${STEPS[id].title}`);
+        expect(shown, `step ${id}`).toContain(READ[id] ?? (STEPS[id].body as string));
+        if (id === 9) { expect(html).not.toMatch(/>Next<\/button>/); expect(html).toContain(">Open this event</button>"); break; }
+        next();
+        const [[entry, , url]] = history.pushState.mock.calls;   // Next pushes exactly one entry
+        history.state = entry; search = url.slice("/demos.html".length);
+      }
+    } finally { vi.unstubAllGlobals(); }
+    expect(got).toEqual([
+      [0, 0, "Tōhoku, Japan", "events", null, "Tōhoku, Japan", null],
+      [1, 1, "Tōhoku, Japan", "story", 0, "Tōhoku epicentre", null],
+      [2, 2, "Tōhoku, Japan", "story", 8, "Tōhoku epicentre", null],
+      [3, 3, "Tōhoku, Japan", "story", 1, "DART 21418", null],
+      [4, 4, "Tōhoku, Japan", "story", 7.5, "Hilo", null],
+      [5, 5, "Tōhoku, Japan", "story", 7.5, "Hilo", "compare, B saip"],
+      [6, 6, "Tōhoku, Japan", "story", 12, "Open Pacific", null],
+      [7, 7, "Tōhoku, Japan", "times", 30, null, "sort time"],
+      [8, 8, "Illapel, Chile", "story", 14.5, "Hilo, Hilo Bay, Kuhio Bay", null],
+      [9, 9, "Illapel, Chile", "events", null, "Illapel, Chile", null],
+    ]);
+  }, 120_000);
 });

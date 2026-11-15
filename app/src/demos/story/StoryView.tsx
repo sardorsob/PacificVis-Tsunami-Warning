@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { centreArm, layoutFor } from "../layout";
 import type { AnySelection, AnyStation, DemoState, EventEntry, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
@@ -11,8 +11,8 @@ import { clockLabel, utcAt } from "./clock";
 import { nearestHours, pointBetween, type Coastline, type Pt, type StoryLayers } from "./layers";
 import { B_LENS_MAG, capture, LENS_MAG } from "./lensMath";
 import { Lens } from "./Lens";
-import { distinct, reduce, type NavEvent, type NavResult, type StoryNav } from "./nav";
-import { STEPS, STORY_EVENT_ID, validateSteps, type StoryStep } from "./steps";
+import { distinct, historyPrev, reduce, stepFocus, type NavEvent, type NavResult, type StoryNav } from "./nav";
+import { ownStep, STEPS, STORY_EVENT_ID, stepBody, stepOn, validateSteps, type StepId, type StoryStep } from "./steps";
 import { centreOn, clampK, fitView, originLabel, Overlay, PACIFIC_CROP, pinchView, placeName, toMap, toScreen, useStage, WorldDefs, zoomAt } from "./StoryMap";
 import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
@@ -51,20 +51,38 @@ export type StoryViewProps = ViewProps & {
 const CAPTURE_M = 400_000, READING_RADIUS = 450_000, DRAG_SLOP = 3, SETTLE_MS = 250;
 /** After React commits (a timeout, not an animation frame, so a hidden tab still gets it). */
 const afterCommit = (f: () => void) => { if (typeof window !== "undefined") window.setTimeout(f, 0); };
-
-/** The step recorded in the previous history entry (written by DemoApp's story writer), if any. */
-function historyPrev(): StoryNav["step"] | null {
-  const prev = typeof window === "undefined" ? null : (window.history.state as { prev?: unknown } | null)?.prev;
-  return typeof prev === "number" || prev === "explore" ? prev as StoryNav["step"] : null;
+/** Focus the element after React commits (the page views and All events, where no view-local root is at hand). */
+export const focusSoon = (selector: string) => afterCommit(() => document.querySelector<HTMLElement>(selector)?.focus({ preventScroll: true }));
+type StepAction = "back" | "next" | "returnToStep" | "explore";
+/** A guided step's panel, in every view that has steps: its position ("1 of 10"), title and body, Back (inert on the first step), Next (none on the last:
+ * the reader picks an event there), Return to this step where the view has it, and Skip. Hook-free; the heading takes focus as it mounts when its step
+ * was entered across a remount (stepFocus). */
+export function StepPanel({ step, body, onNav, canReturn = true, children }: { step: StoryStep; body: string; onNav: (type: StepAction) => void;
+  canReturn?: boolean; children?: ReactNode }) {
+  const n = step.id + 1;
+  return <section className="story-step" aria-label={`Story step ${n} of ${STEPS.length}`}>
+    <p className="story-kicker">{n} of {STEPS.length}</p>
+    <h2 className="story-step__title" id="story-step-title" tabIndex={-1}
+      ref={el => { if (el && stepFocus.step === step.id) { stepFocus.step = null; el.focus({ preventScroll: true }); } }}>{step.title}</h2>
+    <p className="story-step__body">{body}</p>
+    {children}
+    <div className="story-step__nav"><button type="button" aria-disabled={step.id === 0} onClick={() => onNav("back")}>Back</button>
+      {step.id < STEPS.length - 1 && <button type="button" onClick={() => onNav("next")}>Next</button>}</div>
+    <p className="story-step__links">
+      {canReturn && <><button type="button" className="story-link" onClick={() => onNav("returnToStep")}>Return to this step</button>{" "}</>}
+      <button type="button" className="story-link" onClick={() => onNav("explore")}>Skip to free exploration</button></p>
+  </section>;
 }
+/** "Back to the guided story (step n)", numbered by position like the step panel; it takes focus after Skip. */
+export const ResumeLink = ({ step, onResume }: { step: StepId; onResume: () => void }) => <p className="story-step__links">
+  <button type="button" className="story-link story-focus-panel" onClick={onResume}>Back to the guided story (step {step + 1})</button></p>;
 
 export function StoryView(props: StoryViewProps) {
   const { manifest, geometry, layers, state, selected, params } = props;
   /** Station lens (?view=radial): the same stage, the lens always on a station, full A/B cards and station tools, no guided steps. */
   const lens = state.view === "radial";
-  /** The guided steps are authored for one event; any other opens in free exploration (no steps, no step checks). */
-  const guided = manifest.event.event_id === STORY_EVENT_ID;
-  const origin = manifest.event.origin_time_utc, { entry } = props;
+  // Steps belong to the open event (its records manifest names it).
+  const origin = manifest.event.origin_time_utc, eventId = manifest.event.event_id, { entry } = props;
   /** Contours listed for the event; the clock waits for them only then (loading or failed: off, with Retry). */
   const listed = !!entry.layers, clockOff = listed && !layers;
   const root = useRef<HTMLElement>(null), svgRef = useRef<SVGSVGElement>(null);
@@ -74,20 +92,22 @@ export function StoryView(props: StoryViewProps) {
   const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers, props.basemap, props.entry);
   const between = useMemo(() => { const a = anchors.get(10); return a ? pointBetween(contours, a, 11) : null; }, [anchors, contours]);
   const reported = useMemo(() => props.arrivals && props.arrivals !== "rejected" ? arrivalDisplay(props.arrivals) : props.arrivals ?? null, [props.arrivals]);
+  /** Steps belong to their event (Tōhoku 1–7, Illapel 8); an event without steps has nothing to check. */
   const stepsError = useMemo(() => {
-    if (!guided) return null;
-    try { validateSteps(stationIds); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
-  }, [stationIds, guided]);
+    try { validateSteps(stationIds, eventId); return null; } catch (e) { return e instanceof Error ? e.message : "Story steps are invalid."; }
+  }, [stationIds, eventId]);
 
   // ---- navigation: one reducer, one writer ----
   const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
   const navRef = useRef(nav); navRef.current = nav;
-  const stepNow = guided && !lens && typeof params.step === "number" ? STEPS[params.step - 1] : null;
+  /** The step shown here: this event's step on the Story view. Another view's step (7, carried in from Reported times) only offers the way back to it. */
+  const stepNow = lens ? null : stepOn(params.step, eventId, "story");
   const fitK = fitView(PACIFIC_CROP, size.w, size.h).k;
   const stepTarget = ({ lens }: StoryStep): Pt | null => "station" in lens ? stations.find(x => x.id === lens.station)?.xy ?? null
     : lens.point === "epicentre" ? epicentre : between ?? epicentre;
   /** The step whose lens target applies: the current step, or in Explore the step it was entered from. */
-  const lensStep = (n: StoryNav) => lens || !guided ? null : typeof n.step === "number" ? STEPS[n.step - 1] : n.from ? STEPS[n.from - 1] : null;
+  const own = (id: StepId | null) => id !== null && ownStep(id, eventId) ? id : null;
+  const lensStep = (n: StoryNav) => { const id = lens ? null : own(typeof n.step === "number" ? n.step : n.from); return id === null ? null : STEPS[id]; };
   const targetOf = (n: StoryNav): Pt => {
     if (lens) return stations.find(s => s.id === n.a)?.xy ?? epicentre; // Station lens: always on A, whatever the story's lens point
     if (n.at) return [n.at[0] * 1000, n.at[1] * 1000];
@@ -345,20 +365,15 @@ export function StoryView(props: StoryViewProps) {
   const alert = <><Notes {...props}/>{stepsError && <div role="alert" className="story-alert"><p>{stepsError}</p></div>}</>;
   // Reduced motion: the step's play becomes a jump to its end, so a link that opens at the start still has a way there.
   const canPlayStep = !!stepNow?.play && !clockOff && !clock.playing && t < stepNow.play[1];
-  const lead = stepNow && !stepsError ? <section className="story-step" aria-label={`Story step ${stepNow.id} of ${STEPS.length}`}>
-    <p className="story-kicker">{stepNow.id} of {STEPS.length}</p>
-    <h2 className="story-step__title" id="story-step-title" tabIndex={-1}>{stepNow.title}</h2>
-    <p className="story-step__body">{stepNow.body}</p>
+  const lead = stepNow && !stepsError ? <StepPanel step={stepNow} body={stepBody(stepNow, { events: props.events, entry, arrivals: shownArrivals(props.arrivals) })}
+    onNav={type => dispatch({ type })}>
     {canPlayStep && (motionOK
       ? <button type="button" className="story-step__play" onClick={() => clock.play(...stepNow.play!)}>▶ Play this step</button>
       : <button type="button" className="story-step__play" onClick={() => clock.seek(stepNow.play![1])}>
         Show this step at {clockLabel(stepNow.play![1]).replace(" 00 min", "")}</button>)}
-    <div className="story-step__nav"><button type="button" aria-disabled={stepNow.id === 1} onClick={() => dispatch({ type: "back" })}>Back</button>
-      <button type="button" onClick={() => dispatch({ type: "next" })}>{stepNow.id < STEPS.length ? "Next" : "Explore"}</button></div>
-    <p className="story-step__links">
-      <button type="button" className="story-link" onClick={() => dispatch({ type: "returnToStep" })}>Return to this step</button>{" "}
-      <button type="button" className="story-link" onClick={() => dispatch({ type: "explore" })}>Skip to free exploration</button></p>
-  </section> : null;
+  </StepPanel> : null;
+  // The way back: to a step carried in from another view, else the step Explore was entered from (Tōhoku: step 1 by default).
+  const resumeTo = typeof params.step === "number" ? own(params.step) : own(params.from) ?? (eventId === STORY_EVENT_ID ? 1 : null);
   const pick = (id: string) => stations.length ? focusStation(id, id !== lensStation)
     : dispatch({ type: "lensSettle", at: null, z: navRef.current.z, station: id, explicit: true });
   const tools = <StationTools stations={manifest.stations} windows={manifest.windows} selectedStationId={state.selectedStationId}
@@ -366,9 +381,7 @@ export function StoryView(props: StoryViewProps) {
     onPin={id => dispatch(id ? { type: "pin", id } : { type: "unpin" })} onWindow={windowId => props.onState({ windowId }, live())}
     onProduct={productKey => props.onState({ productKey }, live())}/>;
   const extra = lens ? tools : stepNow ? null : <>
-    {guided && <p className="story-step__links">
-      <button type="button" className="story-link story-focus-panel" onClick={() => dispatch({ type: "resumeStory" })}>
-      Back to the guided story (step {params.from ?? 1})</button></p>}
+    {resumeTo !== null && <ResumeLink step={resumeTo} onResume={() => dispatch({ type: "resumeStory" })}/>}
     {stations.length > 0 && <StationChips stations={stations} lensStation={lensStation} onPick={id => focusStation(id, id !== lensStation)}/>}
   </>;
   const column = <ClockColumn t={t} entry={entry} stationName={ocean ? null : lensMeta!.name} counts={counts} alert={alert}
@@ -402,7 +415,7 @@ export function StoryView(props: StoryViewProps) {
     <div className="story-arm story-arm--card" style={{ ...L.support, ...armMax(L.support.top) }}>
       {props.pinned ? <StationCard selection={props.pinned} role="pinned" {...card} clocks={clocks(props.pinned)}/> : <NoReference/>}</div>
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
-      <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick.{listed && <> {CAVEAT}</>}</p></section>
+      <p>The white line on each record is the shared clock ({utcAt(origin, t)}); no time is picked from the records.{listed && <> {CAVEAT}</>}</p></section>
   </>;
   // Side arms centred on the lens (wide story): never above the title line, never into the clock bar or the zoom buttons;
   // a taller arm keeps its top and scrolls.

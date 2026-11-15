@@ -135,9 +135,9 @@ describe("reported-times key in the clock column", () => {
     const html = key(column(arrivalDisplay(ex)));
     for (const label of ["NTWC published estimate", "NTWC reported time", "NCEI reported time (timed from NCEI&#x27;s own origin)", "NCEI deep-ocean reported time",
       "2 estimate–reported pairs in the NTWC table · 1 with a reviewed position · 2 NCEI reported times",
-      "Reported times are what the sources reported, not validated arrivals; a difference does not say which side is off.",
+      "Reported times are what the sources reported, not validated arrival times; a difference does not say which side is off.",
       "Listed reports not drawn on the map: 1 without a place."]) expect(html).toContain(label);
-    expect(html.replace("not validated arrivals", "")).not.toMatch(/arrival|measured|error|wrong|late|warning time/i);
+    expect(html.replace("not validated arrival times", "")).not.toMatch(/arrival|measured|error|wrong|late|warning time/i);
   });
   it("says why listed reports are not drawn, only when some are not", () => {
     const edge = validateArrivals(mutated(x => { x.reports[1].site_id = "coops:0000001"; x.reports[1].reported_minus_ruler_minutes = 76.3;

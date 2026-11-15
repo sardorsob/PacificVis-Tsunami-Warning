@@ -50,7 +50,7 @@ describe("portable exact evidence panel", () => {
     expect(html).toContain('href="https://example.org/records"');
     expect(html).not.toContain("private-do-not-display");
     expect(html).toContain("not proof of scientific validity");
-    expect(html).toContain("Descriptive records, not validated arrivals or warning time.");
+    expect(html).toContain("Descriptive records, not validated arrival times and not when a warning was issued.");
   });
   it.each([null, "javascript:alert(1)", "http://example.org", "https://name:secret@example.org", "https://example.org/?token=secret"])("does not create a publisher link for unsafe or absent URL %s", url => {
     const html = render({ station: { ...station, source: { ...station.source, url } } });

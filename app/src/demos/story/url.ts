@@ -1,6 +1,6 @@
 import { T_MAX } from "./clock";
 import type { Pt } from "./layers";
-import { STEPS, type StepId } from "./steps";
+import { ownStep, STEPS, STORY_EVENT_ID, type StepId } from "./steps";
 
 /** Story fields of the URL. With selected/pinned/window/product they restore the whole screen at any viewport size. */
 export type StoryParams = {
@@ -15,20 +15,21 @@ export type StoryParams = {
 export const STORY_FIELDS = ["t", "cmp", "step", "at", "z", "from"] as const;
 /** Zoom limits relative to the fitted Pacific: the same range on every screen. */
 export const Z_MIN = 0.25, Z_MAX = 20;
-const stepId = (v: string): StepId | null => /^[1-6]$/.test(v) ? Number(v) as StepId : null;
+/** A step id in a URL value (0–9), or null. */
+export const stepId = (v: string | null): StepId | null => v !== null && /^[0-9]$/.test(v) ? Number(v) as StepId : null;
 
-/** `guided` is false for an event the steps are not authored for: it always opens in free exploration. */
-export function parseStoryParams(search: string, guided = true): { params: StoryParams; issues: string[] } {
-  const q = new URLSearchParams(search), issues: string[] = [];
+/** Steps belong to their event (ownStep): Tōhoku opens step 1 by default; any other event opens in free exploration, except its own step. A step of
+ * another event that the link router could not repair (its event is not listed) opens free exploration, with a note. */
+export function parseStoryParams(search: string, event = STORY_EVENT_ID): { params: StoryParams; issues: string[] } {
+  const q = new URLSearchParams(search), issues: string[] = [], guided = event === STORY_EVENT_ID;
   const params: StoryParams = { t: 0, compare: false, step: guided ? 1 : "explore", at: null, z: 1, from: null };
-  const step = q.get("step");
-  if (step !== null && guided) {
-    if (step === "explore") params.step = "explore";
-    else if (stepId(step)) params.step = stepId(step)!;
-    else issues.push("Invalid story step: step 1 restored.");
-  }
+  const step = q.get("step"), id = stepId(step);
+  if (step === "explore") params.step = "explore";
+  else if (id !== null && ownStep(id, event)) params.step = id;
+  else if (id !== null) { params.step = "explore"; issues.push(`Invalid event for story step ${id + 1}: free exploration opened.`); }
+  else if (step !== null && guided) issues.push("Invalid story step: step 2 restored.");
   // A hand-written step link opens that step as authored; the app always writes t and cmp itself.
-  if (typeof params.step === "number") { const s = STEPS[params.step - 1]; params.t = s.play ? s.play[0] : s.t; params.compare = s.compare; }
+  if (typeof params.step === "number") { const s = STEPS[params.step]; params.t = s.play ? s.play[0] : s.t; params.compare = s.compare; }
   const t = q.get("t");
   if (t !== null) {
     const n = Number(t);
@@ -50,7 +51,9 @@ export function parseStoryParams(search: string, guided = true): { params: Story
     else { params.z = Math.max(Z_MIN, Math.min(Z_MAX, n)); if (n !== params.z) issues.push(`Zoom limited to ${Z_MIN}–${Z_MAX}.`); }
   }
   const from = q.get("from");
-  if (from !== null && guided) { if (stepId(from)) params.from = stepId(from); else issues.push("Invalid resume step: step 1 will be used."); }
+  const fromId = stepId(from);
+  if (fromId !== null && ownStep(fromId, event)) params.from = fromId;
+  else if (from !== null && guided) issues.push("Invalid resume step: step 2 will be used.");
   return { params, issues };
 }
 /** Defaults are left out so a plain story link stays short. */

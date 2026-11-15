@@ -90,7 +90,7 @@ export function EvidencePanel({ manifest, station, records, windowId, productKey
   return <dialog ref={dialog} className="evidence-panel" aria-labelledby={titleId} aria-describedby={descriptionId} onCancel={event => { event.preventDefault(); onClose(); }}>
     <header className="evidence__header"><h2 id={titleId}>Rows &amp; sources · {station.name} <span>({station.station_id})</span></h2><button ref={close} type="button" onClick={onClose}>Close</button></header>
     <div className="evidence__body">
-      <p id={descriptionId}>Descriptive records, not validated arrivals or warning time.</p>
+      <p id={descriptionId}>Descriptive records, not validated arrival times and not when a warning was issued.</p>
       <section aria-label="Selected evidence interval" className="evidence__section">
         <h3>{windowId === "source_full" ? "Full source record — station-specific bounds" : manifest.windows.find(window => window.id === windowId)?.label ?? windowId}</h3>
         <p className="evidence__bounds">[{support.start_utc}, {support.end_utc_exclusive})</p>

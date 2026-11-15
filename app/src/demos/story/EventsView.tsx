@@ -9,7 +9,8 @@ import { Lens } from "./Lens";
 import { capture, LENS_MAG } from "./lensMath";
 import { contourColour } from "./palette";
 import { centreOn, fitView, PACIFIC_CROP, pinchView, star, toMap, toScreen, WorldDefs, zoomAt, type KLimits, type View } from "./StoryMap";
-import { RepairNote } from "./StoryView";
+import { STEPS, stepBody, type StepId } from "./steps";
+import { RepairNote, ResumeLink, StepPanel } from "./StoryView";
 import { HourTicks } from "./ThreeClocks";
 import { Z_MAX, Z_MIN } from "./url";
 import { reducedMotion } from "./useStoryClock";
@@ -86,6 +87,8 @@ export function EventList({ events, selected, order, has, onSelect, onOrder, onH
 
 export type EventsViewProps = EventListProps & {
   basemap: Coastline; issues: string[]; onDismissIssues: () => void; onOpen: () => void;
+  /** The guided step shown here (0 or 9), or after Skip the step to resume; onStep is the step panel's and the way back's. */
+  step?: StepId; from?: StepId; onStep: (type: "back" | "next" | "returnToStep" | "explore" | "resumeStory") => void;
   /** Bumped on Back/Forward: the lens jumps to the restored event instead of gliding. */
   restoreKey: number;
   /** Test seam: the first-render viewport (the browser measures window size). */
@@ -124,7 +127,9 @@ export function EventsView(props: EventsViewProps) {
   const restoreSeen = useRef(props.restoreKey);
   useEffect(() => {
     const back = restoreSeen.current !== props.restoreKey; restoreSeen.current = props.restoreKey;
-    if (back) { cancelGlide(); land(onto(selected.event_id)); } else glide(onto(selected.event_id));
+    // Back/Forward moves focus to the step heading, when a step shows.
+    if (back) { cancelGlide(); land(onto(selected.event_id)); root.current?.querySelector<HTMLElement>("#story-step-title")?.focus({ preventScroll: true }); }
+    else glide(onto(selected.event_id));
   }, [selected.event_id, props.restoreKey]);
   // ---- a move ends on the nearest epicentre: a new one is selected in place (replace), as a lens settle is; never written mid-move ----
   const settleTimer = useRef(0);
@@ -211,6 +216,10 @@ export function EventsView(props: EventsViewProps) {
     <section className="story-arm" style={armBox(L.support)} aria-label="Reported times by clock hour"><h2 className="story-arm__h">Reported times by clock hour</h2>
       <HourStrip perHour={c.reported_per_hour} big/><p>{GUIDE}</p></section>
   </>;
+  // The guided step (All events has no "Return to this step": nothing here is authored but the selection the reader moves), else the way back to it.
+  const stepNow = props.step === undefined ? null : STEPS[props.step];
+  const lead = stepNow ? <StepPanel step={stepNow} body={stepBody(stepNow, { events, entry: selected, arrivals: null })} onNav={props.onStep} canReturn={false}/>
+    : props.from !== undefined && <ResumeLink step={props.from} onResume={() => props.onStep("resumeStory")}/>;
   // "Open this event" takes the view switch's place.
   const panel = <section className="story-panel story-compare" style={wide ? { width: L.panel } : undefined} aria-label="Selected event">
     <button type="button" className="events-open" onClick={props.onOpen}>Open this event</button>
@@ -219,6 +228,7 @@ export function EventsView(props: EventsViewProps) {
     {wide && head}
     <p className="story-small">Each star is one earthquake's epicentre. Choose one on the map or in the list; the lens and its arms show what the sources list for it.</p>
     <RepairNote issues={props.issues} onDismissIssues={props.onDismissIssues}/>
+    {wide && lead}
     <EventList events={events} selected={selected} order={props.order} has={props.has} onSelect={onSelect} onOrder={props.onOrder} onHas={props.onHas}/>
     <p className="story-credits">Counts: NTWC and NCEI source records, as the events index lists them. Natural Earth 1:110m · Equal Earth, 160° W. Internal descriptive
       evidence only.</p>
@@ -250,7 +260,7 @@ export function EventsView(props: EventsViewProps) {
         <div className="story-sheet__top"><div className="story-sheet__head">{head}</div>
           <button type="button" className="story-sheet__handle" aria-expanded={sheetExpanded} onClick={() => setSheetExpanded(x => !x)}>
             {sheetExpanded ? "Collapse panel" : "Expand panel"}</button></div>
-        {arms}{panel}{column}
+        {lead}{arms}{panel}{column}
       </div>}
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;

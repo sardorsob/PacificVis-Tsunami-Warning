@@ -22,7 +22,17 @@ export type NavContext = {
   prevEntryStep?: StoryNav["step"] | null;
   evidenceOpen?: boolean; playing?: boolean; sheetExpanded?: boolean;
 };
-export type NavResult = { nav: StoryNav; history: "push" | "replace" | "back" | "none"; effects: Effect[] };
+/** `entered`: the result enters `nav.step` as authored; when that step lives in another view, event or All events, the writer goes there. */
+export type NavResult = { nav: StoryNav; history: "push" | "replace" | "back" | "none"; effects: Effect[]; entered?: true };
+/** The step recorded in the previous history entry (written by DemoApp's writers), if any. */
+export function historyPrev(): StoryNav["step"] | null {
+  const prev = typeof window === "undefined" ? null : (window.history.state as { prev?: unknown } | null)?.prev;
+  return typeof prev === "number" || prev === "explore" ? prev as StoryNav["step"] : null;
+}
+/** A step entered across a remount (another view, event or All events, or Back/Forward onto one) leaves its id here; that step's panel takes focus
+ * as it mounts and clears it. */
+// ponytail: one module-level request instead of a focus prop through DemoApp, both demos and every view; it holds one id and is read once.
+export const stepFocus: { step: StepId | null } = { step: null };
 /** The history entry DemoApp writes: a push records the step it came from; a replace keeps this entry's own previous step. */
 export function entryFor(current: unknown, step: StoryNav["step"], history: "push" | "replace") {
   const c = current as { step?: unknown; prev?: unknown } | null;
@@ -42,16 +52,17 @@ const validB = (nav: StoryNav, ids: readonly string[]) =>
 /** After A moves (a step's lens station, a lens settle), re-pick B if A landed on it. */
 export const distinct = (nav: StoryNav, ids: readonly string[]): StoryNav => nav.b === nav.a ? { ...nav, b: validB(nav, ids) } : nav;
 function enter(nav: StoryNav, id: StepId, ctx: NavContext, history: NavResult["history"]): NavResult {
-  const step = STEPS[id - 1], animate = !!step.play && ctx.motionOK;
+  const step = STEPS[id], animate = !!step.play && ctx.motionOK;
   const lensStation = "station" in step.lens ? step.lens.station : null;
   const effects: Effect[] = [{ kind: "stopPlay" }, { kind: "aim", instant: false }, { kind: "focus", target: "step" }];
   if (animate) effects.push({ kind: "play", from: step.play![0], until: step.play![1] });
   return {
     nav: distinct({ ...nav, step: id, from: null, t: animate ? step.play![0] : step.t, compare: step.compare, at: null, z: 1,
       a: lensStation ?? nav.a, b: step.b ?? nav.b }, ctx.stationIds),
-    history, effects,
+    history, effects, entered: true,
   };
 }
+const LAST = STEPS.length - 1;
 
 /**
  * The navigation contract (canonical in context/story/STORYBOARD.md): explicit actions push, passive ones replace,
@@ -60,19 +71,18 @@ function enter(nav: StoryNav, id: StepId, ctx: NavContext, history: NavResult["h
 export function reduce(nav: StoryNav, ev: NavEvent, ctx: NavContext): NavResult {
   const step = typeof nav.step === "number" ? nav.step : null;
   switch (ev.type) {
-    case "next":
-      if (step === null) return stay(nav);
-      return step < STEPS.length ? enter(nav, (step + 1) as StepId, ctx, "push") : reduce(nav, { type: "explore" }, ctx);
+    case "next": // the last step has no Next: the reader picks an event there
+      return step === null || step === LAST ? stay(nav) : enter(nav, (step + 1) as StepId, ctx, "push");
     case "back":
-      if (step === null || step === 1) return stay(nav);
+      if (step === null || step === 0) return stay(nav);
       if (ctx.prevEntryStep === step - 1) return { nav, history: "back", effects: [{ kind: "stopPlay" }] };
       return enter(nav, (step - 1) as StepId, ctx, "replace");
     case "returnToStep":
       return step === null ? stay(nav) : enter(nav, step, ctx, "replace");
     case "explore":
       return { nav: { ...nav, step: "explore", from: step ?? nav.from }, history: "push", effects: [{ kind: "focus", target: "panel" }] };
-    case "resumeStory":
-      return enter(nav, nav.from ?? 1, ctx, "push");
+    case "resumeStory": // a step carried into another view (Story showing step 7), else the step Explore was entered from
+      return enter(nav, step ?? nav.from ?? 1, ctx, "push");
     case "compareOn":
       return { nav: { ...nav, compare: true, b: validB(nav, ctx.stationIds) }, history: "push", effects: [] };
     case "compareOff":

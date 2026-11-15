@@ -7,7 +7,7 @@ import type { StoryArrivals } from "./arrivals";
 import { utcAt } from "./clock";
 import { ThreeClocks } from "./ThreeClocks";
 
-export const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), first arrival only, no wave height. Not a station's arrival, and not warning time.";
+export const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), for the first wave only, with no wave height. A contour is not a time reported at any station, and not when a warning was issued.";
 type Reading = { a: number; b: number } | null;
 type ArmsProps = {
   /** The event lists published contours. */
@@ -97,8 +97,8 @@ export function Arms(props: ArmsProps) {
     <section className="story-arm story-arm--read" style={styles.read} aria-label="How to read this">
       <h2 className="story-arm__h">Read this as</h2>
       <p>{!here ? listed ? CAVEAT : "Marks light up as the clock reaches each published estimate or reported time; a filled mark takes its reported hour's colour."
-        : <>The white line is the clock ({utcAt(originUtc, t)}), not an arrival pick.{listed && <>
-        {" "}The published contours near {here.station.name} are model estimates, not its arrival.</>}{!isSlice(here) && <> Source: {here.station.source.publisher}.</>}</>}</p>
+        : <>The white line is the clock ({utcAt(originUtc, t)}); no time is picked from the record.{listed && <>
+        {" "}The published contours near {here.station.name} are model estimates, not a time reported there.</>}{!isSlice(here) && <> Source: {here.station.source.publisher}.</>}</>}</p>
       {here?.status === "ready"
         && <button type="button" className="story-evidence" onClick={() => onOpenEvidence(here.station.station_id)}>Rows &amp; sources</button>}
     </section>

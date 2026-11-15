@@ -2,40 +2,46 @@ import { useEffect,useRef,useState } from "react";
 import { EvidencePanel,SliceEvidencePanel } from "./evidence/EvidencePanel";
 import { loadIndex,LatestRequest } from "./loader";
 import { isSlice,loadBasemap,loadGeometry,loadStation,loadViewManifest,type SliceRecords } from "./slices";
-import { eventSearch,eventsSearch,isEventsView,openSearch,parseEvent,parseEventsState,parseState,serializeState,type EventsState } from "./state";
+import { eventSearch,eventsSearch,isEventsView,openSearch,parseEvent,parseEventsState,parseState,routeSearch,serializeState,stepSearch,type EventsState } from "./state";
 import { loadArrivals,type StoryArrivals } from "./story/arrivals";
 import { ArrivalsView } from "./story/ArrivalsView";
 import { loadLayers,type Coastline,type StoryLayers } from "./story/layers";
-import { entryFor,keptPrev,type NavResult,type StoryNav } from "./story/nav";
+import { entryFor,historyPrev,keptPrev,reduce,stepFocus,type NavEvent,type NavResult,type StoryNav } from "./story/nav";
 import { NoRecordsPage,PairedView } from "./story/PairedView";
 import { EventsView } from "./story/EventsView";
-import { STORY_EVENT_ID } from "./story/steps";
-import { StoryView,type StoryViewProps } from "./story/StoryView";
-import { parseStoryParams,type StoryParams } from "./story/url";
+import { STEPS } from "./story/steps";
+import { focusSoon,StoryView,type StoryViewProps } from "./story/StoryView";
+import { parseStoryParams,stepId,type StoryParams } from "./story/url";
 import type { AnySelection,AnyStation,DemoState,EventEntry,EventsIndex,StageGeometry,StationRecords,ViewManifest } from "./types";
 
 const message=(error:unknown)=>error instanceof Error?error.message:"Unexpected data failure.";
-type Loaded={index:EventsIndex;entry:EventEntry;issues:string[]}&({manifest:ViewManifest}|{manifest:null;basemap:Coastline});
+type Loaded={index:EventsIndex;entry:EventEntry;issues:string[];search:string}&({manifest:ViewManifest}|{manifest:null;basemap:Coastline});
 /** The first screen's files: the events index, then the URL's event and the records manifest the index pins (verified before parsing, then read by
- * its schema; none for an event without records). All events (?view=events) loads only the index's shared basemap instead. */
-export async function loadFirst(search:string,signal?:AbortSignal,request:typeof fetch=fetch):Promise<Loaded> {
-  const index=await loadIndex(signal,request),{entry,issues}=parseEvent(search,index);
-  return isEventsView(search)?{index,entry,issues,manifest:null,basemap:await loadBasemap(index,signal,request)}
-    :{index,entry,issues,manifest:await loadViewManifest(entry,signal,request)};
+ * its schema; none for an event without records). All events (?view=events) loads only the index's shared basemap instead. The link is routed first
+ * (routeSearch: a plain link opens step 0, a misplaced step is repaired); `search` is the link the screen reads. */
+export async function loadFirst(raw:string,signal?:AbortSignal,request:typeof fetch=fetch):Promise<Loaded> {
+  const index=await loadIndex(signal,request),{search,issues:routed}=routeSearch(raw,index),{entry,issues}=parseEvent(search,index);
+  const first={index,entry,issues:[...routed,...issues],search};
+  return isEventsView(search)?{...first,manifest:null,basemap:await loadBasemap(index,signal,request)}:{...first,manifest:await loadViewManifest(entry,signal,request)};
 }
 export function DemoApp() {
   const [loaded,setLoaded]=useState<Loaded|null>(null);const [manifestError,setManifestError]=useState<string|null>(null);
   const [manifestAttempt,setManifestAttempt]=useState(0);const [eventChange,setEventChange]=useState(0);
   useEffect(()=>{const request=new LatestRequest<Loaded>();setManifestError(null);
-    void request.run(signal=>loadFirst(window.location.search,signal)).then(l=>{if(l)setLoaded(l);}).catch(error=>setManifestError(message(error)));
+    void request.run(signal=>loadFirst(window.location.search,signal)).then(l=>{if(!l)return;
+      // A routed link (plain, or a repaired step) is rewritten in place before the screen reads it (URL repair: replace).
+      if(l.search!==window.location.search)window.history.replaceState(window.history.state,"",`${window.location.pathname}${l.search}${window.location.hash}`);
+      setLoaded(l);}).catch(error=>setManifestError(message(error)));
     return()=>request.cancel();},[manifestAttempt,eventChange]);
   // Back/Forward into or out of All events, or onto another event, reloads and remounts; within one event, or within All events, the screen restores.
+  // A step restored this way takes focus once its panel mounts.
   useEffect(()=>{if(!loaded)return;
     const restore=()=>{const search=window.location.search,events=isEventsView(search);
-      if(events!==(loaded.manifest===null)||!events&&parseEvent(search,loaded.index).entry!==loaded.entry){setLoaded(null);setEventChange(v=>v+1);}};
+      if(events!==(loaded.manifest===null)||!events&&parseEvent(search,loaded.index).entry!==loaded.entry){
+        stepFocus.step=stepId(new URLSearchParams(search).get("step"));setLoaded(null);setEventChange(v=>v+1);}};
     window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[loaded]);
   if(!loaded)return <main className="story story--loading"><div><h1 className="story-title">Pacific station records</h1>
-    <p className="story-small">Descriptive records, not validated arrivals or warning time.</p>
+    <p className="story-small">Descriptive records, not validated arrival times and not when a warning was issued.</p>
     {manifestError?<div role="alert" className="story-alert"><p>{manifestError}</p>
       <button type="button" onClick={()=>setManifestAttempt(v=>v+1)}>Retry verified bundle</button></div>
       :<p role="status" className="story-small">Loading descriptive station metadata…</p>}</div></main>;
@@ -44,36 +50,49 @@ export function DemoApp() {
   return loaded.manifest===null?<EventsDemo key={key} {...loaded} onLeave={reload}/>:<LoadedDemo key={key} {...loaded} manifest={loaded.manifest} onEventChange={reload}/>;
 }
 type EventsScreen={entry:EventEntry}&EventsState;
-/** All events: the selected event, order and filter are the URL (a pick, an order or a filter pushes; the lens settling replaces). Back/Forward within
- * All events restores them without writing; leaving it is DemoApp's. Open this event pushes that event's Story view and hands over. */
+/** All events: the selected event, order, filter and guided step are the URL (a pick, an order or a filter pushes and keeps the step; the lens settling
+ * replaces). Back/Forward within All events restores them without writing; leaving it is DemoApp's. Open this event pushes that event's Story view
+ * and hands over; a step on an event's views (Next from 0, Back from 9) does the same with that step's link. */
 export function EventsDemo({index,entry,basemap,issues:eventIssues,onLeave}:{index:EventsIndex;entry:EventEntry;basemap:Coastline;issues:string[];onLeave:()=>void}) {
   const [screen,setScreen]=useState<EventsScreen>(()=>({entry,...parseEventsState(window.location.search).state}));
   const [issues,setIssues]=useState(()=>[...eventIssues,...parseEventsState(window.location.search).issues]);
   const [restoreKey,setRestoreKey]=useState(0);
   const href=(s:EventsScreen)=>`${window.location.pathname}${eventsSearch(s.entry.event_id===index.default_event_id?null:s.entry.event_id,s)}${window.location.hash}`;
-  const go=(history:"push"|"replace",url:string)=>window.history[history==="push"?"pushState":"replaceState"](entryFor(window.history.state,"explore",history),"",url);
+  const go=(history:"push"|"replace",url:string,step:StoryNav["step"]="explore")=>
+    window.history[history==="push"?"pushState":"replaceState"](entryFor(window.history.state,step,history),"",url);
   // The link as read: a repaired one is rewritten in place.
-  useEffect(()=>go("replace",href(screen)),[]);
+  useEffect(()=>go("replace",href(screen),screen.step),[]);
   useEffect(()=>{const restore=()=>{const search=window.location.search;if(!isEventsView(search))return;
     const e=parseEvent(search,index),s=parseEventsState(search);setScreen({entry:e.entry,...s.state});setIssues([...e.issues,...s.issues]);setRestoreKey(k=>k+1);};
     window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[]);
-  const write=(next:EventsScreen,history:"push"|"replace")=>{setScreen(next);go(history,href(next));};
-  return <EventsView events={index.events} selected={screen.entry} order={screen.order} has={screen.has} basemap={basemap} issues={issues}
+  const write=(next:EventsScreen,history:"push"|"replace")=>{setScreen(next);go(history,href(next),next.step);};
+  /** The step panel and Back to the guided story, through the story's reducer (one navigation contract). */
+  const onStep=(type:"next"|"back"|"returnToStep"|"explore"|"resumeStory")=>{
+    const r=reduce({step:screen.step??"explore",from:screen.from??null,t:0,compare:false,at:null,z:1,a:"",b:null},{type} as NavEvent,
+      {motionOK:false,stationIds:[],prevEntryStep:historyPrev()});
+    if(r.history==="back"){window.history.back();return;}
+    if(r.history==="none")return;
+    const id=typeof r.nav.step==="number"?r.nav.step:null,base={entry:screen.entry,order:screen.order,has:screen.has};
+    if(id!==null&&STEPS[id].view!=="events"){stepFocus.step=id;go(r.history,`${window.location.pathname}${stepSearch(id,index,screen.entry)}${window.location.hash}`,id);onLeave();return;}
+    if(id!==null){stepFocus.step=id;write({...base,step:id as 0|9},r.history);}
+    else{write({...base,from:r.nav.from as 0|9},r.history);focusSoon(".story-focus-panel");}
+  };
+  return <EventsView events={index.events} selected={screen.entry} order={screen.order} has={screen.has} step={screen.step} from={screen.from} basemap={basemap} issues={issues}
     onDismissIssues={()=>setIssues([])} restoreKey={restoreKey} onSelect={(id,history)=>{const e=index.events.find(x=>x.event_id===id);if(e&&e!==screen.entry)write({...screen,entry:e},history);}}
-    onOrder={order=>write({...screen,order},"push")} onHas={has=>write({...screen,has},"push")}
+    onOrder={order=>write({...screen,order},"push")} onHas={has=>write({...screen,has},"push")} onStep={onStep}
     onOpen={()=>{go("push",`${window.location.pathname}${openSearch(screen.entry,index)}${window.location.hash}`);onLeave();}}/>;
 }
-function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:{index:EventsIndex;entry:EventEntry;manifest:ViewManifest;issues:string[];onEventChange:()=>void}) {
+export function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:{index:EventsIndex;entry:EventEntry;manifest:ViewManifest;issues:string[];onEventChange:()=>void}) {
   const [initial]=useState(()=>parseState(window.location.search,manifest));
-  // The guided steps belong to one event; the URL omits the default event, so every existing link stays as it was.
-  const guided=entry.event_id===STORY_EVENT_ID,event=entry.event_id===index.default_event_id?null:entry.event_id;
-  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search,guided).params);const storyRef=useRef(story);storyRef.current=story;
+  // The guided steps belong to their event; the URL omits the default event, so every existing link stays as it was.
+  const event=entry.event_id===index.default_event_id?null:entry.event_id;
+  const [story,setStory]=useState<StoryParams>(()=>parseStoryParams(window.location.search,entry.event_id).params);const storyRef=useRef(story);storyRef.current=story;
   // Bumped on browser Back/Forward so the views restore the lens and clock without writing history.
   const [restoreKey,setRestoreKey]=useState(0);
   const stations:readonly AnyStation[]=manifest.stations;
   const href=(next:DemoState,s:StoryParams)=>`${window.location.pathname}${serializeState(next,s,event,stations.length>0)}${window.location.hash}`;
   const [state,setState]=useState<DemoState>(initial.state);const stateRef=useRef(state);stateRef.current=state;
-  const [issues,setIssues]=useState(()=>[...eventIssues,...initial.issues,...parseStoryParams(window.location.search,guided).issues]);
+  const [issues,setIssues]=useState(()=>[...eventIssues,...initial.issues,...parseStoryParams(window.location.search,entry.event_id).issues]);
   const [geometry,setGeometry]=useState<StageGeometry|null>(null),[geometryError,setGeometryError]=useState<string|null>(null);
   const [geometryAttempt,setGeometryAttempt]=useState(0),[basemap,setBasemap]=useState<Coastline|null>(null);
   const [chunks,setChunks]=useState<Record<string,AnySelection>>({});const cache=useRef(new Map<string,StationRecords|SliceRecords>());
@@ -114,7 +133,9 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:{ind
   },[manifest,state.selectedStationId,state.pinnedStationId,stationAttempt]);
   useEffect(()=>{const restore=()=>{const {entry:next,issues:eventParsed}=parseEvent(window.location.search,index);
     if(next!==entry||isEventsView(window.location.search))return; // another event or All events: DemoApp reloads and remounts
-    const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search,guided);
+    const parsed=parseState(window.location.search,manifest),storyParsed=parseStoryParams(window.location.search,entry.event_id);
+    // A view change remounts the view: a restored step takes focus as its panel mounts.
+    if(parsed.state.view!==stateRef.current.view&&typeof storyParsed.params.step==="number")stepFocus.step=storyParsed.params.step;
     setState(parsed.state);setStory(storyParsed.params);setIssues([...eventParsed,...parsed.issues,...storyParsed.issues]);
     setEvidenceId(null);setRestoreKey(k=>k+1);};
     window.addEventListener("popstate",restore);return()=>window.removeEventListener("popstate",restore);},[manifest]);
@@ -138,10 +159,20 @@ function LoadedDemo({index,entry,manifest,issues:eventIssues,onEventChange}:{ind
   const onEvent=(id:string,live:StoryNav)=>{const next=index.events.find(e=>e.event_id===id);if(next&&next!==entry)leave(eventSearch(stateRef.current,live,next,index),live);};
   /** All events, with this event under the lens, in date order, unfiltered. */
   const onAllEvents=(live:StoryNav)=>leave(eventsSearch(event,{order:"date",has:null}),live);
-  /** Applies a navigation result (push/replace/back/none) from story/nav.ts. */
+  /** Applies a navigation result (push/replace/back/none) from story/nav.ts. A step entered in another view of this event is written there (its view,
+   * and step 7's order); a step on another event or on All events is one push (Next) or replace (Back) of that step's own link, which DemoApp then loads. */
   const writeNav=(r:NavResult)=>{
     if(r.history==="back"){window.history.back();return;}
-    const {a,b,...params}=r.nav;const next={...stateRef.current,selectedStationId:a,pinnedStationId:b};
+    const {a,b,...params}=r.nav;let next:DemoState={...stateRef.current,selectedStationId:a,pinnedStationId:b};
+    const s=r.entered&&typeof params.step==="number"?STEPS[params.step]:null;
+    if(s&&r.history!=="none"){
+      if(s.view==="events"||s.event!==entry.event_id){stepFocus.step=s.id;
+        window.history[r.history==="push"?"pushState":"replaceState"](entryFor(window.history.state,s.id,r.history),"",
+          `${window.location.pathname}${stepSearch(s.id,index,entry)}${window.location.hash}`);
+        onEventChange();return;}
+      if(s.view!==next.view)stepFocus.step=s.id;
+      next={...next,view:s.view,...(s.sort?{sort:s.sort}:{})};
+    }
     if(r.history==="none"){stateRef.current=next;storyRef.current=params;setState(next);setStory(params);return;}
     write(next,params,r.history);
   };

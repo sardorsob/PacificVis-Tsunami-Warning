@@ -32,6 +32,13 @@ export function clockLabel(t: number): string {
 export function utcAt(originUtc: string, t: number): string {
   return `${new Date(Date.parse(originUtc) + t * 3_600_000).toISOString().slice(11, 16)} UTC`;
 }
+/** A source's duration in hours and minutes, never rounded to a whole minute: 476 → "7 h 56 min". */
+export function hoursMinutes(minutes: number): string {
+  const h = Math.floor(minutes / 60), m = Math.round((minutes - h * 60) * 1000) / 1000;
+  return `${h ? `${h} h ` : ""}${m} min`;
+}
+/** An NCEI duration, counted from NCEI's origin: "7 h 56 min after NCEI's origin". */
+export const nceiTime = (minutes: number) => `${hoursMinutes(minutes)} after NCEI's origin`;
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 /** UTC calendar date at the clock time, e.g. "16 September 2015" (fixed format, no locale dependence). */

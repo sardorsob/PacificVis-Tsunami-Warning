@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { DemoApp } from "../DemoApp";
 import { NoReference, StationCard } from "../StationCard";
 import type { DemoGeometry, DemoManifest, DemoState, EventEntry, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryArrivals } from "./arrivals";
@@ -11,8 +12,8 @@ import { NoRecordsPage, PairedView } from "./PairedView";
 import { useStage } from "./StoryMap";
 import { noRecordsView } from "../slices";
 import { isValidElement, type ReactElement, type ReactNode } from "react";
-import { StoryView, type StoryViewProps } from "./StoryView";
-import { STORY_EVENT_ID } from "./steps";
+import { StepPanel, StoryView, type StoryViewProps } from "./StoryView";
+import { STEPS, STORY_EVENT_ID } from "./steps";
 import { parseStoryParams, type StoryParams } from "./url";
 
 // Typed test-only inputs. Never imported by a runtime renderer or scientific bundle.
@@ -93,7 +94,7 @@ describe("story view — stage, lens and arms", () => {
     const html = renderToStaticMarkup(<StoryView {...input()}/>);
     expect(html).toContain("Test station 1617760");
     expect(html).toContain("clock-cursor");
-    expect(html).toContain("not an arrival pick");
+    expect(html).toContain("no time is picked from the record");
   });
   it("keeps records and the map when the contour layer fails", () => {
     const html = renderToStaticMarkup(<StoryView {...input()} layers={null} layersError="asset hash mismatch"/>);
@@ -104,12 +105,12 @@ describe("story view — stage, lens and arms", () => {
 });
 
 describe("story view — clock, legend and compare", () => {
-  it("shows the clock reading, its UTC day and the not-an-arrival legend", () => {
+  it("shows the clock reading, its UTC day and the colour legend", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ t: 7.5 })}/>);
     expect(html).toContain("+7 h 30 min");
     expect(html).toContain("13:16 UTC");
     expect(html).toContain("Friday 11 March 2011");
-    expect(html).toContain("Not wave height, not an arrival, not warning time.");
+    expect(html).toContain(": not wave height, not a reported time, and not when a warning was issued.");
     expect(html).toContain("Samples per hour in Test station 1617760");
   });
   it("stacks A and B with one clock and station-local heights when comparing", () => {
@@ -127,9 +128,9 @@ describe("story view — clock, legend and compare", () => {
 describe("story view — guided steps and narrow layout", () => {
   it("opens a step with its counter, title, Back and Next", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
-    expect(html).toContain("1 of 6");
+    expect(html).toContain("2 of 10");   // step 0 (All events) is the first of ten
     expect(html).toContain("05:46 UTC, 11 March 2011");
-    expect(html).toMatch(/<button[^>]*aria-disabled="true"[^>]*>Back</);
+    expect(html).toMatch(/<button[^>]*aria-disabled="false"[^>]*>Back</);   // Back from step 1 leads to step 0
     expect(html).toMatch(/>Next</);
     expect(html).toContain("Skip to free exploration");
     expect(html).not.toContain("Station records");
@@ -144,28 +145,33 @@ describe("story view — guided steps and narrow layout", () => {
       stations: stations.filter(s => s.station_id !== "21418") };
     const props = { ...base, manifest: other, geometry: { ...geometry, points: geometry.points.map(p => p.id === STORY_EVENT_ID ? { ...p, id: "other-event" } : p) } };
     const html = renderToStaticMarkup(<StoryView {...props}/>);
-    expect(html).not.toContain("4 of 6"); expect(html).not.toContain("Back to the guided story"); expect(html).not.toContain("unknown station");
+    expect(html).not.toContain("5 of 10"); expect(html).not.toContain("Back to the guided story"); expect(html).not.toContain("unknown station");
     expect(html).toContain("Station records");
-    expect(renderToStaticMarkup(<StoryView {...base}/>)).toContain("4 of 6");
+    expect(renderToStaticMarkup(<StoryView {...base}/>)).toContain("5 of 10");
   });
   it("parses a step link as free exploration for an unguided event", () => {
-    expect(parseStoryParams("?step=4&from=3", false)).toEqual({ params: { t: 0, compare: false, step: "explore", at: null, z: 1, from: null }, issues: [] });
-    expect(parseStoryParams("", false).params.step).toBe("explore");
-    expect(parseStoryParams("?step=explore&t=3&cmp=1", false).params).toMatchObject({ step: "explore", t: 3, compare: true });
+    expect(parseStoryParams("?step=explore&from=3", "other-event")).toEqual({ params: { t: 0, compare: false, step: "explore", at: null, z: 1, from: null }, issues: [] });
+    expect(parseStoryParams("", "other-event").params.step).toBe("explore");
+    expect(parseStoryParams("?step=explore&t=3&cmp=1", "other-event").params).toMatchObject({ step: "explore", t: 3, compare: true });
     expect(parseStoryParams("?step=4").params).toMatchObject({ step: 4, t: 7.5 });
   });
-  it("ends the story with Explore instead of Next", () => {
+  it("leads on from step 6 with Next (step 7 is Reported times)", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 6, t: 12, lensOverOcean: true })}/>);
-    expect(html).toContain("6 of 6");
-    expect(html).toMatch(/>Explore</);
-    expect(html).not.toMatch(/>Next</);
+    expect(html).toContain("7 of 10");
+    expect(html).toMatch(/>Next</);
+    expect(html).not.toMatch(/>Explore</);
+  });
+  it("shows a step carried in from another view (step 7, from Reported times) as free exploration with the way back to it", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ step: 7, t: 30 })}/>);
+    expect(html).not.toContain("8 of 10");
+    expect(html).toContain(">Back to the guided story (step 8)</button>");
   });
   it("moves controls and evidence into a bottom sheet on a phone, without tilt or arm leaders", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: 4, size: { w: 390, h: 844 } })}/>);
     expect(html).toContain("story--narrow");
     expect(html).toContain("story-sheet story-sheet--narrow");
     expect(html).toContain("Next station");
-    expect(html).toContain("4 of 6");
+    expect(html).toContain("5 of 10");
     expect(html).toContain('<g class="story-leads" aria-hidden="true"></g>');
   });
   it("wires the wide layout into the stage: lens cards, scale, capped arms and lens leads", () => {
@@ -183,7 +189,7 @@ describe("story view — guided steps and narrow layout", () => {
       const sheet = html.slice(html.indexOf("story-sheet story-sheet--narrow"));
       expect(html.match(/<h1/g)).toHaveLength(1);
       expect(sheet.indexOf("<h1")).toBeGreaterThan(-1);
-      expect(sheet.indexOf("<h1")).toBeLessThan(sheet.indexOf(view === "story" ? "4 of 6" : "story-clockbar"));
+      expect(sheet.indexOf("<h1")).toBeLessThan(sheet.indexOf(view === "story" ? "5 of 10" : "story-clockbar"));
     }
   });
 });
@@ -214,7 +220,7 @@ describe("story view — exits, cancels and repairs", () => {
     const html = renderToStaticMarkup(<StoryView {...input({ step: "explore", from: 4 })}/>);
     expect(html).toContain(">Paired<");
     expect(html).toContain(">Station lens<");
-    expect(html).toContain("Back to the guided story (step 4)");
+    expect(html).toContain("Back to the guided story (step 5)");   // step 4 is the fifth of ten
   });
   it("the lens subject depends on the lens point and zoom, not the screen size", () => {
     // 600 km from the second station: a phone lens shows more map but must not capture more.
@@ -266,8 +272,8 @@ describe("story view — exits, cancels and repairs", () => {
     const html = renderToStaticMarkup(<StoryView {...input()}/>);
     expect(html).toMatch(/<p class="story-sr" aria-live="polite"><\/p>/);
   });
-  it("keeps Back focusable on step 1 instead of disabling it", () => {
-    const html = renderToStaticMarkup(<StoryView {...input({ step: 1, t: 0, lensOverOcean: true })}/>);
+  it("keeps Back focusable on the first step (step 0, on All events) instead of disabling it", () => {
+    const html = renderToStaticMarkup(<StepPanel step={STEPS[0]} body="" onNav={noop}/>);
     expect(html).toMatch(/<button type="button" aria-disabled="true">Back</);
   });
 });
@@ -299,7 +305,7 @@ describe("Station lens — the story stage around one station", () => {
     const html = renderToStaticMarkup(<StoryView {...lens()}/>);
     for (const text of ["Previous station target", "Pinned reference B", "UTC window"]) expect(html).toContain(text);
     expect(html).toMatch(/aria-pressed="true">Station lens</);
-    for (const text of [" of 6<", "Skip to free exploration", "Back to the guided story", "⇄ Compare", "Play this step"]) expect(html).not.toContain(text);
+    for (const text of [" of 10<", "Skip to free exploration", "Back to the guided story", "⇄ Compare", "Play this step"]) expect(html).not.toContain(text);
   });
   it("keeps the lens on station A even when the URL's lens point is open ocean", () => {
     expect(renderToStaticMarkup(<StoryView {...lens({ lensOverOcean: true })}/>)).toContain('story-lens-title__name">Test station 1617760<');
@@ -465,6 +471,39 @@ describe("the event select — beside the view switch on the stage, in the page 
     expect(renderToStaticMarkup(<NoRecordsPage {...props}/>)).toMatch(row);
     tree(NoRecordsPage(props)).find(n => n.type === "button" && n.props.children === "All events")!.props.onClick!();
     expect(onAllEvents.mock.calls.map(([live]) => [live.t, live.a, live.step])).toEqual([[4, "1617760", "explore"]]);
+  });
+});
+
+describe("copy sweep v2 (STORYBOARD, 2026-11-14) in every view", () => {
+  // The visible text: tags dropped, apostrophes unescaped.
+  const text = (html: string) => html.replace(/<[^>]*>/g, "").replace(/&#x27;/g, "'");
+  const CAVEAT_V2 = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full "
+    + "rupture), for the first wave only, with no wave height. A contour is not a time reported at any station, and not when a warning was issued.";
+  it("words the record arm, the lens arm, the contour caveat, the column legend and the credits", () => {
+    const record = text(renderToStaticMarkup(<StoryView {...input({ size: { w: 1440, h: 900 } })} arrivals={arrivals}/>));
+    for (const s of ["The white line is the clock (13:16 UTC); no time is picked from the record.",
+      "The published contours near Test station 1617760 are model estimates, not a time reported there.",
+      "Colour shows the published hour: not wave height, not a reported time, and not when a warning was issued.",
+      "computed by NCEI from a point at the epicentre (not the full rupture), for the first wave only, with no wave height.",
+      "Reported times are what the sources reported, not validated arrival times; a difference does not say which side is off."]) expect(record).toContain(s);
+    expect(text(renderToStaticMarkup(<StoryView {...input({ lensOverOcean: true })}/>))).toContain(CAVEAT_V2);
+    const lens = text(renderToStaticMarkup(<StoryView {...input({ view: "radial" })}/>));
+    expect(lens).toContain(`The white line on each record is the shared clock (13:16 UTC); no time is picked from the records. ${CAVEAT_V2}`);
+  });
+  it("words the Paired header and footer", () => {
+    const paired = text(renderToStaticMarkup(<PairedView {...input({ view: "paired" })}/>));
+    expect(paired).toContain("Contours are NOAA/NCEI published travel-time estimates, not times reported at a station. The white line on each record is the "
+      + "shared clock; no time is picked from the records.");
+    expect(paired).toContain("No validated arrival times, no claim about when a warning was issued, and no continuous ocean field.");
+  });
+  it("words the load screen", () => {
+    expect(text(renderToStaticMarkup(<DemoApp/>))).toContain("Descriptive records, not validated arrival times and not when a warning was issued.");
+  });
+  it("keeps none of the old strings", () => {
+    const pages = [renderToStaticMarkup(<StoryView {...input()} arrivals={arrivals}/>), renderToStaticMarkup(<StoryView {...input({ lensOverOcean: true })}/>),
+      renderToStaticMarkup(<StoryView {...input({ view: "radial" })}/>), renderToStaticMarkup(<PairedView {...input({ view: "paired" })}/>),
+      renderToStaticMarkup(<DemoApp/>)].map(text).join(" ");
+    for (const old of ["first arrival only", "not an arrival", "not its arrival", "not arrivals", "validated arrivals", "warning time"]) expect(pages).not.toContain(old);
   });
 });
 

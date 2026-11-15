@@ -67,11 +67,11 @@ describe("All events in the URL — view=events, order and has", () => {
     expect(parseEventsState("?view=events&order=reports&order=date").issues).toEqual(["Repeated URL field “order”: first value used."]);
     expect(parseEventsState("?view=events&view=story").issues).toEqual(["Repeated URL field “view”: first value used."]);
   });
-  it("ignores station, window, product, sort, clock and story fields visibly, and the URL it writes leaves them out", () => {
+  it("ignores station, window, product, sort and clock fields visibly, repairs a step All events does not have, and the URL it writes leaves them out", () => {
     const url = "?view=events&selected=21418&pinned=saip&window=common_day&product=raw_value&sort=distance&t=3&cmp=1&step=2&at=1,2&z=2&from=3&extra=x";
     expect(parseEventsState(url)).toEqual({ state: { order: "date", has: null }, issues: [
-      ...["selected", "pinned", "window", "product", "sort", "t", "cmp", "step", "at", "z", "from"].map(k => `URL field “${k}” does not apply to All events and was ignored.`),
-      "Unknown URL field “extra” was ignored."] });
+      ...["selected", "pinned", "window", "product", "sort", "t", "cmp", "at", "z"].map(k => `URL field “${k}” does not apply to All events and was ignored.`),
+      "Unknown URL field “extra” was ignored.", "Invalid story step: free exploration opened.", "Invalid resume step: ignored."] });
     expect(eventsSearch(null, parseEventsState(url).state)).toBe("?view=events");
   });
   it("says that order and has belong to All events when another view's link carries them", () => {
@@ -209,7 +209,7 @@ describe("the event list", () => {
 
 describe("the All events stage", () => {
   const view = (extra: Partial<EventsViewProps> = {}) => renderToStaticMarkup(<EventsView events={events} selected={tohoku} order="date" has={null} basemap={coast}
-    issues={[]} onDismissIssues={noop} restoreKey={0} onSelect={noop} onOrder={noop} onHas={noop} onOpen={noop} initialSize={{ w: 1440, h: 900 }} {...extra}/>);
+    issues={[]} onDismissIssues={noop} restoreKey={0} onSelect={noop} onOrder={noop} onHas={noop} onOpen={noop} onStep={noop} initialSize={{ w: 1440, h: 900 }} {...extra}/>);
   const sizes = [{ w: 1440, h: 900 }, { w: 390, h: 844 }];
   it("puts every epicentre on the basemap, rests the lens on the selected one, and names only the lens subject", () => {
     for (const initialSize of sizes) {

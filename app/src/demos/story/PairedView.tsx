@@ -2,11 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "re
 import { NoReference, StationCard } from "../StationCard";
 import { ClockBar } from "./ClockBar";
 import { clockLabel } from "./clock";
-import { reduce, type NavEvent, type StoryNav } from "./nav";
+import { historyPrev, reduce, type NavEvent, type StoryNav } from "./nav";
 import { StationTools } from "./StationTools";
 import { fitView, originLabel, Overlay, PACIFIC_CROP, toScreen, useStage, WorldDefs } from "./StoryMap";
 import { kicker } from "./ClockColumn";
-import { Notes, type StoryViewProps } from "./StoryView";
+import { focusSoon, Notes, type StoryViewProps } from "./StoryView";
 import { reducedMotion, useStoryClock } from "./useStoryClock";
 import { EventSelect, ViewSwitch } from "./ViewSwitch";
 import type { DemoState } from "../types";
@@ -44,7 +44,7 @@ export function PairedView(props: StoryViewProps) {
     <header className="paired-head">
       <div><p className="story-kicker">{kicker(origin)}</p><h1 className="story-title">Paired records</h1>
         <p className="story-small">Two stations on one clock. Each keeps its own scale and datum; heights are not compared.{props.entry.layers && <> Contours are NOAA/NCEI
-          published travel-time estimates, not arrivals.</>} The white line on each record is the shared clock, a time, not an arrival pick.</p></div>
+          published travel-time estimates, not times reported at a station.</>} The white line on each record is the shared clock; no time is picked from the records.</p></div>
       <div className="paired-head__tools"><ViewSwitch view="paired" onView={v => props.onState({ view: v }, live())}/>
         <EventSelect events={props.events} value={props.entry.event_id} onEvent={id => props.onEvent(id, live())} onAll={() => props.onAllEvents(live())}/></div>
     </header>
@@ -79,8 +79,8 @@ export function PairedView(props: StoryViewProps) {
     </div>
     <ClockBar t={t} playing={clock.playing} disabled={clockOff} contours={!!props.entry.layers} originUtc={origin} reduced={!motionOK} onToggle={toggle}
       onSeek={clock.seek}/>
-    <footer className="paired-foot"><p>{manifest.bundle_id} · internal descriptive evidence only. No validated arrivals, warning time or continuous
-      ocean field.</p><p>Integrity is checked against this local manifest, not a signature against replacement of the whole bundle. Source terms and
+    <footer className="paired-foot"><p>{manifest.bundle_id} · internal descriptive evidence only. No validated arrival times, no claim about when a warning was
+      issued, and no continuous ocean field.</p><p>Integrity is checked against this local manifest, not a signature against replacement of the whole bundle. Source terms and
       unknown datums remain in force.</p></footer>
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;
@@ -96,9 +96,12 @@ export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElem
   const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }),
     onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
   const live = (): StoryNav => ({ ...navRef.current, t: clock.tRef.current });
+  // Reported times' step 7 also dispatches Back, Next, Return, Skip and Resume: the step's clock, and focus to its heading or to the way back.
   const dispatch = (ev: NavEvent) => {
-    const r = reduce(live(), ev, { motionOK: motionOK && !clockOff, stationIds, evidenceOpen: props.evidenceOpen, playing: clock.playing });
+    const r = reduce(live(), ev, { motionOK: motionOK && !clockOff, stationIds, prevEntryStep: historyPrev(), evidenceOpen: props.evidenceOpen, playing: clock.playing });
     if (r.effects.some(e => e.kind === "stopPlay")) clock.stop(false);
+    if (r.history !== "back" && r.nav.t !== clock.tRef.current) clock.set(r.nav.t);
+    for (const e of r.effects) if (e.kind === "focus") focusSoon(e.target === "step" ? "#story-step-title" : ".story-focus-panel");
     props.onNav(r);
   };
   const toggle = () => { if (clockOff) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
@@ -115,7 +118,7 @@ export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElem
   const restoreSeen = useRef(props.restoreKey);
   useEffect(() => {
     if (props.restoreKey === restoreSeen.current) return;
-    restoreSeen.current = props.restoreKey; clock.stop(false); clock.set(params.t);
+    restoreSeen.current = props.restoreKey; clock.stop(false); clock.set(params.t); focusSoon("#story-step-title");   // a step heading, where one shows
   }, [props.restoreKey]);
   return { clock, navRef, live, dispatch, toggle, said, motionOK, clockOff };
 }

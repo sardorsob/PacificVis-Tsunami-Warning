@@ -60,7 +60,7 @@ function ReportedKey({ d, open }: { d: ArrivalDisplay; open: boolean }) {
       <svg width="14" height="14" aria-hidden="true"><ReportMark kind={kind} minutes={360} x={7} y={7} on/></svg>{label}</li>)}</ul>
     <p>{`${a.ntwc_rows_with_both_times} estimate–reported pairs in the NTWC table · ${a.ntwc_pairs_with_position} with a reviewed position · `
       + `${a.ncei_reported_durations} NCEI reported times`}</p>
-    <p>Reported times are what the sources reported, not validated arrivals; a difference does not say which side is off.</p>
+    <p>Reported times are what the sources reported, not validated arrival times; a difference does not say which side is off.</p>
     {hidden.some(Boolean) && <p>{`Listed reports not drawn on the map: ${hidden.filter(Boolean).join(" · ")}.`}</p>}
   </details>;
 }
@@ -86,12 +86,12 @@ export function ClockColumn({ t, entry, stationName, counts, lead, children, ale
     <Strip counts={counts} t={t} label={stationName
       ? `Samples per hour after the earthquake in ${stationName}'s record; dashed where no record is loaded`
       : listed ? "Published contour hours lit up to the clock" : "Hours after the earthquake, lit up to the clock"}/>
-    {listed && <p className="story-legend"><b>Colour shows the published hour.</b> Not wave height, not an arrival, not warning time.</p>}
+    {listed && <p className="story-legend"><b>Colour shows the published hour</b>: not wave height, not a reported time, and not when a warning was issued.</p>}
     {reported === "rejected"
       ? <p className="story-legend">The reported-times file was rejected, so no published estimates or reported times are shown.</p>
       : reported && <ReportedKey d={reported} open={keyOpen}/>}
     {children}
-    <p className="story-credits">{listed && "NOAA/NCEI travel-time contours: hours after the earthquake, computed by NCEI from a point at the epicentre (not the full rupture), first arrival only, no wave height. "}
+    <p className="story-credits">{listed && "NOAA/NCEI travel-time contours: hours after the earthquake, computed by NCEI from a point at the epicentre (not the full rupture), for the first wave only, with no wave height. "}
       {providers.length > 0 && `Records: ${providers.join(" · ")}. `}{entry.arrivals && "Reported times: NTWC and NCEI source records. "}
       Natural Earth {listed ? "1:50m" : "1:110m"} · Equal Earth, 160° W. Internal descriptive evidence only.</p>
   </aside>;
