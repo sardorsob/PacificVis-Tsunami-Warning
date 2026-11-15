@@ -109,6 +109,25 @@ button,select,summary{font:inherit}
 .story--paired .story-clockbar{position:sticky;bottom:10px;left:auto;transform:none;width:auto;max-width:720px;margin-top:12px;z-index:4;
   background:var(--story-ocean);box-shadow:0 -6px 24px rgba(0,0,0,.55)}
 .paired-foot{margin-top:14px;padding-bottom:24px;font-size:calc(11px*var(--ui,1));color:var(--story-muted)}.paired-foot p+p{margin-top:4px}
+/* Reported-times lanes (three-clocks strip, Reported times rows) on the clock bar's 0–30 h scale. The clock line is each lane's ::before,
+   placed by --clock on an ancestor, so a moving clock re-renders no lane; the side padding keeps edge marks inside a scrolling arm. */
+.story-clocks{padding:0 6px;margin:4px 0 6px}
+.story-clocks p{font-size:calc(11.5px*var(--ui,1));margin-top:2px}
+.story-clocks .story-clocks__who{color:var(--story-ink);margin-top:6px}
+.story-lane{position:relative;margin-top:4px}
+.story-lane::before{content:"";position:absolute;top:0;bottom:0;left:var(--clock,0);width:1.5px;margin-left:-.75px;background:var(--story-ink)}
+.story-lane>svg{position:relative;display:block;overflow:visible} /* marks over the clock line */
+.story-lane__base{stroke:var(--story-line)}.story-lane__join{stroke:var(--story-ink);stroke-width:1.5}
+.story-lane__ticks{display:block;overflow:visible;margin-top:2px}.story-lane__ticks text{font-size:calc(10px*var(--ui,1));fill:var(--story-muted)}
+/* Reported times: a page like Paired; each section's hour axis stays in view above its rows, which wrap at phone width. */
+.ladder-counts{margin-top:10px;color:var(--story-ink)}
+.ladder-sort{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}.ladder-sort .story-small{margin:0!important}
+.ladder-section{margin-top:16px}
+.ladder-axis{position:sticky;top:0;z-index:1;padding:4px 12px 2px;background:var(--story-ocean)}
+.ladder-rows{list-style:none;margin:0;padding:0}
+.ladder-row{padding:6px 12px;border-top:1px solid var(--story-line);font-size:calc(12px*var(--ui,1));color:var(--story-muted);overflow-wrap:anywhere}
+.ladder-row b{color:var(--story-ink)}.ladder-row p+p{margin-top:2px}
+.ladder-row__src{font-size:calc(11px*var(--ui,1))}.ladder-row__note{color:var(--story-accent)}
 @media (max-width:1023px){.paired-cards{grid-template-columns:1fr}}
 /* Phones: the readout on its own row above the slider, as in the sheets (below it, the hour ticks ran into it). */
 @media (max-width:767px){.story--paired .story-clockbar{grid-template-columns:auto 1fr;row-gap:6px}

@@ -4,10 +4,12 @@ import { describe, expect, it } from "vitest";
 import { localFetch, readDemoJson, readLayersBytes, readLayersJson, tohokuEntry } from "../integration-data";
 import { decodeStation, validateGeometry, validateManifest } from "../loader";
 import { RecordChart } from "../RecordChart";
-import { loadArrivals } from "./arrivals";
+import { linkedReports, loadArrivals } from "./arrivals";
+import { ArrivalsView } from "./ArrivalsView";
 import { loadLayers, nearestHours, validateCoastline, validateContours, validateLayersManifest } from "./layers";
 import { validateSteps } from "./steps";
 import { StoryView } from "./StoryView";
+import { ThreeClocks } from "./ThreeClocks";
 import { StationCard } from "../StationCard";
 import type { DemoGeometry, StationSelection } from "../types";
 
@@ -85,6 +87,40 @@ describe("story view against the accepted local bundles", () => {
     expect(placed.filter(r => times(r).some(m => m < 0))).toHaveLength(0);
     expect(end).toContain(`Listed reports not drawn on the map: ${arrivals.reports.length - placed.length} without a place · `
       + `${placed.filter(r => times(r).some(m => m >= 1800)).length} after the 30-hour clock ends.`);
+  });
+  it("lists every reported time in the Reported times view, NTWC and NCEI apart, with the file's own counts, in either order", async () => {
+    const arrivals = (await loadArrivals(tohokuEntry, undefined, localFetch))!, a = arrivals.accounting, noop = () => undefined;
+    const state = { view: "times" as const, ...manifest.default_state };
+    const page = (sort: "time" | "distance") => renderToStaticMarkup(<ArrivalsView manifest={manifest} geometry={null} geometryError={null} layers={null}
+      layersError={null} layersPending={null} onRetryLayers={noop} state={{ ...state, sort }} selected={{ station: manifest.stations[0], status: "loading",
+        records: null, error: null }} pinned={null} onOpenEvidence={noop} onRetryStation={noop} onRetryGeometry={noop}
+      params={{ t: 0, compare: false, step: "explore", at: null, z: 1, from: null }} onNav={noop} restoreKey={0} evidenceOpen={false} issues={[]}
+      onDismissIssues={noop} onState={noop} arrivals={arrivals}/>);
+    const ntwc = arrivals.reports.filter(r => r.source === "ntwc"), rows = (html: string) => (html.match(/class="ladder-row"/g) ?? []).length;
+    for (const sort of ["time", "distance"] as const) {
+      const html = page(sort), split = html.indexOf('aria-label="Reported by NCEI');
+      expect([rows(html.slice(0, split)), rows(html.slice(split))], sort).toEqual([ntwc.length, a.ncei_reported_durations]);
+    }
+    expect([ntwc.length, a.ncei_reported_durations]).toEqual([138, 273]);
+    const html = page("time");
+    expect(html).toContain(`${a.ntwc_rows_with_both_times} estimate–reported pairs in the NTWC table · ${a.ntwc_pairs_with_position} with a reviewed position · `
+      + `${ntwc.filter(r => r.site_id === null).length} NTWC reports without a place · ${a.ncei_reported_durations} NCEI reported times`);
+    expect(html).toContain("92 estimate–reported pairs in the NTWC table · 8 with a reviewed position · 130 NTWC reports without a place · 273 NCEI reported times");
+    // Listed but not drawn, from the file's own values: the one report after 30 h keeps its row and its note.
+    const late = arrivals.reports.filter(r => [r.reported_minutes, r.estimate_minutes].some(m => m !== null && m >= 1800)).length;
+    expect(html).toContain(`Listed rows not drawn on the ladder: ${late} after the 30-hour clock ends.`);
+    expect(html.match(/class="ladder-row__note">Reported after the 30-hour clock ends\./g)).toHaveLength(late);
+    expect(html.match(/class="story-lane__join"/g)).toHaveLength(ntwc.filter(r => r.reported_minutes !== null && r.estimate_minutes !== null).length);
+  });
+  it("gives a strip entry to exactly the story stations the file links, one lane per linked report", async () => {
+    const arrivals = (await loadArrivals(tohokuEntry, undefined, localFetch))!;
+    const linked = new Set(arrivals.places.flatMap(p => p.record ? [p.record.station_id] : []));
+    for (const s of manifest.stations) {
+      const html = renderToStaticMarkup(<ThreeClocks arrivals={arrivals} t={0} stations={[{ id: s.station_id, name: s.name }]}/>);
+      expect((html.match(/class="story-lane"/g) ?? []).length, s.station_id).toBe(linkedReports(arrivals, s.station_id).length);
+      expect(html.includes("No reported times are linked to this station."), s.station_id).toBe(!linked.has(s.station_id));
+    }
+    expect(manifest.stations.filter(s => linked.has(s.station_id)).length).toBeGreaterThan(0);
   });
   it("authors every guided step against real station ids", () => {
     expect(() => validateSteps(manifest.stations.map(s => s.station_id))).not.toThrow();

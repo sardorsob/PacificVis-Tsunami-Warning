@@ -1,12 +1,15 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { isValidElement, type ReactElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { EventEntry } from "../types";
 import { arrivalDisplay, loadArrivals, validateArrivals, type ArrivalMark, type StoryArrivals } from "./arrivals";
+import { Ladder } from "./ArrivalsView";
 import { ClockColumn } from "./ClockColumn";
 import { contourColour } from "./palette";
 import { Overlay } from "./StoryMap";
+import { ThreeClocks } from "./ThreeClocks";
 
 // The contract's synthetic, test-only file (docs/data/examples); the exporter's tests must accept it too. Compared by parsed value.
 type Row = Record<string, unknown>;
@@ -146,5 +149,144 @@ describe("reported-times key in the clock column", () => {
   it("says in one plain sentence that a rejected file is not shown, and adds nothing before a file loads", () => {
     expect(column("rejected")).toContain("<p class=\"story-legend\">The reported-times file was rejected, so no published estimates or reported times are shown.</p>");
     expect(column(null)).not.toMatch(/story-key|reported-times/);
+  });
+});
+
+// Words the reported-times displays never use: a reported time is not a validated arrival, and a difference is not an error.
+const BANNED = /arrival|measured|error|wrong|late|warning time/i;
+const harbor = { id: "0000001", name: "Test harbor" }, bay = { id: "0000002", name: "Test bay" }, unlinked = { id: "1617760", name: "Test unlinked" };
+type Stations = Parameters<typeof ThreeClocks>[0]["stations"];
+const clocks = (a: StoryArrivals, stations: Stations, t = 3) => renderToStaticMarkup(<ThreeClocks arrivals={a} t={t} stations={stations}/>);
+const lanes = (html: string) => (html.match(/class="story-lane"/g) ?? []).length;
+const count = (html: string, cls: string) => (html.match(new RegExp(`class="${cls}"`, "g")) ?? []).length;
+/** Report 0 (Example Harbor, linked to 0000001) with other times; the exporter's difference and ruler fields follow the rules. */
+const harborAt = (reported: number | null, estimate: number | null, diff: number | null) => validateArrivals(mutated(x => {
+  const r = x.reports[0], utc = (m: number) => new Date(Date.UTC(2001, 0, 1) + m * 60_000).toISOString().replace(".000", "");
+  Object.assign(r, { reported_minutes: reported, reported_origin: reported === null ? null : "usgs_reviewed", reported_utc: reported === null ? null : utc(reported),
+    estimate_minutes: estimate,
+    estimate_utc: estimate === null ? null : utc(estimate), reported_minus_estimate_minutes: diff,
+    reported_minus_ruler_minutes: reported === null || reported < 0 ? null : 1 });
+  if (reported === null) { x.accounting.ntwc_rows_with_reported_time--; x.accounting.ntwc_reported_with_position--; }
+}), entry);
+
+describe("three-clocks strip (record arm)", () => {
+  it("draws each linked report on the 0–30 h axis with the clock line, and gives the difference in words", () => {
+    const html = clocks(ex, [harbor]);
+    expect(html).toContain('aria-label="Reported times linked to Test harbor"');
+    expect(html).toContain("1,113.2 km in a straight line from the epicentre");
+    expect(html).toContain("NTWC: reported 15 min after the published estimate.");
+    expect(html).toContain('style="--clock:10%"');                                   // t = 3 h on the 0–30 h scale
+    expect(html).toMatch(/<svg x="6.666[0-9]*%" y="7" overflow="visible"><path class="story-report story-report--estimate story-report--on" d="M-5 -4H5L0 4Z"/);
+    expect(html).toMatch(/<svg x="7.5%" y="7" overflow="visible"><circle class="story-report story-report--ntwc story-report--on"/);
+    expect([lanes(html), count(html, "story-lane__join"), count(html, "story-lane__ticks")]).toEqual([1, 1, 1]);
+    expect(html.replace(/story-[a-z_-]+/g, "")).not.toMatch(BANNED);
+  });
+  it("words a report in the same minute, and one before the published estimate", () => {
+    expect(clocks(harborAt(120, 120, 0), [harbor])).toContain("NTWC: reported in the same minute as the published estimate.");
+    expect(clocks(harborAt(113, 120, -7), [harbor])).toContain("NTWC: reported 7 min before the published estimate.");
+    expect(clocks(harborAt(null, 120, null), [harbor])).toContain("NTWC: published estimate 02:00 UTC.");
+  });
+  it("prints the fixed clause for a record link within 1 km, and only for that report", () => {
+    expect(clocks(ex, [bay])).toContain("Reported by NCEI: 3 h 10 min after NCEI&#x27;s origin · "
+      + "record from a station within 1 km, not verified as the same instrument.");
+    expect(clocks(ex, [harbor])).not.toContain("within 1 km");
+  });
+  it("says in one quiet line that no reported times are linked, with no axis", () => {
+    const html = clocks(ex, [unlinked]);
+    expect(html).toContain("<p>No reported times are linked to this station.</p>");
+    expect([lanes(html), count(html, "story-lane__ticks")]).toEqual([0, 0]);
+    expect(html).not.toContain("km in a straight line from the epicentre");
+  });
+  it("does not draw a time before the origin or after 30 h, and says why", () => {
+    const late = clocks(harborAt(1800, 120, 1680), [harbor]);
+    expect(late).toContain("Reported after the 30-hour clock ends.");
+    expect([count(late, "story-report story-report--estimate story-report--on"), count(late, "story-report story-report--ntwc story-report--on"),
+      count(late, "story-lane__join")]).toEqual([1, 0, 0]);
+    const early = clocks(harborAt(135, -5, null), [harbor]);
+    expect(early).toContain("The source gives a time before the earthquake origin. The project does not correct dates.");
+    expect(early).toContain("NTWC: published estimate 23:55 UTC · reported 02:15 UTC.");
+    expect([count(early, "story-report story-report--estimate story-report--on"), count(early, "story-lane__join")]).toEqual([0, 0]);
+  });
+  it("stacks B under A on one axis in Compare, each named with its distance (omitted when nothing is linked)", () => {
+    const html = clocks(ex, [{ ...harbor, tag: "A" }, { ...bay, tag: "B" }]);
+    const a = html.indexOf('<span class="story-tag story-tag--a">A</span><b>Test harbor</b> · 1,113.2 km in a straight line from the epicentre');
+    const b = html.indexOf('<span class="story-tag story-tag--b">B</span><b>Test bay</b> · 1,565.1 km in a straight line from the epicentre');
+    expect(a).toBeGreaterThan(-1); expect(b).toBeGreaterThan(a);
+    expect(count(html, "story-lane__ticks")).toBe(1);
+    expect(clocks(ex, [{ ...harbor, tag: "A" }, { ...unlinked, tag: "B" }])).toContain("<b>Test unlinked</b></p><p>No reported times are linked to this station.</p>");
+  });
+  it("never joins or differences an NCEI report and an NTWC report at one station", () => {
+    const both = validateArrivals(mutated(x => { (x.places[1].record as Row).station_id = "0000001"; }), entry), html = clocks(both, [harbor]);
+    expect([lanes(html), count(html, "story-lane__join")]).toEqual([2, 1]);
+    const ncei = html.slice(html.indexOf("Reported by NCEI"));
+    expect(ncei.slice(0, ncei.indexOf("</p>"))).not.toMatch(/estimate|differ|after the|before the/);
+  });
+});
+
+type NodeProps = { children?: ReactNode; onClick?: () => void; "aria-pressed"?: boolean };
+/** Walks a hook-free component's element tree (no DOM needed). */
+function nodes(node: ReactNode): ReactElement<NodeProps>[] {
+  if (Array.isArray(node)) return node.flatMap(nodes);
+  if (!isValidElement<NodeProps>(node)) return [];
+  const own = typeof node.type === "function" ? nodes((node.type as (p: unknown) => ReactNode)(node.props)) : [];
+  return [node, ...own, ...nodes(node.props.children)];
+}
+
+describe("reported-times ladder (the Reported times view)", () => {
+  const ladder = (a: StoryArrivals, sort: "time" | "distance" = "time") => renderToStaticMarkup(<Ladder arrivals={a} sort={sort} onSort={() => undefined}/>);
+  const section = (html: string, which: "ntwc" | "ncei") => {
+    const n = html.indexOf('aria-label="NTWC table'), c = html.indexOf('aria-label="Reported by NCEI');
+    return which === "ntwc" ? html.slice(n, c) : html.slice(c);
+  };
+  const places = (html: string) => [...html.matchAll(/<li class="ladder-row"><p><b>([^<]+)<\/b>/g)].map(m => m[1]);
+  it("lists NTWC rows and, in their own section below, NCEI rows, by reported time", () => {
+    const html = ladder(ex);
+    expect(places(section(html, "ntwc"))).toEqual(["Example Harbor", "Example Unplaced Town", "Example Point"]);
+    expect(places(section(html, "ncei"))).toEqual(["Example deep-ocean gauge", "Example Bay"]);
+    expect(html).toContain("NTWC table · published estimates and reported times · 3 rows");
+    expect(html).toContain("Reported by NCEI, timed from NCEI&#x27;s own origin · 2 rows");
+  });
+  it("sorts by distance, with rows of unknown distance last", () => {
+    expect(places(section(ladder(ex, "distance"), "ntwc"))).toEqual(["Example Harbor", "Example Point", "Example Unplaced Town"]);
+    const far = validateArrivals(mutated(x => { x.places[2].distance_km = 9999; }), entry);
+    expect(places(section(ladder(far, "distance"), "ncei"))).toEqual(["Example Bay", "Example deep-ocean gauge"]);
+    expect(places(section(ladder(far, "time"), "ncei"))).toEqual(["Example deep-ocean gauge", "Example Bay"]);
+  });
+  it("states the honest counts at the top", () => {
+    expect(ladder(ex)).toContain('<p class="ladder-counts">2 estimate–reported pairs in the NTWC table · 1 with a reviewed position · '
+      + "1 NTWC report without a place · 2 NCEI reported times</p>");
+  });
+  it("gives each row its place, distance, times in words, raw source text and source id", () => {
+    const html = ladder(ex), row = (place: string) => { const at = html.indexOf(`<b>${place}</b>`); return html.slice(at, html.indexOf("</li>", at)); };
+    for (const text of ["1,113.2 km in a straight line from the epicentre", "published estimate 02:00 UTC · reported 02:15 UTC · reported 15 min after the published estimate",
+      "Source cells: estimate “0200” · reported “0215” · example-ntwc-source"]) expect(row("Example Harbor")).toContain(text);
+    expect(row("Example Unplaced Town")).toContain("reported 10 min before the published estimate");
+    expect(row("Example Unplaced Town")).not.toContain("km in a straight line from the epicentre");
+    expect(row("Example Point")).toContain("reported 04:20 UTC</p>");
+    for (const text of ["784 km in a straight line from the epicentre", "reported 1 h 2 min after NCEI&#x27;s origin · deep-ocean gauge",
+      "Source: example-ncei-source · NCEI marks it doubtful"]) expect(row("Example deep-ocean gauge")).toContain(text);
+    expect(row("Example Bay")).toContain("reported 3 h 10 min after NCEI&#x27;s origin · tide gauge");
+    expect(html.replace(/story-[a-z_-]+/g, "")).not.toMatch(BANNED);
+  });
+  it("keeps rows before the origin or after 30 h in the table, with the contract's note and no mark for that time", () => {
+    const edge = validateArrivals(mutated(x => { x.reports[0].reported_minutes = 1800; x.reports[2].reported_minutes = -5; x.reports[2].reported_minus_ruler_minutes = null; }), entry);
+    const html = ladder(edge), ntwc = section(html, "ntwc");
+    expect(html).toContain("Listed rows not drawn on the ladder: 1 before the earthquake origin (the project does not correct dates) · 1 after the 30-hour clock ends.");
+    expect(ntwc).toContain('<p class="ladder-row__note">Reported after the 30-hour clock ends.</p>');
+    expect(ntwc).toContain('<p class="ladder-row__note">The source gives a time before the earthquake origin. The project does not correct dates.</p>');
+    expect(count(ntwc, "ladder-row")).toBe(3);
+    expect(count(ntwc, "story-report story-report--ntwc story-report--on")).toBe(1);     // only the unplaced row's reported time is on the clock
+    expect(ladder(ex)).not.toContain("not drawn");
+  });
+  it("never joins an NCEI row to an estimate", () => {
+    const ncei = section(ladder(ex), "ncei"), rows = ncei.slice(ncei.indexOf('<ol class="ladder-rows">'));
+    expect([count(ncei, "story-lane__join"), count(ncei, "story-report story-report--estimate story-report--on")]).toEqual([0, 0]);
+    expect(rows).not.toMatch(/published estimate|differ|after the|before the/);
+  });
+  it("offers a keyboard-reachable sort control that changes only to the other order", () => {
+    const onSort = vi.fn(), tree = nodes(Ladder({ arrivals: ex, sort: "time", onSort })), buttons = tree.filter(n => n.type === "button");
+    expect(buttons.map(b => [b.props.children, b.props["aria-pressed"]])).toEqual([["Reported time", true], ["Distance", false]]);
+    buttons[0].props.onClick!(); expect(onSort).not.toHaveBeenCalled();
+    buttons[1].props.onClick!(); expect(onSort).toHaveBeenCalledExactlyOnceWith("distance");
   });
 });

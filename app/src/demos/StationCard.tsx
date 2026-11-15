@@ -2,6 +2,7 @@ import { RecordChart } from "./RecordChart";
 import { SupportView } from "./SupportView";
 import { safeSourceUrl } from "./loader";
 import { ClockNote, typeLabel } from "./story/Arms";
+import type { ReactNode } from "react";
 import type { ProductKey, StationSelection } from "./types";
 
 export type StationCardProps = {
@@ -9,14 +10,17 @@ export type StationCardProps = {
   /** The shared clock: a time on the record, never an arrival pick. */
   cursorMs?: number;
   onOpenEvidence: (stationId: string) => void; onRetryStation: (stationId: string) => void;
+  /** Shown under the header whatever the record's state (Station lens: the station's three-clocks strip). */
+  clocks?: ReactNode;
 };
 /** One station's full record on the shared clock: chart, gap support and source. Hook-free, so tests can walk it. */
-export function StationCard({ selection, role, windowId, productKey, cursorMs, onOpenEvidence, onRetryStation }: StationCardProps) {
+export function StationCard({ selection, role, windowId, productKey, cursorMs, onOpenEvidence, onRetryStation, clocks }: StationCardProps) {
   const { station, records, status, error } = selection, ready = status === "ready" && records !== null, url = safeSourceUrl(station.source.url);
   const tag = role === "selected" ? "A" : "B";
   return <article className={`story-card story-card--${role}`} aria-label={`${role === "selected" ? "Selected" : "Pinned reference"}: ${station.name}`}>
     <header className="story-card__head"><span className={`story-tag story-tag--${tag.toLowerCase()}`}>{tag}</span>
       <h2>{station.name} <span>{station.station_id}</span></h2><p>{typeLabel(station.station_type)}</p></header>
+    {clocks}
     {ready ? <>
       <RecordChart station={station} records={records} windowId={windowId} productKey={productKey} role={role} cursorMs={cursorMs}/>
       {cursorMs !== undefined && <ClockNote s={selection} windowId={windowId} cursorMs={cursorMs}/>}

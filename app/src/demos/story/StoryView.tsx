@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEve
 import { centreArm, layoutFor } from "../layout";
 import type { DemoState, ViewProps } from "../types";
 import { NoReference, StationCard } from "../StationCard";
-import { arrivalDisplay, type StoryArrivals } from "./arrivals";
+import { arrivalDisplay, shownArrivals, type StoryArrivals } from "./arrivals";
 import { Arms, CAVEAT, typeLabel } from "./Arms";
 import { ClockBar } from "./ClockBar";
 import { ClockColumn, ColumnHead, hourlySamples } from "./ClockColumn";
@@ -17,12 +17,13 @@ import type { KLimits, MapStation, View } from "./StoryMap";
 import { Z_MAX, Z_MIN, type StoryParams } from "./url";
 import { reducedMotion, useStoryClock } from "./useStoryClock";
 import { StationTools } from "./StationTools";
+import { ThreeClocks } from "./ThreeClocks";
 import { ViewSwitch } from "./ViewSwitch";
 import "./style.css";
 
 export type StoryViewProps = ViewProps & {
   layers: StoryLayers | null; layersError: string | null; layersPending: "loading" | "retrying" | null; onRetryLayers: () => void;
-  /** The verified reported-times file, "rejected" (the event shows without its marks), or null while loading or when the event has none. */
+  /** The verified reported-times file, "rejected" (the event shows without its marks), undefined while it loads, or null when the event has none. */
   arrivals?: StoryArrivals | "rejected" | null;
   /** URL story fields; with state.selectedStationId (A) and state.pinnedStationId (B) they are the whole screen. */
   params: StoryParams;
@@ -377,11 +378,13 @@ export function StoryView(props: StoryViewProps) {
   // Station lens: A's and B's full cards in the side arms (scrolling inside the arm above the clock bar when wide), the caveat below.
   const cursorMs = Date.parse(origin) + t * 3_600_000, armMax = (top: number) => wide ? { maxHeight: L.armBottom - top } : {};
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
+  const file = shownArrivals(props.arrivals);
+  const clocks = (s: typeof selected) => file && <ThreeClocks arrivals={file} t={t} stations={[{ id: s.station.station_id, name: s.station.name }]}/>;
   const cards = <>
     <div className="story-arm story-arm--card" style={{ ...L.record, ...armMax(L.record.top) }}>
-      <StationCard selection={selected} role="selected" {...card}/></div>
+      <StationCard selection={selected} role="selected" {...card} clocks={clocks(selected)}/></div>
     <div className="story-arm story-arm--card" style={{ ...L.support, ...armMax(L.support.top) }}>
-      {props.pinned ? <StationCard selection={props.pinned} role="pinned" {...card}/> : <NoReference/>}</div>
+      {props.pinned ? <StationCard selection={props.pinned} role="pinned" {...card} clocks={clocks(props.pinned)}/> : <NoReference/>}</div>
     <section className="story-arm story-arm--read" style={L.read} aria-label="How to read this"><h2 className="story-arm__h">Read this as</h2>
       <p>The white line on each record is the shared clock ({utcAt(origin, t)}), not an arrival pick. {CAVEAT}</p></section>
   </>;
@@ -394,7 +397,7 @@ export function StoryView(props: StoryViewProps) {
   };
   const leadY = (box: typeof L.record, h: number) => { const b = armBox(box, h); return Math.min(Math.max(L.cy, b.top + 14), b.top + Math.max(h, 28) - 14); };
   const arms = lens ? cards : <Arms ocean={ocean} atOrigin={atOrigin} nearestName={nearest?.name ?? "none"} reading={reading} t={t} originUtc={origin}
-    a={aSel} b={b}
+    a={aSel} b={b} arrivals={file}
     windowId={state.windowId} productKey={state.productKey} onRetry={id => props.onRetryStation(id)} onOpenEvidence={props.onOpenEvidence}
     styles={{ record: armBox(L.record, armH[0]), support: armBox(L.support, armH[1]), read: L.read }}/>;
   return <main className={`story story--${L.mode}${cine ? " story--cine" : ""}`} ref={root} data-ocean={ocean ? "1" : "0"}

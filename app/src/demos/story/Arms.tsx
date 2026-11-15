@@ -2,7 +2,9 @@ import type { CSSProperties, ReactNode } from "react";
 import { RecordChart } from "../RecordChart";
 import { SupportView } from "../SupportView";
 import type { ProductKey, StationSelection } from "../types";
+import type { StoryArrivals } from "./arrivals";
 import { utcAt } from "./clock";
+import { ThreeClocks } from "./ThreeClocks";
 
 export const CAVEAT = "Contours are NOAA/NCEI published travel-time estimates: hours after the earthquake, computed from a point at the epicentre (not the full rupture), first arrival only, no wave height. Not a station's arrival, and not warning time.";
 type Reading = { a: number; b: number } | null;
@@ -10,6 +12,8 @@ type ArmsProps = {
   ocean: boolean; atOrigin: boolean; nearestName: string; reading: Reading; t: number; originUtc: string;
   a: StationSelection; b: StationSelection | null; windowId: string; productKey: ProductKey;
   onRetry: (stationId: string) => void; onOpenEvidence: (stationId: string) => void;
+  /** The reported-times file to show (shownArrivals), or null: then the record arm has no three-clocks strip. */
+  arrivals: StoryArrivals | null;
   styles: { record: CSSProperties; support: CSSProperties; read: CSSProperties };
 };
 export const typeLabel = (type: string) => type === "dart" ? "Deep-ocean DART buoy" : "Coastal tide gauge";
@@ -35,8 +39,8 @@ export function ClockNote({ s, windowId, cursorMs }: { s: StationSelection; wind
 }
 type RecordProps = { s: StationSelection; tag?: "A" | "B"; cursorMs: number; windowId: string; productKey: ProductKey };
 const Tag = ({ tag }: { tag: "A" | "B" }) => <span className={`story-tag story-tag--${tag.toLowerCase()}`}>{tag}</span>;
-function Record({ s, tag, cursorMs, windowId, productKey, onRetry }: RecordProps & { onRetry: (stationId: string) => void }) {
-  const head = <p className="story-arm__who">{tag && <Tag tag={tag}/>}<b>{s.station.name}</b> <span>{typeLabel(s.station.station_type)}</span></p>;
+function Record({ s, tag, cursorMs, windowId, productKey, onRetry, clocks }: RecordProps & { onRetry: (stationId: string) => void; clocks?: ReactNode }) {
+  const head = <><p className="story-arm__who">{tag && <Tag tag={tag}/>}<b>{s.station.name}</b> <span>{typeLabel(s.station.station_type)}</span></p>{clocks}</>;
   if (s.status === "error") return <div role="alert">{head}<p>{s.error}</p>
     <button type="button" onClick={() => onRetry(s.station.station_id)}>Retry record</button></div>;
   if (s.status !== "ready" || !s.records) return <div role="status">{head}<p>Loading {s.station.name}'s record…</p></div>;
@@ -51,15 +55,21 @@ function Support({ s, tag, cursorMs, windowId, productKey }: RecordProps) {
     <SupportView station={s.station} records={s.records} windowId={windowId} productKey={productKey} cursorMs={cursorMs} compact/></div>;
 }
 
-/** Record (upper left), what supports it (upper right), how to read it (below). */
-export function Arms({ ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, onOpenEvidence, styles }: ArmsProps) {
+/** Record (upper left), what supports it (upper right), how to read it (below). The record arm opens on the three-clocks strip: above A's
+ * record, or in Compare A's and B's stacked on one axis above both records. */
+export function Arms(props: ArmsProps) {
+  const { ocean, atOrigin, nearestName, reading, t, originUtc, a, b, windowId, productKey, onRetry, onOpenEvidence, arrivals, styles } = props;
   const cursorMs = Date.parse(originUtc) + t * 3_600_000, both = !!b;
+  const clocks = (list: { s: StationSelection; tag?: "A" | "B" }[]) => arrivals && list.length > 0 && <ThreeClocks arrivals={arrivals} t={t}
+    stations={list.map(({ s, tag }) => ({ id: s.station.station_id, name: s.station.name, tag }))}/>;
   return <>
     <section className="story-arm story-arm--side" style={styles.record} aria-label="Record at the story clock">
       <h2 className="story-arm__h">{both ? "Records at the same clock" : "Record at the same clock"}</h2>
+      {b && clocks([...(ocean ? [] : [{ s: a, tag: "A" as const }]), { s: b, tag: "B" }])}
       {ocean ? <><p className="story-arm__big">{both ? "A: no station record here" : "No station record here"}</p>
         <p>No instrument measured this water. Nearest record: <b>{nearestName}</b>.</p></>
-        : <Record s={a} tag={both ? "A" : undefined} cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}/>}
+        : <Record s={a} tag={both ? "A" : undefined} cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}
+          clocks={both ? null : clocks([{ s: a }])}/>}
       {b && <Record s={b} tag="B" cursorMs={cursorMs} windowId={windowId} productKey={productKey} onRetry={onRetry}/>}
       {both && <p className="story-arm__note">Shared UTC axis and clock; heights stay station-local and are not compared.</p>}
     </section>

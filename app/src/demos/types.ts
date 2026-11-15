@@ -1,5 +1,9 @@
 export type ProductKey = "raw_value" | "residual_value" | "fitted_value";
-export type DemoState = { view: "paired" | "radial" | "story"; selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey };
+export type DemoState = {
+  view: "paired" | "radial" | "story" | "times"; selectedStationId: string; pinnedStationId: string | null; windowId: string; productKey: ProductKey;
+  /** The Reported times rows' order; parseState always sets it (absent reads as "time"). */
+  sort?: "time" | "distance";
+};
 export type Product = { key: ProductKey; label: string; units: string; available: boolean };
 export type Source = { source_id: string; title: string; publisher: string; accessed_on: string; version_or_date: string; license_or_terms: string; processing_level: string; sha256: string; url: string | null };
 export type StationMetadata = { station_id: string; source_id: string; station_type: "coastal" | "dart"; name: string; units: string; vertical_reference: string; horizontal_datum: string; coordinate_order: string; time_basis: string; latitude: number; longitude: number; observation_count: number; source: Source; products: Product[] };
@@ -27,7 +31,7 @@ export type DemoManifest = {
   schema_version: "1"; exporter_version: "1"; bundle_id: string; evidence_state: "internal_descriptive_only";
   event: { event_id: string; origin_time_utc: string; latitude: number; longitude: number };
   release: { release_id: string; arrival_comparison_allowed: false; physical_arrival_records_released: 0; continuous_nctr_field: "blocked_no_proxy"; allowed_uses: string[]; prohibited_uses: string[] };
-  windows: DemoWindow[]; default_state: Omit<DemoState,"view">; stations: StationMetadata[]; assets: Asset[]; geometry_path: string;
+  windows: DemoWindow[]; default_state: Omit<DemoState,"view"|"sort">; stations: StationMetadata[]; assets: Asset[]; geometry_path: string;
   input_fingerprints: { path: string; sha256: string }[]; config_sha256: string;
   accounting: { source_observation_count: number; exported_observation_count: number; station_count: number; rejected_observation_count: number };
 };

@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { NoReference, StationCard } from "../StationCard";
 import type { DemoGeometry, DemoManifest, DemoState, StationMetadata, StationRecords, StationSelection } from "../types";
 import type { StoryArrivals } from "./arrivals";
+import { ArrivalsView } from "./ArrivalsView";
 import type { StoryLayers } from "./layers";
 import { ClockBar } from "./ClockBar";
 import { PairedView } from "./PairedView";
@@ -299,9 +300,9 @@ describe("Station lens — the story stage around one station", () => {
   });
 });
 
+// The contract's synthetic example, unvalidated here: these tests check the wiring, arrivals.test.tsx the file.
+const arrivals = JSON.parse(readFileSync(new URL("../../../../docs/data/examples/story-arrivals.example.json", import.meta.url), "utf8")) as StoryArrivals;
 describe("story view — reported times", () => {
-  // The contract's synthetic example, unvalidated here: these tests check the wiring, arrivals.test.tsx the file.
-  const arrivals = JSON.parse(readFileSync(new URL("../../../../docs/data/examples/story-arrivals.example.json", import.meta.url), "utf8")) as StoryArrivals;
   it("draws the reported-times marks on the map and their key in the column, in the story and the Station lens", () => {
     for (const view of ["story", "radial"] as const) {
       const html = renderToStaticMarkup(<StoryView {...input({ view })} arrivals={arrivals}/>), map = html.slice(html.indexOf('class="story-reports"'));
@@ -317,6 +318,65 @@ describe("story view — reported times", () => {
   });
   it("adds nothing about reported times while the file loads", () => {
     expect(renderToStaticMarkup(<StoryView {...input()} arrivals={null}/>)).not.toMatch(/story-report|story-key|reported-times/);
+  });
+  // The example's linked places, re-linked to the test stations: Example Harbor (NTWC) to A, Example Bay (NCEI, within 1 km) to B.
+  const linked: StoryArrivals = { ...arrivals, places: arrivals.places.map((p, i) => i > 1 ? p
+    : { ...p, record: { station_id: i ? "saip" : "1617760", link: i ? "within_1km" : "same_provider_id" } }) };
+  const group = (name: string) => `role="group" aria-label="Reported times linked to ${name}"`;
+  it("puts A's three-clocks strip in the record arm above its record, also while the record loads or after it failed", () => {
+    const html = renderToStaticMarkup(<StoryView {...input()} arrivals={linked}/>);
+    expect(html).toContain(group("Test station 1617760"));
+    expect(html).toContain("NTWC: reported 15 min after the published estimate.");
+    expect(html.indexOf(group("Test station 1617760"))).toBeLessThan(html.indexOf('class="record-chart"'));
+    expect(html).not.toContain(group("Test station saip"));
+    const station = input().selected.station;
+    for (const selected of [{ station, status: "loading" as const, records: null, error: null }, { station, status: "error" as const, records: null, error: "test" }])
+      expect(renderToStaticMarkup(<StoryView {...input()} selected={selected} arrivals={linked}/>)).toContain("NTWC: reported 15 min after the published estimate.");
+    expect(renderToStaticMarkup(<StoryView {...input({ lensOverOcean: true })} arrivals={linked}/>)).not.toContain("Reported times linked to");
+  });
+  it("in Compare stacks B's strip under A's, above both records, each named with its straight-line distance", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ compare: true })} arrivals={linked}/>);
+    const a = html.indexOf("<b>Test station 1617760</b> · 1,113.2 km in a straight line from the epicentre");
+    const b = html.indexOf("<b>Test station saip</b> · 1,565.1 km in a straight line from the epicentre");
+    expect(a).toBeGreaterThan(-1); expect(b).toBeGreaterThan(a); expect(b).toBeLessThan(html.indexOf('class="record-chart"'));
+    expect(html).toContain("record from a station within 1 km, not verified as the same instrument.");
+  });
+  it("gives each Station lens card its own station's strip", () => {
+    const html = renderToStaticMarkup(<StoryView {...input({ view: "radial" })} arrivals={linked}/>);
+    for (const name of ["Test station 1617760", "Test station saip"]) expect(html).toContain(group(name));
+  });
+});
+
+describe("Reported times (?view=times) — every listed report on the shared clock", () => {
+  const times = (extra: Parameters<typeof input>[0] = {}) => input({ view: "times", t: 7.5, ...extra });
+  const visible = (html: string) => html.replace(/<[^>]*>/g, " ");
+  it("lists the rows under the view switch, with the clock bar and its line at the clock", () => {
+    const html = renderToStaticMarkup(<ArrivalsView {...times()} arrivals={arrivals}/>);
+    expect(html).toContain('<main class="story story--paired story--ladder" aria-label="Reported times">');
+    expect(html).toContain('<h1 class="story-title">Reported times</h1>');
+    expect(html).toMatch(/aria-pressed="true">Reported times</);
+    expect(html).toContain("2 estimate–reported pairs in the NTWC table");
+    expect(html.match(/class="ladder-row"/g)).toHaveLength(5);
+    expect(html).toContain('style="--clock:25%"');
+    expect(html).toContain("story-clockbar");
+    expect(visible(html)).not.toMatch(/arrival|measured|error|wrong|late|warning time/i);
+  });
+  it("sorts by the URL's order", () => {
+    const html = renderToStaticMarkup(<ArrivalsView {...times()} state={{ ...times().state, sort: "distance" }} arrivals={arrivals}/>);
+    expect(html.indexOf("<b>Example Point</b>")).toBeLessThan(html.indexOf("<b>Example Unplaced Town</b>"));
+    expect(html).toMatch(/aria-pressed="true">Distance</);
+  });
+  it("says in one plain sentence when the file is loading, absent or rejected", () => {
+    const say = (a: StoryViewProps["arrivals"]) => renderToStaticMarkup(<ArrivalsView {...times()} arrivals={a}/>);
+    expect(say(undefined)).toContain('<p role="status" class="story-alert">Loading the reported-times file…</p>');
+    expect(say(null)).toContain("This event has no reported-times file, so there are no published estimates or reported times to list.");
+    expect(say("rejected")).toContain("The reported-times file was rejected, so no published estimates or reported times are shown.");
+    for (const a of [undefined, null, "rejected" as const]) expect(say(a)).not.toContain("ladder-row");
+  });
+  it("keeps the URL repair note and disables the clock without the contour layer", () => {
+    const html = renderToStaticMarkup(<ArrivalsView {...times({ issues: ["Invalid sort: reported time restored."] })} layers={null} arrivals={arrivals}/>);
+    expect(html).toContain("Invalid sort: reported time restored.");
+    expect(html).toMatch(/class="story-play" disabled=""/);
   });
 });
 

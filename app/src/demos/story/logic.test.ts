@@ -88,6 +88,12 @@ describe("map labels", () => {
     expect(placeLabel(-2000, 300, "Tōhoku origin · 05:46 UTC", 1440, [])).toBeNull();
     expect(placeLabel(1500, 300, "B · Saipan", 1440, [])).toBeNull();
   });
+  it("keep a centred label (a contour hour) inside the screen edges, like the side labels", () => {
+    const half = ("20 h".length * 6.2 + 4) / 2;
+    expect(placeLabel(2, 300, "20 h", 800, [], "middle")!.x - half).toBeCloseTo(4);
+    expect(placeLabel(798, 300, "20 h", 800, [], "middle")!.x + half).toBeCloseTo(796);
+    expect(placeLabel(400, 300, "20 h", 800, [], "middle")).toMatchObject({ anchor: "middle", x: 400 });
+  });
   it("drop below the top edge when the point sits on it (the step 6 epicentre at 1440 × 900)", () => {
     expect(placeLabel(310, 5.7, "Tōhoku origin · 05:46 UTC", 1440, [])!.y).toBeGreaterThanOrEqual(14);
     expect(placeLabel(310, 200, "Tōhoku origin · 05:46 UTC", 1440, [])!.y).toBe(200);

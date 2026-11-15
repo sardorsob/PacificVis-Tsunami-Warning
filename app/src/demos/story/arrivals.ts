@@ -104,15 +104,52 @@ export type ArrivalMark = { key: string; kind: MarkKind; xy: Pt; minutes: number
 /** What the map and the column show: the drawn marks, the accounting, and listed reports not drawn (no place, before the origin, after 30 h). */
 export type ArrivalDisplay = { marks: ArrivalMark[]; accounting: Accounting; unplaced: number; beforeOrigin: number; afterClock: number };
 const CLOCK_END = T_MAX * 60;
+/** On the app's clock ("Listed but not drawn"): 0 ≤ minutes < 30 h. */
+export const onClock = (m: number | null): m is number => m !== null && m >= 0 && m < CLOCK_END;
+/** A reported time's mark: NTWC dot, NCEI tide-gauge square or deep-ocean triangle. */
+export const markKind = (r: Report): MarkKind => r.source === "ntwc" ? "ntwc" : r.gauge_kind === "deep_ocean_gauge" ? "deep" : "tide";
+/** Both display permissions; without them nothing from the file is shown. */
+export const displayAllowed = (a: StoryArrivals) =>
+  a.release.reported_arrival_display_allowed === true && a.release.estimate_difference_display_allowed === true;
+/** The file a view may show: loaded, verified and permitted; otherwise null. */
+export const shownArrivals = (a: StoryArrivals | "rejected" | null | undefined) => a && a !== "rejected" && displayAllowed(a) ? a : null;
+/** The contract's notes for a listed time that is not drawn (the estimate one is the same rule, worded for an estimate). */
+export const BEFORE_ORIGIN = "The source gives a time before the earthquake origin. The project does not correct dates.";
+export const AFTER_CLOCK = "Reported after the 30-hour clock ends.", ESTIMATE_AFTER_CLOCK = "The published estimate is after the 30-hour clock ends.";
+export function notDrawn(r: Report): string[] {
+  return [[r.estimate_minutes, r.reported_minutes].some(m => m !== null && m < 0) && BEFORE_ORIGIN,
+    r.reported_minutes !== null && r.reported_minutes >= CLOCK_END && AFTER_CLOCK,
+    r.estimate_minutes !== null && r.estimate_minutes >= CLOCK_END && ESTIMATE_AFTER_CLOCK].filter(note => note !== false);
+}
+/** The exporter's reported minus estimate in words; never recomputed here. */
+export function differenceWords(d: number): string {
+  return d === 0 ? "reported in the same minute as the published estimate" : `reported ${Math.abs(d)} min ${d > 0 ? "after" : "before"} the published estimate`;
+}
+export const WITHIN_1KM = "record from a station within 1 km, not verified as the same instrument";
+/** The reports at places linked to a records station (`place.record`), in file order, each with its place. */
+export function linkedReports(a: StoryArrivals, stationId: string): { report: Report; place: Place }[] {
+  const at = new Map(a.places.filter(p => p.record?.station_id === stationId).map(p => [p.site_id, p]));
+  return a.reports.flatMap(report => { const place = report.site_id === null ? undefined : at.get(report.site_id); return place ? [{ report, place }] : []; });
+}
+export type LadderRow = { report: Report; place: Place | null };
+/** The Reported times rows: NTWC and NCEI apart (never merged), each sorted by reported time or by distance; a row without one comes last. */
+export function ladderRows(a: StoryArrivals, sort: "time" | "distance"): { ntwc: LadderRow[]; ncei: LadderRow[] } {
+  const places = new Map(a.places.map(p => [p.site_id, p]));
+  const key = ({ report, place }: LadderRow) => sort === "time" ? report.reported_minutes : place?.distance_km ?? null;
+  const order = (rows: LadderRow[]) => rows.sort((x, y) => {
+    const p = key(x), q = key(y); return p === null ? (q === null ? 0 : 1) : q === null ? -1 : p - q; });
+  const rows = a.reports.map(report => ({ report, place: report.site_id === null ? null : places.get(report.site_id)! }));
+  return { ntwc: order(rows.filter(r => r.report.source === "ntwc")), ncei: order(rows.filter(r => r.report.source === "ncei")) };
+}
 /** "Listed but not drawn": only a listed place and 0 ≤ minutes < 30 h, and only under both display permissions. */
 export function arrivalDisplay(a: StoryArrivals): ArrivalDisplay {
-  const allowed=a.release.reported_arrival_display_allowed===true&&a.release.estimate_difference_display_allowed===true;
+  const allowed=displayAllowed(a);
   const xy=new Map(a.places.map(p=>[p.site_id,toSvg([p.x,p.y])])),at=new Map<string,Omit<ArrivalMark,"slot"|"of">[][]>();let unplaced=0,beforeOrigin=0,afterClock=0;
   for(const r of a.reports){
     if(r.site_id===null){unplaced++;continue;}
     const times=[r.estimate_minutes,r.reported_minutes].filter(m=>m!==null);if(times.some(m=>m<0))beforeOrigin++;if(times.some(m=>m>=CLOCK_END))afterClock++;
-    const dot:MarkKind=r.source==="ntwc"?"ntwc":r.gauge_kind==="deep_ocean_gauge"?"deep":"tide",site=r.site_id;
-    const own=([["estimate",r.estimate_minutes],[dot,r.reported_minutes]] as [MarkKind,number|null][]).filter(([,m])=>m!==null&&m>=0&&m<CLOCK_END)
+    const dot=markKind(r),site=r.site_id;
+    const own=([["estimate",r.estimate_minutes],[dot,r.reported_minutes]] as [MarkKind,number|null][]).filter(([,m])=>onClock(m))
       .map(([kind,m])=>({key:`${r.report_id}:${kind}`,kind,xy:xy.get(site)!,minutes:m!}));
     if(allowed&&own.length)at.set(site,[...(at.get(site)??[]),own]);
   }

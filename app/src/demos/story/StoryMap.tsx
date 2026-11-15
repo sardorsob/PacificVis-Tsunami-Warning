@@ -133,6 +133,7 @@ export function placeLabel(x: number, y: number, text: string, width: number, le
   let anchor: "start" | "end" | "middle" = align === "middle" ? "middle" : "start", lx = align === "middle" ? x : x + gap;
   if (anchor === "start" && lx + w > width - 4) { anchor = "end"; lx = x - gap; }
   if (anchor === "start") lx = Math.max(4, lx);
+  if (anchor === "middle") lx = Math.max(4 + w / 2, Math.min(width - 4 - w / 2, lx));
   const left = anchor === "start" ? lx : anchor === "end" ? lx - w : lx - w / 2, top = y - h + 2;
   const under = lenses.some(c => {
     const nx = Math.max(left, Math.min(c.cx, left + w)), ny = Math.max(top, Math.min(c.cy, top + h));

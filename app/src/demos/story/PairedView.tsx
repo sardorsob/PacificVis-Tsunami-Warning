@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { NoReference, StationCard } from "../StationCard";
 import { ClockBar } from "./ClockBar";
 import { clockLabel } from "./clock";
@@ -12,8 +12,8 @@ import "./style.css";
 
 /** Paired: two stations' full records, side by side on the shared clock, under a Pacific band that names A and B. */
 export function PairedView(props: StoryViewProps) {
-  const { manifest, geometry, layers, state, selected, pinned, params } = props;
-  const origin = manifest.event.origin_time_utc, motionOK = !reducedMotion();
+  const { manifest, geometry, layers, state, selected, pinned } = props;
+  const origin = manifest.event.origin_time_utc;
   const { stationIds, stations, epicentre, coastline, contours, paths, anchors } = useStage(manifest, geometry, layers);
   const band = useRef<HTMLDivElement>(null), svgRef = useRef<SVGSVGElement>(null);
   // ponytail: a fitted, fixed Pacific band (no pan or zoom); Station lens is the place to explore the map.
@@ -29,40 +29,12 @@ export function PairedView(props: StoryViewProps) {
   }, []);
   const view = fitView(PACIFIC_CROP, size.w, size.h);
 
-  // Same contract as the story: one reducer, DemoApp's single writer, every action from the live clock.
-  const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
-  const navRef = useRef(nav); navRef.current = nav;
-  const [said, setSaid] = useState("");
-  const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }),
-    onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
-  const live = (): StoryNav => ({ ...navRef.current, t: clock.tRef.current });
-  const dispatch = (ev: NavEvent) => {
-    const r = reduce(live(), ev, { motionOK: motionOK && !!layers, stationIds, evidenceOpen: props.evidenceOpen, playing: clock.playing });
-    if (r.effects.some(e => e.kind === "stopPlay")) clock.stop(false);
-    props.onNav(r);
-  };
+  const { clock, navRef, live, dispatch, toggle, said, motionOK } = usePageClock(props, svgRef, paths, stationIds);
   const pick = (id: string) => {
     if (id === state.selectedStationId) return;
     const s = stations.find(x => x.id === id);
     dispatch({ type: "lensSettle", at: s ? [Math.round(s.xy[0] / 1000), Math.round(s.xy[1] / 1000)] : null, z: navRef.current.z, station: id, explicit: true });
   };
-  const toggle = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
-  const keyActions = { toggle, escape: () => dispatch({ type: "escape" }) }, keys = useRef(keyActions); keys.current = keyActions;
-  useEffect(() => {
-    const key = (e: KeyboardEvent) => {
-      if (e.key === "Escape") keys.current.escape();
-      else if (e.key === " " && !e.repeat && e.target === document.body) { e.preventDefault(); keys.current.toggle(); }
-    };
-    const drop = () => clock.cancelSeek();
-    window.addEventListener("keydown", key); window.addEventListener("popstate", drop);
-    return () => { window.removeEventListener("keydown", key); window.removeEventListener("popstate", drop); };
-  }, []);
-  // Browser Back/Forward: DemoApp restored the URL; bring the clock to it without writing history.
-  const restoreSeen = useRef(props.restoreKey);
-  useEffect(() => {
-    if (props.restoreKey === restoreSeen.current) return;
-    restoreSeen.current = props.restoreKey; clock.stop(false); clock.set(params.t);
-  }, [props.restoreKey]);
 
   const t = clock.t, cursorMs = Date.parse(origin) + t * 3_600_000, A = state.selectedStationId, B = state.pinnedStationId;
   const card = { windowId: state.windowId, productKey: state.productKey, cursorMs, onOpenEvidence: props.onOpenEvidence, onRetryStation: props.onRetryStation };
@@ -106,4 +78,38 @@ export function PairedView(props: StoryViewProps) {
       unknown datums remain in force.</p></footer>
     <p className="story-sr" aria-live="polite">{said}</p>
   </main>;
+}
+
+/** The page views' clock (Paired, Reported times). Same contract as the story: one reducer, DemoApp's single writer, every action from
+ * the live clock. Space plays or pauses, Escape pauses, and browser Back/Forward brings the clock to the restored URL without writing history. */
+export function usePageClock(props: StoryViewProps, svgRef: RefObject<SVGSVGElement | null>, paths: Map<number, string>, stationIds: readonly string[]) {
+  const { layers, state, params } = props, motionOK = !reducedMotion();
+  const nav: StoryNav = { ...params, a: state.selectedStationId, b: state.pinnedStationId };
+  const navRef = useRef(nav); navRef.current = nav;
+  const [said, setSaid] = useState("");
+  const clock = useStoryClock({ initialT: params.t, svgRef, paths, motionOK, onCommit: (kind, t) => dispatch({ type: kind, t }),
+    onPause: t => setSaid(`Clock paused at ${clockLabel(t)}.`) });
+  const live = (): StoryNav => ({ ...navRef.current, t: clock.tRef.current });
+  const dispatch = (ev: NavEvent) => {
+    const r = reduce(live(), ev, { motionOK: motionOK && !!layers, stationIds, evidenceOpen: props.evidenceOpen, playing: clock.playing });
+    if (r.effects.some(e => e.kind === "stopPlay")) clock.stop(false);
+    props.onNav(r);
+  };
+  const toggle = () => { if (!layers) return; const next = clock.playOrStep(); if (next !== null) setSaid(`Clock ${clockLabel(next)}.`); };
+  const keyActions = { toggle, escape: () => dispatch({ type: "escape" }) }, keys = useRef(keyActions); keys.current = keyActions;
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") keys.current.escape();
+      else if (e.key === " " && !e.repeat && e.target === document.body) { e.preventDefault(); keys.current.toggle(); }
+    };
+    const drop = () => clock.cancelSeek();
+    window.addEventListener("keydown", key); window.addEventListener("popstate", drop);
+    return () => { window.removeEventListener("keydown", key); window.removeEventListener("popstate", drop); };
+  }, []);
+  const restoreSeen = useRef(props.restoreKey);
+  useEffect(() => {
+    if (props.restoreKey === restoreSeen.current) return;
+    restoreSeen.current = props.restoreKey; clock.stop(false); clock.set(params.t);
+  }, [props.restoreKey]);
+  return { clock, navRef, live, dispatch, toggle, said, motionOK };
 }

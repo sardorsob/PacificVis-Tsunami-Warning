@@ -59,6 +59,19 @@ describe("asset-independent shared URL and request ownership",()=>{
     expect(parseState("",manifest).state.pinnedStationId).toBe("saip");
     expect(parseState("",manifest).state.view).toBe("story"); // a plain link opens the story
   });
+  it("opens the Reported times view (view=times) and its sort from the URL, writes sort only when it is not the default, and repairs a bad value",()=>{
+    const story:StoryParams={t:0,compare:false,step:1,at:null,z:1,from:null},plain=parseState("",manifest).state;
+    expect(plain.sort).toBe("time");
+    const parsed=parseState("?view=times&sort=distance",manifest);
+    expect(parsed).toEqual({state:{...plain,view:"times",sort:"distance"},issues:[]});
+    const url=serializeState(parsed.state,story);
+    expect(url).toBe("?view=times&selected=1617760&pinned=saip&window=common_day&product=raw_value&sort=distance&t=0&cmp=0&step=1");
+    expect(parseState(url,manifest)).toEqual(parsed);
+    expect(serializeState({...parsed.state,sort:"time"},story)).toBe("?view=times&selected=1617760&pinned=saip&window=common_day&product=raw_value&t=0&cmp=0&step=1");
+    expect(parseState("?view=times&sort=size",manifest)).toEqual({state:{...plain,view:"times"},issues:["Invalid sort: reported time restored."]});
+    expect(parseState("?sort=time&sort=distance",manifest).issues).toEqual(["Repeated URL field “sort”: first value used."]);
+    expect(parseState("?view=arrivals",manifest)).toEqual({state:plain,issues:["Invalid view: story restored."]});
+  });
   it("repairs each invalid URL value visibly and reports repeated/unknown fields",()=>{
     const invalid=parseState("?selected=evil&window=missing&product=no&view=other&pinned=missing",manifest);
     expect(invalid.issues).toHaveLength(5);expect(invalid.state.selectedStationId).toBe("1617760");

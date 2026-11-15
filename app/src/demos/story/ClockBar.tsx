@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import { clockLabel, T_MAX, utcAt } from "./clock";
 import { RAMP_GRADIENT } from "./palette";
 
+/** The clock bar's hour ticks; the reported-times lanes share them (same 0–30 h scale). */
+export const HOUR_TICKS = [0, 5, 10, 15, 20, 25, 30];
 type ClockBarProps = {
   t: number; playing: boolean; disabled: boolean; originUtc: string; reduced: boolean;
   onToggle: () => void; onSeek: (t: number) => void; style?: CSSProperties;
@@ -16,7 +18,7 @@ export function ClockBar({ t, playing, disabled, originUtc, reduced, onToggle, o
     <div className="story-clockbar__track">
       <input type="range" min={0} max={T_MAX} step={0.05} value={t} disabled={disabled} style={{ ["--story-ramp" as string]: RAMP_GRADIENT }}
         aria-label="Hours after the earthquake" aria-valuetext={`${clockLabel(t)}, ${utcAt(originUtc, t)}`} onChange={e => onSeek(Number(e.target.value))}/>
-      <div className="story-clockbar__ticks" aria-hidden="true">{[0, 5, 10, 15, 20, 25, 30].map(h => <span key={h}>{h} h</span>)}</div>
+      <div className="story-clockbar__ticks" aria-hidden="true">{HOUR_TICKS.map(h => <span key={h}>{h} h</span>)}</div>
     </div>
     <p className="story-clockbar__read"><b>{clockLabel(t)}</b><span>{utcAt(originUtc, t)} · NOAA/NCEI published contours</span></p>
   </section>;

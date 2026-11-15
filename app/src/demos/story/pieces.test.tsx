@@ -154,4 +154,12 @@ describe("ViewSwitch", () => {
     button("Station lens").props.onClick!();
     expect(onView).toHaveBeenCalledExactlyOnceWith("radial");
   });
+  it("offers the Reported times view after the other three, and presses it when it is the view", () => {
+    const onView = vi.fn(), labels = (view: Parameters<typeof ViewSwitch>[0]["view"]) => nodes(ViewSwitch({ view, onView }))
+      .filter(n => n.type === "button").map(n => `${n.props.children}${(n.props as { "aria-pressed"?: boolean })["aria-pressed"] ? " (on)" : ""}`);
+    expect(labels("story")).toEqual(["Story (on)", "Paired", "Station lens", "Reported times"]);
+    expect(labels("times")).toEqual(["Story", "Paired", "Station lens", "Reported times (on)"]);
+    nodes(ViewSwitch({ view: "story", onView })).find(n => n.props.children === "Reported times")!.props.onClick!();
+    expect(onView).toHaveBeenCalledExactlyOnceWith("times");
+  });
 });
