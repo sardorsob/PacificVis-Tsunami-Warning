@@ -49,7 +49,8 @@ export function validateContours(input: unknown, manifest: LayersManifest): Cont
   requireValue(seen.parts===acc.contour_parts&&seen.vertices===acc.contour_vertices,"contour cohort mismatch");
   return features;
 }
-export function validateCoastline(input: unknown, manifest: LayersManifest): Coastline {
+/** Takes only what it checks, so the index's basemap (which has no layers manifest) reuses it. */
+export function validateCoastline(input: unknown, manifest: Pick<LayersManifest,"coastline_source_id"> & { accounting: Pick<LayersManifest["accounting"],"coastline_parts"> }): Coastline {
   const c=object(input);keys(c,["schema_version","source_id","parts","closed"]);requireValue(c.schema_version==="1"&&c.source_id===manifest.coastline_source_id,"coastline identity mismatch");
   const parts=points(c.parts,{parts:0,vertices:0});const closed=array(c.closed);
   requireValue(parts.length===manifest.accounting.coastline_parts&&closed.length===parts.length&&closed.every(v=>typeof v==="boolean"),"coastline cohort mismatch");

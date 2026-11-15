@@ -61,6 +61,14 @@ export function validateIndex(input: unknown): EventsIndex {
   requireValue(events.some(e=>e.event_id===x.default_event_id),"default event not listed");
   return x as EventsIndex;
 }
+/** The schema-1 release restrictions and use lists, literal; records schema 2 applies them too (and also pins release_id). */
+export function validateRelease(value: unknown): Obj {
+  const release=object(value); keys(release,["release_id","arrival_comparison_allowed","physical_arrival_records_released","continuous_nctr_field","allowed_uses","prohibited_uses"]);
+  text(release.release_id); requireValue(release.arrival_comparison_allowed===false&&release.physical_arrival_records_released===0&&release.continuous_nctr_field==="blocked_no_proxy","release restriction mismatch");
+  strings(release.allowed_uses); strings(release.prohibited_uses);
+  requireValue(JSON.stringify(release.allowed_uses)===JSON.stringify(["descriptive_data_quality","preliminary_story_diagnostics"])&&JSON.stringify(release.prohibited_uses)===JSON.stringify(["physical_arrival_comparison","modeled_minus_observed_residual","community_timing_selection","actionable_warning_time","operational_warning","public_story_scene_promotion"]),"release uses mismatch");
+  return release;
+}
 /** A records manifest is checked against its index entry and its own structure; the index pins its exact bytes, so no fixed event values. */
 export function validateManifest(input: unknown, entry: EventEntry): DemoManifest {
   requireValue(entry.records,"event has no records bundle");
@@ -69,10 +77,7 @@ export function validateManifest(input: unknown, entry: EventEntry): DemoManifes
   requireValue(m.bundle_id===entry.records.bundle_id,"bundle identity mismatch");
   const event=object(m.event); keys(event,["event_id","origin_time_utc","latitude","longitude"]);
   requireValue(event.event_id===entry.event_id&&event.origin_time_utc===entry.origin_time_utc&&event.latitude===entry.latitude&&event.longitude===entry.longitude,"event identity mismatch");
-  const release=object(m.release); keys(release,["release_id","arrival_comparison_allowed","physical_arrival_records_released","continuous_nctr_field","allowed_uses","prohibited_uses"]);
-  text(release.release_id); requireValue(release.arrival_comparison_allowed===false&&release.physical_arrival_records_released===0&&release.continuous_nctr_field==="blocked_no_proxy","release restriction mismatch");
-  strings(release.allowed_uses); strings(release.prohibited_uses);
-  requireValue(JSON.stringify(release.allowed_uses)===JSON.stringify(["descriptive_data_quality","preliminary_story_diagnostics"])&&JSON.stringify(release.prohibited_uses)===JSON.stringify(["physical_arrival_comparison","modeled_minus_observed_residual","community_timing_selection","actionable_warning_time","operational_warning","public_story_scene_promotion"]),"release uses mismatch");
+  validateRelease(m.release);
   // Comparison windows are half-open intervals; an optional final source_full has station-specific bounds, so only id and label.
   const windows=array(m.windows).map(object); requireValue(windows.length>0,"window cohort mismatch");
   windows.forEach((w,i)=>{const full=w.id==="source_full"; requireValue(!full||i===windows.length-1,"window identity mismatch"); keys(w,full?["id","label"]:["id","label","start_utc","end_utc_exclusive"]); text(w.id); text(w.label); if(!full) interval(w);});
@@ -103,12 +108,16 @@ export function validateManifest(input: unknown, entry: EventEntry): DemoManifes
   return m as DemoManifest;
 }
 
-export async function fetchHashed(url: string,byteCount: number,sha256: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<unknown> {
+/** The exact bytes at url, released only after their count and SHA-256 match the pin. */
+export async function fetchHashedBytes(url: string,byteCount: number,sha256: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<ArrayBuffer> {
   const response=await request(url,{signal,credentials:"omit",redirect:"error"});requireValue(response.ok,`asset HTTP ${response.status}`);
   const bytes=await response.arrayBuffer();signal?.throwIfAborted();requireValue(bytes.byteLength===byteCount,"asset byte count mismatch");
   const digest=await crypto.subtle.digest("SHA-256",bytes); const actual=Array.from(new Uint8Array(digest),v=>v.toString(16).padStart(2,"0")).join("");
   signal?.throwIfAborted();requireValue(actual===sha256,"asset hash mismatch");
-  return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(bytes)) as unknown;
+  return bytes;
+}
+export async function fetchHashed(url: string,byteCount: number,sha256: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<unknown> {
+  return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(await fetchHashedBytes(url,byteCount,sha256,signal,request))) as unknown;
 }
 export async function fetchVerifiedAsset(manifest: DemoManifest,path: string,signal?: AbortSignal,request: typeof fetch=fetch): Promise<unknown> {
   const descriptor=manifest.assets.find(a=>a.path===path);requireValue(descriptor,"asset not in manifest");asset(descriptor);

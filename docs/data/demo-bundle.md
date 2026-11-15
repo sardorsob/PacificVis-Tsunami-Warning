@@ -451,7 +451,10 @@ input_fingerprints, config_sha256, accounting}`
   bytes `1f 8b`. Serve the files as plain bytes (`application/octet-stream`,
   no `Content-Encoding` header); a server that decompresses them breaks the
   hash check, which is the intended failure.
-- Columns and values: `numeric_value` is the raw water level in the station's
+- Columns and values: `station_key` is `coops-<station_id>` for the two CO-OPS
+  products and an NTWC code matching `ntwc-[a-z0-9]+` (for example `ntwc-fpnt`)
+  for `archive_window`, while the manifest's `display_station_key` stays
+  `coops:<station_id>`; `numeric_value` is the raw water level in the station's
   `units` and `vertical_datum` (no residual or fitted product); `value_state`
   is `finite_numeric` or `blank` (a blank row's `numeric_value` holds the text
   `unknown`; never parse it as a number);
@@ -461,7 +464,10 @@ input_fingerprints, config_sha256, accounting}`
   `not_provided` with `qc_json` an object. Drawing: a `blank` row is a gap and
   lines never join across it; a row whose `duplicate_timestamp` is `True` is
   drawn only if no earlier row in the file has the same timestamp; a row outside
-  the display window is not drawn (none are expected). QC is shown, never used to
+  the display window is not drawn (none are expected); a drawn row whose timestamp
+  is earlier than the previous drawn row's starts a new line, so lines never join
+  across a backward time step, and it is still drawn in file order (never sorted,
+  interpolated or filled). QC is shown, never used to
   filter, and a flagged zero stays zero.
 - `geometry.json`: the schema-1 format (Natural Earth 1:110m, event and station
   points), built with the existing helper.
